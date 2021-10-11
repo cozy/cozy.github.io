@@ -2848,16 +2848,16 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#swift" title="Swift" class="md-nav__link">
-    Swift
+  <a href="#oauth-clients" title="OAuth clients" class="md-nav__link">
+    OAuth clients
   </a>
   
     <nav class="md-nav">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#get-swiftlayouts" title="GET /swift/layouts" class="md-nav__link">
-    GET /swift/layouts
+  <a href="#delete-oauthdomainclients" title="DELETE /oauth/:domain/clients" class="md-nav__link">
+    DELETE /oauth/:domain/clients
   </a>
   
     <nav class="md-nav">
@@ -2877,6 +2877,32 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#swift" title="Swift" class="md-nav__link">
+    Swift
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-swiftlayouts" title="GET /swift/layouts" class="md-nav__link">
+    GET /swift/layouts
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
           <li class="md-nav__item">
   <a href="#request_15" title="Request" class="md-nav__link">
     Request
@@ -2890,19 +2916,6 @@
   </a>
   
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#get-swiftvfsobject" title="GET /swift/vfs/:object" class="md-nav__link">
-    GET /swift/vfs/:object
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#request_16" title="Request" class="md-nav__link">
@@ -2924,6 +2937,33 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#get-swiftvfsobject" title="GET /swift/vfs/:object" class="md-nav__link">
+    GET /swift/vfs/:object
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_17" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_16" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#put-swiftvfsobject" title="PUT /swift/vfs/:object" class="md-nav__link">
     PUT /swift/vfs/:object
   </a>
@@ -2932,7 +2972,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#request_17" title="Request" class="md-nav__link">
+  <a href="#request_18" title="Request" class="md-nav__link">
     Request
   </a>
   
@@ -2952,7 +2992,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#request_18" title="Request" class="md-nav__link">
+  <a href="#request_19" title="Request" class="md-nav__link">
     Request
   </a>
   
@@ -2972,14 +3012,14 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#request_19" title="Request" class="md-nav__link">
+  <a href="#request_20" title="Request" class="md-nav__link">
     Request
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#response_16" title="Response" class="md-nav__link">
+  <a href="#response_17" title="Response" class="md-nav__link">
     Response
   </a>
   
@@ -3499,15 +3539,35 @@ endpoint.</p>
 </pre></div>
 
 
-<h2 id="swift">Swift<a class="headerlink" href="#swift" title="Permanent link">&para;</a></h2>
-<h3 id="get-swiftlayouts">GET /swift/layouts<a class="headerlink" href="#get-swiftlayouts" title="Permanent link">&para;</a></h3>
-<p>Count swift layouts by type</p>
+<h2 id="oauth-clients">OAuth clients<a class="headerlink" href="#oauth-clients" title="Permanent link">&para;</a></h2>
+<h3 id="delete-oauthdomainclients">DELETE /oauth/:domain/clients<a class="headerlink" href="#delete-oauthdomainclients" title="Permanent link">&para;</a></h3>
+<p>Delete all the OAuth clients for the given instance. It can be limited to a
+specific kind of clients (<code>desktop</code>, <code>mobile</code>, <code>sharing</code>, etc.) by using the
+<code>Kind</code> parameter of the query-string. It returns the number of clients that
+have been deleted.</p>
 <h4 id="request_14">Request<a class="headerlink" href="#request_14" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/swift/layouts</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/oauth/cozy.example/clients</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 </pre></div>
 
 
 <h4 id="response_13">Response<a class="headerlink" href="#response_13" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span><span class="nt">&quot;count&quot;</span><span class="p">:</span> <span class="mi">42</span><span class="p">}</span>
+</pre></div>
+
+
+<h2 id="swift">Swift<a class="headerlink" href="#swift" title="Permanent link">&para;</a></h2>
+<h3 id="get-swiftlayouts">GET /swift/layouts<a class="headerlink" href="#get-swiftlayouts" title="Permanent link">&para;</a></h3>
+<p>Count swift layouts by type</p>
+<h4 id="request_15">Request<a class="headerlink" href="#request_15" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/swift/layouts</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
+
+
+<h4 id="response_14">Response<a class="headerlink" href="#response_14" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </pre></div>
@@ -3538,12 +3598,12 @@ endpoint.</p>
 
 
 <p>The <code>show_domains=true</code> query parameter provides the domain names if needed</p>
-<h4 id="request_15">Request<a class="headerlink" href="#request_15" title="Permanent link">&para;</a></h4>
+<h4 id="request_16">Request<a class="headerlink" href="#request_16" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/swift/layouts?show_domains=true</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 </pre></div>
 
 
-<h4 id="response_14">Response<a class="headerlink" href="#response_14" title="Permanent link">&para;</a></h4>
+<h4 id="response_15">Response<a class="headerlink" href="#response_15" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </pre></div>
@@ -3588,13 +3648,13 @@ endpoint.</p>
 
 <h3 id="get-swiftvfsobject">GET /swift/vfs/:object<a class="headerlink" href="#get-swiftvfsobject" title="Permanent link">&para;</a></h3>
 <p>Retrieves a Swift object</p>
-<h4 id="request_16">Request<a class="headerlink" href="#request_16" title="Permanent link">&para;</a></h4>
+<h4 id="request_17">Request<a class="headerlink" href="#request_17" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/swift/vfs/67a88b22520680b1fae840%2F9a8a0%2F18d02%2FiYbkfuCDEMaVoIXg</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.cozy.localhost</span>
 </pre></div>
 
 
-<h4 id="response_15">Response<a class="headerlink" href="#response_15" title="Permanent link">&para;</a></h4>
+<h4 id="response_16">Response<a class="headerlink" href="#response_16" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">text/plain</span>
 </pre></div>
@@ -3606,7 +3666,7 @@ endpoint.</p>
 
 <h3 id="put-swiftvfsobject">PUT /swift/vfs/:object<a class="headerlink" href="#put-swiftvfsobject" title="Permanent link">&para;</a></h3>
 <p>Put an object in Swift</p>
-<h4 id="request_17">Request<a class="headerlink" href="#request_17" title="Permanent link">&para;</a></h4>
+<h4 id="request_18">Request<a class="headerlink" href="#request_18" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">PUT</span> <span class="nn">/swift/vfs/67a88b22520680b1fae840%2F9a8a0%2F18d02%2FiYbkfuCDEMaVoIXg</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.cozy.localhost</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">text/plain</span>
@@ -3619,7 +3679,7 @@ endpoint.</p>
 
 <h3 id="delete-swiftvfsobject">DELETE /swift/vfs/:object<a class="headerlink" href="#delete-swiftvfsobject" title="Permanent link">&para;</a></h3>
 <p>Removes an object from Swift</p>
-<h4 id="request_18">Request<a class="headerlink" href="#request_18" title="Permanent link">&para;</a></h4>
+<h4 id="request_19">Request<a class="headerlink" href="#request_19" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/swift/vfs/67a88b22520680b1fae840%2F9a8a0%2F18d02%2FiYbkfuCDEMaVoIXg</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.cozy.localhost</span>
 </pre></div>
@@ -3627,13 +3687,13 @@ endpoint.</p>
 
 <h3 id="get-swiftvfs">GET /swift/vfs<a class="headerlink" href="#get-swiftvfs" title="Permanent link">&para;</a></h3>
 <p>List Swift objects of an instance</p>
-<h4 id="request_19">Request<a class="headerlink" href="#request_19" title="Permanent link">&para;</a></h4>
+<h4 id="request_20">Request<a class="headerlink" href="#request_20" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/swift/vfs</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.cozy.localhost</span>
 </pre></div>
 
 
-<h4 id="response_16">Response<a class="headerlink" href="#response_16" title="Permanent link">&para;</a></h4>
+<h4 id="response_17">Response<a class="headerlink" href="#response_17" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </pre></div>

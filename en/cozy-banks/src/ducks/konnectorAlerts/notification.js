@@ -5,6 +5,7 @@ import { getCurrentDate } from 'ducks/notifications/utils'
 
 import template from 'ducks/konnectorAlerts/template.hbs'
 import logger from 'ducks/konnectorAlerts/logger'
+import { ONE_DAY } from 'ducks/recurrence/constants'
 
 // TODO Deep import not to import React components
 // Should be solved by having two different entrypoints, one from browser, one for node
@@ -23,7 +24,6 @@ import {
  * exactly at the same time, to reduce the spike on the servers.
  */
 export const getScheduleDate = currentDate => {
-  const ONE_DAY = 1000 * 60 * 60 * 24
   let date = currentDate || new Date()
   let hours = 8
   let minutes = Math.round(15 * Math.random())

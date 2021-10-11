@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import addDays from 'date-fns/add_days'
 
-const ONE_DAY = 86400 * 1000
+import { ONE_DAY } from 'ducks/recurrence/constants'
 
 const sliderStyle = { width: '500px' }
 

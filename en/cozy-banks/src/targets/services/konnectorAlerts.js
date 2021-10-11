@@ -9,10 +9,11 @@ import { Q } from 'cozy-client'
 import flag from 'cozy-flags'
 import { sendNotification } from 'cozy-notifications'
 
+import { TRIGGER_DOCTYPE, JOBS_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
 import { runService, dictRequire, lang } from './service'
 import { KonnectorAlertNotification, logger } from 'ducks/konnectorAlerts'
+import { ONE_DAY } from 'ducks/recurrence/constants'
 
-const TRIGGER_STATES_DOC_TYPE = 'io.cozy.bank.settings'
 const TRIGGER_STATES_DOC_ID = 'trigger-states'
 
 const getKonnectorSlug = trigger => trigger.message.konnector
@@ -21,7 +22,7 @@ const getKonnectorSlug = trigger => trigger.message.konnector
 const fetchTriggerStates = async client => {
   try {
     const { data } = await client.query(
-      Q(TRIGGER_STATES_DOC_TYPE).getById(TRIGGER_STATES_DOC_ID)
+      Q(SETTINGS_DOCTYPE).getById(TRIGGER_STATES_DOC_ID)
     )
     return data
   } catch {
@@ -37,7 +38,7 @@ const storeTriggerStates = async (client, triggers, previousDoc) => {
   )
   const doc = {
     _id: TRIGGER_STATES_DOC_ID,
-    _type: TRIGGER_STATES_DOC_TYPE,
+    _type: SETTINGS_DOCTYPE,
     triggerStates: triggerStatesById
   }
   if (previousDoc && previousDoc._rev) {
@@ -68,6 +69,27 @@ const fetchRegistryInfo = memoize(
   (client, konnectorSlug) => konnectorSlug
 )
 
+const createTriggerAt = async (client, date) => {
+  await client.save({
+    _type: TRIGGER_DOCTYPE,
+    type: '@at',
+    arguments: date.toISOString(),
+    worker: 'service',
+    message: {
+      name: 'konnectorAlerts',
+      slug: 'banks'
+    }
+  })
+}
+
+export const containerForTesting = {
+  createTriggerAt
+}
+
+const dateInDays = (referenceDate, n) => {
+  return new Date(+new Date(referenceDate) + n * ONE_DAY)
+}
+
 /**
  * Returns whether we need to send a notification for a trigger
  *
@@ -77,8 +99,14 @@ const fetchRegistryInfo = memoize(
  *
  * @return {ShouldNotifyResult}
  */
-const shouldNotify = async (client, trigger, previousStatesByTriggerId) => {
-  const previousState = previousStatesByTriggerId[trigger._id]
+export const shouldNotify = async ({
+  client,
+  trigger,
+  previousStates,
+  serviceTrigger
+}) => {
+  const previousState = previousStates[trigger._id]
+
   if (!previousState) {
     return { ok: false, reason: 'no-previous-state' }
   }
@@ -97,15 +125,26 @@ const shouldNotify = async (client, trigger, previousStatesByTriggerId) => {
 
   if (
     previousState.status === 'errored' &&
-    isErrorActionable(previousState.last_error)
+    isErrorActionable(previousState.last_error) &&
+    serviceTrigger?.type !== '@at'
   ) {
+    await containerForTesting.createTriggerAt(
+      client,
+      dateInDays(previousState.last_failure, 3)
+    )
+    await containerForTesting.createTriggerAt(
+      client,
+      dateInDays(previousState.last_failure, 7)
+    )
+
     return { ok: false, reason: 'last-failure-already-notified' }
   }
 
   // We do not want to send notifications for jobs that were launched manually
+  // Except if the trigger that runs the service is a scheduled one
   const jobId = trigger.current_state.last_executed_job_id
-  const { data: job } = await client.query(Q('io.cozy.jobs').getById(jobId))
-  if (job.manual_execution) {
+  const { data: job } = await client.query(Q(JOBS_DOCTYPE).getById(jobId))
+  if (job.manual_execution && serviceTrigger?.type !== '@at') {
     return { ok: false, reason: 'manual-job' }
   }
 
@@ -154,9 +193,9 @@ export const buildNotification = (client, options) => {
  * @param  {CozyClient} client - Cozy client
  * @return {Promise}
  */
-export const sendTriggerNotifications = async client => {
+export const sendTriggerNotifications = async (client, serviceTrigger) => {
   const { data: cronKonnectorTriggers } = await client.query(
-    Q('io.cozy.triggers').where({
+    Q(TRIGGER_DOCTYPE).where({
       worker: 'konnector'
     })
   )
@@ -173,7 +212,12 @@ export const sendTriggerNotifications = async client => {
     cronKonnectorTriggers.map(async trigger => {
       return {
         trigger,
-        shouldNotify: await shouldNotify(client, trigger, previousStates)
+        shouldNotify: await shouldNotify({
+          client,
+          trigger,
+          previousStates,
+          serviceTrigger
+        })
       }
     })
   )).filter(({ trigger, shouldNotify }) => {
@@ -227,6 +271,24 @@ export const sendTriggerNotifications = async client => {
   await storeTriggerStates(client, cronKonnectorTriggers, triggerStatesDoc)
 }
 
+export const destroyObsoleteTrigger = async (client, trigger) => {
+  if (trigger?.type === '@at') {
+    logger('info', 'Try to destroy @at trigger...')
+
+    const isObsolete = +new Date(trigger?.arguments) < +new Date()
+
+    if (isObsolete) {
+      await client.destroy(trigger)
+      logger('info', `Destroyed @at trigger with id ${trigger._id}`)
+    } else {
+      logger(
+        'info',
+        `Nothing happened, trigger with id ${trigger._id} is not yet obsolete`
+      )
+    }
+  }
+}
+
 const main = async ({ client }) => {
   client.registerPlugin(flag.plugin)
   await client.plugins.flags.refresh()
@@ -240,7 +302,15 @@ const main = async ({ client }) => {
   }
 
   logger('info', 'Executing job notifications service...')
-  await sendTriggerNotifications(client)
+
+  const serviceTrigger = process.env.COZY_TRIGGER_ID
+    ? (await client.query(
+        Q(TRIGGER_DOCTYPE).getById(process.env.COZY_TRIGGER_ID)
+      )).data
+    : undefined
+
+  await sendTriggerNotifications(client, serviceTrigger)
+  await destroyObsoleteTrigger(client, serviceTrigger)
 }
 
 if (require.main === module || process.env.NODE_ENV === 'production') {

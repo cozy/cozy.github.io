@@ -14,8 +14,7 @@ import getCategoryId from 'ducks/transactions/getCategoryId'
 import { getLabel } from './utils'
 import brands from 'ducks/brandDictionary/brands'
 import { findMatchingBrand } from 'ducks/brandDictionary'
-
-const ONE_DAY = 86400 * 1000
+import { ONE_DAY } from 'ducks/recurrence/constants'
 
 const mean = iterable => sum(iterable) / iterable.length
 export const median = iterable => {
