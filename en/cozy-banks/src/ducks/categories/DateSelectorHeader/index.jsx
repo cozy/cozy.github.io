@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from 'components/Header'
-import styles from 'ducks/categories/CategoriesHeader.styl'
+import styles from 'ducks/categories/CategoriesHeader/CategoriesHeader.styl'
 import CategoryAccountSwitch from 'ducks/categories/CategoryAccountSwitch'
 
 const DateSelectorHeader = ({

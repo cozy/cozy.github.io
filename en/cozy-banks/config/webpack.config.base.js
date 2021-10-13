@@ -1,6 +1,6 @@
 module.exports = {
   output: {
-    filename: 'app.js'
+    filename: '[name].bundle.js'
   },
   resolve: {
     modules: ['node_modules']

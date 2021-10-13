@@ -5,12 +5,8 @@ import { isMobileApp, isIOSApp } from 'cozy-device-helper'
 import flag from 'cozy-flags'
 
 import { offlineDoctypes, TRANSACTION_DOCTYPE } from 'doctypes'
-import { APPLICATION_DATE } from 'ducks/transactions/constants'
-import {
-  makeWarmupQueryOptions,
-  pickAdapter,
-  getAdapterPlugin
-} from 'ducks/client/linksHelpers'
+import { pickAdapter, getAdapterPlugin } from 'ducks/client/linksHelpers'
+import { getWarmupQueries } from './linksHelpers'
 
 const activatePouch = __POUCH__ && !flag('banks.pouch.disabled')
 let links = null
@@ -30,16 +26,7 @@ export const getLinks = async (options = {}) => {
       doctypes: offlineDoctypes,
       doctypesReplicationOptions: {
         [TRANSACTION_DOCTYPE]: {
-          warmupQueries: [
-            makeWarmupQueryOptions(TRANSACTION_DOCTYPE, ['date']),
-            makeWarmupQueryOptions(TRANSACTION_DOCTYPE, [APPLICATION_DATE]),
-            makeWarmupQueryOptions(TRANSACTION_DOCTYPE, ['account']),
-            makeWarmupQueryOptions(TRANSACTION_DOCTYPE, ['date', 'account']),
-            makeWarmupQueryOptions(TRANSACTION_DOCTYPE, [
-              APPLICATION_DATE,
-              'account'
-            ])
-          ]
+          warmupQueries: getWarmupQueries()
         }
       },
       initialSync: true

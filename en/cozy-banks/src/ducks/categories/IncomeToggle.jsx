@@ -3,7 +3,7 @@ import cx from 'classnames'
 import { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Switch from 'cozy-ui/transpiled/react/MuiCozyTheme/Switch'
-import styles from 'ducks/categories/CategoriesHeader.styl'
+import styles from 'ducks/categories/CategoriesHeader/CategoriesHeader.styl'
 
 const IncomeToggle = ({ withIncome, onToggle }) => {
   const theme = useCozyTheme()

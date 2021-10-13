@@ -4,6 +4,9 @@ import localforage from 'localforage'
 import PouchLink from 'cozy-pouch-link'
 import { Q } from 'cozy-client'
 import { isMobileApp, isIOSApp } from 'cozy-device-helper'
+import { TRANSACTION_DOCTYPE } from 'doctypes'
+
+import { APPLICATION_DATE } from 'ducks/transactions/constants'
 
 export const makeWarmupQueryOptions = (doctype, indexedFields) => {
   return {
@@ -56,4 +59,22 @@ export const pickAdapter = async () => {
   return PouchLink.getPouchAdapterName() === 'indexeddb'
     ? PouchLink.getPouchAdapterName()
     : getOldAdapterName()
+}
+
+export const getWarmupQueries = () => {
+  const warmupQueries = [
+    makeWarmupQueryOptions(TRANSACTION_DOCTYPE, ['date']),
+    makeWarmupQueryOptions(TRANSACTION_DOCTYPE, [APPLICATION_DATE]),
+    makeWarmupQueryOptions(TRANSACTION_DOCTYPE, ['account']),
+    makeWarmupQueryOptions(TRANSACTION_DOCTYPE, ['date', 'account']),
+    makeWarmupQueryOptions(TRANSACTION_DOCTYPE, [APPLICATION_DATE, 'account'])
+  ]
+
+  if (isIOSApp()) {
+    warmupQueries.push(
+      makeWarmupQueryOptions(TRANSACTION_DOCTYPE, ['date', 'operations'])
+    )
+  }
+
+  return warmupQueries
 }

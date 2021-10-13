@@ -12,6 +12,31 @@ const {
 } = require('./config/webpack.vars')
 const mqpacker = require('css-mqpacker')
 
+const optimization = {
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        cozyBar: {
+          test: /[\\/]node_modules[\\/]cozy-bar[\\/]/,
+          name: 'cozy-bar',
+          priority: -10,
+          chunks: 'all'
+        },
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          priority: -20,
+          chunks: 'all'
+        },
+        default: {
+          priority: -30,
+          reuseExistingChunk: true
+        }
+      }
+    }
+  }
+}
+
 const barConfig = {
   module: {
     rules: [
@@ -39,7 +64,8 @@ const appOnlyConfigs = [
   require('cozy-scripts/config/webpack.config.css-modules'),
   require('cozy-scripts/config/webpack.config.pictures'),
   barConfig,
-  exludeModulesConfig
+  exludeModulesConfig,
+  optimization
 ]
 
 const common = mergeAppConfigs(
