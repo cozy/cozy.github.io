@@ -2640,6 +2640,7 @@ Cozy instance belongs to one context.</p>
       <span class="l l-Scalar l-Scalar-Plain">userinfo_instance_suffix</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">.mycozy.cloud</span>
       <span class="l l-Scalar l-Scalar-Plain">allow_custom_instance</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
       <span class="l l-Scalar l-Scalar-Plain">allow_oauth_token</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+      <span class="l l-Scalar l-Scalar-Plain">id_token_jwk_url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://identity-prodiver/path/to/jwk</span>
 </pre></div>
 
 
@@ -2680,7 +2681,10 @@ Cozy instance belongs to one context.</p>
 <p>When <code>allow_custom_instance</code> is set to true, the stack will look at the <code>sub</code>
 field in the UserInfo response, and checks that it matches the <code>oidc_id</code> set
 on this instance (and the <code>userinfo_instance_*</code> and <code>login_domain</code> fields are
-ignored).</p>
+ignored). If <code>id_token_jwk_url</code> is set, the client can send the ID token from
+the provider instead of the access token. This token will be checked with the
+key fetched from this URL, and the <code>sub</code> field of it must match the <code>oidc_id</code>
+set in the instance.</p>
 <h3 id="routes">Routes<a class="headerlink" href="#routes" title="Permanent link">&para;</a></h3>
 <p>Let&rsquo;s see the 3 routes used in this process</p>
 <h4 id="get-oidcstart">GET /oidc/start<a class="headerlink" href="#get-oidcstart" title="Permanent link">&para;</a></h4>
@@ -2728,6 +2732,8 @@ cookies to log in the user).</p>
 
 <p>If the <code>allow_oauth_token</code> option is enabled, it&rsquo;s possible to use an
 access_token instead of code on this URL.</p>
+<p>If the <code>id_token_jwk_url</code> option is enabled, it&rsquo;s possible to use an
+id_token instead.</p>
 <h4 id="post-oidcaccess_token">POST /oidc/access_token<a class="headerlink" href="#post-oidcaccess_token" title="Permanent link">&para;</a></h4>
 <p>This additional route can be used by an OAuth client (like a mobile app) when
 delegated authentication via OpenID Connect is enabled. It allows the client to
@@ -2761,6 +2767,10 @@ valid on the OpenID Connect Identity Provider.</p>
   <span class="nt">&quot;scope&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files io.cozy.photos.albums&quot;</span>
 <span class="p">}</span>
 </pre></div>
+
+
+<p>If <code>id_token_jwk_url</code> option is set, the client can send an <code>id_token</code> instead
+of an <code>oidc_token</code> in the payload.</p>
                 
                   
                 
