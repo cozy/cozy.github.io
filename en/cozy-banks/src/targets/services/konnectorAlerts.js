@@ -70,16 +70,35 @@ const fetchRegistryInfo = memoize(
 )
 
 const createTriggerAt = async (client, date) => {
-  await client.save({
-    _type: TRIGGER_DOCTYPE,
-    type: '@at',
-    arguments: date.toISOString(),
-    worker: 'service',
-    message: {
-      name: 'konnectorAlerts',
-      slug: 'banks'
-    }
-  })
+  logger(
+    'info',
+    `Try to create new @at trigger for konnectorAlerts service at ${
+      date.toISOString().split('T')[0]
+    }...`
+  )
+  try {
+    await client.save({
+      _type: TRIGGER_DOCTYPE,
+      type: '@at',
+      arguments: date.toISOString(),
+      worker: 'service',
+      message: {
+        name: 'konnectorAlerts',
+        slug: 'banks'
+      }
+    })
+    logger(
+      'info',
+      `⭐ Created: new @at trigger for konnectorAlerts service at ${
+        date.toISOString().split('T')[0]
+      }`
+    )
+  } catch (error) {
+    logger(
+      'error',
+      `❗ Error when creating new @at trigger for konnectorAlerts service: ${error.message}`
+    )
+  }
 }
 
 export const containerForTesting = {
@@ -290,6 +309,8 @@ export const destroyObsoleteTrigger = async (client, trigger) => {
 }
 
 const main = async ({ client }) => {
+  const triggerId = process.env.COZY_TRIGGER_ID
+
   client.registerPlugin(flag.plugin)
   await client.plugins.flags.refresh()
 
@@ -301,12 +322,13 @@ const main = async ({ client }) => {
     return
   }
 
-  logger('info', 'Executing job notifications service...')
+  logger(
+    'info',
+    `Executing job notifications service by trigger ${triggerId}...`
+  )
 
-  const serviceTrigger = process.env.COZY_TRIGGER_ID
-    ? (await client.query(
-        Q(TRIGGER_DOCTYPE).getById(process.env.COZY_TRIGGER_ID)
-      )).data
+  const serviceTrigger = triggerId
+    ? (await client.query(Q(TRIGGER_DOCTYPE).getById(triggerId))).data
     : undefined
 
   await sendTriggerNotifications(client, serviceTrigger)

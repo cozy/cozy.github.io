@@ -60,7 +60,7 @@ export const makeFilteredTransactionsConn = options => {
         throw new Error('Unsupported filtering doc to create transaction query')
       }
     } else {
-      indexFields = [dateAttribute, '_id']
+      indexFields = [dateAttribute]
       whereClause = {
         _id: {
           $gt: null

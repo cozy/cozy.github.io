@@ -281,7 +281,7 @@ describe('addPeriodToConn', () => {
             $lte: '2021-07-31T23:59'
           }
         },
-        indexedFields: ['date', '_id']
+        indexedFields: ['date']
       })
     )
   })
