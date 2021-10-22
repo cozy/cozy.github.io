@@ -21,7 +21,7 @@ const presetEnvBrowserOptions = {
 
 const presetEnvNodeOptions = {
   targets: {
-    node: 8
+    node: 12
   },
   // don't transform polyfills
   useBuiltIns: false
