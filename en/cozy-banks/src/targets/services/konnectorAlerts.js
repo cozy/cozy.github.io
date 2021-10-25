@@ -309,8 +309,6 @@ export const destroyObsoleteTrigger = async (client, trigger) => {
 }
 
 const main = async ({ client }) => {
-  const triggerId = process.env.COZY_TRIGGER_ID
-
   client.registerPlugin(flag.plugin)
   await client.plugins.flags.refresh()
 
@@ -322,14 +320,35 @@ const main = async ({ client }) => {
     return
   }
 
+  const triggerId = process.env.COZY_TRIGGER_ID
+  const jobId = process.env.COZY_JOB_ID.split('/').pop()
+
   logger(
     'info',
-    `Executing job notifications service by trigger ${triggerId}...`
+    `Executing job notifications service by trigger: ${triggerId}, job: ${jobId}...`
   )
 
   const serviceTrigger = triggerId
     ? (await client.query(Q(TRIGGER_DOCTYPE).getById(triggerId))).data
     : undefined
+
+  const serviceJob = jobId
+    ? (await client.query(Q(JOBS_DOCTYPE).getById(jobId))).data
+    : undefined
+
+  // Used to execute a script on maif instance
+  // that force the execution of this service
+  // TODO should be removed after executing the script
+  if (serviceJob?.message?.forceIgnoredErrors) {
+    flag(
+      'banks.konnector-alerts.ignored-errors',
+      serviceJob.message.forceIgnoredErrors
+    )
+    logger(
+      'info',
+      `Forced flag banks.konnector-alerts.ignored-errors to: ${serviceJob.message.forceIgnoredErrors}`
+    )
+  }
 
   await sendTriggerNotifications(client, serviceTrigger)
   await destroyObsoleteTrigger(client, serviceTrigger)
