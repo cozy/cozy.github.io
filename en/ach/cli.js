@@ -153,7 +153,7 @@ const handleBatchCommand = async function(args) {
 }
 
 const handleScriptCommand = async args => {
-  const { scriptName, autotoken, execute, url } = args
+  const { scriptName, autotoken, execute, url, parameters } = args
   let { token } = args
   const script = scriptLib.require(scriptName)
   const { getDoctypes, run } = script
@@ -167,7 +167,7 @@ const handleScriptCommand = async args => {
   log.info(`Launching script ${scriptName}...`)
   log.info(`Dry run : ${dryRun}`)
   await ach.connect()
-  await run(ach, dryRun)
+  await run(ach, dryRun, parameters)
 }
 
 const handleDownloadFileCommand = async args => {
@@ -392,16 +392,21 @@ program
 
 program
   .command('script <scriptName>')
+  .arguments(
+    '[params...]',
+    'A list of parameters to be passed to the script, separated by a space'
+  )
   .option('--autotoken', 'Automatically generate the permission token')
   .option('-x, --execute', 'Execute the script (disable dry run)')
   .option('-d, --doctypes', 'Print necessary doctypes (useful for automation)')
   .description('Launch script')
   .action(
-    handleErrors(async function(scriptName, action) {
+    handleErrors(async function(scriptName, parameters, action) {
       await handleScriptCommand({
         url: program.url,
         token: program.token,
         scriptName,
+        parameters,
         ...action
       })
     })
