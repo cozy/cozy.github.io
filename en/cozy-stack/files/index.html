@@ -4312,7 +4312,12 @@ The default limit is 30 entries.</p>
 
 <h3 id="post-files_find">POST <code>/files/_find</code><a class="headerlink" href="#post-files_find" title="Permanent link">&para;</a></h3>
 <p>Find allows to find documents using a mango selector. You can read more about mango selectors <a href="http://docs.couchdb.org/en/stable/api/database/find.html#selector-syntax">here</a>.</p>
-<p>Note that it returns a <a href="https://github.com/cozy/cozy-stack/blob/master/docs/mango.md#pagination-cookbook">bookmark</a> in the <code>links</code>, useful to paginate.</p>
+<p>Note that it returns a
+<a href="https://github.com/cozy/cozy-stack/blob/master/docs/mango.md#pagination-cookbook">bookmark</a>
+in the <code>links</code>, useful to paginate (following the <a href="./jsonapi.md#pagination">JSON-API
+pagination</a>). On the last page, there won&rsquo;t be a
+<code>links.next</code>. The <code>count</code> in the response is the number of documents for the
+current page.</p>
 <p>It is possible to pass a <code>execution_stats</code> parameter to get some information about the query execution. See <a href="https://docs.couchdb.org/en/stable/api/database/find.html#execution-statistics">here</a> for more details.</p>
 <h3 id="request_2">Request<a class="headerlink" href="#request_2" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/files/_find</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
@@ -4358,6 +4363,7 @@ The default limit is 30 entries.</p>
         <span class="nt">&quot;executable&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
         <span class="nt">&quot;trashed&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
         <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/Pictures/nicepic1.jpg&quot;</span><span class="p">,</span>
         <span class="nt">&quot;metadata&quot;</span><span class="p">:</span> <span class="p">{</span>
           <span class="nt">&quot;datetime&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-02-13T16:35:47.568155477+01:00&quot;</span><span class="p">,</span>
           <span class="nt">&quot;extractor_version&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
@@ -4402,6 +4408,7 @@ The default limit is 30 entries.</p>
         <span class="nt">&quot;executable&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
         <span class="nt">&quot;trashed&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
         <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="nt">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;/Pictures/nicepic2.jpg&quot;</span><span class="p">,</span>
         <span class="nt">&quot;metadata&quot;</span><span class="p">:</span> <span class="p">{</span>
           <span class="nt">&quot;datetime&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-02-13T16:35:47.845049743+01:00&quot;</span><span class="p">,</span>
           <span class="nt">&quot;extractor_version&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
@@ -4435,7 +4442,7 @@ The default limit is 30 entries.</p>
     <span class="nt">&quot;next&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/_find?page[cursor]=g1AAAABjeJzLYWBgYMpgSmHgKy5JLCrJTq2MT8lPzkzJBYorpFokG5qaGVqYmCWbGxuYGFkYWhgkmqaZJZsZGlgaGJiD9HHA9OWATAJpY83MTUxPTWFgTUvMKU7NygIA694ZyA&quot;</span>
   <span class="p">},</span>
   <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;count&quot;</span><span class="p">:</span> <span class="mi">2147483646</span><span class="p">,</span>
+    <span class="nt">&quot;count&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
     <span class="nt">&quot;execution_stats&quot;</span><span class="p">:</span> <span class="p">{</span>
       <span class="nt">&quot;total_docs_examined&quot;</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
       <span class="nt">&quot;results_returned&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>

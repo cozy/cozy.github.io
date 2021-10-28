@@ -50,7 +50,7 @@ const barConfig = {
 
 const exludeModulesConfig = {
   module: {
-    rules: ['node-forge', 'node-jose', 'tldjs'].map(module => ({
+    rules: ['tldjs'].map(module => ({
       test: path.resolve(__dirname, `node_modules/${module}`),
       loader: 'null-loader'
     }))

@@ -42,17 +42,17 @@ describe('recurrence bundles (with existing recurrences)', () => {
       )
 
       const bundle = bundleWithJune[0]
-      const [op1, op2, op3, op4, op5] = bundle.ops
 
-      expect(bundleWithJune.length).toBe(1)
-      expect(bundle.categoryIds[0]).toBe('200110')
-      expect(bundle.amounts).toMatchObject([2000, 2150])
-      expect(bundle.ops.length).toBe(5)
-      expect(op1).toMatchObject({ _id: 'february', amount: 2000 })
-      expect(op2).toMatchObject({ _id: 'march', amount: 2000 })
-      expect(op3).toMatchObject({ _id: 'april', amount: 2000 })
-      expect(op4).toMatchObject({ _id: 'may', amount: 2150 })
-      expect(op5).toMatchObject({ _id: 'june', amount: 2000 })
+      expect(bundle).toMatchObject({
+        categoryIds: ['200110'],
+        amounts: [2000, 2150],
+        accounts: ['1d22740c6c510e5368d1b6b670deee05'],
+        ops: [...transactions, mayTransaction, juneTransaction],
+        automaticLabel: 'Mon Salaire',
+        stats: {
+          deltas: { sigma: 1.224744871391589, mean: 30, median: 30.5, mad: 0.5 }
+        }
+      })
     })
 
     it('should reattach new operations to the current recurrence, in the event that the amount of the new transaction is the same from the previous one', () => {
@@ -64,39 +64,248 @@ describe('recurrence bundles (with existing recurrences)', () => {
       )
 
       const bundle = bundleWithJune[0]
-      const [op1, op2, op3, op4, op5] = bundle.ops
 
-      expect(bundleWithJune.length).toBe(1)
-      expect(bundle.categoryIds[0]).toBe('200110')
-      expect(bundle.amounts).toMatchObject([2000, 2150])
-      expect(bundle.ops.length).toBe(5)
-      expect(op1).toMatchObject({ _id: 'february', amount: 2000 })
-      expect(op2).toMatchObject({ _id: 'march', amount: 2000 })
-      expect(op3).toMatchObject({ _id: 'april', amount: 2000 })
-      expect(op4).toMatchObject({ _id: 'may', amount: 2150 })
-      expect(op5).toMatchObject({ _id: 'june', amount: 2150 })
+      expect(bundle).toMatchObject({
+        categoryIds: ['200110'],
+        amounts: [2000, 2150],
+        accounts: ['1d22740c6c510e5368d1b6b670deee05'],
+        ops: [...transactions, mayTransaction, juneTransaction],
+        automaticLabel: 'Mon Salaire',
+        stats: {
+          deltas: { sigma: 1.224744871391589, mean: 30, median: 30.5, mad: 0.5 }
+        }
+      })
     })
 
     it('should not reattach the new operations which do not correspond to one of the recurrence amounts', () => {
-      juneTransaction.amount = 2100
+      juneTransaction.amount = 1000
 
       const bundleWithJune = findAndUpdateRecurrences(
         [recurrence],
         [juneTransaction]
       )
 
-      expect(bundleWithJune.length).toBe(1)
-
       const bundle = bundleWithJune[0]
-      const [op1, op2, op3, op4] = bundle.ops
 
-      expect(bundle.categoryIds[0]).toBe('200110')
-      expect(bundle.amounts).toMatchObject([2000, 2150])
-      expect(bundle.ops.length).toBe(4)
-      expect(op1).toMatchObject({ _id: 'february', amount: 2000 })
-      expect(op2).toMatchObject({ _id: 'march', amount: 2000 })
-      expect(op3).toMatchObject({ _id: 'april', amount: 2000 })
-      expect(op4).toMatchObject({ _id: 'may', amount: 2150 })
+      expect(bundle).toMatchObject({
+        categoryIds: ['200110'],
+        amounts: [2000, 2150],
+        accounts: ['1d22740c6c510e5368d1b6b670deee05'],
+        ops: [...transactions, mayTransaction],
+        automaticLabel: 'Mon Salaire',
+        stats: {
+          deltas: {
+            sigma: 1.2472191289246117,
+            mean: 29.666666666666668,
+            median: 30,
+            mad: 1
+          }
+        }
+      })
+    })
+
+    it('should reattach operations between 1900 and 2100 (+/- 5%) to the current recurrence with only one amount', () => {
+      const oldTransactions = [
+        {
+          _id: 'january',
+          amount: 2000,
+          date: '2021-01-01T12:00:00.000Z',
+          label: 'Mon Salaire Janvier',
+          automaticCategoryId: '200110',
+          localCategoryId: '0',
+          account: 'accountId'
+        }
+      ]
+
+      const recurrences = [
+        {
+          categoryIds: ['200110'],
+          amounts: [2000],
+          accounts: ['accountId'],
+          ops: oldTransactions,
+          automaticLabel: 'Mon Salaire',
+          stats: {
+            deltas: { sigma: 1.5, mean: 29.5, median: 29.5, mad: 1.5 }
+          }
+        }
+      ]
+
+      const aprilTransaction = {
+        _id: 'april',
+        amount: 1900,
+        date: '2021-04-01T12:00:00.000Z',
+        label: 'Mon Salaire Avril',
+        automaticCategoryId: '200110',
+        localCategoryId: '0',
+        account: 'accountId'
+      }
+
+      const mayTransaction = {
+        _id: 'may',
+        amount: 2100,
+        date: '2021-05-01T12:00:00.000Z',
+        label: 'Mon Salaire Mai',
+        automaticCategoryId: '200110',
+        localCategoryId: '0',
+        account: 'accountId'
+      }
+
+      const transactions = [
+        aprilTransaction,
+        mayTransaction,
+        {
+          _id: 'june',
+          amount: 1899,
+          date: '2021-05-01T12:00:00.000Z',
+          label: 'Mon Salaire Juin',
+          automaticCategoryId: '200110',
+          localCategoryId: '0',
+          account: 'accountId'
+        },
+        {
+          _id: 'july',
+          amount: 2101,
+          date: '2021-05-01T12:00:00.000Z',
+          label: 'Mon Salaire Juillet',
+          automaticCategoryId: '200110',
+          localCategoryId: '0',
+          account: 'accountId'
+        }
+      ]
+
+      const bundles = sortBy(
+        findAndUpdateRecurrences(recurrences, transactions),
+        b => b._id
+      )
+
+      expect(bundles).toMatchObject([
+        {
+          categoryIds: ['200110'],
+          amounts: [2000],
+          accounts: ['accountId'],
+          ops: [...oldTransactions, aprilTransaction, mayTransaction],
+          automaticLabel: 'Mon Salaire',
+          stats: {
+            deltas: {
+              sigma: 30,
+              mean: 60,
+              median: 60,
+              mad: 30
+            }
+          }
+        }
+      ])
+    })
+
+    it('should reattach operations between 1900 and 3150 (+/- 5%) to the current recurrence with multiple amounts in a bundle', () => {
+      const oldTransactions = [
+        {
+          _id: 'january',
+          amount: 2000,
+          date: '2021-01-01T12:00:00.000Z',
+          label: 'Mon Salaire Janvier',
+          automaticCategoryId: '200110',
+          localCategoryId: '0',
+          account: 'accountId'
+        },
+        {
+          _id: 'february',
+          amount: 2500,
+          date: '2021-02-01T12:00:00.000Z',
+          label: 'Mon Salaire Fevrier',
+          automaticCategoryId: '200110',
+          localCategoryId: '0',
+          account: 'accountId'
+        },
+        {
+          _id: 'march',
+          amount: 3000,
+          date: '2021-03-01T12:00:00.000Z',
+          label: 'Mon Salaire Mars',
+          automaticCategoryId: '200110',
+          localCategoryId: '0',
+          account: 'accountId'
+        }
+      ]
+
+      const recurrences = [
+        {
+          categoryIds: ['200110'],
+          amounts: [2000, 2500, 3000],
+          accounts: ['accountId'],
+          ops: oldTransactions,
+          automaticLabel: 'Mon Salaire',
+          stats: {
+            deltas: { sigma: 1.5, mean: 29.5, median: 29.5, mad: 1.5 }
+          }
+        }
+      ]
+
+      const aprilTransaction = {
+        _id: 'april',
+        amount: 1900,
+        date: '2021-04-01T12:00:00.000Z',
+        label: 'Mon Salaire Avril',
+        automaticCategoryId: '200110',
+        localCategoryId: '0',
+        account: 'accountId'
+      }
+
+      const mayTransaction = {
+        _id: 'may',
+        amount: 3150,
+        date: '2021-05-01T12:00:00.000Z',
+        label: 'Mon Salaire Mai',
+        automaticCategoryId: '200110',
+        localCategoryId: '0',
+        account: 'accountId'
+      }
+
+      const transactions = [
+        aprilTransaction,
+        mayTransaction,
+        {
+          _id: 'june',
+          amount: 1899,
+          date: '2021-05-01T12:00:00.000Z',
+          label: 'Mon Salaire Juin',
+          automaticCategoryId: '200110',
+          localCategoryId: '0',
+          account: 'accountId'
+        },
+        {
+          _id: 'july',
+          amount: 3151,
+          date: '2021-05-01T12:00:00.000Z',
+          label: 'Mon Salaire Juillet',
+          automaticCategoryId: '200110',
+          localCategoryId: '0',
+          account: 'accountId'
+        }
+      ]
+
+      const bundles = sortBy(
+        findAndUpdateRecurrences(recurrences, transactions),
+        b => b._id
+      )
+
+      expect(bundles).toMatchObject([
+        {
+          categoryIds: ['200110'],
+          amounts: [2000, 2500, 3000],
+          accounts: ['accountId'],
+          ops: [...oldTransactions, aprilTransaction, mayTransaction],
+          automaticLabel: 'Mon Salaire',
+          stats: {
+            deltas: {
+              sigma: 1.224744871391589,
+              mean: 30,
+              median: 30.5,
+              mad: 0.5
+            }
+          }
+        }
+      ])
     })
   })
 
@@ -133,25 +342,39 @@ describe('recurrence bundles (with existing recurrences)', () => {
         b => b.brand
       )
 
-      expect(bundles.length).toBe(2)
-      const bundle = bundles[0]
-
-      expect(bundle.brand).toBe('Spotify')
-      expect(bundle.categoryIds[0]).toBe('400100')
-      expect(bundle.amounts).toMatchObject([10])
-      expect(bundle.ops.length).toBe(2)
-
-      const bundle2 = bundles[1]
-      const [op1, op2, op3, op4] = bundle2.ops
-
-      expect(bundle2.brand).toBe(undefined)
-      expect(bundle2.categoryIds[0]).toBe('200110')
-      expect(bundle2.amounts).toMatchObject([2000, 2150])
-      expect(bundle2.ops.length).toBe(4)
-      expect(op1).toMatchObject({ _id: 'february', amount: 2000 })
-      expect(op2).toMatchObject({ _id: 'march', amount: 2000 })
-      expect(op3).toMatchObject({ _id: 'april', amount: 2000 })
-      expect(op4).toMatchObject({ _id: 'may', amount: 2150 })
+      expect(bundles).toMatchObject([
+        {
+          brand: 'Spotify',
+          categoryIds: ['400100'],
+          amounts: [10],
+          accounts: ['1d22740c6c510e5368d1b6b670deee05'],
+          ops: [juneSpot, julySpot],
+          automaticLabel: 'Spotify Abonnement',
+          stats: {
+            deltas: {
+              sigma: 0,
+              mean: 30,
+              median: 30,
+              mad: 0
+            }
+          }
+        },
+        {
+          categoryIds: ['200110'],
+          amounts: [2000, 2150],
+          accounts: ['1d22740c6c510e5368d1b6b670deee05'],
+          ops: [...transactions, mayTransaction],
+          automaticLabel: 'Mon Salaire',
+          stats: {
+            deltas: {
+              sigma: 1.2472191289246117,
+              mean: 29.666666666666668,
+              median: 30,
+              mad: 1
+            }
+          }
+        }
+      ])
     })
   })
 
@@ -970,17 +1193,22 @@ describe('recurrence scenario with multiple amounts and categories', () => {
     )
 
     const bundle = bundleWithJune[0]
-    const [op1, op2, op3, op4, op5] = bundle.ops
-
-    expect(bundleWithJune.length).toBe(1)
-    expect(bundle.categoryIds).toMatchObject(['0', '200110'])
-    expect(bundle.amounts).toMatchObject([2000, 2150])
-    expect(bundle.ops.length).toBe(5)
-    expect(op1).toMatchObject({ _id: 'february', amount: 2000 })
-    expect(op2).toMatchObject({ _id: 'march', amount: 2000 })
-    expect(op3).toMatchObject({ _id: 'april', amount: 2000 })
-    expect(op4).toMatchObject({ _id: 'may', amount: 2150 })
-    expect(op5).toMatchObject({ _id: 'june', amount: 2000 })
+    expect(bundle).toMatchObject({
+      brand: '',
+      categoryIds: ['0', '200110'],
+      amounts: [2000, 2150],
+      accounts: ['1d22740c6c510e5368d1b6b670deee05'],
+      ops: [...transactions, mayTransaction, juneTransaction],
+      automaticLabel: 'Mon Salaire',
+      stats: {
+        deltas: {
+          sigma: 1.224744871391589,
+          mean: 30,
+          median: 30.5,
+          mad: 0.5
+        }
+      }
+    })
   })
 
   it('should reattach new operations to the current recurrence, in the event that the amount and category of the new transaction is the sme from the previous one and with same category', () => {
@@ -993,18 +1221,18 @@ describe('recurrence scenario with multiple amounts and categories', () => {
     )
 
     const bundle = bundleWithJune[0]
-    const [op1, op2, op3, op4, op5] = bundle.ops
 
-    expect(bundleWithJune.length).toBe(1)
-    expect(bundle.categoryIds).toMatchObject(['0', '200110'])
-    expect(bundle.amounts.length).toBe(2)
-    expect(bundle.amounts).toMatchObject([2000, 2150])
-    expect(bundle.ops.length).toBe(5)
-    expect(op1).toMatchObject({ _id: 'february', amount: 2000 })
-    expect(op2).toMatchObject({ _id: 'march', amount: 2000 })
-    expect(op3).toMatchObject({ _id: 'april', amount: 2000 })
-    expect(op4).toMatchObject({ _id: 'may', amount: 2150 })
-    expect(op5).toMatchObject({ _id: 'june', amount: 2000 })
+    expect(bundle).toMatchObject({
+      brand: '',
+      categoryIds: ['0', '200110'],
+      amounts: [2000, 2150],
+      accounts: ['1d22740c6c510e5368d1b6b670deee05'],
+      ops: [...transactions, mayTransaction, juneTransaction],
+      automaticLabel: 'Mon Salaire',
+      stats: {
+        deltas: { sigma: 1.224744871391589, mean: 30, median: 30.5, mad: 0.5 }
+      }
+    })
   })
 
   it('reattach next new operations from a new bundle which has 1 operation with "very month" in frequency', () => {
@@ -1026,14 +1254,17 @@ describe('recurrence scenario with multiple amounts and categories', () => {
     )
 
     const bundle = bundleWithEDF[0]
-    expect(bundle.ops.length).toBe(2)
 
     const t = getT(enLocaleOption)
     expect(getFrequencyText(t, bundle)).toBe('every month')
 
-    const [op1, op2] = bundle.ops
-
-    expect(op1).toMatchObject({ _id: 'february', amount: 30 })
-    expect(op2).toMatchObject({ _id: 'may', amount: 30 })
+    expect(bundle).toMatchObject({
+      categoryIds: ['401080'],
+      amounts: [30],
+      accounts: ['1d22740c6c510e5368d1b6b670deee05'],
+      ops: [febTransactionEDF, mayTransactionEDF],
+      automaticLabel: 'EDF',
+      stats: { deltas: { sigma: 0, mean: 89, median: 30, mad: 59 } }
+    })
   })
 })

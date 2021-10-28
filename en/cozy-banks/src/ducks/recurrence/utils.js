@@ -1,8 +1,14 @@
 import uniqBy from 'lodash/uniqBy'
 import startCase from 'lodash/startCase'
+import min from 'lodash/min'
+import max from 'lodash/max'
 import addDays from 'date-fns/add_days'
 import parse from 'date-fns/parse'
 import differenceInDays from 'date-fns/difference_in_days'
+
+import flag from 'cozy-flags'
+
+import { PERCENTAGE_AMOUNTS_ACCEPTED } from 'ducks/recurrence/constants'
 
 import {
   getCategoryId,
@@ -58,6 +64,22 @@ export const getAmount = bundle => {
 export const getCurrency = () => {
   return '€'
 }
+
+const PERCENTAGE =
+  Number(flag('banks.recurrency.percentage-amounts-accepted')) ||
+  PERCENTAGE_AMOUNTS_ACCEPTED
+
+export const getMinAmount = bundle => {
+  const minAmount = Math.abs(min(bundle.amounts))
+  return minAmount - minAmount * PERCENTAGE
+}
+
+export const getMaxAmount = bundle => {
+  const maxAmount = Math.abs(max(bundle.amounts))
+  return maxAmount + maxAmount * PERCENTAGE
+}
+
+export const isBetween = ({ value, min, max }) => min <= value && value <= max
 
 /**
  * Make a recurrence from a transaction. The recurrence will inherit
@@ -116,25 +138,44 @@ export const isDeprecatedBundle = recurrence => {
   return differenceInDays(now, latestDate)
 }
 
+/**
+ * Allows to add transactions to bundles which match with these conditions:
+ * - Amount (with +/- percentage)
+ * - CategoryId
+ * - Account
+ *
+ * @param {Array<Recurrence>} bundles
+ * @param {Array<Transaction>} transactions
+ *
+ * @returns {{transactionsForUpdatedBundles: Array<Transaction>, updatedBundles: Array<Recurrence>}}
+ */
 export const addTransactionToBundles = (bundles, transactions) => {
   let transactionsForUpdatedBundles = []
 
   const updatedBundles = [...bundles].map(b => {
     const bundle = { ...b }
 
-    // Matching on Amount, CategoryId and account
+    const minAmount = getMinAmount(bundle)
+    const maxAmount = getMaxAmount(bundle)
+
     const transactionFounds = transactions.filter(transaction => {
       const hasSomeSameCategoryId = bundle.categoryIds.some(
         catId => getCategoryId(transaction) === catId
       )
-      const hasSomeSameAmount = bundle.amounts.some(
-        amount => amount === transaction.amount
-      )
+
+      const hasAmountsBetweenExtremum = isBetween({
+        value: Math.abs(transaction.amount),
+        min: minAmount,
+        max: maxAmount
+      })
+
       const hasSomeSameAccount = bundle.accounts?.some(
         account => account === transaction.account
       )
 
-      return hasSomeSameCategoryId && hasSomeSameAmount && hasSomeSameAccount
+      return (
+        hasSomeSameCategoryId && hasAmountsBetweenExtremum && hasSomeSameAccount
+      )
     })
 
     if (transactionFounds?.length > 0) {
