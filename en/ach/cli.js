@@ -15,7 +15,7 @@ const getHandlebarsOptions = require('./libs/getHandlebarsOptions')
 const { parseBool } = require('./libs/utils')
 const urls = require('url')
 
-const DEFAULT_COZY_URL = 'http://cozy.tools:8080'
+const DEFAULT_COZY_URL = 'http://cozy.localhost:8080'
 
 // Add promise rejection handling
 process.on('unhandledRejection', function(err) {

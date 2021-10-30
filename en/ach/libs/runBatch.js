@@ -17,7 +17,7 @@ const runScript = async (script, domain, globalCtx) => {
   const token =
     process.env.BATCH_TOKEN || (await admin.createToken(domain, doctypes))
 
-  const protocol = domain === 'cozy.tools:8080' ? 'http' : 'https'
+  const protocol = domain === 'cozy.localhost:8080' ? 'http' : 'https'
   const ach = new ACH(token, protocol + '://' + domain, doctypes)
 
   await ach.connect()

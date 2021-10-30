@@ -12,7 +12,7 @@ let client,
   token
 
 const doctypes = process.env.DOCTYPES ? process.env.DOCTYPES.split(',') : []
-const domain = process.env.COZY_URL || 'http://cozy.tools:8080'
+const domain = process.env.COZY_URL || 'http://cozy.localhost:8080'
 console.log(doctypes)
 const ach = new ACH(
   '/tmp/repl-ach.json',
