@@ -1,3 +1,5 @@
+import merge from 'lodash/merge'
+
 import flag from 'cozy-flags'
 
 import NotificationView from 'ducks/notifications/BaseNotificationView'
@@ -133,7 +135,12 @@ class KonnectorAlertNotification extends NotificationView {
       logger('info', `Scheduling notification at ${at}`)
       attributes.at = at
     }
-    return attributes
+
+    return merge(attributes, {
+      data: {
+        route: '/settings/accounts'
+      }
+    })
   }
 }
 

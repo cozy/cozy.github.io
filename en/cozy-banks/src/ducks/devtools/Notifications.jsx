@@ -33,6 +33,7 @@ const sendNotification = async (
     if (notificationRoute === '/balances/details' && notificationAccountId) {
       notificationRoute = `/balances/${notificationAccountId}/details`
     }
+
     await client.stackClient.fetchJSON('POST', '/notifications', {
       data: {
         type: 'io.cozy.notifications',
@@ -63,26 +64,29 @@ const Notifications = () => {
     '/balances/details'
   )
   const [notificationAccountId, setNotificationAccountId] = useState(null)
+
   return (
     <PanelContent>
       <Typography variant="subtitle1" gutterBottom>
         Notifications
       </Typography>
-      {isMobileApp() ? <DeviceToken client={client} /> : null}
-      Route:{' '}
-      <select
-        value={notificationRoute}
-        onChange={ev => setNotificationRoute(ev.target.value)}
-      >
-        <option value="/balances/details">transactions</option>
-        <option value="/balances">balance</option>
-        <option value="/analysis/categories">categories</option>
-        <option value="/analysis/recurrence">recurrence</option>
-      </select>
-      <br />
-      {notificationRoute === '/balances/details' ? (
-        <>
-          Sur le compte
+      {isMobileApp() && <DeviceToken client={client} />}
+      <div>
+        Route :{' '}
+        <select
+          value={notificationRoute}
+          onChange={ev => setNotificationRoute(ev.target.value)}
+        >
+          <option value="/balances/details">transactions</option>
+          <option value="/balances">balance</option>
+          <option value="/analysis/categories">categories</option>
+          <option value="/analysis/recurrence">recurrence</option>
+          <option value="/settings/accounts">konnector alerts</option>
+        </select>
+      </div>
+      {notificationRoute === '/balances/details' && (
+        <div className="u-mt-half">
+          Sur le compte :{' '}
           <select
             value={notificationAccountId}
             onChange={ev => setNotificationAccountId(ev.target.value)}
@@ -95,10 +99,10 @@ const Notifications = () => {
                 </option>
               ))}
           </select>
-          <br />
-        </>
-      ) : null}
+        </div>
+      )}
       <Button
+        className="u-mt-1"
         label="Send notification"
         onClick={() =>
           sendNotification(client, notificationRoute, notificationAccountId)

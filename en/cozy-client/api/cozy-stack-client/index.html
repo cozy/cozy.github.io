@@ -2100,6 +2100,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#fetchchangesreturnvalue-fetchchangesreturnvalue_1" title="FetchChangesReturnValue ⇒ FetchChangesReturnValue" class="md-nav__link">
+    FetchChangesReturnValue ⇒ FetchChangesReturnValue
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#jobdocument-object" title="JobDocument : object" class="md-nav__link">
     JobDocument : object
   </a>
@@ -4768,6 +4775,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#fetchchangesreturnvalue-fetchchangesreturnvalue_1" title="FetchChangesReturnValue ⇒ FetchChangesReturnValue" class="md-nav__link">
+    FetchChangesReturnValue ⇒ FetchChangesReturnValue
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#jobdocument-object" title="JobDocument : object" class="md-nav__link">
     JobDocument : object
   </a>
@@ -5005,6 +5019,19 @@ Deleted and design docs are filtered by default, thus documents are retrieved in
 </dd>
 <dt><a href="#OAuthClient">OAuthClient</a> : <code>object</code></dt>
 <dd><p>Document representing a io.cozy.oauth.clients</p>
+</dd>
+<dt><a href="#FetchChangesReturnValue">FetchChangesReturnValue</a> ⇒ <code><a href="#FetchChangesReturnValue">FetchChangesReturnValue</a></code></dt>
+<dd><p>Use cozy-stack&#39;s _changes API for io.cozy.files
+Design docs are filtered by default, thus documents are retrieved in the
+response (includeDocs is set to true in the parameters of _changes).
+Deleted and trashed documents can be filtered on demand and files&#39; paths
+can be requested as well.</p>
+<p>Since deleted and trashed documents are skipped by cozy-stack rather than
+CouchDB, when either option is set to true, the response can contain less
+documents than the defined limit. Thus one should rely solely on the
+<code>pending</code> result attribute to determine if more documents can be fetched or
+not.</p>
+<p>You should use fetchChangesRaw to call CouchDB&#39;s _changes API.</p>
 </dd>
 <dt><a href="#JobDocument">JobDocument</a> : <code>object</code></dt>
 <dd><p>Document representing a io.cozy.jobs</p>
@@ -8309,7 +8336,104 @@ sets internal information from the server response</p>
 <h3 id="oauthclientresetclient_1">oAuthClient.resetClient()<a class="headerlink" href="#oauthclientresetclient_1" title="Permanent link">&para;</a></h3>
 <p>Reset the current OAuth client</p>
 <p><strong>Kind</strong>: instance method of <a href="#OAuthClient"><code>OAuthClient</code></a><br />
-<a name="JobDocument"></a></p>
+<a name="FetchChangesReturnValue"></a></p>
+<h2 id="fetchchangesreturnvalue-fetchchangesreturnvalue_1">FetchChangesReturnValue ⇒ <a href="#FetchChangesReturnValue"><code>FetchChangesReturnValue</code></a><a class="headerlink" href="#fetchchangesreturnvalue-fetchchangesreturnvalue_1" title="Permanent link">&para;</a></h2>
+<p>Use cozy-stack&rsquo;s _changes API for io.cozy.files
+Design docs are filtered by default, thus documents are retrieved in the
+response (includeDocs is set to true in the parameters of _changes).
+Deleted and trashed documents can be filtered on demand and files&rsquo; paths
+can be requested as well.</p>
+<p>Since deleted and trashed documents are skipped by cozy-stack rather than
+CouchDB, when either option is set to true, the response can contain less
+documents than the defined limit. Thus one should rely solely on the
+<code>pending</code> result attribute to determine if more documents can be fetched or
+not.</p>
+<p>You should use fetchChangesRaw to call CouchDB&rsquo;s _changes API.</p>
+<p><strong>Kind</strong>: global typedef  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>couchOptions</td>
+<td><code>CouchOptions</code></td>
+<td>Couch options for changes</td>
+</tr>
+<tr>
+<td>options</td>
+<td><code>FetchChangesOptions</code></td>
+<td false="false" false_="false," includeFilePath:="includeFilePath:" skipDeleted:="skipDeleted:" skipTrashed:="skipTrashed:">Further options on the returned documents. By default, it is set to                                        </td>
+</tr>
+</tbody>
+</table>
+<p><strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>since</td>
+<td><code>string</code></td>
+<td>Bookmark telling CouchDB from which point in time should changes be returned</td>
+</tr>
+<tr>
+<td>limit</td>
+<td><code>number</code></td>
+<td>The maximum number of returned documents for one call</td>
+</tr>
+<tr>
+<td>includeDocs</td>
+<td><code>boolean</code></td>
+<td>Whether or not complete documents should be returned</td>
+</tr>
+<tr>
+<td>fields</td>
+<td><code>Array.&lt;string&gt;</code></td>
+<td>The list of fields that should be returned for each document</td>
+</tr>
+<tr>
+<td>includeFilePath</td>
+<td><code>boolean</code></td>
+<td>Whether to include the path of file changes (needs includeDocs to be true)</td>
+</tr>
+<tr>
+<td>skipDeleted</td>
+<td><code>boolean</code></td>
+<td>Whether to skip changes for deleted documents</td>
+</tr>
+<tr>
+<td>skipTrashed</td>
+<td><code>boolean</code></td>
+<td>Whether to skip changes for trashed documents (needs includeDocs to be true)</td>
+</tr>
+<tr>
+<td>newLastSeq</td>
+<td><code>string</code></td>
+<td></td>
+</tr>
+<tr>
+<td>pending</td>
+<td><code>boolean</code></td>
+<td></td>
+</tr>
+<tr>
+<td>documents</td>
+<td><code>Array.&lt;object&gt;</code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><a name="JobDocument"></a></p>
 <h2 id="jobdocument-object">JobDocument : <code>object</code><a class="headerlink" href="#jobdocument-object" title="Permanent link">&para;</a></h2>
 <p>Document representing a io.cozy.jobs</p>
 <p><strong>Kind</strong>: global typedef<br />
