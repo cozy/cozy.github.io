@@ -2425,6 +2425,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#clean-old-trashed-worker" title="clean-old-trashed worker" class="md-nav__link">
+    clean-old-trashed worker
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#share-workers" title="share workers" class="md-nav__link">
     share workers
   </a>
@@ -2946,6 +2953,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#clean-old-trashed-worker" title="clean-old-trashed worker" class="md-nav__link">
+    clean-old-trashed worker
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#share-workers" title="share workers" class="md-nav__link">
     share workers
   </a>
@@ -3309,6 +3323,10 @@ asynchronously. The behavior is not the same for all the VFS:</p>
   the file versions are deleted in CouchDB via the job, and the files and their
   versions are deleted in Swift via the job.</li>
 </ul>
+<h2 id="clean-old-trashed-worker">clean-old-trashed worker<a class="headerlink" href="#clean-old-trashed-worker" title="Permanent link">&para;</a></h2>
+<p>This worker is used to automatically delete files and directories that are in
+the trash for too long. The threshold for deletion is configurable per context
+in the config file, via the <code>fs.auto_clean_trashed_after</code> parameter.</p>
 <h2 id="share-workers">share workers<a class="headerlink" href="#share-workers" title="Permanent link">&para;</a></h2>
 <p>The stack have 3 workers to power the sharings (internal usage only):</p>
 <ol>

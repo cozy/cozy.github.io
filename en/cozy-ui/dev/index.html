@@ -2463,26 +2463,26 @@ is an example, running a jscodeshift codemod through the remark-jscodeshift plug
 <li>Screenshot the new one inside screenshots</li>
 <li>Run pixelmatch-server, which shows screenshots side by side like on Argos (you need the <code>pixelmatch</code> binary to be available)</li>
 </ul>
-<div class="codehilite"><pre><span></span># Screenshot all the components
+<div class="codehilite"><pre><span></span><span class="c1"># Screenshot all the components</span>
 yarn build:doc:react
-yarn screenshots&#39;
+yarn screenshots
 cp -r screenshots pristine_screenshots
 
-# yarn watch:doc:react
-# Make changes to BarButton...
+<span class="c1"># yarn watch:doc:react</span>
+<span class="c1"># Make changes to BarButton...</span>
 
-# Screenshot BarButton
-export COMPONENT=BarButton
-yarn screenshots --component $COMPONENT
+<span class="c1"># Screenshot BarButton</span>
+<span class="nb">export</span> <span class="nv">COMPONENT</span><span class="o">=</span>BarButton
+yarn screenshots --component <span class="nv">$COMPONENT</span>
 
-# Run pixel diff on a single component
-pixelmatch pristine_screenshots/$COMPONENT.png screenshots/$COMPONENT.png diff/$COMPONENT.png 0.1
+<span class="c1"># Run pixel diff on a single component</span>
+pixelmatch pristine_screenshots/<span class="nv">$COMPONENT</span>.png screenshots/<span class="nv">$COMPONENT</span>.png diff/<span class="nv">$COMPONENT</span>.png <span class="m">0</span>.1
 
-# Open pixelmatch server to check diffs
+<span class="c1"># Open pixelmatch server to check diffs</span>
 $ yarn screenshots:server
 
-# Enable hot reload
-$ livereload screenshots,pristine_screenshots,diffs -w 1000
+<span class="c1"># Enable hot reload</span>
+$ livereload screenshots,pristine_screenshots,diffs -w <span class="m">1000</span>
 </pre></div>
                 
                   

@@ -3260,7 +3260,7 @@ dry-run or not.</p>
 <h2 id="contexts">Contexts<a class="headerlink" href="#contexts" title="Permanent link">&para;</a></h2>
 <h3 id="get-instancescontexts">GET /instances/contexts<a class="headerlink" href="#get-instancescontexts" title="Permanent link">&para;</a></h3>
 <p>This endpoint returns the list of the contexts, with their name, config,
-registries, office server, and cloudery endpoints.</p>
+registries, office server, cloudery endpoints, and OIDC data.</p>
 <h4 id="request_5">Request<a class="headerlink" href="#request_5" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/instances/contexts</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 </pre></div>
@@ -3301,11 +3301,23 @@ registries, office server, and cloudery endpoints.</p>
       <span class="s2">&quot;https://apps-registry.cozycloud.cc/&quot;</span>
     <span class="p">],</span>
     <span class="nt">&quot;office&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;OnlyOfficeURL&quot;</span><span class="p">:</span> <span class="s2">&quot;https://documentserver.cozycloud.cc/&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;InboxSecret&quot;</span><span class="p">:</span> <span class="s2">&quot;inbox_secret&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;OutboxSecret&quot;</span><span class="p">:</span> <span class="s2">&quot;outbox_secret&quot;</span>
+      <span class="nt">&quot;OnlyOfficeURL&quot;</span><span class="p">:</span> <span class="s2">&quot;https://documentserver.cozycloud.cc/&quot;</span>
     <span class="p">},</span>
-    <span class="nt">&quot;cloudery_endpoint&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
+    <span class="nt">&quot;cloudery_endpoint&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;oidc&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;allow_oauth_token&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="nt">&quot;authorize_url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://identity-prodiver/path/to/authorize&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;client_id&quot;</span><span class="p">:</span> <span class="s2">&quot;aClientID&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;id_token_jwk_url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://identity-prodiver/path/to/jwk&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;login_domain&quot;</span><span class="p">:</span> <span class="s2">&quot;login.mycozy.cloud&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;redirect_uri&quot;</span><span class="p">:</span> <span class="s2">&quot;https://oauthcallback.mycozy.cloud/oidc/redirect&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;scope&quot;</span><span class="p">:</span> <span class="s2">&quot;openid profile&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;token_url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://identity-prodiver/path/to/token&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;userinfo_instance_field&quot;</span><span class="p">:</span> <span class="s2">&quot;cozy_number&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;userinfo_instance_prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;userinfo_instance_suffix&quot;</span><span class="p">:</span> <span class="s2">&quot;.mycozy.cloud&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;userinfo_url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://identity-prodiver/path/to/userinfo&quot;</span>
+    <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">]</span>
 </pre></div>

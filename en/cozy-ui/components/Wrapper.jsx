@@ -63,8 +63,8 @@ export default ({ children }) => {
         </Paper>
       </CozyTheme>
       {isUsingDevStyleguidist() &&
-        otherThemes.map(otherTheme => (
-          <>
+        otherThemes.map((otherTheme, i) => (
+          <React.Fragment key={i}>
             <Divider />
             <CozyTheme key={otherTheme} variant={otherTheme}>
               <Paper elevation={0} square style={paperStyle(otherTheme)}>
@@ -72,7 +72,7 @@ export default ({ children }) => {
                 {children}
               </Paper>
             </CozyTheme>
-          </>
+          </React.Fragment>
         ))}
     </CozyTheme>
   )

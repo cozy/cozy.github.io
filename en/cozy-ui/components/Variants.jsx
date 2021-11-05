@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+
 import Typography from '../../react/Typography'
+import Checkbox from '../../react/Checkbox'
+import Paper from '../../react/Paper'
 
 /**
  * Useful for components for which there are variants, this component
@@ -12,31 +15,30 @@ import Typography from '../../react/Typography'
  * @param  {Object.<string, boolean>} options.variant - Which features are activated in the variant
  * @param  {Function} options.onChange - Called with the updated variant when a checkbox is clicked
  */
-const VariantInfo = ({ variant, onChange }) => {
+const VariantSelector = ({ variant, onChange }) => {
   const setElement = (element, newValue) => {
     const newVariant = { ...variant, [element]: newValue }
     onChange(newVariant)
   }
+
   return (
-    <div className="u-m-1">
+    <Paper className="u-p-1 u-mb-1" elevation={1} square>
+      <Typography className="u-mb-1" variant="h5">
+        Variant selector
+      </Typography>
       {Object.entries(variant).map(([element, value], i) => (
-        <React.Fragment key={i}>
-          <Typography component="div" variant="button" className="u-db">
-            {element}
-            <input
-              onClick={() => setElement(element, !value)}
-              className="u-ml-1 u-mr-1"
-              type="checkbox"
-              checked={value}
-            />
-          </Typography>{' '}
-        </React.Fragment>
+        <Checkbox
+          key={i}
+          label={element.toUpperCase()}
+          checked={value}
+          onChange={() => setElement(element, !value)}
+        />
       ))}
-    </div>
+    </Paper>
   )
 }
 
-VariantInfo.propTypes = {
+VariantSelector.propTypes = {
   /** Called with the updated variant when a checkbox is clicked */
   onChange: PropTypes.func.isRequired,
   /** @type {Object.<string, boolean>} Which features are activated in the variant */
@@ -58,7 +60,7 @@ const Variants = ({ initialVariants, children }) => {
     <>
       {variants.map((variant, i) => (
         <React.Fragment key={i}>
-          <VariantInfo
+          <VariantSelector
             variant={variant}
             onChange={variant => onChangeVariant(variant, i)}
           />
