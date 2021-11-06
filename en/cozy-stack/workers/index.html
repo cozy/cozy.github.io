@@ -2246,12 +2246,38 @@
     konnector worker
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#job-arguments" title="Job arguments" class="md-nav__link">
+    Job arguments
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
   <a href="#service-worker" title="service worker" class="md-nav__link">
     service worker
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#job-arguments_1" title="Job arguments" class="md-nav__link">
+    Job arguments
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2774,12 +2800,38 @@
     konnector worker
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#job-arguments" title="Job arguments" class="md-nav__link">
+    Job arguments
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
   <a href="#service-worker" title="service worker" class="md-nav__link">
     service worker
   </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#job-arguments_1" title="Job arguments" class="md-nav__link">
+    Job arguments
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -3074,9 +3126,27 @@ from the image files of a cozy instance.</p>
 <p>The <code>konnector</code> worker is used to execute JS code that collects files and data
 from external providers, and put them in the Cozy. Its execution is detailed on
 <a href="https://docs.cozy.io/en/cozy-stack/konnectors-workflow/#konnector-worker-specs">the Konnector Worker specs</a>.</p>
+<h3 id="job-arguments">Job arguments<a class="headerlink" href="#job-arguments" title="Permanent link">&para;</a></h3>
+<p>To execute a konnector through a job, the expected <code>arguments</code> are the following:</p>
+<div class="codehilite"><pre><span></span>&quot;arguments&quot;: {
+    &quot;konnector&quot;: &lt;konnector_slug&gt;,
+    &quot;account&quot;: &lt;account_id&gt;
+}
+</pre></div>
+
+
 <h2 id="service-worker">service worker<a class="headerlink" href="#service-worker" title="Permanent link">&para;</a></h2>
 <p>The <code>service</code> worker is used to process background jobs, generally to compute
 non-realtime user data.</p>
+<h3 id="job-arguments_1">Job arguments<a class="headerlink" href="#job-arguments_1" title="Permanent link">&para;</a></h3>
+<p>To execute a service through a job, the expected <code>arguments</code> are the following:</p>
+<div class="codehilite"><pre><span></span>&quot;arguments&quot;: {
+    &quot;name&quot;: &lt;service_name&gt;,
+    &quot;slug&quot;: &lt;application_slug&gt;
+}
+</pre></div>
+
+
 <h2 id="push-worker">push worker<a class="headerlink" href="#push-worker" title="Permanent link">&para;</a></h2>
 <p>The <code>push</code> worker can be used to send push-notifications to a user&rsquo;s device. The
 options are:</p>
