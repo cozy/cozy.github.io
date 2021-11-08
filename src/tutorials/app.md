@@ -58,11 +58,13 @@ The script will download some dependencies (may take a while) and ask you a few 
   <img src="../../img/dev/cca-create.gif" />
 </div>
 
-You'll also need a running `cozy-stack` server as a backend server. You can use the docker image you downloaded earlier.
+You'll also need a running `cozy-stack` server as a backend server. You can use the docker image you downloaded earlier. 
+
+Note: We disable CSP since we're using a wepback-dev-server by defaut to get HMR that runs on `localhost` and not on `cozy.localhost`. This should not be used in production ! Please check the behavior of your application once you built it on production mode and have enabled CSP back.  
 
 ```bash
 touch ~/cozy.yaml # You can edit this file to configure the stack
-docker run -ti --rm -p 8080:8080 -p 5984:5984 -p 8025:8025 -v $(pwd)/mycozyapp/build:/data/cozy-app/mycozyapp -v ~/cozy.yaml:/etc/cozy/cozy.yaml cozy/cozy-app-dev
+docker run -ti --rm -p 8080:8080 -p 5984:5984 -p 8025:8025 -e COZY_DISABLE_CSP=1 -v $(pwd)/mycozyapp/build:/data/cozy-app/mycozyapp -v ~/cozy.yaml:/etc/cozy/cozy.yaml cozy/cozy-app-dev
 ```
 
 Alternatively, you can build `cozy-stack` locally. You can follow the install instructions [here](https://docs.cozy.io/en/cozy-stack/INSTALL/).
