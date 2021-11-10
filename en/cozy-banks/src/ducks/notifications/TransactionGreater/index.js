@@ -5,14 +5,11 @@ import overEvery from 'lodash/overEvery'
 import merge from 'lodash/merge'
 import groupBy from 'lodash/groupBy'
 import fromPairs from 'lodash/fromPairs'
-import sortBy from 'lodash/sortBy'
 
 import log from 'cozy-logger'
-import { toText } from 'cozy-notifications'
 
 import NotificationView from 'ducks/notifications/BaseNotificationView'
 import { getDate, isNew as isNewTransaction } from 'ducks/transactions/helpers'
-import { getAccountLabel } from 'ducks/account/helpers'
 import { isTransactionAmountGreaterThan } from 'ducks/notifications/helpers'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 import {
@@ -23,12 +20,9 @@ import {
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 
 import template from './template.hbs'
+import { customToText, formatTransaction } from './utils'
 
 const getDocumentId = x => x._id
-
-const ACCOUNT_SEL = '.js-account'
-const DATE_SEL = '.js-date'
-const TRANSACTION_SEL = '.js-transaction'
 
 const SINGLE_TRANSACTION = 'single'
 const MULTI_TRANSACTION = 'multi'
@@ -50,39 +44,6 @@ const MULTI_TRANSACTION_MULTI_RULES = 'multi-rules'
 // is why we deactivate the isNewTransaction during tests
 const isNewTransactionOutsideTests =
   process.env.IS_TESTING === 'test' ? () => true : isNewTransaction
-
-const customToText = cozyHTMLEmail => {
-  const getTextTransactionRow = $row =>
-    $row
-      .find('td')
-      .map((i, td) =>
-        $row
-          .find(td)
-          .text()
-          .trim()
-      )
-      .toArray()
-      .join(' ')
-      .replace(/\n/g, '')
-      .replace(' €', '€')
-      .trim()
-
-  const getContent = $ =>
-    $([ACCOUNT_SEL, DATE_SEL, TRANSACTION_SEL].join(', '))
-      .toArray()
-      .map(node => {
-        const $node = $(node)
-        if ($node.is(ACCOUNT_SEL)) {
-          return '\n\n### ' + $node.text()
-        } else if ($node.is(DATE_SEL)) {
-          return '\n' + $node.text() + '\n'
-        } else if ($node.is(TRANSACTION_SEL)) {
-          return '- ' + getTextTransactionRow($node)
-        }
-      })
-      .join('\n')
-  return toText(cozyHTMLEmail, getContent)
-}
 
 const isTransactionFromAccount = account => transaction =>
   transaction.account === account._id
@@ -255,34 +216,18 @@ class TransactionGreater extends NotificationView {
   }
 
   getPushContent(templateData) {
-    const notificationSubtype = this.getNotificationSubtype(templateData)
+    const { transactions } = templateData
 
-    const accountsById = templateData.accounts
-    const transactions = templateData.transactions
-    const [transaction] = sortBy(transactions, getDate).reverse()
+    const pushContent =
+      transactions.length > 3
+        ? transactions
+            .slice(0, 3)
+            .map(formatTransaction)
+            .join('\n')
+            .concat('...')
+        : transactions.map(formatTransaction).join('\n')
 
-    if (notificationSubtype === SINGLE_TRANSACTION) {
-      return `${transaction.label} : ${formatAmount(
-        transaction.amount
-      )}${getCurrencySymbol(transaction.currency)}`
-    } else {
-      const transactionGroupedByAccount = groupBy(transactions, x => x.account)
-      const groups = Object.entries(transactionGroupedByAccount).map(
-        ([accountId, transactions]) => ({
-          account: accountsById[accountId],
-          transactions
-        })
-      )
-      return groups
-        .map(
-          g =>
-            `${getAccountLabel(g.account)}: ${this.t(
-              'Notifications.if-transaction-greater.notification.content-transaction-mention',
-              { smart_count: g.transactions.length }
-            )}`
-        )
-        .join('\n')
-    }
+    return pushContent
   }
 }
 

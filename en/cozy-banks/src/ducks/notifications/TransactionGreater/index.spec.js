@@ -2,11 +2,13 @@ import CozyClient from 'cozy-client'
 import TransactionGreater from './index'
 import { prepareTransactionForTest } from './testUtils'
 import fixtures from 'test/fixtures/unit-tests.json'
+import fixturesTransactionGreater from 'test/fixtures/transaction-greater-fixtures.json'
 import MockDate from 'mockdate'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import maxBy from 'lodash/maxBy'
 import minBy from 'lodash/minBy'
 import frLocale from 'locales/fr.json'
+import { formatTransaction, MAX_CHAR_BY_LINE } from './utils'
 
 const unique = arr => Array.from(new Set(arr))
 
@@ -194,29 +196,97 @@ describe('transaction greater', () => {
   })
 
   describe('getPushContent', () => {
-    it('should have the right content with one transaction', async () => {
-      const { notification } = setup({
-        transactions: [
-          fixtures['io.cozy.bank.operations'].filter(t => t.amount > 10)[0]
-        ]
-      })
-      const data = await notification.buildData()
-      const title = notification.getTitle(data)
-      const pushContent = notification.getPushContent(data)
+    describe('one transaction matching', () => {
+      const operations = fixturesTransactionGreater['io.cozy.bank.operations']
+      const maxDate = operations.map(x => x.date).sort()[0]
+      MockDate.set(maxDate)
 
-      expect(title).toBe('Versement de 3870.54€')
-      expect(pushContent).toBe('SALAIRE : 3870.54€')
+      it('should have the right content with edf (small label)', async () => {
+        const op = operations.find(o => o._id === 'edf')
+        const { notification } = setup({ transactions: [op] })
+
+        const data = await notification.buildData()
+        const title = notification.getTitle(data)
+        const pushContent = notification.getPushContent(data)
+
+        const expectPushContent = 'Edf Particuliers : 77,5€'
+
+        expect(title).toBe('Versement de 77.50€')
+        expect(pushContent.length).toBeLessThanOrEqual(MAX_CHAR_BY_LINE)
+        expect(pushContent).toBe(expectPushContent)
+      })
+
+      it('should have the right content with long label', async () => {
+        const op = operations.find(o => o._id === 'salaireseptembre')
+        const { notification } = setup({ transactions: [op] })
+
+        const data = await notification.buildData()
+        const title = notification.getTitle(data)
+        const pushContent = notification.getPushContent(data)
+
+        const expectPushContent =
+          'Salaire Du Mois De Septembre 2021 (01/0 : 1234,56€'
+
+        expect(title).toBe('Versement de 1234.56€')
+        expect(pushContent.length).toBe(MAX_CHAR_BY_LINE)
+        expect(pushContent).toBe(expectPushContent)
+      })
     })
 
-    it('should have the right content with multiple transactions', async () => {
-      const { notification } = setup()
-      const data = await notification.buildData()
-      const title = notification.getTitle(data)
-      const pushContent = notification.getPushContent(data)
+    describe('multiple transactions matching', () => {
+      const operations = fixturesTransactionGreater['io.cozy.bank.operations']
 
-      expect(title).toBe('116 mouvements de plus de 10€')
-      expect(pushContent).toBe(
-        'Compte courant Isabelle: 63 mouvements\nLivret A Isabelle: 3 mouvements\nCompte jeune Louise: 10 mouvements\nCompte courant Claude: 9 mouvements\nCompte courant Genevieve: 31 mouvements'
+      it('should have the right content with 3 transactions', async () => {
+        const ops = operations.filter(({ amount }) => amount > 1000)
+        const { notification } = setup({
+          transactions: ops,
+          value: 1000
+        })
+
+        const data = await notification.buildData()
+        const title = notification.getTitle(data)
+        const pushContent = notification.getPushContent(data)
+
+        const expectPushContent =
+          'Salaire Du Mois De Septembre 2021 (01/0 : 1234,56€\nSalaire Du Mois De Octobre 2021 (01/10/ : 1234,56€\nSalaire Du Mois De Novembre 2021 (01/11 : 2000,12€'
+
+        expect(title).toBe('3 mouvements de plus de 1000€')
+        expect(pushContent).toBe(expectPushContent)
+        expect(pushContent).toBe(expectPushContent)
+      })
+
+      it('should have the right content with 4 transactions', async () => {
+        const ops = operations.filter(({ amount }) => amount > 900)
+        const { notification } = setup({
+          transactions: ops,
+          value: 900
+        })
+
+        const data = await notification.buildData()
+        const title = notification.getTitle(data)
+        const pushContent = notification.getPushContent(data)
+
+        const expectPushContent =
+          'Salaire Du Mois De Septembre 2021 (01/0 : 1234,56€\nSalaire Du Mois De Octobre 2021 (01/10/ : 1234,56€\nSalaire Du Mois De Novembre 2021 (01/11 : 2000,12€...'
+
+        expect(title).toBe('4 mouvements de plus de 900€')
+        expect(pushContent).toBe(expectPushContent)
+      })
+    })
+
+    describe('Format transaction', () => {
+      const operations = fixturesTransactionGreater['io.cozy.bank.operations']
+      const opEdf = operations.find(o => o._id === 'edf')
+      const opSalaire = operations.find(o => o._id === 'salaireseptembre')
+
+      const transactionEdf = formatTransaction(opEdf)
+      expect(transactionEdf.length).toBeLessThanOrEqual(MAX_CHAR_BY_LINE)
+      expect(transactionEdf).toEqual('Edf Particuliers : 77,5€')
+
+      const transactionSalaire = formatTransaction(opSalaire)
+      expect(transactionSalaire.length).toBe(MAX_CHAR_BY_LINE)
+      expect(transactionSalaire).toEqual(
+        'Salaire Du Mois De Septembre 2021 (01/0 : 1234,56€'
       )
     })
   })

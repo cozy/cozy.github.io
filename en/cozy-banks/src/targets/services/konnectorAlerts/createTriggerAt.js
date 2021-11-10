@@ -43,10 +43,14 @@ export const createScheduledTrigger = async client => {
       `⌛ Try to create @at triggers for konnectorTriggerId: ${id}...`
     )
 
-    const isLastFailureAlreadyNotified =
-      triggerStates?.shouldNotify?.reason === 'last-failure-already-notified'
+    if (triggerStates?.status !== 'errored') {
+      logger('info', `⚠️  Not created: this konnector trigger isn't in error`)
+      continue
+    }
 
-    if (!isLastFailureAlreadyNotified) {
+    if (
+      triggerStates?.shouldNotify?.reason !== 'last-failure-already-notified'
+    ) {
       logger(
         'info',
         `⚠️  Not created: this konnector trigger doesn't match last-failure-already-notified condition`
