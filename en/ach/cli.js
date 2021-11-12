@@ -106,12 +106,12 @@ Type "yes" if ok.
 }
 
 const handleExportCommand = async args => {
-  let { doctypes, filename, url, token } = args
+  let { doctypes, filename, url, token, limit } = args
   doctypes = doctypes.split(',') // should be done with type
   token = token || autotoken(url, doctypes)
   const ach = new ACH(token, url, doctypes)
   await ach.connect()
-  await ach.export(doctypes, filename)
+  await ach.export(doctypes, filename, limit)
 }
 
 const handleUpdateSettingsCommand = async args => {
@@ -324,16 +324,22 @@ program
 
 program
   .command('export <doctypes> [filename]')
+  .option(
+    '-l, --limit <n>',
+    'Set a limit to the number of exported docs for each doctype',
+    x => parseInt(x, 10)
+  )
   .description(
     'Exports data from the doctypes (separated by commas) to filename'
   )
   .action(
-    handleErrors(async function(doctypes, filename) {
+    handleErrors(async function(doctypes, filename, options) {
       await handleExportCommand({
         url: program.url,
         token: program.token,
         doctypes,
-        filename
+        filename,
+        ...options
       })
     })
   )

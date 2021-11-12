@@ -14,11 +14,15 @@ const stripMeta = function(obj) {
   return _.omit(obj, omitted)
 }
 
-const fetchAll = async (cozyClient, doctype) => {
+const fetchAll = async (cozyClient, doctype, limit) => {
   try {
+    let options = `include_docs=true`
+    if (limit) {
+      options += `&limit=${limit}`
+    }
     const result = await cozyClient.stackClient.fetchJSON(
       'GET',
-      `/data/${doctype}/_all_docs?include_docs=true`
+      `/data/${doctype}/_all_docs?${options}`
     )
     return result.rows
       .filter(x => x.id.indexOf('_design') !== 0)
@@ -32,11 +36,11 @@ const fetchAll = async (cozyClient, doctype) => {
   }
 }
 
-module.exports = (cozyClient, doctypes, filename) => {
+module.exports = (cozyClient, doctypes, filename, limit) => {
   log.debug('Exporting data...')
 
   const allExports = doctypes.map(doctype => {
-    return fetchAll(cozyClient, doctype)
+    return fetchAll(cozyClient, doctype, limit)
       .then(docs => {
         log.success('Exported documents for ' + doctype + ' : ' + docs.length)
         return docs
