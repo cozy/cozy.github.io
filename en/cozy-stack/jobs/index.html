@@ -3760,6 +3760,7 @@ scheduled. See below for more informations.</p>
 <h3 id="at-syntax"><code>@at</code> syntax<a class="headerlink" href="#at-syntax" title="Permanent link">&para;</a></h3>
 <p>The <code>@at</code> trigger takes a ISO-8601 formatted string indicating a UTC time in the
 future. The date is of this form: <code>YYYY-MM-DDTHH:mm:ss.sssZ</code></p>
+<p>:warning: Be aware that the <code>@at</code> trigger is removed from the doctype after it has created the associated job.</p>
 <p>Examples</p>
 <div class="codehilite"><pre><span></span>@at 2018-12-12T15:36:25.507Z
 </pre></div>
@@ -4528,7 +4529,7 @@ and you&rsquo;ll need to query <code>/jobs/triggers/:trigger-id</code> to have i
       <span class="nt">&quot;debounce&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
       <span class="nt">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;xxx.mycozy.cloud&quot;</span><span class="p">,</span>
       <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;konnector&quot;</span><span class="p">:</span> <span class="s2">&quot;slug&quot;</span><span class="p">,</span> 
+        <span class="nt">&quot;konnector&quot;</span><span class="p">:</span> <span class="s2">&quot;slug&quot;</span><span class="p">,</span>
         <span class="nt">&quot;account&quot;</span><span class="p">:</span> <span class="s2">&quot;XXX&quot;</span>
       <span class="p">},</span>
       <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
