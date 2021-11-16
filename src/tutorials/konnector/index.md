@@ -8,7 +8,7 @@ To protect your data, each connector runs inside a container in order to sandbox
 What will you need to start ?
 
 - [Node](https://nodejs.org/en/) (16), follow the link to [nodejs](https://nodejs.org/en/docs/) doc for proper installation. When it's done, you can check your version with `node --version` in your shell.
-- [Yarn](https://yarnpkg.com/), again follow the [Yarn doc](https://yarnpkg.com/getting-started) for proper install. Check the version with `yarn --version` in your shell.
+- [Yarn](https://classic.yarnpkg.com/lang/en/), again follow the [Yarn doc](https://classic.yarnpkg.com/en/docs/getting-started) for proper install. Check the version with `yarn --version` in your shell.
 
 In this tutorial you will learn how to:
 
