@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import PropTypes from 'prop-types'
 
 import Typography from '../../react/Typography'
 import Checkbox from '../../react/Checkbox'
 import Paper from '../../react/Paper'
+import isTesting from '../../react/helpers/isTesting'
 
 /**
  * Useful for components for which there are variants, this component
@@ -37,7 +38,6 @@ const VariantSelector = ({ variant, onChange }) => {
     </Paper>
   )
 }
-
 VariantSelector.propTypes = {
   /** Called with the updated variant when a checkbox is clicked */
   onChange: PropTypes.func.isRequired,
@@ -45,7 +45,32 @@ VariantSelector.propTypes = {
   variant: PropTypes.object.isRequired
 }
 
-const Variants = ({ initialVariants, children }) => {
+/**
+ * Create an array of all possible variants. Expl for {foo: true, bar: false}
+ * [{ foo: true, bar: true }, { foo: false, bar: true }, { foo: false, bar: false }, { foo: true, bar: false }]
+ *
+ * @param {Object.<string, boolean>} initialVariants - Which features are activated by default
+ * @returns {array} All possible combinations of variants
+ */
+const makeAllPossibleVariants = initialVariants => {
+  let allPossibleVariants = [{}]
+
+  const variantsProps = Object.keys(initialVariants[0])
+
+  variantsProps.map(variantProp => {
+    const constructArr = []
+    allPossibleVariants.map(variant => {
+      constructArr.push({ ...variant, [variantProp]: true })
+      constructArr.push({ ...variant, [variantProp]: false })
+    })
+
+    allPossibleVariants = constructArr
+  })
+
+  return allPossibleVariants
+}
+
+const Variants = ({ initialVariants, screenshotAllVariants, children }) => {
   const [variants, setVariants] = useState(initialVariants)
 
   const onChangeVariant = (updatedVariant, i) => {
@@ -56,14 +81,27 @@ const Variants = ({ initialVariants, children }) => {
     ])
   }
 
+  const computedVariants = useMemo(() => {
+    const allPossibleVariants = makeAllPossibleVariants(initialVariants)
+    return isTesting() &&
+      screenshotAllVariants &&
+      allPossibleVariants.length <= 256 // protection to not overload Argos
+      ? allPossibleVariants
+      : variants
+  }, [variants, initialVariants, screenshotAllVariants])
+
+  const hideVariantSelector = isTesting() && Boolean(screenshotAllVariants)
+
   return (
     <>
-      {variants.map((variant, i) => (
+      {computedVariants.map((variant, i) => (
         <React.Fragment key={i}>
-          <VariantSelector
-            variant={variant}
-            onChange={variant => onChangeVariant(variant, i)}
-          />
+          {!hideVariantSelector && (
+            <VariantSelector
+              variant={variant}
+              onChange={variant => onChangeVariant(variant, i)}
+            />
+          )}
           {children(variant)}
         </React.Fragment>
       ))}
