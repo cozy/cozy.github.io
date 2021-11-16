@@ -5,6 +5,12 @@ To protect your data, each connector runs inside a container in order to sandbox
 
 > ⚠️ For historical reasons, in the Cozy codebase, a cozy connector is named konnector, please follow this convention if modifying an existing application.
 
+What will you need to start ?
+
+- Node 16, you can check your version with `node --version` in your shell.
+- Yarn, you can check the version with `yarn --version` in your shell.
+- [ACH](https://docs.cozy.io/en/ach/)
+
 In this tutorial you will learn how to:
 
 - [Create the basic structure for your connector](./getting-started.md)
