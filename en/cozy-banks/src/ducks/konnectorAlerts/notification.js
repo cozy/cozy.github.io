@@ -3,7 +3,7 @@ import merge from 'lodash/merge'
 import flag from 'cozy-flags'
 
 import NotificationView from 'ducks/notifications/BaseNotificationView'
-import { getCurrentDate } from 'ducks/notifications/utils'
+import { getCurrentDate } from 'ducks/notifications/helpers'
 
 import template from 'ducks/konnectorAlerts/template.hbs'
 import logger from 'ducks/konnectorAlerts/logger'
@@ -17,17 +17,17 @@ import {
 } from 'cozy-harvest-lib/dist/helpers/konnectors'
 
 /**
- * Returns the next date time at 8ish
+ * Returns the next date time at 6ish
  *
- * If now is earlier than 8AM, return today at 8, otherwise
- * tomorrow at 8.
+ * If now is earlier than 6AM, return today at 6, otherwise
+ * tomorrow at 6.
  *
  * A bit of fuzziness is added so that every notification is not sent
  * exactly at the same time, to reduce the spike on the servers.
  */
 export const getScheduleDate = currentDate => {
   let date = currentDate || new Date()
-  let hours = 8
+  let hours = 6
   let minutes = Math.round(15 * Math.random())
 
   if (

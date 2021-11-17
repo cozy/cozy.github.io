@@ -1,18 +1,20 @@
-import NotificationView from 'ducks/notifications/BaseNotificationView'
-import { isHealthExpense } from 'ducks/categories/helpers'
-import { Bill } from 'models'
 import keyBy from 'lodash/keyBy'
 import merge from 'lodash/merge'
 
 import log from 'cozy-logger'
+import { toText } from 'cozy-notifications'
+
+import { Bill } from 'models'
 import {
   treatedByFormat,
   prepareTransactions,
-  getCurrentDate
-} from 'ducks/notifications/utils'
-import { getReimbursementBillIds } from 'ducks/notifications/helpers'
+  getCurrentDate,
+  getReimbursementBillIds,
+  makeAtAttributes
+} from 'ducks/notifications/helpers'
 import template from './template.hbs'
-import { toText } from 'cozy-notifications'
+import NotificationView from 'ducks/notifications/BaseNotificationView'
+import { isHealthExpense } from 'ducks/categories/helpers'
 
 const ACCOUNT_SEL = '.js-account'
 const DATE_SEL = '.js-date'
@@ -97,7 +99,8 @@ class HealthBillLinked extends NotificationView {
     return merge(super.getExtraAttributes(), {
       data: {
         route: '/transactions'
-      }
+      },
+      at: makeAtAttributes('HealthBillLinked')
     })
   }
 

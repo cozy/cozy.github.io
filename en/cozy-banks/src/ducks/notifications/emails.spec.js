@@ -1,12 +1,9 @@
 /* CLI used in development to generate emails from template and data */
 
-jest.mock('./utils', () => {
-  const originalUtils = jest.requireActual('./utils')
-  return {
-    ...originalUtils,
-    getCurrentDate: () => new Date('05-07-2019')
-  }
-})
+jest.mock('./helpers', () => ({
+  ...jest.requireActual('./helpers'),
+  getCurrentDate: () => new Date('05-07-2019')
+}))
 
 const { EMAILS, buildNotificationAttributes } = require('./common-test')
 

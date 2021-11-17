@@ -1,15 +1,21 @@
-import NotificationView from 'ducks/notifications/BaseNotificationView'
 import flatten from 'lodash/flatten'
 import uniqBy from 'lodash/uniqBy'
 import groupBy from 'lodash/groupBy'
 import map from 'lodash/map'
 import merge from 'lodash/merge'
+
 import log from 'cozy-logger'
+import { toText } from 'cozy-notifications'
+
+import NotificationView from 'ducks/notifications/BaseNotificationView'
 import { getAccountBalance } from 'ducks/account/helpers'
 import { getCurrencySymbol } from 'utils/currencySymbol'
-import { getCurrentDate, formatAmount } from 'ducks/notifications/utils'
+import {
+  getCurrentDate,
+  formatAmount,
+  makeAtAttributes
+} from 'ducks/notifications/helpers'
 import template from './template.hbs'
-import { toText } from 'cozy-notifications'
 import { ruleAccountFilter } from 'ducks/settings/ruleUtils'
 
 const addCurrency = o => ({ ...o, currency: '€' })
@@ -124,7 +130,8 @@ class BalanceLower extends NotificationView {
     return merge(super.getExtraAttributes(), {
       data: {
         route: '/balances'
-      }
+      },
+      at: makeAtAttributes('BalanceLower')
     })
   }
 

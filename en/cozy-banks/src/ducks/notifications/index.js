@@ -4,10 +4,11 @@
 
 import Handlebars from 'handlebars'
 import { parse, format } from 'date-fns'
+
 import { getCategoryId } from 'ducks/transactions/helpers'
 import { getAccountBalance } from 'ducks/account/helpers'
 import { getParentCategory } from 'ducks/categories/categoriesMap'
-import { treatedByFormat } from './utils'
+import { treatedByFormat } from 'ducks/notifications/helpers'
 
 const capitalizeWord = str => {
   if (str.length > 3) {

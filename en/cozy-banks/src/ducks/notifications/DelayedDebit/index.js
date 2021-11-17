@@ -1,22 +1,26 @@
-import NotificationView from '../BaseNotificationView'
-import logger from 'cozy-logger'
 import map from 'lodash/map'
 import groupBy from 'lodash/groupBy'
 import keyBy from 'lodash/keyBy'
 import merge from 'lodash/merge'
+import { endOfMonth, subDays, isWithinRange } from 'date-fns'
+
+import { toText } from 'cozy-notifications'
+import logger from 'cozy-logger'
+import { BankAccount } from 'cozy-doctypes'
 
 import {
   getAccountBalance,
   getAccountType,
   getAccountLabel
 } from 'ducks/account/helpers'
-import { endOfMonth, subDays, isWithinRange } from 'date-fns'
-import { BankAccount } from 'cozy-doctypes'
-import { getAccountNewBalance } from 'ducks/notifications/helpers'
-import { formatAmount } from 'ducks/notifications/utils'
-import { getCurrentDate } from 'ducks/notifications/utils'
+import {
+  getAccountNewBalance,
+  formatAmount,
+  getCurrentDate,
+  makeAtAttributes
+} from 'ducks/notifications/helpers'
 import template from './template.hbs'
-import { toText } from 'cozy-notifications'
+import NotificationView from '../BaseNotificationView'
 
 const getDocumentId = x => x._id
 
@@ -141,7 +145,8 @@ class DelayedDebit extends NotificationView {
     return merge(super.getExtraAttributes(), {
       data: {
         route: '/balances'
-      }
+      },
+      at: makeAtAttributes('DalayedDebit')
     })
   }
 

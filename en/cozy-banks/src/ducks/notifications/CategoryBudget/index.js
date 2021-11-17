@@ -7,7 +7,11 @@ import { Q } from 'cozy-client'
 
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import NotificationView from 'ducks/notifications/BaseNotificationView'
-import { formatAmount, getCurrentDate } from 'ducks/notifications/utils'
+import {
+  formatAmount,
+  getCurrentDate,
+  makeAtAttributes
+} from 'ducks/notifications/helpers'
 import { getCategoryName } from 'ducks/categories/categoriesMap'
 import { getGroupLabel } from 'ducks/groups/helpers'
 import { getAccountLabel } from 'ducks/account/helpers'
@@ -158,7 +162,8 @@ class CategoryBudget extends NotificationView {
     return merge(super.getExtraAttributes(), {
       data: {
         route: '/analysis/categories'
-      }
+      },
+      at: makeAtAttributes('CategoryBudget')
     })
   }
 }

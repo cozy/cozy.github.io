@@ -1,19 +1,25 @@
-import NotificationView from '../BaseNotificationView'
-import { isHealthExpense } from 'ducks/categories/helpers'
 import uniq from 'lodash/uniq'
 import keyBy from 'lodash/keyBy'
 import logger from 'cozy-logger'
+import { subDays, subMonths, format as formatDate } from 'date-fns'
+
 import { BankTransaction, BankAccount } from 'cozy-doctypes'
+import { toText } from 'cozy-notifications'
+
+import { Bill } from 'models'
+import NotificationView from '../BaseNotificationView'
+import { isHealthExpense } from 'ducks/categories/helpers'
 import {
   isReimbursementLate,
   isAlreadyNotified
 } from 'ducks/transactions/helpers'
-import { subDays, subMonths, format as formatDate } from 'date-fns'
-import { Bill } from 'models'
-import { getReimbursementBillId, getReimbursementBillIds } from '../helpers'
 import templateRaw from './template.hbs'
-import { prepareTransactions, getCurrentDate } from 'ducks/notifications/utils'
-import { toText } from 'cozy-notifications'
+import {
+  prepareTransactions,
+  getCurrentDate,
+  getReimbursementBillId,
+  getReimbursementBillIds
+} from 'ducks/notifications/helpers'
 
 const log = logger.namespace('lateHealthReimbursement')
 
