@@ -234,9 +234,6 @@ export const buildOthersReimbursementsVirtualAccount = buildReimbursementsVirtua
 )
 
 export const buildVirtualAccounts = transactions => {
-  if (transactions.length === 0) {
-    return []
-  }
   return [
     buildHealthReimbursementsVirtualAccount(transactions),
     buildProfessionalReimbursementsVirtualAccount(transactions),

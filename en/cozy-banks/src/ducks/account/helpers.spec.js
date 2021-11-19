@@ -236,10 +236,10 @@ describe('buildVirtualAccounts', () => {
     expect(othersExpenseAccount).toBeDefined()
   })
 
-  it('should not build virtual accounts if there are no transactions', () => {
+  it('should build virtual accounts even if there are no transactions', () => {
     flag.mockReturnValue(true)
     const virtualAccounts = buildVirtualAccounts([])
-    expect(virtualAccounts.length).toBe(0)
+    expect(virtualAccounts.length).toBe(3)
   })
 })
 

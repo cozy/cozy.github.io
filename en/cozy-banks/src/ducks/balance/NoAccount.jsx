@@ -23,7 +23,7 @@ export const NoAccount = ({ buttonTheme, children }) => {
   const contentProps = isMobile ? { center: true } : { bottom: true }
   return (
     <CozyTheme variant="inverted">
-      <PageTitle>{t('Balance.title')}</PageTitle>
+      {isMobile && <PageTitle>{t('Balance.title')}</PageTitle>}
       <Container className={styles.NoAccount}>
         <BarTheme theme="primary" />
         <Content {...contentProps}>
