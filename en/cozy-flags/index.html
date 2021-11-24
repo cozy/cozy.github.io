@@ -2517,10 +2517,11 @@ See <a href="https://docs.cozy.io/en/cozy-stack/settings/#get-settingsflags">the
 
 <p>The <code>FlagSwitcher</code> shows all flags in use and displays all
 flags in use.</p>
-<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">flag</span><span class="p">,</span> <span class="p">{</span> <span class="nx">FlagSwitcher</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-flags&#39;</span>
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">flag</span> <span class="nx">from</span> <span class="s1">&#39;cozy-flags&#39;</span>
+<span class="kr">import</span> <span class="nx">FlagSwitcher</span> <span class="nx">from</span> <span class="s1">&#39;cozy-flags/dist/FlagSwitcher&#39;</span>
 
 <span class="k">if</span> <span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span> <span class="o">!==</span> <span class="s1">&#39;production&#39;</span>
-    <span class="o">&amp;&amp;</span> <span class="nx">flag</span><span class="p">(</span><span class="s1">&#39;switcher&#39;</span><span class="p">)</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+    <span class="o">&amp;&amp;</span> <span class="nx">flag</span><span class="p">(</span><span class="s1">&#39;switcher&#39;</span><span class="p">)</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
     <span class="nx">flag</span><span class="p">(</span><span class="s1">&#39;switcher&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span> <span class="c1">// set default flag in dev mode</span>
 <span class="p">}</span>
 
