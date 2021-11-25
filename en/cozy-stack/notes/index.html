@@ -3195,7 +3195,19 @@
 <h1 id="notes-for-collaborative-edition">Notes for collaborative edition<a class="headerlink" href="#notes-for-collaborative-edition" title="Permanent link">&para;</a></h1>
 <p>The cozy-notes application can be used to take notes, and collaborate on them.
 The note is persisted as a file in the VFS, but it also has specific routes to
-enable the collaborative edition in real-time.</p>
+enable the collaborative edition in real-time. The content of the file is a
+markdown export of the notes, except if the note has images, and it is a tar
+with the markdown as <code>index.md</code> and the images in that case. The markdown
+format is mostly compatible with CommonMark, but there are a few changes:</p>
+<ul>
+<li>we are using the <a href="https://talk.commonmark.org/t/consistent-attribute-syntax/272">consistent attribute syntax</a> for some markups like colors and underline</li>
+<li>the tables are not saved like in <a href="https://github.github.com/gfm/#tables-extension-">GFM</a> because we can have merged cells and several paragraphs inside a cell</li>
+<li>misc.</li>
+</ul>
+<p>The downloaded files can be reuploaded to the Cozy, and if the <code>.cozy-note</code>
+extension is kept, the stack will try to recreate the Prosemirror tree, making
+possible to use the uploaded file as a note in Cozy-Notes with realtime
+collaboration.</p>
 <h2 id="routes">Routes<a class="headerlink" href="#routes" title="Permanent link">&para;</a></h2>
 <h3 id="post-notes">POST /notes<a class="headerlink" href="#post-notes" title="Permanent link">&para;</a></h3>
 <p>It creates a note: it creates a files with the right metadata for collaborative edition.</p>

@@ -3607,6 +3607,13 @@ if there are N queries, only 1 extra level of nesting is introduced.</p>
 <h3 id="usequery">useQuery<a class="headerlink" href="#usequery" title="Permanent link">&para;</a></h3>
 <p>▸ <code>Const</code> <strong>useQuery</strong>(<code>queryDefinition</code>, <code>options</code>): <code>UseQueryReturnValue</code></p>
 <p>Fetches a queryDefinition and returns the queryState</p>
+<p><strong><code>property</code></strong> {object} as - Name for the query [required]</p>
+<p><strong><code>property</code></strong> {boolean} enabled - If set to false, the query won&rsquo;t be executed</p>
+<p><strong><code>property</code></strong> {object} fetchPolicy - Fetch policy</p>
+<p><strong><code>property</code></strong> {object} singleDocData - If true, the &ldquo;data&rdquo; returned will be
+a single doc instead of an array for single doc queries. Defaults to false for backward
+compatibility but will be set to true in the future.</p>
+<p><strong><code>property</code></strong> {Function} onError - Callback if the query is errored</p>
 <p><em>Parameters</em></p>
 <table>
 <thead>
@@ -3619,40 +3626,20 @@ if there are N queries, only 1 extra level of nesting is introduced.</p>
 <tbody>
 <tr>
 <td align="left"><code>queryDefinition</code></td>
-<td align="left"><code>any</code></td>
+<td align="left"><a href="classes/querydefinition/"><code>QueryDefinition</code></a></td>
 <td align="left">Definition created with Q()</td>
 </tr>
 <tr>
 <td align="left"><code>options</code></td>
-<td align="left"><code>Object</code></td>
-<td align="left">Options</td>
-</tr>
-<tr>
-<td align="left"><code>options.as</code></td>
 <td align="left"><code>any</code></td>
-<td align="left">Name for the query [required]</td>
-</tr>
-<tr>
-<td align="left"><code>options.enabled</code></td>
-<td align="left"><code>boolean</code></td>
-<td align="left">If set to false, the query won&rsquo;t be executed</td>
-</tr>
-<tr>
-<td align="left"><code>options.fetchPolicy</code></td>
-<td align="left"><code>any</code></td>
-<td align="left">Fetch policy</td>
-</tr>
-<tr>
-<td align="left"><code>options.singleDocData</code></td>
-<td align="left"><code>any</code></td>
-<td align="left">If true, the &ldquo;data&rdquo; returned will be a single doc instead of an array for single doc queries. Defaults to false for backward compatibility but will be set to true in the future.</td>
+<td align="left">-</td>
 </tr>
 </tbody>
 </table>
 <p><em>Returns</em></p>
 <p><code>UseQueryReturnValue</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/hooks/useQuery.js#L36">packages/cozy-client/src/hooks/useQuery.js:36</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/hooks/useQuery.js#L38">packages/cozy-client/src/hooks/useQuery.js:38</a></p>
 <hr />
 <h3 id="withclient">withClient<a class="headerlink" href="#withclient" title="Permanent link">&para;</a></h3>
 <p>▸ <code>Const</code> <strong>withClient</strong>(<code>WrappedComponent</code>): <code>Function</code></p>
