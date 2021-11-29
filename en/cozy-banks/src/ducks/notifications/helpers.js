@@ -51,7 +51,7 @@ export const getAccountNewBalance = creditCard => {
  * if current date is between 23h - 6h
  */
 export const getScheduleDate = currentDate => {
-  let date = currentDate || new Date()
+  let date = new Date(currentDate)
   const hours = 6
   const minutes = Math.round(15 * Math.random())
 
@@ -78,10 +78,12 @@ export const makeAtAttributes = notificationName => {
     const newDate = scheduledDate.toISOString()
     logger(
       'info',
-      `Scheduling notification for ${notificationName} at ${newDate}`
+      `➡️ Scheduling notification for ${notificationName} at ${newDate}`
     )
     return newDate
   }
+
+  logger('info', `➡️ Sending notification for ${notificationName} right now`)
   return undefined
 }
 

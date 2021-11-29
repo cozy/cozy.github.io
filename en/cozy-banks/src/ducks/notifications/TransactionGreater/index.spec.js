@@ -83,7 +83,7 @@ describe('transaction greater', () => {
   it('should compute the correct app route to open (multiple accounts)', async () => {
     const { notification } = setup()
     await notification.buildData()
-    expect(notification.getExtraAttributes()).toEqual({
+    expect(notification.getExtraAttributes()).toMatchObject({
       data: {
         source: 'io.cozy.banks',
         route: '/balances/details'
@@ -98,7 +98,7 @@ describe('transaction greater', () => {
       )
     })
     await notification2.buildData()
-    expect(notification2.getExtraAttributes()).toEqual({
+    expect(notification2.getExtraAttributes()).toMatchObject({
       data: {
         route: '/balances/compteisa1/details',
         source: 'io.cozy.banks'
