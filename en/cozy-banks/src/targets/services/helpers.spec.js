@@ -1,4 +1,4 @@
-import CozyClient from 'cozy-client'
+import CozyStackClient from 'cozy-stack-client'
 import DocumentCollection from 'cozy-stack-client/dist/DocumentCollection'
 import { getOptions, fetchChangesOrAll } from './helpers'
 
@@ -101,7 +101,7 @@ describe('getOptions', () => {
 })
 
 describe('fetchChangesOrAll', () => {
-  const client = new CozyClient()
+  const client = new CozyStackClient()
 
   beforeEach(() => {
     jest

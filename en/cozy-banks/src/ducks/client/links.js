@@ -8,7 +8,7 @@ import { offlineDoctypes, TRANSACTION_DOCTYPE } from 'doctypes'
 import { pickAdapter, getAdapterPlugin } from 'ducks/client/linksHelpers'
 import { getWarmupQueries } from './linksHelpers'
 
-const activatePouch = __POUCH__ && !flag('banks.pouch.disabled')
+export const isActivatePouch = () => __POUCH__ && !flag('banks.pouch.disabled')
 let links = null
 
 export const getLinks = async (options = {}) => {
@@ -21,7 +21,7 @@ export const getLinks = async (options = {}) => {
 
   links = [stackLink]
 
-  if (activatePouch) {
+  if (isActivatePouch()) {
     const pouchLinkOptions = {
       doctypes: offlineDoctypes,
       doctypesReplicationOptions: {

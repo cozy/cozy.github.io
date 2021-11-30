@@ -25,6 +25,9 @@ import CozyClient from 'cozy-client'
 import { createClientWithData } from 'test/client'
 import { getCategoryIdFromName } from 'ducks/categories/helpers'
 
+// eslint-disable-next-line no-console
+console.warn = jest.fn()
+
 describe('reimbursements', () => {
   let client
   const healthId = '400610'
