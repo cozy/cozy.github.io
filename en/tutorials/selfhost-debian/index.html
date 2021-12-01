@@ -2797,13 +2797,12 @@ The simpliest way to handle this is to use a wildcard entry if supported by your
 
 <h3 id="acme-lets-encrypt">ACME (Let&rsquo;s Encrypt)<a class="headerlink" href="#acme-lets-encrypt" title="Permanent link">&para;</a></h3>
 <p>Like DNS, each application will use a different sub-domain and so request a certificate which include all needed domains.</p>
-<p><code>cozy-coclyco</code> use Let&rsquo;s Encrypt and it ACME protocol to prove your ownership over the domain you try to issue a certificate.
+<p><code>cozy-coclyco</code> use Let&rsquo;s Encrypt and its ACME protocol to prove your ownership on the domain you try to issue a certificate for.
 This protocol requires your reverse proxy to be able to serve <code>http://&lt;app&gt;.cozy.example.org/.well-known/acme-challenge/</code> requests correctly.</p>
 <p>The simplest way to achieve this is to configure your reverse proxy with a generic rule to forward any <code>/.well-known/acme-challenge/</code> request to the corresponding <code>/etc
 /ssl/private/acme-challenge/</code> folder.
-For <code>nginx</code>, this can be done with</p>
-<div class="codehilite"><pre><span></span><span class="o">/</span><span class="nt">etc</span><span class="o">/</span><span class="nt">nginx</span><span class="o">/</span><span class="nt">sites-available</span><span class="o">/</span><span class="nt">default</span>
-<span class="nt">server</span> <span class="p">{</span>
+For <code>nginx</code>, this can be done by editing the <code>server</code> section of your <code>/etc/nginx/sites-available/default</code> configuration file:</p>
+<div class="codehilite"><pre><span></span><span class="nt">server</span> <span class="p">{</span>
     <span class="err">listen</span> <span class="err">80</span> <span class="err">default_server</span><span class="p">;</span>
     <span class="n">listen</span> <span class="cp">[</span><span class="p">::</span><span class="cp">]</span><span class="p">:</span><span class="mi">80</span> <span class="n">default_server</span><span class="p">;</span>
 
@@ -2818,15 +2817,18 @@ For <code>nginx</code>, this can be done with</p>
         <span class="err">return</span> <span class="err">301</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="err">$</span><span class="n">host</span><span class="err">$</span><span class="n">request_uri</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="err">}</span>
+</pre></div>
 
-<span class="nt">apt</span> <span class="nt">install</span> <span class="nt">ssl-cert</span>
-<span class="nt">adduser</span> <span class="nt">www-data</span> <span class="nt">ssl-cert</span>
-<span class="nt">systemctl</span> <span class="nt">restart</span> <span class="nt">nginx</span>
+
+<p>You will then have to install <code>ssl-cert</code> package, add <code>www-data</code> user to <code>ssl-cert</code> group and restart nginx</p>
+<div class="codehilite"><pre><span></span>apt install ssl-cert
+adduser www-data ssl-cert
+systemctl restart nginx
 </pre></div>
 
 
 <h3 id="create-instances">Create instances<a class="headerlink" href="#create-instances" title="Permanent link">&para;</a></h3>
-<p>Once you&rsquo;ve got a stack, your DNS and your reverse proxy correctly configured, you can create instances on your Cozy stack.
+<p>Once you&rsquo;ve got a stack, your DNS and your reverse proxy correctly configured, you can create instances on your Cozy stack.
 Remember to set the <code>COZY_ADMIN_PASSWORD</code> environment variable.</p>
 <div class="codehilite"><pre><span></span><span class="nb">export</span> <span class="nv">COZY_ADMIN_PASSWORD</span><span class="o">=</span>&lt;your-admin-password&gt;
 cozy-coclyco create cozy.example.org me@example.org
