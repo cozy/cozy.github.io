@@ -1084,6 +1084,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#getreferencedby" title="getReferencedBy" class="md-nav__link">
+    getReferencedBy
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getreferencedbyid" title="getReferencedById" class="md-nav__link">
+    getReferencedById
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#hasquerybeenloaded" title="hasQueryBeenLoaded" class="md-nav__link">
     hasQueryBeenLoaded
   </a>
@@ -1093,6 +1107,20 @@
           <li class="md-nav__item">
   <a href="#isqueryloading" title="isQueryLoading" class="md-nav__link">
     isQueryLoading
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#isreferencedby" title="isReferencedBy" class="md-nav__link">
+    isReferencedBy
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#isreferencedbyid" title="isReferencedById" class="md-nav__link">
+    isReferencedById
   </a>
   
 </li>
@@ -2815,6 +2843,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#getreferencedby" title="getReferencedBy" class="md-nav__link">
+    getReferencedBy
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getreferencedbyid" title="getReferencedById" class="md-nav__link">
+    getReferencedById
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#hasquerybeenloaded" title="hasQueryBeenLoaded" class="md-nav__link">
     hasQueryBeenLoaded
   </a>
@@ -2824,6 +2866,20 @@
           <li class="md-nav__item">
   <a href="#isqueryloading" title="isQueryLoading" class="md-nav__link">
     isQueryLoading
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#isreferencedby" title="isReferencedBy" class="md-nav__link">
+    isReferencedBy
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#isreferencedbyid" title="isReferencedById" class="md-nav__link">
+    isReferencedById
   </a>
   
 </li>
@@ -3316,6 +3372,73 @@ example.</p>
 <p><em>Defined in</em></p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/store/index.js#L99">packages/cozy-client/src/store/index.js:99</a></p>
 <hr />
+<h3 id="getreferencedby">getReferencedBy<a class="headerlink" href="#getreferencedby" title="Permanent link">&para;</a></h3>
+<p>▸ <code>Const</code> <strong>getReferencedBy</strong>(<code>file</code>, <code>referencedBy</code>): <code>Reference</code>[]</p>
+<p>Get array of reference by an specific doctype</p>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>file</code></td>
+<td align="left"><code>IOCozyFile</code></td>
+<td align="left">io.cozy.files document</td>
+</tr>
+<tr>
+<td align="left"><code>referencedBy</code></td>
+<td align="left"><code>string</code></td>
+<td align="left">Doctype where document is referenced</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>Reference</code>[]</p>
+<p>Array of references found</p>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/helpers.js#L134">packages/cozy-client/src/associations/helpers.js:134</a></p>
+<hr />
+<h3 id="getreferencedbyid">getReferencedById<a class="headerlink" href="#getreferencedbyid" title="Permanent link">&para;</a></h3>
+<p>▸ <code>Const</code> <strong>getReferencedById</strong>(<code>file</code>, <code>referencedBy</code>, <code>referencedId</code>): <code>Reference</code>[]</p>
+<p>Get array of reference by an specific doctype and a specific Id of that reference</p>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>file</code></td>
+<td align="left"><code>IOCozyFile</code></td>
+<td align="left">io.cozy.files document</td>
+</tr>
+<tr>
+<td align="left"><code>referencedBy</code></td>
+<td align="left"><code>string</code></td>
+<td align="left">Doctype where document is referenced</td>
+</tr>
+<tr>
+<td align="left"><code>referencedId</code></td>
+<td align="left"><code>string</code></td>
+<td align="left">Id of the referenced document</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>Reference</code>[]</p>
+<p>Array of the reference found</p>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/helpers.js#L148">packages/cozy-client/src/associations/helpers.js:148</a></p>
+<hr />
 <h3 id="hasquerybeenloaded">hasQueryBeenLoaded<a class="headerlink" href="#hasquerybeenloaded" title="Permanent link">&para;</a></h3>
 <p>▸ <code>Const</code> <strong>hasQueryBeenLoaded</strong>(<code>col</code>): <code>any</code></p>
 <p>Returns whether a query has been loaded at least once</p>
@@ -3362,6 +3485,73 @@ is loading.</p>
 <p><code>boolean</code></p>
 <p><em>Defined in</em></p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/utils.js#L37">packages/cozy-client/src/utils.js:37</a></p>
+<hr />
+<h3 id="isreferencedby">isReferencedBy<a class="headerlink" href="#isreferencedby" title="Permanent link">&para;</a></h3>
+<p>▸ <code>Const</code> <strong>isReferencedBy</strong>(<code>file</code>, <code>referencedBy</code>): <code>boolean</code></p>
+<p>Checks if the file is referenced by a specific doctype</p>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>file</code></td>
+<td align="left"><code>IOCozyFile</code></td>
+<td align="left">io.cozy.files document</td>
+</tr>
+<tr>
+<td align="left"><code>referencedBy</code></td>
+<td align="left"><code>string</code></td>
+<td align="left">Doctype where document is referenced</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>boolean</code></p>
+<p>If a reference is found</p>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/helpers.js#L102">packages/cozy-client/src/associations/helpers.js:102</a></p>
+<hr />
+<h3 id="isreferencedbyid">isReferencedById<a class="headerlink" href="#isreferencedbyid" title="Permanent link">&para;</a></h3>
+<p>▸ <code>Const</code> <strong>isReferencedById</strong>(<code>file</code>, <code>referencedBy</code>, <code>referencedId</code>): <code>boolean</code></p>
+<p>Checks if the file is referenced by a specific doctype and a specific Id of that reference</p>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>file</code></td>
+<td align="left"><code>IOCozyFile</code></td>
+<td align="left">io.cozy.files document</td>
+</tr>
+<tr>
+<td align="left"><code>referencedBy</code></td>
+<td align="left"><code>string</code></td>
+<td align="left">Doctype where document is referenced</td>
+</tr>
+<tr>
+<td align="left"><code>referencedId</code></td>
+<td align="left"><code>string</code></td>
+<td align="left">Id of the referenced document</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>boolean</code></p>
+<p>If a reference is found</p>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/helpers.js#L117">packages/cozy-client/src/associations/helpers.js:117</a></p>
 <hr />
 <h3 id="queryconnect">queryConnect<a class="headerlink" href="#queryconnect" title="Permanent link">&para;</a></h3>
 <p>▸ <code>Const</code> <strong>queryConnect</strong>(<code>querySpecs</code>): <code>Function</code></p>
