@@ -161,15 +161,14 @@ cozy 1h IN A x.x.x.x
 
 Like DNS, each application will use a different sub-domain and so request a certificate which include all needed domains.
 
-`cozy-coclyco` use Let's Encrypt and it ACME protocol to prove your ownership over the domain you try to issue a certificate.
+`cozy-coclyco` use Let's Encrypt and its ACME protocol to prove your ownership on the domain you try to issue a certificate for.
 This protocol requires your reverse proxy to be able to serve `http://<app>.cozy.example.org/.well-known/acme-challenge/` requests correctly.
 
 The simplest way to achieve this is to configure your reverse proxy with a generic rule to forward any `/.well-known/acme-challenge/` request to the corresponding `/etc
 /ssl/private/acme-challenge/` folder.
-For `nginx`, this can be done with
+For `nginx`, this can be done by editing the `server` section of your `/etc/nginx/sites-available/default` configuration file:
 
 ```
-/etc/nginx/sites-available/default
 server {
 	listen 80 default_server;
 	listen [::]:80 default_server;
@@ -185,7 +184,11 @@ server {
 		return 301 https://$host$request_uri;
 	}
 }
+```
 
+You will then have to install `ssl-cert` package, add `www-data` user to `ssl-cert` group and restart nginx
+
+```bash
 apt install ssl-cert
 adduser www-data ssl-cert
 systemctl restart nginx
@@ -193,7 +196,7 @@ systemctl restart nginx
 
 ### Create instances
 
-Once you've got a stack, your DNS and your reverse proxy correctly configured, you can create instances on your Cozy stack.
+Once you've got a stack, your DNS and your reverse proxy correctly configured, you can create instances on your Cozy stack.
 Remember to set the `COZY_ADMIN_PASSWORD` environment variable.
 
 ```bash
