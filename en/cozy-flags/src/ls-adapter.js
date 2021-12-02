@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-redeclare
 /* global localStorage */
 
 export const prefix = 'flag__'

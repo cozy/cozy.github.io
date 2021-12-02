@@ -94,7 +94,7 @@ describe('notifications', () => {
   it('should call getPushContent with the correct this', async () => {
     const { notificationView, client } = setup()
     expect.assertions(1)
-    notificationView.getPushContent = jest.fn().mockImplementation(function() {
+    notificationView.getPushContent = jest.fn().mockImplementation(function () {
       expect(this).toBe(notificationView)
     })
     await sendNotification(client, notificationView)

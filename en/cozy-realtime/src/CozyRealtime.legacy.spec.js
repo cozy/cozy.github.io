@@ -233,7 +233,7 @@ describe('CozyRealtime', () => {
 
   describe('events', () => {
     it('should emit error when retry limit is exceeded', async done => {
-      realtime.retryManager.shouldEmitError = function() {
+      realtime.retryManager.shouldEmitError = function () {
         return this.retries > 2
       }
       let shouldContinue = true

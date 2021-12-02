@@ -21,7 +21,7 @@ const exported = {}
  * Start an application if it is installed on the phone
  * @returns Promise - False if the application was not able to be started
  */
-const startApp = (exported.startApp = async function(appInfo) {
+const startApp = (exported.startApp = async function (appInfo) {
   const startAppPlugin = window.startApp
   const isAppInstalled = await exported.checkApp(appInfo)
   if (isAppInstalled) {
@@ -56,7 +56,7 @@ const startApp = (exported.startApp = async function(appInfo) {
  *  applicationInfo: "ApplicationInfo{70aa0ef io.cozy.drive.mobile}"
  * })
  */
-const checkApp = (exported.checkApp = async function(appInfo) {
+const checkApp = (exported.checkApp = async function (appInfo) {
   const startAppPlugin = window.startApp
   const params = getParams(appInfo)
   return new Promise((resolve, reject) => {

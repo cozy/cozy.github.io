@@ -49,11 +49,11 @@ describe('makeFilteredTransactionsConn', () => {
 
     expect(query).toEqual(
       expect.objectContaining({
-        indexedFields: ['account', 'date'],
+        indexedFields: ['date', 'account'],
         selector: {
           account: { $in: ['a1', 'a2', 'a3'] }
         },
-        sort: [{ account: 'desc' }, { date: 'desc' }]
+        sort: [{ date: 'desc' }, { account: 'desc' }]
       })
     )
   })
@@ -83,11 +83,11 @@ describe('makeFilteredTransactionsConn', () => {
 
     expect(query).toEqual(
       expect.objectContaining({
-        indexedFields: ['account', 'date'],
+        indexedFields: ['date', 'account'],
         selector: {
           account: { $in: ['a1', 'a2', 'a3'] }
         },
-        sort: [{ account: 'desc' }, { date: 'desc' }]
+        sort: [{ date: 'desc' }, { account: 'desc' }]
       })
     )
   })

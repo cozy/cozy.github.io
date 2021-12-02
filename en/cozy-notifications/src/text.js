@@ -12,9 +12,7 @@ const getContentDefault = $ => {
 
   let content = ''
   txtElements.each((index, txtElement) => {
-    const txt = $(txtElement)
-      .text()
-      .trim()
+    const txt = $(txtElement).text().trim()
     switch (txtElement.tagName.toLowerCase()) {
       case 'h1':
         content += '# ' + txt + '\n\n'
@@ -54,15 +52,9 @@ export const toText = (cozyHTMLEmail, getContentArg) => {
   const getContent = getContentArg || getContentDefault
 
   const $ = cheerio.load(cozyHTMLEmail)
-  const title = $('.header__title')
-    .text()
-    .trim()
-  const descTitle = $('.header__desc__title')
-    .text()
-    .trim()
-  const descSubtitle = $('.header__desc__subtitle')
-    .text()
-    .trim()
+  const title = $('.header__title').text().trim()
+  const descTitle = $('.header__desc__title').text().trim()
+  const descSubtitle = $('.header__desc__subtitle').text().trim()
   return wrap(
     `# Cozy - ${title}${
       descTitle || descSubtitle ? `\n\n## ${descTitle} - ${descSubtitle}\n` : ''

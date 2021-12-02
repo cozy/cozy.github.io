@@ -33,6 +33,7 @@ class FlagStore {
   }
 
   get(name) {
+    // eslint-disable-next-line no-prototype-builtins
     if (!this.store.hasOwnProperty(name)) {
       this.store[name] = null
     }

@@ -46,7 +46,7 @@ const resolveCSSProperties = (cssContent, props) => {
     ...props
   }
   const resolvedProps = resolveCSSPropertiesInMapping(allProps)
-  return cssContent.replace(/var\((--.*)\)/g, function(all, varName) {
+  return cssContent.replace(/var\((--.*)\)/g, function (all, varName) {
     if (!resolvedProps[varName]) {
       throw new Error(
         `Could not find var(${varName}). Available vars: ${Object.keys(

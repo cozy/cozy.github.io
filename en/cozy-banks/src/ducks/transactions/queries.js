@@ -47,9 +47,11 @@ export const makeFilteredTransactionsConn = options => {
         // with only the account. We haven't found a satisfactory solution
         // yet.
         const accounts = makeAccounts(filteringDoc, groups)
+        indexFields = [dateAttribute, 'account']
         whereClause = {
           account: { $in: accounts }
         }
+        sortByClause = [{ [dateAttribute]: 'desc' }, { account: 'desc' }]
       } else if (filteringDoc._type === ACCOUNT_DOCTYPE) {
         whereClause = { account: filteringDoc._id }
       } else if (Array.isArray(filteringDoc)) {

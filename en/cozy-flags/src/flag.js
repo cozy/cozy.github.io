@@ -6,7 +6,7 @@ const store = new FlagStore()
 /**
  * Public API to use flags
  */
-const flag = function() {
+const flag = function () {
   const args = [].slice.call(arguments)
   if (args.length === 1) {
     return store.get(args[0])

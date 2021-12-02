@@ -3,7 +3,7 @@
 // when bundled. I've made simple version as we don't need a lot of mime types
 // for email templating.
 
-module.exports = function() {
+module.exports = function () {
   return {
     atom: 'application/atom+xml',
     epub: 'application/epub+zip',

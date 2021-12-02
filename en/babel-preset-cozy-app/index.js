@@ -85,13 +85,8 @@ const mkConfig = (api, options) => {
     merge(presetOptions, ...libConfigs)
   }
 
-  const {
-    node,
-    react,
-    presetEnv,
-    transformRuntime,
-    transformRegenerator
-  } = presetOptions
+  const { node, react, presetEnv, transformRuntime, transformRegenerator } =
+    presetOptions
 
   const config = {}
 
@@ -107,6 +102,7 @@ const mkConfig = (api, options) => {
   }
 
   config.presets = [
+    require.resolve('@babel/preset-typescript'),
     [require.resolve('@babel/preset-env'), presetEnvOptions],
     // if (P)React app
     !node && react ? require.resolve('@babel/preset-react') : null

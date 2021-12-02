@@ -3,7 +3,7 @@
 module.exports = {
   plugins: ['prettier'],
   extends: ['eslint:recommended', 'eslint-config-prettier'],
-  parser: 'babel-eslint',
+  parser: '@babel/eslint-parser',
   env: {
     browser: true,
     jest: true,
@@ -16,7 +16,9 @@ module.exports = {
       'error',
       {
         singleQuote: true,
-        semi: false
+        semi: false,
+        trailingComma: 'none',
+        arrowParens: 'avoid'
       }
     ],
     'no-param-reassign': 'warn',

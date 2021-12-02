@@ -10,22 +10,24 @@ const isFalse = (value, key) => {
   }
 }
 
-const either = (...validators) => (value, key) => {
-  let errors = []
-  for (const validator of validators) {
-    try {
-      validator(value, key)
-      return
-    } catch (e) {
-      errors.push(e)
+const either =
+  (...validators) =>
+  (value, key) => {
+    let errors = []
+    for (const validator of validators) {
+      try {
+        validator(value, key)
+        return
+      } catch (e) {
+        errors.push(e)
+      }
     }
+    throw new Error(
+      `"${value}" at ${key} did not pass either validator : ${errors
+        .map(e => e.message)
+        .join('\n')}`
+    )
   }
-  throw new Error(
-    `"${value}" at ${key} did not pass either validator : ${errors
-      .map(e => e.message)
-      .join('\n')}`
-  )
-}
 
 const validate = (obj, validators) => {
   for (const key of Object.keys(obj)) {
