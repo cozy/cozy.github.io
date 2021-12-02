@@ -33,7 +33,7 @@ Several layers can be distinguished. From inside to outside:
 
 ## The server (Cozy-stack - [documentation](https://docs.cozy.io/en/cozy-stack/))
 
-The server consist of a single process. We call it _the Cozy stack_. 
+The server consist of a single process. We call it _the Cozy stack_.
 
 The server is in charge of serving the Web applications users have installed from the application store.
 
@@ -98,6 +98,6 @@ We use _Content Security Policy_ to control what the application is allowed to d
 
 - Coding tutorials :
   - [Create a client application](../tutorials/app.md)
-  - [Develop a connector](../tutorials/konnector.md).
+  - [Develop a connector](../tutorials/konnector/index.md).
 - Selfhosting : [How to to self-host a Cozy server](../tutorials/selfhost-debian.md)
 - The [cozy server documentation](https://docs.cozy.io/en/cozy-stack/) (cozy-stack)
