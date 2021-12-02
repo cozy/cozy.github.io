@@ -98,6 +98,6 @@ We use _Content Security Policy_ to control what the application is allowed to d
 
 - Coding tutorials :
   - [Create a client application](../tutorials/app.md)
-  - [Develop a connector](../tutorials/konnector/index.md).
-- Selfhosting : [How to to self-host a Cozy server](../tutorials/selfhost-debian.md)
+  - [Develop a connector](../tutorials/konnector.md).
+- Selfhosting : [How to to self-host a Cozy server](../tutorials/selfhosting)
 - The [cozy server documentation](https://docs.cozy.io/en/cozy-stack/) (cozy-stack)
