@@ -28,7 +28,10 @@ nav:
     - DocTypes: tutorials/data/doctypes.md
     - Qualification: tutorials/data/qualification.md
     - Advanced: tutorials/data/advanced.md
-  - Self-Host on Debian: tutorials/selfhost-debian.md
+  - Self-Hosting:
+    - on Debian with packages: tutorials/selfhosting/selfhost-debian-pkg.md
+    - on Ubuntu from sources (en): tutorials/selfhosting/selfhost-ubuntu-sources-en.md
+    - on Ubuntu from sources (fr): tutorials/selfhosting/selfhost-ubuntu-sources-fr.md
 - How-to:
   - Dev:
     - Run an App in a Cozy using Docker: howTos/dev/runCozyDocker.md

@@ -23,7 +23,7 @@ Find guides for developing apps and connectors and for self-hosting.
     <em>For Developers</em>
   </a>
 
-  <a href="tutorials/selfhost-debian">
+  <a href="tutorials/selfhosting">
     <img class="img-tuto" src="assets/images/home/icon-install.svg" />
     <p>How to install your own server</p>
     <em>For Self-Hosting</em>
