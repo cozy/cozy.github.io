@@ -88,6 +88,7 @@ module.exports = {
         '../react/FilePath/index.jsx',
         '../react/FilePathLink/index.jsx',
         '../react/MuiCozyTheme/Grid',
+        '../react/FileImageLoader/index.jsx',
         '../react/Infos/index.jsx',
         '../react/InfosCarrousel/index.jsx',
         '../react/LoadMore/index.jsx',

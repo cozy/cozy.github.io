@@ -3440,6 +3440,9 @@ of clients in settings is displayed.</p>
 <p>The <code>migrations</code> worker can be used to migrate a cozy instance. Currently, it
 has a single option, <code>type</code>, with two supported values:</p>
 <ul>
+<li><code>remove-unwanted-folders</code>: remove the administrative and/or photos folders
+  for contexts where <code>init_administrative_folder</code> or <code>init_photos_folder</code> is
+  set to <code>false</code></li>
 <li><code>to-swift-v3</code>: migrate a cozy instance that has files in swift from a V1 or V2 layout to a V3 layout</li>
 <li><code>accounts-to-organization</code>: create <a href="https://docs.cozy.io/en/cozy-doctypes/docs/com.bitwarden.ciphers/">ciphers</a>
   from <a href="https://docs.cozy.io/en/cozy-doctypes/docs/io.cozy.accounts/">accounts</a>,

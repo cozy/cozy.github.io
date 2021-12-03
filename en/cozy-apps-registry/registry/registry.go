@@ -1041,6 +1041,16 @@ func (v *Version) Delete(c *space.Space) error {
 	db := c.VersDB()
 	_, err = db.Delete(context.Background(), v.ID, v.Rev)
 
+	// Clear cache
+	versionChannel := GetVersionChannel(v.Version)
+	for _, channel := range Channels {
+		if channel >= versionChannel {
+			key := base.NewKey(c.Name, v.Slug, ChannelToStr(channel))
+			base.LatestVersionsCache.Remove(key)
+			base.ListVersionsCache.Remove(key)
+		}
+	}
+
 	return err
 }
 
