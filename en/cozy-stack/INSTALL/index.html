@@ -2659,12 +2659,14 @@ installed and configured, you can run the following command:</p>
 
 
 <p>This will fetch the sources and build a binary in <code>$GOPATH/bin/cozy-stack</code>.</p>
-<p>Don&rsquo;t forget to add your <code>$GOPATH/bin</code> to your <code>$PATH</code> in your <code>*rc</code> file so
+<p>Don&rsquo;t forget to add your <code>$GOPATH/bin</code> to your <code>$PATH</code> at the end of your <code>*rc</code> file so
 that you can execute the binary without entering its full path.</p>
 <div class="codehilite"><pre><span></span>export PATH=&quot;$(go env GOPATH)/bin:$PATH&quot;
 </pre></div>
 
 
+<p>Troubleshooting?</p>
+<p>Check if you don&rsquo;t have an alias &ldquo;go&rdquo; configurated in your <code>*rc</code> file.</p>
 <h3 id="add-an-instance-for-testing">Add an instance for testing<a class="headerlink" href="#add-an-instance-for-testing" title="Permanent link">&para;</a></h3>
 <p>You can configure your <code>cozy-stack</code> using a configuration file or different
 comand line arguments. Assuming CouchDB is installed and running on default port
