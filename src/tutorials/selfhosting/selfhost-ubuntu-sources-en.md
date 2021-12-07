@@ -26,25 +26,25 @@ During installation, you will also define:
 
 # Couchdb
 
-Configure CouchDB package repository
+Configure CouchDB package repository:
 
     sudo apt update && sudo apt install -y curl apt-transport-https gnupg
     curl https://couchdb.apache.org/repo/keys.asc | gpg --dearmor | sudo tee /usr/share/keyrings/couchdb-archive-keyring.gpg >/dev/null 2>&1
     echo "deb [signed-by=/usr/share/keyrings/couchdb-archive-keyring.gpg] https://apache.jfrog.io/artifactory/couchdb-deb/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/couchdb.list >/dev/null
 
-Install Couchdb
+Install Couchdb:
 
     sudo apt update
     sudo apt install -y couchdb
 
 Duing CouchDB installation, choose `Standalone` mode and define admin password.
 
-Validate CouchDB is working
+Validate CouchDB is working:
 
     curl http://localhost:5984/
     {"couchdb":"Welcome","version":"3.2.1","git_sha":"244d428af","uuid":"f7b83554fa2eb43778963d18a1f92211","features":["access-ready","partitioned","pluggable-storage-engines","reshard","scheduler"],"vendor":{"name":"The Apache Software Foundation"}}
 
-Finally, create a database user and password for  cozy-stack
+Finally, create a database user and password for  cozy-stack:
 
     read -p "Couchdb password for cozy user: " -r -s COUCH_PASS
     curl -fsX PUT -u "admin:adminpwd" "http://localhost:5984/_node/couchdb@127.0.0.1/_config/admins/cozy" --data "\"${COUCH_PASS}\""
@@ -55,14 +55,14 @@ In this command line, `adminpwd` should be replaced by CouchDB admin password yo
 
 To be able to run cozy connectors and gather all your data, cozy-stack needs NodeJS version 12 or 16. This documents gives instructions to instal NodeJS 16.
 
-Configure NodeJS 16 package repository
+Configure NodeJS 16 package repository:
 
     KEYRING=/usr/share/keyrings/nodesource.gpg
     curl -fsSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dearmor | sudo tee "$KEYRING" >/dev/null
     echo "deb [signed-by=$KEYRING] https://deb.nodesource.com/node_16.x $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/nodesource.list >/dev/null
     echo "deb-src [signed-by=$KEYRING] https://deb.nodesource.com/node_16.x $(lsb_release -sc) main" | sudo tee -a /etc/apt/sources.list.d/nodesource.list >/dev/null
 
-Install NodeJS
+Install NodeJS:
 
     sudo apt update
     sudo apt install -y nodejs
@@ -70,49 +70,49 @@ Install NodeJS
 
 # Go
 
-cozy-stack is developped in Go language so we need to install the go compiler to be able to compile cozy-stack sources.
+cozy-stack is developped in Go language so we need to install the go compiler to be able to compile cozy-stack sources:
 
     wget -O /tmp/go1.17.3.linux-amd64.tar.gz https://go.dev/dl/go1.17.3.linux-amd64.tar.gz
     sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzvf /tmp/go1.17.3.linux-amd64.tar.gz
     echo "export PATH=\"\$PATH:/usr/local/go/bin\"" | sudo tee /etc/profile.d/golang.sh > /dev/null
     source /etc/profile.d/golang.sh
 
-Test Go installation is fine with
+Test Go installation is fine with:
 
     go version
     go version go1.17.3 linux/amd64
 
 # Cozy-stack
 
-First, install requirements
+First, install requirements:
 
     sudo apt install -y imagemagick libprotobuf-c1 fonts-lato
 
-Get the source code
+Get the source code:
 
     sudo apt install -y git
     sudo git clone https://github.com/cozy/cozy-stack.git /opt/cozy-stack
 
-Then compile the program
+Then compile the program:
 
     cd /opt/cozy-stack
     scripts/build.sh release $(go env GOPATH)/bin/cozy-stack
 
 The compilation generate a binary file under `$GOPATH/bin/cozy-stack`
 
-You can test it with :
+You can test it with:
 
     $(go env GOPATH)/bin/cozy-stack version
     1.5.0-5-gcbdf012d
 
-You then have to create a user to run cozy-stack
+You then have to create a user to run cozy-stack:
 
     sudo addgroup --quiet --system cozy
     sudo adduser --quiet --system --home /var/lib/cozy \
                  --no-create-home --shell /usr/sbin/nologin \
                  --ingroup cozy cozy-stack
 
-And install it
+And install it:
 
     sudo install -o root -g root -m 0755 -T \
                  $(go env GOPATH)/bin/cozy-stack /usr/bin/cozy-stack
@@ -127,7 +127,7 @@ And install it
     sudo install -o cozy-stack -g cozy -m 750 -d /var/lib/cozy
 
 
-And create configuration
+And create configuration:
 
     read -p "Cozy stack admin password: " -r -s COZY_PASS
     cat <<EOF | sudo tee /etc/cozy/cozy.yml >/dev/null
@@ -169,7 +169,7 @@ And create configuration
     sudo chown cozy-stack:cozy /etc/cozy/vault.enc /etc/cozy/vault.dec
     sudo chmod 0600 /etc/cozy/vault.enc /etc/cozy/vault.dec
 
-Finally, configure systemd to automatically launch cozy-stack on boot.
+Finally, configure systemd to automatically launch cozy-stack on boot:
 
     cat <<EOF | sudo tee /usr/lib/systemd/system/cozy-stack.service >/dev/null
     [Unit]
@@ -192,30 +192,30 @@ Finally, configure systemd to automatically launch cozy-stack on boot.
     sudo systemctl enable cozy-stack
     sudo systemctl start cozy-stack
 
-You can validate everything went well and cozy-stack is running thiw way
+You can validate everything went well and cozy-stack is running thiw way:
 
     curl http://localhost:8080/version
     {"build_mode":"production","build_time":"2021-12-01T13:12:36Z","runtime_version":"go1.17.3","version":"1.5.0-5-gcbdf012d"}
 
 # Nginx
 
-First create a DNS entry in your domain for `cozy.domain.example` and `*.cozy.domain.example` pointing at your server. For example :
+First create a DNS entry in your domain for `cozy.domain.example` and `*.cozy.domain.example` pointing at your server. For example:
 
 
     cozy     1h     IN         A     <your_server_IP>
     *.cozy   1h     IN     CNAME     cozy
 
-Then install Nginx
+Then install Nginx:
 
     sudo apt install -y nginx certbot
 
-Generate SSL certificate with certbot
+Generate SSL certificate with certbot:
 
     DOMAIN=domain.example
     EMAIL="<your email address>"
     sudo certbot certonly --email "${EMAIL}" --non-interactive --agree-tos --webroot -w /var/www/html -d cozy.${DOMAIN} $(printf -- " -d %s.cozy.${DOMAIN}" home banks contacts drive notes passwords photos settings store)
 
-Create nginx reload script for your certificate to be reloaded each time it is automatically refreshed, every 3 months
+Create nginx reload script for your certificate to be reloaded each time it is automatically refreshed, every 3 months:
 
     cat <<EOF | sudo tee /etc/letsencrypt/renewal-hooks/deploy/reload-nginx.sh
     #!/bin/bash
@@ -223,7 +223,7 @@ Create nginx reload script for your certificate to be reloaded each time it is a
     EOF
     chmod 0755 /etc/letsencrypt/renewal-hooks/deploy/reload-nginx.sh
 
-Configure nginx
+Configure nginx:
 
     DOMAIN=domain.example
     cat <<EOF | sudo tee /etc/nginx/sites-available/cozy.${DOMAIN} > /dev/null
@@ -273,7 +273,7 @@ You can then test from your browser by visiting `https://cozy.domain.example` an
 
 # Cozy instance creation
 
-Create your cozy instance
+Create your cozy instance:
 
     DOMAIN=domain.example
     EMAIL=<your email address>
@@ -299,24 +299,24 @@ Having its own selfhosted cozy instance is nice but hosting cozy instances for f
 
 The first cozy instance we added was `https://cozy.domain.example`. We will create a second cozy instance for Mary with address `https://mary.domain.example` (Replace `domain.example` with your own domain name and `mary` whith what you want to uniquely identify the cozy instance.
 
-So we will need :
+So we will need:
 
 - Our domain name. We still use `domain.example` in this documentation
 - The new cozy instance's “slug”, which is its unique identifier. We will use `mary` here for example. The address for this new cozy instance will the be in the form `https://<slug>.<domain>`, for example here `https://mary.domain.example`
 
-First, let's put all that important information in variables
+First, let's put all that important information in variables:
 
     DOMAIN=domain.example
     EMAIL=<your email addresse>
     NEWSLUG=mary
     NEWEMAIL=<Mary's email address>
 
-Create DNS entries for this cozy isntance. For example :
+Create DNS entries for this cozy isntance. For example:
 
     mary     1h     IN         A     <your_server_IP>
     *.mary   1h     IN     CNAME     mary
 
-Create Nginx base configuration for this cozy isntance
+Create Nginx base configuration for this cozy isntance:
 
     cat <<EOF | sudo tee /etc/nginx/sites-available/${NEWSLUG}.${DOMAIN} > /dev/null
     server {
@@ -338,11 +338,11 @@ Create Nginx base configuration for this cozy isntance
     sudo ln -s ../sites-available/${NEWSLUG}.${DOMAIN} /etc/nginx/sites-enabled/
     sudo systemctl reload nginx
 
-Generate SSL certificate using certbot
+Generate SSL certificate using certbot:
 
     sudo certbot certonly --email "${EMAIL}" --non-interactive --agree-tos --webroot -w /var/www/html -d ${NEWSLUG}.${DOMAIN} $(printf -- " -d %s.${NEWSLUG}.${DOMAIN}" home banks contacts drive notes passwords photos settings store)
 
-Finalize Nginx configuration
+Finalize Nginx configuration:
 
     cat <<EOF | sudo tee -a /etc/nginx/sites-available/${NEWSLUG}.${DOMAIN} > /dev/null
 
@@ -371,7 +371,7 @@ Finalize Nginx configuration
     EOF
     sudo systemctl reload nginx
 
-Create cozy instance
+Create cozy instance:
 
     [[ -z "${COZY_PASS}" ]] && read -p "Cozy stack admin password: " -r -s COZY_PASS
     COZY_ADMIN_PASSWORD="${COZY_PASS}" cozy-stack instances add --apps home,banks,contacts,drive,notes,passwords,photos,settings,store --email "${NEWEMAIL}" --locale fr --tz "Europe/Paris" ${NEWSLUG}.${DOMAIN}
@@ -431,17 +431,17 @@ Then restart Nginx
 
 ### Configure HTTPS for OnlyOffice
 
-Create a DNS entry for OnlyOffice targetting your server. For example :
+Create a DNS entry for OnlyOffice targetting your server. For example:
 
     onlyoffice     1h     IN         A     <your_server_IP>
 
-Generate SSL certificate
+Generate SSL certificate:
 
     EMAIL=<your email address>
     DOMAIN=domain.example
     sudo bash /usr/bin/documentserver-letsencrypt.sh "${EMAIL}" "onlyoffice.${DOMAIN}"
 
-Configure onlyoffice
+Configure onlyoffice:
 
     sudo cp -f /etc/onlyoffice/documentserver/nginx/ds-ssl.conf.tmpl /etc/onlyoffice/documentserver/nginx/ds.conf
 
@@ -452,7 +452,7 @@ Edit file `/etc/onlyoffice/documentserver/nginx/ds.conf` and
 
 Be careful each line end with semicolons (`;`).
 
-Restart OnlyOffice and Nginx
+Restart OnlyOffice and Nginx:
 
     sudo supervisorctl restart all
     sudo systemctl restart nginx
@@ -462,7 +462,7 @@ You can now test onlyoffice is accessible from your browser at `https://onlyoffi
 
 ## Configure cozy-stack for OnlyOffice
 
-Update configuration file
+Update configuration file:
 
     DOMAIN=domain.example
     cat <<EOF | sudo tee -a /etc/cozy/cozy.yml > /dev/null
@@ -471,11 +471,11 @@ Update configuration file
         onlyoffice_url: https://onlyoffice.${DOMAIN}/
     EOF
 
-Restart cozy-stack
+Restart cozy-stack:
 
     sudo systemctl restart cozy-stack
 
-Activate functionality
+Activate functionality:
 
     cozy-stack features defaults '{"drive.onlyoffice.enabled": true}'
 
@@ -487,27 +487,27 @@ You can now upload an office document in cozy-drive and start editing it online 
 Applications inside your cozy are automatically updated, however, cozy-stack application running on your server must be updated from time to time (once every 3 month is a good compromise between too much and too few).
 Here is how to upgrade cozy-stack:
 
-Update source code
+Update source code:
 
     cd /opt/cozy-stack
     sudo git pull
 
-compile source code
+compile source code:
 
     cd /opt/cozy-stack
     scripts/build.sh release $(go env GOPATH)/bin/cozy-stack
 
-You can test compilation produced a valid binary with
+You can test compilation produced a valid binary with:
 
     $(go env GOPATH)/bin/cozy-stack version
     1.5.0-9-g1eac6802
 
-Install new generated binary
+Install new generated binary:
 
     sudo install -o root -g root -m 0755 -T \
                  $(go env GOPATH)/bin/cozy-stack /usr/bin/cozy-stack             
 
-Restart cozy-stack
+Restart cozy-stack:
 
     sudo systemctl restart cozy-stack
 
