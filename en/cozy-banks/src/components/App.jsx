@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useMemo, useEffect } from 'react'
 import { withRouter } from 'react-router'
 import compose from 'lodash/flowRight'
 import throttle from 'lodash/throttle'
@@ -32,6 +32,8 @@ const KeyboardAwareSidebar = ({ children }) => {
   return showing ? null : <UISidebar>{children}</UISidebar>
 }
 
+const WAIT_THROTTLE = 30 * 1000
+
 const App = props => {
   const { showBottomNav, settingsCollection } = props
   const { t } = useI18n()
@@ -39,16 +41,21 @@ const App = props => {
   const settings = getDefaultedSettingsFromCollection(settingsCollection)
 
   const showAlert = () => {
-    Alerter.error(t('Error.fetch-error'), {
+    Alerter.info(t('Error.fetch-error'), {
       buttonText: t('General.reload'),
       buttonAction: () => window.location.reload()
     })
   }
 
+  const showAlertThrottled = useMemo(
+    () => throttle(showAlert, WAIT_THROTTLE, { trailing: false }),
+    [] // eslint-disable-line react-hooks/exhaustive-deps
+  )
+
   useEffect(() => {
     const onError = e => {
       if (!isActivatePouch() && hasFetchFailedError(e)) {
-        throttle(showAlert(t), 300)
+        showAlertThrottled()
       }
     }
 

@@ -33,7 +33,7 @@ describe('App', () => {
   const requestHandler = jest.fn()
   const link = new CozyLink(requestHandler)
   beforeEach(() => {
-    jest.spyOn(Alerter, 'error')
+    jest.spyOn(Alerter, 'info')
     jest.spyOn(window.location, 'reload')
   })
 
@@ -66,11 +66,11 @@ describe('App', () => {
       fireEvent.click(root.getByText('Fetch'))
 
       await wait(() => {
-        expect(Alerter.error).not.toHaveBeenCalled()
+        expect(Alerter.info).not.toHaveBeenCalled()
       })
     })
 
-    it('should show an error and reload page when a request failed', async () => {
+    it('should show an alert and reload page when a request failed', async () => {
       const error = new TypeError('Failed to fetch')
       requestHandler.mockReturnValue(Promise.reject(error))
 
@@ -82,10 +82,10 @@ describe('App', () => {
       fireEvent.click(root.getByText('Fetch'))
 
       await wait(() => {
-        expect(Alerter.error).toHaveBeenCalled()
+        expect(Alerter.info).toHaveBeenCalled()
 
-        const errorMsg = Alerter.error.mock.calls[0][0]
-        expect(errorMsg).toBe(
+        const msg = Alerter.info.mock.calls[0][0]
+        expect(msg).toBe(
           'Connection lost. Try again later or verify your connection and reload the page.'
         )
 
