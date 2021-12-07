@@ -1,10 +1,10 @@
-# Installation de cozy sous Ubuntu 20.04 LTS focal fossa
+# Installation de Cozy sous Ubuntu 20.04 LTS focal fossa
 
 # Introduction
 
 Cozycloud met à disposition des paquets deb et [des instructions d’installation](https://docs.cozy.io/en/tutorials/selfhosting/selfhost-debian-pkg/) pour Debian 10 buster à partir de ces paquets d’installation. Cependant, il n’y a pas de paquet pour Ubuntu.
 
-Cette documentation décrit donc l’installation de cozy à partir du code source de cozy-stack sur un serveur Ubuntu 20.04 LTS focal fossa. Nous verrons aussi comment activer l’édition en ligne de documents avec onlyoffice.
+Cette documentation décrit donc l’installation de Cozy à partir du code source de cozy-stack sur un serveur Ubuntu 20.04 LTS focal fossa. Nous verrons aussi comment activer l’édition en ligne de documents avec onlyoffice.
 
 
 # Prérequis
@@ -12,9 +12,9 @@ Cette documentation décrit donc l’installation de cozy à partir du code sour
 L’installation nécessite :
 
 - Un serveur sous Ubuntu 20.04 LTS focal fossa
-- Un nom de domaine (indispensable pour héberger les cozy, qu’ils soient accessibles d’internet, et sécurisés en https).
+- Un nom de domaine (indispensable pour héberger les Cozy, qu’ils soient accessibles d’internet, et sécurisés en https).
     Dans la suite de ce document, nous prendrons pour exemple le domaine `domain.example` que vous remplacerez donc par votre propre nom de domaine.
-    Votre cozy aura pour adresse `cozy.domain.example`
+    Votre Cozy aura pour adresse `cozy.domain.example`
 - De bonnes connaissances d’administration système, même si cette documentation se veut la plus simple possible à suivre
 
 De plus, vous aurez besoin de définir au cours de l’installation :
@@ -22,7 +22,7 @@ De plus, vous aurez besoin de définir au cours de l’installation :
 - un mot de passe d’administration pour CouchDB
 - un mot de passe pour l’accès à la base de données CouchDB
 - un mot de passe d’administration pour cozy-stack
-- de fournir votre email pour la création des certificats letsencrypt et la création de votre cozy
+- de fournir votre email pour la création des certificats letsencrypt et la création de votre Cozy
 
 # Couchdb
 
@@ -70,7 +70,7 @@ Puis installez NodeJS :
 
 # Go
 
-Le serveur cozy est développé en Go, nous aurons donc besoin d’installer le compilateur du langage go pour pouvoir compiler depuis les sources :
+Le serveur Cozy est développé en Go, nous aurons donc besoin d’installer le compilateur du langage go pour pouvoir compiler depuis les sources :
 
     wget -O /tmp/go1.17.3.linux-amd64.tar.gz https://go.dev/dl/go1.17.3.linux-amd64.tar.gz
     sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzvf /tmp/go1.17.3.linux-amd64.tar.gz
@@ -269,11 +269,11 @@ Configurez nginx :
     sudo ln -s ../sites-available/cozy.${DOMAIN} /etc/nginx/sites-enabled/
     sudo systemctl reload nginx
 
-Vous pouvez tester depuis votre navigateur en vous rendant à l’adresse `https://cozy.domain.example` et vous devriez alors voir une page vous indiquant que votre cozy n’existe pas. Dans ce cas tout s’est bien passé et il ne reste plus qu’à créer et configurer votre instance de cozy.
+Vous pouvez tester depuis votre navigateur en vous rendant à l’adresse `https://cozy.domain.example` et vous devriez alors voir une page vous indiquant que votre Cozy n’existe pas. Dans ce cas tout s’est bien passé et il ne reste plus qu’à créer et configurer votre instance de Cozy.
 
-# Création de l’instance cozy
+# Création de l’instance Cozy
 
-Pour créer votre instance cozy :
+Pour créer votre instance Cozy:
 
     DOMAIN=domain.example
     EMAIL=<votre email>
@@ -283,25 +283,25 @@ Pour créer votre instance cozy :
 Vous pouvez bien sur adapter la langue (`locale`) et choisir anglais (`en`) ou espagnol (`es`) ou votre timezone (`tz`).
 
 Notez le “Registration token” que vous rend cette dernière commande et accédez depuis votre navigateur à `https://cozy.domain.example?registerToken=<le_token_retourné>` en remplaçant `domain.example` par le nom de votre domaine et ``<le_token_retourné>`` par le “Registration token” retourné par la commande précédente.
-Vous pourrez ainsi définir votre mot de passe et commencer à utiliser votre cozy.
+Vous pourrez ainsi définir votre mot de passe et commencer à utiliser votre Cozy.
 
 # Et voilà !
 
-Votre cozy est désormais opérationnel, profitez-en pleinement ! Son adresse est `https://cozy.domain.example` (remplacez domain.example par votre nom de domaine)
-Vous pouvez commencer à installer depuis le store des connecteurs pour récupérer automatiquement vos données personnelles depuis vos fournisseurs, sauver vos mots de passe dans cozy-pass, entreposer vos fichiers dans cozy-drive et installer notre client en synchronisation sur votre PC pour synchroniser automatiquement le contenu de votre cozy avec un répertoire local.
+Votre Cozy est désormais opérationnel, profitez-en pleinement ! Son adresse est `https://cozy.domain.example` (remplacez domain.example par votre nom de domaine)
+Vous pouvez commencer à installer depuis le store des connecteurs pour récupérer automatiquement vos données personnelles depuis vos fournisseurs, sauver vos mots de passe dans cozy-pass, entreposer vos fichiers dans cozy-drive et installer notre client en synchronisation sur votre PC pour synchroniser automatiquement le contenu de votre Cozy avec un répertoire local.
 
 Et ci-dessous, quelques bonus 😉
 
 # Héberger plusieurs instances sur son serveur
 
-Avoir un cozy auto-hébergé, c’est bien, mais partager et proposer à la famille, aux amis un cozy qu’on héberge pour eux parce qu’on sait faire c’est cool aussi. Voici donc comment créer un autre cozy sur le même serveur.
+Avoir un Cozy auto-hébergé, c’est bien, mais partager et proposer à la famille, aux amis un Cozy qu’on héberge pour eux parce qu’on sait faire c’est cool aussi. Voici donc comment créer un autre Cozy sur le même serveur.
 
-Le premier cozy que nous avons créé a pour adresse `https://cozy.domain.example`. Nous allons créer un second cozy pour Antoinette à l’adresse `https://antoinette.domain.example` (remplacez `domain.example` par votre nom de domaine et `antoinette` par ce que vous voudrez qui identifiera le cozy de manière unique.
+Le premier Cozy que nous avons créé a pour adresse `https://cozy.domain.example`. Nous allons créer un second Cozy pour Antoinette à l’adresse `https://antoinette.domain.example` (remplacez `domain.example` par votre nom de domaine et `antoinette` par ce que vous voudrez qui identifiera le Cozy de manière unique.
 
 Il nous faudra donc :
 
 - Le nom de votre domaine. Nous utilisons toujours `domain.example` dans cette documentation
-- le “slug” du cozy, c’est à dire son identifiant unique. Ici nous utilisons pour l’exemple `antoinette`. L’adresse de votre cozy sera de la forme `https://<slug>.<domain>`, par exmeple ici `https://antoinette.domain.example`
+- le “slug” du Cozy, c’est à dire son identifiant unique. Ici nous utilisons pour l’exemple `antoinette`. L’adresse de votre Cozy sera de la forme `https://<slug>.<domain>`, par exmeple ici `https://antoinette.domain.example`
 
 Nous allons commencer par mettre dans des variables les informations importantes :
 
@@ -310,12 +310,12 @@ Nous allons commencer par mettre dans des variables les informations importantes
     NEWSLUG=antoinette
     NEWEMAIL=<adresse email d'antoinette>
 
-Créer les entrées DNS pour ce cozy. Par exemple :
+Créer les entrées DNS pour ce Cozy. Par exemple :
 
     antoinette     1h     IN         A     <IP_de_votre_serveur>
     *.antoinette   1h     IN     CNAME     antoinette
 
-Créer la configuration de base pour ce cozy dans nginx :
+Créer la configuration de base pour ce Cozy dans nginx :
 
     cat <<EOF | sudo tee /etc/nginx/sites-available/${NEWSLUG}.${DOMAIN} > /dev/null
     server {
@@ -341,7 +341,7 @@ Générez le certificat SSL à l’aide de certbot :
 
     sudo certbot certonly --email "${EMAIL}" --non-interactive --agree-tos --webroot -w /var/www/html -d ${NEWSLUG}.${DOMAIN} $(printf -- " -d %s.${NEWSLUG}.${DOMAIN}" home banks contacts drive notes passwords photos settings store)
 
-Finalisez la configuration de nginx pour ce nouveau cozy :
+Finalisez la configuration de nginx pour ce nouveau Cozy :
 
     cat <<EOF | sudo tee -a /etc/nginx/sites-available/${NEWSLUG}.${DOMAIN} > /dev/null
 
@@ -370,20 +370,20 @@ Finalisez la configuration de nginx pour ce nouveau cozy :
     EOF
     sudo systemctl reload nginx
 
-Créer l’instance de cozy :
+Créer l’instance de Cozy :
 
     [[ -z "${COZY_PASS}" ]] && read -p "Cozy stack admin password: " -r -s COZY_PASS
     COZY_ADMIN_PASSWORD="${COZY_PASS}" cozy-stack instances add --apps home,banks,contacts,drive,notes,passwords,photos,settings,store --email "${NEWEMAIL}" --locale fr --tz "Europe/Paris" ${NEWSLUG}.${DOMAIN}
 
-Notez le “Registration token” que vous rend cette dernière commande et envoyez à Antoinette l’url `https://antoinette.domain.example?registerToken=<le_token_retourné>` en remplaçant `domain.example` par le nom de votre domaine, `antoinette` par le slug que vous aurez choisi pour cette nouvelle instance de cozy et `<le_token_retourné>` par le “Registration token” retourné par la commande précédente.
+Notez le “Registration token” que vous rend cette dernière commande et envoyez à Antoinette l’url `https://antoinette.domain.example?registerToken=<le_token_retourné>` en remplaçant `domain.example` par le nom de votre domaine, `antoinette` par le slug que vous aurez choisi pour cette nouvelle instance de Cozy et `<le_token_retourné>` par le “Registration token” retourné par la commande précédente.
 
-En visitant cette adresse à l’aide de son navigateur, elle pourra ainsi définir son mot de passe et commencer à utiliser son cozy.
+En visitant cette adresse à l’aide de son navigateur, elle pourra ainsi définir son mot de passe et commencer à utiliser son Cozy.
 
 # Edition en ligne et collaborative de documents
 
-La fonctionnalité d’édition en ligne de documents basée sur OnlyOffice est optionnelle. Vous pouvez utiliser votre cozy sans l’activer. Elle permet d’éditer en ligne directement dans son navigateur ses documents office mais nécessite des ressources supplémentaires sur votre serveur.
+La fonctionnalité d’édition en ligne de documents basée sur OnlyOffice est optionnelle. Vous pouvez utiliser votre Cozy sans l’activer. Elle permet d’éditer en ligne directement dans son navigateur ses documents office mais nécessite des ressources supplémentaires sur votre serveur.
 
-Pour activer la fonctionnalité d’édition en ligne de documents office, avec onlyoffice, il nous faut installer le serveur de documents onlyoffice et configurer la stack cozy pour y accéder. Le serveur de documents onlyoffice peut être installé sur le même serveur ou sur un serveur différent. Cette documentation expliquer comment le déployer sur le même serveur.
+Pour activer la fonctionnalité d’édition en ligne de documents office, avec onlyoffice, il nous faut installer le serveur de documents onlyoffice et configurer la stack Cozy pour y accéder. Le serveur de documents onlyoffice peut être installé sur le même serveur ou sur un serveur différent. Cette documentation expliquer comment le déployer sur le même serveur.
 
 ## OnlyOffice
 
@@ -480,7 +480,7 @@ Activer la fonctionnalité :
 
 # Mettre à jour cozy-stack
 
-Les applications à l’intérieur de votre cozy se mettent à jour automatiquement, cependant, l’application cozy-stack qui tourne sur votre serveur doit être mise à jour régulièrement (une fois tous les 3 mois environ est un bon compromis entre trop et trop peu).
+Les applications à l’intérieur de votre Cozy se mettent à jour automatiquement, cependant, l’application cozy-stack qui tourne sur votre serveur doit être mise à jour régulièrement (une fois tous les 3 mois environ est un bon compromis entre trop et trop peu).
 Voici la marche à suivre pour y parvenir :
 
 Mettez à jour le code source :

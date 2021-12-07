@@ -1,10 +1,10 @@
-# Install cozy on Ubuntu 20.04 LTS focal fossa
+# Install Cozy on Ubuntu 20.04 LTS focal fossa
 
 # Introduction
 
 Cozycloud provides Debian packages and [installation instructions](https://docs.cozy.io/en/tutorials/selfhosting/selfhost-debian-pkg/) for Debian 10 buster from installation packages. However, there is no published packages for Ubuntu.
 
-This documentation describes how to install cozy from sources on an Ubuntu 20.04 LTS focal fossa server. We will also see how to host multiple cozy instances on the same server, how to activate online edition for office documents and how to upgrade cozy-stack.
+This documentation describes how to install Cozy from sources on an Ubuntu 20.04 LTS focal fossa server. We will also see how to host multiple Cozy instances on the same server, how to activate online edition for office documents and how to upgrade cozy-stack.
 
 
 # Requirements
@@ -12,9 +12,9 @@ This documentation describes how to install cozy from sources on an Ubuntu 20.04
 The installation procedure requires:
 
 - An Ubuntu 20.04 LTS focal fossa server
-- A domain name (mandatory to host cozy instances secured with https and accessible from internet).
+- A domain name (mandatory to host Cozy instances secured with https and accessible from internet).
     In this docuemnt, we will use `domain.example` as an example. You will replace it with your own domain name throughout the explanation.
-    The address of your cozy instance will be `cozy.domain.example`
+    The address of your Cozy instance will be `cozy.domain.example`
 - Good system administration knowledge. Despite documentation's goal is to be pretty straightforward to follow, there are some tricky and technical parts.
 
 During installation, you will also define:
@@ -22,7 +22,7 @@ During installation, you will also define:
 - a CouchDB admininstration password
 - a CouchDB database access password
 - a cozy-stack admin password
-- You will need to provide your email address for Let's Encrypt SSL certificate validation and your cozy instance creation
+- You will need to provide your email address for Let's Encrypt SSL certificate validation and your Cozy instance creation
 
 # Couchdb
 
@@ -53,7 +53,7 @@ In this command line, `adminpwd` should be replaced by CouchDB admin password yo
 
 # NodeJS
 
-To be able to run cozy connectors and gather all your data, cozy-stack needs NodeJS version 12 or 16. This documents gives instructions to instal NodeJS 16.
+To be able to run Cozy connectors and gather all your data, cozy-stack needs NodeJS version 12 or 16. This documents gives instructions to instal NodeJS 16.
 
 Configure NodeJS 16 package repository:
 
@@ -269,11 +269,11 @@ Configure nginx:
     sudo ln -s ../sites-available/cozy.${DOMAIN} /etc/nginx/sites-enabled/
     sudo systemctl reload nginx
 
-You can then test from your browser by visiting `https://cozy.domain.example` and you should see a page telling you this cozy instance doesn't exist yet. This is the sign that everything went well and the only part left is to create the instance.
+You can then test from your browser by visiting `https://cozy.domain.example` and you should see a page telling you this Cozy instance doesn't exist yet. This is the sign that everything went well and the only part left is to create the instance.
 
 # Cozy instance creation
 
-Create your cozy instance:
+Create your Cozy instance:
 
     DOMAIN=domain.example
     EMAIL=<your email address>
@@ -283,26 +283,26 @@ Create your cozy instance:
 You can of course adapt your language (`locale`) and choose english (`en`) or spanish (`es`) and choose another timezone (`tz`).
 
 Note the “Registration token” this command returns and visit from your browser `https://cozy.domain.example?registerToken=<registration_token>` substituting `domain.example` with your real domain name and `<registration_token>` with the “Registration token” you got.
-You will be prompted to define your cozy password and you will be able to start using your self-hosted cozy.
+You will be prompted to define your Cozy password and you will be able to start using your self-hosted Cozy.
 
 
 # Et voilà !
 
-Your cozy is not fully operational! Its address is `https://cozy.domain.example` (remplace `domain.example` by your own domain name)
-You can then start installing connectors from store to automatically gather your data, save your passwords in cozy-pass, store your files in cozy-drive and install cozy-desktop client on your PC to synchronize your cozy content with a local folder.
+Your Cozy is not fully operational! Its address is `https://cozy.domain.example` (remplace `domain.example` by your own domain name)
+You can then start installing connectors from store to automatically gather your data, save your passwords in cozy-pass, store your files in cozy-drive and install cozy-desktop client on your PC to synchronize your Cozy content with a local folder.
 
 Below are some bonuses 😉
 
-# Hosting more than one cozy instance on the same server
+# Hosting more than one Cozy instance on the same server
 
-Having its own selfhosted cozy instance is nice but hosting cozy instances for friends and familly is a must! Here is how to add more cozy instances on the same server.
+Having its own selfhosted Cozy instance is nice but hosting Cozy instances for friends and familly is a must! Here is how to add more Cozy instances on the same server.
 
-The first cozy instance we added was `https://cozy.domain.example`. We will create a second cozy instance for Mary with address `https://mary.domain.example` (Replace `domain.example` with your own domain name and `mary` whith what you want to uniquely identify the cozy instance.
+The first Cozy instance we added was `https://cozy.domain.example`. We will create a second Cozy instance for Mary with address `https://mary.domain.example` (Replace `domain.example` with your own domain name and `mary` whith what you want to uniquely identify the Cozy instance.
 
 So we will need:
 
 - Our domain name. We still use `domain.example` in this documentation
-- The new cozy instance's “slug”, which is its unique identifier. We will use `mary` here for example. The address for this new cozy instance will the be in the form `https://<slug>.<domain>`, for example here `https://mary.domain.example`
+- The new Cozy instance's “slug”, which is its unique identifier. We will use `mary` here for example. The address for this new Cozy instance will the be in the form `https://<slug>.<domain>`, for example here `https://mary.domain.example`
 
 First, let's put all that important information in variables:
 
@@ -311,12 +311,12 @@ First, let's put all that important information in variables:
     NEWSLUG=mary
     NEWEMAIL=<Mary's email address>
 
-Create DNS entries for this cozy isntance. For example:
+Create DNS entries for this Cozy isntance. For example:
 
     mary     1h     IN         A     <your_server_IP>
     *.mary   1h     IN     CNAME     mary
 
-Create Nginx base configuration for this cozy isntance:
+Create Nginx base configuration for this Cozy isntance:
 
     cat <<EOF | sudo tee /etc/nginx/sites-available/${NEWSLUG}.${DOMAIN} > /dev/null
     server {
@@ -371,17 +371,17 @@ Finalize Nginx configuration:
     EOF
     sudo systemctl reload nginx
 
-Create cozy instance:
+Create Cozy instance:
 
     [[ -z "${COZY_PASS}" ]] && read -p "Cozy stack admin password: " -r -s COZY_PASS
     COZY_ADMIN_PASSWORD="${COZY_PASS}" cozy-stack instances add --apps home,banks,contacts,drive,notes,passwords,photos,settings,store --email "${NEWEMAIL}" --locale fr --tz "Europe/Paris" ${NEWSLUG}.${DOMAIN}
 
 Note the “Registration token” the last command gives you and send Mary the following url: `https://mary.domain.example?registerToken=<registration_token>`, substituting `domain.example` with your own domain name, `mary` with the slug you chose for this new instance and  `<registration_token>` with the “Registration token” returned by the last command.
-By visiting this address with her browser, Mary will be able to define its password and start using  her cozy.
+By visiting this address with her browser, Mary will be able to define its password and start using her Cozy.
 
 # Online edtion of office documents
 
-Online office document edition functionality based on OnlyOffice is optional. You can use your cozy without activating it. It let you edit your office documents online directly in your browser, however it requires more resources on your server.
+Online office document edition functionality based on OnlyOffice is optional. You can use your Cozy without activating it. It let you edit your office documents online directly in your browser, however it requires more resources on your server.
 
 To activate this functionality, you need to install OnlyOffice document server and configure cozy-stack to access it. OnlyOffice document server can be isntalled on the same server or on another server at your convenience. This documentation explain how to install it on the same server.
 
@@ -484,7 +484,7 @@ You can now upload an office document in cozy-drive and start editing it online 
 
 # Update cozy-stack
 
-Applications inside your cozy are automatically updated, however, cozy-stack application running on your server must be updated from time to time (once every 3 month is a good compromise between too much and too few).
+Applications inside your Cozy are automatically updated, however, cozy-stack application running on your server must be updated from time to time (once every 3 month is a good compromise between too much and too few).
 Here is how to upgrade cozy-stack:
 
 Update source code:
