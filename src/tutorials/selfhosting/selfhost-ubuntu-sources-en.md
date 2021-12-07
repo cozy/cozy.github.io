@@ -19,7 +19,7 @@ The installation procedure requires:
 
 During installation, you will also define:
 
-- a CouchDB admininstration password
+- a CouchDB administration password
 - a CouchDB database access password
 - a cozy-stack admin password
 - You will need to provide your email address for Let's Encrypt SSL certificate validation and your Cozy instance creation
@@ -70,7 +70,7 @@ Install NodeJS:
 
 # Go
 
-cozy-stack is developped in Go language so we need to install the go compiler to be able to compile cozy-stack sources:
+cozy-stack is developped in Go language so we need to install the Go compiler to be able to compile cozy-stack sources:
 
     wget -O /tmp/go1.17.3.linux-amd64.tar.gz https://go.dev/dl/go1.17.3.linux-amd64.tar.gz
     sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzvf /tmp/go1.17.3.linux-amd64.tar.gz
@@ -295,9 +295,9 @@ Below are some bonuses 😉
 
 # Hosting more than one Cozy instance on the same server
 
-Having its own selfhosted Cozy instance is nice but hosting Cozy instances for friends and familly is a must! Here is how to add more Cozy instances on the same server.
+Having its own selfhosted Cozy instance is nice but hosting Cozy instances for friends and family is a must! Here is how to add more Cozy instances on the same server.
 
-The first Cozy instance we added was `https://cozy.domain.example`. We will create a second Cozy instance for Mary with address `https://mary.domain.example` (Replace `domain.example` with your own domain name and `mary` whith what you want to uniquely identify the Cozy instance.
+The first Cozy instance we added was `https://cozy.domain.example`. We will create a second Cozy instance for Mary with address `https://mary.domain.example` (Replace `domain.example` with your own domain name and `mary` with what you want to uniquely identify the Cozy instance.
 
 So we will need:
 
@@ -311,12 +311,12 @@ First, let's put all that important information in variables:
     NEWSLUG=mary
     NEWEMAIL=<Mary's email address>
 
-Create DNS entries for this Cozy isntance. For example:
+Create DNS entries for this Cozy instance. For example:
 
     mary     1h     IN         A     <your_server_IP>
     *.mary   1h     IN     CNAME     mary
 
-Create Nginx base configuration for this Cozy isntance:
+Create Nginx base configuration for this Cozy instance:
 
     cat <<EOF | sudo tee /etc/nginx/sites-available/${NEWSLUG}.${DOMAIN} > /dev/null
     server {
@@ -379,11 +379,11 @@ Create Cozy instance:
 Note the “Registration token” the last command gives you and send Mary the following url: `https://mary.domain.example?registerToken=<registration_token>`, substituting `domain.example` with your own domain name, `mary` with the slug you chose for this new instance and  `<registration_token>` with the “Registration token” returned by the last command.
 By visiting this address with her browser, Mary will be able to define its password and start using her Cozy.
 
-# Online edtion of office documents
+# Online edition of office documents
 
 Online office document edition functionality based on OnlyOffice is optional. You can use your Cozy without activating it. It let you edit your office documents online directly in your browser, however it requires more resources on your server.
 
-To activate this functionality, you need to install OnlyOffice document server and configure cozy-stack to access it. OnlyOffice document server can be isntalled on the same server or on another server at your convenience. This documentation explain how to install it on the same server.
+To activate this functionality, you need to install OnlyOffice document server and configure cozy-stack to access it. OnlyOffice document server can be installed on the same server or on another server at your convenience. This documentation explain how to install it on the same server.
 
 
 ## Onlyoffice
@@ -431,7 +431,7 @@ Then restart Nginx
 
 ### Configure HTTPS for OnlyOffice
 
-Create a DNS entry for OnlyOffice targetting your server. For example:
+Create a DNS entry for OnlyOffice targeting your server. For example:
 
     onlyoffice     1h     IN         A     <your_server_IP>
 
@@ -511,7 +511,7 @@ Restart cozy-stack:
 
     sudo systemctl restart cozy-stack
 
-Et voilà, you just upgraded cozy-stack to the latest verson. pretty easy.
+Et voilà, you just upgraded cozy-stack to the latest version. pretty easy.
 
 # References
 - CouchDB installation: [https://docs.couchdb.org/en/stable/install/unix.html](https://docs.couchdb.org/en/stable/install/unix.html)

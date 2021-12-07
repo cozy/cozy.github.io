@@ -26,7 +26,7 @@ De plus, vous aurez besoin de définir au cours de l’installation :
 
 # Couchdb
 
-Configurer le dépot de paquets couchdb :
+Configurer le dépôt de paquets couchdb :
 
     sudo apt update && sudo apt install -y curl apt-transport-https gnupg
     curl https://couchdb.apache.org/repo/keys.asc | gpg --dearmor | sudo tee /usr/share/keyrings/couchdb-archive-keyring.gpg >/dev/null 2>&1
@@ -70,7 +70,7 @@ Puis installez NodeJS :
 
 # Go
 
-Le serveur Cozy est développé en Go, nous aurons donc besoin d’installer le compilateur du langage go pour pouvoir compiler depuis les sources :
+Le serveur Cozy est développé en Go, nous aurons donc besoin d’installer le compilateur du langage Go pour pouvoir compiler depuis les sources :
 
     wget -O /tmp/go1.17.3.linux-amd64.tar.gz https://go.dev/dl/go1.17.3.linux-amd64.tar.gz
     sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzvf /tmp/go1.17.3.linux-amd64.tar.gz
@@ -301,7 +301,7 @@ Le premier Cozy que nous avons créé a pour adresse `https://cozy.domain.exampl
 Il nous faudra donc :
 
 - Le nom de votre domaine. Nous utilisons toujours `domain.example` dans cette documentation
-- le “slug” du Cozy, c’est à dire son identifiant unique. Ici nous utilisons pour l’exemple `antoinette`. L’adresse de votre Cozy sera de la forme `https://<slug>.<domain>`, par exmeple ici `https://antoinette.domain.example`
+- le “slug” du Cozy, c’est à dire son identifiant unique. Ici nous utilisons pour l’exemple `antoinette`. L’adresse de votre Cozy sera de la forme `https://<slug>.<domain>`, par exemple ici `https://antoinette.domain.example`
 
 Nous allons commencer par mettre dans des variables les informations importantes :
 
