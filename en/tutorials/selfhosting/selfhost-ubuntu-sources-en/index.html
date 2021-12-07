@@ -2514,48 +2514,48 @@
                   <a href="https://github.com/cozy/cozy.github.io/edit/dev/src/tutorials/selfhosting/selfhost-ubuntu-sources-en.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="install-cozy-on-ubuntu-2004-lts-focal-fossa">Install cozy on Ubuntu 20.04 LTS focal fossa<a class="headerlink" href="#install-cozy-on-ubuntu-2004-lts-focal-fossa" title="Permanent link">&para;</a></h1>
+                <h1 id="install-cozy-on-ubuntu-2004-lts-focal-fossa">Install Cozy on Ubuntu 20.04 LTS focal fossa<a class="headerlink" href="#install-cozy-on-ubuntu-2004-lts-focal-fossa" title="Permanent link">&para;</a></h1>
 <h1 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h1>
 <p>Cozycloud provides Debian packages and <a href="https://docs.cozy.io/en/tutorials/selfhosting/selfhost-debian-pkg/">installation instructions</a> for Debian 10 buster from installation packages. However, there is no published packages for Ubuntu.</p>
-<p>This documentation describes how to install cozy from sources on an Ubuntu 20.04 LTS focal fossa server. We will also see how to host multiple cozy instances on the same server, how to activate online edition for office documents and how to upgrade cozy-stack.</p>
+<p>This documentation describes how to install Cozy from sources on an Ubuntu 20.04 LTS focal fossa server. We will also see how to host multiple Cozy instances on the same server, how to activate online edition for office documents and how to upgrade cozy-stack.</p>
 <h1 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h1>
 <p>The installation procedure requires:</p>
 <ul>
 <li>An Ubuntu 20.04 LTS focal fossa server</li>
-<li>A domain name (mandatory to host cozy instances secured with https and accessible from internet).
+<li>A domain name (mandatory to host Cozy instances secured with https and accessible from internet).
     In this docuemnt, we will use <code>domain.example</code> as an example. You will replace it with your own domain name throughout the explanation.
-    The address of your cozy instance will be <code>cozy.domain.example</code></li>
+    The address of your Cozy instance will be <code>cozy.domain.example</code></li>
 <li>Good system administration knowledge. Despite documentation&rsquo;s goal is to be pretty straightforward to follow, there are some tricky and technical parts.</li>
 </ul>
 <p>During installation, you will also define:</p>
 <ul>
-<li>a CouchDB admininstration password</li>
+<li>a CouchDB administration password</li>
 <li>a CouchDB database access password</li>
 <li>a cozy-stack admin password</li>
-<li>You will need to provide your email address for Let&rsquo;s Encrypt SSL certificate validation and your cozy instance creation</li>
+<li>You will need to provide your email address for Let&rsquo;s Encrypt SSL certificate validation and your Cozy instance creation</li>
 </ul>
 <h1 id="couchdb">Couchdb<a class="headerlink" href="#couchdb" title="Permanent link">&para;</a></h1>
-<p>Configure CouchDB package repository</p>
+<p>Configure CouchDB package repository:</p>
 <div class="codehilite"><pre><span></span>sudo apt update &amp;&amp; sudo apt install -y curl apt-transport-https gnupg
 curl https://couchdb.apache.org/repo/keys.asc | gpg --dearmor | sudo tee /usr/share/keyrings/couchdb-archive-keyring.gpg &gt;/dev/null 2&gt;&amp;1
 echo &quot;deb [signed-by=/usr/share/keyrings/couchdb-archive-keyring.gpg] https://apache.jfrog.io/artifactory/couchdb-deb/ $(lsb_release -sc) main&quot; | sudo tee /etc/apt/sources.list.d/couchdb.list &gt;/dev/null
 </pre></div>
 
 
-<p>Install Couchdb</p>
+<p>Install Couchdb:</p>
 <div class="codehilite"><pre><span></span>sudo apt update
 sudo apt install -y couchdb
 </pre></div>
 
 
 <p>Duing CouchDB installation, choose <code>Standalone</code> mode and define admin password.</p>
-<p>Validate CouchDB is working</p>
+<p>Validate CouchDB is working:</p>
 <div class="codehilite"><pre><span></span>curl http://localhost:5984/
 {&quot;couchdb&quot;:&quot;Welcome&quot;,&quot;version&quot;:&quot;3.2.1&quot;,&quot;git_sha&quot;:&quot;244d428af&quot;,&quot;uuid&quot;:&quot;f7b83554fa2eb43778963d18a1f92211&quot;,&quot;features&quot;:[&quot;access-ready&quot;,&quot;partitioned&quot;,&quot;pluggable-storage-engines&quot;,&quot;reshard&quot;,&quot;scheduler&quot;],&quot;vendor&quot;:{&quot;name&quot;:&quot;The Apache Software Foundation&quot;}}
 </pre></div>
 
 
-<p>Finally, create a database user and password for  cozy-stack</p>
+<p>Finally, create a database user and password for  cozy-stack:</p>
 <div class="codehilite"><pre><span></span><span class="n">read</span> <span class="o">-</span><span class="n">p</span> <span class="s">&quot;Couchdb password for cozy user: &quot;</span> <span class="o">-</span><span class="n">r</span> <span class="o">-</span><span class="n">s</span> <span class="n">COUCH_PASS</span>
 <span class="n">curl</span> <span class="o">-</span><span class="n">fsX</span> <span class="n">PUT</span> <span class="o">-</span><span class="n">u</span> <span class="s">&quot;admin:adminpwd&quot;</span> <span class="s">&quot;http://localhost:5984/_node/couchdb@127.0.0.1/_config/admins/cozy&quot;</span> <span class="o">--</span><span class="n">data</span> <span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">${COUCH_PASS}</span><span class="se">\&quot;</span><span class="s">&quot;</span>
 </pre></div>
@@ -2563,8 +2563,8 @@ sudo apt install -y couchdb
 
 <p>In this command line, <code>adminpwd</code> should be replaced by CouchDB admin password you defined during CouchDB installation.</p>
 <h1 id="nodejs">NodeJS<a class="headerlink" href="#nodejs" title="Permanent link">&para;</a></h1>
-<p>To be able to run cozy connectors and gather all your data, cozy-stack needs NodeJS version 12 or 16. This documents gives instructions to instal NodeJS 16.</p>
-<p>Configure NodeJS 16 package repository</p>
+<p>To be able to run Cozy connectors and gather all your data, cozy-stack needs NodeJS version 12 or 16. This documents gives instructions to instal NodeJS 16.</p>
+<p>Configure NodeJS 16 package repository:</p>
 <div class="codehilite"><pre><span></span>KEYRING=/usr/share/keyrings/nodesource.gpg
 curl -fsSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dearmor | sudo tee &quot;$KEYRING&quot; &gt;/dev/null
 echo &quot;deb [signed-by=$KEYRING] https://deb.nodesource.com/node_16.x $(lsb_release -sc) main&quot; | sudo tee /etc/apt/sources.list.d/nodesource.list &gt;/dev/null
@@ -2572,7 +2572,7 @@ echo &quot;deb-src [signed-by=$KEYRING] https://deb.nodesource.com/node_16.x $(l
 </pre></div>
 
 
-<p>Install NodeJS</p>
+<p>Install NodeJS:</p>
 <div class="codehilite"><pre><span></span>sudo apt update
 sudo apt install -y nodejs
 sudo ln -s /usr/bin/node /usr/bin/nodejs
@@ -2580,7 +2580,7 @@ sudo ln -s /usr/bin/node /usr/bin/nodejs
 
 
 <h1 id="go">Go<a class="headerlink" href="#go" title="Permanent link">&para;</a></h1>
-<p>cozy-stack is developped in Go language so we need to install the go compiler to be able to compile cozy-stack sources.</p>
+<p>cozy-stack is developped in Go language so we need to install the Go compiler to be able to compile cozy-stack sources:</p>
 <div class="codehilite"><pre><span></span>wget -O /tmp/go1.17.3.linux-amd64.tar.gz https://go.dev/dl/go1.17.3.linux-amd64.tar.gz
 sudo rm -rf /usr/local/go &amp;&amp; sudo tar -C /usr/local -xzvf /tmp/go1.17.3.linux-amd64.tar.gz
 echo &quot;export PATH=\&quot;\$PATH:/usr/local/go/bin\&quot;&quot; | sudo tee /etc/profile.d/golang.sh &gt; /dev/null
@@ -2588,38 +2588,38 @@ source /etc/profile.d/golang.sh
 </pre></div>
 
 
-<p>Test Go installation is fine with</p>
+<p>Test Go installation is fine with:</p>
 <div class="codehilite"><pre><span></span>go version
 go version go1.17.3 linux/amd64
 </pre></div>
 
 
 <h1 id="cozy-stack">Cozy-stack<a class="headerlink" href="#cozy-stack" title="Permanent link">&para;</a></h1>
-<p>First, install requirements</p>
+<p>First, install requirements:</p>
 <div class="codehilite"><pre><span></span>sudo apt install -y imagemagick libprotobuf-c1 fonts-lato
 </pre></div>
 
 
-<p>Get the source code</p>
+<p>Get the source code:</p>
 <div class="codehilite"><pre><span></span>sudo apt install -y git
 sudo git clone https://github.com/cozy/cozy-stack.git /opt/cozy-stack
 </pre></div>
 
 
-<p>Then compile the program</p>
+<p>Then compile the program:</p>
 <div class="codehilite"><pre><span></span>cd /opt/cozy-stack
 scripts/build.sh release $(go env GOPATH)/bin/cozy-stack
 </pre></div>
 
 
 <p>The compilation generate a binary file under <code>$GOPATH/bin/cozy-stack</code></p>
-<p>You can test it with :</p>
+<p>You can test it with:</p>
 <div class="codehilite"><pre><span></span>$(go env GOPATH)/bin/cozy-stack version
 1.5.0-5-gcbdf012d
 </pre></div>
 
 
-<p>You then have to create a user to run cozy-stack</p>
+<p>You then have to create a user to run cozy-stack:</p>
 <div class="codehilite"><pre><span></span>sudo addgroup --quiet --system cozy
 sudo adduser --quiet --system --home /var/lib/cozy \
              --no-create-home --shell /usr/sbin/nologin \
@@ -2627,7 +2627,7 @@ sudo adduser --quiet --system --home /var/lib/cozy \
 </pre></div>
 
 
-<p>And install it</p>
+<p>And install it:</p>
 <div class="codehilite"><pre><span></span>sudo install -o root -g root -m 0755 -T \
              $(go env GOPATH)/bin/cozy-stack /usr/bin/cozy-stack
 sudo sh -c &#39;cozy-stack completion bash &gt; /etc/bash_completion.d/cozy-stack&#39;
@@ -2642,7 +2642,7 @@ sudo install -o cozy-stack -g cozy -m 750 -d /var/lib/cozy
 </pre></div>
 
 
-<p>And create configuration</p>
+<p>And create configuration:</p>
 <div class="codehilite"><pre><span></span><span class="n">read</span> <span class="o">-</span><span class="n">p</span> <span class="s">&quot;Cozy stack admin password: &quot;</span> <span class="o">-</span><span class="n">r</span> <span class="o">-</span><span class="n">s</span> <span class="n">COZY_PASS</span>
 <span class="n">cat</span> <span class="o">&lt;&lt;</span><span class="n">EOF</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">tee</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">cozy</span><span class="o">/</span><span class="n">cozy</span><span class="p">.</span><span class="n">yml</span> <span class="o">&gt;/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>
 <span class="nl">host</span><span class="p">:</span> <span class="mf">127.0.0.1</span>
@@ -2685,7 +2685,7 @@ sudo install -o cozy-stack -g cozy -m 750 -d /var/lib/cozy
 </pre></div>
 
 
-<p>Finally, configure systemd to automatically launch cozy-stack on boot.</p>
+<p>Finally, configure systemd to automatically launch cozy-stack on boot:</p>
 <div class="codehilite"><pre><span></span>cat &lt;&lt;EOF | sudo tee /usr/lib/systemd/system/cozy-stack.service &gt;/dev/null
 [Unit]
 Description=Cozy service
@@ -2709,32 +2709,32 @@ sudo systemctl start cozy-stack
 </pre></div>
 
 
-<p>You can validate everything went well and cozy-stack is running thiw way</p>
+<p>You can validate everything went well and cozy-stack is running thiw way:</p>
 <div class="codehilite"><pre><span></span>curl http://localhost:8080/version
 {&quot;build_mode&quot;:&quot;production&quot;,&quot;build_time&quot;:&quot;2021-12-01T13:12:36Z&quot;,&quot;runtime_version&quot;:&quot;go1.17.3&quot;,&quot;version&quot;:&quot;1.5.0-5-gcbdf012d&quot;}
 </pre></div>
 
 
 <h1 id="nginx">Nginx<a class="headerlink" href="#nginx" title="Permanent link">&para;</a></h1>
-<p>First create a DNS entry in your domain for <code>cozy.domain.example</code> and <code>*.cozy.domain.example</code> pointing at your server. For example :</p>
+<p>First create a DNS entry in your domain for <code>cozy.domain.example</code> and <code>*.cozy.domain.example</code> pointing at your server. For example:</p>
 <div class="codehilite"><pre><span></span>cozy     1h     IN         A     &lt;your_server_IP&gt;
 *.cozy   1h     IN     CNAME     cozy
 </pre></div>
 
 
-<p>Then install Nginx</p>
+<p>Then install Nginx:</p>
 <div class="codehilite"><pre><span></span>sudo apt install -y nginx certbot
 </pre></div>
 
 
-<p>Generate SSL certificate with certbot</p>
+<p>Generate SSL certificate with certbot:</p>
 <div class="codehilite"><pre><span></span>DOMAIN=domain.example
 EMAIL=&quot;<span class="nt">&lt;your</span> <span class="err">email</span> <span class="err">address</span><span class="nt">&gt;</span>&quot;
 sudo certbot certonly --email &quot;<span class="cp">${</span><span class="n">EMAIL</span><span class="cp">}</span>&quot; --non-interactive --agree-tos --webroot -w /var/www/html -d cozy.<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span> $(printf -- &quot; -d %s.cozy.<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span>&quot; home banks contacts drive notes passwords photos settings store)
 </pre></div>
 
 
-<p>Create nginx reload script for your certificate to be reloaded each time it is automatically refreshed, every 3 months</p>
+<p>Create nginx reload script for your certificate to be reloaded each time it is automatically refreshed, every 3 months:</p>
 <div class="codehilite"><pre><span></span>cat &lt;&lt;EOF | sudo tee /etc/letsencrypt/renewal-hooks/deploy/reload-nginx.sh
 #!/bin/bash
 nginx -t -q &amp;&amp; nginx -s reload
@@ -2743,7 +2743,7 @@ chmod 0755 /etc/letsencrypt/renewal-hooks/deploy/reload-nginx.sh
 </pre></div>
 
 
-<p>Configure nginx</p>
+<p>Configure nginx:</p>
 <div class="codehilite"><pre><span></span>DOMAIN=domain.example
 cat <span class="err">&lt;</span><span class="nt">&lt;EOF</span> <span class="err">|</span> <span class="err">sudo</span> <span class="err">tee</span> <span class="err">/etc/nginx/sites-available/cozy.${DOMAIN}</span> <span class="nt">&gt;</span> /dev/null
 server {
@@ -2790,9 +2790,9 @@ sudo systemctl reload nginx
 </pre></div>
 
 
-<p>You can then test from your browser by visiting <code>https://cozy.domain.example</code> and you should see a page telling you this cozy instance doesn&rsquo;t exist yet. This is the sign that everything went well and the only part left is to create the instance.</p>
+<p>You can then test from your browser by visiting <code>https://cozy.domain.example</code> and you should see a page telling you this Cozy instance doesn&rsquo;t exist yet. This is the sign that everything went well and the only part left is to create the instance.</p>
 <h1 id="cozy-instance-creation">Cozy instance creation<a class="headerlink" href="#cozy-instance-creation" title="Permanent link">&para;</a></h1>
-<p>Create your cozy instance</p>
+<p>Create your Cozy instance:</p>
 <div class="codehilite"><pre><span></span>DOMAIN=domain.example
 EMAIL=<span class="nt">&lt;your</span> <span class="err">email</span> <span class="err">address</span><span class="nt">&gt;</span>
 [[ -z &quot;<span class="cp">${</span><span class="n">COZY_PASS</span><span class="cp">}</span>&quot; ]] <span class="err">&amp;&amp;</span> read -p &quot;Cozy stack admin password: &quot; -r -s COZY_PASS
@@ -2802,20 +2802,20 @@ COZY_ADMIN_PASSWORD=&quot;<span class="cp">${</span><span class="n">COZY_PASS</s
 
 <p>You can of course adapt your language (<code>locale</code>) and choose english (<code>en</code>) or spanish (<code>es</code>) and choose another timezone (<code>tz</code>).</p>
 <p>Note the “Registration token” this command returns and visit from your browser <code>https://cozy.domain.example?registerToken=&lt;registration_token&gt;</code> substituting <code>domain.example</code> with your real domain name and <code>&lt;registration_token&gt;</code> with the “Registration token” you got.
-You will be prompted to define your cozy password and you will be able to start using your self-hosted cozy.</p>
+You will be prompted to define your Cozy password and you will be able to start using your self-hosted Cozy.</p>
 <h1 id="et-voila">Et voilà !<a class="headerlink" href="#et-voila" title="Permanent link">&para;</a></h1>
-<p>Your cozy is not fully operational! Its address is <code>https://cozy.domain.example</code> (remplace <code>domain.example</code> by your own domain name)
-You can then start installing connectors from store to automatically gather your data, save your passwords in cozy-pass, store your files in cozy-drive and install cozy-desktop client on your PC to synchronize your cozy content with a local folder.</p>
+<p>Your Cozy is not fully operational! Its address is <code>https://cozy.domain.example</code> (remplace <code>domain.example</code> by your own domain name)
+You can then start installing connectors from store to automatically gather your data, save your passwords in cozy-pass, store your files in cozy-drive and install cozy-desktop client on your PC to synchronize your Cozy content with a local folder.</p>
 <p>Below are some bonuses 😉</p>
-<h1 id="hosting-more-than-one-cozy-instance-on-the-same-server">Hosting more than one cozy instance on the same server<a class="headerlink" href="#hosting-more-than-one-cozy-instance-on-the-same-server" title="Permanent link">&para;</a></h1>
-<p>Having its own selfhosted cozy instance is nice but hosting cozy instances for friends and familly is a must! Here is how to add more cozy instances on the same server.</p>
-<p>The first cozy instance we added was <code>https://cozy.domain.example</code>. We will create a second cozy instance for Mary with address <code>https://mary.domain.example</code> (Replace <code>domain.example</code> with your own domain name and <code>mary</code> whith what you want to uniquely identify the cozy instance.</p>
-<p>So we will need :</p>
+<h1 id="hosting-more-than-one-cozy-instance-on-the-same-server">Hosting more than one Cozy instance on the same server<a class="headerlink" href="#hosting-more-than-one-cozy-instance-on-the-same-server" title="Permanent link">&para;</a></h1>
+<p>Having its own selfhosted Cozy instance is nice but hosting Cozy instances for friends and family is a must! Here is how to add more Cozy instances on the same server.</p>
+<p>The first Cozy instance we added was <code>https://cozy.domain.example</code>. We will create a second Cozy instance for Mary with address <code>https://mary.domain.example</code> (Replace <code>domain.example</code> with your own domain name and <code>mary</code> with what you want to uniquely identify the Cozy instance.</p>
+<p>So we will need:</p>
 <ul>
 <li>Our domain name. We still use <code>domain.example</code> in this documentation</li>
-<li>The new cozy instance&rsquo;s “slug”, which is its unique identifier. We will use <code>mary</code> here for example. The address for this new cozy instance will the be in the form <code>https://&lt;slug&gt;.&lt;domain&gt;</code>, for example here <code>https://mary.domain.example</code></li>
+<li>The new Cozy instance&rsquo;s “slug”, which is its unique identifier. We will use <code>mary</code> here for example. The address for this new Cozy instance will the be in the form <code>https://&lt;slug&gt;.&lt;domain&gt;</code>, for example here <code>https://mary.domain.example</code></li>
 </ul>
-<p>First, let&rsquo;s put all that important information in variables</p>
+<p>First, let&rsquo;s put all that important information in variables:</p>
 <div class="codehilite"><pre><span></span>DOMAIN=domain.example
 EMAIL=&lt;your email addresse&gt;
 NEWSLUG=mary
@@ -2823,13 +2823,13 @@ NEWEMAIL=&lt;Mary&#39;s email address&gt;
 </pre></div>
 
 
-<p>Create DNS entries for this cozy isntance. For example :</p>
+<p>Create DNS entries for this Cozy instance. For example:</p>
 <div class="codehilite"><pre><span></span>mary     1h     IN         A     &lt;your_server_IP&gt;
 *.mary   1h     IN     CNAME     mary
 </pre></div>
 
 
-<p>Create Nginx base configuration for this cozy isntance</p>
+<p>Create Nginx base configuration for this Cozy instance:</p>
 <div class="codehilite"><pre><span></span>cat <span class="err">&lt;</span><span class="nt">&lt;EOF</span> <span class="err">|</span> <span class="err">sudo</span> <span class="err">tee</span> <span class="err">/etc/nginx/sites-available/${NEWSLUG}.${DOMAIN}</span> <span class="nt">&gt;</span> /dev/null
 server {
     listen 80;
@@ -2852,12 +2852,12 @@ sudo systemctl reload nginx
 </pre></div>
 
 
-<p>Generate SSL certificate using certbot</p>
+<p>Generate SSL certificate using certbot:</p>
 <div class="codehilite"><pre><span></span>sudo certbot certonly --email &quot;<span class="cp">${</span><span class="n">EMAIL</span><span class="cp">}</span>&quot; --non-interactive --agree-tos --webroot -w /var/www/html -d <span class="cp">${</span><span class="n">NEWSLUG</span><span class="cp">}</span>.<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span> $(printf -- &quot; -d %s.<span class="cp">${</span><span class="n">NEWSLUG</span><span class="cp">}</span>.<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span>&quot; home banks contacts drive notes passwords photos settings store)
 </pre></div>
 
 
-<p>Finalize Nginx configuration</p>
+<p>Finalize Nginx configuration:</p>
 <div class="codehilite"><pre><span></span>cat <span class="err">&lt;</span><span class="nt">&lt;EOF</span> <span class="err">|</span> <span class="err">sudo</span> <span class="err">tee</span> <span class="err">-a</span> <span class="err">/etc/nginx/sites-available/${NEWSLUG}.${DOMAIN}</span> <span class="nt">&gt;</span> /dev/null
 
 server {
@@ -2887,17 +2887,17 @@ sudo systemctl reload nginx
 </pre></div>
 
 
-<p>Create cozy instance</p>
+<p>Create Cozy instance:</p>
 <div class="codehilite"><pre><span></span>[[ -z &quot;<span class="cp">${</span><span class="n">COZY_PASS</span><span class="cp">}</span>&quot; ]] <span class="err">&amp;&amp;</span> read -p &quot;Cozy stack admin password: &quot; -r -s COZY_PASS
 COZY_ADMIN_PASSWORD=&quot;<span class="cp">${</span><span class="n">COZY_PASS</span><span class="cp">}</span>&quot; cozy-stack instances add --apps home,banks,contacts,drive,notes,passwords,photos,settings,store --email &quot;<span class="cp">${</span><span class="n">NEWEMAIL</span><span class="cp">}</span>&quot; --locale fr --tz &quot;Europe/Paris&quot; <span class="cp">${</span><span class="n">NEWSLUG</span><span class="cp">}</span>.<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span>
 </pre></div>
 
 
 <p>Note the “Registration token” the last command gives you and send Mary the following url: <code>https://mary.domain.example?registerToken=&lt;registration_token&gt;</code>, substituting <code>domain.example</code> with your own domain name, <code>mary</code> with the slug you chose for this new instance and  <code>&lt;registration_token&gt;</code> with the “Registration token” returned by the last command.
-By visiting this address with her browser, Mary will be able to define its password and start using  her cozy.</p>
-<h1 id="online-edtion-of-office-documents">Online edtion of office documents<a class="headerlink" href="#online-edtion-of-office-documents" title="Permanent link">&para;</a></h1>
-<p>Online office document edition functionality based on OnlyOffice is optional. You can use your cozy without activating it. It let you edit your office documents online directly in your browser, however it requires more resources on your server.</p>
-<p>To activate this functionality, you need to install OnlyOffice document server and configure cozy-stack to access it. OnlyOffice document server can be isntalled on the same server or on another server at your convenience. This documentation explain how to install it on the same server.</p>
+By visiting this address with her browser, Mary will be able to define its password and start using her Cozy.</p>
+<h1 id="online-edition-of-office-documents">Online edition of office documents<a class="headerlink" href="#online-edition-of-office-documents" title="Permanent link">&para;</a></h1>
+<p>Online office document edition functionality based on OnlyOffice is optional. You can use your Cozy without activating it. It let you edit your office documents online directly in your browser, however it requires more resources on your server.</p>
+<p>To activate this functionality, you need to install OnlyOffice document server and configure cozy-stack to access it. OnlyOffice document server can be installed on the same server or on another server at your convenience. This documentation explain how to install it on the same server.</p>
 <h2 id="onlyoffice">Onlyoffice<a class="headerlink" href="#onlyoffice" title="Permanent link">&para;</a></h2>
 <p>Onlyoffice requires PostgreSQL and RabbitMQ so we will start by installing them.</p>
 <h3 id="install-postgresql-and-create-database">Install PostgreSQL and create database<a class="headerlink" href="#install-postgresql-and-create-database" title="Permanent link">&para;</a></h3>
@@ -2940,19 +2940,19 @@ sudo apt update
 
 
 <h3 id="configure-https-for-onlyoffice">Configure HTTPS for OnlyOffice<a class="headerlink" href="#configure-https-for-onlyoffice" title="Permanent link">&para;</a></h3>
-<p>Create a DNS entry for OnlyOffice targetting your server. For example :</p>
+<p>Create a DNS entry for OnlyOffice targeting your server. For example:</p>
 <div class="codehilite"><pre><span></span>onlyoffice     1h     IN         A     &lt;your_server_IP&gt;
 </pre></div>
 
 
-<p>Generate SSL certificate</p>
+<p>Generate SSL certificate:</p>
 <div class="codehilite"><pre><span></span>EMAIL=<span class="nt">&lt;your</span> <span class="err">email</span> <span class="err">address</span><span class="nt">&gt;</span>
 DOMAIN=domain.example
 sudo bash /usr/bin/documentserver-letsencrypt.sh &quot;<span class="cp">${</span><span class="n">EMAIL</span><span class="cp">}</span>&quot; &quot;onlyoffice.<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span>&quot;
 </pre></div>
 
 
-<p>Configure onlyoffice</p>
+<p>Configure onlyoffice:</p>
 <div class="codehilite"><pre><span></span>sudo cp -f /etc/onlyoffice/documentserver/nginx/ds-ssl.conf.tmpl /etc/onlyoffice/documentserver/nginx/ds.conf
 </pre></div>
 
@@ -2963,7 +2963,7 @@ sudo bash /usr/bin/documentserver-letsencrypt.sh &quot;<span class="cp">${</span
 <li>replace <code>{{SSL_KEY_PATH}}</code> with <code>/etc/letsencrypt/live/onlyoffice.domain.example/privkey.pem</code></li>
 </ul>
 <p>Be careful each line end with semicolons (<code>;</code>).</p>
-<p>Restart OnlyOffice and Nginx</p>
+<p>Restart OnlyOffice and Nginx:</p>
 <div class="codehilite"><pre><span></span>sudo supervisorctl restart all
 sudo systemctl restart nginx
 </pre></div>
@@ -2971,7 +2971,7 @@ sudo systemctl restart nginx
 
 <p>You can now test onlyoffice is accessible from your browser at <code>https://onlyoffice.domain.example</code>.</p>
 <h2 id="configure-cozy-stack-for-onlyoffice">Configure cozy-stack for OnlyOffice<a class="headerlink" href="#configure-cozy-stack-for-onlyoffice" title="Permanent link">&para;</a></h2>
-<p>Update configuration file</p>
+<p>Update configuration file:</p>
 <div class="codehilite"><pre><span></span>DOMAIN=domain.example
 cat <span class="err">&lt;</span><span class="nt">&lt;EOF</span> <span class="err">|</span> <span class="err">sudo</span> <span class="err">tee</span> <span class="err">-a</span> <span class="err">/etc/cozy/cozy.yml</span> <span class="nt">&gt;</span> /dev/null
 office:
@@ -2981,50 +2981,50 @@ EOF
 </pre></div>
 
 
-<p>Restart cozy-stack</p>
+<p>Restart cozy-stack:</p>
 <div class="codehilite"><pre><span></span>sudo systemctl restart cozy-stack
 </pre></div>
 
 
-<p>Activate functionality</p>
+<p>Activate functionality:</p>
 <div class="codehilite"><pre><span></span>cozy-stack features defaults &#39;{&quot;drive.onlyoffice.enabled&quot;: true}&#39;
 </pre></div>
 
 
 <p>You can now upload an office document in cozy-drive and start editing it online by clicking on it or start a new empty document for the &ldquo;New document&rdquo; menu.</p>
 <h1 id="update-cozy-stack">Update cozy-stack<a class="headerlink" href="#update-cozy-stack" title="Permanent link">&para;</a></h1>
-<p>Applications inside your cozy are automatically updated, however, cozy-stack application running on your server must be updated from time to time (once every 3 month is a good compromise between too much and too few).
+<p>Applications inside your Cozy are automatically updated, however, cozy-stack application running on your server must be updated from time to time (once every 3 month is a good compromise between too much and too few).
 Here is how to upgrade cozy-stack:</p>
-<p>Update source code</p>
+<p>Update source code:</p>
 <div class="codehilite"><pre><span></span>cd /opt/cozy-stack
 sudo git pull
 </pre></div>
 
 
-<p>compile source code</p>
+<p>compile source code:</p>
 <div class="codehilite"><pre><span></span>cd /opt/cozy-stack
 scripts/build.sh release $(go env GOPATH)/bin/cozy-stack
 </pre></div>
 
 
-<p>You can test compilation produced a valid binary with</p>
+<p>You can test compilation produced a valid binary with:</p>
 <div class="codehilite"><pre><span></span>$(go env GOPATH)/bin/cozy-stack version
 1.5.0-9-g1eac6802
 </pre></div>
 
 
-<p>Install new generated binary</p>
+<p>Install new generated binary:</p>
 <div class="codehilite"><pre><span></span>sudo install -o root -g root -m 0755 -T \
              $(go env GOPATH)/bin/cozy-stack /usr/bin/cozy-stack
 </pre></div>
 
 
-<p>Restart cozy-stack</p>
+<p>Restart cozy-stack:</p>
 <div class="codehilite"><pre><span></span>sudo systemctl restart cozy-stack
 </pre></div>
 
 
-<p>Et voilà, you just upgraded cozy-stack to the latest verson. pretty easy.</p>
+<p>Et voilà, you just upgraded cozy-stack to the latest version. pretty easy.</p>
 <h1 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h1>
 <ul>
 <li>CouchDB installation: <a href="https://docs.couchdb.org/en/stable/install/unix.html">https://docs.couchdb.org/en/stable/install/unix.html</a></li>

@@ -2514,48 +2514,48 @@
                   <a href="https://github.com/cozy/cozy.github.io/edit/dev/src/tutorials/selfhosting/selfhost-ubuntu-sources-fr.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <h1 id="installation-de-cozy-sous-ubuntu-2004-lts-focal-fossa">Installation de cozy sous Ubuntu 20.04 LTS focal fossa<a class="headerlink" href="#installation-de-cozy-sous-ubuntu-2004-lts-focal-fossa" title="Permanent link">&para;</a></h1>
+                <h1 id="installation-de-cozy-sous-ubuntu-2004-lts-focal-fossa">Installation de Cozy sous Ubuntu 20.04 LTS focal fossa<a class="headerlink" href="#installation-de-cozy-sous-ubuntu-2004-lts-focal-fossa" title="Permanent link">&para;</a></h1>
 <h1 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h1>
 <p>Cozycloud met à disposition des paquets deb et <a href="https://docs.cozy.io/en/tutorials/selfhosting/selfhost-debian-pkg/">des instructions d’installation</a> pour Debian 10 buster à partir de ces paquets d’installation. Cependant, il n’y a pas de paquet pour Ubuntu.</p>
-<p>Cette documentation décrit donc l’installation de cozy à partir du code source de cozy-stack sur un serveur Ubuntu 20.04 LTS focal fossa. Nous verrons aussi comment activer l’édition en ligne de documents avec onlyoffice.</p>
+<p>Cette documentation décrit donc l’installation de Cozy à partir du code source de cozy-stack sur un serveur Ubuntu 20.04 LTS focal fossa. Nous verrons aussi comment activer l’édition en ligne de documents avec onlyoffice.</p>
 <h1 id="prerequis">Prérequis<a class="headerlink" href="#prerequis" title="Permanent link">&para;</a></h1>
-<p>L’installation nécessite :</p>
+<p>L’installation nécessite :</p>
 <ul>
 <li>Un serveur sous Ubuntu 20.04 LTS focal fossa</li>
-<li>Un nom de domaine (indispensable pour héberger les cozy, qu’ils soient accessibles d’internet, et sécurisés en https).
+<li>Un nom de domaine (indispensable pour héberger les Cozy, qu’ils soient accessibles d’internet, et sécurisés en https).
     Dans la suite de ce document, nous prendrons pour exemple le domaine <code>domain.example</code> que vous remplacerez donc par votre propre nom de domaine.
-    Votre cozy aura pour adresse <code>cozy.domain.example</code></li>
+    Votre Cozy aura pour adresse <code>cozy.domain.example</code></li>
 <li>De bonnes connaissances d’administration système, même si cette documentation se veut la plus simple possible à suivre</li>
 </ul>
-<p>De plus, vous aurez besoin de définir au cours de l’installation :</p>
+<p>De plus, vous aurez besoin de définir au cours de l’installation :</p>
 <ul>
 <li>un mot de passe d’administration pour CouchDB</li>
 <li>un mot de passe pour l’accès à la base de données CouchDB</li>
 <li>un mot de passe d’administration pour cozy-stack</li>
-<li>de fournir votre email pour la création des certificats letsencrypt et la création de votre cozy</li>
+<li>de fournir votre email pour la création des certificats letsencrypt et la création de votre Cozy</li>
 </ul>
 <h1 id="couchdb">Couchdb<a class="headerlink" href="#couchdb" title="Permanent link">&para;</a></h1>
-<p>Configurer le dépot de paquets couchdb</p>
+<p>Configurer le dépôt de paquets couchdb :</p>
 <div class="codehilite"><pre><span></span>sudo apt update &amp;&amp; sudo apt install -y curl apt-transport-https gnupg
 curl https://couchdb.apache.org/repo/keys.asc | gpg --dearmor | sudo tee /usr/share/keyrings/couchdb-archive-keyring.gpg &gt;/dev/null 2&gt;&amp;1
 echo &quot;deb [signed-by=/usr/share/keyrings/couchdb-archive-keyring.gpg] https://apache.jfrog.io/artifactory/couchdb-deb/ $(lsb_release -sc) main&quot; | sudo tee /etc/apt/sources.list.d/couchdb.list &gt;/dev/null
 </pre></div>
 
 
-<p>Installer Couchdb</p>
+<p>Installer Couchdb :</p>
 <div class="codehilite"><pre><span></span>sudo apt update
 sudo apt install -y couchdb
 </pre></div>
 
 
 <p>Lors de l’installation de couchdb, choisir le mode <code>Standalone</code> et définir le mot de passe administrateur.</p>
-<p>Valider le bon fonctionnement de couchdb</p>
+<p>Valider le bon fonctionnement de couchdb :</p>
 <div class="codehilite"><pre><span></span>curl http://localhost:5984/
 {&quot;couchdb&quot;:&quot;Welcome&quot;,&quot;version&quot;:&quot;3.2.1&quot;,&quot;git_sha&quot;:&quot;244d428af&quot;,&quot;uuid&quot;:&quot;f7b83554fa2eb43778963d18a1f92211&quot;,&quot;features&quot;:[&quot;access-ready&quot;,&quot;partitioned&quot;,&quot;pluggable-storage-engines&quot;,&quot;reshard&quot;,&quot;scheduler&quot;],&quot;vendor&quot;:{&quot;name&quot;:&quot;The Apache Software Foundation&quot;}}
 </pre></div>
 
 
-<p>Enfin, créer un utilisateur et un mot de passe pour cozy-stack</p>
+<p>Enfin, créer un utilisateur et un mot de passe pour cozy-stack :</p>
 <div class="codehilite"><pre><span></span><span class="n">read</span> <span class="o">-</span><span class="n">p</span> <span class="s">&quot;Couchdb password for cozy user: &quot;</span> <span class="o">-</span><span class="n">r</span> <span class="o">-</span><span class="n">s</span> <span class="n">COUCH_PASS</span>
 <span class="n">curl</span> <span class="o">-</span><span class="n">fsX</span> <span class="n">PUT</span> <span class="o">-</span><span class="n">u</span> <span class="s">&quot;admin:adminpwd&quot;</span> <span class="s">&quot;http://localhost:5984/_node/couchdb@127.0.0.1/_config/admins/cozy&quot;</span> <span class="o">--</span><span class="n">data</span> <span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">${COUCH_PASS}</span><span class="se">\&quot;</span><span class="s">&quot;</span>
 </pre></div>
@@ -2564,7 +2564,7 @@ sudo apt install -y couchdb
 <p>Dans cette ligne de commande, <code>adminpwd</code> doit être remplacé par le mot de passe administrateur de couchdb que vous avez défini à son installation.</p>
 <h1 id="nodejs">NodeJS<a class="headerlink" href="#nodejs" title="Permanent link">&para;</a></h1>
 <p>Afin de pouvoir exécuter les connecteurs et qu’ils récupèrent vos données, cozy-stack a besoin de NodeJS version 12 ou 16. Le présent document détaille les informations pour NodeJS 16.</p>
-<p>Configurez l’entrepôt de paquets NodeJS</p>
+<p>Configurez l’entrepôt de paquets NodeJS :</p>
 <div class="codehilite"><pre><span></span>KEYRING=/usr/share/keyrings/nodesource.gpg
 curl -fsSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dearmor | sudo tee &quot;$KEYRING&quot; &gt;/dev/null
 echo &quot;deb [signed-by=$KEYRING] https://deb.nodesource.com/node_16.x $(lsb_release -sc) main&quot; | sudo tee /etc/apt/sources.list.d/nodesource.list &gt;/dev/null
@@ -2572,7 +2572,7 @@ echo &quot;deb-src [signed-by=$KEYRING] https://deb.nodesource.com/node_16.x $(l
 </pre></div>
 
 
-<p>Puis installez NodeJS</p>
+<p>Puis installez NodeJS :</p>
 <div class="codehilite"><pre><span></span>sudo apt update
 sudo apt install -y nodejs
 sudo ln -s /usr/bin/node /usr/bin/nodejs
@@ -2580,7 +2580,7 @@ sudo ln -s /usr/bin/node /usr/bin/nodejs
 
 
 <h1 id="go">Go<a class="headerlink" href="#go" title="Permanent link">&para;</a></h1>
-<p>Le serveur cozy est développé en Go, nous aurons donc besoin d’installer le compilateur du langage go pour pouvoir compiler depuis les sources</p>
+<p>Le serveur Cozy est développé en Go, nous aurons donc besoin d’installer le compilateur du langage Go pour pouvoir compiler depuis les sources :</p>
 <div class="codehilite"><pre><span></span>wget -O /tmp/go1.17.3.linux-amd64.tar.gz https://go.dev/dl/go1.17.3.linux-amd64.tar.gz
 sudo rm -rf /usr/local/go &amp;&amp; sudo tar -C /usr/local -xzvf /tmp/go1.17.3.linux-amd64.tar.gz
 echo &quot;export PATH=\&quot;\$PATH:/usr/local/go/bin\&quot;&quot; | sudo tee /etc/profile.d/golang.sh &gt; /dev/null
@@ -2588,38 +2588,38 @@ source /etc/profile.d/golang.sh
 </pre></div>
 
 
-<p>Tester que l’installation s’est bien déroulée avec</p>
+<p>Tester que l’installation s’est bien déroulée avec :</p>
 <div class="codehilite"><pre><span></span>go version
 go version go1.17.3 linux/amd64
 </pre></div>
 
 
 <h1 id="cozy-stack">Cozy-stack<a class="headerlink" href="#cozy-stack" title="Permanent link">&para;</a></h1>
-<p>Tout d’abord, Installez les dépendances</p>
+<p>Tout d’abord, Installez les dépendances :</p>
 <div class="codehilite"><pre><span></span>sudo apt install -y imagemagick libprotobuf-c1 fonts-lato
 </pre></div>
 
 
-<p>Récupérez le code source</p>
+<p>Récupérez le code source :</p>
 <div class="codehilite"><pre><span></span>sudo apt install -y git
 sudo git clone https://github.com/cozy/cozy-stack.git /opt/cozy-stack
 </pre></div>
 
 
-<p>Puis compilez le programme</p>
+<p>Puis compilez le programme :</p>
 <div class="codehilite"><pre><span></span>cd /opt/cozy-stack
 scripts/build.sh release $(go env GOPATH)/bin/cozy-stack
 </pre></div>
 
 
 <p>La compilation produit un binaire situé à <code>$GOPATH/bin/cozy-stack</code></p>
-<p>Vous pouvez tester la bonne compilation de la façon suivante :</p>
+<p>Vous pouvez tester la bonne compilation de la façon suivante :</p>
 <div class="codehilite"><pre><span></span>$(go env GOPATH)/bin/cozy-stack version
 1.5.0-5-gcbdf012d
 </pre></div>
 
 
-<p>Il faut ensuite Créer un utilisateur pour faire fonctionner cozy-stack</p>
+<p>Il faut ensuite Créer un utilisateur pour faire fonctionner cozy-stack :</p>
 <div class="codehilite"><pre><span></span>sudo addgroup --quiet --system cozy
 sudo adduser --quiet --system --home /var/lib/cozy \
              --no-create-home --shell /usr/sbin/nologin \
@@ -2627,7 +2627,7 @@ sudo adduser --quiet --system --home /var/lib/cozy \
 </pre></div>
 
 
-<p>Puis l’installer</p>
+<p>Puis l’installer :</p>
 <div class="codehilite"><pre><span></span>sudo install -o root -g root -m 0755 -T \
              $(go env GOPATH)/bin/cozy-stack /usr/bin/cozy-stack
 sudo sh -c &#39;cozy-stack completion bash &gt; /etc/bash_completion.d/cozy-stack&#39;
@@ -2642,7 +2642,7 @@ sudo install -o cozy-stack -g cozy -m 750 -d /var/lib/cozy
 </pre></div>
 
 
-<p>Et créer la configuration grâce à ces commandes</p>
+<p>Et créer la configuration grâce à ces commandes :</p>
 <div class="codehilite"><pre><span></span><span class="n">read</span> <span class="o">-</span><span class="n">p</span> <span class="s">&quot;Cozy stack admin password: &quot;</span> <span class="o">-</span><span class="n">r</span> <span class="o">-</span><span class="n">s</span> <span class="n">COZY_PASS</span>
 <span class="n">cat</span> <span class="o">&lt;&lt;</span><span class="n">EOF</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">tee</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">cozy</span><span class="o">/</span><span class="n">cozy</span><span class="p">.</span><span class="n">yml</span> <span class="o">&gt;/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>
 <span class="nl">host</span><span class="p">:</span> <span class="mf">127.0.0.1</span>
@@ -2685,7 +2685,7 @@ sudo install -o cozy-stack -g cozy -m 750 -d /var/lib/cozy
 </pre></div>
 
 
-<p>Enfin, configurez le service systemd pour le démarrage automatique</p>
+<p>Enfin, configurez le service systemd pour le démarrage automatique :</p>
 <div class="codehilite"><pre><span></span>cat &lt;&lt;EOF | sudo tee /usr/lib/systemd/system/cozy-stack.service &gt;/dev/null
 [Unit]
 Description=Cozy service
@@ -2709,32 +2709,32 @@ sudo systemctl start cozy-stack
 </pre></div>
 
 
-<p>Vous pouvez valider que tout s’est bien passé et que cozy-stack fonctionne bien de la façon suivante :</p>
+<p>Vous pouvez valider que tout s’est bien passé et que cozy-stack fonctionne bien de la façon suivante :</p>
 <div class="codehilite"><pre><span></span>curl http://localhost:8080/version
 {&quot;build_mode&quot;:&quot;production&quot;,&quot;build_time&quot;:&quot;2021-12-01T13:12:36Z&quot;,&quot;runtime_version&quot;:&quot;go1.17.3&quot;,&quot;version&quot;:&quot;1.5.0-5-gcbdf012d&quot;}
 </pre></div>
 
 
 <h1 id="nginx">Nginx<a class="headerlink" href="#nginx" title="Permanent link">&para;</a></h1>
-<p>Commencez par créer une entrée DNS dans votre domaine pour <code>cozy.domain.example</code> et <code>*.cozy.domain.example</code> qui pointe vers votre serveur. Par exemple :</p>
+<p>Commencez par créer une entrée DNS dans votre domaine pour <code>cozy.domain.example</code> et <code>*.cozy.domain.example</code> qui pointe vers votre serveur. Par exemple :</p>
 <div class="codehilite"><pre><span></span>cozy     1h     IN         A     &lt;IP_de_votre_serveur&gt;
 *.cozy   1h     IN     CNAME     cozy
 </pre></div>
 
 
-<p>puis installez Nginx</p>
+<p>puis installez Nginx :</p>
 <div class="codehilite"><pre><span></span>sudo apt install -y nginx certbot
 </pre></div>
 
 
-<p>Générez le certificat SSL à l’aide de certbot</p>
+<p>Générez le certificat SSL à l’aide de certbot :</p>
 <div class="codehilite"><pre><span></span>DOMAIN=domain.example
 EMAIL=&quot;<span class="nt">&lt;votre</span> <span class="err">email</span><span class="nt">&gt;</span>&quot;
 sudo certbot certonly --email &quot;<span class="cp">${</span><span class="n">EMAIL</span><span class="cp">}</span>&quot; --non-interactive --agree-tos --webroot -w /var/www/html -d cozy.<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span> $(printf -- &quot; -d %s.cozy.<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span>&quot; home banks contacts drive notes passwords photos settings store)
 </pre></div>
 
 
-<p>Pour que le nouveau certificat soit pris en compte automatiquement lors des renouvellements tous les 3 mois, créez le script de rechargement</p>
+<p>Pour que le nouveau certificat soit pris en compte automatiquement lors des renouvellements tous les 3 mois, créez le script de rechargement :</p>
 <div class="codehilite"><pre><span></span>cat &lt;&lt;EOF | sudo tee /etc/letsencrypt/renewal-hooks/deploy/reload-nginx.sh
 #!/bin/bash
 nginx -t -q &amp;&amp; nginx -s reload
@@ -2743,7 +2743,7 @@ chmod 0755 /etc/letsencrypt/renewal-hooks/deploy/reload-nginx.sh
 </pre></div>
 
 
-<p>Configurez nginx</p>
+<p>Configurez nginx :</p>
 <div class="codehilite"><pre><span></span>DOMAIN=domain.example
 cat <span class="err">&lt;</span><span class="nt">&lt;EOF</span> <span class="err">|</span> <span class="err">sudo</span> <span class="err">tee</span> <span class="err">/etc/nginx/sites-available/cozy.${DOMAIN}</span> <span class="nt">&gt;</span> /dev/null
 server {
@@ -2790,9 +2790,9 @@ sudo systemctl reload nginx
 </pre></div>
 
 
-<p>Vous pouvez tester depuis votre navigateur en vous rendant à l’adresse <code>https://cozy.domain.example</code> et vous devriez alors voir une page vous indiquant que votre cozy n’existe pas. Dans ce cas tout s’est bien passé et il ne reste plus qu’à créer et configurer votre instance de cozy.</p>
-<h1 id="creation-de-linstance-cozy">Création de l’instance cozy<a class="headerlink" href="#creation-de-linstance-cozy" title="Permanent link">&para;</a></h1>
-<p>Pour créer votre instance cozy</p>
+<p>Vous pouvez tester depuis votre navigateur en vous rendant à l’adresse <code>https://cozy.domain.example</code> et vous devriez alors voir une page vous indiquant que votre Cozy n’existe pas. Dans ce cas tout s’est bien passé et il ne reste plus qu’à créer et configurer votre instance de Cozy.</p>
+<h1 id="creation-de-linstance-cozy">Création de l’instance Cozy<a class="headerlink" href="#creation-de-linstance-cozy" title="Permanent link">&para;</a></h1>
+<p>Pour créer votre instance Cozy:</p>
 <div class="codehilite"><pre><span></span>DOMAIN=domain.example
 EMAIL=<span class="nt">&lt;votre</span> <span class="err">email</span><span class="nt">&gt;</span>
 [[ -z &quot;<span class="cp">${</span><span class="n">COZY_PASS</span><span class="cp">}</span>&quot; ]] <span class="err">&amp;&amp;</span> read -p &quot;Cozy stack admin password: &quot; -r -s COZY_PASS
@@ -2802,20 +2802,20 @@ COZY_ADMIN_PASSWORD=&quot;<span class="cp">${</span><span class="n">COZY_PASS</s
 
 <p>Vous pouvez bien sur adapter la langue (<code>locale</code>) et choisir anglais (<code>en</code>) ou espagnol (<code>es</code>) ou votre timezone (<code>tz</code>).</p>
 <p>Notez le “Registration token” que vous rend cette dernière commande et accédez depuis votre navigateur à <code>https://cozy.domain.example?registerToken=&lt;le_token_retourné&gt;</code> en remplaçant <code>domain.example</code> par le nom de votre domaine et <code>&lt;le_token_retourné&gt;</code> par le “Registration token” retourné par la commande précédente.
-Vous pourrez ainsi définir votre mot de passe et commencer à utiliser votre cozy.</p>
+Vous pourrez ainsi définir votre mot de passe et commencer à utiliser votre Cozy.</p>
 <h1 id="et-voila">Et voilà !<a class="headerlink" href="#et-voila" title="Permanent link">&para;</a></h1>
-<p>Votre cozy est désormais opérationnel, profitez-en pleinement ! Son adresse est <code>https://cozy.domain.example</code> (remplacez domain.example par votre nom de domaine)
-Vous pouvez commencer à installer depuis le store des connecteurs pour récupérer automatiquement vos données personnelles depuis vos fournisseurs, sauver vos mots de passe dans cozy-pass, entreposer vos fichiers dans cozy-drive et installer notre client en synchronisation sur votre PC pour synchroniser automatiquement le contenu de votre cozy avec un répertoire local.</p>
+<p>Votre Cozy est désormais opérationnel, profitez-en pleinement ! Son adresse est <code>https://cozy.domain.example</code> (remplacez domain.example par votre nom de domaine)
+Vous pouvez commencer à installer depuis le store des connecteurs pour récupérer automatiquement vos données personnelles depuis vos fournisseurs, sauver vos mots de passe dans cozy-pass, entreposer vos fichiers dans cozy-drive et installer notre client en synchronisation sur votre PC pour synchroniser automatiquement le contenu de votre Cozy avec un répertoire local.</p>
 <p>Et ci-dessous, quelques bonus 😉</p>
 <h1 id="heberger-plusieurs-instances-sur-son-serveur">Héberger plusieurs instances sur son serveur<a class="headerlink" href="#heberger-plusieurs-instances-sur-son-serveur" title="Permanent link">&para;</a></h1>
-<p>Avoir un cozy auto-hébergé, c’est bien, mais partager et proposer à la famille, aux amis un cozy qu’on héberge pour eux parce qu’on sait faire c’est cool aussi. Voici donc comment créer un autre cozy sur le même serveur.</p>
-<p>Le premier cozy que nous avons créé a pour adresse <code>https://cozy.domain.example</code>. Nous allons créer un second cozy pour Antoinette à l’adresse <code>https://antoinette.domain.example</code> (remplacez <code>domain.example</code> par votre nom de domaine et <code>antoinette</code> par ce que vous voudrez qui identifiera le cozy de manière unique.</p>
-<p>Il nous faudra donc :</p>
+<p>Avoir un Cozy auto-hébergé, c’est bien, mais partager et proposer à la famille, aux amis un Cozy qu’on héberge pour eux parce qu’on sait faire c’est cool aussi. Voici donc comment créer un autre Cozy sur le même serveur.</p>
+<p>Le premier Cozy que nous avons créé a pour adresse <code>https://cozy.domain.example</code>. Nous allons créer un second Cozy pour Antoinette à l’adresse <code>https://antoinette.domain.example</code> (remplacez <code>domain.example</code> par votre nom de domaine et <code>antoinette</code> par ce que vous voudrez qui identifiera le Cozy de manière unique.</p>
+<p>Il nous faudra donc :</p>
 <ul>
 <li>Le nom de votre domaine. Nous utilisons toujours <code>domain.example</code> dans cette documentation</li>
-<li>le “slug” du cozy, c’est à dire son identifiant unique. Ici nous utilisons pour l’exemple <code>antoinette</code>. L’adresse de votre cozy sera de la forme <code>https://&lt;slug&gt;.&lt;domain&gt;</code>, par exmeple ici <code>https://antoinette.domain.example</code></li>
+<li>le “slug” du Cozy, c’est à dire son identifiant unique. Ici nous utilisons pour l’exemple <code>antoinette</code>. L’adresse de votre Cozy sera de la forme <code>https://&lt;slug&gt;.&lt;domain&gt;</code>, par exemple ici <code>https://antoinette.domain.example</code></li>
 </ul>
-<p>Nous allons commencer par mettre dans des variables les informations importantes</p>
+<p>Nous allons commencer par mettre dans des variables les informations importantes :</p>
 <div class="codehilite"><pre><span></span>DOMAIN=domain.example
 EMAIL=&lt;votre adresse email&gt;
 NEWSLUG=antoinette
@@ -2823,13 +2823,13 @@ NEWEMAIL=&lt;adresse email d&#39;antoinette&gt;
 </pre></div>
 
 
-<p>Créer les entrées DNS pour ce cozy. Par exemple :</p>
+<p>Créer les entrées DNS pour ce Cozy. Par exemple :</p>
 <div class="codehilite"><pre><span></span>antoinette     1h     IN         A     &lt;IP_de_votre_serveur&gt;
 *.antoinette   1h     IN     CNAME     antoinette
 </pre></div>
 
 
-<p>Créer la configuration de base pour ce cozy dans nginx</p>
+<p>Créer la configuration de base pour ce Cozy dans nginx :</p>
 <div class="codehilite"><pre><span></span>cat <span class="err">&lt;</span><span class="nt">&lt;EOF</span> <span class="err">|</span> <span class="err">sudo</span> <span class="err">tee</span> <span class="err">/etc/nginx/sites-available/${NEWSLUG}.${DOMAIN}</span> <span class="nt">&gt;</span> /dev/null
 server {
     listen 80;
@@ -2852,12 +2852,12 @@ sudo systemctl reload nginx
 </pre></div>
 
 
-<p>Générez le certificat SSL à l’aide de certbot</p>
+<p>Générez le certificat SSL à l’aide de certbot :</p>
 <div class="codehilite"><pre><span></span>sudo certbot certonly --email &quot;<span class="cp">${</span><span class="n">EMAIL</span><span class="cp">}</span>&quot; --non-interactive --agree-tos --webroot -w /var/www/html -d <span class="cp">${</span><span class="n">NEWSLUG</span><span class="cp">}</span>.<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span> $(printf -- &quot; -d %s.<span class="cp">${</span><span class="n">NEWSLUG</span><span class="cp">}</span>.<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span>&quot; home banks contacts drive notes passwords photos settings store)
 </pre></div>
 
 
-<p>Finalisez la configuration de nginx pour ce nouveau cozy</p>
+<p>Finalisez la configuration de nginx pour ce nouveau Cozy :</p>
 <div class="codehilite"><pre><span></span>cat <span class="err">&lt;</span><span class="nt">&lt;EOF</span> <span class="err">|</span> <span class="err">sudo</span> <span class="err">tee</span> <span class="err">-a</span> <span class="err">/etc/nginx/sites-available/${NEWSLUG}.${DOMAIN}</span> <span class="nt">&gt;</span> /dev/null
 
 server {
@@ -2887,17 +2887,17 @@ sudo systemctl reload nginx
 </pre></div>
 
 
-<p>Créer l’instance de cozy</p>
+<p>Créer l’instance de Cozy :</p>
 <div class="codehilite"><pre><span></span>[[ -z &quot;<span class="cp">${</span><span class="n">COZY_PASS</span><span class="cp">}</span>&quot; ]] <span class="err">&amp;&amp;</span> read -p &quot;Cozy stack admin password: &quot; -r -s COZY_PASS
 COZY_ADMIN_PASSWORD=&quot;<span class="cp">${</span><span class="n">COZY_PASS</span><span class="cp">}</span>&quot; cozy-stack instances add --apps home,banks,contacts,drive,notes,passwords,photos,settings,store --email &quot;<span class="cp">${</span><span class="n">NEWEMAIL</span><span class="cp">}</span>&quot; --locale fr --tz &quot;Europe/Paris&quot; <span class="cp">${</span><span class="n">NEWSLUG</span><span class="cp">}</span>.<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span>
 </pre></div>
 
 
-<p>Notez le “Registration token” que vous rend cette dernière commande et envoyez à Antoinette l’url <code>https://antoinette.domain.example?registerToken=&lt;le_token_retourné&gt;</code> en remplaçant <code>domain.example</code> par le nom de votre domaine, <code>antoinette</code> par le slug que vous aurez choisi pour cette nouvelle instance de cozy et <code>&lt;le_token_retourné&gt;</code> par le “Registration token” retourné par la commande précédente.</p>
-<p>En visitant cette adresse à l’aide de son navigateur, elle pourra ainsi définir son mot de passe et commencer à utiliser son cozy.</p>
+<p>Notez le “Registration token” que vous rend cette dernière commande et envoyez à Antoinette l’url <code>https://antoinette.domain.example?registerToken=&lt;le_token_retourné&gt;</code> en remplaçant <code>domain.example</code> par le nom de votre domaine, <code>antoinette</code> par le slug que vous aurez choisi pour cette nouvelle instance de Cozy et <code>&lt;le_token_retourné&gt;</code> par le “Registration token” retourné par la commande précédente.</p>
+<p>En visitant cette adresse à l’aide de son navigateur, elle pourra ainsi définir son mot de passe et commencer à utiliser son Cozy.</p>
 <h1 id="edition-en-ligne-et-collaborative-de-documents">Edition en ligne et collaborative de documents<a class="headerlink" href="#edition-en-ligne-et-collaborative-de-documents" title="Permanent link">&para;</a></h1>
-<p>La fonctionnalité d’édition en ligne de documents basée sur OnlyOffice est optionnelle. Vous pouvez utiliser votre cozy sans l’activer. Elle permet d’éditer en ligne directement dans son navigateur ses documents office mais nécessite des ressources supplémentaires sur votre serveur.</p>
-<p>Pour activer la fonctionnalité d’édition en ligne de documents office, avec onlyoffice, il nous faut installer le serveur de documents onlyoffice et configurer la stack cozy pour y accéder. Le serveur de documents onlyoffice peut être installé sur le même serveur ou sur un serveur différent. Cette documentation expliquer comment le déployer sur le même serveur.</p>
+<p>La fonctionnalité d’édition en ligne de documents basée sur OnlyOffice est optionnelle. Vous pouvez utiliser votre Cozy sans l’activer. Elle permet d’éditer en ligne directement dans son navigateur ses documents office mais nécessite des ressources supplémentaires sur votre serveur.</p>
+<p>Pour activer la fonctionnalité d’édition en ligne de documents office, avec onlyoffice, il nous faut installer le serveur de documents onlyoffice et configurer la stack Cozy pour y accéder. Le serveur de documents onlyoffice peut être installé sur le même serveur ou sur un serveur différent. Cette documentation expliquer comment le déployer sur le même serveur.</p>
 <h2 id="onlyoffice">OnlyOffice<a class="headerlink" href="#onlyoffice" title="Permanent link">&para;</a></h2>
 <p>OnlyOffice nécessite PostgreSQL et RabbitMQ pour fonctionner, nous allons donc commencer par les installer.</p>
 <h3 id="installer-postgresql-et-creer-la-base-de-donnees">Installer PostgreSQL et créer la base de données<a class="headerlink" href="#installer-postgresql-et-creer-la-base-de-donnees" title="Permanent link">&para;</a></h3>
@@ -2915,44 +2915,44 @@ sudo -i -u postgres psql -c &quot;GRANT ALL privileges ON DATABASE onlyoffice TO
 
 
 <h3 id="installer-onlyoffice-documentserver">Installer OnlyOffice Documentserver<a class="headerlink" href="#installer-onlyoffice-documentserver" title="Permanent link">&para;</a></h3>
-<p>Configurer l’entrepôt de paquets</p>
+<p>Configurer l’entrepôt de paquets :</p>
 <div class="codehilite"><pre><span></span>sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CB2DE8E5
 echo &quot;deb https://download.onlyoffice.com/repo/debian squeeze main&quot; | sudo tee /etc/apt/sources.list.d/onlyoffice.list
 sudo apt update
 </pre></div>
 
 
-<p>Installer les polices Microsoft</p>
+<p>Installer les polices Microsoft :</p>
 <div class="codehilite"><pre><span></span>sudo apt install -y ttf-mscorefonts-installer
 </pre></div>
 
 
 <p>Lorsque cela vous est demandé, acceptez l’EULA</p>
-<p>Installer OnlyOffice Documentserver</p>
+<p>Installer OnlyOffice Documentserver :</p>
 <div class="codehilite"><pre><span></span>sudo apt install -y onlyoffice-documentserver
 </pre></div>
 
 
 <p>Lorsque cela vous est demandé, saisissez le mot de passe de base de données créé lors de l’installation de PostgreSQL et la création de la base de données.</p>
-<p>Puis redémarrez Nginx</p>
+<p>Puis redémarrez Nginx :</p>
 <div class="codehilite"><pre><span></span>sudo systemctl reload nginx
 </pre></div>
 
 
 <h3 id="configurer-https-pour-onlyoffice">Configurer HTTPS pour OnlyOffice<a class="headerlink" href="#configurer-https-pour-onlyoffice" title="Permanent link">&para;</a></h3>
-<p>Créer une entrée DNS pour OnlyOffice qui pointe vers votre serveur. Par exemple :</p>
+<p>Créer une entrée DNS pour OnlyOffice qui pointe vers votre serveur. Par exemple :</p>
 <div class="codehilite"><pre><span></span>onlyoffice     1h     IN         A     &lt;IP_de_votre_serveur&gt;
 </pre></div>
 
 
-<p>Créer le certificat</p>
+<p>Créer le certificat :</p>
 <div class="codehilite"><pre><span></span>EMAIL=<span class="nt">&lt;votre</span> <span class="err">email</span><span class="nt">&gt;</span>
 DOMAIN=domain.example
 sudo bash /usr/bin/documentserver-letsencrypt.sh &quot;<span class="cp">${</span><span class="n">EMAIL</span><span class="cp">}</span>&quot; &quot;onlyoffice.<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span>&quot;
 </pre></div>
 
 
-<p>Configurer OnlyOffice</p>
+<p>Configurer OnlyOffice :</p>
 <div class="codehilite"><pre><span></span>sudo cp -f /etc/onlyoffice/documentserver/nginx/ds-ssl.conf.tmpl /etc/onlyoffice/documentserver/nginx/ds.conf
 </pre></div>
 
@@ -2963,7 +2963,7 @@ sudo bash /usr/bin/documentserver-letsencrypt.sh &quot;<span class="cp">${</span
 <li>remplacez <code>{{SSL_KEY_PATH}}</code> par <code>/etc/letsencrypt/live/onlyoffice.domain.example/privkey.pem</code></li>
 </ul>
 <p>Attention, les lignes du fichier de configuration se terminent par des <code>;</code></p>
-<p>Redémarrer OnlyOffice et Nginx</p>
+<p>Redémarrer OnlyOffice et Nginx :</p>
 <div class="codehilite"><pre><span></span>sudo supervisorctl restart all
 sudo systemctl restart nginx
 </pre></div>
@@ -2971,7 +2971,7 @@ sudo systemctl restart nginx
 
 <p>Vous pouvez maintenant tester que onlyoffice est bien accessible depuis votre navigateur à l’adresse <code>https://onlyoffice.domain.example</code>.</p>
 <h2 id="configurer-cozy-stack-pour-onlyoffice">Configurer cozy-stack pour OnlyOffice<a class="headerlink" href="#configurer-cozy-stack-pour-onlyoffice" title="Permanent link">&para;</a></h2>
-<p>Mettre à jour le fichier de configuration</p>
+<p>Mettre à jour le fichier de configuration :</p>
 <div class="codehilite"><pre><span></span>DOMAIN=domain.example
 cat <span class="err">&lt;</span><span class="nt">&lt;EOF</span> <span class="err">|</span> <span class="err">sudo</span> <span class="err">tee</span> <span class="err">-a</span> <span class="err">/etc/cozy/cozy.yml</span> <span class="nt">&gt;</span> /dev/null
 office:
@@ -2981,44 +2981,44 @@ EOF
 </pre></div>
 
 
-<p>Redémarrer cozy-stack</p>
+<p>Redémarrer cozy-stack :</p>
 <div class="codehilite"><pre><span></span>sudo systemctl restart cozy-stack
 </pre></div>
 
 
-<p>Activer la fonctionnalité</p>
+<p>Activer la fonctionnalité :</p>
 <div class="codehilite"><pre><span></span>cozy-stack features defaults &#39;{&quot;drive.onlyoffice.enabled&quot;: true}&#39;
 </pre></div>
 
 
 <h1 id="mettre-a-jour-cozy-stack">Mettre à jour cozy-stack<a class="headerlink" href="#mettre-a-jour-cozy-stack" title="Permanent link">&para;</a></h1>
-<p>Les applications à l’intérieur de votre cozy se mettent à jour automatiquement, cependant, l’application cozy-stack qui tourne sur votre serveur doit être mise à jour régulièrement (une fois tous les 3 mois environ est un bon compromis entre trop et trop peu).
-Voici la marche à suivre pour y parvenir :</p>
-<p>Mettez à jour le code source</p>
+<p>Les applications à l’intérieur de votre Cozy se mettent à jour automatiquement, cependant, l’application cozy-stack qui tourne sur votre serveur doit être mise à jour régulièrement (une fois tous les 3 mois environ est un bon compromis entre trop et trop peu).
+Voici la marche à suivre pour y parvenir :</p>
+<p>Mettez à jour le code source :</p>
 <div class="codehilite"><pre><span></span>cd /opt/cozy-stack
 sudo git pull
 </pre></div>
 
 
-<p>Relancer la compilation</p>
+<p>Relancer la compilation :</p>
 <div class="codehilite"><pre><span></span>cd /opt/cozy-stack
 scripts/build.sh release $(go env GOPATH)/bin/cozy-stack
 </pre></div>
 
 
-<p>Vous pouvez tester la bonne compilation de la façon suivante :</p>
+<p>Vous pouvez tester la bonne compilation de la façon suivante :</p>
 <div class="codehilite"><pre><span></span>$(go env GOPATH)/bin/cozy-stack version
 1.5.0-9-g1eac6802
 </pre></div>
 
 
-<p>Installer le nouveau binaire généré</p>
+<p>Installer le nouveau binaire généré :</p>
 <div class="codehilite"><pre><span></span>sudo install -o root -g root -m 0755 -T \
              $(go env GOPATH)/bin/cozy-stack /usr/bin/cozy-stack
 </pre></div>
 
 
-<p>Relancer cozy-stack</p>
+<p>Relancer cozy-stack :</p>
 <div class="codehilite"><pre><span></span>sudo systemctl restart cozy-stack
 </pre></div>
 
