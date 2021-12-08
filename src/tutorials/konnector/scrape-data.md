@@ -57,7 +57,7 @@ await authenticate(fields.login, fields.password)
 
 There are many obstacles at this level:
 
-- is there a captcha? If yes you can take a look at our [solveCaptcha API](https://docs.cozy.io/en/cozy-konnector-libs/api/#solvecaptcha_1)
+- is there a captcha? If yes you can take a look at our [solveCaptcha API](/en/cozy-konnector-libs/api/#solvecaptcha_1)
 - is there a 2FA?
 - how is the `<form>`?
 
