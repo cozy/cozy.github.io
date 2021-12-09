@@ -87,6 +87,7 @@ markdown_extensions:
 - smarty
 - toc:
     permalink: true
+- pymdownx.emoji
 extra:
   search:
     tokenizer: "[^a-z\u0430-\u044F\u04510-9\\-\\.]"
