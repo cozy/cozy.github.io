@@ -104,11 +104,12 @@ export const isErrorActionable = errorMessage => {
   )
 }
 
-export const fetchRelatedAtTriggers = async (client, id) => {
+export const fetchRelatedFuturAtTriggers = async (client, id) => {
   const { data } = await client.query(
     Q(TRIGGER_DOCTYPE).where({
       type: '@at',
-      'message.konnectorTriggerId': id
+      'message.konnectorTriggerId': id,
+      arguments: { $gt: new Date(Date.now()).toISOString() }
     })
   )
 

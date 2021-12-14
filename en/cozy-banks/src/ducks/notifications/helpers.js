@@ -47,19 +47,19 @@ export const getAccountNewBalance = creditCard => {
 }
 
 /**
- * Returns the next date at 6AM
- * if current date is between 23h - 6h
+ * Returns the next date at 5AM server local time (UTC for cozy server)
+ * if current date is between 22h - 5h
  */
 export const getScheduleDate = currentDate => {
   let date = new Date(currentDate)
-  const hours = 6
+  const hours = 5
   const minutes = Math.round(15 * Math.random())
 
-  if (date.getHours() >= 23) {
+  if (date.getHours() >= 22) {
     date = new Date(+date + ONE_DAY)
   }
 
-  if (date.getHours() <= 5 || date.getHours() >= 23) {
+  if (date.getHours() <= 4 || date.getHours() >= 22) {
     date.setHours(hours)
     date.setMinutes(minutes)
   }

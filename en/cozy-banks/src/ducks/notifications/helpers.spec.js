@@ -42,34 +42,34 @@ describe('getReimbursementBillIds', () => {
 })
 
 describe('getScheduleDate', () => {
-  it('should return a date the next day at 6AM', () => {
-    const date = new Date('2021-11-01T23:30:00')
+  it('should return a date the next day at 5AM', () => {
+    const date = new Date('2021-11-01T22:30:00')
 
     expect(getScheduleDate(date).getDay()).toBe(2)
-    expect(getScheduleDate(date).getHours()).toBe(6)
+    expect(getScheduleDate(date).getHours()).toBe(5)
   })
 
-  it('should return the same date at 6AM', () => {
+  it('should return the same date at 5AM', () => {
     const date = new Date('2021-11-02T01:30:00')
 
     expect(getScheduleDate(date).getDay()).toBe(2)
-    expect(getScheduleDate(date).getHours()).toBe(6)
+    expect(getScheduleDate(date).getHours()).toBe(5)
   })
 
   it('should return the same date and same hours', () => {
-    let date = new Date('2021-11-01T22:30:00')
+    let date = new Date('2021-11-01T21:30:00')
     let scheduledDate = getScheduleDate(date)
 
     expect(date).toEqual(scheduledDate)
 
-    date = new Date('2021-11-02T06:30:00')
+    date = new Date('2021-11-02T05:30:00')
     scheduledDate = getScheduleDate(date)
 
     expect(date).toEqual(scheduledDate)
   })
 
   it('should not mutate the initial date', () => {
-    let date = new Date('2021-11-01T23:30:00')
+    let date = new Date('2021-11-01T22:30:00')
     let scheduledDate = getScheduleDate(date)
 
     expect(date).not.toEqual(scheduledDate)

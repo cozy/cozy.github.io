@@ -17,17 +17,17 @@ import {
 } from 'cozy-harvest-lib/dist/helpers/konnectors'
 
 /**
- * Returns the next date time at 6ish
+ * Returns the next date time at 5ish server local time (UTC for cozy servers)
  *
- * If now is earlier than 6AM, return today at 6, otherwise
- * tomorrow at 6.
+ * If now is earlier than 5AM, return today at 5, otherwise
+ * tomorrow at 5.
  *
  * A bit of fuzziness is added so that every notification is not sent
  * exactly at the same time, to reduce the spike on the servers.
  */
 export const getScheduleDate = currentDate => {
   let date = currentDate || new Date()
-  let hours = 6
+  let hours = 5
   let minutes = Math.round(15 * Math.random())
 
   if (

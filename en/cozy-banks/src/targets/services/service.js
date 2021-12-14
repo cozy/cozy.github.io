@@ -26,7 +26,7 @@ export const runService = async service => {
 
   return service({ client }).catch(e => {
     // eslint-disable-next-line no-console
-    console.error(e)
+    console.error('❗ The service catched an error:', e)
     process.exit(1)
   })
 }
