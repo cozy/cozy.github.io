@@ -1876,6 +1876,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#getillegalcharacters-string" title="getIllegalCharacters ⇒ string" class="md-nav__link">
+    getIllegalCharacters ⇒ string
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#getindexfields-array" title="getIndexFields ⇒ Array" class="md-nav__link">
     getIndexFields ⇒ Array
   </a>
@@ -1920,13 +1927,6 @@
         <li class="md-nav__item">
   <a href="#getaccesstoken-string_1" title="getAccessToken() ⇒ string" class="md-nav__link">
     getAccessToken() ⇒ string
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sanitizeattributesattributes-fileattributes-directoryattributes" title="sanitizeAttributes(attributes) ⇒ FileAttributes | DirectoryAttributes" class="md-nav__link">
-    sanitizeAttributes(attributes) ⇒ FileAttributes | DirectoryAttributes
   </a>
   
 </li>
@@ -4563,6 +4563,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#getillegalcharacters-string" title="getIllegalCharacters ⇒ string" class="md-nav__link">
+    getIllegalCharacters ⇒ string
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#getindexfields-array" title="getIndexFields ⇒ Array" class="md-nav__link">
     getIndexFields ⇒ Array
   </a>
@@ -4607,13 +4614,6 @@
         <li class="md-nav__item">
   <a href="#getaccesstoken-string_1" title="getAccessToken() ⇒ string" class="md-nav__link">
     getAccessToken() ⇒ string
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sanitizeattributesattributes-fileattributes-directoryattributes" title="sanitizeAttributes(attributes) ⇒ FileAttributes | DirectoryAttributes" class="md-nav__link">
-    sanitizeAttributes(attributes) ⇒ FileAttributes | DirectoryAttributes
   </a>
   
 </li>
@@ -4989,6 +4989,9 @@ through OAuth.</p>
 <dt><a href="#isDocumentUpdateConflict">isDocumentUpdateConflict</a> ⇒ <code>boolean</code></dt>
 <dd><p>Helper to identify a document conflict</p>
 </dd>
+<dt><a href="#getIllegalCharacters">getIllegalCharacters</a> ⇒ <code>string</code></dt>
+<dd><p>Get the list of illegal characters in the file name</p>
+</dd>
 <dt><a href="#getIndexFields">getIndexFields</a> ⇒ <code>Array</code></dt>
 <dd><p>Compute fields that should be indexed for a mango
 query to work</p>
@@ -5016,10 +5019,6 @@ See <a href="https://docs.cozy.io/en/cozy-stack/sharing-design/#description-of-a
 </dd>
 <dt><a href="#getAccessToken">getAccessToken()</a> ⇒ <code>string</code></dt>
 <dd><p>Get the app token string</p>
-</dd>
-<dt><a href="#sanitizeAttributes">sanitizeAttributes(attributes)</a> ⇒ <code><a href="#FileAttributes">FileAttributes</a></code> | <code><a href="#DirectoryAttributes">DirectoryAttributes</a></code></dt>
-<dd><p>Sanitize Attribute for an io.cozy.files</p>
-<p>Currently juste the name</p>
 </dd>
 <dt><a href="#garbageCollect">garbageCollect()</a></dt>
 <dd><p>Delete outdated results from cache</p>
@@ -5977,7 +5976,11 @@ and file has been sent to trash  </p>
 <h3 id="filecollectioncreateattributes">fileCollection.create(attributes)<a class="headerlink" href="#filecollectioncreateattributes" title="Permanent link">&para;</a></h3>
 <p>Creates directory or file.
 - Used by StackLink to support CozyClient.create(&lsquo;io.cozy.files&rsquo;, options)</p>
-<p><strong>Kind</strong>: instance method of <a href="#FileCollection"><code>FileCollection</code></a>  </p>
+<p><strong>Kind</strong>: instance method of <a href="#FileCollection"><code>FileCollection</code></a><br />
+<strong>Throws</strong>:</p>
+<ul>
+<li><code>Error</code> - explaining reason why creation failed</li>
+</ul>
 <table>
 <thead>
 <tr>
@@ -6003,7 +6006,11 @@ and file has been sent to trash  </p>
 <h3 id="filecollectionupdatefiledata-params-object">fileCollection.updateFile(data, params) ⇒ <code>object</code><a class="headerlink" href="#filecollectionupdatefiledata-params-object" title="Permanent link">&para;</a></h3>
 <p>updateFile - Updates a file&rsquo;s data</p>
 <p><strong>Kind</strong>: instance method of <a href="#FileCollection"><code>FileCollection</code></a><br />
-<strong>Returns</strong>: <code>object</code> - Updated document  </p>
+<strong>Returns</strong>: <code>object</code> - Updated document<br />
+<strong>Throws</strong>:</p>
+<ul>
+<li><code>Error</code> - explaining reason why update failed</li>
+</ul>
 <table>
 <thead>
 <tr>
@@ -7587,6 +7594,28 @@ found&rdquo; error.  </p>
 </tr>
 </tbody>
 </table>
+<p><a name="getIllegalCharacters"></a></p>
+<h2 id="getillegalcharacters-string">getIllegalCharacters ⇒ <code>string</code><a class="headerlink" href="#getillegalcharacters-string" title="Permanent link">&para;</a></h2>
+<p>Get the list of illegal characters in the file name</p>
+<p><strong>Kind</strong>: global constant<br />
+<strong>Returns</strong>: <code>string</code> - illegal characters separated by spaces<br />
+<strong>Access</strong>: public  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td><code>string</code></td>
+<td>the file name</td>
+</tr>
+</tbody>
+</table>
 <p><a name="getIndexFields"></a></p>
 <h2 id="getindexfields-array">getIndexFields ⇒ <code>Array</code><a class="headerlink" href="#getindexfields-array" title="Permanent link">&para;</a></h2>
 <p>Compute fields that should be indexed for a mango
@@ -7737,28 +7766,7 @@ See https://docs.cozy.io/en/cozy-stack/sharing-design/#description-of-a-sharing<
 <p><strong>Kind</strong>: global function<br />
 <strong>Returns</strong>: <code>string</code> - token<br />
 <strong>See</strong>: CozyStackClient.getAccessToken<br />
-<a name="sanitizeAttributes"></a></p>
-<h2 id="sanitizeattributesattributes-fileattributes-directoryattributes">sanitizeAttributes(attributes) ⇒ <a href="#FileAttributes"><code>FileAttributes</code></a> | <a href="#DirectoryAttributes"><code>DirectoryAttributes</code></a><a class="headerlink" href="#sanitizeattributesattributes-fileattributes-directoryattributes" title="Permanent link">&para;</a></h2>
-<p>Sanitize Attribute for an io.cozy.files</p>
-<p>Currently juste the name</p>
-<p><strong>Kind</strong>: global function  </p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>attributes</td>
-<td><a href="#FileAttributes"><code>FileAttributes</code></a> | <a href="#DirectoryAttributes"><code>DirectoryAttributes</code></a></td>
-<td>Attributes of the created file/directory</td>
-</tr>
-</tbody>
-</table>
-<p><a name="garbageCollect"></a></p>
+<a name="garbageCollect"></a></p>
 <h2 id="garbagecollect">garbageCollect()<a class="headerlink" href="#garbagecollect" title="Permanent link">&para;</a></h2>
 <p>Delete outdated results from cache</p>
 <p><strong>Kind</strong>: global function<br />
