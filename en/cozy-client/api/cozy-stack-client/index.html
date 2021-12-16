@@ -1876,6 +1876,20 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#isfile-boolean" title="isFile ⇒ boolean" class="md-nav__link">
+    isFile ⇒ boolean
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#isdirectory-boolean" title="isDirectory ⇒ boolean" class="md-nav__link">
+    isDirectory ⇒ boolean
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#getillegalcharacters-string" title="getIllegalCharacters ⇒ string" class="md-nav__link">
     getIllegalCharacters ⇒ string
   </a>
@@ -4563,6 +4577,20 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#isfile-boolean" title="isFile ⇒ boolean" class="md-nav__link">
+    isFile ⇒ boolean
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#isdirectory-boolean" title="isDirectory ⇒ boolean" class="md-nav__link">
+    isDirectory ⇒ boolean
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#getillegalcharacters-string" title="getIllegalCharacters ⇒ string" class="md-nav__link">
     getIllegalCharacters ⇒ string
   </a>
@@ -4988,6 +5016,12 @@ through OAuth.</p>
 </dd>
 <dt><a href="#isDocumentUpdateConflict">isDocumentUpdateConflict</a> ⇒ <code>boolean</code></dt>
 <dd><p>Helper to identify a document conflict</p>
+</dd>
+<dt><a href="#isFile">isFile</a> ⇒ <code>boolean</code></dt>
+<dd><p>Returns true when parameter has type directory, file or has _type io.cozy.files</p>
+</dd>
+<dt><a href="#isDirectory">isDirectory</a> ⇒ <code>boolean</code></dt>
+<dd><p>Returns true when parameters has type directory</p>
 </dd>
 <dt><a href="#getIllegalCharacters">getIllegalCharacters</a> ⇒ <code>string</code></dt>
 <dd><p>Get the list of illegal characters in the file name</p>
@@ -7594,6 +7628,53 @@ found&rdquo; error.  </p>
 </tr>
 </tbody>
 </table>
+<p><a name="isFile"></a></p>
+<h2 id="isfile-boolean">isFile ⇒ <code>boolean</code><a class="headerlink" href="#isfile-boolean" title="Permanent link">&para;</a></h2>
+<p>Returns true when parameter has type directory, file or has _type io.cozy.files</p>
+<p><strong>Kind</strong>: global constant<br />
+<strong>Returns</strong>: <code>boolean</code> - true when objects has type directory, file or has _type io.cozy.files or false  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td><code>string</code></td>
+<td>The type of the file</td>
+</tr>
+<tr>
+<td>_type</td>
+<td><code>string</code></td>
+<td>The _type of the file</td>
+</tr>
+</tbody>
+</table>
+<p><a name="isDirectory"></a></p>
+<h2 id="isdirectory-boolean">isDirectory ⇒ <code>boolean</code><a class="headerlink" href="#isdirectory-boolean" title="Permanent link">&para;</a></h2>
+<p>Returns true when parameters has type directory</p>
+<p><strong>Kind</strong>: global constant<br />
+<strong>Returns</strong>: <code>boolean</code> - true when parameters has type directory or false  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td><code>string</code></td>
+<td>The type of the file</td>
+</tr>
+</tbody>
+</table>
 <p><a name="getIllegalCharacters"></a></p>
 <h2 id="getillegalcharacters-string">getIllegalCharacters ⇒ <code>string</code><a class="headerlink" href="#getillegalcharacters-string" title="Permanent link">&para;</a></h2>
 <p>Get the list of illegal characters in the file name</p>
@@ -8137,6 +8218,11 @@ Deleted and design docs are filtered by default, thus documents are retrieved in
 <td>_id</td>
 <td><code>string</code></td>
 <td>Id of the file</td>
+</tr>
+<tr>
+<td>attributes</td>
+<td><a href="#FileAttributes"><code>FileAttributes</code></a></td>
+<td>Attributes of the file</td>
 </tr>
 </tbody>
 </table>
