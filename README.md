@@ -21,7 +21,7 @@ If you want to see your updates, install mkdocs:
 
 > In most linux distribution, it will install binary in ~/local/bin/, add it to your path.
 
-Fetch external documentation and add it to mkdocs.yml (do not commit done in `mkdocs.yml`) :
+Fetch external documentation and add it to mkdocs.yml (do not commit changes done in `mkdocs.yml`) :
 
 ```bash
 # Activate a virtualenv if you want (recommended)

@@ -6,9 +6,9 @@
 
 In order to efficiently filter documents through selectors and sort them, it is important to correctly index data. An index is a way to organize documents in order to retrieve them faster.
 
-To give a simple and non-database comparison, a recipe book might have an index listing all the recipes by their name with their page number. If the reader is looking for a particular recipe, this index avoids him to scan the full book to find it. 
+To give a simple and non-database comparison, a recipe book might have an index listing all the recipes by their name with their page number. If the reader is looking for a particular recipe, this index avoids him to scan the full book to find it.
 
-The principle is the same for databases index: we want to avoid scanning the whole database each time we are looking for specific data expressed by a selector: even though computers are way faster than humans to scan data, this task can be very time-consuming when dealing with thousands or millions of documents. 
+The principle is the same for databases index: we want to avoid scanning the whole database each time we are looking for specific data expressed by a selector: even though computers are way faster than humans to scan data, this task can be very time-consuming when dealing with thousands or millions of documents.
 
 In more formal terms, time complexity of a query run on a database with `n` documents will be `O(n)` without index, as it requires to scan all documents. In CouchDB, the indexes are actually [B+ Trees](https://en.wikipedia.org/wiki/B%2B_tree), a structure derived from the [B-Trees](https://en.wikipedia.org/wiki/B-tree), that perform in `O(log(n))` in average, which guarantees a very fast access time even in large datasets.
 
@@ -19,9 +19,9 @@ In more formal terms, time complexity of a query run on a database with `n` docu
 ### B+ Tree
 
 CouchDB indexes are B+ Trees. It means that indexed fields, here _keys_, are organized as a tree, with the documents stored in the leafs nodes. So, finding a particular document means browsing the tree, from the root to the leaf.  
-In each node, a key has two children: the left child has all its keys inferior to the parent, while the right child has all its keys superior to the parent. 
+In each node, a key has two children: the left child has all its keys inferior to the parent, while the right child has all its keys superior to the parent.
 
-In the Figure below, borrowed from the [CouchDB guide](https://guide.couchdb.org/editions/1/en/btree.html), you see that each node has three keys. In CouchDB implementation, a B+ Tree node can actually store more than 1600 keys. 
+In the Figure below, borrowed from the [CouchDB guide](https://guide.couchdb.org/editions/1/en/btree.html), you see that each node has three keys. In CouchDB implementation, a B+ Tree node can actually store more than 1600 keys.
 
 <div align="center">
   <img src="../../../img/dev/manipulate-data/b-tree.png" />
@@ -40,7 +40,7 @@ This design is very efficient for range queries: in the example above, a query l
 
 ## Indexes: why is my document not being retrieved?
 
-At indexing time, CouchDB evaluates if a new document should be indexed by checking if its fields match an existing index. It means that **all the indexed fields must exist in the document** to index it. It can be problematic for queries that need to check if a particular field exists or not. 
+At indexing time, CouchDB evaluates if a new document should be indexed by checking if its fields match an existing index. It means that **all the indexed fields must exist in the document** to index it. It can be problematic for queries that need to check if a particular field exists or not.
 
 For example, this query won’t work:
 
@@ -48,16 +48,16 @@ For example, this query won’t work:
 const queryDef = client
   .find("io.cozy.todos")
   .where({
-    "category": {
-      "$exists": false    
-    }
+    category: {
+      $exists: false,
+    },
   })
-.indexFields(["category"])
+  .indexFields(["category"]);
 ```
 
 Here, we want to get all the todos without a `category` field. However, those documents will never be indexed, precisely because the field is missing.
 
-Hence, think carefully about your data before hand and do not use queries with `$exists: false` whenever possible. If a field is missing, it might be better to add a  `null` value so that your documents do not have any missing fields. If this is not possible for some reasons, here is another possible solution - yet not very efficient:
+Hence, think carefully about your data before hand and do not use queries with `$exists: false` whenever possible. If a field is missing, it might be better to add a `null` value so that your documents do not have any missing fields. If this is not possible for some reasons, here is another possible solution - yet not very efficient:
 
 ⚠️ Not efficient workaround
 
@@ -65,18 +65,18 @@ Hence, think carefully about your data before hand and do not use queries with `
 const queryDef = client
   .find("io.cozy.todos")
   .where({
-    "_id": {
-      "$gt": null
+    _id: {
+      $gt: null,
     },
-    "category": {
-      "$exists": false    
-    }
+    category: {
+      $exists: false,
+    },
   })
-.indexFields(["_id"])
+  .indexFields(["_id"]);
 ```
 
-Here, we force an index on the `_id`, which always exists in any CouchDB document, and ask all the documents with `"_id": { "$gt": null }`. The `category` is not indexed so the documents without this field will enter the index. 
-This is not efficient as it implies that the `"category": { "$exists": false }` condition will be evaluated in memory by CouchDB for all the documents of the database, thus making a full index scan. 
+Here, we force an index on the `_id`, which always exists in any CouchDB document, and ask all the documents with `"_id": { "$gt": null }`. The `category` is not indexed so the documents without this field will enter the index.
+This is not efficient as it implies that the `"category": { "$exists": false }` condition will be evaluated in memory by CouchDB for all the documents of the database, thus making a full index scan.
 
 ## Indexes: performances and design
 
@@ -88,13 +88,13 @@ To illustrate this, let’s assume you have declared this query, to get all the 
 const queryDef = client
   .find("io.cozy.todos")
   .where({
-    "created_at": {
-      "$ge": "2019-01-01",
-      "$lt": "2020-01-01"
+    created_at: {
+      $ge: "2019-01-01",
+      $lt: "2020-01-01",
     },
-    "category": "work"
+    category: "work",
   })
-.indexFields(["created_at", "category"])
+  .indexFields(["created_at", "category"]);
 ```
 
 ⚠️ This query is actually sub-optimal. To understand this, let’s represent some sample data:
@@ -149,7 +149,7 @@ const queryDef = client
 This shows how the data is organized in the index: it is primarily sorted by `created_at` and then by `category`. First, the query is looking for all the todos starting from `"2019-01-01"` and before `"2020-01-01"`. It easily finds this range in the B+ Tree; but now it must also filter all the results to only keep the rows with `category: work`.
 And this cannot be done through the B+ Tree, because matching rows are not contiguous, as shown in green in the table: this means that CouchDB is forced to perform the `category` condition in memory, leading to bad performances.
 
-💡 Hopefully, this example can be easily be solved by switching the index fields order: 
+💡 Hopefully, this example can be easily be solved by switching the index fields order:
 
 `.indexFields(["category", "created_at"])`
 
@@ -210,9 +210,9 @@ The data is now organized as follow:
   </tbody>
 </table>
 
-Now, the very same query can be efficiently processed: the `category: work` is first evaluated in the B+ Tree, which return all the relevant rows, sorted by `created_at`. Then, the range is easily found now that all the rows are contiguous. 
+Now, the very same query can be efficiently processed: the `category: work` is first evaluated in the B+ Tree, which return all the relevant rows, sorted by `created_at`. Then, the range is easily found now that all the rows are contiguous.
 
-💡 The main takeaway here is: when dealing with a query with both equality and range, you must first index the equality field. 
+💡 The main takeaway here is: when dealing with a query with both equality and range, you must first index the equality field.
 If you are interested about this, you can learn more [here](https://use-the-index-luke.com/sql/where-clause/searching-for-ranges/greater-less-between-tuning-sql-access-filter-predicates). Even though it is SQL-oriented, it also applies for CouchDB as the B-Tree indexing logic is the same.
 
 💡 When creating an index, carefully think about how your data will be organized and which query will need to perfom. The performances can dramatically vary depending on your design, with several orders of magnitude.
@@ -221,7 +221,7 @@ If you are interested about this, you can learn more [here](https://use-the-inde
 
 ## Partial indexes
 
-In CouchDB, a document is indexed only if its fields matches an existing index. As a consequence, it is not possible to perform efficient queries on non-existing fields. 
+In CouchDB, a document is indexed only if its fields matches an existing index. As a consequence, it is not possible to perform efficient queries on non-existing fields.
 
 For instance, the query below does not work, because it searches for document without the `category` field, but the absence of this field will cause such documents to never be indexed, as previously explained [here](#indexes-why-is-my-document-not-being-retrieved):
 
@@ -229,11 +229,11 @@ For instance, the query below does not work, because it searches for document wi
 const queryDef = client
   .find("io.cozy.todos")
   .where({
-    "category": {
-      "$exists": false    
-    }
+    category: {
+      $exists: false,
+    },
   })
-.indexFields(["category"])
+  .indexFields(["category"]);
 ```
 
 In the same manner, queries implying non-contiguous rows in the B+ Tree are sub-optimal. Typically, queries with a non-egal operator, `$ne`:
@@ -242,18 +242,18 @@ In the same manner, queries implying non-contiguous rows in the B+ Tree are sub-
 const queryDef = client
   .find("io.cozy.todos")
   .where({
-    "title": "Exercices",
-    "category": {
-      "$ne": "sport"  
-    }    
+    title: "Exercices",
+    category: {
+      $ne: "sport",
+    },
   })
-  .indexFields(["title", "category"])
+  .indexFields(["title", "category"]);
 ```
 
 As the `$ne` operator cannot guarantee contiguous rows, it needs to scan all the index on documents with the `"title": "Exercices"` to find those that are not in the sport `category`.
 
 [Partial indexes](https://docs.couchdb.org/en/2.3.1/api/database/find.html#find-partial-indexes) are a way to circumvent this issue. They allow to define a partial selector condition that will be evaluated at the indexing time, and will add the document in the index if it matches the condition.
-Thanks to this, it becomes possible to tell CouchDB at indexing time to exlude documents that do not match the condition, e.g. `"category": { "$exists": false}` or  `"category": { "$ne": "sport"}`.
+Thanks to this, it becomes possible to tell CouchDB at indexing time to exlude documents that do not match the condition, e.g. `"category": { "$exists": false}` or `"category": { "$ne": "sport"}`.
 
 Hence, the produced index will only include documents that already matched the partial filter selector, making it possible to query them, as this selector enforces contiguous rows or documents with missing fields.
 
@@ -263,14 +263,14 @@ You can declare a partial index in cozy-client like this:
 const queryDef = client
   .find("io.cozy.todos")
   .where({
-    "title": "Exercices",
+    title: "Exercices",
   })
   .partialIndex({
-    "category": {
-      "$ne": "sport"  
-    }
+    category: {
+      $ne: "sport",
+    },
   })
-  .indexFields(["title"])
+  .indexFields(["title"]);
 ```
 
 `partialIndex` supports the same syntax than the `where`, so you can easily move inefficient selectors into partial indexes.
@@ -283,33 +283,35 @@ With mango queries, the recommanded method to paginate is through the `bookmark`
 
 We detail here why you should **never use** `skip` to paginate and use `bookmark` instead. We explain it for exhaustiveness and to prevent developers to fall into this trap.
 
-This method consists of specifying a `limit` to the query, which is the maximum number of documents to return, and a  `skip` parameter that is the number of documents returned so far. With cozy-client, its is expressed through `limitBy` and `offset`.
+This method consists of specifying a `limit` to the query, which is the maximum number of documents to return, and a `skip` parameter that is the number of documents returned so far. With cozy-client, its is expressed through `limitBy` and `offset`.
 
 ⚠️ Do not use this:
 
 ```javascript
-const queryDef = client.find("io.cozy.todos").limitBy(200)
-const docs = []
-let resp = { next: true, data: [] }
+const docs = [];
+let resp = { next: true, data: [] };
 while (resp && resp.next) {
-  resp = await client.query(queryDef.offset(resp.data.length))
-  docs.push(...resp.data)
+  resp = await client.query(
+    Q("io.cozy.todos").limitBy(200).offset(resp.data.length)
+  );
+  docs.push(...resp.data);
 }
 ```
 
-This method is very bad for performances because it actually breaks the B+ Tree indexing logic: there is no way to efficiently skip a fixed number of data in such a tree, so skipping documents consists of normally running the query and then splitting the results starting from the `skip`  number of documents. Thus, the performances quickly degrade when there are many documents to skip.
+This method is very bad for performances because it actually breaks the B+ Tree indexing logic: there is no way to efficiently skip a fixed number of data in such a tree, so skipping documents consists of normally running the query and then splitting the results starting from the `skip` number of documents. Thus, the performances quickly degrade when there are many documents to skip.
 
 On the contrary, the `bookmark` method is very efficient as it preserves the B+ Tree logic. One can see a `bookmark` as a pointer to start the query in the tree.
 
 💡 Use this:
 
 ```javascript
-const queryDef = client.find("io.cozy.todos").limitBy(200)
-const docs = []
-let resp = { next: true }
+const docs = [];
+let resp = { next: true };
 while (resp && resp.next) {
-  resp = await client.query(queryDef.offsetBookmark(resp.bookmark))
-  docs.push(...resp.data)
+  resp = await client.query(
+    Q("io.cozy.todos").limitBy(200).offsetBookmark(resp.bookmark)
+  );
+  docs.push(...resp.data);
 }
 ```
 
@@ -324,7 +326,7 @@ See also the [CouchDB benchmark](./#couchdb-performances) we performed.
 
 As quoted from the [CouchDB documentation](https://docs.couchdb.org/en/2.3.1/maintenance/performance.html#views-generation):
 
-> Views with the JavaScript query server are extremely slow to generate when there are a non-trivial number of documents to process. 
+> Views with the JavaScript query server are extremely slow to generate when there are a non-trivial number of documents to process.
 
 > A 10 million document database took about 4 hours to do view generation
 
@@ -336,10 +338,10 @@ Let alone the very slow indexing time, this also requires a lot of server CPU to
 
 ## Views: pagination
 
-The CouchDB views does not implement the Mango queries  `bookmark` system. However, it is still possible to paginate results efficiently by using a `cursor`. 
+The CouchDB views does not implement the Mango queries `bookmark` system. However, it is still possible to paginate results efficiently by using a `cursor`.
 This method, described in the [CouchDB documentation](https://docs.couchdb.org/en/2.3.1/ddocs/views/pagination.html#paging-alternate-method), combines the `startkey` and `startkey_docid` parameters.
 
-For each query, get the last returned document and extract the searched key as well as the `_id` to respectively set the next `startkey` and `startkey_docid`  query parameters. 
+For each query, get the last returned document and extract the searched key as well as the `_id` to respectively set the next `startkey` and `startkey_docid` query parameters.
 
 See this [cursor pagination example](https://github.com/cozy/cozy-client/blob/0a31ec888c16d9ec1620aae3a1ec001274c0eea4/packages/cozy-client/src/associations/HasManyFiles.js#L12-L42) in cozy-client.
 
@@ -372,10 +374,7 @@ Let's assume the following document with the revision history `[1-abc, 2-def]` s
   "_rev": "2-def",
   "bar": "tender",
   "_revisions": {
-    "ids": [
-      "def",
-      "abc"
-    ]
+    "ids": ["def", "abc"]
   }
 }
 ```
@@ -389,8 +388,7 @@ We update the document with a `POST /bulk_docs` query, with the following conten
     {
       "_id": "foo",
       "_rev": "3-ghi",
-      "_revisions": { "start": 3, "ids": ["ghi", "xyz", "abc"] }
-      ,
+      "_revisions": { "start": 3, "ids": ["ghi", "xyz", "abc"] },
       "bar": "racuda"
     }
   ],
@@ -407,7 +405,7 @@ In the [sharing protocol](https://docs.cozy.io/en/cozy-stack/sharing-design/), w
 
 Here is a benchmark performed on a CouchDB 2.3, running on a Thinkpad T480, i7-8550U , 16 Go RAM with 256Go SSD.
 
-The document insertion is performed in bulk, by batch of 100K documents maximum. 
+The document insertion is performed in bulk, by batch of 100K documents maximum.
 
 Each doc has the following structure:
 
@@ -422,7 +420,7 @@ Each doc has the following structure:
 
 `count1` is indexed by a Mango index and a JavaScript view, while `count2` is indexed by an Erlang view. Both of those fields are incremented at each document insertion.
 
-Each query is paginated to retrieve 100 documents at a time. We measured the time taken for each query, to see variations depending on the database volumetry. 
+Each query is paginated to retrieve 100 documents at a time. We measured the time taken for each query, to see variations depending on the database volumetry.
 
 To measure the mango and views build time, we performed a single query just after their creation.
 
