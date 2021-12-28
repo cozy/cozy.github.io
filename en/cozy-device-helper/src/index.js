@@ -6,7 +6,8 @@ export {
   isMobileApp,
   isAndroid,
   isIOS,
-  isMobile
+  isMobile,
+  isFlagshipApp
 } from './platform'
 export { getDeviceName } from './device'
 export { checkApp, startApp } from './apps'

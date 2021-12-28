@@ -7,7 +7,8 @@ import {
   hasDevicePlugin,
   hasInAppBrowserPlugin,
   hasSafariPlugin,
-  hasNetworkInformationPlugin
+  hasNetworkInformationPlugin,
+  isFlagshipApp
 } from './index'
 
 describe('platforms', () => {
@@ -35,6 +36,16 @@ describe('platforms', () => {
     expect(getPlatform()).toEqual('ios')
     window.cordova = { platformId: 'android' }
     expect(getPlatform()).toEqual('android')
+  })
+  it('should identify as a Flagship app webview', () => {
+    window.cozy = undefined
+    expect(isFlagshipApp()).toBeFalsy()
+    window.cozy = {}
+    expect(isFlagshipApp()).toBeFalsy()
+    window.cozy = { isFlagshipApp: '' }
+    expect(isFlagshipApp()).toBeFalsy()
+    window.cozy = { isFlagshipApp: true }
+    expect(isFlagshipApp()).toBeTruthy()
   })
 })
 
