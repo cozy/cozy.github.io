@@ -2282,6 +2282,19 @@
     GET /auth/authorize
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pkce-extension" title="PKCE extension" class="md-nav__link">
+    PKCE extension
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -3148,6 +3161,19 @@
     GET /auth/authorize
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pkce-extension" title="PKCE extension" class="md-nav__link">
+    PKCE extension
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -3953,6 +3979,23 @@ and has an accept button if she is OK with that.</p>
 
 <p><strong>Note</strong> we warn the user that he is about to share his data with an application
 which only the callback URI is guaranteed.</p>
+<h4 id="pkce-extension">PKCE extension<a class="headerlink" href="#pkce-extension" title="Permanent link">&para;</a></h4>
+<p>To improve security, the client can use the <a href="https://oauth.net/2/pkce/">PKCE for OAuth
+2</a>. In that case, two additional parameters must be
+send to <code>GET /auth/authorize</code>:</p>
+<ul>
+<li><code>code_challenge</code>: the client creates a <code>code_verifier</code>, and then derive the
+  <code>code_challenge</code> from it.</li>
+<li><code>code_challenge_method</code>: it must be <code>S256</code> (the only supported method).</li>
+</ul>
+<p>As a reminder, the relation between <code>code_verifier</code> and <code>code_challenge</code> is the
+following:</p>
+<div class="codehilite"><pre><span></span>code_challenge = BASE64URL-ENCODE(SHA256(code_verifier))
+</pre></div>
+
+
+<p>And, the <code>code_verifier</code> parameter must be sent to <code>POST /auth/access_token</code>
+(see below).</p>
 <h3 id="post-authauthorize">POST /auth/authorize<a class="headerlink" href="#post-authauthorize" title="Permanent link">&para;</a></h3>
 <p>When the user accepts, her browser send a request to this endpoint:</p>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/auth/authorize</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>

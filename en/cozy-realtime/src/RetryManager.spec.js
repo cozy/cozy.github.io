@@ -161,7 +161,12 @@ describe('RetryManager', () => {
       retry.onFailure()
       retry.onFailure()
       retry.onFailure()
-      retry.waitBeforeNextAttempt().then(handler)
+      retry
+        .waitBeforeNextAttempt()
+        .then(handler)
+        .catch(err => {
+          throw err
+        })
       retry.stopCurrentAttemptWaitingTime()
       await sleep(25)
       expect(handler).toHaveBeenCalled()

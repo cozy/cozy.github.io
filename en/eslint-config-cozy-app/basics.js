@@ -1,8 +1,12 @@
 'use strict'
 
 module.exports = {
-  plugins: ['prettier'],
-  extends: ['eslint:recommended', 'eslint-config-prettier'],
+  plugins: ['prettier', 'promise'],
+  extends: [
+    'eslint:recommended',
+    'eslint-config-prettier',
+    'plugin:promise/recommended'
+  ],
   parser: '@babel/eslint-parser',
   env: {
     browser: true,

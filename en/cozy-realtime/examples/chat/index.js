@@ -70,11 +70,13 @@ const main = async () => {
   }
 }
 
+// eslint-disable-next-line promise/catch-or-return
 main()
   .catch(e => {
     console.error(e)
     process.exit(1)
   })
+  // eslint-disable-next-line promise/always-return
   .then(() => {
     process.exit(0)
   })
