@@ -46,7 +46,7 @@ export const createScheduledTrigger = async client => {
     if (triggerStates?.shouldNotify?.ok !== true) {
       logger(
         'info',
-        `⚠️  Not created: this konnector trigger doesn't sent any notification`
+        `@at triggers not created: this konnector trigger doesn't sent any notification`
       )
       continue
     }
@@ -56,7 +56,7 @@ export const createScheduledTrigger = async client => {
     if (relatedFuturAtTriggers.length > 0) {
       logger(
         'info',
-        `⚠️  Not created: @at triggers already existing in the futur for this konnector trigger`
+        `@at triggers not created: @at triggers already existing in the futur for this konnector trigger`
       )
       continue
     }

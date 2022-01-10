@@ -39,7 +39,14 @@ export class CategoriesPage extends Component {
     const { filteringDoc, dispatch } = this.props
     if (
       filteringDoc &&
-      includes(['Reimbursements', 'health_reimbursements'], filteringDoc._id)
+      includes(
+        [
+          'professional_reimbursements',
+          'others_reimbursements',
+          'health_reimbursements'
+        ],
+        filteringDoc._id
+      )
     ) {
       dispatch(resetFilterByDoc())
     }

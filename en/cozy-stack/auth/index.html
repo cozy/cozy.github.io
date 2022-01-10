@@ -2367,6 +2367,33 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#post-authsession_code" title="POST /auth/session_code" class="md-nav__link">
+    POST /auth/session_code
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#faq" title="FAQ" class="md-nav__link">
     FAQ
   </a>
@@ -3246,6 +3273,33 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#post-authsession_code" title="POST /auth/session_code" class="md-nav__link">
+    POST /auth/session_code
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#faq" title="FAQ" class="md-nav__link">
     FAQ
   </a>
@@ -3773,9 +3827,10 @@ for the details.</p>
 <li><code>notification_platform</code>, to activate notifications on the associated device,
     this field specify the platform used to send notifications:<ul>
 <li><code>"android"</code>: for Android devices with notifications via Firebase Cloud
-    Messaging</li>
+  Messaging</li>
 <li><code>"ios"</code>: for iOS devices with notifications via Firebase Cloud
-    Messaging or APNS/2</li>
+  Messaging or APNS/2</li>
+<li><code>"huawei"</code>: for huawei devices with Push Kit</li>
 </ul>
 </li>
 <li><code>notification_device_token</code>, the token used to identify the mobile device
@@ -4137,6 +4192,33 @@ onboarding secret.</p>
 </pre></div>
 
 
+<h3 id="post-authsession_code">POST /auth/session_code<a class="headerlink" href="#post-authsession_code" title="Permanent link">&para;</a></h3>
+<p>This endpoint can only be used by the flagship application. It will create a
+session code: this code can be added to the URL of a cozy application (in the
+query string, as <code>sessioncode</code>) to create a session. The flagship can create
+this code, and then use it in a webview to avoid the reauthentication of the
+user.</p>
+<h4 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/auth/session_code</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<h4 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">201</span> <span class="ne">Created</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;session_code&quot;</span><span class="p">:</span> <span class="s2">&quot;HzEFM3JREpIB6532fQc1FP2t4YJKt3gI&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>The flagship will then be able to open a webview for
+<code>https://cozy-home.example.org/?session_code=HzEFM3JREpIB6532fQc1FP2t4YJKt3gI</code>.</p>
 <h3 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h3>
 <blockquote>
 <p>What format is used for tokens?</p>
