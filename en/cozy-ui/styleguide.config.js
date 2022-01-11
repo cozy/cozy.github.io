@@ -231,6 +231,7 @@ module.exports = {
         '../react/Hidden/index.js',
         '../react/LinearProgress/index.js',
         '../react/Link/index.js',
+        '../react/ListItemAvatar/index.js',
         '../react/MenuItem/index.js',
         '../react/MenuList/index.js',
         '../react/MobileStepper/index.js',
