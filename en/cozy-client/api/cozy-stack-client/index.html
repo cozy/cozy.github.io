@@ -1582,6 +1582,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#oauthclientfetchsessioncode-promisesessioncoderes" title="oAuthClient.fetchSessionCode() ⇒ Promise.&lt;SessionCodeRes&gt;" class="md-nav__link">
+    oAuthClient.fetchSessionCode() ⇒ Promise.&lt;SessionCodeRes&gt;
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#oauthclientrefreshtoken-promise" title="oAuthClient.refreshToken() ⇒ Promise" class="md-nav__link">
     oAuthClient.refreshToken() ⇒ Promise
   </a>
@@ -2129,6 +2136,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#oauthclientfetchsessioncode-promisesessioncoderes_1" title="oAuthClient.fetchSessionCode() ⇒ Promise.&lt;SessionCodeRes&gt;" class="md-nav__link">
+    oAuthClient.fetchSessionCode() ⇒ Promise.&lt;SessionCodeRes&gt;
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#oauthclientrefreshtoken-promise_1" title="oAuthClient.refreshToken() ⇒ Promise" class="md-nav__link">
     oAuthClient.refreshToken() ⇒ Promise
   </a>
@@ -2178,6 +2192,13 @@
         <li class="md-nav__item">
   <a href="#designdoc-object" title="DesignDoc : object" class="md-nav__link">
     DesignDoc : object
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sessioncoderes" title="SessionCodeRes" class="md-nav__link">
+    SessionCodeRes
   </a>
   
 </li>
@@ -4290,6 +4311,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#oauthclientfetchsessioncode-promisesessioncoderes" title="oAuthClient.fetchSessionCode() ⇒ Promise.&lt;SessionCodeRes&gt;" class="md-nav__link">
+    oAuthClient.fetchSessionCode() ⇒ Promise.&lt;SessionCodeRes&gt;
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#oauthclientrefreshtoken-promise" title="oAuthClient.refreshToken() ⇒ Promise" class="md-nav__link">
     oAuthClient.refreshToken() ⇒ Promise
   </a>
@@ -4837,6 +4865,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#oauthclientfetchsessioncode-promisesessioncoderes_1" title="oAuthClient.fetchSessionCode() ⇒ Promise.&lt;SessionCodeRes&gt;" class="md-nav__link">
+    oAuthClient.fetchSessionCode() ⇒ Promise.&lt;SessionCodeRes&gt;
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#oauthclientrefreshtoken-promise_1" title="oAuthClient.refreshToken() ⇒ Promise" class="md-nav__link">
     oAuthClient.refreshToken() ⇒ Promise
   </a>
@@ -4886,6 +4921,13 @@
         <li class="md-nav__item">
   <a href="#designdoc-object" title="DesignDoc : object" class="md-nav__link">
     DesignDoc : object
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sessioncoderes" title="SessionCodeRes" class="md-nav__link">
+    SessionCodeRes
   </a>
   
 </li>
@@ -5146,6 +5188,8 @@ not.</p>
 <dt><a href="#DesignDoc">DesignDoc</a> : <code>object</code></dt>
 <dd><p>Attributes representing a design doc</p>
 </dd>
+<dt><a href="#SessionCodeRes">SessionCodeRes</a></dt>
+<dd></dd>
 <dt><a href="#Permission">Permission</a> ⇒ <code><a href="#Permission">Permission</a></code></dt>
 <dd><p>async getOwnPermissions - deprecated: please use fetchOwnPermissions instead</p>
 </dd>
@@ -6608,6 +6652,7 @@ through OAuth.</p>
 <li><a href="#OAuthClient+getAuthCodeURL">.getAuthCodeURL(stateCode, scopes)</a> ⇒ <code>string</code></li>
 <li><a href="#OAuthClient+getAccessCodeFromURL">.getAccessCodeFromURL(pageURL, stateCode)</a> ⇒ <code>string</code></li>
 <li><a href="#OAuthClient+fetchAccessToken">.fetchAccessToken(accessCode, oauthOptionsArg, uri)</a> ⇒ <code>Promise</code></li>
+<li><a href="#OAuthClient+fetchSessionCode">.fetchSessionCode()</a> ⇒ <a href="#SessionCodeRes"><code>Promise.&lt;SessionCodeRes&gt;</code></a></li>
 <li><a href="#OAuthClient+refreshToken">.refreshToken()</a> ⇒ <code>Promise</code></li>
 <li><a href="#OAuthClient+setToken">.setToken(token)</a></li>
 <li><a href="#OAuthClient+setOAuthOptions">.setOAuthOptions(options)</a></li>
@@ -6777,6 +6822,15 @@ sets internal information from the server response</p>
 </tr>
 </tbody>
 </table>
+<p><a name="OAuthClient+fetchSessionCode"></a></p>
+<h3 id="oauthclientfetchsessioncode-promisesessioncoderes">oAuthClient.fetchSessionCode() ⇒ <a href="#SessionCodeRes"><code>Promise.&lt;SessionCodeRes&gt;</code></a><a class="headerlink" href="#oauthclientfetchsessioncode-promisesessioncoderes" title="Permanent link">&para;</a></h3>
+<p>Fetches a new session code. Only usable by the Flagship application</p>
+<p><strong>Kind</strong>: instance method of <a href="#OAuthClient"><code>OAuthClient</code></a><br />
+<strong>Returns</strong>: <a href="#SessionCodeRes"><code>Promise.&lt;SessionCodeRes&gt;</code></a> - A promise that resolves with a new session_code<br />
+<strong>Throws</strong>:</p>
+<ul>
+<li><code>NotRegisteredException</code> When the client isn&rsquo;t certified to be the Flagship application</li>
+</ul>
 <p><a name="OAuthClient+refreshToken"></a></p>
 <h3 id="oauthclientrefreshtoken-promise">oAuthClient.refreshToken() ⇒ <code>Promise</code><a class="headerlink" href="#oauthclientrefreshtoken-promise" title="Permanent link">&para;</a></h3>
 <p>Retrieves a new access token by refreshing the currently used token.</p>
@@ -8284,6 +8338,7 @@ Deleted and design docs are filtered by default, thus documents are retrieved in
 <li><a href="#OAuthClient+getAuthCodeURL">.getAuthCodeURL(stateCode, scopes)</a> ⇒ <code>string</code></li>
 <li><a href="#OAuthClient+getAccessCodeFromURL">.getAccessCodeFromURL(pageURL, stateCode)</a> ⇒ <code>string</code></li>
 <li><a href="#OAuthClient+fetchAccessToken">.fetchAccessToken(accessCode, oauthOptionsArg, uri)</a> ⇒ <code>Promise</code></li>
+<li><a href="#OAuthClient+fetchSessionCode">.fetchSessionCode()</a> ⇒ <a href="#SessionCodeRes"><code>Promise.&lt;SessionCodeRes&gt;</code></a></li>
 <li><a href="#OAuthClient+refreshToken">.refreshToken()</a> ⇒ <code>Promise</code></li>
 <li><a href="#OAuthClient+setToken">.setToken(token)</a></li>
 <li><a href="#OAuthClient+setOAuthOptions">.setOAuthOptions(options)</a></li>
@@ -8453,6 +8508,15 @@ sets internal information from the server response</p>
 </tr>
 </tbody>
 </table>
+<p><a name="OAuthClient+fetchSessionCode"></a></p>
+<h3 id="oauthclientfetchsessioncode-promisesessioncoderes_1">oAuthClient.fetchSessionCode() ⇒ <a href="#SessionCodeRes"><code>Promise.&lt;SessionCodeRes&gt;</code></a><a class="headerlink" href="#oauthclientfetchsessioncode-promisesessioncoderes_1" title="Permanent link">&para;</a></h3>
+<p>Fetches a new session code. Only usable by the Flagship application</p>
+<p><strong>Kind</strong>: instance method of <a href="#OAuthClient"><code>OAuthClient</code></a><br />
+<strong>Returns</strong>: <a href="#SessionCodeRes"><code>Promise.&lt;SessionCodeRes&gt;</code></a> - A promise that resolves with a new session_code<br />
+<strong>Throws</strong>:</p>
+<ul>
+<li><code>NotRegisteredException</code> When the client isn&rsquo;t certified to be the Flagship application</li>
+</ul>
 <p><a name="OAuthClient+refreshToken"></a></p>
 <h3 id="oauthclientrefreshtoken-promise_1">oAuthClient.refreshToken() ⇒ <code>Promise</code><a class="headerlink" href="#oauthclientrefreshtoken-promise_1" title="Permanent link">&para;</a></h3>
 <p>Retrieves a new access token by refreshing the currently used token.</p>
@@ -8663,6 +8727,26 @@ not.</p>
 <td>views</td>
 <td><code>object</code></td>
 <td>Views definition, i.e. the index.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="SessionCodeRes"></a></p>
+<h2 id="sessioncoderes">SessionCodeRes<a class="headerlink" href="#sessioncoderes" title="Permanent link">&para;</a></h2>
+<p><strong>Kind</strong>: global typedef<br />
+<strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>session_code</td>
+<td><code>string</code></td>
+<td>The value of the session code</td>
 </tr>
 </tbody>
 </table>
