@@ -41,9 +41,18 @@ const handleErrors = fn =>
   }
 
 const handleImportCommand = args => {
-  const { filepath, handlebarsOptionsFile, url } = args
-  let { token } = args
-  assert(fileExists(filepath), `${filepath} does not exist`)
+  const { handlebarsOptionsFile, url } = args
+  let { filepath, token } = args
+  try {
+    assert(fileExists(filepath), `${filepath} does not exist`)
+  } catch (error) {
+    const achFilepath = path.join(__dirname, './data', filepath)
+    if (fileExists(achFilepath)) {
+      filepath = achFilepath
+    } else {
+      throw error
+    }
+  }
   assert(
     fileExists(handlebarsOptionsFile),
     `${handlebarsOptionsFile} does not exist`
@@ -265,7 +274,7 @@ program
 program
   .command('import <filepath> [handlebarsOptionsFile]')
   .description(
-    'The file containing the JSON data to import. Defaults to "example-data.json". Then the dummy helpers JS file (optional).'
+    'The file containing the JSON data to import. Defaults to "example-data.json". If the file doesn\'t exist in the application, ACH will try to find it inside its data folder. Then the dummy helpers JS file (optional).'
   )
   .action(
     handleErrors(async function(filepath, handlebarsOptionsFile) {
