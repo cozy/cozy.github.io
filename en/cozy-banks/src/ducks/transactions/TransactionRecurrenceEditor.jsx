@@ -131,7 +131,8 @@ const TransactionRecurrenceEditor = ({
     [accountsById, allRecurrences, t]
   )
 
-  const handleSelect = async recurrenceChoice => {
+  const handleSelect = async originalRecurrenceChoice => {
+    let recurrenceChoice = originalRecurrenceChoice
     if (beforeUpdate) {
       await beforeUpdate()
     }

@@ -20,22 +20,22 @@ const findOperation = (bill, options, allOperations) => {
         log('debug', formatOperationLog(operation))
       })
 
-      operations = operationsFilters(bill, operations, options)
+      let filteredOperations = operationsFilters(bill, operations, options)
 
       log(
         'debug',
         `${
-          operations.length
+          filteredOperations.length
         } operations left after filtering for bill ${formatBillLog(bill)}`
       )
 
-      operations.forEach(operation => {
+      filteredOperations.forEach(operation => {
         log('debug', formatOperationLog(operation))
       })
 
-      operations = sortedOperations(bill, operations)
+      filteredOperations = sortedOperations(bill, filteredOperations)
 
-      const selectedOperation = operations[0]
+      const selectedOperation = filteredOperations[0]
 
       if (selectedOperation) {
         log(

@@ -134,7 +134,7 @@ InfiniteScroll.defaultProps = {
   thresoldTop: 100,
   thresoldBottom: -100,
   thresoldForInfiniteScrollTop: 150,
-  getScrollingElement: function() {
+  getScrollingElement: function () {
     return ReactDOM.findDOMNode(this) // eslint-disable-line
   }
 }

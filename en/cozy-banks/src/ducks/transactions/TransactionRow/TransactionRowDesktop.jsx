@@ -57,15 +57,11 @@ const TransactionRowDesktop = ({
 
   const applicationDate = getApplicationDate(transaction)
 
-  const [showTransactionModal, , transactionModal] = useTransactionModal(
-    transaction
-  )
+  const [showTransactionModal, , transactionModal] =
+    useTransactionModal(transaction)
 
-  const [
-    showTransactionCategoryModal,
-    ,
-    categoryModal
-  ] = useTransactionCategoryModal({ transactions: [transaction] })
+  const [showTransactionCategoryModal, , categoryModal] =
+    useTransactionCategoryModal({ transactions: [transaction] })
 
   const handleClickCategory = useCallback(
     ev => {

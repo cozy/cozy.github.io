@@ -160,10 +160,7 @@ const buildReimbursementsVirtualAccount = specs => transactions => {
   const combinedFilter = overEvery(
     [
       specs.filter,
-      compose(
-        isWithin6Months(),
-        getDate
-      ),
+      compose(isWithin6Months(), getDate),
       hasPendingReimbursement
     ].filter(Boolean)
   )
@@ -209,13 +206,15 @@ export const reimbursementsVirtualAccountsSpecs = {
   }
 }
 
-export const buildHealthReimbursementsVirtualAccount = buildReimbursementsVirtualAccount(
-  reimbursementsVirtualAccountsSpecs[healthExpensesCategoryId]
-)
+export const buildHealthReimbursementsVirtualAccount =
+  buildReimbursementsVirtualAccount(
+    reimbursementsVirtualAccountsSpecs[healthExpensesCategoryId]
+  )
 
-export const buildProfessionalReimbursementsVirtualAccount = buildReimbursementsVirtualAccount(
-  reimbursementsVirtualAccountsSpecs[professionalExpensesCategoryId]
-)
+export const buildProfessionalReimbursementsVirtualAccount =
+  buildReimbursementsVirtualAccount(
+    reimbursementsVirtualAccountsSpecs[professionalExpensesCategoryId]
+  )
 
 const isSpecificReimbursement = overSome(
   Object.values(reimbursementsVirtualAccountsSpecs).map(spec => spec.filter)
@@ -225,13 +224,12 @@ export const othersFilter = transaction => {
   return !isSpecificReimbursement(transaction) && isExpense(transaction)
 }
 
-export const buildOthersReimbursementsVirtualAccount = buildReimbursementsVirtualAccount(
-  {
+export const buildOthersReimbursementsVirtualAccount =
+  buildReimbursementsVirtualAccount({
     id: 'others_reimbursements',
     translationKey: 'othersReimbursements',
     filter: othersFilter
-  }
-)
+  })
 
 export const buildVirtualAccounts = transactions => {
   return [

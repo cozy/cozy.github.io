@@ -24,12 +24,7 @@ const customToText = cozyHTMLEmail => {
   const getTextTransactionRow = $row =>
     $row
       .find('td')
-      .map((i, td) =>
-        $row
-          .find(td)
-          .text()
-          .trim()
-      )
+      .map((i, td) => $row.find(td).text().trim())
       .toArray()
       .join(' ')
       .replace(/\n/g, '')
@@ -61,9 +56,8 @@ const hasReimbursements = transaction =>
 class HealthBillLinked extends NotificationView {
   async fetchData() {
     const { accounts, transactions } = this.data
-    const transactionsWithReimbursements = transactions.filter(
-      hasReimbursements
-    )
+    const transactionsWithReimbursements =
+      transactions.filter(hasReimbursements)
     const billIds = getReimbursementBillIds(transactions)
     const bills = await Bill.getAll(billIds)
     return {

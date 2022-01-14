@@ -24,8 +24,9 @@ export const removeDuplicateAccountsFromGroups = async client => {
     if (accounts.length > uniqueAccounts.length) {
       log(
         'info',
-        `Removing ${accounts.length -
-          uniqueAccounts.length} duplicate account(s) from group ${group.label}`
+        `Removing ${
+          accounts.length - uniqueAccounts.length
+        } duplicate account(s) from group ${group.label}`
       )
     }
     group.accounts = uniqueAccounts

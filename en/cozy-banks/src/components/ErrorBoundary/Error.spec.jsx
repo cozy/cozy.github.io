@@ -32,7 +32,9 @@ describe('Error Page', () => {
 
   it('should reload the page', async () => {
     const root = setup()
-    window.location.reload = jest.fn()
+    Object.defineProperty(window, 'location', {
+      value: { reload: jest.fn() }
+    })
     const reloadBtn = root.getByText('Reload page')
     await fireEvent.click(reloadBtn)
     expect(window.location.reload).toHaveBeenCalledTimes(1)

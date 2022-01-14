@@ -9,11 +9,7 @@ const DateSlider = ({ date, onChange }) => {
   const handleChange = useCallback(
     ev => {
       const deltaDays = parseInt(ev.target.value, 10)
-      onChange(
-        addDays(Date.now(), deltaDays)
-          .toISOString()
-          .slice(0, 10)
-      )
+      onChange(addDays(Date.now(), deltaDays).toISOString().slice(0, 10))
     },
     [onChange]
   )

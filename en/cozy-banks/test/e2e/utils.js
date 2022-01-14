@@ -159,6 +159,7 @@ const runService = async (serviceName, args, options = {}) => {
  * Spawns ACH, adds token argument automatically
  */
 const ach = (args, options) => {
+  // eslint-disable-next-line
   args = args.slice()
   args.splice(1, 0, '-t', TOKEN_FILE)
   log('debug', JSON.stringify(args))

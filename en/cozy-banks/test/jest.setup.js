@@ -51,7 +51,7 @@ const ignoredWarnings = {
 }
 
 const callAndThrow = (fn, errorMessage) => {
-  return function() {
+  return function () {
     fn.apply(this, arguments)
     throw new Error(errorMessage)
   }
@@ -70,7 +70,7 @@ console.warn = ignoreOnConditions(
 minilog.suggest.deny(/.*/, 'warn')
 minilog.pipe({
   emit: () => {},
-  write: function(namespace, level, message) {
+  write: function (namespace, level, message) {
     if (level === 'warn' || level === 'error') {
       throw new Error(`${namespace}[${level}]: ${message}`)
     }

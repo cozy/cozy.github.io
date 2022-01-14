@@ -36,7 +36,7 @@ ${Math.abs(amount)} €
     )
   },
 
-  parentCategory: function(transaction) {
+  parentCategory: function (transaction) {
     return getParentCategory(getCategoryId(transaction))
   },
 
@@ -45,26 +45,25 @@ ${Math.abs(amount)} €
   },
 
   capitalize: str => {
-    return str
-      .split(' ')
-      .map(capitalizeWord)
-      .join(' ')
+    return str.split(' ').map(capitalizeWord).join(' ')
   },
 
   formatDate: (date, fmt, ctx) => {
-    if (ctx === undefined) {
-      ctx = fmt
-      fmt = 'DD/MM/YYYY'
+    let ctxToUse = ctx
+    let fmtToUse = fmt
+    if (ctxToUse === undefined) {
+      ctxToUse = fmt
+      fmtToUse = 'DD/MM/YYYY'
     }
     if (date.getDay) {
-      return format(date, fmt)
+      return format(date, fmtToUse)
     } else {
       const parsed = parse(date.substr(0, 10), 'YYYY-MM-DD')
-      return format(parsed, fmt)
+      return format(parsed, fmtToUse)
     }
   },
 
-  eachPair: function(context, options) {
+  eachPair: function (context, options) {
     let ret = ''
 
     for (let i = 0, j = context.length; i < j; i++) {
@@ -74,7 +73,7 @@ ${Math.abs(amount)} €
     return ret
   },
 
-  positive: function(n) {
+  positive: function (n) {
     return n > 0
   },
 

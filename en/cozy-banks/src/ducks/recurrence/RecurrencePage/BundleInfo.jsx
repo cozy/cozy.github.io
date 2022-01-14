@@ -45,9 +45,8 @@ const BundleInfo = ({ bundle }) => {
   const client = useClient()
   const { isMobile } = useBreakpoints()
 
-  const [showingActionsMenu, showActionsMenu, hideActionsMenu] = useToggle(
-    false
-  )
+  const [showingActionsMenu, showActionsMenu, hideActionsMenu] =
+    useToggle(false)
   const [showingRename, showRename, hideRename] = useToggle(false)
 
   const goToRecurrenceRoot = useCallback(

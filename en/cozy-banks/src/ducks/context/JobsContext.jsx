@@ -125,8 +125,9 @@ export const withJobsInProgress = Component => {
     const { jobsInProgress = [] } = useJobsContext()
     return <Component {...props} jobsInProgress={jobsInProgress} />
   }
-  Wrapped.displayName = `withJobsInProgress(${Component.displayName ||
-    Component.name})`
+  Wrapped.displayName = `withJobsInProgress(${
+    Component.displayName || Component.name
+  })`
   return Wrapped
 }
 

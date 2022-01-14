@@ -44,11 +44,7 @@ const customToText = cozyHTMLEmail => {
             $node
               .find('td')
               .map((i, td) =>
-                $(td)
-                  .text()
-                  .replace(/\n/g, '')
-                  .replace(' €', '€')
-                  .trim()
+                $(td).text().replace(/\n/g, '').replace(' €', '€').trim()
               )
               .toArray()
               .join(' ')

@@ -7,7 +7,7 @@ import {
 
 import { cozyClient } from 'cozy-konnector-libs'
 
-beforeEach(function() {
+beforeEach(function () {
   const INDEX = 'index'
   cozyClient.data.defineIndex.mockReturnValue(Promise.resolve(INDEX))
 })
@@ -62,6 +62,7 @@ xdescribe('findNeighboringOperations', () => {
     cozyClient.data.query.mockReturnValueOnce(asyncResolve(ops3))
     const bill = {}
     const options = {}
+    // eslint-disable-next-line
     return findNeighboringOperations(bill, options).then(operations => {
       expect(operations.length).toBe(ops1.length + ops2.length + ops3.length)
     })

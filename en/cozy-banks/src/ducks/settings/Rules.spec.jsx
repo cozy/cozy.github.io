@@ -38,10 +38,7 @@ describe('Rules', () => {
   it('should be possible to create a rule', () => {
     const { root } = setup({ initialRules: [] })
     act(() => {
-      root
-        .find(AddRuleButton)
-        .props()
-        .onClick()
+      root.find(AddRuleButton).props().onClick()
     })
     root.update()
     const modal = root.find(CategoryAlertEditModal)

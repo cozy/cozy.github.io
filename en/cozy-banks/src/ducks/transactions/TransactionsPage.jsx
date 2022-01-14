@@ -73,18 +73,16 @@ class TransactionsPage extends Component {
     super(props)
 
     this.renderTransactions = this.renderTransactions.bind(this)
-    this.handleChangeTopmostTransaction = this.handleChangeTopmostTransaction.bind(
-      this
-    )
+    this.handleChangeTopmostTransaction =
+      this.handleChangeTopmostTransaction.bind(this)
     this.handleHeaderRef = this.handleHeaderRef.bind(this)
     this.handleListRef = this.handleListRef.bind(this)
     this.handleResize = debounce(this.handleResize.bind(this), 500, {
       trailing: true,
       leading: false
     })
-    this.handleFetchMoreBecomeVisible = this.handleFetchMoreBecomeVisible.bind(
-      this
-    )
+    this.handleFetchMoreBecomeVisible =
+      this.handleFetchMoreBecomeVisible.bind(this)
     this.handleChangeMonth = this.handleChangeMonth.bind(this)
     this.state = {
       currentMonth: null
@@ -296,8 +294,9 @@ const addTransactions = Component => {
     )
   }
 
-  Wrapped.displayName = `withTransactions(${Component.displayName ||
-    Component.name})`
+  Wrapped.displayName = `withTransactions(${
+    Component.displayName || Component.name
+  })`
   return Wrapped
 }
 

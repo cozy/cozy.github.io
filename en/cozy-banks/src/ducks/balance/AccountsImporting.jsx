@@ -121,7 +121,4 @@ AccountsImporting.propTypes = {
   konnectorInfos: PropTypes.arrayOf(PropTypes.object)
 }
 
-export default compose(
-  withStyles(muiStyles),
-  memo
-)(AccountsImporting)
+export default compose(withStyles(muiStyles), memo)(AccountsImporting)

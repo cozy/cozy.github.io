@@ -24,9 +24,6 @@ export const useFilters = () => {
   }, [dispatch])
 }
 
-const withFilters = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)
+const withFilters = connect(mapStateToProps, mapDispatchToProps)
 
 export default withFilters

@@ -58,9 +58,8 @@ const TransactionRowMobile = ({
   const { t } = useI18n()
   const account = transaction.account.data
   const rowRest = {}
-  const [showTransactionModal, , transactionModal] = useTransactionModal(
-    transaction
-  )
+  const [showTransactionModal, , transactionModal] =
+    useTransactionModal(transaction)
 
   const boundOnRef = useMemo(() => {
     return onRef ? onRef.bind(null, transaction._id) : null

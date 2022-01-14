@@ -24,6 +24,7 @@ class Warnings extends Component {
 
   checkWarnings = () => {
     const cozyClient = this.props.client
+    // eslint-disable-next-line
     checkWarnings(cozyClient).then(warnings => {
       this.setState({ warnings })
     })

@@ -17,9 +17,10 @@ const useEstimatedBudget = () => {
   const accountsCol = useQuery(accountsConn.query, accountsConn)
   const transactions = useSelector(getPlannedTransactions)
   const accounts = useSelector(getFilteredAccounts)
-  const sumTransactions = useMemo(() => sumBy(transactions, x => x.amount), [
-    transactions
-  ])
+  const sumTransactions = useMemo(
+    () => sumBy(transactions, x => x.amount),
+    [transactions]
+  )
   const sumAccounts = useMemo(() => sumBy(accounts, x => x.balance), [accounts])
   const isLoading = isQueryLoading(recurrenceCol) || isQueryLoading(accountsCol)
   return {

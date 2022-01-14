@@ -67,7 +67,11 @@ const Groups = props => {
   const { groups } = props
 
   const sortedGroups = useMemo(
-    () => sortBy(groups.data.filter(x => x), group => getGroupLabel(group, t)),
+    () =>
+      sortBy(
+        groups.data.filter(x => x),
+        group => getGroupLabel(group, t)
+      ),
     [groups.data, t]
   )
 

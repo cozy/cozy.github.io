@@ -1,3 +1,1 @@
-export {
-  default as KonnectorChip
-} from 'components/KonnectorChip/KonnectorChip'
+export { default as KonnectorChip } from 'components/KonnectorChip/KonnectorChip'

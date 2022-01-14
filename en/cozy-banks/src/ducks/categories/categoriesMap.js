@@ -46,10 +46,11 @@ export const getCategoryName = id => {
   return categoryName
 }
 
-const getOptions = function(idStr) {
+const getOptions = function (idStr) {
   let k = parseInt(idStr, 10)
   let m = 10
   let name = tree[k]
+  // eslint-disable-next-line
   while (!categoriesStyle.hasOwnProperty(name)) {
     k = k - (k % m)
     name = tree[k]

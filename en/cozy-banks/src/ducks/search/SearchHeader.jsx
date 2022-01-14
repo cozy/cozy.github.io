@@ -26,10 +26,8 @@ const SearchHeader = ({
 }) => {
   const { isMobile } = useBreakpoints()
   const { t } = useI18n()
-  const {
-    isSelectionModeActive,
-    setIsSelectionModeActive
-  } = useSelectionContext()
+  const { isSelectionModeActive, setIsSelectionModeActive } =
+    useSelectionContext()
 
   const handleReset = inputNode => {
     setSearch('')

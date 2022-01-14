@@ -216,12 +216,13 @@ const main = async () => {
     await cleanupFakeDocuments(client)
   }
 }
-
+// eslint-disable-next-line
 main()
   .catch(e => {
     console.error(e)
     process.exit(1)
   })
+  // eslint-disable-next-line
   .then(() => {
     process.exit(0)
   })

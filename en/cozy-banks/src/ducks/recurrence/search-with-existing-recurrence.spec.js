@@ -50,7 +50,12 @@ describe('recurrence bundles (with existing recurrences)', () => {
         ops: [...transactions, mayTransaction, juneTransaction],
         automaticLabel: 'Mon Salaire',
         stats: {
-          deltas: { sigma: 1.224744871391589, mean: 30, median: 30.5, mad: 0.5 }
+          deltas: {
+            sigma: 1.224744871391589,
+            mean: 30,
+            median: 30.5,
+            mad: 0.5
+          }
         }
       })
     })
@@ -72,7 +77,12 @@ describe('recurrence bundles (with existing recurrences)', () => {
         ops: [...transactions, mayTransaction, juneTransaction],
         automaticLabel: 'Mon Salaire',
         stats: {
-          deltas: { sigma: 1.224744871391589, mean: 30, median: 30.5, mad: 0.5 }
+          deltas: {
+            sigma: 1.224744871391589,
+            mean: 30,
+            median: 30.5,
+            mad: 0.5
+          }
         }
       })
     })

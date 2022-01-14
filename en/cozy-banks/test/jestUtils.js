@@ -8,7 +8,7 @@ const isDeprecatedLifecycleWarning = (msg, componentName) => {
 }
 
 export const ignoreOnConditions = (originalWarn, ignoreConditions) => {
-  return function(...args) {
+  return function (...args) {
     const msg = args[0]
     if (ignoreConditions.some(condition => condition(msg))) {
       return

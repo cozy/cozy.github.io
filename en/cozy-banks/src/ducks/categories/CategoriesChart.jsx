@@ -52,9 +52,10 @@ const CategoriesChart = props => {
   const { t } = useI18n()
   const theme = useCozyTheme()
 
-  const sortedCategories = useMemo(() => getSortedCategories(categories), [
-    categories
-  ])
+  const sortedCategories = useMemo(
+    () => getSortedCategories(categories),
+    [categories]
+  )
   const colors = useMemo(
     () => getCategoriesColors(sortedCategories, selectedCategory),
     [selectedCategory, sortedCategories]

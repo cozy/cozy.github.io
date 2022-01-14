@@ -108,7 +108,7 @@ const Rules = ({ rulesConfig, onChangeConfig, onResetConfig }) => {
   )
 }
 
-const hash = function(str) {
+const hash = function (str) {
   var hash = 0,
     i,
     chr
@@ -264,10 +264,10 @@ const DebugRecurrencePage = () => {
     [transactions, bundlesDate]
   )
 
-  const bundles = useMemo(() => findRecurrences(bundlesTransactions, rules), [
-    bundlesTransactions,
-    rules
-  ])
+  const bundles = useMemo(
+    () => findRecurrences(bundlesTransactions, rules),
+    [bundlesTransactions, rules]
+  )
 
   const newTransactions = useMemo(
     () =>
@@ -311,7 +311,7 @@ const DebugRecurrencePage = () => {
   const [savingBundles, setSavingBundles] = useState()
   const [resettingBundles, setResettingBundles] = useState()
   const handleSaveBundles = useCallback(
-    async function() {
+    async function () {
       setSavingBundles(true)
       try {
         await saveHydratedBundles(client, finalBundles)
@@ -325,7 +325,7 @@ const DebugRecurrencePage = () => {
   )
 
   const handleResetBundles = useCallback(
-    async function() {
+    async function () {
       setResettingBundles(true)
       try {
         await resetBundles(client)

@@ -59,7 +59,7 @@ const BanksProvider = ({ children, client }) => {
         })
         return newJobInProgress
       }
-
+      // eslint-disable-next-line
       queryJobsInProgress().then(formatJobs => {
         setBanksJobsInProgress(formatJobs)
       })

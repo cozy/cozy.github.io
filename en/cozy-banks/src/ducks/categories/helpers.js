@@ -50,12 +50,14 @@ export const getTransactionsByCategory = transactions => {
     const parent = getParent(catId) || getParent('0')
 
     // create a new parent category if necessary
+    // eslint-disable-next-line
     if (!categories.hasOwnProperty(parent.name)) {
       categories[parent.name] = makeCategory(parent)
     }
     const category = categories[parent.name]
 
     // create a new subcategory if necessary
+    // eslint-disable-next-line
     if (!category.subcategories.hasOwnProperty(catId)) {
       category.subcategories[catId] = makeSubcategory(catId)
     }

@@ -24,6 +24,7 @@ import { isReimbursementsVirtualGroup } from 'ducks/groups/helpers'
  * @returns {Object} The balance history indexed by dates (YYYY-MM-DD)
  */
 export const getBalanceHistory = (account, transactions, to, from) => {
+  let clonedFrom = from
   const DATE_FORMAT = 'YYYY-MM-DD'
 
   const transactionsByDate = groupBy(transactions, t =>
@@ -34,18 +35,20 @@ export const getBalanceHistory = (account, transactions, to, from) => {
     )
   )
 
-  if (!from) {
+  if (!clonedFrom) {
     const earliestTransactionDate = getEarliestDate(
       ...Object.keys(transactionsByDate)
     )
-    from = isDateValid(earliestTransactionDate) ? earliestTransactionDate : to
+    clonedFrom = isDateValid(earliestTransactionDate)
+      ? earliestTransactionDate
+      : to
   }
 
   const balances = {}
 
   for (
     let day = to, balance = getAccountBalance(account);
-    isDateAfter(day, from) || isDateEqual(day, from);
+    isDateAfter(day, clonedFrom) || isDateEqual(day, clonedFrom);
     day = subDays(day, 1)
   ) {
     const date = formatDate(day, DATE_FORMAT)

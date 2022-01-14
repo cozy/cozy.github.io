@@ -27,7 +27,12 @@ jest.mock('cozy-flags', () => flagName => {
     return false
   }
 })
-jest.mock('components/Stepper', () => ({ children }) => children)
+jest.mock(
+  'components/Stepper',
+  () =>
+    ({ children }) =>
+      children
+)
 jest.mock('ducks/transfers/steps/Amount', () => {
   const MockChooseAmount = () => <></>
   return MockChooseAmount

@@ -14,7 +14,7 @@ import HourglassIcon from 'cozy-ui/transpiled/react/Icons/Hourglass'
 // used first if they exist, otherwise we fall back on the category icon, or
 // "potentialTransfer" icon if there's no category id
 const categoryIdToIcon = {
-  '400610': healthCatIcon
+  400610: healthCatIcon
 }
 
 export default function ReimbursementsIcon(props) {

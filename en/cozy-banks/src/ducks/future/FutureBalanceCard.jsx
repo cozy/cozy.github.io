@@ -18,12 +18,8 @@ import useEstimatedBudget from './useEstimatedBudget'
 const FutureBalanceCard = () => {
   const { t } = useI18n()
   const { isMobile } = useBreakpoints()
-  const {
-    isLoading,
-    estimatedBalance,
-    currency,
-    transactions
-  } = useEstimatedBudget()
+  const { isLoading, estimatedBalance, currency, transactions } =
+    useEstimatedBudget()
 
   const router = useRouter()
   const handleClick = useCallback(() => {

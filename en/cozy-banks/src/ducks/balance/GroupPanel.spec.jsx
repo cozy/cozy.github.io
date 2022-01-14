@@ -139,7 +139,8 @@ describe('Reimbursement virtual group styling', () => {
             {
               _id: 'settings-1234',
               notifications: {
-                lateHealthReimbursement: lateHealthReimbursementNotificationSetting
+                lateHealthReimbursement:
+                  lateHealthReimbursementNotificationSetting
               }
             }
           ]

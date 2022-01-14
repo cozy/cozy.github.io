@@ -24,7 +24,7 @@ class ScrollRestore extends React.Component {
     const scrollNode = this.props.getScrollingElement()
     const height = getScrollHeight(scrollNode)
     const scroll = getScroll(scrollNode)
-    return function() {
+    return function () {
       const newHeight = getScrollHeight(scrollNode)
       const newScroll = scroll + (newHeight - height)
       setScroll(scrollNode, newScroll)

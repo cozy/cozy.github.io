@@ -3,7 +3,12 @@ import { render } from '@testing-library/react'
 import AppLike from 'test/AppLike'
 import BillChip from './BillChip'
 
-jest.mock('ducks/transactions/FileOpener', () => ({ children }) => children)
+jest.mock(
+  'ducks/transactions/FileOpener',
+  () =>
+    ({ children }) =>
+      children
+)
 
 describe('BillChip', () => {
   const setup = ({ bill }) => {

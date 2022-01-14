@@ -161,9 +161,8 @@ class TransferPage extends React.Component {
     this.handleChangePassword = this.handleChangePassword.bind(this)
     this.handleChangeLabel = this.handleChangeLabel.bind(this)
     this.handleChangeDate = this.handleChangeDate.bind(this)
-    this.handleConfirmAdditionalInfo = this.handleConfirmAdditionalInfo.bind(
-      this
-    )
+    this.handleConfirmAdditionalInfo =
+      this.handleConfirmAdditionalInfo.bind(this)
     this.handleConfirm = this.handleConfirm.bind(this)
     this.handleModalDismiss = this.handleModalDismiss.bind(this)
     this.handleJobChange = this.handleJobChange.bind(this)
@@ -244,14 +243,8 @@ class TransferPage extends React.Component {
 
   async transferMoney() {
     const { client } = this.props
-    const {
-      amount,
-      beneficiary,
-      senderAccount,
-      password,
-      label,
-      date
-    } = this.state
+    const { amount, beneficiary, senderAccount, password, label, date } =
+      this.state
 
     this.setState({
       transferState: 'sending'
@@ -416,9 +409,9 @@ class TransferPage extends React.Component {
       (isQueryLoading(accounts) && !hasQueryBeenLoaded(accounts)) ||
       transferState === 'sending' ||
       (myself &&
-        (isQueryLoading(myself) &&
-          !hasQueryBeenLoaded(myself) &&
-          !myself.lastError))
+        isQueryLoading(myself) &&
+        !hasQueryBeenLoaded(myself) &&
+        !myself.lastError)
     ) {
       return (
         <Padded>
@@ -515,7 +508,7 @@ class TransferPage extends React.Component {
     )
   }
 }
-
+// eslint-disable-next-line
 const barTheme = theme => Component => props => {
   return (
     <>

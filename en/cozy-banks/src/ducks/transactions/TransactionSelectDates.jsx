@@ -51,11 +51,8 @@ const getMonthFromTransaction = transaction => {
 }
 
 const TransactionSelectDates = ({ onExtentLoad, ...props }) => {
-  const [
-    earliestTransaction,
-    latestTransaction,
-    loading
-  ] = useTransactionExtent()
+  const [earliestTransaction, latestTransaction, loading] =
+    useTransactionExtent()
 
   useEffect(() => {
     if (loading || !onExtentLoad) {

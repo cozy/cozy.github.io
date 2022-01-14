@@ -96,8 +96,6 @@ function customizer(objValue, srcValue, key, obj, src) {
     return objValue
   } else if (isArray(objValue)) {
     return objValue.concat(srcValue)
-  } else if (isString(objValue)) {
-    return `${objValue} / ${srcValue}`
   }
 }
 
@@ -159,7 +157,10 @@ export const madInferiorTo = n =>
     return bundle.stats.deltas.mad < n
   }
 
-export const addStats = bundle => ({ ...bundle, stats: makeStats(bundle.ops) })
+export const addStats = bundle => ({
+  ...bundle,
+  stats: makeStats(bundle.ops)
+})
 
 export const brandSplit = () => bundle => {
   const brandGroups = groupBy(bundle.ops, op => {

@@ -58,14 +58,12 @@ const MobileAwareBackButton = ({ onClick, to, arrow = false }) => {
   const router = useRouter()
   const { isMobile } = useBreakpoints()
   const location = router.getCurrentLocation()
-  if (!onClick && !to) {
-    to = location.pathname
-      .split('/')
-      .slice(0, -1)
-      .join('/')
+  let toToUse = to
+  if (!onClick && !toToUse) {
+    toToUse = location.pathname.split('/').slice(0, -1).join('/')
   }
 
-  const handleClick = (onClick = onClick || (() => to && router.push(to)))
+  const handleClick = onClick ? onClick : () => toToUse && router.push(toToUse)
   return isMobile ? (
     <BarBackButton onClick={handleClick} />
   ) : (

@@ -328,9 +328,8 @@ describe('buildProfessionalReimbursementsVirtualAccount', () => {
   })
 
   it('should sum only last 6 months and professional expenses amounts', () => {
-    const virtualAccount = buildProfessionalReimbursementsVirtualAccount(
-      transactions
-    )
+    const virtualAccount =
+      buildProfessionalReimbursementsVirtualAccount(transactions)
     expect(virtualAccount.balance).toBe(40)
   })
 

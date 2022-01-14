@@ -163,14 +163,12 @@ const EditionModalFooter = props => {
     tracker.trackEvent({ name: 'annuler' })
   }
 
-  const {
-    component: removalConfirmation,
-    requestOpen: onRemovalRequest
-  } = useConfirmation({
-    title: removeModalTitle,
-    description: removeModalDescription,
-    onConfirm: handleRemove
-  })
+  const { component: removalConfirmation, requestOpen: onRemovalRequest } =
+    useConfirmation({
+      title: removeModalTitle,
+      description: removeModalDescription,
+      onConfirm: handleRemove
+    })
 
   const removalButton = canBeRemoved && (
     <>
@@ -235,7 +233,7 @@ const EditionModal = props => {
 
   useTrackPage(trackPageName)
 
-  const handleDismiss = function() {
+  const handleDismiss = function () {
     onDismiss.apply(this, arguments)
 
     // :/ We need to set a timeout otherwise we fire the track page too soon
@@ -247,7 +245,7 @@ const EditionModal = props => {
     }, 100)
   }
 
-  const handleEdit = function() {
+  const handleEdit = function () {
     onEdit.apply(this, arguments)
 
     // :/ We need to set a timeout otherwise we fire the track page too soon

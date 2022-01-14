@@ -64,6 +64,7 @@ const main = async () => {
 }
 
 main()
+  // eslint-disable-next-line
   .then(() => {
     // IDK why but the server created that receives cozy-client's oauth
     // callback stays up even after the destroy(). It leaves an open handle

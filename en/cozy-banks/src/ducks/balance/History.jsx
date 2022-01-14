@@ -153,7 +153,4 @@ History.propTypes = {
   transactions: PropTypes.object.isRequired
 }
 
-export default compose(
-  withBreakpoints(),
-  withSize()
-)(History)
+export default compose(withBreakpoints(), withSize())(History)

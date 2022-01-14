@@ -87,7 +87,7 @@ export const makeAtAttributes = notificationName => {
   return undefined
 }
 
-export const prepareTransactions = function(transactions) {
+export const prepareTransactions = function (transactions) {
   const byAccounts = groupBy(transactions, tr => tr.account)
 
   const groupAndSortByDate = flow(
@@ -106,7 +106,7 @@ const billIdFromReimbursement = reimbursement => {
   return reimbursement.billId && reimbursement.billId.split(':')[1]
 }
 
-export const treatedByFormat = function(reimbursements, billsById) {
+export const treatedByFormat = function (reimbursements, billsById) {
   if (!billsById) {
     throw new Error('No billsById passed')
   }

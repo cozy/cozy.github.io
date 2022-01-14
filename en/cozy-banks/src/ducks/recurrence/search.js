@@ -108,10 +108,8 @@ export const updateRecurrences = (bundles, newTransactions, rules) => {
   let newBundles = []
   let updatedBundles = []
 
-  const {
-    updatedBundles: newUpdatedBundles,
-    transactionsForUpdatedBundles
-  } = addTransactionToBundles(bundles, newTransactions)
+  const { updatedBundles: newUpdatedBundles, transactionsForUpdatedBundles } =
+    addTransactionToBundles(bundles, newTransactions)
 
   updatedBundles = newUpdatedBundles
   const remainingTransactions = differenceBy(

@@ -16,24 +16,24 @@ const escapeRegExp = /[\-{}\[\]+?.,\\\^$|#\s]/g
  *
  * Extracted from Backbone
  */
-export const routeToRegExp = function(route) {
-  route = route
+export const routeToRegExp = function (route) {
+  const newRoute = route
     .replace(escapeRegExp, '\\$&')
     .replace(optionalParam, '(?:$1)?')
-    .replace(namedParam, function(match, optional) {
+    .replace(namedParam, function (match, optional) {
       return optional ? match : '([^/?]+)'
     })
     .replace(splatParam, '([^?]*?)')
-  return new RegExp('^' + route + '(?:\\?([\\s\\S]*))?$')
+  return new RegExp('^' + newRoute + '(?:\\?([\\s\\S]*))?$')
 }
 
 /**
  * Given a generic route with params and a fragment, will
  * extract the params from the fragment as an array
  */
-export const extractParameters = function(route, fragment) {
+export const extractParameters = function (route, fragment) {
   var params = route.exec(fragment).slice(1)
-  return params.map(function(param, i) {
+  return params.map(function (param, i) {
     if (i === params.length - 1) return param || null
     return param ? decodeURIComponent(param) : null
   })

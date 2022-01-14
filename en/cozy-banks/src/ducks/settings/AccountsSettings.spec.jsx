@@ -106,7 +106,7 @@ describe('AccountsSettings', () => {
     // eslint-disable-next-line no-console
     originalWarn = console.warn
     // eslint-disable-next-line no-console
-    console.warn = function(msg) {
+    console.warn = function (msg) {
       if (
         // Ignore this warning as it is expected, since we have a
         // io.cozy.bank.accounts that has a relationship to a "deleted"

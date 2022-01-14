@@ -24,6 +24,7 @@ jest.mock('ducks/client/links', () => ({
   isActivatePouch: jest.fn()
 }))
 
+
 const DumbComponent = ({ client }) => {
   const fetch = async () => await client.query({ doctype: 'io.cozy.fake' })
   return <button onClick={fetch}>Fetch</button>
@@ -34,12 +35,8 @@ describe('App', () => {
   const link = new CozyLink(requestHandler)
   beforeEach(() => {
     jest.spyOn(Alerter, 'info')
-    jest.spyOn(window.location, 'reload')
   })
 
-  afterEach(() => {
-    window.location.reload.mockReset()
-  })
 
   const setup = () => {
     const client = new CozyClient({ links: [link] })
@@ -71,11 +68,13 @@ describe('App', () => {
     })
 
     it('should show an alert and reload page when a request failed', async () => {
+      Object.defineProperty(window, 'location', {
+        value: { reload: jest.fn() }
+      })
       const error = new TypeError('Failed to fetch')
       requestHandler.mockReturnValue(Promise.reject(error))
 
       Links.isActivatePouch = jest.fn().mockImplementation(() => false)
-      window.location.reload = jest.fn()
 
       const root = setup()
 

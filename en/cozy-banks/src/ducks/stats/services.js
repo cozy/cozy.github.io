@@ -7,10 +7,7 @@ moment.tz.setDefault('Europe/Paris')
 export const getPeriod = () => {
   const end = moment().startOf('month')
 
-  const start = end
-    .clone()
-    .subtract(3, 'month')
-    .startOf('month')
+  const start = end.clone().subtract(3, 'month').startOf('month')
 
   return { start, end }
 }

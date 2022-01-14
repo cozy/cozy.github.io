@@ -262,8 +262,4 @@ class Categories extends Component {
   }
 }
 
-export default compose(
-  withRouter,
-  withBreakpoints(),
-  translate()
-)(Categories)
+export default compose(withRouter, withBreakpoints(), translate())(Categories)

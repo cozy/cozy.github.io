@@ -21,7 +21,7 @@ const autoUpdateOptions = {
   update: true
 }
 const setAutoUpdate = conn => ({ ...conn, autoUpdate: autoUpdateOptions })
-
+// eslint-disable-next-line
 const enhanceCategoriesPage = Component => props => {
   const client = useClient()
   const params = useParams()

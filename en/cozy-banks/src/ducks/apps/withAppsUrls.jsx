@@ -23,8 +23,9 @@ const withAppsUrls = Wrapped => {
     return <Wrapped {...props} urls={urls} />
   }
 
-  WithAppsUrls.displayName = `withAppsUrls<${Wrapped.name ||
-    Wrapped.displayName}>`
+  WithAppsUrls.displayName = `withAppsUrls<${
+    Wrapped.name || Wrapped.displayName
+  }>`
 
   return WithAppsUrls
 }

@@ -35,12 +35,7 @@ const customToText = cozyHTMLEmail => {
   const getTextTransactionRow = $row =>
     $row
       .find('td')
-      .map((i, td) =>
-        $row
-          .find(td)
-          .text()
-          .trim()
-      )
+      .map((i, td) => $row.find(td).text().trim())
       .toArray()
       .join(' ')
       .replace(/\n/g, '')

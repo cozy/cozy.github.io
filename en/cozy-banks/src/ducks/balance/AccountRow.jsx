@@ -131,10 +131,10 @@ const AccountRow = props => {
   const handleSwitchClick = useCallback(ev => {
     ev.stopPropagation()
   }, [])
-  const handleClick = useCallback(ev => onClick(ev, account), [
-    account,
-    onClick
-  ])
+  const handleClick = useCallback(
+    ev => onClick(ev, account),
+    [account, onClick]
+  )
 
   const classes = {
     root: cx({

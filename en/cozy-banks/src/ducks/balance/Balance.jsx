@@ -241,7 +241,9 @@ class Balance extends PureComponent {
   }
 
   updateQueries() {
+    // eslint-disable-next-line
     this.props.accounts.fetch().then(resp => {
+      // eslint-disable-next-line
       if (resp.meta.count > 0) {
         this.props.groups.fetch()
       }
@@ -448,17 +450,15 @@ const addTransactions = Component => {
     const transactions = useFullyLoadedQuery(conn.query, conn)
     return <Component {...props} transactions={transactions} />
   }
-  Wrapped.displayName = `withTransactions(${Component.displayName ||
-    Component.name})`
+  Wrapped.displayName = `withTransactions(${
+    Component.displayName || Component.name
+  })`
   return Wrapped
 }
 
 export default compose(
   withRouter,
-  connect(
-    null,
-    actionCreators
-  ),
+  connect(null, actionCreators),
   queryConnect({
     accounts: accountsConn,
     groups: groupsConn,

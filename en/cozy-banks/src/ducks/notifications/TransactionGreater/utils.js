@@ -9,11 +9,7 @@ const TRANSACTION_SEL = '.js-transaction'
 export const MAX_CHAR_BY_LINE = 50
 const SEPARATOR = ' : '
 
-const capitalizeEachWords = str =>
-  str
-    .split(' ')
-    .map(capitalize)
-    .join(' ')
+const capitalizeEachWords = str => str.split(' ').map(capitalize).join(' ')
 
 export const formatTransaction = transaction => {
   const { amount, currency } = transaction
@@ -33,12 +29,7 @@ export const customToText = cozyHTMLEmail => {
   const getTextTransactionRow = $row =>
     $row
       .find('td')
-      .map((i, td) =>
-        $row
-          .find(td)
-          .text()
-          .trim()
-      )
+      .map((i, td) => $row.find(td).text().trim())
       .toArray()
       .join(' ')
       .replace(/\n/g, '')

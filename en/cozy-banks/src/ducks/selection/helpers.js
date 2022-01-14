@@ -11,16 +11,13 @@ export const useSelectionBarActions = ({
   showTransactionCategoryModal
 }) => {
   const { isDesktop } = useBreakpoints()
-  const {
-    emptySelection,
-    emptyAndDeactivateSelection,
-    fillSelectionWith
-  } = useSelectionContext()
+  const { emptySelection, emptyAndDeactivateSelection, fillSelectionWith } =
+    useSelectionContext()
 
-  const fillSelection = useCallback(() => fillSelectionWith(items), [
-    fillSelectionWith,
-    items
-  ])
+  const fillSelection = useCallback(
+    () => fillSelectionWith(items),
+    [fillSelectionWith, items]
+  )
 
   const unSelectAllAction = useCallback(() => {
     isDesktop ? emptyAndDeactivateSelection() : emptySelection()

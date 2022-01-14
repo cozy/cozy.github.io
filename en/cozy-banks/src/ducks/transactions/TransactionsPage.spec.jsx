@@ -34,7 +34,9 @@ const saveWindowWidth = () => {
 
 jest.mock(
   'ducks/transactions/TransactionActionsProvider',
-  () => ({ children }) => children
+  () =>
+    ({ children }) =>
+      children
 )
 jest.mock('ducks/balance/HistoryChart', () => ({
   ConnectedHistoryChart: () => null

@@ -28,9 +28,8 @@ export const deleteOrphanOperations = async (client, account) => {
   // We use a collection here instead of using the client because
   // we want to directly target the stack and bypass the pouch link
   // on mobile.
-  const transactionCollection = client.stackClient.collection(
-    TRANSACTION_DOCTYPE
-  )
+  const transactionCollection =
+    client.stackClient.collection(TRANSACTION_DOCTYPE)
   let count
 
   const res = []

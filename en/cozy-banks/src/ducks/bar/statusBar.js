@@ -4,7 +4,8 @@
 
 import { getCssVariableValue } from 'cozy-ui/transpiled/react/utils/color'
 
-export const luminosity = hex => {
+export const luminosity = originalHex => {
+  let hex = originalHex
   if (hex.length == 4) {
     const r = hex.slice(1, 2)
     const g = hex.slice(2, 3)

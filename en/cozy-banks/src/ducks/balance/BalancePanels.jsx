@@ -15,13 +15,8 @@ import { useRouter } from 'components/RouterContext'
 const GROUP_PANEL_RENDER_DELAY = 150
 
 const BalancePanels = props => {
-  const {
-    groups,
-    panelsState,
-    onSwitchChange,
-    onPanelChange,
-    withBalance
-  } = props
+  const { groups, panelsState, onSwitchChange, onPanelChange, withBalance } =
+    props
 
   const { t } = useI18n()
   const router = useRouter()

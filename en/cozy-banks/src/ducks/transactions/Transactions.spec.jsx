@@ -38,6 +38,7 @@ jest.mock('hooks/useVisible', () => {
 })
 
 const mockTransactions = data['io.cozy.bank.operations'].map((x, i) => ({
+  // eslint-disable-next-line
   _id: `transaction-id-${i++}`,
   _type: 'io.cozy.bank.operations',
   ...x

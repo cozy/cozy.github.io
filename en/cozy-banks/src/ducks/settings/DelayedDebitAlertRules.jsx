@@ -49,9 +49,8 @@ const getRelevantAccounts = props => {
 }
 
 const getDescriptionProps = props => {
-  const { docCreditCardAccount, docCheckingsAccount } = getRelevantAccounts(
-    props
-  )
+  const { docCreditCardAccount, docCheckingsAccount } =
+    getRelevantAccounts(props)
   const creditCardLabel = docCreditCardAccount
     ? getAccountLabel(docCreditCardAccount)
     : '...'
@@ -89,10 +88,10 @@ const WaitForLoadingDelayedDebitRules = props => {
   const accounts = useQuery(accountsConn.query, accountsConn)
   const accountsById = useSelector(getAccountsById)
   const { t } = useI18n()
-  const ruleProps = useMemo(() => ({ accounts, accountsById }), [
-    accounts,
-    accountsById
-  ])
+  const ruleProps = useMemo(
+    () => ({ accounts, accountsById }),
+    [accounts, accountsById]
+  )
 
   if (!hasQueryBeenLoaded(accounts)) {
     return <Spinner />

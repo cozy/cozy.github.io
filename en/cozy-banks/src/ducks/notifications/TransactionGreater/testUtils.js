@@ -8,7 +8,4 @@ const addId = doc => {
   return { ...doc, _id: doc._id || Math.random().toString() }
 }
 
-export const prepareTransactionForTest = compose(
-  addRev,
-  addId
-)
+export const prepareTransactionForTest = compose(addRev, addId)

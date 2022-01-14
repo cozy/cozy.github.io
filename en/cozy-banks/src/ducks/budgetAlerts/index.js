@@ -49,8 +49,14 @@ const categoryMatches = (categoryId, idToMatch, allowChildren) => {
     : idToMatch === categoryId
 }
 
-export const fetchExpensesForAlert = async (client, alert, currentDate) => {
-  currentDate = currentDate ? new Date(currentDate) : new Date()
+export const fetchExpensesForAlert = async (
+  client,
+  alert,
+  originalCurrentDate
+) => {
+  let currentDate = originalCurrentDate
+    ? new Date(originalCurrentDate)
+    : new Date()
   const start = format(startOfMonth(currentDate), 'YYYY-MM')
   const end = format(addDays(endOfMonth(currentDate), 1), 'YYYY-MM')
   const selector = {

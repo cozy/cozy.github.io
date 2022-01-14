@@ -82,7 +82,7 @@ describe('getScheduleDate', () => {
 })
 
 describe('prepareTransactions', () => {
-  it('should prepare transactions for the template', function() {
+  it('should prepare transactions for the template', function () {
     const transactions = [
       { account: 'isa1', label: '4', date: '2012-08-10' },
       { account: 'isa1', label: '3', date: '2012-08-08' },

@@ -54,7 +54,7 @@ const checkPushForScenario = async (pushServer, scenario) => {
     await pushServer.waitForRequest({ timeout: 1000 })
     lastReq = pushServer.getLastRequest()
   } catch (e) {
-    // eslint-disable-line empty-catch
+    // eslint-disable-next-line
   }
   if (scenario.expected.notification) {
     expect(lastReq).not.toBeFalsy()

@@ -41,6 +41,7 @@ function handleStateChangeOnClient(theme) {
   BarTheme.setBarTheme(theme)
 }
 
-export default withSideEffect(reducePropsToState, handleStateChangeOnClient)(
-  BarTheme
-)
+export default withSideEffect(
+  reducePropsToState,
+  handleStateChangeOnClient
+)(BarTheme)

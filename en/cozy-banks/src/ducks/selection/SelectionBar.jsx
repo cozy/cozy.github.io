@@ -10,11 +10,8 @@ import { useSelectionBarActions } from 'ducks/selection/helpers'
 import { useTransactionCategoryModal } from 'ducks/transactions/TransactionRow'
 
 const SelectionBar = ({ transactions }) => {
-  const {
-    isSelectionModeActive,
-    selected,
-    emptyAndDeactivateSelection
-  } = useSelectionContext()
+  const { isSelectionModeActive, selected, emptyAndDeactivateSelection } =
+    useSelectionContext()
 
   const { t } = useI18n()
 
@@ -34,16 +31,13 @@ const SelectionBar = ({ transactions }) => {
     Alerter.error(t('Categorization.error'))
   }
 
-  const [
-    showTransactionCategoryModal,
-    ,
-    transactionCategoryModal
-  ] = useTransactionCategoryModal({
-    transactions: selected,
-    beforeUpdates,
-    afterUpdates,
-    onError
-  })
+  const [showTransactionCategoryModal, , transactionCategoryModal] =
+    useTransactionCategoryModal({
+      transactions: selected,
+      beforeUpdates,
+      afterUpdates,
+      onError
+    })
 
   const actions = useSelectionBarActions({
     items: transactions,

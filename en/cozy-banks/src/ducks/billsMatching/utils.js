@@ -37,11 +37,11 @@ const sortBy = require('lodash/sortBy')
 const log = logger.namespace('billsmatching-utils')
 
 const sortBillsByLinkedOperationNumber = (bills, operations) => {
-  bills = bills.map(bill => {
+  const billsToUse = bills.map(bill => {
     bill.opNb = 0
     return bill
   })
-  const billsIndex = keyBy(bills, '_id')
+  const billsIndex = keyBy(billsToUse, '_id')
   if (operations)
     operations.forEach(op => {
       if (op.bills)

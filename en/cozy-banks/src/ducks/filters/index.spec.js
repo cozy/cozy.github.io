@@ -26,34 +26,34 @@ const us = tz(require('timezone/America'))
 
 jest.mock('selectors')
 
-describe('filter reducer', function() {
+describe('filter reducer', function () {
   let state
-  beforeEach(function() {
+  beforeEach(function () {
     state = {
       filteringDoc: null
     }
   })
 
-  it('should be able to select account/group', function() {
+  it('should be able to select account/group', function () {
     state = reducer(state, filterByDoc({ id: 'a123', _type: ACCOUNT_DOCTYPE }))
     expect(state.filteringDoc._type).toBe(ACCOUNT_DOCTYPE)
     expect(state.filteringDoc.id).toBe('a123')
   })
 
-  it('should be able to select by group', function() {
+  it('should be able to select by group', function () {
     state = reducer(state, filterByDoc({ id: 'g123', _type: GROUP_DOCTYPE }))
     expect(state.filteringDoc._type).toBe(GROUP_DOCTYPE)
     expect(state.filteringDoc.id).toBe('g123')
   })
 
-  it('should reset when there is a delete account event corresponding to the current account', function() {
+  it('should reset when there is a delete account event corresponding to the current account', function () {
     const account = { id: 'a123', _type: ACCOUNT_DOCTYPE }
     state = reducer(state, filterByDoc(account))
     state = reducer(state, { type: DESTROY_ACCOUNT, account })
     expect(state.filteringDoc).toBe(null)
   })
 
-  it('should be able to filter by multiple accounts', function() {
+  it('should be able to filter by multiple accounts', function () {
     const accounts = [
       { _id: 'a123', _type: ACCOUNT_DOCTYPE },
       { _id: 'b456', _type: ACCOUNT_DOCTYPE }
@@ -84,7 +84,7 @@ describe('filter selectors', () => {
     state = { ...state, filters: reducer(state.filters, action) }
   }
 
-  beforeEach(function() {
+  beforeEach(function () {
     state = {
       filters: {}
     }
@@ -230,7 +230,7 @@ describe('filter selectors', () => {
     ])
   }
 
-  describe('reset', function() {
+  describe('reset', function () {
     it('should get transactions that have an account', () => {
       expect(getFilteredTransactions(state).map(x => x._id)).toEqual([
         't4',

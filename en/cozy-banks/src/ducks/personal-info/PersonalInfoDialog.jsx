@@ -67,10 +67,8 @@ export class PersonalInfoDialog extends React.Component {
    * and fills the form's nationality and birthcity
    */
   async loadIdentityAndFillForm() {
-    const {
-      client,
-      sourceIdentitySelectors: sourceIdentitySelectors_
-    } = this.props
+    const { client, sourceIdentitySelectors: sourceIdentitySelectors_ } =
+      this.props
     if (this.state.identity) {
       return
     }
@@ -89,8 +87,11 @@ export class PersonalInfoDialog extends React.Component {
       mergedIdentity = {}
     }
 
-    const { birthcity = '', birthcountry = '', nationalities } =
-      mergedIdentity.contact || {}
+    const {
+      birthcity = '',
+      birthcountry = '',
+      nationalities
+    } = mergedIdentity.contact || {}
     const nationality = nationalities ? { value: nationalities[0] } : null
     this.setState({
       identity,
@@ -237,7 +238,4 @@ PersonalInfoDialog.defaultProps = {
   sourceIdentitySelectors: [client => getDefaultIdentitySelector(client)]
 }
 
-export default compose(
-  translate(),
-  withClient
-)(PersonalInfoDialog)
+export default compose(translate(), withClient)(PersonalInfoDialog)

@@ -11,7 +11,7 @@ const takeLast = (arr, n) => {
   return arr.slice(start, end)
 }
 
-const pairs = function*(arr) {
+const pairs = function* (arr) {
   for (let i = 1; i < arr.length; i++) {
     yield [arr[i - 1], arr[i]]
   }

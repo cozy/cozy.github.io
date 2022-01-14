@@ -4,7 +4,6 @@ import memoize from 'lodash/memoize'
 
 import flag from 'cozy-flags'
 import { getTracker as uiGetTracker } from 'cozy-ui/transpiled/react/helpers/tracker'
-/* global __PIWIK_TRACKER_URL__, __PIWIK_SITEID__ */
 
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 

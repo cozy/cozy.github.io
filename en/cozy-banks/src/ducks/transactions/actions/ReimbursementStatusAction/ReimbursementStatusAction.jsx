@@ -122,11 +122,8 @@ export class DumbReimbursementStatusAction extends React.PureComponent {
   }
 
   render() {
-    const {
-      isModalItem,
-      transaction,
-      healthReimbursementLateLimit
-    } = this.props
+    const { isModalItem, transaction, healthReimbursementLateLimit } =
+      this.props
 
     const Item = isModalItem ? ModalItem : TransactionItem
     return (

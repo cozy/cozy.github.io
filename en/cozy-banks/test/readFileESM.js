@@ -1,5 +1,5 @@
 module.exports = {
-  process: function(fileContent) {
+  process: function (fileContent) {
     // Code was copy/paste from the output of babel-cli when writing
     // export default {}
     // It enables Jest to import text modules like Handlebars template

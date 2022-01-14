@@ -41,10 +41,8 @@ const makeQueryForTransactions = recurrences => {
 const getRecurrenceId = recurrence => recurrence._id
 
 export const logDifferences = (oldRecurrences, updatedRecurrences) => {
-  const {
-    true: existingRecurrences = [],
-    false: newRecurrences = []
-  } = groupBy(updatedRecurrences, rec => Boolean(getRecurrenceId(rec)))
+  const { true: existingRecurrences = [], false: newRecurrences = [] } =
+    groupBy(updatedRecurrences, rec => Boolean(getRecurrenceId(rec)))
   const oldById = keyBy(oldRecurrences, getRecurrenceId)
   const existingById = keyBy(existingRecurrences, getRecurrenceId)
 
@@ -53,8 +51,9 @@ export const logDifferences = (oldRecurrences, updatedRecurrences) => {
 
   for (const [id, existing] of Object.entries(existingById)) {
     logForExistingRecurrences.push(
-      `${getLabel(existing)}: ${existing.ops.length} operations (+${existing.ops
-        .length - oldById[id].ops.length})`
+      `${getLabel(existing)}: ${existing.ops.length} operations (+${
+        existing.ops.length - oldById[id].ops.length
+      })`
     )
   }
 
@@ -142,19 +141,16 @@ const main = async ({ client }) => {
       )
     }
 
-    const recurrencesAmountsCatIdsUpdated = updateAmountsCategoriesRecurrences(
-      recurrences
-    )
+    const recurrencesAmountsCatIdsUpdated =
+      updateAmountsCategoriesRecurrences(recurrences)
 
     const updatedRecurrences = findAndUpdateRecurrences(
       recurrencesAmountsCatIdsUpdated.map(r => ({ ...r })),
       transactions
     ).map(x => omit(x, '_type'))
 
-    const {
-      true: emptyRecurrences = [],
-      false: nonEmptyRecurrences = []
-    } = groupBy(updatedRecurrences, x => x.ops.length === 0)
+    const { true: emptyRecurrences = [], false: nonEmptyRecurrences = [] } =
+      groupBy(updatedRecurrences, x => x.ops.length === 0)
 
     for (const recurrence of emptyRecurrences) {
       log('info', `Removing empty recurrence ${recurrence._id}`)

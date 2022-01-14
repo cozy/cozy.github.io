@@ -18,10 +18,8 @@ import { useSelectionContext } from 'ducks/context/SelectionContext'
 export const DumbBalanceDetailsHeader = props => {
   const { isMobile } = useBreakpoints()
   const { accountSwitchSize, children, showLegalMention } = props
-  const {
-    isSelectionModeActive,
-    setIsSelectionModeActive
-  } = useSelectionContext()
+  const { isSelectionModeActive, setIsSelectionModeActive } =
+    useSelectionContext()
 
   return (
     <Header theme="inverted" fixed>

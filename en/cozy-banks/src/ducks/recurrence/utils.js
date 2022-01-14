@@ -180,9 +180,8 @@ export const addTransactionToBundles = (bundles, transactions) => {
 
     if (transactionFounds?.length > 0) {
       bundle.ops = uniqBy([...bundle.ops, ...transactionFounds], o => o._id)
-      transactionsForUpdatedBundles = transactionsForUpdatedBundles.concat(
-        transactionFounds
-      )
+      transactionsForUpdatedBundles =
+        transactionsForUpdatedBundles.concat(transactionFounds)
     }
 
     return bundle

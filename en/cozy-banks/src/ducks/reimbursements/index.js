@@ -1,3 +1,1 @@
-export {
-  default as ReimbursementsPage
-} from 'ducks/reimbursements/ReimbursementsPage'
+export { default as ReimbursementsPage } from 'ducks/reimbursements/ReimbursementsPage'

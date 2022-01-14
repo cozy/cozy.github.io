@@ -1,5 +1,5 @@
 module.exports = {
-  process: function(fileContent) {
+  process: function (fileContent) {
     return `module.exports = \`${fileContent}\``
   }
 }

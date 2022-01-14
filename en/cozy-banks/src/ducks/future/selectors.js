@@ -13,9 +13,7 @@ import getClient from 'selectors/getClient'
 import { TRANSACTION_DOCTYPE } from 'doctypes'
 
 export const getMaxDate = () => {
-  return addDays(new Date(Date.now()), 30)
-    .toISOString()
-    .slice(0, 10)
+  return addDays(new Date(Date.now()), 30).toISOString().slice(0, 10)
 }
 
 const FOUR_MONTHS_IN_DAYS = 4 * 30

@@ -194,7 +194,8 @@ class SelectDates extends PureComponent {
     }
   }
 
-  onChange = value => {
+  onChange = originalValue => {
+    let value = originalValue
     const allyear = isAllYear(value)
     const selected = this.getSelected()
     const options = this.getOptions()
@@ -399,8 +400,4 @@ SelectDates.propTypes = {
   onChange: PropTypes.func.isRequired
 }
 
-export default compose(
-  translate(),
-  withBreakpoints(),
-  themed
-)(SelectDates)
+export default compose(translate(), withBreakpoints(), themed)(SelectDates)

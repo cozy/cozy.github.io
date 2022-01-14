@@ -8,9 +8,8 @@ class WithFingerprint extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {}
-    this.setFingerprintWindowShowing = this.setFingerprintWindowShowing.bind(
-      this
-    )
+    this.setFingerprintWindowShowing =
+      this.setFingerprintWindowShowing.bind(this)
     this.handleSuccess = this.handleSuccess.bind(this)
     this.handleError = this.handleError.bind(this)
     this.handleResume = this.handleResume.bind(this)
@@ -44,7 +43,7 @@ class WithFingerprint extends React.PureComponent {
     Fingerprint.show(
       {
         clientId: 'cozy-banks',
-        clientSecret: 'cozy-banks' //Only necessary for Android
+        clientSecret: 'cozy-banks' // Only necessary for Android
       },
       this.handleSuccess,
       this.handleError

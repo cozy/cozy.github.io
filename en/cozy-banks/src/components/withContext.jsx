@@ -10,8 +10,9 @@ export const withContext = Context => Component => {
       )
     }
   }
-  Wrapped.displayName = `withContext[${Context.name}](${Component.displayName ||
-    Component.name})`
+  Wrapped.displayName = `withContext[${Context.name}](${
+    Component.displayName || Component.name
+  })`
   return Wrapped
 }
 

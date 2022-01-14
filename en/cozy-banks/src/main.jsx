@@ -139,6 +139,7 @@ const setupApp = async persistedState => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  // eslint-disable-next-line
   loadState().then(setupApp)
 
   // We add fastclick only for iOS since Chrome removed this behavior (iOS also, but

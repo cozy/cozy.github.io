@@ -90,10 +90,7 @@ export const useTrackPage = pageName => {
 
 export const replaceLastPart = (pageName, newLastPart) => {
   return pageName
-    ? `${pageName
-        .split(':')
-        .slice(0, -1)
-        .join(':')}:${newLastPart}`
+    ? `${pageName.split(':').slice(0, -1).join(':')}:${newLastPart}`
     : pageName
 }
 

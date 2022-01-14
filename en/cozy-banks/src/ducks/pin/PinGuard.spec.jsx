@@ -77,10 +77,7 @@ describe('PinGuard', () => {
     jest.runAllTimers()
     root.update()
     expect(pinAuthIsShown(root)).toBe(true)
-    root
-      .find(PinAuth)
-      .props()
-      .onSuccess()
+    root.find(PinAuth).props().onSuccess()
 
     root.update()
     expect(pinAuthIsShown(root)).toBe(false)
@@ -91,10 +88,7 @@ describe('PinGuard', () => {
     jest.runAllTimers()
     root.update()
     expect(pinAuthIsShown(root)).toBe(true)
-    root
-      .find(PinAuth)
-      .props()
-      .onSuccess()
+    root.find(PinAuth).props().onSuccess()
     jest.runAllTimers()
     root.update()
     expect(pinAuthIsShown(root)).toBe(true)
@@ -107,10 +101,7 @@ describe('PinGuard', () => {
     jest.spyOn(instance, 'setState')
     expect(pinAuthIsShown(root)).toBe(true)
 
-    root
-      .find(PinAuth)
-      .props()
-      .onSuccess()
+    root.find(PinAuth).props().onSuccess()
     root.update()
 
     expect(pinAuthIsShown(root)).toBe(false)
@@ -166,10 +157,7 @@ describe('PinGuard', () => {
           })
           jest.runAllTimers()
           root.update()
-          root
-            .find(PinAuth)
-            .props()
-            .onSuccess()
+          root.find(PinAuth).props().onSuccess()
           root.update()
 
           expect(root.find(PinGuard).state().showPin).toBe(false)

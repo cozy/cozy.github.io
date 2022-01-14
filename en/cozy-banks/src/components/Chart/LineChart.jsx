@@ -288,12 +288,8 @@ class LineChart extends Component {
    * Generate the selected point
    */
   createPoint() {
-    const {
-      pointRadius,
-      pointFillColor,
-      pointStrokeColor,
-      pointStrokeWidth
-    } = this.props
+    const { pointRadius, pointFillColor, pointStrokeColor, pointStrokeWidth } =
+      this.props
 
     const drag = d3.drag()
 
@@ -415,11 +411,7 @@ class LineChart extends Component {
       y2 -= margin.bottom
     }
 
-    this.pointLine
-      .attr('x1', x)
-      .attr('y1', 0)
-      .attr('x2', x)
-      .attr('y2', y2)
+    this.pointLine.attr('x1', x).attr('y1', 0).attr('x2', x).attr('y2', y2)
   }
 
   /**

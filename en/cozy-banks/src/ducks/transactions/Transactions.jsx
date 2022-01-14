@@ -95,15 +95,13 @@ const TransactionSections = ({
   onRowRef
 }) => {
   const { isDesktop, isExtraLarge } = useBreakpoints()
-  const {
-    isSelected,
-    isSelectionModeActive,
-    toggleSelection
-  } = useSelectionContext()
+  const { isSelected, isSelectionModeActive, toggleSelection } =
+    useSelectionContext()
 
-  const transactionsGrouped = useMemo(() => groupByDate(transactions), [
-    transactions
-  ])
+  const transactionsGrouped = useMemo(
+    () => groupByDate(transactions),
+    [transactions]
+  )
   const Section = isDesktop ? VisibleSectionDesktop : SectionMobile
   const TransactionContainer = isDesktop ? Table : TransactionContainerMobile
   const Row = isDesktop ? TransactionRowDesktop : TransactionRowMobile

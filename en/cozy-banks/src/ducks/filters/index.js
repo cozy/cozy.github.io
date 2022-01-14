@@ -67,9 +67,9 @@ export const filterByPeriod = (transactions, period, dateGetter) => {
     throw new Error('Invalid period: ' + JSON.stringify(period))
   }
 
-  dateGetter = dateGetter || getDisplayDate
+  const realDateGetter = dateGetter || getDisplayDate
   return transactions.filter(transaction => {
-    const date = dateGetter(transaction)
+    const date = realDateGetter(transaction)
     if (!date) {
       return false
     }
@@ -163,10 +163,11 @@ const recentToAncient = transaction => -new Date(getDisplayDate(transaction))
 export const getTransactionsFilteredByAccount = createSelector(
   [getTransactions, getFilteredAccountIds],
   (transactions, accountIds) => {
+    let clonedTransactions = transactions
     if (accountIds) {
-      transactions = filterByAccountIds(transactions, accountIds)
+      clonedTransactions = filterByAccountIds(transactions, accountIds)
     }
-    return sortBy(transactions, recentToAncient)
+    return sortBy(clonedTransactions, recentToAncient)
   }
 )
 
@@ -211,7 +212,10 @@ export const getHealthExpensesByPeriod = createSelector(
 )
 
 // actions
-export const addFilterByPeriod = period => ({ type: FILTER_BY_PERIOD, period })
+export const addFilterByPeriod = period => ({
+  type: FILTER_BY_PERIOD,
+  period
+})
 export const resetFilterByDoc = () => ({ type: RESET_FILTER_BY_DOC })
 export const filterByDoc = doc => ({
   type: FILTER_BY_DOC,
@@ -222,19 +226,17 @@ export const filterByAccounts = accounts => ({
   doc: accounts.map(x => x._id)
 })
 
-export const addFilterForMostRecentTransactions = () => (
-  dispatch,
-  getState
-) => {
-  const state = getState()
-  const transactions = getTransactionsFilteredByAccount(state)
-  const mostRecentTransaction = last(sortBy(transactions, getDisplayDate))
-  if (mostRecentTransaction) {
-    const date = getDisplayDate(mostRecentTransaction)
-    const period = monthFormat(date)
-    return dispatch(addFilterByPeriod(period))
+export const addFilterForMostRecentTransactions =
+  () => (dispatch, getState) => {
+    const state = getState()
+    const transactions = getTransactionsFilteredByAccount(state)
+    const mostRecentTransaction = last(sortBy(transactions, getDisplayDate))
+    if (mostRecentTransaction) {
+      const date = getDisplayDate(mostRecentTransaction)
+      const period = monthFormat(date)
+      return dispatch(addFilterByPeriod(period))
+    }
   }
-}
 
 // reducers
 const getDefaultMonth = () => monthFormat(format(new Date()))
@@ -271,8 +273,10 @@ const handleDestroyAccount = (state = {}, action) => {
   return state
 }
 
-const composeReducers = (...reducers) => (state, action) =>
-  reducers.reduce((state, reducer) => reducer(state, action), state)
+const composeReducers =
+  (...reducers) =>
+  (state, action) =>
+    reducers.reduce((state, reducer) => reducer(state, action), state)
 
 export default composeReducers(
   combineReducers({

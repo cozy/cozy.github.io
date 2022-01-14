@@ -2,7 +2,7 @@ export const mergeStyleFunc = (fn1, fn2) => {
   if (!fn2) {
     return fn1
   }
-  return function() {
+  return function () {
     return {
       ...fn1.apply(this, arguments),
       ...fn2.apply(this, arguments)

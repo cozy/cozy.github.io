@@ -102,7 +102,7 @@ describe('LateHealthReimbursement', () => {
 
   it('should fetch data', async () => {
     jest.spyOn(Transaction, 'queryAll').mockResolvedValue(mockTransactions)
-    jest.spyOn(Document, 'getAll').mockImplementation(async function() {
+    jest.spyOn(Document, 'getAll').mockImplementation(async function () {
       if (this.doctype == 'io.cozy.bills') {
         return [{ _id: 'billId12345' }]
       } else if (this.doctype == 'io.cozy.bank.accounts') {
@@ -125,7 +125,7 @@ describe('LateHealthReimbursement', () => {
 
   it('should be called with onSuccess', async () => {
     jest.spyOn(Transaction, 'queryAll').mockResolvedValue(mockTransactions)
-    jest.spyOn(Document, 'getAll').mockImplementation(async function() {
+    jest.spyOn(Document, 'getAll').mockImplementation(async function () {
       if (this.doctype == 'io.cozy.bills') {
         return [{ _id: 'billId12345' }]
       } else if (this.doctype == 'io.cozy.bank.accounts') {

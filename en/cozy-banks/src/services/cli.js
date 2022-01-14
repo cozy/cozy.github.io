@@ -22,7 +22,7 @@ export const getScope = m => {
   }
 
   return Object.keys(m.permissions).map(permission => {
-    const { type /*, verbs, selector, values*/ } = m.permissions[permission]
+    const { type /* , verbs, selector, values*/ } = m.permissions[permission]
 
     return type
   })

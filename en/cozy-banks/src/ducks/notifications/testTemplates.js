@@ -7,7 +7,7 @@ const main = () => {
   const express = require('express')
   const app = express()
 
-  app.get('/:templateName/:lang', async function(req, res) {
+  app.get('/:templateName/:lang', async function (req, res) {
     const { templateName, lang } = req.params
     const nav = `
     <div>
@@ -43,7 +43,7 @@ const main = () => {
     }
   })
 
-  app.get('/', function(req, res) {
+  app.get('/', function (req, res) {
     res.redirect(`/${Object.keys(EMAILS)[0]}/fr`)
   })
 

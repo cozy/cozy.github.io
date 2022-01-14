@@ -17,7 +17,10 @@ const normalizeDoc = (doc, _type) => ({
 
 export const normalizeData = data =>
   mapValues(data, (docs, doctype) =>
-    keyBy(docs.map(doc => normalizeDoc(doc, doctype)), '_id')
+    keyBy(
+      docs.map(doc => normalizeDoc(doc, doctype)),
+      '_id'
+    )
   )
 
 export default store

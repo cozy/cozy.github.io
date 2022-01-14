@@ -90,7 +90,4 @@ AccountRowLoading.propTypes = {
   status: PropTypes.string.isRequired
 }
 
-export default compose(
-  translate(),
-  withClient
-)(AccountRowLoading)
+export default compose(translate(), withClient)(AccountRowLoading)

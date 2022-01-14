@@ -52,7 +52,7 @@ describe('service', () => {
     })
     const original = client.stackClient.fetchJSON
     const mockPostNotification = jest.fn()
-    client.stackClient.fetchJSON = function(method, route, data) {
+    client.stackClient.fetchJSON = function (method, route, data) {
       if (method === 'POST' && route === '/notifications') {
         return mockPostNotification(data)
       } else {
@@ -213,9 +213,8 @@ describe('service', () => {
       })
       await runCategoryBudgetService(client, { currentDate: '2019-07-15' })
 
-      const lastPostNotificationCall = mockPostNotification.mock.calls.slice(
-        -1
-      )[0][0]
+      const lastPostNotificationCall =
+        mockPostNotification.mock.calls.slice(-1)[0][0]
       expect(lastPostNotificationCall.data.attributes.title).toEqual(
         'Health expenses budget has exceeded its limit'
       )
@@ -244,9 +243,8 @@ describe('service', () => {
       })
       await runCategoryBudgetService(client, { currentDate: '2019-07-15' })
 
-      const lastPostNotificationCall = mockPostNotification.mock.calls.slice(
-        -1
-      )[0][0]
+      const lastPostNotificationCall =
+        mockPostNotification.mock.calls.slice(-1)[0][0]
       expect(lastPostNotificationCall.data.attributes.title).toEqual(
         '2 budgets have exceeded their limit'
       )

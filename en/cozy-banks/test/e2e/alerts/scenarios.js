@@ -286,8 +286,7 @@ const scenarios = {
       },
       notification: {
         data: {
-          body:
-            'Louise checkings: 1 transaction, Isabelle checkings: 2 transactions',
+          body: 'Louise checkings: 1 transaction, Isabelle checkings: 2 transactions',
           route: '/transactions',
           title: '3 transactions greater than 2 thresholds'
         }

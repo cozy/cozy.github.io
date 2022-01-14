@@ -18,9 +18,10 @@ const TransactionCategoryEditor = ({
   onCancel
 }) => {
   const client = useClient()
-  const categoryId = useMemo(() => getCategoryId(transactions[0]), [
-    transactions
-  ])
+  const categoryId = useMemo(
+    () => getCategoryId(transactions[0]),
+    [transactions]
+  )
 
   const handleSelectCategory = useCallback(
     async category => {

@@ -26,9 +26,10 @@ const DeviceToken = ({ client }) => {
 
 const sendNotification = async (
   client,
-  notificationRoute,
+  originalNotificationRoute,
   notificationAccountId
 ) => {
+  let notificationRoute = originalNotificationRoute
   try {
     if (notificationRoute === '/balances/details' && notificationAccountId) {
       notificationRoute = `/balances/${notificationAccountId}/details`
@@ -60,9 +61,8 @@ const sendNotification = async (
 const Notifications = () => {
   const client = useClient()
   const accounts = useQuery(accountsConn.query, accountsConn)
-  const [notificationRoute, setNotificationRoute] = useState(
-    '/balances/details'
-  )
+  const [notificationRoute, setNotificationRoute] =
+    useState('/balances/details')
   const [notificationAccountId, setNotificationAccountId] = useState(null)
 
   return (

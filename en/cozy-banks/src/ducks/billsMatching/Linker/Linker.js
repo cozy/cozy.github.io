@@ -335,12 +335,15 @@ class Linker {
    * @returns {(Object|false)} The io.cozy.bank.operations that matched or false
    */
   async linkBillToDebitOperation(bill, allOperations, options) {
+    // eslint-disable-next-line
     return findDebitOperation(bill, options, allOperations).then(operation => {
+      // eslint-disable-next-line
       if (operation) {
         log(
           'debug',
           `Found debit operation ${operation._id} for bill ${bill._id}`
         )
+        // eslint-disable-next-line
         return this.addBillToOperation(bill, operation).then(
           addResult => addResult && operation
         )
@@ -369,7 +372,7 @@ class Linker {
    * @see https://docs.cozy.io/en/cozy-doctypes/docs/io.cozy.bank/#iocozybankoperations
    */
   async linkBillsToOperations(bills, operations, options) {
-    options = this.getOptions(options)
+    const optionsToUse = this.getOptions(options)
     const result = {}
 
     let allOperations = operations
@@ -387,15 +390,15 @@ class Linker {
       `Trying to find matchings between ${bills.length} bills and ${allOperations.length} operations`
     )
 
-    if (options.billsToRemove && options.billsToRemove.length) {
-      this.removeBillsFromOperations(options.billsToRemove, allOperations)
+    if (optionsToUse.billsToRemove && optionsToUse.billsToRemove.length) {
+      this.removeBillsFromOperations(optionsToUse.billsToRemove, allOperations)
     }
 
     // when bill comes from a third party payer,
     // no transaction is visible on the bank account
-    bills = bills.filter(bill => !bill.isThirdPartyPayer === true)
+    const filteredBills = bills.filter(bill => !bill.isThirdPartyPayer === true)
 
-    await bluebird.each(bills, async bill => {
+    await bluebird.each(filteredBills, async bill => {
       const res = (result[bill._id] = { bill: bill })
 
       // the bills combination phase is very time consuming. We can avoid it when we run the
@@ -408,7 +411,7 @@ class Linker {
       const debitOperation = await this.linkBillToDebitOperation(
         bill,
         allOperations,
-        options
+        optionsToUse
       )
 
       if (debitOperation) {
@@ -420,7 +423,7 @@ class Linker {
           bill,
           debitOperation,
           allOperations,
-          options
+          optionsToUse
         )
 
         if (creditOperation) {
@@ -429,7 +432,7 @@ class Linker {
       }
     })
 
-    await this.findCombinations(result, options, allOperations)
+    await this.findCombinations(result, optionsToUse, allOperations)
 
     const nbBillsLinked = Object.values(result).filter(
       bill => bill.creditOperation || bill.debitOperation

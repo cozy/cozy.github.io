@@ -154,8 +154,9 @@ const GroupPanel = props => {
 
   const groupAccounts = group.accounts.data.filter(Boolean)
   const nbAccounts = groupAccounts.length
-  const nbCheckedAccounts = Object.values(switches).filter(s => s.checked)
-    .length
+  const nbCheckedAccounts = Object.values(switches).filter(
+    s => s.checked
+  ).length
   const uncheckedAccountsIds = Object.keys(switches).filter(
     k => !switches[k].checked
   )
