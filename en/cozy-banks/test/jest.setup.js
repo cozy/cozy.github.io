@@ -96,3 +96,5 @@ window.cozy = {
     BarRight: () => null
   }
 }
+// eslint-disable-next-line
+process.on('unhandledRejection', r => console.log(r))

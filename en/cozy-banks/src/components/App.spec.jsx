@@ -24,7 +24,6 @@ jest.mock('ducks/client/links', () => ({
   isActivatePouch: jest.fn()
 }))
 
-
 const DumbComponent = ({ client }) => {
   const fetch = async () => await client.query({ doctype: 'io.cozy.fake' })
   return <button onClick={fetch}>Fetch</button>
@@ -36,7 +35,6 @@ describe('App', () => {
   beforeEach(() => {
     jest.spyOn(Alerter, 'info')
   })
-
 
   const setup = () => {
     const client = new CozyClient({ links: [link] })

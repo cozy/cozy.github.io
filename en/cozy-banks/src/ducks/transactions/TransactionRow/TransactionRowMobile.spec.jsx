@@ -23,14 +23,14 @@ describe('TransactionRowMobile', () => {
   it('should render without onRef', () => {
     const { root } = setup({ onRef: null })
     expect(root.getByText('Remboursement Pret Lcl')).toBeTruthy()
-    expect(root.getByText('-1,231.00')).toBeTruthy()
+    expect(root.getByText('-1 231,00')).toBeTruthy()
   })
 
   it('should render without onRef', () => {
     const onRef = jest.fn()
     const { root } = setup({ onRef })
     expect(root.getByText('Remboursement Pret Lcl')).toBeTruthy()
-    expect(root.getByText('-1,231.00')).toBeTruthy()
+    expect(root.getByText('-1 231,00')).toBeTruthy()
     expect(onRef).toHaveBeenCalledWith('reimbursement', expect.any(HTMLElement))
   })
 })

@@ -42,7 +42,7 @@ jest.mock('cozy-ui/transpiled/react/Icon', () => {
 /* eslint-disable */
 const tests = [
   // transaction id, class variant, text, icon, action name, [action props], [test name]
-  ['paiementdocteur', null, 'Ameli+17.50€|Malakoff Mederic+7.50€', 'SvgFileOutline|SvgFileOutline', 'AttachedDocs'],
+  ['paiementdocteur', null, 'Ameli+17,50€|Malakoff Mederic+7,50€', 'SvgFileOutline|SvgFileOutline', 'AttachedDocs'],
   ['paiementdocteur2', 'error', 'Late reimbursement', 'SvgHourglass', 'ReimbursementStatus'],
   ['depsantelou1', 'error', 'Late reimbursement', 'SvgHourglass', 'ReimbursementStatus'],
   ['depsantegene4', 'error', 'Late reimbursement', 'SvgHourglass', 'ReimbursementStatus'],

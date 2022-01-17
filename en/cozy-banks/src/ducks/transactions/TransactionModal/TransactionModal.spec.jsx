@@ -85,7 +85,7 @@ describe('transaction modal', () => {
     expect(root.getByText('Occasional transaction')).toBeTruthy()
     expect(root.getByText('Assigned to Aug 2017')).toBeTruthy()
     expect(root.getByText('Edf Particuliers')).toBeTruthy()
-    expect(root.getByText('-77.50')).toBeTruthy()
+    expect(root.getByText('-77,50')).toBeTruthy()
     expect(root.getByText('Saturday 26 August')).toBeTruthy()
   })
 

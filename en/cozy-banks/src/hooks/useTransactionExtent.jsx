@@ -57,6 +57,8 @@ const useTransactionExtent = () => {
           })
         )
         setData([earliest.data[0], latest.data[0]])
+      } catch (e) {
+        // TODO Find something to do here...
       } finally {
         setLoading(false)
       }

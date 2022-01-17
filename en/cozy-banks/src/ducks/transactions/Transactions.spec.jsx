@@ -163,7 +163,7 @@ describe('Interactions', () => {
     })
 
     it('should show transaction modal on click on amount', () => {
-      checkClickOnTextOpensTransactionModal('-1,231.00')
+      checkClickOnTextOpensTransactionModal('-1 231,00')
     })
   })
 

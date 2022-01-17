@@ -58,6 +58,6 @@ describe('BillChip', () => {
     }
     const { root } = setup({ bill })
     expect(root.getByText('EDF')).toBeTruthy()
-    expect(root.getByText('+12.00')).toBeTruthy()
+    expect(root.getByText('+12,00')).toBeTruthy()
   })
 })

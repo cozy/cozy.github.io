@@ -23,7 +23,7 @@ describe('Balance header', () => {
       </AppLike>
     )
     await act(async () => {})
-    const balanceNumber = root.getByText('1,000.00')
+    const balanceNumber = root.getByText('1 000,00')
     fireEvent.click(balanceNumber)
     expect(onClickBalance).toHaveBeenCalled()
   })
