@@ -3325,7 +3325,7 @@ described to work with the <a href="https://github.com/cozy/cozy-stack">cozy-sta
 <h3 id="2-configure-the-registry-with-cozy-registryyml">2) Configure the registry with <code>cozy-registry.yml</code><a class="headerlink" href="#2-configure-the-registry-with-cozy-registryyml" title="Permanent link">&para;</a></h3>
 <p>Before running the registry, you have to configure it correctly. Don&rsquo;t worry, here is the yaml file to copy and paste in your <code>cozy-registry.yml</code> (should be in the root folder of <code>cozy-apps-registry/</code>):</p>
 <blockquote>
-<p>:bulb: You can find an <a href="cozy-registry.example.yml">example of this configuration file</a> at the root of the directory.</p>
+<p><img alt="💡" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4a1.png" title=":bulb:" /> You can find an <a href="cozy-registry.example.yml">example of this configuration file</a> at the root of the directory.</p>
 </blockquote>
 <div class="codehilite"><pre><span></span><span class="c1"># server host (serve command) - flag --host</span>
 <span class="l l-Scalar l-Scalar-Plain">host</span><span class="p p-Indicator">:</span> <span class="s">&quot;localhost&quot;</span>
@@ -3414,7 +3414,7 @@ cozy-apps-registry gen-token --master Cozy -c cozy-registry.yml
 <p>Now restart your local <code>cozy-stack</code> to take this new configuration in consideration (stop and run again <code>cozy-stack serve</code>) and you&rsquo;re ready to work with the <code>cozy-apps-registry</code>!</p>
 <h2 id="publish-your-application-on-the-registry">Publish your application on the registry<a class="headerlink" href="#publish-your-application-on-the-registry" title="Permanent link">&para;</a></h2>
 <p>If you need more details about the registry you can go to <a href="https://docs.cozy.io/en/cozy-stack/registry/">the official registry documentation</a></p>
-<p><strong>:warning: Important:</strong> In this whole documentation, by the term <code>application</code>, we mean a web application or a konnector. Indeed, for the registry, all entities are applications and they can be either <code>webapp</code> or <code>konnector</code> type.</p>
+<p><strong><img alt="⚠️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/26a0.png" title=":warning:" /> Important:</strong> In this whole documentation, by the term <code>application</code>, we mean a web application or a konnector. Indeed, for the registry, all entities are applications and they can be either <code>webapp</code> or <code>konnector</code> type.</p>
 <h3 id="1-define-your-application-manifest">1) Define your application manifest<a class="headerlink" href="#1-define-your-application-manifest" title="Permanent link">&para;</a></h3>
 <p>To be publishable, your application requires some informations in its <code>manifest.webapp</code>, the manifest of a Cozy application.</p>
 <p>You can find an example of manifest for an application <a href="https://github.com/cozy/cozy-drive/blob/master/src/drive/targets/manifest.webapp">in Cozy-Drive</a> and one for a konnector <a href="https://github.com/konnectors/cozy-konnector-trainline/blob/master/manifest.konnector">in cozy-konnector-trainline</a>.</p>
@@ -3629,7 +3629,7 @@ cozy-apps-registry gen-token --master Cozy -c cozy-registry.yml
 <li><code>$konnector</code>: The name of the konnector</li>
 </ul>
 <blockquote>
-<p>:warning: All paths provided using <code>defaultDir</code> will be the root directory, not the final folder which will receive the files. For example, if you set <code>$photos</code>, the final folder will be <code>$photos/$konnector/$account</code> in order to keep them always sorted by konnectors and accounts.</p>
+<p><img alt="⚠️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/26a0.png" title=":warning:" /> All paths provided using <code>defaultDir</code> will be the root directory, not the final folder which will receive the files. For example, if you set <code>$photos</code>, the final folder will be <code>$photos/$konnector/$account</code> in order to keep them always sorted by konnectors and accounts.</p>
 </blockquote>
 </li>
 </ul>
@@ -3787,7 +3787,7 @@ with a mail using the following title prefix: <code>[registry]</code> and provid
 <p>Now you can add your application in the registry. This step is splitted in two septs:
   - Add a new application (without versions)
   - Add a version of the application</p>
-<p><strong>:pushpin: A new application without registered version won&rsquo;t be displayed by the <a href="https://github.com/cozy/cozy-store"><code>cozy-store</code> application</a>.</strong></p>
+<p><strong><img alt="📌" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/1f4cc.png" title=":pushpin:" /> A new application without registered version won&rsquo;t be displayed by the <a href="https://github.com/cozy/cozy-store"><code>cozy-store</code> application</a>.</strong></p>
 <p>To add a new application, you have to do a <code>POST</code> request which all the informations needed to the route <code>registryAddress/registry</code>
 with <code>registryAddress</code> your registry address (for example here <code>http://localhost:8081</code>).</p>
 <p>Let&rsquo;s add the Collect application as example:</p>
@@ -3825,7 +3825,7 @@ curl -X <span class="s2">&quot;POST&quot;</span> <span class="s2">&quot;http://l
 </tr>
 </tbody>
 </table>
-<p><strong>:warning: Here the <code>slug</code> is the unique ID of the application in the registry, so it can&rsquo;t be changed after the application is already registered.</strong>
+<p><strong><img alt="⚠️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/26a0.png" title=":warning:" /> Here the <code>slug</code> is the unique ID of the application in the registry, so it can&rsquo;t be changed after the application is already registered.</strong>
 </details></p>
 <h3 id="3-add-a-new-version-of-a-registered-application">3) Add a new version of a registered application<a class="headerlink" href="#3-add-a-new-version-of-a-registered-application" title="Permanent link">&para;</a></h3>
 <h4 id="via-cozy-app-publish-highly-recommanded">Via <a href="https://github.com/cozy/cozy-app-publish"><code>cozy-app-publish</code></a> (highly recommanded)<a class="headerlink" href="#via-cozy-app-publish-highly-recommanded" title="Permanent link">&para;</a></h4>
@@ -3910,7 +3910,7 @@ curl -X <span class="s2">&quot;POST&quot;</span> <span class="s2">&quot;http://l
 </tbody>
 </table>
 <blockquote>
-<p><strong>:warning: Important notices:</strong></p>
+<p><strong><img alt="⚠️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/26a0.png" title=":warning:" /> Important notices:</strong></p>
 <ul>
 <li>The version must match the one in the <code>manifest.webapp</code> file for stable release. For beta (X.X.X-betaX) or dev releases (X.X.X-dev.hash256), the version before the cyphen must match the one in the <code>manifest.webapp</code>.</li>
 <li>For better integrity, the <code>sha256</code> provided must match the sha256 of the archive provided in <code>url</code>. If it&rsquo;s not the case, that will be considered as an error and the version won&rsquo;t be registered.</li>
@@ -3962,7 +3962,7 @@ Removing app2/0.1.9-dev.954dac9e12e080d591cb76591c311611fed1bea9
 <p>A <code>virtual space</code> is necessarily built over an existing <code>space</code>. It allows to
 filter by selecting or rejecting applications available on the underlying space.</p>
 <blockquote>
-<p>:warning: Please note that it is not possible to publish applications or
+<p><img alt="⚠️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/26a0.png" title=":warning:" /> Please note that it is not possible to publish applications or
 versions on a <code>virtual space</code>.</p>
 </blockquote>
 <p>It is possible to change the name of an application in the virtual space,
