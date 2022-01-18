@@ -2917,7 +2917,7 @@
   <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;6f978dbdc5e2424bfdec911f28005970&quot;</span><span class="p">,</span>
   <span class="nt">&quot;_rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-58b3a91cd89a6a2b607721f944bb6aeb&quot;</span><span class="p">,</span>
   <span class="nt">&quot;book&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;The Greatest Book&quot;</span> 
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;The Greatest Book&quot;</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -2925,25 +2925,24 @@
 
 <p>The <code>_id</code> and <code>_rev</code> fields are mandatory for each document and automatically handled by CouchDB, so the developers don’t have to worry about them. <code>_id</code> is the unique identifier of the document while <code>_rev</code> is the version number, incremented for each update. See <a href="../advanced/#revisions">here</a> to know more about the revision system.</p>
 <p>Any field can be specified in a CouchDB document (except for fields starting with a <code>_</code>, that are reserved), as long as the JSON is valid and the type is <a href="https://docs.couchdb.org/en/stable/api/basics.html#json-basics">supported</a>, i.e. Array, Object, String, Number, Boolean.</p>
-<p>CouchDB comes with two query systems to retrieve documents: </p>
+<p>CouchDB comes with two query systems to retrieve documents:</p>
 <ol>
 <li><a href="https://docs.couchdb.org/en/2.3.1/api/database/find.html">Mango queries</a>, a declarative JSON syntax</li>
-<li><a href="https://docs.couchdb.org/en/2.3.1/api/ddoc/views.html">Views</a>, to run arbitrary complex map-reduce functions </li>
+<li><a href="https://docs.couchdb.org/en/2.3.1/api/ddoc/views.html">Views</a>, to run arbitrary complex map-reduce functions</li>
 </ol>
 <p>In Cozy, we chose to support the simpler and more efficient Mango system by default, even though views are used in specific cases.</p>
-<p>ℹ️  CouchDB is an HTTP server. Therefore, all the requests made to the database must be expressed as HTTP requests. Any HTTP client can be used to directly query CouchDB (<a href="https://curl.haxx.se/">curl</a>, <a href="https://github.com/request/request">request</a>, <a href="https://insomnia.rest/">Insomnia</a> to name a few). In Cozy, the back-end server, <a href="https://docs.cozy.io/en/cozy-stack/">cozy-stack</a>, communicates with CouchDB.</p>
+<p>ℹ️ CouchDB is an HTTP server. Therefore, all the requests made to the database must be expressed as HTTP requests. Any HTTP client can be used to directly query CouchDB (<a href="https://curl.haxx.se/">curl</a>, <a href="https://github.com/request/request">request</a>, <a href="https://insomnia.rest/">Insomnia</a> to name a few). In Cozy, the back-end server, <a href="https://docs.cozy.io/en/cozy-stack/">cozy-stack</a>, communicates with CouchDB.</p>
 <p>ℹ️ In CouchDB, you organize data in DocTypes, a data structure meant to group documents together. All documents with the same DocType are stored in a dedicated database. Thus, each database has its own documents and indexes: when performing a query, one must indicates the target database; there is no cross-databases queries capability in CouchDB, altough there is a <a href="https://docs.cozy.io/en/cozy-doctypes/docs/#relationships">relationship</a> query system to overcome this. See <a href="../doctypes/">here</a> for the DocTypes documentation.</p>
 <h2 id="mango-queries">Mango queries<a class="headerlink" href="#mango-queries" title="Permanent link">&para;</a></h2>
-<p>The manqo query system was introduced in <a href="https://blog.couchdb.org/2016/08/03/feature-mango-query/">CouchDB 2.0</a> and offers a declarative JSON syntax to perform queries on documents, inspired from MongoDB.</p>
-<p>There are several important concepts to grasp in order to efficiently use mango queries. Here, we give an overview of those concepts and detail common mistakes to avoid. </p>
+<p>The mango query system was introduced in <a href="https://blog.couchdb.org/2016/08/03/feature-mango-query/">CouchDB 2.0</a> and offers a declarative JSON syntax to perform queries on documents, inspired from MongoDB.</p>
+<p>There are several important concepts to grasp in order to efficiently use mango queries. Here, we give an overview of those concepts and detail common mistakes to avoid.</p>
 <h3 id="mango-queries-with-cozy-client">Mango queries with cozy-client<a class="headerlink" href="#mango-queries-with-cozy-client" title="Permanent link">&para;</a></h3>
-<p><a href="https://github.com/cozy/cozy-client">cozy-client</a> is a JavaScript library developed by Cozy Cloud that helps to query data to the Cozy back-end, <a href="https://docs.cozy.io/en/cozy-stack/">cozy-stack</a>, without having to manually deal with authentication, index creation, pagination, etc. In the following, we provide cozy-client examples each time we introduce a new concept. If you are not familiar with it, this <a href="https://docs.cozy.io/en/cozy-client/getting-started/">tutorial</a> is a good starting place. 
+<p><a href="https://github.com/cozy/cozy-client">cozy-client</a> is a JavaScript library developed by Cozy Cloud that helps to query data to the Cozy back-end, <a href="https://docs.cozy.io/en/cozy-stack/">cozy-stack</a>, without having to manually deal with authentication, index creation, pagination, etc. In the following, we provide cozy-client examples each time we introduce a new concept. If you are not familiar with it, this <a href="https://docs.cozy.io/en/cozy-client/getting-started/">tutorial</a> is a good starting place.
 However, if for some reasons you do not want to use cozy-client, it is possible to make queries on your own by directly requesting the <a href="https://docs.cozy.io/en/cozy-stack/data-system/">cozy-stack data API</a>.</p>
 <p>In cozy-client, each query is defined as a <a href="https://docs.cozy.io/en/cozy-client/api/cozy-client/#QueryDefinition">Query Definition</a>. This API is helpful to easily chain Mango concepts (selectors, sorts, indexing, …), as we will see in the following sections.</p>
-<p>In the following, we assume a DocType named <code>io.cozy.todos</code>  describing Todo lists.</p>
+<p>In the following, we assume a DocType named <code>io.cozy.todos</code> describing Todo lists.</p>
 <p>Here is a basic example of a cozy-client query returning all the Todo lists in a Cozy:</p>
-<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">queryDef</span> <span class="o">=</span> <span class="nx">client</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">docs</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">queryAll</span><span class="p">(</span><span class="nx">queryDef</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">docs</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">queryAll</span><span class="p">(</span><span class="nx">Q</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">));</span>
 </pre></div>
 
 
@@ -2951,18 +2950,16 @@ However, if for some reasons you do not want to use cozy-client, it is possible 
 <h2 id="selectors">Selectors<a class="headerlink" href="#selectors" title="Permanent link">&para;</a></h2>
 <p>To use the Mango query system, you define a <code>selector</code>, expressing criterias to filter the documents to return.</p>
 <h3 id="selectors-with-cozy-client">Selectors with cozy-client<a class="headerlink" href="#selectors-with-cozy-client" title="Permanent link">&para;</a></h3>
-<p>With cozy-client, a selector is added to the query definition with the <a href="https://docs.cozy.io/en/cozy-client/api/cozy-client/#querydefinitionwhereselector-querydefinition"><code>where</code></a> method. It takes into input an object with the selector expression. For instance, this query means “the todos in &lsquo;sport’ category AND a title ‘Exercices’”: </p>
-<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">queryDef</span> <span class="o">=</span> <span class="nx">client</span>
-  <span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">)</span>
-  <span class="p">.</span><span class="nx">where</span><span class="p">({</span>
-    <span class="s2">&quot;category&quot;</span><span class="o">:</span> <span class="s2">&quot;sport&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;Exercices&quot;</span>
-  <span class="p">})</span>
+<p>With cozy-client, a selector is added to the query definition with the <a href="https://docs.cozy.io/en/cozy-client/api/cozy-client/#querydefinitionwhereselector-querydefinition"><code>where</code></a> method. It takes into input an object with the selector expression. For instance, this query means “the todos in &lsquo;sport’ category AND a title ‘Exercices’”:</p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">queryDef</span> <span class="o">=</span> <span class="nx">Q</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">).</span><span class="nx">where</span><span class="p">({</span>
+  <span class="nx">category</span><span class="o">:</span> <span class="s2">&quot;sport&quot;</span><span class="p">,</span>
+  <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;Exercices&quot;</span><span class="p">,</span>
+<span class="p">});</span>
 </pre></div>
 
 
 <p><code>find</code> targets the Todos database, while <code>where</code> filters the documents to return.</p>
-<p>ℹ️ When running this query, an index will automatically be created on the <code>category</code> and <code>title</code> fields. It is highly recommended to read the <a href="#index-fields">index section</a> to avoid designing poorly efficient queries (see also <a href="#mango-performances">the section on mango performances</a>). </p>
+<p>ℹ️ When running this query, an index will automatically be created on the <code>category</code> and <code>title</code> fields. It is highly recommended to read the <a href="#index-fields">index section</a> to avoid designing poorly efficient queries (see also <a href="#mango-performances">the section on mango performances</a>).</p>
 <p>ℹ️ The <code>$eq</code> and <code>$and</code> operators are implicit by default. It allows to write concise queries. Here is the explicit version of the previous query:</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">queryDef</span> <span class="o">=</span> <span class="nx">client</span>
   <span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">)</span>
@@ -3005,20 +3002,20 @@ It is highly recommended to take some time to understand how to <a href="#index-
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">queryDef</span> <span class="o">=</span> <span class="nx">client</span>
   <span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">)</span>
   <span class="p">.</span><span class="nx">where</span><span class="p">({</span>
-    <span class="s2">&quot;category&quot;</span><span class="o">:</span> <span class="s2">&quot;sport&quot;</span>
+    <span class="nx">category</span><span class="o">:</span> <span class="s2">&quot;sport&quot;</span><span class="p">,</span>
   <span class="p">})</span>
-<span class="p">.</span><span class="nx">indexFields</span><span class="p">([</span><span class="s2">&quot;category&quot;</span><span class="p">])</span>
+  <span class="p">.</span><span class="nx">indexFields</span><span class="p">([</span><span class="s2">&quot;category&quot;</span><span class="p">]);</span>
 </pre></div>
 
 
 <p>Thanks to this, cozy-client automatically creates an index on <code>category</code> before running the query for the first time and explicity tell CouchDB to use it.</p>
-<p>💡 In this example, the <code>indexField</code> method is not mandatory: cozy-client is smart enough to automatically index <code>category</code>  as it is involved in the selector. However, this automatic indexing only works for simple queries, thus, it is encouraged to explicity declare which fields to index.</p>
+<p>💡 In this example, the <code>indexField</code> method is not mandatory: cozy-client is smart enough to automatically index <code>category</code> as it is involved in the selector. However, this automatic indexing only works for simple queries, thus, it is encouraged to explicity declare which fields to index.</p>
 <p>⚠️ CouchDB evaluates if a new document should be indexed by checking if its fields match an existing index. It means that <strong>all the indexed fields must exist in the document</strong> to index it. It can be problematic for queries that needs to check if a particular field exists or not. We detail this behaviour and workarounds in the <a href="../advanced/#indexes-why-is-my-document-not-being-retrieved">&ldquo;why is my document not retrieved&rdquo; section</a>.</p>
-<p>ℹ️ If no index is used to run the query, the query response will include a <code>warning: no matching index found, create an index to optimize query time</code>. It means that your index is not properly defined, probably because some fields involved in the <code>where</code>  selector are not indexed. Note that if you use a <code>sortBy</code>, you also need to index the fields involved, as explained in <a href="#sort-data">this section</a>.</p>
+<p>ℹ️ If no index is used to run the query, the query response will include a <code>warning: no matching index found, create an index to optimize query time</code>. It means that your index is not properly defined, probably because some fields involved in the <code>where</code> selector are not indexed. Note that if you use a <code>sortBy</code>, you also need to index the fields involved, as explained in <a href="#sort-data">this section</a>.</p>
 <h3 id="index-update">Index update<a class="headerlink" href="#index-update" title="Permanent link">&para;</a></h3>
-<p>CouchDB updates the Mango indexes when the data is read, but not on writes. This implies that if one creates an index and inserts documents, the index will never be updated until a <code>find</code> query on these documents is performed. </p>
-<p>⚠️ This implies that a query performed after many writes can take a certain time to complete, as it will update the index before returning any result. Likewise, the first query after an index creation will include the index build. Hence, developers should keep this behaviour in mind when designing applications and typically might need to handle query latency. </p>
-<p>ℹ️ Starting from CouchDB 3.0.0, a <a href="https://docs.couchdb.org/en/3.0.0/config/indexbuilds.html">background indexing</a> is implemented. It aims to avoid this latency by forcing the index to update in background after writes.</p>
+<p>CouchDB updates the Mango indexes when the data is read, but not on writes. This implies that if one creates an index and inserts documents, the index will never be updated until a <code>find</code> query on these documents is performed.</p>
+<p>⚠️ This implies that a query performed after many writes can take a certain time to complete, as it will update the index before returning any result. Likewise, the first query after an index creation will include the index build. Hence, developers should keep this behaviour in mind when designing applications and typically might need to handle query latency.</p>
+<p>ℹ️ Starting from CouchDB 3.0.0, a <a href="https://docs.couchdb.org/en/stable/config/indexbuilds.html">background indexing</a> is implemented. It aims to avoid this latency by forcing the index to update in background after writes.</p>
 <h3 id="index-with-several-fields">Index with several fields<a class="headerlink" href="#index-with-several-fields" title="Permanent link">&para;</a></h3>
 <p>Here is how to declare a query asking for todos having a “work” category and a creation date starting from 2019:</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">queryDef</span> <span class="o">=</span> <span class="nx">client</span>
@@ -3040,8 +3037,8 @@ It is highly recommended to take some time to understand how to <a href="#index-
 
 <p>⚠️ The order in the <code>indexFields</code> array can be very important for performances, especially when there are both range and equality operators: you must always index the field involved in the equality operator first. This is further explained in <a href="advanced.md/#indexes-performances-and-design">this section</a>.</p>
 <h2 id="sort-data-with-mango">Sort data with Mango<a class="headerlink" href="#sort-data-with-mango" title="Permanent link">&para;</a></h2>
-<p>It is possible to express the order of the documents returned by a query, by using the <code>sort</code>  array. </p>
-<p>The sort is always done on a document field, by ascending (<code>asc</code>) or descending (<code>desc</code>) order, ascending being the default. It is possible to specify several fields to sort,  by following this structure for each field:</p>
+<p>It is possible to express the order of the documents returned by a query, by using the <code>sort</code> array.</p>
+<p>The sort is always done on a document field, by ascending (<code>asc</code>) or descending (<code>desc</code>) order, ascending being the default. It is possible to specify several fields to sort, by following this structure for each field:</p>
 <p><code>{"fieldName": "asc"|"desc"}</code></p>
 <p>For instance:</p>
 <p><code>[{"category": "asc"}, {"created_at": "asc"}]</code></p>
@@ -3053,53 +3050,53 @@ It is highly recommended to take some time to understand how to <a href="#index-
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">queryDef</span> <span class="o">=</span> <span class="nx">client</span>
   <span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">)</span>
   <span class="p">.</span><span class="nx">where</span><span class="p">({</span>
-    <span class="s2">&quot;category&quot;</span><span class="o">:</span> <span class="s2">&quot;sport&quot;</span><span class="p">,</span>
+    <span class="nx">category</span><span class="o">:</span> <span class="s2">&quot;sport&quot;</span><span class="p">,</span>
   <span class="p">})</span>
-  <span class="p">.</span><span class="nx">indexFields</span><span class="p">([</span><span class="s2">&quot;category&quot;</span><span class="p">,</span> <span class="s2">&quot;created_at&quot;</span><span class="p">])</span>
-  <span class="p">.</span><span class="nx">sortBy</span><span class="p">[{</span><span class="s2">&quot;category&quot;</span><span class="o">:</span> <span class="s2">&quot;asc&quot;</span><span class="p">},</span> <span class="p">{</span><span class="s2">&quot;created_at&quot;</span><span class="o">:</span> <span class="s2">&quot;asc&quot;</span><span class="p">}]</span>
+  <span class="p">.</span><span class="nx">indexFields</span><span class="p">([</span><span class="s2">&quot;category&quot;</span><span class="p">,</span> <span class="s2">&quot;created_at&quot;</span><span class="p">]).</span><span class="nx">sortBy</span><span class="p">[</span>
+  <span class="p">({</span> <span class="nx">category</span><span class="o">:</span> <span class="s2">&quot;asc&quot;</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">created_at</span><span class="o">:</span> <span class="s2">&quot;asc&quot;</span> <span class="p">})</span>
+<span class="p">];</span>
 </pre></div>
 
 
-<p>⚠️ If the fields involved in the <code>sortBy</code> are not indexed, this will force CouchDB to make the sort  in memory: this can be acceptable if the query returns few documents, but it is not efficient for large queries.</p>
-<p>⚠️ At least one of the sort fields must be included in the <code>where</code> selector. If you create an index on <code>category</code> and query it to sort on it, but with no <code>where</code> selector, the index won&rsquo;t be used. </p>
+<p>⚠️ If the fields involved in the <code>sortBy</code> are not indexed, this will force CouchDB to make the sort in memory: this can be acceptable if the query returns few documents, but it is not efficient for large queries.</p>
+<p>⚠️ At least one of the sort fields must be included in the <code>where</code> selector. If you create an index on <code>category</code> and query it to sort on it, but with no <code>where</code> selector, the index won&rsquo;t be used.</p>
 <p>⚠️ If several fields are indexed, their order is important: the sort order must follow the indexed fields order. In this example, we index <code>category</code> and <code>created_at</code> in this order: by doing so, it is not possible to sort only on <code>created_at</code>. We would need to index <code>created_at</code> first to achieve this, but this is not recommended for performances, as explained in <a href="../advanced/#indexes-performances-and-design">this section</a>.
 See also the examples provided in the <a href="https://pouchdb.com/guides/mango-queries.html#more-than-one-field">PouchDB documentation</a>.</p>
 <p>⚠️ Be aware that cozy-client sort documents too after a query using <code>sortBy</code> but, for now, with a different sorting logic than couchDB. <a href="https://github.com/cozy/cozy-client/issues/790">See this cozy-client issue</a> for more informations</p>
 <h2 id="pagination">Pagination<a class="headerlink" href="#pagination" title="Permanent link">&para;</a></h2>
 <p>When dealing with queries returning a lot of documents, e.g. thousands, it might be necessary to paginate the results to avoid huge network payloads and having to load everything in memory, both on the server and client sides.</p>
-<p>The pagination consists of splitting the results in “pages”: if a query matches 100.000 documents, one can paginate it, for example by actually running 1000 queries returning 100 documents each. 
+<p>The pagination consists of splitting the results in “pages”: if a query matches 100.000 documents, one can paginate it, for example by actually running 1000 queries returning 100 documents each.
 By doing so, the server only keeps 100 documents in memory for each query, and the client can control the data flow, for example, by implementing a “Load more” button that actually runs a paginated query and loads the 100 next documents.</p>
 <p>With mango queries, the recommended method to paginate is through the <code>bookmark</code> parameter, that works exactly as it name suggests: it consists of a string returned by CouchDB that corresponds to the page position in the index. Just like an actual bookmark is used to mark a particular page in a book.</p>
-<p>With cozy-client, we can use the  <a href="https://docs.cozy.io/en/cozy-client/api/cozy-client/#querydefinitionoffsetbookmarkbookmark-querydefinition"><code>offsetBookmark</code></a> method to paginate:</p>
-<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">queryDef</span> <span class="o">=</span> <span class="nx">client</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">).</span><span class="nx">limitBy</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">docs</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="kd">let</span> <span class="nx">resp</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">next</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}</span>
+<p>With cozy-client, we can use the <a href="https://docs.cozy.io/en/cozy-client/api/cozy-client/#querydefinitionoffsetbookmarkbookmark-querydefinition"><code>offsetBookmark</code></a> method to paginate:</p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">docs</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="kd">let</span> <span class="nx">resp</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">next</span><span class="o">:</span> <span class="kc">true</span> <span class="p">};</span>
 <span class="k">while</span> <span class="p">(</span><span class="nx">resp</span> <span class="o">&amp;&amp;</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">resp</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">queryDef</span><span class="p">.</span><span class="nx">offsetBookmark</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">bookmark</span><span class="p">))</span>
-  <span class="nx">docs</span><span class="p">.</span><span class="nx">push</span><span class="p">(...</span><span class="nx">resp</span><span class="p">.</span><span class="nx">data</span><span class="p">)</span>
+  <span class="nx">resp</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span>
+    <span class="nx">Q</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">).</span><span class="nx">limitBy</span><span class="p">(</span><span class="mi">200</span><span class="p">).</span><span class="nx">offsetBookmark</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">bookmark</span><span class="p">)</span>
+  <span class="p">);</span>
+  <span class="nx">docs</span><span class="p">.</span><span class="nx">push</span><span class="p">(...</span><span class="nx">resp</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 
 
 <p>ℹ️ By default, cozy-client has a limit of 100 documents per query, you can calibrate it thanks to the <a href="https://docs.cozy.io/en/cozy-client/api/cozy-client/#querydefinitionlimitbylimit-querydefinition"><code>limitBy</code></a> method.</p>
-<p>ℹ️ There is a hard limit per query enforced in the cozy-stack to avoid memory leaks. Currently, this limit is set to <a href="https://github.com/cozy/cozy-stack/blob/331f6f39402dc7ec38ecf2f5ff408a1b5cf3d730/pkg/consts/consts.go#L71">1000</a>. </p>
+<p>ℹ️ There is a hard limit per query enforced in the cozy-stack to avoid memory leaks. Currently, this limit is set to <a href="https://github.com/cozy/cozy-stack/blob/331f6f39402dc7ec38ecf2f5ff408a1b5cf3d730/pkg/consts/consts.go#L71">1000</a>.</p>
 <p>ℹ️ The <code>next</code> parameter provided in the <code>query</code> response is handled by cozy-client and is set to <code>true</code> when it detects that there are more pages to fetch.</p>
 <h3 id="get-them-all">Get them all!<a class="headerlink" href="#get-them-all" title="Permanent link">&para;</a></h3>
 <p>When pagination is not required by the client, cozy-client offers the <a href="https://docs.cozy.io/en/cozy-client/api/cozy-client/#cozyclientqueryallquerydefinition-options-array"><code>queryAll</code></a> method:</p>
-<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">queryDef</span> <span class="o">=</span> <span class="nx">client</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">docs</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">queryAll</span><span class="p">(</span><span class="nx">queryDef</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">docs</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">queryAll</span><span class="p">(</span><span class="nx">Q</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">));</span>
 </pre></div>
 
 
 <p>Note that it will actually automatically paginate if the total number of documents to return is superior to the <code>limit</code> (100 by default): this avoids loading too many documents in memory on the server side.
 However, it is possible to overcome this pagination by passing <code>limit: null</code>: in this case, cozy-client will request the <a href="https://docs.couchdb.org/en/stable/api/database/bulk-api.html#db-all-docs"><code>_all_docs</code> endpoint</a> and retrieve all the documents in one query. This endpoint is automatically created by CouchDB and is actually a <a href="#views">view</a> on the <code>_id</code> key.</p>
 <p>Thus, doing this will actually query the <code>_all_docs</code> endpoint and return all the documents in one request:</p>
-<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">queryDef</span> <span class="o">=</span> <span class="nx">client</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">docs</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">queryDef</span><span class="p">,</span> <span class="p">{</span><span class="nx">limit</span><span class="o">:</span> <span class="kc">null</span><span class="p">})</span>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">docs</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">Q</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">),</span> <span class="p">{</span> <span class="nx">limit</span><span class="o">:</span> <span class="kc">null</span> <span class="p">});</span>
 </pre></div>
 
 
-<p>⚠️ When querying this endpoint, the response includes the <a href="https://docs.couchdb.org/en/master/ddocs/index.html">design docs</a>, which are the Mango indexes and views definitions.  Those documents are automatically filtered for the paginated queries.</p>
+<p>⚠️ When querying this endpoint, the response includes the <a href="https://docs.couchdb.org/en/master/ddocs/index.html">design docs</a>, which are the Mango indexes and views definitions. Those documents are automatically filtered for the paginated queries.</p>
 <p>⚠️ This method is faster than the pagination as it avoids to make several server requests. However, if there are many documents to return, <code>_all_docs</code> queries can take a lot of time to complete and even timeout. It also consumes server resources. Hence, you should be cautious when using this route.</p>
 <h2 id="sort-in-couchdb">Sort in CouchDB<a class="headerlink" href="#sort-in-couchdb" title="Permanent link">&para;</a></h2>
 <p>When dealing with various types of data, the ascending sort order is the following:</p>
@@ -3112,7 +3109,7 @@ However, it is possible to overcome this pagination by passing <code>limit: null
 <li>objects</li>
 </ul>
 <p>See the <a href="https://docs.couchdb.org/en/2.3.1/ddocs/views/collation.html#collation-specification">CouchDB documentation</a> for more details on the sort orders.</p>
-<p>ℹ️ The sort order is the same for Mango queries and views. </p>
+<p>ℹ️ The sort order is the same for Mango queries and views.</p>
 <h3 id="comparison-of-strings">Comparison of strings<a class="headerlink" href="#comparison-of-strings" title="Permanent link">&para;</a></h3>
 <p>Comparison of strings is done using ICU which implements the Unicode Collation Algorithm, giving a dictionary sorting of keys. This can give surprising results if you were expecting ASCII ordering. Note that:</p>
 <ul>
@@ -3121,9 +3118,9 @@ However, it is possible to overcome this pagination by passing <code>limit: null
 <li>Identical sequences of letters are compared with regard to case, with lowercase before uppercase, so <code>a &lt; A</code>.</li>
 </ul>
 <h2 id="views">Views<a class="headerlink" href="#views" title="Permanent link">&para;</a></h2>
-<p>⚠️ In Cozy, we disabled by default the possibility to create views from applications. Consequently, <a href="https://github.com/cozy/cozy-client">cozy-client</a> does not support view creation, because they are disabled for applications. See the <a href="../advanced/#views-performances">view performances</a> section to find out why. </p>
-<p><a href="https://docs.couchdb.org/en/2.3.1/ddocs/views/index.html">CouchDB views</a> are another way to express queries in Cozy, used by the <a href="https://github.com/cozy/cozy-stack/blob/331f6f39402dc7ec38ecf2f5ff408a1b5cf3d730/pkg/couchdb/index.go#L48-L229">cozy-stack</a>. It consists of creating <a href="https://en.wikipedia.org/wiki/MapReduce">map-reduce</a> functions, where the <code>map</code> is used to qualify which documents should be indexed, and the optional <code>reduce</code>  can be used to compute aggregate functions on them.</p>
-<p>Views are much more flexible than Mango queries, as the <code>map</code>  is a user-defined function (UDF) that can be written in JavaScript.</p>
+<p>⚠️ In Cozy, we disabled by default the possibility to create views from applications. Consequently, <a href="https://github.com/cozy/cozy-client">cozy-client</a> does not support view creation, because they are disabled for applications. See the <a href="../advanced/#views-performances">view performances</a> section to find out why.</p>
+<p><a href="https://docs.couchdb.org/en/2.3.1/ddocs/views/index.html">CouchDB views</a> are another way to express queries in Cozy, used by the <a href="https://github.com/cozy/cozy-stack/blob/331f6f39402dc7ec38ecf2f5ff408a1b5cf3d730/pkg/couchdb/index.go#L48-L229">cozy-stack</a>. It consists of creating <a href="https://en.wikipedia.org/wiki/MapReduce">map-reduce</a> functions, where the <code>map</code> is used to qualify which documents should be indexed, and the optional <code>reduce</code> can be used to compute aggregate functions on them.</p>
+<p>Views are much more flexible than Mango queries, as the <code>map</code> is a user-defined function (UDF) that can be written in JavaScript.</p>
 <p>For example:</p>
 <div class="codehilite"><pre><span></span><span class="kd">function</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span><span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">category</span> <span class="o">&amp;&amp;</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">created_at</span><span class="p">)</span> <span class="p">{</span>
@@ -3137,7 +3134,7 @@ However, it is possible to overcome this pagination by passing <code>limit: null
 <p>ℹ️ Behind the hoods, views are represented exactly like the Mango queries: both use <a href="../advanced/#indexes-concepts">B+ Tree</a>, with values stored in the leafs.</p>
 <h3 id="query-a-view">Query a view<a class="headerlink" href="#query-a-view" title="Permanent link">&para;</a></h3>
 <p>Just like Mango queries, views are particularly suited for equality and range queries. See the <a href="https://docs.couchdb.org/en/2.3.1/api/ddoc/views.html">CouchDB documentation</a> to know more about the API.</p>
-<p>To find a specific document, use the  <code>key</code> parameter:</p>
+<p>To find a specific document, use the <code>key</code> parameter:</p>
 <p><code>key="sport"</code></p>
 <p>To find a range, combine the <code>startkey</code> and <code>endkey</code> parameters:</p>
 <p><code>startkey="category0001"&amp;endkey="category0009"</code></p>

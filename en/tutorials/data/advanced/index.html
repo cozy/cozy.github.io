@@ -2729,8 +2729,8 @@
 <h2 id="indexes-concepts">Indexes: concepts<a class="headerlink" href="#indexes-concepts" title="Permanent link">&para;</a></h2>
 <h3 id="but-why-though">But why, though?<a class="headerlink" href="#but-why-though" title="Permanent link">&para;</a></h3>
 <p>In order to efficiently filter documents through selectors and sort them, it is important to correctly index data. An index is a way to organize documents in order to retrieve them faster.</p>
-<p>To give a simple and non-database comparison, a recipe book might have an index listing all the recipes by their name with their page number. If the reader is looking for a particular recipe, this index avoids him to scan the full book to find it. </p>
-<p>The principle is the same for databases index: we want to avoid scanning the whole database each time we are looking for specific data expressed by a selector: even though computers are way faster than humans to scan data, this task can be very time-consuming when dealing with thousands or millions of documents. </p>
+<p>To give a simple and non-database comparison, a recipe book might have an index listing all the recipes by their name with their page number. If the reader is looking for a particular recipe, this index avoids him to scan the full book to find it.</p>
+<p>The principle is the same for databases index: we want to avoid scanning the whole database each time we are looking for specific data expressed by a selector: even though computers are way faster than humans to scan data, this task can be very time-consuming when dealing with thousands or millions of documents.</p>
 <p>In more formal terms, time complexity of a query run on a database with <code>n</code> documents will be <code>O(n)</code> without index, as it requires to scan all documents. In CouchDB, the indexes are actually <a href="https://en.wikipedia.org/wiki/B%2B_tree">B+ Trees</a>, a structure derived from the <a href="https://en.wikipedia.org/wiki/B-tree">B-Trees</a>, that perform in <code>O(log(n))</code> in average, which guarantees a very fast access time even in large datasets.</p>
 <blockquote>
 <p>From a practical point of view, B-trees, therefore, guarantee an access time of less than 10 ms even for extremely large datasets.</p>
@@ -2738,8 +2738,8 @@
 </blockquote>
 <h3 id="b-tree">B+ Tree<a class="headerlink" href="#b-tree" title="Permanent link">&para;</a></h3>
 <p>CouchDB indexes are B+ Trees. It means that indexed fields, here <em>keys</em>, are organized as a tree, with the documents stored in the leafs nodes. So, finding a particular document means browsing the tree, from the root to the leaf.<br />
-In each node, a key has two children: the left child has all its keys inferior to the parent, while the right child has all its keys superior to the parent. </p>
-<p>In the Figure below, borrowed from the <a href="https://guide.couchdb.org/editions/1/en/btree.html">CouchDB guide</a>, you see that each node has three keys. In CouchDB implementation, a B+ Tree node can actually store more than 1600 keys. </p>
+In each node, a key has two children: the left child has all its keys inferior to the parent, while the right child has all its keys superior to the parent.</p>
+<p>In the Figure below, borrowed from the <a href="https://guide.couchdb.org/editions/1/en/btree.html">CouchDB guide</a>, you see that each node has three keys. In CouchDB implementation, a B+ Tree node can actually store more than 1600 keys.</p>
 <div align="center">
   <img src="../../../img/dev/manipulate-data/b-tree.png" />
   <figcaption>B+ Tree</figcaption>
@@ -2751,51 +2751,51 @@ In each node, a key has two children: the left child has all its keys inferior t
 <p>ℹ️ When indexing several document fields in the same index, the key is actually an array of those fields, e.g. an index on <code>["category", "created_at"]</code> would give keys such as <code>["sport", "2019-01-01"]</code>.</p>
 <p>ℹ️ A key does not have to be unique. Actually, it is often useful to group document per key, e.g. a <code>category</code> key can return many document with the same key value, like <code>sport</code>, <code>work</code>, etc.</p>
 <h2 id="indexes-why-is-my-document-not-being-retrieved">Indexes: why is my document not being retrieved?<a class="headerlink" href="#indexes-why-is-my-document-not-being-retrieved" title="Permanent link">&para;</a></h2>
-<p>At indexing time, CouchDB evaluates if a new document should be indexed by checking if its fields match an existing index. It means that <strong>all the indexed fields must exist in the document</strong> to index it. It can be problematic for queries that need to check if a particular field exists or not. </p>
+<p>At indexing time, CouchDB evaluates if a new document should be indexed by checking if its fields match an existing index. It means that <strong>all the indexed fields must exist in the document</strong> to index it. It can be problematic for queries that need to check if a particular field exists or not.</p>
 <p>For example, this query won’t work:</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">queryDef</span> <span class="o">=</span> <span class="nx">client</span>
   <span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">)</span>
   <span class="p">.</span><span class="nx">where</span><span class="p">({</span>
-    <span class="s2">&quot;category&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;$exists&quot;</span><span class="o">:</span> <span class="kc">false</span>    
-    <span class="p">}</span>
+    <span class="nx">category</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">$exists</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="p">},</span>
   <span class="p">})</span>
-<span class="p">.</span><span class="nx">indexFields</span><span class="p">([</span><span class="s2">&quot;category&quot;</span><span class="p">])</span>
+  <span class="p">.</span><span class="nx">indexFields</span><span class="p">([</span><span class="s2">&quot;category&quot;</span><span class="p">]);</span>
 </pre></div>
 
 
 <p>Here, we want to get all the todos without a <code>category</code> field. However, those documents will never be indexed, precisely because the field is missing.</p>
-<p>Hence, think carefully about your data before hand and do not use queries with <code>$exists: false</code> whenever possible. If a field is missing, it might be better to add a  <code>null</code> value so that your documents do not have any missing fields. If this is not possible for some reasons, here is another possible solution - yet not very efficient:</p>
+<p>Hence, think carefully about your data before hand and do not use queries with <code>$exists: false</code> whenever possible. If a field is missing, it might be better to add a <code>null</code> value so that your documents do not have any missing fields. If this is not possible for some reasons, here is another possible solution - yet not very efficient:</p>
 <p>⚠️ Not efficient workaround</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">queryDef</span> <span class="o">=</span> <span class="nx">client</span>
   <span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">)</span>
   <span class="p">.</span><span class="nx">where</span><span class="p">({</span>
-    <span class="s2">&quot;_id&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;$gt&quot;</span><span class="o">:</span> <span class="kc">null</span>
+    <span class="nx">_id</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">$gt</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
     <span class="p">},</span>
-    <span class="s2">&quot;category&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;$exists&quot;</span><span class="o">:</span> <span class="kc">false</span>    
-    <span class="p">}</span>
+    <span class="nx">category</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">$exists</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="p">},</span>
   <span class="p">})</span>
-<span class="p">.</span><span class="nx">indexFields</span><span class="p">([</span><span class="s2">&quot;_id&quot;</span><span class="p">])</span>
+  <span class="p">.</span><span class="nx">indexFields</span><span class="p">([</span><span class="s2">&quot;_id&quot;</span><span class="p">]);</span>
 </pre></div>
 
 
-<p>Here, we force an index on the <code>_id</code>, which always exists in any CouchDB document, and ask all the documents with <code>"_id": { "$gt": null }</code>. The <code>category</code> is not indexed so the documents without this field will enter the index. 
-This is not efficient as it implies that the <code>"category": { "$exists": false }</code> condition will be evaluated in memory by CouchDB for all the documents of the database, thus making a full index scan. </p>
+<p>Here, we force an index on the <code>_id</code>, which always exists in any CouchDB document, and ask all the documents with <code>"_id": { "$gt": null }</code>. The <code>category</code> is not indexed so the documents without this field will enter the index.
+This is not efficient as it implies that the <code>"category": { "$exists": false }</code> condition will be evaluated in memory by CouchDB for all the documents of the database, thus making a full index scan.</p>
 <h2 id="indexes-performances-and-design">Indexes: performances and design<a class="headerlink" href="#indexes-performances-and-design" title="Permanent link">&para;</a></h2>
 <p>When designing indexes on several fields, one should keep in mind that they are actually B+ Tree, as explained in this <a href="#indexes-concepts">section</a>. This can be helpful to design efficient queries and avoid performance traps.</p>
 <p>To illustrate this, let’s assume you have declared this query, to get all the &ldquo;work&rdquo; todos created in 2019:</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">queryDef</span> <span class="o">=</span> <span class="nx">client</span>
   <span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">)</span>
   <span class="p">.</span><span class="nx">where</span><span class="p">({</span>
-    <span class="s2">&quot;created_at&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;$ge&quot;</span><span class="o">:</span> <span class="s2">&quot;2019-01-01&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;$lt&quot;</span><span class="o">:</span> <span class="s2">&quot;2020-01-01&quot;</span>
+    <span class="nx">created_at</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">$ge</span><span class="o">:</span> <span class="s2">&quot;2019-01-01&quot;</span><span class="p">,</span>
+      <span class="nx">$lt</span><span class="o">:</span> <span class="s2">&quot;2020-01-01&quot;</span><span class="p">,</span>
     <span class="p">},</span>
-    <span class="s2">&quot;category&quot;</span><span class="o">:</span> <span class="s2">&quot;work&quot;</span>
+    <span class="nx">category</span><span class="o">:</span> <span class="s2">&quot;work&quot;</span><span class="p">,</span>
   <span class="p">})</span>
-<span class="p">.</span><span class="nx">indexFields</span><span class="p">([</span><span class="s2">&quot;created_at&quot;</span><span class="p">,</span> <span class="s2">&quot;category&quot;</span><span class="p">])</span>
+  <span class="p">.</span><span class="nx">indexFields</span><span class="p">([</span><span class="s2">&quot;created_at&quot;</span><span class="p">,</span> <span class="s2">&quot;category&quot;</span><span class="p">]);</span>
 </pre></div>
 
 
@@ -2849,7 +2849,7 @@ This is not efficient as it implies that the <code>"category": { "$exists": fals
 
 <p>This shows how the data is organized in the index: it is primarily sorted by <code>created_at</code> and then by <code>category</code>. First, the query is looking for all the todos starting from <code>"2019-01-01"</code> and before <code>"2020-01-01"</code>. It easily finds this range in the B+ Tree; but now it must also filter all the results to only keep the rows with <code>category: work</code>.
 And this cannot be done through the B+ Tree, because matching rows are not contiguous, as shown in green in the table: this means that CouchDB is forced to perform the <code>category</code> condition in memory, leading to bad performances.</p>
-<p>💡 Hopefully, this example can be easily be solved by switching the index fields order: </p>
+<p>💡 Hopefully, this example can be easily be solved by switching the index fields order:</p>
 <p><code>.indexFields(["category", "created_at"])</code></p>
 <p>The data is now organized as follow:</p>
 <table>
@@ -2907,22 +2907,22 @@ And this cannot be done through the B+ Tree, because matching rows are not conti
   </tbody>
 </table>
 
-<p>Now, the very same query can be efficiently processed: the <code>category: work</code> is first evaluated in the B+ Tree, which return all the relevant rows, sorted by <code>created_at</code>. Then, the range is easily found now that all the rows are contiguous. </p>
-<p>💡 The main takeaway here is: when dealing with a query with both equality and range, you must first index the equality field. 
+<p>Now, the very same query can be efficiently processed: the <code>category: work</code> is first evaluated in the B+ Tree, which return all the relevant rows, sorted by <code>created_at</code>. Then, the range is easily found now that all the rows are contiguous.</p>
+<p>💡 The main takeaway here is: when dealing with a query with both equality and range, you must first index the equality field.
 If you are interested about this, you can learn more <a href="https://use-the-index-luke.com/sql/where-clause/searching-for-ranges/greater-less-between-tuning-sql-access-filter-predicates">here</a>. Even though it is SQL-oriented, it also applies for CouchDB as the B-Tree indexing logic is the same.</p>
 <p>💡 When creating an index, carefully think about how your data will be organized and which query will need to perfom. The performances can dramatically vary depending on your design, with several orders of magnitude.</p>
 <p>💡 The problematic and consequences of the not contiguous rows is further explain in the partial indexes <a href="#partial-indexes">section</a>.</p>
 <h2 id="partial-indexes">Partial indexes<a class="headerlink" href="#partial-indexes" title="Permanent link">&para;</a></h2>
-<p>In CouchDB, a document is indexed only if its fields matches an existing index. As a consequence, it is not possible to perform efficient queries on non-existing fields. </p>
+<p>In CouchDB, a document is indexed only if its fields matches an existing index. As a consequence, it is not possible to perform efficient queries on non-existing fields.</p>
 <p>For instance, the query below does not work, because it searches for document without the <code>category</code> field, but the absence of this field will cause such documents to never be indexed, as previously explained <a href="#indexes-why-is-my-document-not-being-retrieved">here</a>:</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">queryDef</span> <span class="o">=</span> <span class="nx">client</span>
   <span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">)</span>
   <span class="p">.</span><span class="nx">where</span><span class="p">({</span>
-    <span class="s2">&quot;category&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;$exists&quot;</span><span class="o">:</span> <span class="kc">false</span>    
-    <span class="p">}</span>
+    <span class="nx">category</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">$exists</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="p">},</span>
   <span class="p">})</span>
-<span class="p">.</span><span class="nx">indexFields</span><span class="p">([</span><span class="s2">&quot;category&quot;</span><span class="p">])</span>
+  <span class="p">.</span><span class="nx">indexFields</span><span class="p">([</span><span class="s2">&quot;category&quot;</span><span class="p">]);</span>
 </pre></div>
 
 
@@ -2930,31 +2930,31 @@ If you are interested about this, you can learn more <a href="https://use-the-in
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">queryDef</span> <span class="o">=</span> <span class="nx">client</span>
   <span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">)</span>
   <span class="p">.</span><span class="nx">where</span><span class="p">({</span>
-    <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;Exercices&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;category&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;$ne&quot;</span><span class="o">:</span> <span class="s2">&quot;sport&quot;</span>  
-    <span class="p">}</span>    
+    <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;Exercices&quot;</span><span class="p">,</span>
+    <span class="nx">category</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">$ne</span><span class="o">:</span> <span class="s2">&quot;sport&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
   <span class="p">})</span>
-  <span class="p">.</span><span class="nx">indexFields</span><span class="p">([</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;category&quot;</span><span class="p">])</span>
+  <span class="p">.</span><span class="nx">indexFields</span><span class="p">([</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="s2">&quot;category&quot;</span><span class="p">]);</span>
 </pre></div>
 
 
 <p>As the <code>$ne</code> operator cannot guarantee contiguous rows, it needs to scan all the index on documents with the <code>"title": "Exercices"</code> to find those that are not in the sport <code>category</code>.</p>
 <p><a href="https://docs.couchdb.org/en/2.3.1/api/database/find.html#find-partial-indexes">Partial indexes</a> are a way to circumvent this issue. They allow to define a partial selector condition that will be evaluated at the indexing time, and will add the document in the index if it matches the condition.
-Thanks to this, it becomes possible to tell CouchDB at indexing time to exlude documents that do not match the condition, e.g. <code>"category": { "$exists": false}</code> or  <code>"category": { "$ne": "sport"}</code>.</p>
+Thanks to this, it becomes possible to tell CouchDB at indexing time to exlude documents that do not match the condition, e.g. <code>"category": { "$exists": false}</code> or <code>"category": { "$ne": "sport"}</code>.</p>
 <p>Hence, the produced index will only include documents that already matched the partial filter selector, making it possible to query them, as this selector enforces contiguous rows or documents with missing fields.</p>
 <p>You can declare a partial index in cozy-client like this:</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">queryDef</span> <span class="o">=</span> <span class="nx">client</span>
   <span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">)</span>
   <span class="p">.</span><span class="nx">where</span><span class="p">({</span>
-    <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;Exercices&quot;</span><span class="p">,</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;Exercices&quot;</span><span class="p">,</span>
   <span class="p">})</span>
   <span class="p">.</span><span class="nx">partialIndex</span><span class="p">({</span>
-    <span class="s2">&quot;category&quot;</span><span class="o">:</span> <span class="p">{</span>
-      <span class="s2">&quot;$ne&quot;</span><span class="o">:</span> <span class="s2">&quot;sport&quot;</span>  
-    <span class="p">}</span>
+    <span class="nx">category</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">$ne</span><span class="o">:</span> <span class="s2">&quot;sport&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
   <span class="p">})</span>
-  <span class="p">.</span><span class="nx">indexFields</span><span class="p">([</span><span class="s2">&quot;title&quot;</span><span class="p">])</span>
+  <span class="p">.</span><span class="nx">indexFields</span><span class="p">([</span><span class="s2">&quot;title&quot;</span><span class="p">]);</span>
 </pre></div>
 
 
@@ -2963,27 +2963,29 @@ Thanks to this, it becomes possible to tell CouchDB at indexing time to exlude d
 <h2 id="mango-pagination-performances">Mango pagination: performances<a class="headerlink" href="#mango-pagination-performances" title="Permanent link">&para;</a></h2>
 <p>With mango queries, the recommanded method to paginate is through the <code>bookmark</code> parameter. However, one could also notice the <code>skip</code> parameter in the CouchDB <a href="https://docs.couchdb.org/en/2.3.1/api/database/find.html">API</a> and be tempted to paginate with it.</p>
 <p>We detail here why you should <strong>never use</strong> <code>skip</code> to paginate and use <code>bookmark</code> instead. We explain it for exhaustiveness and to prevent developers to fall into this trap.</p>
-<p>This method consists of specifying a <code>limit</code> to the query, which is the maximum number of documents to return, and a  <code>skip</code> parameter that is the number of documents returned so far. With cozy-client, its is expressed through <code>limitBy</code> and <code>offset</code>.</p>
+<p>This method consists of specifying a <code>limit</code> to the query, which is the maximum number of documents to return, and a <code>skip</code> parameter that is the number of documents returned so far. With cozy-client, its is expressed through <code>limitBy</code> and <code>offset</code>.</p>
 <p>⚠️ Do not use this:</p>
-<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">queryDef</span> <span class="o">=</span> <span class="nx">client</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">).</span><span class="nx">limitBy</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">docs</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="kd">let</span> <span class="nx">resp</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">next</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">data</span><span class="o">:</span> <span class="p">[]</span> <span class="p">}</span>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">docs</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="kd">let</span> <span class="nx">resp</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">next</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">data</span><span class="o">:</span> <span class="p">[]</span> <span class="p">};</span>
 <span class="k">while</span> <span class="p">(</span><span class="nx">resp</span> <span class="o">&amp;&amp;</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">resp</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">queryDef</span><span class="p">.</span><span class="nx">offset</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">length</span><span class="p">))</span>
-  <span class="nx">docs</span><span class="p">.</span><span class="nx">push</span><span class="p">(...</span><span class="nx">resp</span><span class="p">.</span><span class="nx">data</span><span class="p">)</span>
+  <span class="nx">resp</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span>
+    <span class="nx">Q</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">).</span><span class="nx">limitBy</span><span class="p">(</span><span class="mi">200</span><span class="p">).</span><span class="nx">offset</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span>
+  <span class="p">);</span>
+  <span class="nx">docs</span><span class="p">.</span><span class="nx">push</span><span class="p">(...</span><span class="nx">resp</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 
 
-<p>This method is very bad for performances because it actually breaks the B+ Tree indexing logic: there is no way to efficiently skip a fixed number of data in such a tree, so skipping documents consists of normally running the query and then splitting the results starting from the <code>skip</code>  number of documents. Thus, the performances quickly degrade when there are many documents to skip.</p>
+<p>This method is very bad for performances because it actually breaks the B+ Tree indexing logic: there is no way to efficiently skip a fixed number of data in such a tree, so skipping documents consists of normally running the query and then splitting the results starting from the <code>skip</code> number of documents. Thus, the performances quickly degrade when there are many documents to skip.</p>
 <p>On the contrary, the <code>bookmark</code> method is very efficient as it preserves the B+ Tree logic. One can see a <code>bookmark</code> as a pointer to start the query in the tree.</p>
 <p>💡 Use this:</p>
-<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">queryDef</span> <span class="o">=</span> <span class="nx">client</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">).</span><span class="nx">limitBy</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">docs</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="kd">let</span> <span class="nx">resp</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">next</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}</span>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">docs</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="kd">let</span> <span class="nx">resp</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">next</span><span class="o">:</span> <span class="kc">true</span> <span class="p">};</span>
 <span class="k">while</span> <span class="p">(</span><span class="nx">resp</span> <span class="o">&amp;&amp;</span> <span class="nx">resp</span><span class="p">.</span><span class="nx">next</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">resp</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">queryDef</span><span class="p">.</span><span class="nx">offsetBookmark</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">bookmark</span><span class="p">))</span>
-  <span class="nx">docs</span><span class="p">.</span><span class="nx">push</span><span class="p">(...</span><span class="nx">resp</span><span class="p">.</span><span class="nx">data</span><span class="p">)</span>
+  <span class="nx">resp</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span>
+    <span class="nx">Q</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">).</span><span class="nx">limitBy</span><span class="p">(</span><span class="mi">200</span><span class="p">).</span><span class="nx">offsetBookmark</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">bookmark</span><span class="p">)</span>
+  <span class="p">);</span>
+  <span class="nx">docs</span><span class="p">.</span><span class="nx">push</span><span class="p">(...</span><span class="nx">resp</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -2995,16 +2997,16 @@ For more details, see this great <a href="https://www.garrensmith.com/blogs/fort
 <p>See also the <a href="./#couchdb-performances">CouchDB benchmark</a> we performed.</p>
 <p>As quoted from the <a href="https://docs.couchdb.org/en/2.3.1/maintenance/performance.html#views-generation">CouchDB documentation</a>:</p>
 <blockquote>
-<p>Views with the JavaScript query server are extremely slow to generate when there are a non-trivial number of documents to process. </p>
+<p>Views with the JavaScript query server are extremely slow to generate when there are a non-trivial number of documents to process.</p>
 <p>A 10 million document database took about 4 hours to do view generation</p>
 </blockquote>
 <p>Let alone the very slow indexing time, this also requires a lot of server CPU to build views. Hence, applications cannot create views to ensure the scalability of Cozy.</p>
 <p>ℹ️ Mango queries are directly interpreted in Erlang and therefore do not suffer from the same limitations.</p>
 <p>❌ It is possible to express views in Erlang and thus circumvent this performance issues. However, this is completely forbidden in Cozy, because of the security: doing so requires to enable the Erlang query server that needs root access to the CouchDB server, as explained in the <a href="https://docs.couchdb.org/en/2.3.1/config/query-servers.html#config-native-query-servers">CouchDB documentation</a>. This would break the isolation system and let open the possibilty to define adversary UDF functions.</p>
 <h2 id="views-pagination">Views: pagination<a class="headerlink" href="#views-pagination" title="Permanent link">&para;</a></h2>
-<p>The CouchDB views does not implement the Mango queries  <code>bookmark</code> system. However, it is still possible to paginate results efficiently by using a <code>cursor</code>. 
+<p>The CouchDB views does not implement the Mango queries <code>bookmark</code> system. However, it is still possible to paginate results efficiently by using a <code>cursor</code>.
 This method, described in the <a href="https://docs.couchdb.org/en/2.3.1/ddocs/views/pagination.html#paging-alternate-method">CouchDB documentation</a>, combines the <code>startkey</code> and <code>startkey_docid</code> parameters.</p>
-<p>For each query, get the last returned document and extract the searched key as well as the <code>_id</code> to respectively set the next <code>startkey</code> and <code>startkey_docid</code>  query parameters. </p>
+<p>For each query, get the last returned document and extract the searched key as well as the <code>_id</code> to respectively set the next <code>startkey</code> and <code>startkey_docid</code> query parameters.</p>
 <p>See this <a href="https://github.com/cozy/cozy-client/blob/0a31ec888c16d9ec1620aae3a1ec001274c0eea4/packages/cozy-client/src/associations/HasManyFiles.js#L12-L42">cursor pagination example</a> in cozy-client.</p>
 <h2 id="revisions">Revisions<a class="headerlink" href="#revisions" title="Permanent link">&para;</a></h2>
 <p>CouchDB keeps for each document a list of its revision (or more exactly a tree with replication and conflicts).
@@ -3028,10 +3030,7 @@ Let&rsquo;s assume the following document with the revision history <code>[1-abc
   <span class="nt">&quot;_rev&quot;</span><span class="p">:</span> <span class="s2">&quot;2-def&quot;</span><span class="p">,</span>
   <span class="nt">&quot;bar&quot;</span><span class="p">:</span> <span class="s2">&quot;tender&quot;</span><span class="p">,</span>
   <span class="nt">&quot;_revisions&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;ids&quot;</span><span class="p">:</span> <span class="p">[</span>
-      <span class="s2">&quot;def&quot;</span><span class="p">,</span>
-      <span class="s2">&quot;abc&quot;</span>
-    <span class="p">]</span>
+    <span class="nt">&quot;ids&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;def&quot;</span><span class="p">,</span> <span class="s2">&quot;abc&quot;</span><span class="p">]</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -3044,8 +3043,7 @@ We update the document with a <code>POST /bulk_docs</code> query, with the follo
     <span class="p">{</span>
       <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;foo&quot;</span><span class="p">,</span>
       <span class="nt">&quot;_rev&quot;</span><span class="p">:</span> <span class="s2">&quot;3-ghi&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;_revisions&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;start&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nt">&quot;ids&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;ghi&quot;</span><span class="p">,</span> <span class="s2">&quot;xyz&quot;</span><span class="p">,</span> <span class="s2">&quot;abc&quot;</span><span class="p">]</span> <span class="p">}</span>
-      <span class="p">,</span>
+      <span class="nt">&quot;_revisions&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;start&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nt">&quot;ids&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;ghi&quot;</span><span class="p">,</span> <span class="s2">&quot;xyz&quot;</span><span class="p">,</span> <span class="s2">&quot;abc&quot;</span><span class="p">]</span> <span class="p">},</span>
       <span class="nt">&quot;bar&quot;</span><span class="p">:</span> <span class="s2">&quot;racuda&quot;</span>
     <span class="p">}</span>
   <span class="p">],</span>
@@ -3059,7 +3057,7 @@ We update the document with a <code>POST /bulk_docs</code> query, with the follo
 In the <a href="https://docs.cozy.io/en/cozy-stack/sharing-design/">sharing protocol</a>, we implement this behaviour as we follow the CouchDB replication model. However, we prevent CouchDB conflicts for files and directories: see <a href="https://docs.cozy.io/en/cozy-stack/sharing-design/#couchdb-conflicts">this explanation</a></p>
 <h2 id="couchdb-performances">CouchDB performances<a class="headerlink" href="#couchdb-performances" title="Permanent link">&para;</a></h2>
 <p>Here is a benchmark performed on a CouchDB 2.3, running on a Thinkpad T480, i7-8550U , 16 Go RAM with 256Go SSD.</p>
-<p>The document insertion is performed in bulk, by batch of 100K documents maximum. </p>
+<p>The document insertion is performed in bulk, by batch of 100K documents maximum.</p>
 <p>Each doc has the following structure:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;xxx&quot;</span><span class="p">,</span>
@@ -3071,7 +3069,7 @@ In the <a href="https://docs.cozy.io/en/cozy-stack/sharing-design/">sharing prot
 
 
 <p><code>count1</code> is indexed by a Mango index and a JavaScript view, while <code>count2</code> is indexed by an Erlang view. Both of those fields are incremented at each document insertion.</p>
-<p>Each query is paginated to retrieve 100 documents at a time. We measured the time taken for each query, to see variations depending on the database volumetry. </p>
+<p>Each query is paginated to retrieve 100 documents at a time. We measured the time taken for each query, to see variations depending on the database volumetry.</p>
 <p>To measure the mango and views build time, we performed a single query just after their creation.</p>
 <p>ℹ️ The X and Y axis are logarithmic.</p>
 <div align="center">
