@@ -51,7 +51,7 @@ module.exports = {
         '../react/InputGroup/index.jsx',
         '../react/Label/index.jsx',
         '../react/NestedSelect/NestedSelect.jsx',
-        '../react/Radio/index.jsx',
+        '../react/Radios/index.jsx',
         '../react/SelectBox/SelectBox.jsx',
         '../react/Stepper/index.jsx',
         '../react/Textarea/index.jsx',
@@ -181,15 +181,16 @@ module.exports = {
     {
       name: 'Deprecated',
       components: () => [
-        '../react/Menu/index.jsx',
-        '../react/Modal/index.jsx',
-        '../react/Text/index.jsx',
-        '../react/MuiCozyTheme/RaisedList',
         '../react/CompositeRow/index.jsx',
         '../react/InlineCard/index.jsx',
-        '../react/PercentageLine/index.jsx',
         '../react/IntentModal/IntentModal.jsx',
-        '../react/IntentOpener/IntentOpener.jsx'
+        '../react/IntentOpener/IntentOpener.jsx',
+        '../react/Menu/index.jsx',
+        '../react/Modal/index.jsx',
+        '../react/MuiCozyTheme/RaisedList',
+        '../react/PercentageLine/index.jsx',
+        '../react/Radio/index.jsx',
+        '../react/Text/index.jsx'
       ]
     },
     {

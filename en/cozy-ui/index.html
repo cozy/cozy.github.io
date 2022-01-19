@@ -1123,8 +1123,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#add-an-icon" title="Add an Icon" class="md-nav__link">
-    Add an Icon
+  <a href="#add-an-icon" title="Add an icon" class="md-nav__link">
+    Add an icon
   </a>
   
 </li>
@@ -2742,8 +2742,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#add-an-icon" title="Add an Icon" class="md-nav__link">
-    Add an Icon
+  <a href="#add-an-icon" title="Add an icon" class="md-nav__link">
+    Add an icon
   </a>
   
 </li>
@@ -2887,15 +2887,18 @@ yarn start:doc <span class="c1"># Run the styleguide in watch mode</span>
 <li>Add it in the documentation by modifying <code>docs/styleguide.config.js</code></li>
 <li>If necessary you can add snapshots for it by modifying <code>react/examples.spec.jsx</code> and updating them <code>yarn build &amp;&amp; yarn test -u</code></li>
 </ul>
-<h3 id="add-an-icon">Add an Icon<a class="headerlink" href="#add-an-icon" title="Permanent link">&para;</a></h3>
+<h3 id="add-an-icon">Add an icon<a class="headerlink" href="#add-an-icon" title="Permanent link">&para;</a></h3>
 <p>If you want to add a new icon to cozy-ui, you must follow these steps:</p>
 <ul>
-<li>First verify that the SVG doesn&rsquo;t have any <code>fill</code> properties. Remove them if necessary</li>
+<li>First verify that the SVG doesn&rsquo;t have any <code>fill</code> or <code>fill-opacity</code> properties. Remove them if necessary</li>
 <li>Add the SVG in the <code>assets/icons</code> folder</li>
-<li>Generate the react component by running <code>yarn makeSvgr assets/icons/[new icon folder]/[new icon file name]</code></li>
+<li>Optimize it with <code>yarn optimizeIcons</code></li>
+<li>Generate the react component by running</li>
+<li><code>yarn makeSvgr assets/icons/[new icons folder]</code> or</li>
+<li><code>yarn makeSvgr assets/icons/[new icon folder]/[new icon file name]</code></li>
 <li>Update the documentation by adding the icon in <code>react/Icon/Readme.md</code> inside <code>SVGr icons</code> and <code>Available UI icons</code> sections</li>
 <li>Don&rsquo;t forget to check the icon&rsquo;s color on different theme (inverted, etc.)</li>
-<li>Update the tests by running <code>yarn build &amp;&amp; yarn test -u</code></li>
+<li>Update the tests by running <code>yarn sprite &amp;&amp; yarn build &amp;&amp; yarn test -u</code></li>
 </ul>
 <h3 id="develop-inside-an-app">Develop inside an app<a class="headerlink" href="#develop-inside-an-app" title="Permanent link">&para;</a></h3>
 <p>Sometimes, you want to develop on a component, from the context of an app.
