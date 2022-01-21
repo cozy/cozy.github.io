@@ -1768,6 +1768,33 @@
     Import data
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#handlebars" title="handlebars" class="md-nav__link">
+    handlebars
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-url-param" title="--url param" class="md-nav__link">
+    --url param
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#serial-import" title="serial import" class="md-nav__link">
+    serial import
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -2615,6 +2642,33 @@
     Import data
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#handlebars" title="handlebars" class="md-nav__link">
+    handlebars
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-url-param" title="--url param" class="md-nav__link">
+    --url param
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#serial-import" title="serial import" class="md-nav__link">
+    serial import
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -2830,14 +2884,22 @@ $ ACH import data.json
 
 
 <p>If the file doesn&rsquo;t exist in the application, ACH will try to find it inside its data folder.</p>
+<h4 id="handlebars">handlebars<a class="headerlink" href="#handlebars" title="Permanent link">&para;</a></h4>
 <p>Some JSON files use handlebars helpers, for those file, you need to specify the file where the helpers are defined.</p>
 <div class="codehilite"><pre><span></span>$ ACH import data/bank/bankData.json data/bank/helpers/bankDummyHelpers.js
 </pre></div>
 
 
 <p>You can see an example of helpers <a href="https://gitlab.cozycloud.cc/labs/ACH/blob/master/data/bank/helpers/bankDummyHelpers.js">here</a>.</p>
+<h4 id="-url-param">&ndash;url param<a class="headerlink" href="#-url-param" title="Permanent link">&para;</a></h4>
 <p>You can import to a remote Cozy with the <code>--url</code> option :</p>
 <div class="codehilite"><pre><span></span>$ ACH import data/bank/bankData.json data/bank/helpers/bankDummyHelpers.js --url https://recette.cozy.works
+</pre></div>
+
+
+<h4 id="serial-import">serial import<a class="headerlink" href="#serial-import" title="Permanent link">&para;</a></h4>
+<p>By default, ACH imports data in parallel, by batches of 25. It is possible to import serially :</p>
+<div class="codehilite"><pre><span></span>$ env <span class="nv">ACH_PARALLEL</span><span class="o">=</span><span class="nb">false</span> ACH import data.json
 </pre></div>
 
 

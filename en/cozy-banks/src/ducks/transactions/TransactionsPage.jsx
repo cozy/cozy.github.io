@@ -15,6 +15,7 @@ import {
 } from 'cozy-client'
 import { translate } from 'cozy-ui/transpiled/react/I18n'
 import Typography from 'cozy-ui/transpiled/react/Typography'
+import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import flag from 'cozy-flags'
 
 import {
@@ -303,7 +304,8 @@ const addTransactions = Component => {
 export const DumbTransactionsPage = TransactionsPage
 export const UnpluggedTransactionsPage = compose(
   withRouter,
-  translate()
+  translate(),
+  withBreakpoints()
 )(TransactionsPage)
 
 const ConnectedTransactionsPage = compose(

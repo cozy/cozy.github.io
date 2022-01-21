@@ -2150,6 +2150,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#mobile" title="Mobile" class="md-nav__link">
+    Mobile
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2937,6 +2944,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#mobile" title="Mobile" class="md-nav__link">
+    Mobile
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3386,6 +3400,10 @@ filename for this file: <code>manifest.webapp</code>.</p>
 <td>routes</td>
 <td>a map of routes for the app (see below for more details)</td>
 </tr>
+<tr>
+<td>mobile</td>
+<td>information about app&rsquo;s mobile version (see below for more details)</td>
+</tr>
 </tbody>
 </table>
 <h3 id="routes">Routes<a class="headerlink" href="#routes" title="Permanent link">&para;</a></h3>
@@ -3503,6 +3521,24 @@ service.</p>
             <span class="p">}</span>
         <span class="p">}</span>
     <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="mobile">Mobile<a class="headerlink" href="#mobile" title="Permanent link">&para;</a></h3>
+<p>Application may exist on mobile platforms. When it is the case, manifest can
+contain informations about the mobile apps.</p>
+<p>On a mobile device and on a native context, this attribute can be used to open the
+native mobile app from any another Cozy app.</p>
+<p>Following attributes should be set:
+- <code>schema</code>: the app&rsquo;s scheme that can be used to open it
+- <code>id_playstore</code>: the app&rsquo;s ID on the Google PlayStore
+- <code>id_appstore</code>: the app&rsquo;s ID on the Apple AppStore</p>
+<p>Example of <code>mobile</code> attribute for Cozy Pass:</p>
+<div class="codehilite"><pre><span></span><span class="s2">&quot;mobile&quot;</span><span class="err">:</span> <span class="p">{</span>
+  <span class="nt">&quot;schema&quot;</span><span class="p">:</span> <span class="s2">&quot;cozypass://&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;id_playstore&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.pass&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;id_appstore&quot;</span><span class="p">:</span> <span class="s2">&quot;cozy-pass/id1502262449&quot;</span>
 <span class="p">}</span>
 </pre></div>
 
