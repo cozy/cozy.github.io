@@ -262,7 +262,7 @@ Thus, doing this will actually query the `_all_docs` endpoint and return all the
 const docs = await client.query(Q("io.cozy.todos"), { limit: null });
 ```
 
-⚠️ When querying this endpoint, the response includes the [design docs](https://docs.couchdb.org/en/master/ddocs/index.html), which are the Mango indexes and views definitions. Those documents are automatically filtered for the paginated queries.
+⚠️ When querying this endpoint, the response includes the [design docs](https://docs.couchdb.org/en/2.3.1/ddocs/ddocs.html), which are the Mango indexes and views definitions. Those documents are automatically filtered for the paginated queries.
 
 ⚠️ This method is faster than the pagination as it avoids to make several server requests. However, if there are many documents to return, `_all_docs` queries can take a lot of time to complete and even timeout. It also consumes server resources. Hence, you should be cautious when using this route.
 
