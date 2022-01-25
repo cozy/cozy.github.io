@@ -1188,6 +1188,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#rootcozyurl" title="rootCozyUrl" class="md-nav__link">
+    rootCozyUrl
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#useapplinkwithstorefallback" title="useAppLinkWithStoreFallback" class="md-nav__link">
     useAppLinkWithStoreFallback
   </a>
@@ -2959,6 +2966,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#rootcozyurl" title="rootCozyUrl" class="md-nav__link">
+    rootCozyUrl
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#useapplinkwithstorefallback" title="useAppLinkWithStoreFallback" class="md-nav__link">
     useAppLinkWithStoreFallback
   </a>
@@ -3064,6 +3078,8 @@
 <li><a href="classes/hasmanytriggers/">HasManyTriggers</a></li>
 <li><a href="classes/hasone/">HasOne</a></li>
 <li><a href="classes/hasoneinplace/">HasOneInPlace</a></li>
+<li><a href="classes/invalidcozyurlerror/">InvalidCozyUrlError</a></li>
+<li><a href="classes/invalidprotocolerror/">InvalidProtocolError</a></li>
 <li><a href="classes/query/">Query</a></li>
 <li><a href="classes/querydefinition/">QueryDefinition</a></li>
 <li><a href="classes/registry/">Registry</a></li>
@@ -3672,6 +3688,63 @@ if there are N queries, only 1 extra level of nesting is introduced.</p>
 </ul>
 <p><em>Defined in</em></p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/hoc.jsx#L89">packages/cozy-client/src/hoc.jsx:89</a></p>
+<hr />
+<h3 id="rootcozyurl">rootCozyUrl<a class="headerlink" href="#rootcozyurl" title="Permanent link">&para;</a></h3>
+<p>▸ <code>Const</code> <strong>rootCozyUrl</strong>(<code>url</code>): <code>Promise</code>&lt;<code>URL</code>&gt;</p>
+<p>rootCozyUrl - Get the root URL of a Cozy from more precise ones</p>
+<p>The goal is to allow users to use any URL copied from their browser as their
+Cozy URL rather than trying to explain to them what we expect (e.g. when
+requesting the Cozy URL to connect an app).
+If we can&rsquo;t get the root URL either because there&rsquo;s no Cozy or the domain
+does not exist or anything else, we&rsquo;ll throw an InvalidCozyUrlError.
+Also, since we communicate only via HTTP or HTTPS, we&rsquo;ll throw an
+InvalidProtocolError if any other protocol is used.</p>
+<p>This function expects a fully qualified URL thus with a protocol and a valid
+hostname. If your application accepts Cozy intances as input (e.g. <code>claude</code>
+when the Cozy can be found at <code>https://claude.mycozy.cloud</code>), it is your
+responsibility to add the appropriate domain to the hostname before calling
+this function.</p>
+<p>Examples:</p>
+<ol>
+<li>getting the root URL when your user gives you its instance name</li>
+</ol>
+<p>const userInput = &lsquo;claude&rsquo;
+const rootUrl = await rootCozyUrl(new URL(<code>https://${userInput}.mycozy.cloud</code>))
+// → returns new URL(&lsquo;https://claude.mycozy.cloud&rsquo;)</p>
+<ol start="2">
+<li>getting the root URL when your user gives you a Cozy Drive URL</li>
+</ol>
+<p>const userInput = &lsquo;https://claude-drive.mycozy.cloud/#/folder/io.cozy.files.root-dir&rsquo;
+const rootUrl = await rootCozyUrl(new URL(userInput))
+// → returns new URL(&lsquo;https://claude.mycozy.cloud&rsquo;)</p>
+<ol start="3">
+<li>getting the root URL when the Cozy uses nested sub-domains</li>
+</ol>
+<p>const userInput = &lsquo;http://photos.camille.nimbus.com:8080/#/album/1234567890&rsquo;
+const rootCozyUrl = await rootCozyUrl(new URL(userInput))
+// → returns new URL(&lsquo;http://camille.nimbus.com:8080&rsquo;)</p>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>url</code></td>
+<td align="left"><code>URL</code></td>
+<td align="left">The URL from which we&rsquo;ll try to get the root Cozy URL</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>Promise</code>&lt;<code>URL</code>&gt;</p>
+<p>The root Cozy URL</p>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/helpers.js#L199">packages/cozy-client/src/helpers.js:199</a></p>
 <hr />
 <h3 id="useapplinkwithstorefallback">useAppLinkWithStoreFallback<a class="headerlink" href="#useapplinkwithstorefallback" title="Permanent link">&para;</a></h3>
 <p>▸ <code>Const</code> <strong>useAppLinkWithStoreFallback</strong>(<code>slug</code>, <code>client</code>, <code>path?</code>): <code>Object</code></p>
