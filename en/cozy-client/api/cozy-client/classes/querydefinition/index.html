@@ -2800,7 +2800,7 @@ from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
 </tr>
 <tr>
 <td align="left"><code>options.cursor</code></td>
-<td align="left"><code>Cursor</code></td>
+<td align="left"><code>CouchDBViewCursor</code></td>
 <td align="left">-</td>
 </tr>
 <tr>
@@ -2810,7 +2810,7 @@ from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
 </tr>
 <tr>
 <td align="left"><code>options.fields</code></td>
-<td align="left"><code>any</code>[]</td>
+<td align="left"><code>string</code>[]</td>
 <td align="left">-</td>
 </tr>
 <tr>
@@ -2820,7 +2820,7 @@ from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
 </tr>
 <tr>
 <td align="left"><code>options.ids</code></td>
-<td align="left"><code>any</code>[]</td>
+<td align="left"><code>string</code>[]</td>
 <td align="left">-</td>
 </tr>
 <tr>
@@ -2830,7 +2830,7 @@ from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
 </tr>
 <tr>
 <td align="left"><code>options.indexedFields</code></td>
-<td align="left"><code>any</code>[]</td>
+<td align="left"><code>string</code>[]</td>
 <td align="left">-</td>
 </tr>
 <tr>
@@ -2874,7 +2874,7 @@ from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/queries/dsl.js#L60">packages/cozy-client/src/queries/dsl.js:60</a></p>
 <hr />
 <h3 id="cursor">cursor<a class="headerlink" href="#cursor" title="Permanent link">&para;</a></h3>
-<p>• <strong>cursor</strong>: <code>Cursor</code></p>
+<p>• <strong>cursor</strong>: <code>CouchDBViewCursor</code></p>
 <p><em>Defined in</em></p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/queries/dsl.js#L59">packages/cozy-client/src/queries/dsl.js:59</a></p>
 <hr />
@@ -2884,7 +2884,7 @@ from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/queries/dsl.js#L47">packages/cozy-client/src/queries/dsl.js:47</a></p>
 <hr />
 <h3 id="fields">fields<a class="headerlink" href="#fields" title="Permanent link">&para;</a></h3>
-<p>• <strong>fields</strong>: <code>any</code>[]</p>
+<p>• <strong>fields</strong>: <code>string</code>[]</p>
 <p><em>Defined in</em></p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/queries/dsl.js#L51">packages/cozy-client/src/queries/dsl.js:51</a></p>
 <hr />
@@ -2894,7 +2894,7 @@ from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/queries/dsl.js#L48">packages/cozy-client/src/queries/dsl.js:48</a></p>
 <hr />
 <h3 id="ids">ids<a class="headerlink" href="#ids" title="Permanent link">&para;</a></h3>
-<p>• <strong>ids</strong>: <code>any</code>[]</p>
+<p>• <strong>ids</strong>: <code>string</code>[]</p>
 <p><em>Defined in</em></p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/queries/dsl.js#L49">packages/cozy-client/src/queries/dsl.js:49</a></p>
 <hr />
@@ -2904,7 +2904,7 @@ from a Cozy. <code>QueryDefinition</code>s are sent to links.</p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/queries/dsl.js#L55">packages/cozy-client/src/queries/dsl.js:55</a></p>
 <hr />
 <h3 id="indexedfields">indexedFields<a class="headerlink" href="#indexedfields" title="Permanent link">&para;</a></h3>
-<p>• <strong>indexedFields</strong>: <code>any</code>[]</p>
+<p>• <strong>indexedFields</strong>: <code>string</code>[]</p>
 <p><em>Defined in</em></p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/queries/dsl.js#L52">packages/cozy-client/src/queries/dsl.js:52</a></p>
 <hr />
@@ -3208,7 +3208,7 @@ Use the last docid of each query as startkey_docid to paginate or leave blank fo
 <tbody>
 <tr>
 <td align="left"><code>cursor</code></td>
-<td align="left"><code>Cursor</code></td>
+<td align="left"><code>CouchDBViewCursor</code></td>
 <td align="left">The cursor for pagination.</td>
 </tr>
 </tbody>
@@ -3343,7 +3343,7 @@ You can find more information about partial indexes <a href="https://docs.cozy.i
 </tr>
 <tr>
 <td align="left"><code>cursor</code></td>
-<td align="left"><code>Cursor</code></td>
+<td align="left"><code>CouchDBViewCursor</code></td>
 </tr>
 <tr>
 <td align="left"><code>doctype</code></td>
@@ -3351,7 +3351,7 @@ You can find more information about partial indexes <a href="https://docs.cozy.i
 </tr>
 <tr>
 <td align="left"><code>fields</code></td>
-<td align="left"><code>any</code>[]</td>
+<td align="left"><code>string</code>[]</td>
 </tr>
 <tr>
 <td align="left"><code>id</code></td>
@@ -3359,7 +3359,7 @@ You can find more information about partial indexes <a href="https://docs.cozy.i
 </tr>
 <tr>
 <td align="left"><code>ids</code></td>
-<td align="left"><code>any</code>[]</td>
+<td align="left"><code>string</code>[]</td>
 </tr>
 <tr>
 <td align="left"><code>includes</code></td>
@@ -3367,7 +3367,7 @@ You can find more information about partial indexes <a href="https://docs.cozy.i
 </tr>
 <tr>
 <td align="left"><code>indexedFields</code></td>
-<td align="left"><code>any</code>[]</td>
+<td align="left"><code>string</code>[]</td>
 </tr>
 <tr>
 <td align="left"><code>limit</code></td>
