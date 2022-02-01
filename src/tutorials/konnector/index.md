@@ -24,5 +24,6 @@ If you want to go further:
 - [Developing an OAuth connector](./oauth.md)
 - [Use a browser simulation to request the website](./cozy-browser.md)
 - [ENV vars injected by the cozy-stack when running a konnector](https://docs.cozy.io/en/cozy-stack/konnectors-workflow/#execute-the-konnector) 
+- [Going further](./going-further.md)
 
 [Cozy Home]: https://github.com/cozy/cozy-home
