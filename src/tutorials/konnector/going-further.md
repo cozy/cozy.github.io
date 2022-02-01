@@ -36,7 +36,7 @@ A basic connector workflow involves:
 
 #### Error handling
 
-If your connector hits an issue fetching or saving the data, it can return an error code by throwing it as an error. The error codes are defined inside the [Cozy Home][] application and will display an explicit error to the user:
+If your connector hits an issue fetching or saving the data, it can return an error code by throwing it as an error. The error codes are defined inside [cozy-konnector-libs][] and [Cozy Harvest Lib](https://github.com/cozy/cozy-libs/blob/master/packages/cozy-harvest-lib/src/locales/en.json#L124-L208) will display an explicit error to the user:
 
 - `LOGIN_FAILED`: the connector could not login
 - `NOT_EXISTING_DIRECTORY`: the folder specified as folder_to_save does not exist (checked automatically by the BaseKonnector)
@@ -97,8 +97,6 @@ The Cozy Konnector Libs provide several useful methods for common tasks:
 - [updateOrCreate](https://docs.cozy.io/en/cozy-konnector-libs/api/#updateorcreate) create or update documents inside database
 - [htmlToPDF](<>) to convert HTML code to PDF content to insert into a PDF file created with the `createCozyPDFDocument` function
 - [createCozyPDFDocument](<>) to create a new PDF file to pass to `htmlToPDF`
-
-[Cozy Home]: https://github.com/cozy/cozy-home
 
 [cozy-konnector-libs]: https://github.com/konnectors/libs
 
