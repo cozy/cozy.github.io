@@ -238,6 +238,7 @@ export const makeBalanceTransactionsConn = () => {
         .select([
           '_id',
           'date',
+          'realisationDate',
           'amount',
           'account',
           'currency',
@@ -248,7 +249,8 @@ export const makeBalanceTransactionsConn = () => {
           'localCategoryProba',
           'automaticCategoryId',
           'label',
-          'reimbursementStatus'
+          'reimbursementStatus',
+          'reimbursements'
         ])
   }
 }

@@ -3096,7 +3096,7 @@ However, it is possible to overcome this pagination by passing <code>limit: null
 </pre></div>
 
 
-<p>⚠️ When querying this endpoint, the response includes the <a href="https://docs.couchdb.org/en/master/ddocs/index.html">design docs</a>, which are the Mango indexes and views definitions. Those documents are automatically filtered for the paginated queries.</p>
+<p>⚠️ When querying this endpoint, the response includes the <a href="https://docs.couchdb.org/en/2.3.1/ddocs/ddocs.html">design docs</a>, which are the Mango indexes and views definitions. Those documents are automatically filtered for the paginated queries.</p>
 <p>⚠️ This method is faster than the pagination as it avoids to make several server requests. However, if there are many documents to return, <code>_all_docs</code> queries can take a lot of time to complete and even timeout. It also consumes server resources. Hence, you should be cautious when using this route.</p>
 <h2 id="sort-in-couchdb">Sort in CouchDB<a class="headerlink" href="#sort-in-couchdb" title="Permanent link">&para;</a></h2>
 <p>When dealing with various types of data, the ascending sort order is the following:</p>
