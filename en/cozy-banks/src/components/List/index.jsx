@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styles from 'components/List/List.styl'
-import UIRadio from 'cozy-ui/transpiled/react/Radio'
+import UIRadio from 'cozy-ui/transpiled/react/Radios'
 import cx from 'classnames'
 
 export const Radio = ({ className, ...props }) => {

@@ -3,6 +3,7 @@
 import React, { useMemo } from 'react'
 import { Provider } from 'react-redux'
 
+import { WebviewIntentProvider } from 'cozy-intent'
 import I18n from 'cozy-ui/transpiled/react/I18n'
 import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
 import { CozyProvider } from 'cozy-client'
@@ -58,30 +59,35 @@ const AppContainer = ({ store, lang, history, client }) => {
   }, [lang])
 
   return (
-    <BreakpointsProvider>
-      <TrackerProvider>
-        <Provider store={store}>
-          <StylesProvider generateClassName={generateClassName}>
-            <CozyProvider client={client}>
-              <I18n
-                lang={lang}
-                dictRequire={lang => require(`locales/${lang}`)}
-              >
-                <JobsProvider client={client} options={jobsProviderOptions(t)}>
-                  <BanksProvider client={client}>
-                    <SelectionProvider>
-                      <MuiCozyTheme>
-                        <Router history={history} routes={AppRoute()} />
-                      </MuiCozyTheme>
-                    </SelectionProvider>
-                  </BanksProvider>
-                </JobsProvider>
-              </I18n>
-            </CozyProvider>
-          </StylesProvider>
-        </Provider>
-      </TrackerProvider>
-    </BreakpointsProvider>
+    <WebviewIntentProvider>
+      <BreakpointsProvider>
+        <TrackerProvider>
+          <Provider store={store}>
+            <StylesProvider generateClassName={generateClassName}>
+              <CozyProvider client={client}>
+                <I18n
+                  lang={lang}
+                  dictRequire={lang => require(`locales/${lang}`)}
+                >
+                  <JobsProvider
+                    client={client}
+                    options={jobsProviderOptions(t)}
+                  >
+                    <BanksProvider client={client}>
+                      <SelectionProvider>
+                        <MuiCozyTheme>
+                          <Router history={history} routes={AppRoute()} />
+                        </MuiCozyTheme>
+                      </SelectionProvider>
+                    </BanksProvider>
+                  </JobsProvider>
+                </I18n>
+              </CozyProvider>
+            </StylesProvider>
+          </Provider>
+        </TrackerProvider>
+      </BreakpointsProvider>
+    </WebviewIntentProvider>
   )
 }
 

@@ -47,6 +47,11 @@ const ignoredWarnings = {
   Tappable: {
     reason: 'External component on which we have no control',
     matcher: makeDeprecatedLifecycleMatcher('Tappable')
+  },
+  Radio: {
+    reason:
+      'Deprecated but could be in an external component on which we have no control',
+    matcher: makeDeprecatedLifecycleMatcher('Radio')
   }
 }
 

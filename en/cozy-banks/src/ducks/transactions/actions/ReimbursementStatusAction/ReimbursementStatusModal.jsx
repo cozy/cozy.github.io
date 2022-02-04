@@ -12,8 +12,9 @@ import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
 import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import Typography from 'cozy-ui/transpiled/react/Typography'
+import FormControlLabel from 'cozy-ui/transpiled/react/FormControlLabel'
+import Radio from 'cozy-ui/transpiled/react/Radios'
 
-import { Radio } from 'components/List'
 import {
   useTrackPage,
   trackPage,
@@ -74,13 +75,17 @@ const ReimbursementStatusModal = function ReimbursementStatusModal(props) {
                   key={choice}
                 >
                   <ListItemIcon>
-                    <Radio
-                      key={choice}
-                      name="reimbursementStatus"
+                    <FormControlLabel
                       value={choice}
-                      checked={status === choice}
-                      onChange={ev => onChange(ev.target.value)}
-                      className={cx('u-mb-0', styles.Radio)}
+                      control={
+                        <Radio
+                          key={choice}
+                          name="reimbursementStatus"
+                          checked={status === choice}
+                          onChange={ev => onChange(ev.target.value)}
+                          className="u-ml-1"
+                        />
+                      }
                     />
                   </ListItemIcon>
                   <ListItemText>

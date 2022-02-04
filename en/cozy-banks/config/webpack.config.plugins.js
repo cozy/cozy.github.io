@@ -36,9 +36,6 @@ module.exports = {
       resourceRegExp: /preact-portal/
     }),
 
-    // Disable contexts
-    new webpack.IgnorePlugin(/^\.\.?\/contexts/),
-
     // Checks for duplicates packages
     new DuplicatePackageCheckerPlugin({ verbose: true }),
 
