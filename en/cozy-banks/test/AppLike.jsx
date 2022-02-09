@@ -11,6 +11,7 @@ import { TrackerProvider } from 'ducks/tracking/browser'
 import { JobsContext } from 'ducks/context/JobsContext'
 import BanksProvider from 'ducks/context/BanksContext'
 import SelectionProvider from 'ducks/context/SelectionContext'
+import { WebviewIntentProvider } from 'cozy-intent'
 
 export const TestI18n = ({ children }) => {
   return (
@@ -23,23 +24,25 @@ export const TestI18n = ({ children }) => {
 const AppLike = ({ children, store, client, router, jobsInProgress }) => {
   client = client || getClient()
   return (
-    <TrackerProvider>
-      <RouterContext.Provider value={router}>
-        <BreakpointsProvider>
-          <Provider store={(client && client.store) || store}>
-            <CozyProvider client={client}>
-              <JobsContext.Provider value={{ jobsInProgress }}>
-                <BanksProvider client={client}>
-                  <SelectionProvider>
-                    <TestI18n>{children}</TestI18n>
-                  </SelectionProvider>
-                </BanksProvider>
-              </JobsContext.Provider>
-            </CozyProvider>
-          </Provider>
-        </BreakpointsProvider>
-      </RouterContext.Provider>
-    </TrackerProvider>
+    <WebviewIntentProvider>
+      <TrackerProvider>
+        <RouterContext.Provider value={router}>
+          <BreakpointsProvider>
+            <Provider store={(client && client.store) || store}>
+              <CozyProvider client={client}>
+                <JobsContext.Provider value={{ jobsInProgress }}>
+                  <BanksProvider client={client}>
+                    <SelectionProvider>
+                      <TestI18n>{children}</TestI18n>
+                    </SelectionProvider>
+                  </BanksProvider>
+                </JobsContext.Provider>
+              </CozyProvider>
+            </Provider>
+          </BreakpointsProvider>
+        </RouterContext.Provider>
+      </TrackerProvider>
+    </WebviewIntentProvider>
   )
 }
 

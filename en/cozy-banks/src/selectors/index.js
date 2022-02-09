@@ -1,19 +1,22 @@
+import isEqual from 'lodash/isEqual'
+import keyBy from 'lodash/keyBy'
 import { createSelector, createSelectorCreator, defaultMemoize } from 'reselect'
+
+import { getQueryFromState } from 'cozy-client'
+
+import { ACCOUNT_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
 import { buildAutoGroups, isAutoGroup } from 'ducks/groups/helpers'
 import {
   buildVirtualAccounts,
   isReimbursementsAccount
 } from 'ducks/account/helpers'
-import { getQueryFromState } from 'cozy-client'
-import getClient from './getClient'
-import keyBy from 'lodash/keyBy'
 import {
   getDefaultedSettings,
   isConfigurationSetting,
   getNotificationFromConfig,
   getWarningLimitsPerAccount as getWarningLimitsPerAccountRaw
 } from 'ducks/settings/helpers'
-import { ACCOUNT_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
+import getClient from 'selectors/getClient'
 
 const updatedAtSameTime = (currentQuery, prevQuery) => {
   return (
@@ -63,16 +66,26 @@ export const queryDataSelector = (queryName, options) =>
     query => (query && query.data) || []
   )
 
-export const getTransactionsRaw = state =>
-  createSelector([x => x], documents => {
+export const documentSelector = createSelector(
+  state => ({ ...state.cozy.documents[TRANSACTION_DOCTYPE] }),
+  documents => {
     const client = getClient()
     const docs = Object.values(documents || {})
-    const partialTransactions = client.hydrateDocuments(
-      TRANSACTION_DOCTYPE,
-      docs
-    )
+    return client.hydrateDocuments(TRANSACTION_DOCTYPE, docs)
+  },
+  {
+    memoizeOptions: {
+      equalityCheck: (a, b) => isEqual(a, b)
+    }
+  }
+)
+
+export const getTransactionsRaw = createSelector(
+  documentSelector,
+  partialTransactions => {
     return partialTransactions.filter(x => !!x.label)
-  })(state.cozy.documents[TRANSACTION_DOCTYPE])
+  }
+)
 
 export const getGroups = queryDataSelector('groups', {
   hydrated: true
@@ -82,7 +95,7 @@ export const getSettings = queryDataSelector('settings', {
   hydrated: true
 })
 
-export const getConfig = createSelector([getSettings], settings =>
+export const getConfig = createSelector(getSettings, settings =>
   getDefaultedSettings(settings.find(isConfigurationSetting))
 )
 
@@ -92,12 +105,12 @@ export const getRecurrences = queryDataSelector('recurrence', {
 })
 
 export const getTransactions = createSelector(
-  [getTransactionsRaw],
+  getTransactionsRaw,
   transactions => transactions.filter(Boolean)
 )
 
 export const getVirtualAccounts = createSelector(
-  [getTransactions],
+  getTransactions,
   transactions => buildVirtualAccounts(transactions)
 )
 
@@ -106,7 +119,7 @@ export const getAllAccounts = createSelector(
   (accounts, virtualAccounts) => [...accounts, ...virtualAccounts]
 )
 
-export const getAutoGroups = createSelector([getGroups], groups =>
+export const getAutoGroups = createSelector(getGroups, groups =>
   groups.filter(isAutoGroup)
 )
 
@@ -148,10 +161,10 @@ export const getAllGroups = createSelector(
   (groups, virtualGroups) => [...groups, ...virtualGroups]
 )
 
-export const getGroupsById = createSelector([getAllGroups], groups =>
+export const getGroupsById = createSelector(getAllGroups, groups =>
   keyBy(groups, '_id')
 )
 
-export const getAccountsById = createSelector([getAccounts], accounts =>
+export const getAccountsById = createSelector(getAccounts, accounts =>
   keyBy(accounts, '_id')
 )
