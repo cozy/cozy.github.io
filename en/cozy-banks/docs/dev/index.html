@@ -2914,13 +2914,18 @@ to install it on your system.</p>
 </pre></div>
 
 
-<p>Develop:</p>
-<div class="codehilite"><pre><span></span><span class="gp">$</span> yarn start
+<p>Install the fixtures:</p>
+<div class="codehilite"><pre><span></span><span class="gp">$</span> yarn fixtures
 </pre></div>
 
 
-<p>And build:</p>
+<p>Build the app:</p>
 <div class="codehilite"><pre><span></span><span class="gp">$</span> yarn build
+</pre></div>
+
+
+<p>And running the app:</p>
+<div class="codehilite"><pre><span></span><span class="gp">$</span> yarn start
 </pre></div>
 
 
@@ -2941,7 +2946,7 @@ info</a> on
 the config file). See an example config file
 <a href="https://github.com/CPatchane/create-cozy-app/blob/8329c7161a400119076a7e2734191607437f0dcc/packages/cozy-scripts/stack/disableCSP.yaml#L6">here</a>.</p>
 <h2 id="fixtures">Fixtures<a class="headerlink" href="#fixtures" title="Permanent link">&para;</a></h2>
-<p>While developing, it is convenient to be able to inject and remove arbitraty data on your local instance.
+<p>While developing, it is convenient to be able to inject and remove arbitrary data on your local instance.
 You can add fixtures by using <a href="https://github.com/cozy/ACH">ACH</a> and data in <a href="./test/fixtures">test/fixtures</a>.</p>
 <p>We have a set of fake banking data in the
 <a href="https://github.com/cozy/cozy-banks/blob/master/test/fixtures/demo.json"><code>test/fixtures/demo.json</code></a>
@@ -2999,7 +3004,7 @@ brew install gradle
 
 <p>⚠️⚠️⚠️ If you watch a production build, you must edit the webpack config to have
 the filepath without the [hash] otherwise you will not hit the right JS file.</p>
-<p>⚠️ You need to have the final <code>/</code> at the end of the PUBLIC_PATH, otherwise some some CSS resources like fonts will not load</p>
+<p>⚠️ You need to have the final <code>/</code> at the end of the PUBLIC_PATH, otherwise some CSS resources like fonts will not load</p>
 <p>For more information about installing prerequisites (installing Android Studio, Cordova etc.), you can follow <a href="https://gist.github.com/drazik/11dfe2014a6b967821df93b9e10353f4">this guide</a> (in French for now, don&rsquo;t hesitate to open a pull request).</p>
 <h3 id="build-the-mobile-app">Build the mobile app<a class="headerlink" href="#build-the-mobile-app" title="Permanent link">&para;</a></h3>
 <p>You can one-shot build the app and launch it on a device/emulator</p>
@@ -3022,7 +3027,7 @@ Google Play Store, APKs are also linked to <a href="https://github.com/cozy/cozy
 releases</a>) and iOS (via the App
 Store).</p>
 <h3 id="start-a-release-branch">Start a release branch<a class="headerlink" href="#start-a-release-branch" title="Permanent link">&para;</a></h3>
-<p>When starting a release, start the checklist PR with :</p>
+<p>When starting a release, start the checklist PR with:</p>
 <div class="codehilite"><pre><span></span>yarn release
 </pre></div>
 
@@ -3032,7 +3037,7 @@ If you have <a href="https://github.com/github/hub">Hub</a> installed (recommend
 will also create the related pull request for you.</p>
 <h3 id="workflow">Workflow<a class="headerlink" href="#workflow" title="Permanent link">&para;</a></h3>
 <p>When a release branch is created, features are frozen and the branch should only receive bugfixes.</p>
-<p>To create beta versions, you have to do two thinkgs:</p>
+<p>To create beta versions, you have to do two things:</p>
 <ul>
 <li>Bump the different version codes in <code>src/targets/mobile/config.xml</code> file (see below for more details<code>android-versionCode</code>, <code>ios-CFBundleVersion</code>, <code>version</code> and <code>AppendUserAgent</code>)</li>
 <li>Commit it and create a tag with the <code>X.Y.Z-beta.M</code> scheme (for example <code>1.5.0-beta.1</code>) and push them</li>
@@ -3079,7 +3084,7 @@ have to build the app and upload it on Testflight.</p>
 </pre></div>
 
 
-<p>On iOS, if the given splashscreens are not to the resoution of the device, iOS
+<p>On iOS, if the given splashscreens are not to the resolution of the device, iOS
 falls back to compatibility mode and adds blacks bars to the top/bottom of the
 screen. This is particularly disgraceful on the iPhoneX which has an unusual screen
 shape.</p>
@@ -3157,7 +3162,7 @@ if the change is not commited. It can be handy while developing
 when you do not want to commit/push too often.</p>
 <h4 id="android">Android<a class="headerlink" href="#android" title="Permanent link">&para;</a></h4>
 <p>Anytime a beta is tagged, Travis produces an APK in the Android stage.
-In the logs is displayed an URL for the APK that has been built.
+In the logs is displayed a URL for the APK that has been built.
 This APK can then be tested and then pushed and published in the Play
 Developer Console.</p>
 <h2 id="notifications">Notifications<a class="headerlink" href="#notifications" title="Permanent link">&para;</a></h2>
