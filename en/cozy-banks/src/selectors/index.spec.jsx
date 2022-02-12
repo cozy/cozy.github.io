@@ -6,6 +6,8 @@ import {
   ACCOUNT_DOCTYPE
 } from 'doctypes'
 import { getAccounts } from 'selectors'
+import { getTransactions } from './index'
+import getClient from './getClient'
 
 jest.mock('ducks/filters', () => {
   return {
@@ -13,7 +15,7 @@ jest.mock('ducks/filters', () => {
     getFilteredAccountIds: jest.fn()
   }
 })
-jest.mock('selectors/getClient', () => jest.fn())
+jest.mock('./getClient')
 
 describe('getAccounts', () => {
   it('should work', () => {
@@ -34,5 +36,38 @@ describe('getAccounts', () => {
       }
     })
     expect(getAccounts(client.store.getState()).length).toBe(7)
+  })
+})
+
+describe('getTransactions selectors', () => {
+  const doctype = TRANSACTION_DOCTYPE
+  let state = {
+    cozy: { documents: { [doctype]: { a: { label: 1 }, b: 2 } } }
+  }
+  const reducer = (state, action) => ({
+    cozy: {
+      documents: {
+        [doctype]: action(state.cozy.documents[doctype])
+      }
+    }
+  })
+  const anotherObject = x => ({ ...x })
+  const id = x => x
+
+  it('should filter / hydrate documents', () => {
+    getClient.mockReturnValue({
+      hydrateDocuments: (doctype, docs) => [...docs]
+    })
+
+    state = reducer(state, id)
+    expect(getTransactions(state)).toEqual([{ label: 1 }])
+    expect(getTransactions.recomputations()).toEqual(1)
+
+    state = reducer(state, anotherObject)
+    expect(getTransactions(state)).toEqual([{ label: 1 }])
+    expect(getTransactions.recomputations()).toEqual(1) // this tests the memoizeOptions
+    // when cozy-client fixed extractAndMergeDocument, we can uncomment this
+    // https://github.com/cozy/cozy-client/pull/1122
+    // expect(getTransactions.recomputations()).toEqual(2)
   })
 })
