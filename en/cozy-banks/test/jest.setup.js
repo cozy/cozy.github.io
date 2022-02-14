@@ -13,6 +13,10 @@ jest.mock('cozy-ui/transpiled/react/utils/color', () => ({
   getCssVariableValue: () => '#fff'
 }))
 
+jest.mock('cozy-intent', () => ({
+  WebviewIntentProvider: ({ children }) => children
+}))
+
 logger.setLevel('ERROR')
 
 configure({ adapter: new Adapter() })

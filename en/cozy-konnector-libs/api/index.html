@@ -4905,9 +4905,9 @@ See https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.identities.md
 <h3 id="saveidentity_1">saveIdentity() ⏏<a class="headerlink" href="#saveidentity_1" title="Permanent link">&para;</a></h3>
 <p>Set or merge a io.cozy.identities</p>
 <p>You need full permission for the doctype io.cozy.identities in your
-manifest, to be able to use this function.</p>
-<p>Parameters:</p>
-<p><code>contact</code> (object): the identity to create/update as an object io.cozy.contacts
+manifest, to be able to use this function.
+Parameters:</p>
+<p><code>identity</code> (object): the identity to create/update as an io.cozy.identities object
 <code>accountIdentifier</code> (string): a string that represent the account use, if available fields.login
 <code>options</code> (object): options which will be given to updateOrCreate directly :
   + <code>sourceAccount</code> (String): id of the source account
@@ -4915,8 +4915,10 @@ manifest, to be able to use this function.</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">saveIdentity</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-konnector-libs&#39;</span><span class="p">)</span>
 <span class="kr">const</span> <span class="nx">identity</span> <span class="o">=</span>
   <span class="p">{</span>
-    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;toto&#39;</span><span class="p">,</span>
-    <span class="nx">email</span><span class="o">:</span> <span class="p">{</span> <span class="s1">&#39;address&#39;</span><span class="o">:</span> <span class="s1">&#39;toto@example.com&#39;</span> <span class="p">}</span>
+    <span class="nx">contact</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;toto&#39;</span><span class="p">,</span>
+      <span class="nx">email</span><span class="o">:</span> <span class="p">{</span> <span class="s1">&#39;address&#39;</span><span class="o">:</span> <span class="s1">&#39;toto@example.com&#39;</span> <span class="p">}</span>
+    <span class="p">}</span>
   <span class="p">}</span>
 
 <span class="k">return</span> <span class="nx">saveIdentity</span><span class="p">(</span><span class="nx">identity</span><span class="p">,</span> <span class="nx">fields</span><span class="p">.</span><span class="nx">login</span><span class="p">)</span>
