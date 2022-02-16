@@ -2292,6 +2292,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#post-authclientsclient-idflagship" title="POST /auth/clients/:client-id/flagship" class="md-nav__link">
+    POST /auth/clients/:client-id/flagship
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#get-authauthorize" title="GET /auth/authorize" class="md-nav__link">
     GET /auth/authorize
   </a>
@@ -3212,6 +3219,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#post-authclientsclient-idflagship" title="POST /auth/clients/:client-id/flagship" class="md-nav__link">
+    POST /auth/clients/:client-id/flagship
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#get-authauthorize" title="GET /auth/authorize" class="md-nav__link">
     GET /auth/authorize
   </a>
@@ -4079,6 +4093,21 @@ client can send its attestation.</p>
 
 <p>Note: the <code>platform</code> parameter can be <code>"android"</code> or <code>"ios"</code>. For <code>ios</code>, a
 <code>"keyId"</code> parameter is also required.</p>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+
+
+<h3 id="post-authclientsclient-idflagship">POST /auth/clients/:client-id/flagship<a class="headerlink" href="#post-authclientsclient-idflagship" title="Permanent link">&para;</a></h3>
+<p>This route can be used to send a 6-digits code to manually certify a client as
+belonging to the flagship app.</p>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/auth/clients/64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3/flagship</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/x-www-form-urlencoded</span>
+
+code=123456&amp;token=123123123123123
+</pre></div>
+
+
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
 </pre></div>
 

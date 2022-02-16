@@ -1973,15 +1973,22 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#categorizationcreatecategorizer-object" title="categorization~createCategorizer() ⇒ object" class="md-nav__link">
-    categorization~createCategorizer() ⇒ object
+  <a href="#categorizationcreatecategorizeroptions-object" title="categorization~createCategorizer(options) ⇒ Object" class="md-nav__link">
+    categorization~createCategorizer(options) ⇒ Object
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#categorizationcategorize-arrayobject" title="categorization~categorize() ⇒ Array.&lt;object&gt;" class="md-nav__link">
-    categorization~categorize() ⇒ Array.&lt;object&gt;
+  <a href="#categorizationcategorizetransactions-options-arrayobject" title="categorization~categorize(transactions, options) ⇒ Array.&lt;object&gt;" class="md-nav__link">
+    categorization~categorize(transactions, options) ⇒ Array.&lt;object&gt;
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#categorizationcreatecategorizeroptions" title="categorization~CreateCategorizerOptions" class="md-nav__link">
+    categorization~CreateCategorizerOptions
   </a>
   
 </li>
@@ -3801,15 +3808,22 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#categorizationcreatecategorizer-object" title="categorization~createCategorizer() ⇒ object" class="md-nav__link">
-    categorization~createCategorizer() ⇒ object
+  <a href="#categorizationcreatecategorizeroptions-object" title="categorization~createCategorizer(options) ⇒ Object" class="md-nav__link">
+    categorization~createCategorizer(options) ⇒ Object
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#categorizationcategorize-arrayobject" title="categorization~categorize() ⇒ Array.&lt;object&gt;" class="md-nav__link">
-    categorization~categorize() ⇒ Array.&lt;object&gt;
+  <a href="#categorizationcategorizetransactions-options-arrayobject" title="categorization~categorize(transactions, options) ⇒ Array.&lt;object&gt;" class="md-nav__link">
+    categorization~categorize(transactions, options) ⇒ Array.&lt;object&gt;
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#categorizationcreatecategorizeroptions" title="categorization~CreateCategorizerOptions" class="md-nav__link">
+    categorization~CreateCategorizerOptions
   </a>
   
 </li>
@@ -5187,13 +5201,14 @@ documents, do not forget to clean linked bank operations</p>
 <p>Bank transactions categorization</p>
 <ul>
 <li><a href="#module_categorization">categorization</a><ul>
-<li><a href="#module_categorization..createCategorizer">~createCategorizer()</a> ⇒ <code>object</code></li>
-<li><a href="#module_categorization..categorize">~categorize()</a> ⇒ <code>Array.&lt;object&gt;</code></li>
+<li><a href="#module_categorization..createCategorizer">~createCategorizer(options)</a> ⇒ <code>Object</code></li>
+<li><a href="#module_categorization..categorize">~categorize(transactions, options)</a> ⇒ <code>Array.&lt;object&gt;</code></li>
+<li><a href="#module_categorization..CreateCategorizerOptions">~CreateCategorizerOptions</a></li>
 </ul>
 </li>
 </ul>
 <p><a name="module_categorization..createCategorizer"></a></p>
-<h3 id="categorizationcreatecategorizer-object">categorization~createCategorizer() ⇒ <code>object</code><a class="headerlink" href="#categorizationcreatecategorizer-object" title="Permanent link">&para;</a></h3>
+<h3 id="categorizationcreatecategorizeroptions-object">categorization~createCategorizer(options) ⇒ <code>Object</code><a class="headerlink" href="#categorizationcreatecategorizeroptions-object" title="Permanent link">&para;</a></h3>
 <p>Initialize global and local models and return an object exposing a
 <code>categorize</code> function that applies both models on an array of transactions</p>
 <p>The global model is a model specific to hosted Cozy instances. It is not available for self-hosted instances. It will just do nothing in that case.</p>
@@ -5203,8 +5218,24 @@ documents, do not forget to clean linked bank operations</p>
   The local model adds <code>localCategoryId</code> and <code>localCategoryProba</code></p>
 <p>In the end, each transaction can have up to four different categories. An application can use these categories to show the most significant for the user. See https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.bank.md#categories for more informations.</p>
 <p><strong>Kind</strong>: inner method of <a href="#module_categorization"><code>categorization</code></a><br />
-<strong>Returns</strong>: <code>object</code> - an object with a <code>categorize</code> method<br />
-<strong>Example</strong>  </p>
+<strong>Returns</strong>: <code>Object</code> - A method to categorize transactions and the classifiers it uses.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>options</td>
+<td><code>CreateCategorizerOptions</code></td>
+<td>Options used to build the categorizer</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong>  </p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">BaseKonnector</span><span class="p">,</span> <span class="nx">createCategorizer</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-konnector-libs&#39;</span><span class="p">)</span>
 
 <span class="kr">class</span> <span class="nx">BankingKonnector</span> <span class="kr">extends</span> <span class="nx">BaseKonnector</span> <span class="p">{</span>
@@ -5220,12 +5251,33 @@ documents, do not forget to clean linked bank operations</p>
 
 
 <p><a name="module_categorization..categorize"></a></p>
-<h3 id="categorizationcategorize-arrayobject">categorization~categorize() ⇒ <code>Array.&lt;object&gt;</code><a class="headerlink" href="#categorizationcategorize-arrayobject" title="Permanent link">&para;</a></h3>
+<h3 id="categorizationcategorizetransactions-options-arrayobject">categorization~categorize(transactions, options) ⇒ <code>Array.&lt;object&gt;</code><a class="headerlink" href="#categorizationcategorizetransactions-options-arrayobject" title="Permanent link">&para;</a></h3>
 <p>Initialize global and local models and categorize the given array of transactions</p>
 <p><strong>Kind</strong>: inner method of <a href="#module_categorization"><code>categorization</code></a><br />
 <strong>Returns</strong>: <code>Array.&lt;object&gt;</code> - the categorized transactions<br />
-<strong>See</strong>: <a href="createCategorizer">createCategorizer</a> for more informations about models initialization<br />
-<strong>Example</strong>  </p>
+<strong>See</strong>: <a href="createCategorizer">createCategorizer</a> for more informations about models initialization  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>transactions</td>
+<td><code>Array.&lt;object&gt;</code></td>
+<td>The transactions to categorize</td>
+</tr>
+<tr>
+<td>options</td>
+<td><code>CreateCategorizerOptions</code></td>
+<td>Options passed to create the categorizer</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong>  </p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">BaseKonnector</span><span class="p">,</span> <span class="nx">categorize</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-konnector-libs&#39;</span><span class="p">)</span>
 
 <span class="kr">class</span> <span class="nx">BankingKonnector</span> <span class="kr">extends</span> <span class="nx">BaseKonnector</span> <span class="p">{</span>
@@ -5239,6 +5291,36 @@ documents, do not forget to clean linked bank operations</p>
 </pre></div>
 
 
+<p><a name="module_categorization..CreateCategorizerOptions"></a></p>
+<h3 id="categorizationcreatecategorizeroptions">categorization~CreateCategorizerOptions<a class="headerlink" href="#categorizationcreatecategorizeroptions" title="Permanent link">&para;</a></h3>
+<p><strong>Kind</strong>: inner typedef of <a href="#module_categorization"><code>categorization</code></a><br />
+<strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>useGlobalModel</td>
+<td><code>boolean</code></td>
+<td>Whether to use the globally trained model</td>
+</tr>
+<tr>
+<td>customTransactionFetcher</td>
+<td><code>function</code></td>
+<td>A custom training transaction fetcher</td>
+</tr>
+<tr>
+<td>pretrainedClassifier</td>
+<td><code>object</code></td>
+<td>A pretrained instance of a bayes classifier</td>
+</tr>
+</tbody>
+</table>
 <p><a name="BaseKonnector"></a></p>
 <h2 id="basekonnector">BaseKonnector<a class="headerlink" href="#basekonnector" title="Permanent link">&para;</a></h2>
 <p>The class from which all the connectors must inherit.
