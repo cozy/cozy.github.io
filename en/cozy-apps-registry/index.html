@@ -3866,9 +3866,9 @@ curl -X <span class="s2">&quot;POST&quot;</span> <span class="s2">&quot;http://l
 - For this step, you will need your editor token access generated when you created your editor (see <a href="#4-create-an-editor">below</a>). You have to replace all <code>{{EDITOR_TOKEN}}</code> in this documentation by this token.
 - The communication with the registry is done through HTTP requests for now. So we will use the <code>curl</code> command line tool to register our application here.</p>
 </blockquote>
-<p>To add a new application, you have to do a <code>POST</code> request which all the informations needed to the route <code>registryAddress/registry/:appSlug</code>
-with <code>registryAddress</code> your registry address (for example here <code>http://localhost:8081</code>), <code>:appName</code> your application slug (here <code>drive</code>).</p>
-<p>Let&rsquo;s add the version 1.0.1 of the Collect application as example:</p>
+<p>To add a new version for a registered application, you have to do a <code>POST</code> request with all needed information to the route <code>registryAddress/registry/:appSlug</code> to publish in default space or <code>registryAddress/:space/registry/:appSlug</code> for a named space (see <a href="#spaces--virtual-spaces">Spaces &amp; Virtual Spaces</a> below)
+with <code>registryAddress</code> your registry address (for example here <code>http://localhost:8081</code>), <code>:appName</code> your application slug (here <code>drive</code>) and <code>:space</code> your registry space.</p>
+<p>Let&rsquo;s add the version 1.0.1 of the Collect application for example:</p>
 <div class="codehilite"><pre><span></span><span class="c1"># {{EDITOR_TOKEN}} -&gt; your generated editor access token</span>
 curl -X <span class="s2">&quot;POST&quot;</span> <span class="s2">&quot;http://localhost:8081/registry/collect&quot;</span> <span class="se">\</span>
      -H <span class="s2">&quot;Authorization: Token {{EDITOR_TOKEN}}&quot;</span> <span class="se">\</span>
@@ -3877,8 +3877,6 @@ curl -X <span class="s2">&quot;POST&quot;</span> <span class="s2">&quot;http://l
 <span class="s1">  &quot;url&quot;: &quot;https://github.com/cozy/cozy-collect/archive/1.0.1.tar.gz&quot;,</span>
 <span class="s1">  &quot;sha256&quot;: &quot;96212bf53ab618808da0a92c7b6d9f2867b1f9487ba7c1c29606826b107041b5&quot;,</span>
 <span class="s1">  &quot;version&quot;: &quot;1.0.1&quot;,</span>
-<span class="s1">  &quot;type&quot;: &quot;webapp&quot;,</span>
-<span class="s1">  &quot;editor&quot;: &quot;{{EDITOR}}&quot;</span>
 <span class="s1">}&#39;</span>
 </pre></div>
 
@@ -3902,14 +3900,6 @@ curl -X <span class="s2">&quot;POST&quot;</span> <span class="s2">&quot;http://l
 <tr>
 <td>version</td>
 <td>version of the application, must match the one in the manifest (see the notice below)</td>
-</tr>
-<tr>
-<td>type</td>
-<td>kind of application (it can be only <code>webapp</code> or <code>konnector</code>)</td>
-</tr>
-<tr>
-<td>editor</td>
-<td>Name of the editor matching the <code>{{EDITOR_TOKEN}}</code></td>
 </tr>
 </tbody>
 </table>
@@ -4207,7 +4197,7 @@ In contrast with universal links, query parameters (provided by BI) are propagat
 to the final fallback redirection.</p>
 <p><code>http://&lt;registry-domain&gt;/biwebauth?fallback=http%3A%2F%2Fa.cozy%3Ffoo%3Dfoo&amp;bar=bar</code>
 redirect to <code>http://a.cozy?foo=foo&amp;bar=bar</code>, merging fallback provided query
-parameters (<code>foo=foo</code>) with webauth provided ones (<code>bar=bar</code>). </p>
+parameters (<code>foo=foo</code>) with webauth provided ones (<code>bar=bar</code>).</p>
 <h2 id="community">Community<a class="headerlink" href="#community" title="Permanent link">&para;</a></h2>
 <p>You can reach the Cozy Community by:</p>
 <ul>

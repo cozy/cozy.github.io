@@ -3991,7 +3991,6 @@ timeout.</p>
   <span class="s2">&quot;domain&quot;</span><span class="o">:</span> <span class="s2">&quot;me.cozy.localhost&quot;</span><span class="p">,</span>
   <span class="s2">&quot;worker&quot;</span><span class="o">:</span> <span class="s2">&quot;sendmail&quot;</span><span class="p">,</span>    <span class="c1">// worker type name</span>
   <span class="s2">&quot;options&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;priority&quot;</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>         <span class="c1">// priority from 1 to 100, higher number is higher priority</span>
     <span class="s2">&quot;timeout&quot;</span><span class="o">:</span> <span class="mi">60</span><span class="p">,</span>         <span class="c1">// timeout value in seconds</span>
     <span class="s2">&quot;max_exec_count&quot;</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>   <span class="c1">// maximum number of time the job should be executed (including retries)</span>
   <span class="p">},</span>
@@ -4013,7 +4012,6 @@ timeout.</p>
 <p>Example and description of a job creation options — as you can see, the options
 are replicated in the <code>io.cozy.jobs</code> attributes:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="s2">&quot;priority&quot;</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>         <span class="c1">// priority from 1 to 100</span>
   <span class="s2">&quot;timeout&quot;</span><span class="o">:</span> <span class="mi">60</span><span class="p">,</span>         <span class="c1">// timeout value in seconds</span>
   <span class="s2">&quot;max_exec_count&quot;</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>   <span class="c1">// maximum number of retry</span>
 <span class="p">}</span>
@@ -4037,7 +4035,6 @@ are replicated in the <code>io.cozy.jobs</code> attributes:</p>
       <span class="nt">&quot;domain&quot;</span><span class="p">:</span> <span class="s2">&quot;me.cozy.localhost&quot;</span><span class="p">,</span>
       <span class="nt">&quot;worker&quot;</span><span class="p">:</span> <span class="s2">&quot;sendmail&quot;</span><span class="p">,</span>
       <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;priority&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
         <span class="nt">&quot;timeout&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
         <span class="nt">&quot;max_exec_count&quot;</span><span class="p">:</span> <span class="mi">3</span>
       <span class="p">},</span>
@@ -4070,6 +4067,7 @@ arguments will be given in the <code>process.env['COZY_FIELDS']</code> variable.
 <div class="codehilite"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
     <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;manual&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
       <span class="nt">&quot;options&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="nt">&quot;timeout&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
         <span class="nt">&quot;max_exec_count&quot;</span><span class="p">:</span> <span class="mi">3</span>

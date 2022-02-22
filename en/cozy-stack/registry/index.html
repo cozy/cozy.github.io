@@ -2176,8 +2176,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#post-registryapp" title="POST /registry/:app" class="md-nav__link">
-    POST /registry/:app
+  <a href="#post-registry" title="POST /registry" class="md-nav__link">
+    POST /registry
   </a>
   
     <nav class="md-nav">
@@ -2203,8 +2203,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#post-registryappversion-or-post-registryappversions" title="POST /registry/:app/:version or POST /registry/:app/versions" class="md-nav__link">
-    POST /registry/:app/:version or POST /registry/:app/versions
+  <a href="#post-registryapp" title="POST /registry/:app" class="md-nav__link">
+    POST /registry/:app
   </a>
   
     <nav class="md-nav">
@@ -2965,8 +2965,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#post-registryapp" title="POST /registry/:app" class="md-nav__link">
-    POST /registry/:app
+  <a href="#post-registry" title="POST /registry" class="md-nav__link">
+    POST /registry
   </a>
   
     <nav class="md-nav">
@@ -2992,8 +2992,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#post-registryappversion-or-post-registryappversions" title="POST /registry/:app/:version or POST /registry/:app/versions" class="md-nav__link">
-    POST /registry/:app/:version or POST /registry/:app/versions
+  <a href="#post-registryapp" title="POST /registry/:app" class="md-nav__link">
+    POST /registry/:app
   </a>
   
     <nav class="md-nav">
@@ -3465,9 +3465,9 @@ your app version after publishing stable.</p>
 
 <h2 id="apis-adding-to-registry">APIs: Adding to registry<a class="headerlink" href="#apis-adding-to-registry" title="Permanent link">&para;</a></h2>
 <p>These APIs can be used to add elements to the registry.</p>
-<h3 id="post-registryapp">POST /registry/:app<a class="headerlink" href="#post-registryapp" title="Permanent link">&para;</a></h3>
-<p>This route adds or modify an application to the registry. The content of the
-request should be a json object of an application.</p>
+<h3 id="post-registry">POST /registry<a class="headerlink" href="#post-registry" title="Permanent link">&para;</a></h3>
+<p>This route register or modify an application to the registry.
+The content of the request should be a json object of an application.</p>
 <h4 id="status-codes">Status codes<a class="headerlink" href="#status-codes" title="Permanent link">&para;</a></h4>
 <ul>
 <li>201 Created, when the application has been successfully added</li>
@@ -3476,7 +3476,7 @@ request should be a json object of an application.</p>
     missing editor, &hellip;)</li>
 </ul>
 <h4 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/registry/drive</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/registry</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Authorization</span><span class="o">:</span> <span class="l">Token AbCdE</span>
 </pre></div>
 
@@ -3496,9 +3496,9 @@ request should be a json object of an application.</p>
 </pre></div>
 
 
-<h3 id="post-registryappversion-or-post-registryappversions">POST /registry/:app/:version or POST /registry/:app/versions<a class="headerlink" href="#post-registryappversion-or-post-registryappversions" title="Permanent link">&para;</a></h3>
-<p>This route adds a version of an application to the registry to the specified
-channel (stable, beta or dev).</p>
+<h3 id="post-registryapp">POST /registry/:app<a class="headerlink" href="#post-registryapp" title="Permanent link">&para;</a></h3>
+<p>This route adds a version of an already registered application to the
+registry to the specified channel (stable, beta or dev).</p>
 <p>The content of the manifest file extracted from the application data is used to
 fill the fields of the version. Before adding the application version to the
 registry, the registry should check the following:</p>
@@ -3530,7 +3530,7 @@ registry, the registry should check the following:</p>
 </ul>
 <h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
 <p>Request to add a stable release:</p>
-<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/registry/drive/3.1.2</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/registry/drive</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Authorization</span><span class="o">:</span> <span class="l">Token AbCdE</span>
 </pre></div>
 
@@ -3544,7 +3544,7 @@ registry, the registry should check the following:</p>
 
 
 <p>Request to add a development release:</p>
-<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/registry/drive/3.1.2-dev.7a1618dff78ba445650f266bbe334cbc9176f03a</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/registry/drive</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Authorization</span><span class="o">:</span> <span class="l">Token AbCdE</span>
 </pre></div>
 
@@ -3558,7 +3558,7 @@ registry, the registry should check the following:</p>
 
 
 <p>Request to add a version with optional parameters:</p>
-<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/registry/drive/3.1.2</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/registry/drive</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Authorization</span><span class="o">:</span> <span class="l">Token AbCdE</span>
 </pre></div>
 
