@@ -1,0 +1,984 @@
+x-aliases:
+  paginated: &paginated
+    count: { type: integer }
+    limit: { type: integer }
+    skip: { type: integer }
+
+openapi: 3.0.0
+info:
+  title: Cozy Cloudery
+  description: |
+    Cozy Cloudery controls Cozy instances life circle, like creation, deletion,
+    premium features…
+  version: 1.0.0
+  contact:
+    email: contact@cozycloud.cc
+  license:
+    name: GFDL-1.3
+    url: https://www.gnu.org/licenses/fdl-1.3.html
+
+servers:
+  - url: https://{environment}/api
+    variables:
+      environment:
+        default: manager.cozycloud.cc
+        enum:
+          - manager.cozycloud.cc
+          - manager-int.cozycloud.cc
+          - manager-dev.cozycloud.cc
+          - manager.cozy-gandi.net
+          - manager-int.cozy-gandi.net
+          - manager-dev.cozy-gandi.net
+
+components:
+  securitySchemes:
+    token:
+      type: http
+      scheme: bearer
+  schemas:
+    UUID:
+      type: string
+      format: uuid
+    DateTime:
+      type: integer
+      format: date-time
+    Job:
+      type: object
+      properties:
+        name: { type: string }
+        queue: { type: string }
+        enqueued_at: { $ref: '#/components/schemas/DateTime' }
+        started_at: { $ref: '#/components/schemas/DateTime' }
+        finished_at: { $ref: '#/components/schemas/DateTime' }
+        failed_at: { $ref: '#/components/schemas/DateTime' }
+        error: { type: string }
+    Workflow:
+      type: object
+      properties:
+        name: { type: string }
+        started_at: { $ref: '#/components/schemas/DateTime' }
+        finished_at: { $ref: '#/components/schemas/DateTime' }
+        status:
+          type: string
+          enum:
+            - enqueued
+            - pending
+            - started
+            - succeeded
+            - retrying
+            - failed
+            - stopped
+        errors: { type: array, items: { type: string } }
+        jobs:
+          type: array
+          items: { $ref: '#/components/schemas/Job' }
+    Instance:
+      type: object
+      properties:
+        _id:
+          type: string
+          format: uuid
+        fqdn:
+          description: Primary FQDN
+          type: string
+        aliases:
+          description: Secondary FQDNs
+          type: array
+          items: { type: string }
+        created_at:
+          $ref: '#/components/schemas/DateTime'
+        updated_at:
+          $ref: '#/components/schemas/DateTime'
+        deleted_at:
+          $ref: '#/components/schemas/DateTime'
+        activation:
+          type: object
+          properties:
+            secret:
+              type: string
+              description: Secret to use for onboarding on stack side
+    Plan:
+      type: object
+      properties:
+        _id: { type: string, format: uuid }
+        slug: { type: string }
+        name: { type: string }
+        partner_id: { type: string }
+        quota: { type: integer }
+        features: { type: object }
+        currencies:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              price: { type: integer }
+              tax: { type: integer }
+              id:
+                type: string
+                description: Stripe plan
+  parameters:
+    uuid:
+      name: uuid
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    # Paginate
+    limit:
+      name: limit
+      description: Limit result to only the first n items (pagination)
+      in: query
+      schema: { type: integer, minimum: 0, maximum: 1000, default: 1000 }
+    skip:
+      name: skip
+      description: Skip n items (pagination)
+      in: query
+      schema: { type: integer, minimum: 0, default: 0 }
+    # Filter
+    only:
+      name: only
+      description: Output only the given fields
+      in: query
+      schema: { type: array, items: { type: string } }
+    exclude:
+      name: exclude
+      description: Exclude the given fields from the output
+      in: query
+      schema: { type: array, items: { type: string } }
+security:
+  - token: [ ]
+
+tags:
+  - name: instances
+    description: Instances
+  - name: workflows
+    description: Workflows
+
+paths:
+  /{partner}/onboard:
+    get:
+      description: Start onboarding process for an instance creation
+      tags: [ instances ]
+      security: [ ]
+      parameters:
+        - name: partner
+          in: path
+          required: true
+          schema: { type: string }
+          example: cozy
+        - name: offer
+          in: query
+          schema: { type: string }
+          example: cozy_default
+        - name: slug
+          in: query
+          schema: { type: string, pattern: "/\\A[a-z][a-z0-9]{0,29}\\z/" }
+          description: Default slug to propose to user for creation
+          example: somecozy
+        - name: email
+          in: query
+          schema: { type: string, format: email }
+          description: Default email to propose to user for creation
+          example: user@example.org
+        - name: back
+          in: query
+          schema: { type: string, format: uri }
+          description: URL to go back for the first onboarding stage
+          example: https://example.org/cozy
+        - name: source
+          in: query
+          schema: { type: string }
+        - name: redirect
+          in: query
+          schema: { type: string }
+          description: |
+            URL to go to after the creation, mainly for mobile onboarding.<br>
+            Will be completed with `fqdn` and `registerToken` in query parameters.
+        - name: konnectors
+          in: query
+          description: |
+            Informations used to create the account.
+            Must be valid JSON URL encoded
+          schema:
+            type: object
+            additionalProperties:
+              type: object
+              properties:
+                trigger:
+                  type: boolean
+                  default: true
+                  description: Create a trigger associated to the account
+                exec:
+                  type: boolean
+                  default: false
+                  description: Execute the created trigger
+              additionalProperties:
+                type: object
+                description: Data used as-is for account creation
+          example: "%7B%22dummy%22%3A%7B%22account_type%22%3A%22dummy%22%2C%22auth%22%3A%7B%22id%22%3A%22someuserlogin%22%2C%22secret%22%3A%22pahNaPaloth0faingiichaic%22%7D%2C%22trigger%22%3Atrue%2C%22exec%22%3Atrue%7D%7D"
+        - name: oauth
+          in: query
+          schema:
+            type: object
+            properties:
+              client_name: { type: string }
+              redirect_uri: { type: string }
+              software_id: { type: string }
+              onboarding:
+                type: object
+                properties:
+                  app: { type: string }
+                  secret: { type: string }
+                  state: { type: string }
+                  permissions:
+                    type: array
+                    items: { type: string }
+
+  /public/instances:
+    post:
+      description: Create an instance
+      tags: [ public ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                offer: { type: string }
+                slug: { type: string }
+                domain: { type: string }
+                aliases: { type: array, items: { type: string } }
+                email: { type: email }
+                public_name: { type: string }
+                locale: { type: string }
+                oidc:
+                  type: string
+                  description: OIDC sub to associate with the created Cozy for future OAuth authentication
+                tos:
+                  type: object
+                  properties:
+                    version: { type: string }
+                    ip: { type: string }
+                redirect:
+                  type: string
+                  description: |
+                    URL to go to after the creation, mainly for mobile onboarding.<br>
+                    Will be completed with `fqdn` and `registerToken` in query parameters.
+                oauth:
+                  type: object
+                  required:
+                    - client_name
+                    - redirect_uri
+                    - software_id
+                    - scopes
+                  properties:
+                    client_name: { type: string }
+                    redirect_uri: { type: string }
+                    software_id: { type: string }
+                    scopes: { type: array, items: { type: string } }
+                    onboarding:
+                      type: object
+                      required:
+                        - app
+                        - secret
+                        - state
+                        - permissions
+                      properties:
+                        app: { type: string }
+                        secret: { type: string }
+                        state: { type: string }
+                        permissions: { type: array, items: { type: string } }
+            example:
+              offer: cozy_default
+              slug: foo
+              domain: example.org
+              email: foo@example.org
+              aliases:
+                - bar.example.net
+                - quz.example.org
+              public_name: foo bar
+              locale: fr
+              tos:
+                version: 1.0.0
+                ip:
+              oauth:
+                client_name: drive
+                redirect_uri: http://localhost/oauth/callback
+                scopes: [ read write ]
+                onboarding:
+                  app: drive
+                  state: state
+                  secret: ed845b8839b99772d0e7
+                  permission: [ read ]
+      responses:
+        200:
+          description: Instance creating
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  instances:
+                    type: string
+                    format: uuid
+                  workflow:
+                    type: string
+                    format: uuid
+              example:
+                instance: f5134920-286d-49ef-8617-cc45e4d99c9a
+                workflow: 66f7ffd6-bad9-45ab-b49c-7fee4da89c70
+
+  /v1/public/instances/remind:
+    parameters:
+      - name: email
+        type: email
+        in: query
+        required: true
+        example: foo@example.org
+    post:
+      description: Send a reminder email if instance matching the given email
+      tags: [ public ]
+      responses:
+        200:
+          description: OK
+
+  /v1/public/workflows/{uuid}:
+    parameters:
+      - $ref: '#/components/parameters/uuid'
+    get:
+      description: Returns single workflow status
+      tags: [ public ]
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum:
+                    - failed
+                    - finished
+                    - error
+                    - started
+                    - pending
+              example:
+                status: finished
+
+  /v1/workflows/{uuid}:
+    parameters:
+      - $ref: '#/components/parameters/uuid'
+    get:
+      description: Returns single workflow details
+      tags: [ workflows ]
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Workflow'
+              example:
+                name: CreateInstanceWorkflow-985589a3-071e-4bd1-94f4-9748a39d9a8d
+                started_at: 1584009668
+                finished_at: 1584009930
+                status: succeeded
+                jobs:
+                  - name: WaitForDNS|095616a5-73e2-49f3-8529-5c6e7d586e77
+                    queue: backend
+                    enqueued_at: 1584009607
+                    started_at: 1584009668
+                    finished_at: 1584009668
+                    failed_at:
+                    error:
+                  - name: CreateInstance|c959777b-9436-43dc-bbe3-8006b3a72852
+                    queue: backend
+                    enqueued_at: 1584009668
+                    started_at: 1584009668
+                    finished_at: 1584009686
+                    failed_at:
+                    error:
+                  - name: IssueCertificate|56e0b5a5-9e7e-4e4e-84ee-b04db2e1a3e0
+                    queue: backend
+                    enqueued_at: 1584009668
+                    started_at: 1584009926
+                    finished_at: 1584009927
+                    failed_at:
+                    error:
+                  - name: SendActivationEmail|061ee259-cd5a-4a35-a7e9-001dbc1effa7
+                    queue: backend
+                    enqueued_at: 1584009927
+                    started_at: 1584009927
+                    finished_at: 1584009930
+                    failed_at:
+                    error:
+                errors: [ ]
+  /v1/workflows/{uuid}/continue:
+    parameters:
+      - $ref: '#/components/parameters/uuid'
+    post:
+      description: Restart the given workflow
+      tags: [ workflows ]
+      responses:
+        200:
+          description: OK
+
+  /v1/instances:
+    post:
+      description: Create an instance
+      tags: [ instances ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - offer
+                - slug
+                - domain
+                - email
+              properties:
+                offer: { type: string }
+                slug: { type: string }
+                domain: { type: string }
+                aliases: { type: array, items: { type: string } }
+                email: { type: email }
+                public_name: { type: string }
+                locale: { type: string }
+                oidc:
+                  type: string
+                  description: OIDC sub to associate with the created Cozy for future OAuth authentication
+                tos:
+                  type: object
+                  properties:
+                    version: { type: string }
+                    ip: { type: string }
+                redirect:
+                  type: string
+                  description: |
+                    URL to go to after the creation, mainly for mobile onboarding.<br>
+                    Will be completed with `fqdn` and `registerToken` in query parameters.
+                oauth:
+                  type: object
+                  required:
+                    - client_name
+                    - redirect_uri
+                    - software_id
+                    - scopes
+                  properties:
+                    client_name: { type: string }
+                    redirect_uri: { type: string }
+                    software_id: { type: string }
+                    scopes: { type: array, items: { type: string } }
+                    onboarding:
+                      type: object
+                      required:
+                        - app
+                        - secret
+                        - state
+                        - permissions
+                      properties:
+                        app: { type: string }
+                        secret: { type: string }
+                        state: { type: string }
+                        permissions: { type: array, items: { type: string } }
+            example:
+              offer: cozy_default
+              slug: foo
+              domain: example.org
+              email: foo@example.org
+              aliases:
+                - bar.example.net
+                - quz.example.org
+              public_name: foo bar
+              locale: fr
+              tos:
+                version: 1.0.0
+                ip:
+              oauth:
+                client_name: drive
+                redirect_uri: http://localhost/oauth/callback
+                scopes: [ read write ]
+                onboarding:
+                  app: drive
+                  state: state
+                  secret: ed845b8839b99772d0e7
+                  permission: [ read ]
+      responses:
+        200:
+          description: Instance creating
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                    format: uuid
+                  workflow:
+                    type: string
+                    format: uuid
+              example:
+                _id: f5134920-286d-49ef-8617-cc45e4d99c9a
+                workflow: 66f7ffd6-bad9-45ab-b49c-7fee4da89c70
+          links:
+            userId:
+              operationRef: '#/paths/~1instances~1{uuid}/get'
+              parameters:
+                uuid: '$response.body#/_id'
+            workflowId:
+              operationRef: '#/paths/~1workflows~1{uuid}/get'
+              parameters:
+                uuid: '$response.body#/workflow'
+
+  /v1/instances/{uuid}:
+    parameters:
+      - $ref: '#/components/parameters/uuid'
+    get:
+      description: Fetch instance informations
+      tags: [ instances ]
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Instance' }
+              example:
+                _id: f5134920-286d-49ef-8617-cc45e4d99c9a
+                fqdn: foo.example.org
+                aliases:
+                  - bar.example.net
+                  - quz.example.org
+                activation:
+                  secret: 92a79b94b75e6eb2cc8a
+                state: activated
+                created_at: 1584009607
+                updated_at: 1584009686
+                deleted_at:
+
+    delete:
+      description: Delete an instance
+      tags: [ instances ]
+      parameters:
+        - name: user_request
+          in: query
+          schema:
+            type: boolean
+            default: true
+            description: Flag the deletion as user requested
+        - name: date
+          in: query
+          schema:
+            type: integer
+            description: UNIX timestamp for planned deletion
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  workflow: { $ref: '#/components/schemas/UUID' }
+              example:
+                workflow: e24770d6-20af-4f87-b4f4-2817e5868d39
+          links:
+            workflowId:
+              operationRef: '#/paths/~1workflows~1{uuid}/get'
+              parameters:
+                uuid: '$response.body#/workflow'
+
+  /v1/instances/{uuid}/recreate:
+    post:
+      description: Recreate an instance
+      tags: [ instances ]
+      parameters:
+        - $ref: '#/components/parameters/uuid'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  workflow: { $ref: '#/components/schemas/UUID' }
+              example:
+                workflow: b1a943ab-7112-448e-83fd-f91dd73dff79
+          links:
+            workflowId:
+              operationRef: '#/paths/~1workflows~1{uuid}/get'
+              parameters:
+                uuid: '$response.body#/workflow'
+
+  /v1/instances/precreate:
+    get:
+      description: Precreated instances count per status
+      tags: [ instances, precreation ]
+      parameters:
+        - name: offer
+          type: string
+          in: query
+          example: cozy_default
+        - name: domain
+          type: string
+          in: query
+          example: example.org
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              example:
+                creating: 10
+                created: 5000
+                error: 5
+    post:
+      description: Precreate instances
+      tags: [ instances, precreation ]
+      parameters:
+        - name: quantity
+          type: integer
+          in: query
+          required: true
+          example: 10
+          description: Number of instances to create
+        - name: offer
+          type: string
+          in: query
+          required: true
+          example: cozy_default
+        - name: domain
+          type: string
+          in: query
+          required: true
+          example: example.org
+      responses:
+        200:
+          description: OK
+    delete:
+      description: Delete precreated instances
+      tags: [ instances, precreation ]
+      parameters:
+        - name: quantity
+          type: integer
+          in: query
+          required: true
+          example: 10
+          description: Number of instances to delete
+        - name: offer
+          type: string
+          in: query
+          required: true
+          example: cozy_default
+        - name: domain
+          type: string
+          in: query
+          required: true
+          example: example.org
+      responses:
+        200:
+          description: OK
+
+  /v1/instances/{uuid}/block:
+    parameters:
+      - $ref: '#/components/parameters/uuid'
+    post:
+      tags: [ instances ]
+      description: Block/unblock an instance
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                blocked: { type: boolean, default: true }
+            example:
+              blocked: true
+      responses:
+        200: { description: OK }
+
+  /v1/instances/{uuid}/features:
+    parameters:
+      - $ref: '#/components/parameters/uuid'
+    patch:
+      tags: [ instances, features ]
+      description: Modify feature flags for an instance
+      parameters:
+        - name: features
+          in: query
+          description: |
+            Features to set. If you give a `null` value, the flag will be removed.
+            Field value must be a valid JSON string, properly URL encoded if needed.
+          schema: { type: string }
+          example: '{"blockTransfer": true}'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: Instance flags as reported **by the stack** (not the ones known by the cloudery)
+                type: object
+                additionalProperties: true
+                example:
+                  blockTransfer: true
+
+  /v1/features/instances:
+    get:
+      tags: [ instances, features ]
+      description: Search for instances having the given feature flags
+      parameters:
+        # Pagination
+        - $ref: '#/components/parameters/skip'
+        - $ref: '#/components/parameters/limit'
+        - name: features
+          in: query
+          description: |
+            Features to select.
+            Field value must be a valid JSON string, properly URL encoded if needed.
+          schema: { type: string }
+          example: '{"blockTransfer": true}'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  <<: *paginated
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        uuid: { $ref: '#/components/schemas/UUID' }
+                        fqdn: { type: string }
+                        partner: { type: string }
+                        offer: { type: string }
+                        context: { type: string }
+              example:
+                count: 247
+                limit: 10
+                skip: 30
+                items:
+                  - uuid: e93154bc-fbac-4bef-9f0c-41829944d199
+                    fqdn: foo.example.org
+                    partner: cozy
+                    offer: cozy_default
+                    context: cozy_beta
+                  - uuid: 65ff2ea0-a7ee-477b-80a9-1b8d48e81ecd
+                    fqdn: bar.example.org
+                    partner: cozy
+                    offer: cozy_default
+                    context: cozy_beta
+
+  /v2/fqdns/{fqdn}:
+    delete:
+      description: Release a FQDN for reuse
+      responses:
+        200:
+          description: OK
+
+  /v2/instances:
+    get:
+      description: Search for instances
+      tags: [ instances ]
+      parameters:
+        # Pagination
+        - $ref: '#/components/parameters/skip'
+        - $ref: '#/components/parameters/limit'
+        # Filter
+        - $ref: '#/components/parameters/only'
+        - $ref: '#/components/parameters/exclude'
+        - name: filter
+          description: |
+            Filter instances on the given attributes values<br>
+            You can filter on timestamp field (`xxx_at`) presence with a boolean
+            filter (`xxx: true|false`)
+          in: query
+          schema:
+            type: object
+            additionalProperties: true
+            example:
+              fqdn: foo.example.org
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  <<: *paginated
+                  items:
+                    type: array
+                    items: { $ref: '#/components/schemas/Instance' }
+              example:
+                count: 247
+                limit: 10
+                skip: 30
+                items:
+                  - _id: f5134920-286d-49ef-8617-cc45e4d99c9a
+                    fqdn: foo.example.org
+                    aliases:
+                      - bar.example.net
+                      - quz.example.org
+                    activation:
+                      secret: 92a79b94b75e6eb2cc8a
+                    state: activated
+                    created_at: 1584009607
+                    updated_at: 1584009686
+                    deleted_at:
+
+  /v2/instances/{uuid}/workflows:
+    parameters:
+      - $ref: '#/components/parameters/uuid'
+    get:
+      tags: [ instances ]
+      description: Fetch workflows associated to an instance
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  description: Some values can be missing because no more available
+                  properties:
+                    id: { $ref: '#/components/schemas/UUID' }
+                    class: { type: string }
+                    created_at: { $ref: '#/components/schemas/DateTime' }
+                    status:
+                      type: string
+                      enum:
+                        - enqueued
+                        - pending
+                        - started
+                        - succeeded
+                        - retrying
+                        - failed
+                        - stopped
+              example:
+                - id: 643dec40-ca66-40f4-aa66-20ea02443b98
+                  class: CreateInstanceWorkflow
+                  created_at: '2021-11-10T10:23:48.359Z'
+                - id: 195052a1-f2bb-4da2-aafd-12d3a3dea5d9
+                  class: RecreateInstanceWorkflow
+                  created_at: '2021-11-10T10:46:18.353Z'
+                - id: a1a1b7de-a966-452d-8b75-74d5b2bc6002
+                  class: DeleteInstanceWorkflow
+                  created_at: '2021-11-10T10:46:46.593Z'
+                - id: ad486f9c-fad8-4d84-a5fe-9cb8395413da
+                  class: RecreateInstanceWorkflow
+                  created_at: '2021-11-10T10:46:51.642Z'
+                - id: 024bfb3e-4190-486f-84aa-7a4beebe85d4
+                  class: DeleteInstanceWorkflow
+                  created_at: '2021-11-10T15:16:03.682Z'
+                - id: 03bd794b-4f73-4662-aa6b-2fa25dbc5371
+                  class: CreateInstanceWorkflow
+                  created_at: '2021-11-10T15:16:09.660Z'
+                - id: 90485eff-00f9-4841-9ab7-70e7001b6746
+                  class: DeleteInstanceWorkflow
+                  created_at: '2021-11-16T09:38:19.785Z'
+                  status: finished
+                - id: b7482429-d84d-4a22-ba1e-f4b42a98b32c
+                  class: CreateInstanceWorkflow
+                  created_at: '2021-11-16T09:38:26.143Z'
+                  status: finished
+
+
+  /v1/plans/{uuid}:
+    parameters:
+      - $ref: '#/components/parameters/uuid'
+    get:
+      description: Fetch plan informations
+      tags: [ plans ]
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Plan' }
+              example:
+                _id: 48596be8-8830-47b1-924e-dac83c2811ec
+                slug: standard
+                name: Cozy standard
+                partner_id: cozy
+                quota: 5000000000
+                features: { }
+                currencies:
+                  eur:
+                    price: 0
+                    id: plan_GXyzCsA8fU4TQ8
+
+  /maif/epa/instances/activate:
+    post:
+      description: Activate an instance
+      tags: [ maif ]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                offer: { type: string }
+                domain: { type: string }
+                email: { type: string }
+                locale: { type: string }
+                oidc: { type: string }
+                tos:
+                  type: object
+                  properties:
+                    version: { type: string }
+                    ip: { type: string }
+                  required: [ ip, version ]
+                konnector-maif-epa:
+                  type: object
+                  properties:
+                    id: { type: string }
+                    secret: { type: string }
+                  required: [ id, secret ]
+              required: [ offer, oidc, tos, konnector-maif-epa ]
+            example:
+              offer: cozy_default
+              domain: example.org
+              email: foo@example.org
+              oidc: nTK9H1bv
+              tos:
+                version: 1.0.0
+                ip: ::1
+              konnector-maif-epa:
+                id: Dfe3EF
+                secret: j0y844
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  fqdn: { type: string }
+                  uuid: { $ref: '#/components/schemas/UUID' }
+                  webhooks:
+                    type: object
+                    additionalProperties:
+                      type: object
+                      properties:
+                        id: { type: string }
+                        url: { type: string }
+                        account: { type: string }
+                  workflow: { type: string }
+              example:
+                uuid: 1f85908e-40ee-4232-a8fb-98193034501b
+                fqdn: xdi7ptgkne6kdhdxbutkvjvaiebal1.example.org
+                webhooks:
+                  konnector_1:
+                    id: e36ad2c27a0d28f87abb2738220233d2
+                    url: /jobs/webhooks/e36ad2c27a0d28f87abb2738220233d2
+                    account: e36ad2c27a0d28f87abb273822022981
+                workflow: 98e68067-7d7e-4ffc-bfbc-53d1ad239edc
