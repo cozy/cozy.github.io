@@ -1110,8 +1110,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cozystackclientfetchmethod-path-body-opts-object" title="cozyStackClient.fetch(method, path, body, opts) ⇒ object" class="md-nav__link">
-    cozyStackClient.fetch(method, path, body, opts) ⇒ object
+  <a href="#cozystackclientfetchmethod-path-body-opts-object" title="cozyStackClient.fetch(method, path, [body], [opts]) ⇒ object" class="md-nav__link">
+    cozyStackClient.fetch(method, path, [body], [opts]) ⇒ object
   </a>
   
 </li>
@@ -1955,6 +1955,13 @@
         <li class="md-nav__item">
   <a href="#getaccesstoken-string_1" title="getAccessToken() ⇒ string" class="md-nav__link">
     getAccessToken() ⇒ string
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#geticonurlstackclient-opts-promisestring-string" title="getIconURL(stackClient, opts) ⇒ Promise.&lt;string&gt; | string" class="md-nav__link">
+    getIconURL(stackClient, opts) ⇒ Promise.&lt;string&gt; | string
   </a>
   
 </li>
@@ -3860,8 +3867,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#cozystackclientfetchmethod-path-body-opts-object" title="cozyStackClient.fetch(method, path, body, opts) ⇒ object" class="md-nav__link">
-    cozyStackClient.fetch(method, path, body, opts) ⇒ object
+  <a href="#cozystackclientfetchmethod-path-body-opts-object" title="cozyStackClient.fetch(method, path, [body], [opts]) ⇒ object" class="md-nav__link">
+    cozyStackClient.fetch(method, path, [body], [opts]) ⇒ object
   </a>
   
 </li>
@@ -4710,6 +4717,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#geticonurlstackclient-opts-promisestring-string" title="getIconURL(stackClient, opts) ⇒ Promise.&lt;string&gt; | string" class="md-nav__link">
+    getIconURL(stackClient, opts) ⇒ Promise.&lt;string&gt; | string
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#garbagecollect" title="garbageCollect()" class="md-nav__link">
     garbageCollect()
   </a>
@@ -5152,6 +5166,10 @@ See <a href="https://docs.cozy.io/en/cozy-stack/sharing-design/#description-of-a
 <dt><a href="#getAccessToken">getAccessToken()</a> ⇒ <code>string</code></dt>
 <dd><p>Get the app token string</p>
 </dd>
+<dt><a href="#getIconURL">getIconURL(stackClient, opts)</a> ⇒ <code>Promise.&lt;string&gt;</code> | <code>string</code></dt>
+<dd><p>Get Icon URL using blob mechanism if OAuth connected
+or using preloaded url when blob not needed</p>
+</dd>
 <dt><a href="#garbageCollect">garbageCollect()</a></dt>
 <dd><p>Delete outdated results from cache</p>
 </dd>
@@ -5329,7 +5347,7 @@ document as data attribute  </p>
 <ul>
 <li><a href="#CozyStackClient">CozyStackClient</a><ul>
 <li><a href="#CozyStackClient+collection">.collection(doctype)</a> ⇒ <a href="#DocumentCollection"><code>DocumentCollection</code></a></li>
-<li><a href="#CozyStackClient+fetch">.fetch(method, path, body, opts)</a> ⇒ <code>object</code></li>
+<li><a href="#CozyStackClient+fetch">.fetch(method, path, [body], [opts])</a> ⇒ <code>object</code></li>
 <li><a href="#CozyStackClient+checkForRevocation">.checkForRevocation()</a></li>
 <li><a href="#CozyStackClient+refreshToken">.refreshToken()</a> ⇒ <code>Promise</code></li>
 <li><a href="#CozyStackClient+fetchJSON">.fetchJSON(method, path, body, options)</a> ⇒ <code>object</code></li>
@@ -5359,7 +5377,7 @@ document as data attribute  </p>
 </tbody>
 </table>
 <p><a name="CozyStackClient+fetch"></a></p>
-<h3 id="cozystackclientfetchmethod-path-body-opts-object">cozyStackClient.fetch(method, path, body, opts) ⇒ <code>object</code><a class="headerlink" href="#cozystackclientfetchmethod-path-body-opts-object" title="Permanent link">&para;</a></h3>
+<h3 id="cozystackclientfetchmethod-path-body-opts-object">cozyStackClient.fetch(method, path, [body], [opts]) ⇒ <code>object</code><a class="headerlink" href="#cozystackclientfetchmethod-path-body-opts-object" title="Permanent link">&para;</a></h3>
 <p>Fetches an endpoint in an authorized way.</p>
 <p><strong>Kind</strong>: instance method of <a href="#CozyStackClient"><code>CozyStackClient</code></a><br />
 <strong>Throws</strong>:</p>
@@ -5371,6 +5389,7 @@ document as data attribute  </p>
 <tr>
 <th>Param</th>
 <th>Type</th>
+<th>Default</th>
 <th>Description</th>
 </tr>
 </thead>
@@ -5378,21 +5397,25 @@ document as data attribute  </p>
 <tr>
 <td>method</td>
 <td><code>string</code></td>
+<td></td>
 <td>The HTTP method.</td>
 </tr>
 <tr>
 <td>path</td>
 <td><code>string</code></td>
+<td></td>
 <td>The URI.</td>
 </tr>
 <tr>
-<td>body</td>
+<td>[body]</td>
 <td><code>object</code></td>
+<td></td>
 <td>The payload.</td>
 </tr>
 <tr>
-<td>opts</td>
+<td>[opts]</td>
 <td><code>object</code></td>
+<td><code></td>
 <td>Options for fetch</td>
 </tr>
 </tbody>
@@ -7996,7 +8019,67 @@ See https://docs.cozy.io/en/cozy-stack/sharing-design/#description-of-a-sharing<
 <p><strong>Kind</strong>: global function<br />
 <strong>Returns</strong>: <code>string</code> - token<br />
 <strong>See</strong>: CozyStackClient.getAccessToken<br />
-<a name="garbageCollect"></a></p>
+<a name="getIconURL"></a></p>
+<h2 id="geticonurlstackclient-opts-promisestring-string">getIconURL(stackClient, opts) ⇒ <code>Promise.&lt;string&gt;</code> | <code>string</code><a class="headerlink" href="#geticonurlstackclient-opts-promisestring-string" title="Permanent link">&para;</a></h2>
+<p>Get Icon URL using blob mechanism if OAuth connected
+or using preloaded url when blob not needed</p>
+<p><strong>Kind</strong>: global function<br />
+<strong>Returns</strong>: <code>Promise.&lt;string&gt;</code> | <code>string</code> - DOMString containing URL source or a URL representing the Blob or ErrorReturned  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stackClient</td>
+<td><a href="#CozyStackClient"><code>CozyStackClient</code></a></td>
+<td></td>
+<td>CozyStackClient</td>
+</tr>
+<tr>
+<td>stackClient.oauthOptions</td>
+<td><code>object</code></td>
+<td></td>
+<td>oauthOptions used to detect fetching mechanism</td>
+</tr>
+<tr>
+<td>opts</td>
+<td><code>object</code></td>
+<td></td>
+<td>Options</td>
+</tr>
+<tr>
+<td>opts.type</td>
+<td><code>string</code></td>
+<td></td>
+<td>Options type</td>
+</tr>
+<tr>
+<td>opts.slug</td>
+<td><code>string</code></td>
+<td></td>
+<td>Options slug</td>
+</tr>
+<tr>
+<td>opts.appData</td>
+<td><code>object</code></td>
+<td></td>
+<td>Apps data - io.cozy.apps</td>
+</tr>
+<tr>
+<td>[opts.priority]</td>
+<td><code>string</code></td>
+<td><code>&quot;&#x27;stack&#x27;&quot;</code></td>
+<td>Options priority</td>
+</tr>
+</tbody>
+</table>
+<p><a name="garbageCollect"></a></p>
 <h2 id="garbagecollect">garbageCollect()<a class="headerlink" href="#garbagecollect" title="Permanent link">&para;</a></h2>
 <p>Delete outdated results from cache</p>
 <p><strong>Kind</strong>: global function<br />

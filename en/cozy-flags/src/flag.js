@@ -36,6 +36,9 @@ export const resetFlags = () => {
 export const enable = flagsToEnable => {
   let flagNameToValue
   if (Array.isArray(flagsToEnable)) {
+    if (flagsToEnable.length === 0) {
+      return
+    }
     // eslint-disable-next-line no-console
     console.log(
       'flags.enable: Deprecation warning: prefer to use an object { flag1: true, flag2: true } instead of an array when using flags.enable'
