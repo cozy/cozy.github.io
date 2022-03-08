@@ -2140,6 +2140,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#post-oidctwofactor" title="POST /oidc/twofactor" class="md-nav__link">
+    POST /oidc/twofactor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#post-oidcaccess_token" title="POST /oidc/access_token" class="md-nav__link">
     POST /oidc/access_token
   </a>
@@ -2636,6 +2643,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#post-oidctwofactor" title="POST /oidc/twofactor" class="md-nav__link">
+    POST /oidc/twofactor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#post-oidcaccess_token" title="POST /oidc/access_token" class="md-nav__link">
     POST /oidc/access_token
   </a>
@@ -2806,6 +2820,27 @@ cookies to log in the user).</p>
 access_token instead of code on this URL.</p>
 <p>If the <code>id_token_jwk_url</code> option is enabled, it&rsquo;s possible to use an
 id_token instead.</p>
+<h4 id="post-oidctwofactor">POST /oidc/twofactor<a class="headerlink" href="#post-oidctwofactor" title="Permanent link">&para;</a></h4>
+<p>If the instance is protected with two-factor authentication, the login
+route will render an HTML page with JavaScript to check if the user has trusted
+the device. And the JavaScript submit a form to this route. If the trusted
+device token is set, a session will be created. Else, a mail with a code is
+sent, and the user is redirected to a page where they can type the two-factor
+code.</p>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/oidc/twofactor</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">name00001.mycozy.cloud</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/x-www-form-urlencoded</span>
+
+trusted-device-token=xxx&amp;access-token=yyy&amp;redirect=&amp;confirm=
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">303</span> <span class="ne">See Other</span>
+<span class="na">Set-Cookie</span><span class="o">:</span> <span class="l">...</span>
+<span class="na">Location</span><span class="o">:</span> <span class="l">https://name00001-home.mycozy.cloud/</span>
+</pre></div>
+
+
 <h4 id="post-oidcaccess_token">POST /oidc/access_token<a class="headerlink" href="#post-oidcaccess_token" title="Permanent link">&para;</a></h4>
 <p>This additional route can be used by an OAuth client (like a mobile app) when
 delegated authentication via OpenID Connect is enabled. It allows the client to
