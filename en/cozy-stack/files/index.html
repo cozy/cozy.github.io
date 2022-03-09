@@ -4631,6 +4631,7 @@ pagination</a>). On the last page, there won&rsquo;t be a
       <span class="p">},</span>
       <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/e8c1561846c730428180a5f6c6107914&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;tiny&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/e8c1561846c730428180a5f6c6107914/thumbnails/377327a8e20d6a50/tiny&quot;</span><span class="p">,</span>
         <span class="nt">&quot;small&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/e8c1561846c730428180a5f6c6107914/thumbnails/377327a8e20d6a50/small&quot;</span><span class="p">,</span>
         <span class="nt">&quot;medium&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/e8c1561846c730428180a5f6c6107914/thumbnails/377327a8e20d6a50/medium&quot;</span><span class="p">,</span>
         <span class="nt">&quot;large&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/e8c1561846c730428180a5f6c6107914/thumbnails/377327a8e20d6a50/large&quot;</span>
@@ -4676,6 +4677,7 @@ pagination</a>). On the last page, there won&rsquo;t be a
       <span class="p">},</span>
       <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
         <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/e8c1561846c730428180a5f6c6109007&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;tiny&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/e8c1561846c730428180a5f6c6109007/thumbnails/58a4aea31b00c99d/tiny&quot;</span><span class="p">,</span>
         <span class="nt">&quot;small&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/e8c1561846c730428180a5f6c6109007/thumbnails/58a4aea31b00c99d/small&quot;</span><span class="p">,</span>
         <span class="nt">&quot;medium&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/e8c1561846c730428180a5f6c6109007/thumbnails/58a4aea31b00c99d/medium&quot;</span><span class="p">,</span>
         <span class="nt">&quot;large&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/e8c1561846c730428180a5f6c6109007/thumbnails/58a4aea31b00c99d/large&quot;</span>
@@ -4923,6 +4925,7 @@ Hello world!
     <span class="p">},</span>
     <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
       <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;tiny&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b/thumbnails/0f9cda56674282ac/tiny&quot;</span><span class="p">,</span>
       <span class="nt">&quot;small&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b/thumbnails/0f9cda56674282ac/small&quot;</span><span class="p">,</span>
       <span class="nt">&quot;medium&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b/thumbnails/0f9cda56674282ac/medium&quot;</span><span class="p">,</span>
       <span class="nt">&quot;large&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b/thumbnails/0f9cda56674282ac/large&quot;</span>
@@ -5072,11 +5075,13 @@ Hello world!
 
 <h3 id="get-filesfile-idiconsecret">GET /files/:file-id/icon/:secret<a class="headerlink" href="#get-filesfile-idiconsecret" title="Permanent link">&para;</a></h3>
 <p>Get an image that shows the first page of a PDF in a small resolution (96x96).</p>
+<p><strong>Note:</strong> this route is deprecated, you should use thumbnails instead.</p>
 <h3 id="get-filesfile-idpreviewsecret">GET /files/:file-id/preview/:secret<a class="headerlink" href="#get-filesfile-idpreviewsecret" title="Permanent link">&para;</a></h3>
 <p>Get an image that shows the first page of a PDF (at most 1080x1920).</p>
+<p><strong>Note:</strong> this route is deprecated, you should use thumbnails instead.</p>
 <h3 id="get-filesfile-idthumbnailssecretformat">GET /files/:file-id/thumbnails/:secret/:format<a class="headerlink" href="#get-filesfile-idthumbnailssecretformat" title="Permanent link">&para;</a></h3>
-<p>Get a thumbnail of a file (for an image only). <code>:format</code> can be <code>small</code>
-(640x480), <code>medium</code> (1280x720), or <code>large</code> (1920x1080).</p>
+<p>Get a thumbnail of a file (for an image only). <code>:format</code> can be <code>tiny</code> (96x96)
+<code>small</code> (640x480), <code>medium</code> (1280x720), or <code>large</code> (1920x1080).</p>
 <h3 id="put-filesfile-id">PUT /files/:file-id<a class="headerlink" href="#put-filesfile-id" title="Permanent link">&para;</a></h3>
 <p>Overwrite a file</p>
 <p>The <code>updated_at</code> field will be the first value in this list:</p>
@@ -5188,7 +5193,11 @@ HELLO WORLD!
     <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
       <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;</span><span class="p">,</span>
       <span class="nt">&quot;icon&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b/icon/543d7eb8&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;preview&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b/preview/77e117e0&quot;</span>
+      <span class="nt">&quot;preview&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b/preview/77e117e0&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;tiny&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b/thumbnails/93fd0a5d96b22e9d/tiny&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;small&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b/thumbnails/93fd0a5d96b22e9d/small&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;medium&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b/thumbnails/93fd0a5d96b22e9d/medium&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;large&quot;</span><span class="p">:</span> <span class="s2">&quot;/files/9152d568-7e7c-11e6-a377-37cbfb190b4b/thumbnails/93fd0a5d96b22e9d/large&quot;</span>
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>
@@ -5744,6 +5753,10 @@ server &gt; {&quot;event&quot;: &quot;CREATED&quot;,
           &quot;payload&quot;: {&quot;id&quot;: &quot;9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;,
                       &quot;type&quot;: &quot;io.cozy.files.thumbnails&quot;,
                       &quot;doc&quot;: {&quot;format&quot;: &quot;small&quot;}}}
+server &gt; {&quot;event&quot;: &quot;CREATED&quot;,
+          &quot;payload&quot;: {&quot;id&quot;: &quot;9152d568-7e7c-11e6-a377-37cbfb190b4b&quot;,
+                      &quot;type&quot;: &quot;io.cozy.files.thumbnails&quot;,
+                      &quot;doc&quot;: {&quot;format&quot;: &quot;tiny&quot;}}}
 </pre></div>
                 
                   
