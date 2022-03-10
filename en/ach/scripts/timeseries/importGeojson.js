@@ -1,5 +1,3 @@
-const { addDays, addHours } = require('date-fns')
-
 const DOCTYPE_GEOJSON_AGGREGATE = 'io.cozy.timeseries.geojson.aggregate'
 const DOCTYPE_GEOJSON = 'io.cozy.timeseries.geojson'
 const GEODOC01 = require('../../data/timeseries/geojson-01.json')
@@ -10,18 +8,37 @@ const {
 } = require('../../data/accounts/tracemob.json')
 const GEODOCS = [GEODOC01, GEODOC02, GEODOC03]
 
+const allModes = [
+  'AIR_OR_HSR',
+  'BICYCLING',
+  'BUS',
+  'CAR',
+  'SUBWAY',
+  'TRAIN',
+  'WALKING',
+  'UNKNOWN'
+]
+
 const N_DOCS = 75
 
 const createTrips = () => {
   const trips = []
+
   for (let i = 0; i < N_DOCS; i++) {
     const randomDoc = GEODOCS[Math.floor(Math.random() * GEODOCS.length)]
-    const startDate = addDays(new Date(2020, 1, 1), i)
-    const endDate = addHours(startDate, 1)
     const cozyMetadata = { sourceAccount: ACCOUNTS[0]._id }
-    const trip = { ...randomDoc, startDate, endDate, cozyMetadata }
+
+    randomDoc.series[0].features.forEach(featColl => {
+      if (featColl.type === 'FeatureCollection') {
+        const mode = allModes[Math.floor(Math.random() * allModes.length)]
+        featColl.features[0].properties.sensed_mode = `PredictedModeTypes.${mode}`
+      }
+    })
+
+    const trip = { ...randomDoc, cozyMetadata }
     trips.push(trip)
   }
+
   return trips
 }
 
