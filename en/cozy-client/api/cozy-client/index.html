@@ -3068,26 +3068,26 @@
 </ul>
 <h2 id="classes">Classes<a class="headerlink" href="#classes" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="classes/association/">Association</a></li>
-<li><a href="classes/bulkediterror/">BulkEditError</a></li>
-<li><a href="classes/cozyclient/">CozyClient</a></li>
-<li><a href="classes/cozylink/">CozyLink</a></li>
-<li><a href="classes/cozyprovider/">CozyProvider</a></li>
-<li><a href="classes/hasmany/">HasMany</a></li>
-<li><a href="classes/hasmanyinplace/">HasManyInPlace</a></li>
-<li><a href="classes/hasmanytriggers/">HasManyTriggers</a></li>
-<li><a href="classes/hasone/">HasOne</a></li>
-<li><a href="classes/hasoneinplace/">HasOneInPlace</a></li>
-<li><a href="classes/invalidcozyurlerror/">InvalidCozyUrlError</a></li>
-<li><a href="classes/invalidprotocolerror/">InvalidProtocolError</a></li>
-<li><a href="classes/query/">Query</a></li>
-<li><a href="classes/querydefinition/">QueryDefinition</a></li>
-<li><a href="classes/registry/">Registry</a></li>
-<li><a href="classes/stacklink/">StackLink</a></li>
+<li><a href="classes/Association/">Association</a></li>
+<li><a href="classes/BulkEditError/">BulkEditError</a></li>
+<li><a href="classes/CozyClient/">CozyClient</a></li>
+<li><a href="classes/CozyLink/">CozyLink</a></li>
+<li><a href="classes/CozyProvider/">CozyProvider</a></li>
+<li><a href="classes/HasMany/">HasMany</a></li>
+<li><a href="classes/HasManyInPlace/">HasManyInPlace</a></li>
+<li><a href="classes/HasManyTriggers/">HasManyTriggers</a></li>
+<li><a href="classes/HasOne/">HasOne</a></li>
+<li><a href="classes/HasOneInPlace/">HasOneInPlace</a></li>
+<li><a href="classes/InvalidCozyUrlError/">InvalidCozyUrlError</a></li>
+<li><a href="classes/InvalidProtocolError/">InvalidProtocolError</a></li>
+<li><a href="classes/Query/">Query</a></li>
+<li><a href="classes/QueryDefinition/">QueryDefinition</a></li>
+<li><a href="classes/Registry/">Registry</a></li>
+<li><a href="classes/StackLink/">StackLink</a></li>
 </ul>
 <h2 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">&para;</a></h2>
 <h3 id="realtimequeries">RealTimeQueries<a class="headerlink" href="#realtimequeries" title="Permanent link">&para;</a></h3>
-<p>• <strong>RealTimeQueries</strong>: <code>MemoExoticComponent</code>&lt;<code>fn</code>&gt;</p>
+<p>• <strong>RealTimeQueries</strong>: <code>MemoExoticComponent</code>&lt;(<code>options</code>: { <code>doctype</code>: <code>string</code>  }) =&gt; <code>null</code>&gt;</p>
 <h2 id="variables">Variables<a class="headerlink" href="#variables" title="Permanent link">&para;</a></h2>
 <h3 id="mutationtypes">MutationTypes<a class="headerlink" href="#mutationtypes" title="Permanent link">&para;</a></h3>
 <p>• <code>Const</code> <strong>MutationTypes</strong>: <code>Object</code></p>
@@ -3154,39 +3154,39 @@
 <tbody>
 <tr>
 <td align="left"><code>addReferencedBy</code></td>
-<td align="left">(<code>document</code>: <code>any</code>, <code>referencedDocuments</code>: <code>any</code>) =&gt; { <code>document</code>: <code>any</code> ; <code>mutationType</code>: <code>string</code> ; <code>referencedDocuments</code>: <code>any</code>  }</td>
+<td align="left">(<code>document</code>: <code>any</code>, <code>referencedDocuments</code>: <code>any</code>) =&gt; { <code>document</code>: <code>any</code> ; <code>mutationType</code>: <code>string</code> = MutationTypes.ADD_REFERENCED_BY; <code>referencedDocuments</code>: <code>any</code>  }</td>
 </tr>
 <tr>
 <td align="left"><code>addReferencesTo</code></td>
-<td align="left">(<code>document</code>: <code>any</code>, <code>referencedDocuments</code>: <code>any</code>) =&gt; { <code>document</code>: <code>any</code> ; <code>mutationType</code>: <code>string</code> ; <code>referencedDocuments</code>: <code>any</code>  }</td>
+<td align="left">(<code>document</code>: <code>any</code>, <code>referencedDocuments</code>: <code>any</code>) =&gt; { <code>document</code>: <code>any</code> ; <code>mutationType</code>: <code>string</code> = MutationTypes.ADD_REFERENCES_TO; <code>referencedDocuments</code>: <code>any</code>  }</td>
 </tr>
 <tr>
 <td align="left"><code>createDocument</code></td>
-<td align="left">(<code>document</code>: <code>any</code>) =&gt; { <code>document</code>: <code>any</code> ; <code>mutationType</code>: <code>string</code>  }</td>
+<td align="left">(<code>document</code>: <code>any</code>) =&gt; { <code>document</code>: <code>any</code> ; <code>mutationType</code>: <code>string</code> = MutationTypes.CREATE_DOCUMENT }</td>
 </tr>
 <tr>
 <td align="left"><code>deleteDocument</code></td>
-<td align="left">(<code>document</code>: <code>any</code>) =&gt; { <code>document</code>: <code>any</code> ; <code>mutationType</code>: <code>string</code>  }</td>
+<td align="left">(<code>document</code>: <code>any</code>) =&gt; { <code>document</code>: <code>any</code> ; <code>mutationType</code>: <code>string</code> = MutationTypes.DELETE_DOCUMENT }</td>
 </tr>
 <tr>
 <td align="left"><code>removeReferencedBy</code></td>
-<td align="left">(<code>document</code>: <code>any</code>, <code>referencedDocuments</code>: <code>any</code>) =&gt; { <code>document</code>: <code>any</code> ; <code>mutationType</code>: <code>string</code> ; <code>referencedDocuments</code>: <code>any</code>  }</td>
+<td align="left">(<code>document</code>: <code>any</code>, <code>referencedDocuments</code>: <code>any</code>) =&gt; { <code>document</code>: <code>any</code> ; <code>mutationType</code>: <code>string</code> = MutationTypes.REMOVE_REFERENCED_BY; <code>referencedDocuments</code>: <code>any</code>  }</td>
 </tr>
 <tr>
 <td align="left"><code>removeReferencesTo</code></td>
-<td align="left">(<code>document</code>: <code>any</code>, <code>referencedDocuments</code>: <code>any</code>) =&gt; { <code>document</code>: <code>any</code> ; <code>mutationType</code>: <code>string</code> ; <code>referencedDocuments</code>: <code>any</code>  }</td>
+<td align="left">(<code>document</code>: <code>any</code>, <code>referencedDocuments</code>: <code>any</code>) =&gt; { <code>document</code>: <code>any</code> ; <code>mutationType</code>: <code>string</code> = MutationTypes.REMOVE_REFERENCES_TO; <code>referencedDocuments</code>: <code>any</code>  }</td>
 </tr>
 <tr>
 <td align="left"><code>updateDocument</code></td>
-<td align="left">(<code>document</code>: <code>any</code>) =&gt; { <code>document</code>: <code>any</code> ; <code>mutationType</code>: <code>string</code>  }</td>
+<td align="left">(<code>document</code>: <code>any</code>) =&gt; { <code>document</code>: <code>any</code> ; <code>mutationType</code>: <code>string</code> = MutationTypes.UPDATE_DOCUMENT }</td>
 </tr>
 <tr>
 <td align="left"><code>updateDocuments</code></td>
-<td align="left">(<code>documents</code>: <code>any</code>) =&gt; { <code>documents</code>: <code>any</code> ; <code>mutationType</code>: <code>string</code>  }</td>
+<td align="left">(<code>documents</code>: <code>any</code>) =&gt; { <code>documents</code>: <code>any</code> ; <code>mutationType</code>: <code>string</code> = MutationTypes.UPDATE_DOCUMENTS }</td>
 </tr>
 <tr>
 <td align="left"><code>uploadFile</code></td>
-<td align="left">(<code>file</code>: <code>any</code>, <code>dirPath</code>: <code>any</code>) =&gt; { <code>dirPath</code>: <code>any</code> ; <code>file</code>: <code>any</code> ; <code>mutationType</code>: <code>string</code>  }</td>
+<td align="left">(<code>file</code>: <code>any</code>, <code>dirPath</code>: <code>any</code>) =&gt; { <code>dirPath</code>: <code>any</code> ; <code>file</code>: <code>any</code> ; <code>mutationType</code>: <code>string</code> = MutationTypes.UPLOAD_FILE }</td>
 </tr>
 </tbody>
 </table>
@@ -3226,7 +3226,7 @@
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/policies.js#L11">packages/cozy-client/src/policies.js:11</a></p>
 <h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
 <h3 id="q">Q<a class="headerlink" href="#q" title="Permanent link">&para;</a></h3>
-<p>▸ <code>Const</code> <strong>Q</strong>(<code>doctype</code>): <a href="classes/querydefinition/"><code>QueryDefinition</code></a></p>
+<p>▸ <strong>Q</strong>(<code>doctype</code>): <a href="classes/QueryDefinition/"><code>QueryDefinition</code></a></p>
 <p>Helper to create a QueryDefinition. Recommended way to create
 query definitions.</p>
 <p><strong><code>example</code></strong></p>
@@ -3254,12 +3254,12 @@ query definitions.</p>
 </tbody>
 </table>
 <p><em>Returns</em></p>
-<p><a href="classes/querydefinition/"><code>QueryDefinition</code></a></p>
+<p><a href="classes/QueryDefinition/"><code>QueryDefinition</code></a></p>
 <p><em>Defined in</em></p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/queries/dsl.js#L346">packages/cozy-client/src/queries/dsl.js:346</a></p>
 <hr />
 <h3 id="cancelable">cancelable<a class="headerlink" href="#cancelable" title="Permanent link">&para;</a></h3>
-<p>▸ <code>Const</code> <strong>cancelable</strong>(<code>promise</code>): <code>CancelablePromise</code></p>
+<p>▸ <strong>cancelable</strong>(<code>promise</code>): <code>CancelablePromise</code></p>
 <p>Wraps a promise so that it can be canceled</p>
 <p>Rejects with canceled: true as soon as cancel is called</p>
 <p><em>Parameters</em></p>
@@ -3288,7 +3288,7 @@ query definitions.</p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/utils.js#L14">packages/cozy-client/src/utils.js:14</a></p>
 <hr />
 <h3 id="createmockclient">createMockClient<a class="headerlink" href="#createmockclient" title="Permanent link">&para;</a></h3>
-<p>▸ <code>Const</code> <strong>createMockClient</strong>(<code>__namedParameters</code>): <a href="classes/cozyclient/"><code>CozyClient</code></a></p>
+<p>▸ <strong>createMockClient</strong>(<code>options</code>): <a href="classes/CozyClient/"><code>CozyClient</code></a></p>
 <p>Creates a client suitable for use in tests</p>
 <ul>
 <li>client.{query,save} are mocked</li>
@@ -3300,34 +3300,39 @@ query definitions.</p>
 <tr>
 <th align="left">Name</th>
 <th align="left">Type</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left"><code>__namedParameters</code></td>
+<td align="left"><code>options</code></td>
 <td align="left"><code>Object</code></td>
+<td align="left">Options</td>
 </tr>
 <tr>
-<td align="left"><code>__namedParameters.clientOptions</code></td>
+<td align="left"><code>options.clientOptions</code></td>
 <td align="left"><code>any</code></td>
+<td align="left">-</td>
 </tr>
 <tr>
-<td align="left"><code>__namedParameters.queries</code></td>
+<td align="left"><code>options.queries</code></td>
 <td align="left"><code>any</code></td>
+<td align="left">-</td>
 </tr>
 <tr>
-<td align="left"><code>__namedParameters.remote</code></td>
+<td align="left"><code>options.remote</code></td>
 <td align="left"><code>any</code></td>
+<td align="left">-</td>
 </tr>
 </tbody>
 </table>
 <p><em>Returns</em></p>
-<p><a href="classes/cozyclient/"><code>CozyClient</code></a></p>
+<p><a href="classes/CozyClient/"><code>CozyClient</code></a></p>
 <p><em>Defined in</em></p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/mock.js#L41">packages/cozy-client/src/mock.js:41</a></p>
 <hr />
 <h3 id="dehydrate">dehydrate<a class="headerlink" href="#dehydrate" title="Permanent link">&para;</a></h3>
-<p>▸ <code>Const</code> <strong>dehydrate</strong>(<code>document</code>): <code>Object</code></p>
+<p>▸ <strong>dehydrate</strong>(<code>document</code>): <code>Object</code></p>
 <p><em>Parameters</em></p>
 <table>
 <thead>
@@ -3349,7 +3354,7 @@ query definitions.</p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/helpers.js#L3">packages/cozy-client/src/helpers.js:3</a></p>
 <hr />
 <h3 id="generateweblink">generateWebLink<a class="headerlink" href="#generateweblink" title="Permanent link">&para;</a></h3>
-<p>▸ <code>Const</code> <strong>generateWebLink</strong>(<code>__namedParameters</code>): <code>string</code></p>
+<p>▸ <strong>generateWebLink</strong>(<code>options</code>): <code>string</code></p>
 <p>generateWebLink - Construct a link to a web app</p>
 <p>This function does not get its cozy url from a CozyClient instance so it can
 be used to build urls that point to other Cozies than the user&rsquo;s own Cozy.
@@ -3361,36 +3366,44 @@ example.</p>
 <tr>
 <th align="left">Name</th>
 <th align="left">Type</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td align="left"><code>__namedParameters</code></td>
+<td align="left"><code>options</code></td>
 <td align="left"><code>Object</code></td>
+<td align="left">Object of options</td>
 </tr>
 <tr>
-<td align="left"><code>__namedParameters.cozyUrl</code></td>
+<td align="left"><code>options.cozyUrl</code></td>
 <td align="left"><code>string</code></td>
+<td align="left">Base URL of the cozy, eg. cozy.tools or test.mycozy.cloud</td>
 </tr>
 <tr>
-<td align="left"><code>__namedParameters.hash</code></td>
+<td align="left"><code>options.hash</code></td>
 <td align="left"><code>string</code></td>
+<td align="left">-</td>
 </tr>
 <tr>
-<td align="left"><code>__namedParameters.pathname</code></td>
+<td align="left"><code>options.pathname</code></td>
 <td align="left"><code>string</code></td>
+<td align="left">-</td>
 </tr>
 <tr>
-<td align="left"><code>__namedParameters.searchParams</code></td>
+<td align="left"><code>options.searchParams</code></td>
 <td align="left"><code>any</code>[]</td>
+<td align="left">-</td>
 </tr>
 <tr>
-<td align="left"><code>__namedParameters.slug</code></td>
+<td align="left"><code>options.slug</code></td>
 <td align="left"><code>string</code></td>
+<td align="left">-</td>
 </tr>
 <tr>
-<td align="left"><code>__namedParameters.subDomainType</code></td>
+<td align="left"><code>options.subDomainType</code></td>
 <td align="left"><code>string</code></td>
+<td align="left">-</td>
 </tr>
 </tbody>
 </table>
@@ -3401,7 +3414,7 @@ example.</p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/helpers.js#L51">packages/cozy-client/src/helpers.js:51</a></p>
 <hr />
 <h3 id="getdoctypefromoperation">getDoctypeFromOperation<a class="headerlink" href="#getdoctypefromoperation" title="Permanent link">&para;</a></h3>
-<p>▸ <code>Const</code> <strong>getDoctypeFromOperation</strong>(<code>operation</code>): <code>any</code></p>
+<p>▸ <strong>getDoctypeFromOperation</strong>(<code>operation</code>): <code>any</code></p>
 <p><em>Parameters</em></p>
 <table>
 <thead>
@@ -3423,7 +3436,7 @@ example.</p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/queries/dsl.js#L426">packages/cozy-client/src/queries/dsl.js:426</a></p>
 <hr />
 <h3 id="getqueryfromstate">getQueryFromState<a class="headerlink" href="#getqueryfromstate" title="Permanent link">&para;</a></h3>
-<p>▸ <code>Const</code> <strong>getQueryFromState</strong>(<code>state</code>, <code>queryId</code>): <code>any</code></p>
+<p>▸ <strong>getQueryFromState</strong>(<code>state</code>, <code>queryId</code>): <code>any</code></p>
 <p><em>Parameters</em></p>
 <table>
 <thead>
@@ -3449,7 +3462,7 @@ example.</p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/store/index.js#L108">packages/cozy-client/src/store/index.js:108</a></p>
 <hr />
 <h3 id="getreferencedby">getReferencedBy<a class="headerlink" href="#getreferencedby" title="Permanent link">&para;</a></h3>
-<p>▸ <code>Const</code> <strong>getReferencedBy</strong>(<code>file</code>, <code>referencedBy</code>): <code>Reference</code>[]</p>
+<p>▸ <strong>getReferencedBy</strong>(<code>file</code>, <code>referencedBy</code>): <code>Reference</code>[]</p>
 <p>Get array of reference by an specific doctype</p>
 <p><em>Parameters</em></p>
 <table>
@@ -3480,7 +3493,7 @@ example.</p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/helpers.js#L134">packages/cozy-client/src/associations/helpers.js:134</a></p>
 <hr />
 <h3 id="getreferencedbyid">getReferencedById<a class="headerlink" href="#getreferencedbyid" title="Permanent link">&para;</a></h3>
-<p>▸ <code>Const</code> <strong>getReferencedById</strong>(<code>file</code>, <code>referencedBy</code>, <code>referencedId</code>): <code>Reference</code>[]</p>
+<p>▸ <strong>getReferencedById</strong>(<code>file</code>, <code>referencedBy</code>, <code>referencedId</code>): <code>Reference</code>[]</p>
 <p>Get array of reference by an specific doctype and a specific Id of that reference</p>
 <p><em>Parameters</em></p>
 <table>
@@ -3516,7 +3529,7 @@ example.</p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/helpers.js#L148">packages/cozy-client/src/associations/helpers.js:148</a></p>
 <hr />
 <h3 id="hasquerybeenloaded">hasQueryBeenLoaded<a class="headerlink" href="#hasquerybeenloaded" title="Permanent link">&para;</a></h3>
-<p>▸ <code>Const</code> <strong>hasQueryBeenLoaded</strong>(<code>col</code>): <code>any</code></p>
+<p>▸ <strong>hasQueryBeenLoaded</strong>(<code>col</code>): <code>any</code></p>
 <p>Returns whether a query has been loaded at least once</p>
 <p><em>Parameters</em></p>
 <table>
@@ -3539,7 +3552,7 @@ example.</p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/utils.js#L48">packages/cozy-client/src/utils.js:48</a></p>
 <hr />
 <h3 id="isqueryloading">isQueryLoading<a class="headerlink" href="#isqueryloading" title="Permanent link">&para;</a></h3>
-<p>▸ <code>Const</code> <strong>isQueryLoading</strong>(<code>col</code>): <code>boolean</code></p>
+<p>▸ <strong>isQueryLoading</strong>(<code>col</code>): <code>boolean</code></p>
 <p>Returns whether the result of a query (given via queryConnect or Query)
 is loading.</p>
 <p><em>Parameters</em></p>
@@ -3563,7 +3576,7 @@ is loading.</p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/utils.js#L37">packages/cozy-client/src/utils.js:37</a></p>
 <hr />
 <h3 id="isreferencedby">isReferencedBy<a class="headerlink" href="#isreferencedby" title="Permanent link">&para;</a></h3>
-<p>▸ <code>Const</code> <strong>isReferencedBy</strong>(<code>file</code>, <code>referencedBy</code>): <code>boolean</code></p>
+<p>▸ <strong>isReferencedBy</strong>(<code>file</code>, <code>referencedBy</code>): <code>boolean</code></p>
 <p>Checks if the file is referenced by a specific doctype</p>
 <p><em>Parameters</em></p>
 <table>
@@ -3594,7 +3607,7 @@ is loading.</p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/helpers.js#L102">packages/cozy-client/src/associations/helpers.js:102</a></p>
 <hr />
 <h3 id="isreferencedbyid">isReferencedById<a class="headerlink" href="#isreferencedbyid" title="Permanent link">&para;</a></h3>
-<p>▸ <code>Const</code> <strong>isReferencedById</strong>(<code>file</code>, <code>referencedBy</code>, <code>referencedId</code>): <code>boolean</code></p>
+<p>▸ <strong>isReferencedById</strong>(<code>file</code>, <code>referencedBy</code>, <code>referencedId</code>): <code>boolean</code></p>
 <p>Checks if the file is referenced by a specific doctype and a specific Id of that reference</p>
 <p><em>Parameters</em></p>
 <table>
@@ -3630,7 +3643,7 @@ is loading.</p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/associations/helpers.js#L117">packages/cozy-client/src/associations/helpers.js:117</a></p>
 <hr />
 <h3 id="queryconnect">queryConnect<a class="headerlink" href="#queryconnect" title="Permanent link">&para;</a></h3>
-<p>▸ <code>Const</code> <strong>queryConnect</strong>(<code>querySpecs</code>): <code>Function</code></p>
+<p>▸ <strong>queryConnect</strong>(<code>querySpecs</code>): <code>Function</code></p>
 <p><strong><code>function</code></strong></p>
 <p><strong><code>description</code></strong> HOC creator to connect component to several queries in a declarative manner</p>
 <p><em>Parameters</em></p>
@@ -3659,7 +3672,7 @@ is loading.</p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/hoc.jsx#L73">packages/cozy-client/src/hoc.jsx:73</a></p>
 <hr />
 <h3 id="queryconnectflat">queryConnectFlat<a class="headerlink" href="#queryconnectflat" title="Permanent link">&para;</a></h3>
-<p>▸ <code>Const</code> <strong>queryConnectFlat</strong>(<code>querySpecs</code>): <code>Function</code></p>
+<p>▸ <strong>queryConnectFlat</strong>(<code>querySpecs</code>): <code>Function</code></p>
 <p><strong><code>function</code></strong></p>
 <p><strong><code>description</code></strong> HOC creator to connect component to several queries in a declarative manner
 The only difference with queryConnect is that it does not wrap the component in N component
@@ -3690,7 +3703,7 @@ if there are N queries, only 1 extra level of nesting is introduced.</p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/hoc.jsx#L89">packages/cozy-client/src/hoc.jsx:89</a></p>
 <hr />
 <h3 id="rootcozyurl">rootCozyUrl<a class="headerlink" href="#rootcozyurl" title="Permanent link">&para;</a></h3>
-<p>▸ <code>Const</code> <strong>rootCozyUrl</strong>(<code>url</code>): <code>Promise</code>&lt;<code>URL</code>&gt;</p>
+<p>▸ <strong>rootCozyUrl</strong>(<code>url</code>): <code>Promise</code>&lt;<code>URL</code>&gt;</p>
 <p>rootCozyUrl - Get the root URL of a Cozy from more precise ones</p>
 <p>The goal is to allow users to use any URL copied from their browser as their
 Cozy URL rather than trying to explain to them what we expect (e.g. when
@@ -3747,7 +3760,7 @@ const rootCozyUrl = await rootCozyUrl(new URL(userInput))
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/helpers.js#L199">packages/cozy-client/src/helpers.js:199</a></p>
 <hr />
 <h3 id="useapplinkwithstorefallback">useAppLinkWithStoreFallback<a class="headerlink" href="#useapplinkwithstorefallback" title="Permanent link">&para;</a></h3>
-<p>▸ <code>Const</code> <strong>useAppLinkWithStoreFallback</strong>(<code>slug</code>, <code>client</code>, <code>path?</code>): <code>Object</code></p>
+<p>▸ <strong>useAppLinkWithStoreFallback</strong>(<code>slug</code>, <code>client</code>, <code>path?</code>): <code>Object</code></p>
 <p><em>Parameters</em></p>
 <table>
 <thead>
@@ -3803,7 +3816,7 @@ const rootCozyUrl = await rootCozyUrl(new URL(userInput))
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/hooks/useAppLinkWithStoreFallback.jsx#L9">packages/cozy-client/src/hooks/useAppLinkWithStoreFallback.jsx:9</a></p>
 <hr />
 <h3 id="useappsinmaintenance">useAppsInMaintenance<a class="headerlink" href="#useappsinmaintenance" title="Permanent link">&para;</a></h3>
-<p>▸ <code>Const</code> <strong>useAppsInMaintenance</strong>(<code>client</code>): <code>"io.cozy.apps"</code>[]</p>
+<p>▸ <strong>useAppsInMaintenance</strong>(<code>client</code>): <code>"io.cozy.apps"</code>[]</p>
 <p>Returns all apps in maintenance</p>
 <p><em>Parameters</em></p>
 <table>
@@ -3817,7 +3830,7 @@ const rootCozyUrl = await rootCozyUrl(new URL(userInput))
 <tbody>
 <tr>
 <td align="left"><code>client</code></td>
-<td align="left"><a href="classes/cozyclient/"><code>CozyClient</code></a></td>
+<td align="left"><a href="classes/CozyClient/"><code>CozyClient</code></a></td>
 <td align="left">CozyClient instance</td>
 </tr>
 </tbody>
@@ -3829,7 +3842,7 @@ const rootCozyUrl = await rootCozyUrl(new URL(userInput))
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/hooks/useAppsInMaintenance.jsx#L13">packages/cozy-client/src/hooks/useAppsInMaintenance.jsx:13</a></p>
 <hr />
 <h3 id="usecapabilities">useCapabilities<a class="headerlink" href="#usecapabilities" title="Permanent link">&para;</a></h3>
-<p>▸ <code>Const</code> <strong>useCapabilities</strong>(<code>client</code>): <code>Object</code></p>
+<p>▸ <strong>useCapabilities</strong>(<code>client</code>): <code>Object</code></p>
 <p><em>Parameters</em></p>
 <table>
 <thead>
@@ -3869,10 +3882,10 @@ const rootCozyUrl = await rootCozyUrl(new URL(userInput))
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/hooks/useCapabilities.jsx#L4">packages/cozy-client/src/hooks/useCapabilities.jsx:4</a></p>
 <hr />
 <h3 id="useclient">useClient<a class="headerlink" href="#useclient" title="Permanent link">&para;</a></h3>
-<p>▸ <code>Const</code> <strong>useClient</strong>(): <a href="classes/cozyclient/"><code>CozyClient</code></a></p>
+<p>▸ <strong>useClient</strong>(): <a href="classes/CozyClient/"><code>CozyClient</code></a></p>
 <p>Returns the cozy client from the context</p>
 <p><em>Returns</em></p>
-<p><a href="classes/cozyclient/"><code>CozyClient</code></a></p>
+<p><a href="classes/CozyClient/"><code>CozyClient</code></a></p>
 <ul>
 <li>Current cozy client</li>
 </ul>
@@ -3880,7 +3893,7 @@ const rootCozyUrl = await rootCozyUrl(new URL(userInput))
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/hooks/useClient.js#L9">packages/cozy-client/src/hooks/useClient.js:9</a></p>
 <hr />
 <h3 id="usefetchshortcut">useFetchShortcut<a class="headerlink" href="#usefetchshortcut" title="Permanent link">&para;</a></h3>
-<p>▸ <code>Const</code> <strong>useFetchShortcut</strong>(<code>client</code>, <code>id</code>): <code>Object</code></p>
+<p>▸ <strong>useFetchShortcut</strong>(<code>client</code>, <code>id</code>): <code>Object</code></p>
 <p><em>Parameters</em></p>
 <table>
 <thead>
@@ -3928,7 +3941,7 @@ const rootCozyUrl = await rootCozyUrl(new URL(userInput))
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/hooks/useFetchShortcut.jsx#L3">packages/cozy-client/src/hooks/useFetchShortcut.jsx:3</a></p>
 <hr />
 <h3 id="usequery">useQuery<a class="headerlink" href="#usequery" title="Permanent link">&para;</a></h3>
-<p>▸ <code>Const</code> <strong>useQuery</strong>(<code>queryDefinition</code>, <code>options</code>): <code>UseQueryReturnValue</code></p>
+<p>▸ <strong>useQuery</strong>(<code>queryDefinition</code>, <code>options</code>): <code>UseQueryReturnValue</code></p>
 <p>Fetches a queryDefinition and returns the queryState</p>
 <p><strong><code>property</code></strong> {object} as - Name for the query [required]</p>
 <p><strong><code>property</code></strong> {boolean} enabled - If set to false, the query won&rsquo;t be executed</p>
@@ -3949,7 +3962,7 @@ compatibility but will be set to true in the future.</p>
 <tbody>
 <tr>
 <td align="left"><code>queryDefinition</code></td>
-<td align="left"><a href="classes/querydefinition/"><code>QueryDefinition</code></a></td>
+<td align="left"><a href="classes/QueryDefinition/"><code>QueryDefinition</code></a></td>
 <td align="left">Definition created with Q()</td>
 </tr>
 <tr>
@@ -3965,7 +3978,7 @@ compatibility but will be set to true in the future.</p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/hooks/useQuery.js#L38">packages/cozy-client/src/hooks/useQuery.js:38</a></p>
 <hr />
 <h3 id="withclient">withClient<a class="headerlink" href="#withclient" title="Permanent link">&para;</a></h3>
-<p>▸ <code>Const</code> <strong>withClient</strong>(<code>WrappedComponent</code>): <code>Function</code></p>
+<p>▸ <strong>withClient</strong>(<code>WrappedComponent</code>): <code>Function</code></p>
 <p><strong><code>function</code></strong></p>
 <p><strong><code>description</code></strong> HOC to provide client from context as prop</p>
 <p><em>Parameters</em></p>
@@ -3994,7 +4007,7 @@ compatibility but will be set to true in the future.</p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/hoc.jsx#L15">packages/cozy-client/src/hoc.jsx:15</a></p>
 <hr />
 <h3 id="withmutation">withMutation<a class="headerlink" href="#withmutation" title="Permanent link">&para;</a></h3>
-<p>▸ <code>Const</code> <strong>withMutation</strong>(<code>mutation</code>, <code>options?</code>): <code>Function</code></p>
+<p>▸ <strong>withMutation</strong>(<code>mutation</code>, <code>options?</code>): <code>Function</code></p>
 <p><em>Parameters</em></p>
 <table>
 <thead>
@@ -4020,7 +4033,7 @@ compatibility but will be set to true in the future.</p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/withMutation.jsx#L8">packages/cozy-client/src/withMutation.jsx:8</a></p>
 <hr />
 <h3 id="withmutations">withMutations<a class="headerlink" href="#withmutations" title="Permanent link">&para;</a></h3>
-<p>▸ <code>Const</code> <strong>withMutations</strong>(&hellip;<code>mutations</code>): <code>Function</code></p>
+<p>▸ <strong>withMutations</strong>(&hellip;<code>mutations</code>): <code>Function</code></p>
 <p><strong><code>function</code></strong></p>
 <p><strong><code>description</code></strong> HOC to provide mutations to components. Needs client in context or as prop.</p>
 <p><strong><code>deprecated</code></strong> Prefer to use withClient and access directly the client.</p>

@@ -2547,12 +2547,12 @@
 <p><a href="../models/">models</a>.timeseries</p>
 <h2 id="interfaces">Interfaces<a class="headerlink" href="#interfaces" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="../../interfaces/models.timeseries.timeseries/">TimeSeries</a></li>
-<li><a href="../../interfaces/models.timeseries.timeseriesjsonapi/">TimeSeriesJSONAPI</a></li>
+<li><a href="../../interfaces/models.timeseries.TimeSeries/">TimeSeries</a></li>
+<li><a href="../../interfaces/models.timeseries.TimeSeriesJSONAPI/">TimeSeriesJSONAPI</a></li>
 </ul>
 <h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
 <h3 id="fetchtimeseriesbyintervalandsource">fetchTimeSeriesByIntervalAndSource<a class="headerlink" href="#fetchtimeseriesbyintervalandsource" title="Permanent link">&para;</a></h3>
-<p>▸ <code>Const</code> <strong>fetchTimeSeriesByIntervalAndSource</strong>(<code>client</code>, <code>__namedParameters</code>): <code>Promise</code>&lt;<a href="../../interfaces/models.timeseries.timeseriesjsonapi/"><code>TimeSeriesJSONAPI</code></a>&gt;</p>
+<p>▸ <strong>fetchTimeSeriesByIntervalAndSource</strong>(<code>client</code>, <code>params</code>): <code>Promise</code>&lt;<a href="../../interfaces/models.timeseries.TimeSeriesJSONAPI/"><code>TimeSeriesJSONAPI</code></a>&gt;</p>
 <p>Helper to retrieve time series by their date interval and source.</p>
 <p><strong><code>property</code></strong> data {Array<TimeSeries>} - The JSON-API data response</p>
 <p><em>Parameters</em></p>
@@ -2571,45 +2571,45 @@
 <td align="left">The CozyClient instance</td>
 </tr>
 <tr>
-<td align="left"><code>__namedParameters</code></td>
+<td align="left"><code>params</code></td>
 <td align="left"><code>Object</code></td>
-<td align="left">-</td>
+<td align="left">The query params</td>
 </tr>
 <tr>
-<td align="left"><code>__namedParameters.dataType</code></td>
+<td align="left"><code>params.dataType</code></td>
 <td align="left"><code>string</code></td>
-<td align="left">-</td>
+<td align="left">The type of time series, e.g. &lsquo;electricity&rsquo;</td>
 </tr>
 <tr>
-<td align="left"><code>__namedParameters.endDate</code></td>
+<td align="left"><code>params.endDate</code></td>
 <td align="left"><code>Date</code></td>
-<td align="left">-</td>
+<td align="left">The end date of the series</td>
 </tr>
 <tr>
-<td align="left"><code>__namedParameters.limit</code></td>
+<td align="left"><code>params.limit</code></td>
 <td align="left"><code>number</code></td>
-<td align="left">-</td>
+<td align="left">Number of serie items to retrieve</td>
 </tr>
 <tr>
-<td align="left"><code>__namedParameters.source</code></td>
+<td align="left"><code>params.source</code></td>
 <td align="left"><code>string</code></td>
-<td align="left">-</td>
+<td align="left">The data source, e.g. &lsquo;enedis.fr&rsquo;</td>
 </tr>
 <tr>
-<td align="left"><code>__namedParameters.startDate</code></td>
+<td align="left"><code>params.startDate</code></td>
 <td align="left"><code>Date</code></td>
-<td align="left">-</td>
+<td align="left">The starting date of the series</td>
 </tr>
 </tbody>
 </table>
 <p><em>Returns</em></p>
-<p><code>Promise</code>&lt;<a href="../../interfaces/models.timeseries.timeseriesjsonapi/"><code>TimeSeriesJSONAPI</code></a>&gt;</p>
+<p><code>Promise</code>&lt;<a href="../../interfaces/models.timeseries.TimeSeriesJSONAPI/"><code>TimeSeriesJSONAPI</code></a>&gt;</p>
 <p>The TimeSeries found by the query in JSON-API format</p>
 <p><em>Defined in</em></p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/timeseries.js#L78">packages/cozy-client/src/models/timeseries.js:78</a></p>
 <hr />
 <h3 id="savetimeseries">saveTimeSeries<a class="headerlink" href="#savetimeseries" title="Permanent link">&para;</a></h3>
-<p>▸ <code>Const</code> <strong>saveTimeSeries</strong>(<code>client</code>, <code>timeseriesOption</code>): <code>Promise</code>&lt;<code>any</code>&gt;</p>
+<p>▸ <strong>saveTimeSeries</strong>(<code>client</code>, <code>timeseriesOption</code>): <code>Promise</code>&lt;<code>any</code>&gt;</p>
 <p>Helper to save a time series document.</p>
 <p><em>Parameters</em></p>
 <table>
@@ -2628,7 +2628,7 @@
 </tr>
 <tr>
 <td align="left"><code>timeseriesOption</code></td>
-<td align="left"><a href="../../interfaces/models.timeseries.timeseries/"><code>TimeSeries</code></a></td>
+<td align="left"><a href="../../interfaces/models.timeseries.TimeSeries/"><code>TimeSeries</code></a></td>
 <td align="left">The time series to save</td>
 </tr>
 </tbody>

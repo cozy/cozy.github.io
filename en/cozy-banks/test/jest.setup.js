@@ -56,6 +56,11 @@ const ignoredWarnings = {
     reason:
       'Deprecated but could be in an external component on which we have no control',
     matcher: makeDeprecatedLifecycleMatcher('Radio')
+  },
+  withMobileDialog: {
+    reason:
+      'Deprecated but could be in an external component on which we have no control',
+    matcher: makeDeprecatedLifecycleMatcher('withMobileDialog')
   }
 }
 
