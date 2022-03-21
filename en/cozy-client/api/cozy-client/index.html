@@ -1237,6 +1237,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#usequeryall" title="useQueryAll" class="md-nav__link">
+    useQueryAll
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#withclient" title="withClient" class="md-nav__link">
     withClient
   </a>
@@ -3015,6 +3022,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#usequeryall" title="useQueryAll" class="md-nav__link">
+    useQueryAll
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#withclient" title="withClient" class="md-nav__link">
     withClient
   </a>
@@ -3943,13 +3957,6 @@ const rootCozyUrl = await rootCozyUrl(new URL(userInput))
 <h3 id="usequery">useQuery<a class="headerlink" href="#usequery" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>useQuery</strong>(<code>queryDefinition</code>, <code>options</code>): <code>UseQueryReturnValue</code></p>
 <p>Fetches a queryDefinition and returns the queryState</p>
-<p><strong><code>property</code></strong> {object} as - Name for the query [required]</p>
-<p><strong><code>property</code></strong> {boolean} enabled - If set to false, the query won&rsquo;t be executed</p>
-<p><strong><code>property</code></strong> {object} fetchPolicy - Fetch policy</p>
-<p><strong><code>property</code></strong> {object} singleDocData - If true, the &ldquo;data&rdquo; returned will be
-a single doc instead of an array for single doc queries. Defaults to false for backward
-compatibility but will be set to true in the future.</p>
-<p><strong><code>property</code></strong> {Function} onError - Callback if the query is errored</p>
 <p><em>Parameters</em></p>
 <table>
 <thead>
@@ -3967,15 +3974,45 @@ compatibility but will be set to true in the future.</p>
 </tr>
 <tr>
 <td align="left"><code>options</code></td>
-<td align="left"><code>any</code></td>
-<td align="left">-</td>
+<td align="left"><code>QueryOptions</code></td>
+<td align="left">Options created with Q()</td>
 </tr>
 </tbody>
 </table>
 <p><em>Returns</em></p>
 <p><code>UseQueryReturnValue</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/hooks/useQuery.js#L38">packages/cozy-client/src/hooks/useQuery.js:38</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/hooks/useQuery.js#L29">packages/cozy-client/src/hooks/useQuery.js:29</a></p>
+<hr />
+<h3 id="usequeryall">useQueryAll<a class="headerlink" href="#usequeryall" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>useQueryAll</strong>(<code>queryDefinition</code>, <code>options</code>): <code>UseQueryReturnValue</code></p>
+<p>Fetches a queryDefinition and run fetchMore on the query until the query is fully loaded</p>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>queryDefinition</code></td>
+<td align="left"><a href="classes/QueryDefinition/"><code>QueryDefinition</code></a></td>
+<td align="left">Definition created with Q()</td>
+</tr>
+<tr>
+<td align="left"><code>options</code></td>
+<td align="left"><code>QueryOptions</code></td>
+<td align="left">Options created with Q()</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>UseQueryReturnValue</code></p>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/hooks/useQueryAll.jsx#L15">packages/cozy-client/src/hooks/useQueryAll.jsx:15</a></p>
 <hr />
 <h3 id="withclient">withClient<a class="headerlink" href="#withclient" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>withClient</strong>(<code>WrappedComponent</code>): <code>Function</code></p>
