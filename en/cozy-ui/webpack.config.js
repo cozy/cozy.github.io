@@ -7,12 +7,12 @@ module.exports = {
     alias: {
       docs: __dirname
     },
-    extensions: ['.jsx', '.js', '.json', '.styl']
+    extensions: ['.jsx', '.js', '.json', '.styl', '.ts', '.tsx']
   },
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.(js|jsx|ts|tsx)$/,
         exclude: /node_modules/,
         loader: 'babel-loader'
       },
