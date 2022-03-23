@@ -1019,6 +1019,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#how-does-it-works" title="How does it works?" class="md-nav__link">
+    How does it works?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#focus-on-receivemutationresult" title="Focus on receiveMutationResult:" class="md-nav__link">
+    Focus on receiveMutationResult:
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2585,6 +2599,20 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#how-does-it-works" title="How does it works?" class="md-nav__link">
+    How does it works?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#focus-on-receivemutationresult" title="Focus on receiveMutationResult:" class="md-nav__link">
+    Focus on receiveMutationResult:
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2623,9 +2651,12 @@ fetched is stored in the redux store.</p>
 <!-- MarkdownTOC autolink=true -->
 
 <ul>
+<li><a href="#cozy-client-architecture">Cozy-client Architecture</a></li>
 <li><a href="#query-definitions">Query definitions</a></li>
 <li><a href="#links">Links</a></li>
 <li><a href="#store">Store</a></li>
+<li><a href="#how-does-it-works">How does it works?</a></li>
+<li><a href="#focus-on-receivemutationresult">Focus on <code>receiveMutationResult</code>:</a></li>
 </ul>
 <!-- /MarkdownTOC -->
 
@@ -2685,9 +2716,9 @@ UI components to the data.</p>
 advanced techniques where you create selectors directly on the data
 of cozy-client.</p>
 </blockquote>
-<p>The redux store is composed of two slices, &ldquo;documents&rdquo; and &ldquo;queries&rdquo;: </p>
+<p>The redux store is composed of two <code>slices</code> : <code>documents</code> and <code>queries</code>: </p>
 <ul>
-<li><code>documents</code> stores the data indexed by <code>[doctype]([doctype](https://docs.cozy.io/en/cozy-doctypes/docs/)</code> then <code>_id</code>.</li>
+<li><code>documents</code> stores the data indexed by <a href="https://docs.cozy.io/en/cozy-doctypes/docs/">doctype</a> then <code>_id</code></li>
 <li><code>queries</code> store information for each query that has been done by cozy-client. <ul>
 <li>ids of the documents that match the query</li>
 <li>whether the server has more documents that can be fetched (useful for
@@ -2724,6 +2755,49 @@ encouraged to name your queries : <code>client.query(qdef, { as: 'finishedTodos'
 <code>ObservableQuery</code> are objects instantiated by a <Query /> component. Their
 role is to react to store changes and wake the component. They should not
 be used directly as <code>useQuery</code> and <code>queryConnect</code> do the job for you.</p>
+<p>What do we mean exactly by saying &ldquo;This redux store
+brings observability to cozy-client, and allows for connection of
+UI components to the data.&rdquo; Let&rsquo;s take a full exemple: </p>
+<p>We have a component that displays a todolist: </p>
+<div class="codehilite"><pre><span></span><span class="c1">// TodoListComponent.jsx</span>
+<span class="kr">const</span> <span class="p">{</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">fetchStatus</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useQuery</span><span class="p">(</span><span class="nx">Q</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">),</span> <span class="p">{</span><span class="s1">&#39;as&#39;</span><span class="o">:</span> <span class="s1">&#39;todoslist&#39;</span><span class="p">})</span>
+<span class="k">if</span><span class="p">(</span><span class="nx">fetchStatus</span> <span class="o">===</span> <span class="s1">&#39;loaded&#39;</span><span class="p">){</span>
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">TodoLists</span> <span class="na">todos</span><span class="o">=</span><span class="p">{</span><span class="nx">data</span><span class="p">}&gt;</span> <span class="o">/&gt;</span> 
+<span class="p">}</span>
+</pre></div>
+
+
+<p>But we also have a component that gives use the opportunity to add a 
+new todo: </p>
+<div class="codehilite"><pre><span></span><span class="nx">client</span><span class="p">.</span><span class="nx">save</span><span class="p">({</span><span class="nx">_type</span><span class="o">:</span> <span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">,</span> <span class="s1">&#39;label&#39;</span><span class="o">:</span> <span class="s1">&#39;New TODO&#39;</span><span class="p">});</span>
+</pre></div>
+
+
+<p>After the call to <code>save</code> your <code>TodoListComponent</code> will be re-rendered 
+with the <code>New TODO</code>. </p>
+<h3 id="how-does-it-works">How does it works?<a class="headerlink" href="#how-does-it-works" title="Permanent link">&para;</a></h3>
+<p>When a <code>query</code> is resolved, CozyClient dispatches a <code>receiveQueryResult</code>
+action for a simple <code>get</code> but <code>receiveMutationResult</code> when we mutate 
+something. </p>
+<h3 id="focus-on-receivemutationresult">Focus on <code>receiveMutationResult</code>:<a class="headerlink" href="#focus-on-receivemutationresult" title="Permanent link">&para;</a></h3>
+<p>Our two slices <code>documents</code> and <code>queries</code> listen actions and do some specific work on
+ <code>isReceivingMutationResult</code> action.</p>
+<p><code>documents</code>: If the <code>_id</code> of the mutated document is not present, then we add the document. 
+If the <code>_id</code> is already there, then we update the content of the document with the fresh data
+(for now the work is done in extractAndMergeDocument() method). </p>
+<p>So if your app is linked to the documents store via getDocumentFromStore() for instance
+your app will have the updated value. </p>
+<p><code>queries</code> has an autoUpdater mechanism that does something we can explain this way:
+- it takes the mutated documents (newly created or updated) 
+- it converts the initial <code>query</code> to a &ldquo;<code>js predicate</code>&rdquo; (thanks to the <a href="https://github.com/crcn/sift.js/">sift library</a>)
+- For each query already in the <code>slice</code> it runs this <code>js predicate</code> and detects if the query
+is concerned by the mutation
+- If the query is concerned, then it checks if it has to remove / add the id of the <code>mutated</code> 
+document
+(for now the work is done mainly in queries.js/updateData())</p>
+<p>So in our previous example our <code>todoslist</code> is concerned by the addition of the new todo, then 
+the <code>id</code> is added to <code>todolist</code> data, then the component linked will be refreshed with this new 
+document.</p>
                 
                   
                 

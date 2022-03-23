@@ -26,6 +26,8 @@ import banksPanels from 'ducks/devtools/banksPanels'
 import { hasFetchFailedError } from 'components/utils'
 
 import styles from 'components/App.styl'
+import { useWebviewIntent } from 'cozy-intent'
+import { useTheme } from '@material-ui/core'
 
 const KeyboardAwareSidebar = ({ children }) => {
   const showing = useKeyboardState()
@@ -39,6 +41,17 @@ const App = props => {
   const { t } = useI18n()
   const client = useClient()
   const settings = getDefaultedSettingsFromCollection(settingsCollection)
+  const webviewIntent = useWebviewIntent()
+  const theme = useTheme()
+
+  useEffect(() => {
+    webviewIntent &&
+      theme &&
+      webviewIntent.call('setFlagshipUI', {
+        topBackground: theme.palette.primary.main,
+        topTheme: 'light'
+      })
+  }, [theme, webviewIntent])
 
   const showAlert = () => {
     Alerter.info(t('Error.fetch-error'), {

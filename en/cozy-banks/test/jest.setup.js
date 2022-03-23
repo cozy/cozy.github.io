@@ -14,7 +14,8 @@ jest.mock('cozy-ui/transpiled/react/utils/color', () => ({
 }))
 
 jest.mock('cozy-intent', () => ({
-  WebviewIntentProvider: ({ children }) => children
+  WebviewIntentProvider: ({ children }) => children,
+  useWebviewIntent: jest.fn()
 }))
 
 logger.setLevel('ERROR')
