@@ -2423,8 +2423,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#list-all-the-documents" title="List all the documents" class="md-nav__link">
-    List all the documents
+  <a href="#list-all-the-documents-recommended-paginated-way" title="List all the documents (recommended &amp; paginated way)" class="md-nav__link">
+    List all the documents (recommended &amp; paginated way)
   </a>
   
     <nav class="md-nav">
@@ -2444,21 +2444,14 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#details_5" title="Details" class="md-nav__link">
-    Details
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#list-all-the-documents-alternative" title="List all the documents (alternative)" class="md-nav__link">
-    List all the documents (alternative)
+  <a href="#list-all-the-documents-alternative-not-pagginated-way" title="List all the documents (alternative &amp; not pagginated way)" class="md-nav__link">
+    List all the documents (alternative &amp; not pagginated way)
   </a>
   
     <nav class="md-nav">
@@ -2474,6 +2467,13 @@
           <li class="md-nav__item">
   <a href="#response_1" title="Response" class="md-nav__link">
     Response
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#details_5" title="Details" class="md-nav__link">
+    Details
   </a>
   
 </li>
@@ -3295,8 +3295,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#list-all-the-documents" title="List all the documents" class="md-nav__link">
-    List all the documents
+  <a href="#list-all-the-documents-recommended-paginated-way" title="List all the documents (recommended &amp; paginated way)" class="md-nav__link">
+    List all the documents (recommended &amp; paginated way)
   </a>
   
     <nav class="md-nav">
@@ -3316,21 +3316,14 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#details_5" title="Details" class="md-nav__link">
-    Details
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#list-all-the-documents-alternative" title="List all the documents (alternative)" class="md-nav__link">
-    List all the documents (alternative)
+  <a href="#list-all-the-documents-alternative-not-pagginated-way" title="List all the documents (alternative &amp; not pagginated way)" class="md-nav__link">
+    List all the documents (alternative &amp; not pagginated way)
   </a>
   
     <nav class="md-nav">
@@ -3346,6 +3339,13 @@
           <li class="md-nav__item">
   <a href="#response_1" title="Response" class="md-nav__link">
     Response
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#details_5" title="Details" class="md-nav__link">
+    Details
   </a>
   
 </li>
@@ -3929,14 +3929,66 @@ header to prevent conflict on deletion:</p>
 <ul>
 <li>If no id is provided in URL, an error 400 is returned</li>
 </ul>
-<h2 id="list-all-the-documents">List all the documents<a class="headerlink" href="#list-all-the-documents" title="Permanent link">&para;</a></h2>
+<h2 id="list-all-the-documents-recommended-paginated-way">List all the documents (recommended &amp; paginated way)<a class="headerlink" href="#list-all-the-documents-recommended-paginated-way" title="Permanent link">&para;</a></h2>
+<p>We have added a non-standard <code>_normal_docs</code> endpoint. Since 
+<code>_all_docs</code> endpoint sends the design docs in the response 
+and that : 
+- It makes it hard to use pagination on it. 
+- You can have performance issue when querying lot of docs </p>
+<p>This <code>_normal_docs</code> endpoint skip the design docs (and does 
+not count them in the<code>total_rows</code>). It accepts three parameters
+ in the query string: <code>limit</code> (default: 100), <code>skip</code> (default: 0), 
+ and <code>bookmark</code> (default: &lsquo;&rsquo;).</p>
+<p>The response format looks like a <code>_find</code> response with mango. 
+And, like for <code>_find</code>, the limit cannot be more than 1000.
+The <a href="https://github.com/cozy/cozy-stack/blob/master/docs/mango.md#pagination-cookbook">pagination</a>
+is also the same: both <code>bookmark</code> and <code>skip</code> can be used, but 
+<code>bookmark</code> is recommended for performances.</p>
 <h3 id="request_6">Request<a class="headerlink" href="#request_6" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/data/io.cozy.events/_all_docs?include_docs=true</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/data/io.cozy.events/_normal_docs?limit=100&amp;bookmark=g1AAAAB2eJzLYWBgYMpgSmHgKy5JLCrJTq2MT8lPzkzJBYorGKQYpVqaJRoZm1paWFiapFkamhknGpilJiampZkYJRmC9HHA9OUAdTASpS0rCwAlah76</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
 </pre></div>
 
 
 <h3 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;rows&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;16e458537602f5ef2a710089dffd9453&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;_rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-967a00dff5e02add41819138abb3284d&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;value&quot;</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;f4ca7773ddea715afebc4b4b15d4f0b3&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;_rev&quot;</span><span class="p">:</span> <span class="s2">&quot;2-7051cbe5c8faecd085a3fa619e6e6337&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;other-value&quot;</span>
+        <span class="p">},</span>
+        <span class="err">...</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;total_rows&quot;</span><span class="p">:</span> <span class="mi">202</span><span class="p">,</span>
+    <span class="nt">&quot;bookmark&quot;</span><span class="p">:</span> <span class="s2">&quot;g1AAAAB2eJzLYWBgYMpgSmHgKy5JLCrJTq2MT8lPzkzJBYorGKQYpVqaJRoZm1paWFiapFkamhknGpilJiampZkYJRmC9HHA9OUAdTASpS0rCwAlah76&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h2 id="list-all-the-documents-alternative-not-pagginated-way">List all the documents (alternative &amp; not pagginated way)<a class="headerlink" href="#list-all-the-documents-alternative-not-pagginated-way" title="Permanent link">&para;</a></h2>
+<p>You can use <code>_all_docs</code> endpoint to get the list of all the documents. 
+In some cases the use of this route is legitimate, but we recommend to
+avoid it as much as possible. 
+Indeed, calling this route on a database with a lot of documents can
+be very time consuming. </p>
+<h3 id="request_7">Request<a class="headerlink" href="#request_7" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/data/io.cozy.events/_all_docs?include_docs=true</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<h3 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </pre></div>
@@ -3974,49 +4026,6 @@ header to prevent conflict on deletion:</p>
 <h3 id="details_5">Details<a class="headerlink" href="#details_5" title="Permanent link">&para;</a></h3>
 <p>See
 <a href="http://docs.couchdb.org/en/stable/api/database/bulk-api.html#db-all-docs"><code>_all_docs</code> in couchdb docs</a></p>
-<h2 id="list-all-the-documents-alternative">List all the documents (alternative)<a class="headerlink" href="#list-all-the-documents-alternative" title="Permanent link">&para;</a></h2>
-<p>The <code>_all_docs</code> endpoint sends the design docs in the response. It makes it hard
-to use pagination on it. We have added a non-standard <code>_normal_docs</code> endpoint.
-This new endpoint skip the design docs (and does not count them in the
-<code>total_rows</code>). It accepts three parameters in the query string: <code>limit</code>
-(default: 100), <code>skip</code> (default: 0),  and <code>bookmark</code> (default: &lsquo;&rsquo;).</p>
-<p>Note that the response format is a bit different, it looks more like a <code>_find</code>
-response with mango. And, like for <code>_find</code>, the limit cannot be more than 1000.
-The <a href="https://github.com/cozy/cozy-stack/blob/master/docs/mango.md#pagination-cookbook">pagination</a>
-is also the same: both <code>bookmark</code> and <code>skip</code> can be used, but <code>bookmark</code> is
-recommended for performances.</p>
-<h3 id="request_7">Request<a class="headerlink" href="#request_7" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/data/io.cozy.events/_normal_docs?limit=100&amp;bookmark=g1AAAAB2eJzLYWBgYMpgSmHgKy5JLCrJTq2MT8lPzkzJBYorGKQYpVqaJRoZm1paWFiapFkamhknGpilJiampZkYJRmC9HHA9OUAdTASpS0rCwAlah76</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
-</pre></div>
-
-
-<h3 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
-<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
-</pre></div>
-
-
-<div class="codehilite"><pre><span></span><span class="p">{</span>
-    <span class="nt">&quot;rows&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-            <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;16e458537602f5ef2a710089dffd9453&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;_rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-967a00dff5e02add41819138abb3284d&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;value&quot;</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-            <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;f4ca7773ddea715afebc4b4b15d4f0b3&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;_rev&quot;</span><span class="p">:</span> <span class="s2">&quot;2-7051cbe5c8faecd085a3fa619e6e6337&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;other-value&quot;</span>
-        <span class="p">},</span>
-        <span class="err">...</span>
-    <span class="p">],</span>
-    <span class="nt">&quot;total_rows&quot;</span><span class="p">:</span> <span class="mi">202</span><span class="p">,</span>
-    <span class="nt">&quot;bookmark&quot;</span><span class="p">:</span> <span class="s2">&quot;g1AAAAB2eJzLYWBgYMpgSmHgKy5JLCrJTq2MT8lPzkzJBYorGKQYpVqaJRoZm1paWFiapFkamhknGpilJiampZkYJRmC9HHA9OUAdTASpS0rCwAlah76&quot;</span>
-<span class="p">}</span>
-</pre></div>
-
-
 <h2 id="list-the-known-doctypes">List the known doctypes<a class="headerlink" href="#list-the-known-doctypes" title="Permanent link">&para;</a></h2>
 <p>A permission on <code>io.cozy.doctypes</code> for <code>GET</code> is needed to query this endoint.</p>
 <h3 id="request_8">Request<a class="headerlink" href="#request_8" title="Permanent link">&para;</a></h3>
