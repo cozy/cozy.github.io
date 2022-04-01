@@ -1302,6 +1302,26 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#iocozynotesimages" title="io.cozy.notes.images" class="md-nav__link">
+    io.cozy.notes.images
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-json-in-couchdb_1" title="Example (JSON in CouchDB)" class="md-nav__link">
+    Example (JSON in CouchDB)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
       
@@ -2688,6 +2708,26 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#iocozynotesimages" title="io.cozy.notes.images" class="md-nav__link">
+    io.cozy.notes.images
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-json-in-couchdb_1" title="Example (JSON in CouchDB)" class="md-nav__link">
+    Example (JSON in CouchDB)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
       
       
       
@@ -2860,6 +2900,27 @@ server &gt; {&quot;event&quot;: &quot;UPDATED&quot;,
           &quot;payload&quot;: {&quot;id&quot;: &quot;f48d9370-e1ec-0137-8547-543d7eb8149c&quot;,
                       &quot;type&quot;: &quot;io.cozy.notes.events&quot;,
                       &quot;doc&quot;: {&quot;doctype&quot;: &quot;io.cozy.notes.telepointers&quot;, &quot;sessionID&quot;: &quot;543781490137&quot;, &quot;anchor&quot;: 7, &quot;head&quot;: 12, &quot;type&quot;: &quot;textSelection&quot;}}}
+</pre></div>
+
+
+<h2 id="iocozynotesimages"><code>io.cozy.notes.images</code><a class="headerlink" href="#iocozynotesimages" title="Permanent link">&para;</a></h2>
+<p>This doctype is used to keep track of images added to a note. Its attributes are:</p>
+<ul>
+<li><code>name</code>: {string} The image name</li>
+<li><code>mime</code>: {string} The image mime-type</li>
+<li><code>width</code>: {number} The image width</li>
+<li><code>height</code>: {number} The image height</li>
+<li><code>willBeResized</code>: {boolean} Set by the stack to determine if the image is too large to be contained in the note and a thumbnail needs to be computed.</li>
+<li><code>willBeRemoved</code>: {boolean} Set by the stack to indicate the image needs to be later removed. This is used to give some time to the user to cancel the deletion of an image. </li>
+</ul>
+<h3 id="example-json-in-couchdb_1">Example (JSON in CouchDB)<a class="headerlink" href="#example-json-in-couchdb_1" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;7690fa7c64f9fa512531319e3df9f472/dd1776a3-6abe-47dc-b0d9-6c0e345b2679&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;clisk.png&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;mime&quot;</span><span class="p">:</span> <span class="s2">&quot;image/svg+xml&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;width&quot;</span><span class="p">:</span> <span class="mi">341</span><span class="p">,</span>
+  <span class="nt">&quot;height&quot;</span><span class="p">:</span> <span class="mi">512</span>
+<span class="p">}</span>
 </pre></div>
                 
                   
