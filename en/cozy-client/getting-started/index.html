@@ -2626,7 +2626,7 @@
 <p>Additional features with plugins:</p>
 <ul>
 <li><a href="https://docs.cozy.io/en/cozy-realtime/">Realtime</a>: Be notified when changes occur on the server side</li>
-<li><a href="https://github.com/cozy/cozy-libs/tree/master/packages/cozy-interapp">InterApp</a>: Interact with other apps (exemple : file picking within your app)</li>
+<li><a href="https://github.com/cozy/cozy-libs/tree/master/packages/cozy-interapp">InterApp</a>: Interact with other apps (example : file picking within your app)</li>
 <li><a href="https://docs.cozy.io/en/cozy-flags/">Flag</a>: Use feature flags</li>
 </ul>
 <p>The following guide is an overview of a cozy-client integration to help you getting started.</p>
@@ -2636,7 +2636,7 @@
 </pre></div>
 
 
-<p>⚠️ If you use Jest, you should also add a bit of configuration for imports to works properly,
+<p>⚠️ If you use Jest, you should also add a bit of configuration for imports to work properly,
 <a href="../entrypoints/">see this document for more information</a>.</p>
 <h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
 <div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">CozyClient</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
@@ -2668,7 +2668,7 @@ When using this, you can instantiate a client with :</p>
 <p>If you need guidance to get the URI of your instance and/or the token,
 see <a href="https://docs.cozy.io/en/tutorials/app/#behind-the-magic">the app tutorial</a>.</p>
 <p>Every doctype accessed in <code>cozy-client</code> needs to be declared in the schema section of the options.
-See <a href="https://docs.cozy.io/en/cozy-client/schema">how to use the schema features</a>.</p>
+See <a href="https://docs.cozy.io/en/cozy-client/schema">how to use the schema features</a></p>
 <h2 id="fetch-data">Fetch data<a class="headerlink" href="#fetch-data" title="Permanent link">&para;</a></h2>
 <p>To fetch data, we first build a <code>QueryDefinition</code> with the <code>Q</code> helper:</p>
 <div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">Q</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
@@ -2709,11 +2709,11 @@ explicitly the list of fields to be indexed in <code>indexFields()</code>.</p>
 </pre></div>
 
 
-<p>✅ Inside a react application, instead of using directly <code>client.query</code>, please use <a href="../react-integration/"><code>useQuery</code>, <code>&lt;Query /&gt;</code> or <code>queryConnect</code>
+<p>✅ Inside a React application, instead of using directly <code>client.query</code>, please use <a href="../react-integration/"><code>useQuery</code>, <code>&lt;Query /&gt;</code> or <code>queryConnect</code>
 to connect your components to cozy-client queries</a>.</p>
 <p>ℹ️ Check out our dedicated <a href="https://docs.cozy.io/en/tutorials/data/queries/">query documentation</a> to
 know more about querying with cozy-client and avoid common traps that can dramatically impact your app performances.</p>
-<p>🚀 Cozy-client&rsquo;s <a href="../devtools/">devtool</a> allows to monitor your queries data and performance.</p>
+<p>🚀 Cozy-client&rsquo;s <a href="../devtools/">devtools</a> allows to monitor your queries data and performance.</p>
 <h2 id="mutate-the-data">Mutate the data<a class="headerlink" href="#mutate-the-data" title="Permanent link">&para;</a></h2>
 <p>An instance of <code>CozyClient</code> allows you to query and mutate (update) data, here&rsquo;s how it looks:</p>
 <div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">CozyClient</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
@@ -2724,7 +2724,7 @@ know more about querying with cozy-client and avoid common traps that can dramat
 
 
 <span class="c1">// create a new io.cozy.todo</span>
-<span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">save</span><span class="p">({</span><span class="nx">_type</span><span class="o">:</span> <span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">,</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Buy bread&#39;</span><span class="p">,</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span> <span class="p">}})</span>
+<span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">save</span><span class="p">({</span><span class="nx">_type</span><span class="o">:</span> <span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">,</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Buy bread&#39;</span><span class="p">,</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span> <span class="p">})</span>
 
 <span class="kr">const</span> <span class="nx">qdef</span> <span class="o">=</span> <span class="nx">Q</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">).</span><span class="nx">where</span><span class="p">({</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span> <span class="p">})</span>
 <span class="kr">const</span> <span class="p">{</span> <span class="nx">data</span><span class="o">:</span> <span class="nx">todos</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">qdef</span><span class="p">)</span>

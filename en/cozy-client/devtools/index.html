@@ -2683,6 +2683,11 @@
 <p>Cozy-client exposes a devtool that can be injected in an app for debug
 and better developer experience. It is inspired by the <a href="https://github.com/tannerlinsley/react-query-devtools">awesome devtools
 for react-query</a>.</p>
+<p>To activate it, just run in your browser console:</p>
+<div class="codehilite"><pre><span></span><span class="nx">flag</span><span class="p">(</span><span class="s1">&#39;debug&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">)</span>
+</pre></div>
+
+
 <h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h3>
 <p>Before using the devtools, you need to install cozy-ui and react-inspector.</p>
 <div class="codehilite"><pre><span></span>yarn add cozy-ui <span class="c1"># &gt;= 48.0.0</span>
@@ -2696,10 +2701,9 @@ yarn add react-inspector <span class="c1"># &gt;= 5.1.0</span>
 
 <span class="kr">const</span> <span class="nx">App</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
   <span class="k">return</span> <span class="p">&lt;</span><span class="nt">CozyProvider</span> <span class="na">client</span><span class="o">=</span><span class="p">{</span><span class="nx">client</span><span class="p">}&gt;</span>
-     <span class="p">{</span><span class="cm">/* Your app is here */</span>
+     <span class="cm">/* Your app is here */</span>
      <span class="p">{</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span> <span class="o">!==</span> <span class="s1">&#39;production&#39;</span> <span class="o">?</span> <span class="p">&lt;</span><span class="nt">CozyDevtools</span> <span class="p">/&gt;</span> <span class="o">:</span> <span class="kc">null</span> <span class="p">}</span>
   <span class="p">&lt;/</span><span class="nt">CozyProvider</span><span class="p">&gt;</span>
-
 <span class="p">}</span>
 </pre></div>
 
@@ -2726,7 +2730,7 @@ it is not available by default and you need to explicitly tell the Devtools
 to display it.</p>
 <div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">PouchDevtools</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client/dist/devtools/Pouch&#39;</span>
 
-<span class="p">&lt;</span><span class="nt">CozyDevTools</span> <span class="na">panels</span><span class="o">=</span><span class="p">{{</span> <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;pouch&#39;</span><span class="p">,</span> <span class="nx">Component</span><span class="o">:</span> <span class="nx">PouchDevtools</span><span class="p">}}</span> <span class="p">/&gt;</span>
+<span class="p">()</span> <span class="p">=&gt;</span> <span class="p">&lt;</span><span class="nt">CozyDevTools</span> <span class="na">panels</span><span class="o">=</span><span class="p">{{</span> <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;pouch&#39;</span><span class="p">,</span> <span class="nx">Component</span><span class="o">:</span> <span class="nx">PouchDevtools</span><span class="p">}}</span> <span class="p">/&gt;</span>
 </pre></div>
 
 
