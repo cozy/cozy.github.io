@@ -529,25 +529,25 @@ func downloadRequest(rawURL string, shasum string) (reader *bytes.Reader, conten
 	return bytes.NewReader(buf.Bytes()), contentType, nil
 }
 
-func tarReader(reader io.Reader, contentType string) (*tar.Reader, error) {
+func tarReader(reader io.ReadSeeker, contentType string) (*tar.Reader, error) {
 	var err error
+	var r io.Reader = reader
 	switch contentType {
 	case
 		"application/gzip",
 		"application/x-gzip",
 		"application/x-tgz",
 		"application/tar+gzip":
-		reader, err = gzip.NewReader(reader)
+		r, err = gzip.NewReader(reader)
 		if err != nil {
 			return nil, err
 		}
 	case "application/octet-stream":
-		var r io.Reader
-		if r, err = gzip.NewReader(reader); err == nil {
-			reader = r
+		if r, err = gzip.NewReader(reader); err != nil {
+			_, _ = reader.Seek(0, io.SeekStart)
 		}
 	}
-	return tar.NewReader(reader), nil
+	return tar.NewReader(r), nil
 }
 
 // CheckVersion controls the matching versions between retrieved tarball and
@@ -814,7 +814,7 @@ func HandleAssets(tarball *Tarball, opts *VersionOptions) ([]*kivik.Attachment, 
 		return attachments, nil
 	}
 
-	var buf io.Reader = bytes.NewReader(tarball.Content)
+	buf := bytes.NewReader(tarball.Content)
 	tr, err := tarReader(buf, tarball.ContentType)
 	if err != nil {
 		err = errshttp.NewError(http.StatusUnprocessableEntity,
@@ -891,13 +891,17 @@ func ReadTarballVersion(reader io.Reader, contentType, url string) (*Tarball, er
 	var manifest *Manifest
 	var manifestmap map[string]interface{}
 
-	var content = new(bytes.Buffer)
-
-	reader = io.TeeReader(reader, content)
-
 	hasPrefix := true
 
-	tr, err := tarReader(reader, contentType)
+	content, err := ioutil.ReadAll(reader)
+	if err != nil {
+		err = errshttp.NewError(http.StatusUnprocessableEntity,
+			"Cannot read tarball for url %s: %s", url, err)
+		return nil, err
+	}
+
+	buf := bytes.NewReader(content)
+	tr, err := tarReader(buf, contentType)
 	if err != nil {
 		err = errshttp.NewError(http.StatusUnprocessableEntity,
 			"Cannot read tarball for url %s: %s", url, err)
@@ -984,7 +988,7 @@ func ReadTarballVersion(reader io.Reader, contentType, url string) (*Tarball, er
 		PackageVersion:  packVersion,
 		HasPrefix:       hasPrefix,
 		TarPrefix:       tarPrefix,
-		Content:         content.Bytes(),
+		Content:         content,
 		URL:             url,
 	}, nil
 }

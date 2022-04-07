@@ -2821,13 +2821,15 @@ in the previous example), and the application that has made the request.</p>
 <p>It is possible to make the stack inject a secret in a request. For example, if
 we want to make the stack add a <code>token</code>, we can use <code>{{secret_token}}</code> in the
 remote doctype declation:</p>
-<div class="codehilite"><pre><span></span><span class="err">GET https://foobar.com/baz/</span>
-<span class="err">Authorization: Bearer {{secret_token}}</span>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">https://foobar.com/baz/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer {{secret_token}}</span>
+</pre></div>
 
-<span class="err">{</span>
-<span class="err">  &quot;foo&quot;: &quot;{{json foo}}&quot;,</span>
-<span class="err">  &quot;bar&quot;: &quot;{{json bar}}&quot;</span>
-<span class="err">}</span>
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;foo&quot;</span><span class="p">:</span> <span class="s2">&quot;{{json foo}}&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;bar&quot;</span><span class="p">:</span> <span class="s2">&quot;{{json bar}}&quot;</span>
+<span class="p">}</span>
 </pre></div>
 
 
