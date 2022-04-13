@@ -1905,6 +1905,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#multiple-couchdb-clusters" title="Multiple CouchDB clusters" class="md-nav__link">
+    Multiple CouchDB clusters
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#hooks" title="Hooks" class="md-nav__link">
     Hooks
   </a>
@@ -2694,6 +2701,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#multiple-couchdb-clusters" title="Multiple CouchDB clusters" class="md-nav__link">
+    Multiple CouchDB clusters
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#hooks" title="Hooks" class="md-nav__link">
     Hooks
   </a>
@@ -2877,6 +2891,52 @@ scrypt<span class="nv">$16384$8$1$936</span>bd62faf633b5f946f653c21161a9b<span c
 Magick, konnectors and services for example). And they can take several GB for
 the case of importing a Cozy. If needed, it is possible to configure the
 directory where they will be created via the <code>TMPDIR</code> environment variable.</p>
+<h2 id="multiple-couchdb-clusters">Multiple CouchDB clusters<a class="headerlink" href="#multiple-couchdb-clusters" title="Permanent link">&para;</a></h2>
+<p>With a large number of instances, a single CouchDB cluster may not be enough.
+Most cozy-stack administrators can ignore this section, but if you need this
+advanced settings, let&rsquo;s see how to configure it. We start with a classical
+configuration for a single cluster:</p>
+<div class="codehilite"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">couchdb</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">http://cluster1:5984/</span>
+</pre></div>
+
+
+<p>The first step is to add the new cluster, but still forces the creation on the
+first cluster for the moment:</p>
+<div class="codehilite"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">couchdb</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">http://cluster1:5984/</span>
+  <span class="l l-Scalar l-Scalar-Plain">clusters</span><span class="p p-Indicator">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">http://cluster1:5984/</span>
+      <span class="l l-Scalar l-Scalar-Plain">instance_creation</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">http://cluster2:5984/</span>
+      <span class="l l-Scalar l-Scalar-Plain">instance_creation</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+</pre></div>
+
+
+<p>Then, we can restart the cozy-stack and everything will work the same, except
+that the stack now knows how to use an instance on the new cluster. We can now
+use the second cluster for instance creations instead of the first:</p>
+<div class="codehilite"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">couchdb</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">http://cluster1:5984/</span>
+  <span class="l l-Scalar l-Scalar-Plain">clusters</span><span class="p p-Indicator">:</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">http://cluster1:5984/</span>
+      <span class="l l-Scalar l-Scalar-Plain">instance_creation</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">http://cluster2:5984/</span>
+      <span class="l l-Scalar l-Scalar-Plain">instance_creation</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+</pre></div>
+
+
+<p><strong>Notes:</strong></p>
+<ol>
+<li>
+<p>if several CouchDB clusters are configured to accept creations, a new
+   instance will be put in a CouchDB cluster taken randomly</p>
+</li>
+<li>
+<p>each instance document will keep the list index of the CouchDB cluster used
+   for its databases, so don&rsquo;t remove a cluster in the middle of the list!</p>
+</li>
+</ol>
 <h2 id="hooks">Hooks<a class="headerlink" href="#hooks" title="Permanent link">&para;</a></h2>
 <p>Cozy-stack can run scripts on some events to customize it. The scripts must be
 in the hooks directory defined in the config, have a predefined name, and be
