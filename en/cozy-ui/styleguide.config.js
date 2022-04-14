@@ -24,6 +24,7 @@ module.exports = {
         '../react/ButtonAction/index.jsx',
         '../react/Card/index.jsx',
         '../react/Chip/index.jsx',
+        '../react/Chips',
         '../react/Counter/index.jsx',
         '../react/DropdownButton/index.jsx',
         '../react/Fab/index.js',

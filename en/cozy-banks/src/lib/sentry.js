@@ -36,7 +36,7 @@ const getSentryConfiguration = cozyClient => {
         data: JSON.stringify(data)
       }
       cozyClient.stackClient
-        .fetchJSON('POST', '/remote/cc.cozycloud.sentry', parameters)
+        .fetchJSON('POST', '/remote/cc.cozycloud.errors', parameters)
         .catch(options.onError)
         .then(options.onSuccess)
     }
@@ -56,7 +56,7 @@ export const getSentryMiddleware = cozyClient => {
 
 export const configureSentry = cozyClient => {
   Raven.config(__SENTRY_URL__, getSentryConfiguration(cozyClient)).install()
-  Raven.setTagsContext({ target: __TARGET__ })
+  Raven.setTagsContext({ instance: cozyClient.stackClient.uri, target: __TARGET__ })
 }
 
 // Normalize

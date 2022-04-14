@@ -2542,6 +2542,14 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#available-manifests-features-list" title="Available manifest’s features list :" class="md-nav__link">
+    Available manifest’s features list :
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#translated-manifest-fields" title="Translated manifest fields" class="md-nav__link">
     Translated manifest fields
   </a>
@@ -2580,6 +2588,11 @@
   <a href="#categories-and-data-types" title="Categories and Data types" class="md-nav__link">
     Categories and Data types
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2960,6 +2973,14 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#available-manifests-features-list" title="Available manifest’s features list :" class="md-nav__link">
+    Available manifest’s features list :
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#translated-manifest-fields" title="Translated manifest fields" class="md-nav__link">
     Translated manifest fields
   </a>
@@ -2998,6 +3019,11 @@
   <a href="#categories-and-data-types" title="Categories and Data types" class="md-nav__link">
     Categories and Data types
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -3257,18 +3283,24 @@
 </ul>
 </li>
 <li><a href="#publish-your-application-on-the-registry">Publish your application on the registry</a><ul>
-<li><a href="#1-define-your-application-manifest">1) Define your application manifest</a></li>
-<li><a href="#for-an-application">For an application</a></li>
-<li><a href="#for-a-connector">For a connector</a></li>
+<li><a href="#1-define-your-application-manifest">1) Define your application manifest</a><ul>
 <li><a href="#properties-meaning-reference">Properties meaning (reference)</a></li>
+</ul>
+</li>
+<li><a href="#available-manifests-features-list-">Available manifest’s features list :</a><ul>
 <li><a href="#translated-manifest-fields">Translated manifest fields</a></li>
 <li><a href="#application-terms">Application terms</a></li>
 <li><a href="#konnectors-folders-handling">Konnectors folders handling</a></li>
+<li><a href="#konnectors-fields-property">Konnectors fields property</a></li>
+<li><a href="#konnectors-message-property">Konnectors message property</a></li>
+<li><a href="#categories-and-data-types">Categories and Data types</a></li>
+</ul>
+</li>
 <li><a href="#2-add-a-new-application-in-the-registry">2) Add a new application in the registry</a></li>
 <li><a href="#our-official-apps-registry">Our official apps registry</a></li>
 <li><a href="#custom-registry">Custom registry</a></li>
 <li><a href="#3-add-a-new-version-of-a-registered-application">3) Add a new version of a registered application</a></li>
-<li><a href="#via-cozy-app-publishcozy-app-publish-highly-recommanded">Via <a href="https://github.com/cozy/cozy-app-publish"><code>cozy-app-publish</code></a> (highly recommanded)</a></li>
+<li><a href="#via-cozy-app-publish-highly-recommanded">Via <code>cozy-app-publish</code> (highly recommanded)</a></li>
 <li><a href="#via-curl">Via <code>curl</code></a></li>
 <li><a href="#spaces--virtual-spaces">Spaces &amp; Virtual Spaces</a></li>
 <li><a href="#spaces">Spaces</a><ul>
@@ -3282,7 +3314,7 @@
 </li>
 <li><a href="#access-control-and-tokens">Access control and tokens</a></li>
 <li><a href="#maintenance">Maintenance</a></li>
-<li><a href="#import-export">Import/export</a></li>
+<li><a href="#importexport">Import/export</a></li>
 <li><a href="#application-confidence-grade--labelling">Application confidence grade / labelling</a></li>
 <li><a href="#universal-links">Universal links</a><ul>
 <li><a href="#configuration">Configuration</a></li>
@@ -3291,7 +3323,7 @@
 <li><a href="#usage">Usage</a></li>
 </ul>
 </li>
-<li><a href="#biwebauth">BI Web Auth</a></li>
+<li><a href="#budget-insight-web-auth">Budget-Insight web auth</a></li>
 <li><a href="#community">Community</a></li>
 </ul>
 <h2 id="what-about-this-repository">What about this repository?<a class="headerlink" href="#what-about-this-repository" title="Permanent link">&para;</a></h2>
@@ -3565,8 +3597,79 @@ cozy-apps-registry gen-token --master Cozy -c cozy-registry.yml
 <td><code>vendor_link</code></td>
 <td><em>(konnector specific)</em> URL to editor or service website</td>
 </tr>
+<tr>
+<td><code>qualification_labels</code></td>
+<td>(konnector specific) Array of one or more labels from the <a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/assets/qualifications.json">Cozy Client’s qualifications list</a> to associate with the files the konnector will receive from the website.</td>
+</tr>
+<tr>
+<td><code>features</code></td>
+<td>(konnector specific) Array of features added in the konnector from the list below.</td>
+</tr>
 </tbody>
 </table>
+<h4 id="available-manifests-features-list">Available manifest’s features list :<a class="headerlink" href="#available-manifests-features-list" title="Permanent link">&para;</a></h4>
+<ul>
+<li>
+<p><strong>2FA</strong></p>
+<p>Two Factors identification.</p>
+</li>
+<li>
+<p><strong>BILLS</strong></p>
+<p>Import bills documents, doctype “io.cozy.bills”.</p>
+</li>
+<li>
+<p><strong>FILES</strong></p>
+<p>Import files documents, doctype “io.cozy.files”.</p>
+</li>
+<li>
+<p><strong>CAPTCHA_RESOLUTION</strong></p>
+<p>The konnector using a captcha resolution process.</p>
+</li>
+<li>
+<p><strong>CARBON_COPY</strong></p>
+<p>The konnector import legally true copy of the original files.</p>
+</li>
+<li>
+<p><strong>DOC_QUALIFICATION</strong></p>
+<p>The konnector uses the first version of files qualifications, you may stumble upon on some konnectors wich hasn’t been treated.</p>
+</li>
+<li>
+<p><strong>DOC_QUALIFICATION_V2</strong></p>
+<p>The konnector uses new version (last one for now) of files qualifications.</p>
+</li>
+<li>
+<p><strong>ELECTRONIC_SAFE</strong></p>
+<p>Files comes from a known electronic safe.</p>
+</li>
+<li>
+<p><strong>HEALTH</strong></p>
+<p>The konnector treat health documents</p>
+</li>
+<li>
+<p><strong>HTML_TO_PDF</strong></p>
+<p>The konnector needs to convert HTML page(s) to make pdf files.</p>
+</li>
+<li>
+<p><strong>IDENTITY</strong></p>
+<p>The konnector create identity(ies) for doctype “io.cozy.identities”</p>
+</li>
+<li>
+<p><strong>LOGIN_OK</strong></p>
+<p>The konnector deactivate the auto-notification </p>
+</li>
+<li>
+<p><strong>METADATA_DEDUP</strong></p>
+<p>The konnector uses a fileIdAttribute as detection to avoid deduplication.</p>
+</li>
+<li>
+<p><strong>VENDOR_REF</strong></p>
+<p>The konnector uses.</p>
+</li>
+<li>
+<p><strong>SENTRY_V2</strong></p>
+<p>The konnector had been migrated (or packaged) to sentry V2 (errors.cozycloud.cc)</p>
+</li>
+</ul>
 <blockquote>
 <p><strong>Notices:</strong></p>
 <ul>

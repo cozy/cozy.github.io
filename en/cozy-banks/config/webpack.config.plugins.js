@@ -15,7 +15,7 @@ module.exports = {
     new webpack.DefinePlugin({
       __APP_VERSION__: JSON.stringify(manifest.version),
       __SENTRY_URL__: JSON.stringify(
-        'https://ea2067ca88504d9cbc9115b55d0b2d55:e52e64f57486417bb1b5fa6529e1cfcb@sentry.cozycloud.cc/11'
+        'https://d18802c5412f4b8babe4aad094618d37@errors.cozycloud.cc/38'
       ),
       __PIWIK_SITEID__: 8,
       __PIWIK_DIMENSION_ID_APP__: 1,

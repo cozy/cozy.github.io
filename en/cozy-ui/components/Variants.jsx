@@ -5,6 +5,9 @@ import Typography from '../../react/Typography'
 import Checkbox from '../../react/Checkbox'
 import Paper from '../../react/Paper'
 import isTesting from '../../react/helpers/isTesting'
+import Radio from '../../react/Radios'
+import RadioGroup from '../../react/RadioGroup'
+import FormControlLabel from '../../react/FormControlLabel'
 
 /**
  * Useful for components for which there are variants, this component
@@ -45,16 +48,49 @@ VariantSelector.propTypes = {
   variant: PropTypes.object.isRequired
 }
 
+const VariantRadioSelector = ({ variant, onChange }) => {
+  const setElement = element => {
+    const newVariant = { ...variant }
+    for (const key in newVariant) {
+      newVariant[key] = false
+    }
+    onChange({ ...newVariant, [element]: true })
+  }
+
+  const selectedValue = Object.keys(variant).find(key => variant[key])
+
+  return (
+    <Paper className="u-p-1 u-mb-1" elevation={1} square>
+      <Typography className="u-mb-1" variant="h5">
+        Variant selector
+      </Typography>
+      <RadioGroup
+        aria-label="radio"
+        name="variantRadioSelector"
+        row={true}
+        value={selectedValue}
+      >
+        {Object.keys(variant).map((key, index) => (
+          <FormControlLabel
+            key={index}
+            value={key}
+            label={key.toUpperCase()}
+            control={<Radio onChange={() => setElement(key)} />}
+          />
+        ))}
+      </RadioGroup>
+    </Paper>
+  )
+}
+
 /**
- * Create an array of all possible variants. Expl for {foo: true, bar: false}
- * [{ foo: true, bar: true }, { foo: false, bar: true }, { foo: false, bar: false }, { foo: true, bar: false }]
+ * Create an array of all possible variants
  *
  * @param {Object.<string, boolean>} initialVariants - Which features are activated by default
  * @returns {array} All possible combinations of variants
  */
-const makeAllPossibleVariants = initialVariants => {
+export const makeAllPossibleVariants = initialVariants => {
   let allPossibleVariants = [{}]
-
   const variantsProps = Object.keys(initialVariants[0])
 
   variantsProps.map(variantProp => {
@@ -70,7 +106,34 @@ const makeAllPossibleVariants = initialVariants => {
   return allPossibleVariants
 }
 
-const Variants = ({ initialVariants, screenshotAllVariants, children }) => {
+/**
+ * Create a table with each case to true
+ *
+ * @param {Object.<string, boolean>} initialVariants - Which feature is activated by default
+ * @returns {array} All possible combinations of variants
+ */
+export const makeRadioAllPossibleVariants = initialVariants => {
+  let allPossibleVariants = []
+  const variantsProps = Object.keys(initialVariants[0])
+
+  variantsProps.map(variantProp => {
+    const allVariants = Object.fromEntries(
+      variantsProps.map(prop => [prop, false])
+    )
+    allVariants[variantProp] = true
+
+    allPossibleVariants.push(allVariants)
+  })
+
+  return allPossibleVariants
+}
+
+const Variants = ({
+  initialVariants,
+  screenshotAllVariants,
+  radio,
+  children
+}) => {
   const [variants, setVariants] = useState(initialVariants)
 
   const onChangeVariant = (updatedVariant, i) => {
@@ -82,22 +145,27 @@ const Variants = ({ initialVariants, screenshotAllVariants, children }) => {
   }
 
   const computedVariants = useMemo(() => {
-    const allPossibleVariants = makeAllPossibleVariants(initialVariants)
+    const allPossibleVariants = radio
+      ? makeRadioAllPossibleVariants(initialVariants)
+      : makeAllPossibleVariants(initialVariants)
+
     return isTesting() &&
       screenshotAllVariants &&
       allPossibleVariants.length <= 256 // protection to not overload Argos
       ? allPossibleVariants
       : variants
-  }, [variants, initialVariants, screenshotAllVariants])
+  }, [variants, initialVariants, screenshotAllVariants, radio])
 
   const hideVariantSelector = isTesting() && Boolean(screenshotAllVariants)
+
+  const Selector = radio ? VariantRadioSelector : VariantSelector
 
   return (
     <>
       {computedVariants.map((variant, i) => (
         <React.Fragment key={i}>
           {!hideVariantSelector && (
-            <VariantSelector
+            <Selector
               variant={variant}
               onChange={variant => onChangeVariant(variant, i)}
             />
