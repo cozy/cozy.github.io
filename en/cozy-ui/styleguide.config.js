@@ -144,6 +144,7 @@ module.exports = {
         '../react/FilePicker/index.jsx',
         '../react/Overlay/index.jsx',
         '../react/PasswordExample/index.jsx',
+        '../react/PieChart',
         '../react/Popup/index.jsx',
         '../react/PopupOpener/index.jsx',
         '../react/PushClientButton/index.jsx',

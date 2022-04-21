@@ -32,7 +32,7 @@ module.exports = {
     '\\.hbs$': '<rootDir>/test/readFileESM.js'
   },
   transformIgnorePatterns: [
-    'node_modules/(?!(cozy-keys-lib|cozy-harvest-lib|cozy-ui|cozy-client|cozy-notifications))'
+    'node_modules/(?!(cozy-keys-lib|cozy-harvest-lib|cozy-sharing|cozy-ui|cozy-client|cozy-notifications))'
   ],
   globals: {
     __ALLOW_HTTP__: false,
