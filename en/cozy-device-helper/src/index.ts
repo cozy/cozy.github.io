@@ -6,8 +6,7 @@ export {
   isMobileApp,
   isAndroid,
   isIOS,
-  isMobile,
-  isFlagshipApp
+  isMobile
 } from './platform'
 export { getDeviceName } from './device'
 export { checkApp, startApp } from './apps'
@@ -21,3 +20,5 @@ export { isCordova } from './cordova'
 
 export { nativeLinkOpen } from './link'
 export { openDeeplinkOrRedirect } from './deeplink'
+
+export { isFlagshipApp, flagshipMetadata } from './flagship'

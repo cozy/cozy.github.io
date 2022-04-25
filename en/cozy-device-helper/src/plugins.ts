@@ -1,12 +1,12 @@
 import { isCordova } from './cordova'
 
-export const hasDevicePlugin = () => {
+export const hasDevicePlugin = (): boolean => {
   return isCordova() && window.device !== undefined
 }
-export const hasInAppBrowserPlugin = () => {
+export const hasInAppBrowserPlugin = (): boolean => {
   return isCordova() && window.cordova.InAppBrowser !== undefined
 }
-export const hasSafariPlugin = () => {
+export const hasSafariPlugin = (): Promise<boolean> => {
   return new Promise(resolve => {
     if (!isCordova() || window.SafariViewController === undefined) {
       resolve(false)
@@ -22,6 +22,6 @@ export const hasSafariPlugin = () => {
  * @see https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-network-information/
  * @returns {boolean}
  */
-export const hasNetworkInformationPlugin = () => {
+export const hasNetworkInformationPlugin = (): boolean => {
   return isCordova() && window.navigator.connection !== undefined
 }

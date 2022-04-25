@@ -6,9 +6,11 @@ import { isIOSApp } from './platform'
 
 const DEFAULT_DEVICE = 'Device'
 
+type device = 'iPhone' | 'iPad' | 'Watch' | 'AppleTV' | typeof DEFAULT_DEVICE
+
 // device
-const getAppleModel = identifier => {
-  const devices = ['iPhone', 'iPad', 'Watch', 'AppleTV']
+const getAppleModel = (identifier: string): device => {
+  const devices: device[] = ['iPhone', 'iPad', 'Watch', 'AppleTV']
 
   for (const device of devices) {
     if (identifier.match(new RegExp(device))) {
@@ -19,7 +21,7 @@ const getAppleModel = identifier => {
   return DEFAULT_DEVICE
 }
 
-export const getDeviceName = () => {
+export const getDeviceName = (): string => {
   if (!hasDevicePlugin()) {
     if (isCordova()) {
       console.warn('You should install `cordova-plugin-device`.') // eslint-disable-line no-console

@@ -1,6 +1,10 @@
 import { hasSafariPlugin, hasInAppBrowserPlugin } from './plugins'
 
-export const nativeLinkOpen = async ({ url }) => {
+export const nativeLinkOpen = async ({
+  url
+}: {
+  url: Location
+}): Promise<void> => {
   if ((await hasSafariPlugin()) && window.SafariViewController) {
     window.SafariViewController.show(
       {

@@ -1,11 +1,16 @@
 import { isAndroidApp } from './platform'
 
-const cordovaPluginIsInstalled = () => window.startApp
+const cordovaPluginIsInstalled = (): Window['startApp'] => window.startApp
+
+type AppInfo = {
+  appId: string
+  uri: string
+}
 
 /**
  * Normalize startApp params for Android and iOS
  */
-const getParams = ({ appId, uri }) => {
+const getParams = ({ appId, uri }: AppInfo): { package: string } | string => {
   if (isAndroidApp()) {
     return {
       package: appId
@@ -15,13 +20,30 @@ const getParams = ({ appId, uri }) => {
   }
 }
 
-const exported = {}
+const exported: {
+  startApp?: {
+    (arg0: { appId: string; uri: string }): unknown
+    (appInfo: AppInfo): Promise<false | void>
+  }
+  checkApp?: (appInfo: AppInfo) => Promise<
+    | boolean
+    | string
+    | {
+        versionName: string
+        packageName: string
+        versionCode: number
+        applicationInfo: string
+      }
+  >
+} = {}
 
 /**
  * Start an application if it is installed on the phone
  * @returns Promise - False if the application was not able to be started
  */
-const startApp = (exported.startApp = async function (appInfo) {
+const startApp = (exported.startApp = async function (
+  appInfo: AppInfo
+): Promise<void | false> {
   const startAppPlugin = window.startApp
   const isAppInstalled = await exported.checkApp(appInfo)
   if (isAppInstalled) {
@@ -56,7 +78,16 @@ const startApp = (exported.startApp = async function (appInfo) {
  *  applicationInfo: "ApplicationInfo{70aa0ef io.cozy.drive.mobile}"
  * })
  */
-const checkApp = (exported.checkApp = async function (appInfo) {
+const checkApp = (exported.checkApp = async function (appInfo): Promise<
+  | boolean
+  | string
+  | {
+      versionName: string
+      packageName: string
+      versionCode: number
+      applicationInfo: string
+    }
+> {
   const startAppPlugin = window.startApp
   const params = getParams(appInfo)
   return new Promise((resolve, reject) => {
@@ -66,11 +97,29 @@ const checkApp = (exported.checkApp = async function (appInfo) {
     }
 
     startAppPlugin.set(params).check(
-      infos => {
-        resolve(infos === 'OK' ? true : infos)
+      (
+        infos:
+          | string
+          | {
+              versionName: string
+              packageName: string
+              versionCode: number
+              applicationInfo: string
+            }
+          | PromiseLike<{
+              versionName: string
+              packageName: string
+              versionCode: number
+              applicationInfo: string
+            }>
+      ) => {
+        return resolve(infos === 'OK' ? true : infos)
       },
-      error => {
-        if (error === false || error.indexOf('NameNotFoundException') === 0) {
+      (error: boolean | string) => {
+        if (
+          error === false ||
+          (error as string).indexOf('NameNotFoundException') === 0
+        ) {
           // Plugin returns an error 'NameNotFoundException' on Android and
           // false on iOS when an application is not found.
           // We prefer to always return false
