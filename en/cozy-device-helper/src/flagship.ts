@@ -17,6 +17,7 @@ export interface FlagshipMetadata {
   version?: string
 }
 
-export const flagshipMetadata = window.cozy?.flagship || {}
+export const getFlagshipMetadata = (): FlagshipMetadata =>
+  window.cozy?.flagship || {}
 
 export const isFlagshipApp = (): boolean => window.cozy?.flagship !== undefined

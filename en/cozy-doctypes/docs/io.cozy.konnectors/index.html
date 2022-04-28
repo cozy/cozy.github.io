@@ -1163,6 +1163,19 @@
     Retrieved from manifest.konnector
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#available-manifests-features-list" title="Available manifest’s features list :" class="md-nav__link">
+    Available manifest’s features list :
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -2599,6 +2612,19 @@
     Retrieved from manifest.konnector
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#available-manifests-features-list" title="Available manifest’s features list :" class="md-nav__link">
+    Available manifest’s features list :
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -2643,41 +2669,227 @@
 <h1 id="konnectors-doctype">Konnectors doctype<a class="headerlink" href="#konnectors-doctype" title="Permanent link">&para;</a></h1>
 <p>The <code>io.cozy.konnectors</code> doctype is used to store installed konnectors.</p>
 <p><a href="https://docs.cozy.io/en/tutorials/konnector/">Konnectors</a> are autonomous applications ran on the stack to connect to external services or API.</p>
-<p>When installing a konnector, the Cozy stack creates a new <code>io.cozy.konnector</code> document from the fields in the <code>manifest.konnector</code>. See the <a href="https://github.com/cozy/cozy-collect/blob/master/docs/konnector-manifest.md">reference</a> for more information on each attributes.</p>
+<p>When installing a konnector, the Cozy stack creates a new <code>io.cozy.konnector</code> document from the fields in the <code>manifest.konnector</code>.</p>
 <p><code>io.cozy.konnectors</code> are used by <a href="http://github.com/cozy/cozy-store/">Cozy-Store</a> to install and uninstall konnectors, and by <a href="http://github.com/cozy/cozy-collect/">Cozy-Collect</a> to manage <a href="../io.cozy.accounts/">accounts</a> for konnectors</p>
 <h2 id="attributes">Attributes<a class="headerlink" href="#attributes" title="Permanent link">&para;</a></h2>
 <h3 id="retrieved-from-manifestkonnector">Retrieved from <code>manifest.konnector</code><a class="headerlink" href="#retrieved-from-manifestkonnector" title="Permanent link">&para;</a></h3>
 <p>The available attributes in a <code>io.cozy.konnectors</code> document are :</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>aggregator</code></td>
+<td>Object containing aggregator data. Typically <code>{ accountId: 'aggregator-service' }</code>.</td>
+</tr>
+<tr>
+<td><code>categories</code></td>
+<td>array of categories for your apps (see authorized categories), it will be <code>['others']</code> by default if empty</td>
+</tr>
+<tr>
+<td><code>data_types</code></td>
+<td><em>(konnector specific)</em> Array of the data type the konnector will manage</td>
+</tr>
+<tr>
+<td><code>developer</code></td>
+<td><code>name</code> and <code>url</code> for the developer</td>
+</tr>
+<tr>
+<td><code>editor</code></td>
+<td>the editor&rsquo;s name to display on the cozy-bar (<strong>REQUIRED</strong>)</td>
+</tr>
+<tr>
+<td><code>features</code></td>
+<td>(konnector specific) Array of features added in the konnector from the list below.</td>
+</tr>
+<tr>
+<td><code>fields</code></td>
+<td><em>(konnector specific)</em> JSON object describing the fields need by the konnector (<strong>except folder path</strong>). Used to generate a form. See <a href="#konnectors-fields-property">below</a></td>
+</tr>
+<tr>
+<td><code>folders</code></td>
+<td><em>(konnector specific)</em> A list of folders required by the konnector to store files according to datatype (see the <a href="#konnectors-folders-handling">specific documentation below</a>)</td>
+</tr>
+<tr>
+<td><code>frequency</code></td>
+<td><em>(konnector specific)</em> A human readable value between <code>monthly</code>, <code>weekly</code>, <code>daily</code>, indicating the interval of time between two runs of the konnector. Default: <code>weekly</code>.</td>
+</tr>
+<tr>
+<td><code>icon</code></td>
+<td>path to the icon for the home (path in the build)</td>
+</tr>
+<tr>
+<td><code>intents</code></td>
+<td><em>(application specific)</em> a list of intents provided by this app (see <a href="https://docs.cozy.io/en/cozy-stack/intents/">cozy-stack intents doc</a> for more details)</td>
+</tr>
+<tr>
+<td><code>langs</code></td>
+<td>Languages available in your app (can be different from locales)</td>
+</tr>
+<tr>
+<td><code>language</code></td>
+<td><em>(konnector specific)</em> the konnector development language used (ex: <code>node</code>)</td>
+</tr>
+<tr>
+<td><code>license</code></td>
+<td><a href="https://spdx.org/licenses/">the SPDX license identifier</a></td>
+</tr>
+<tr>
+<td><code>locales</code></td>
+<td>an object with language slug as property, each name property is an object of localized informations (see the second part below)</td>
+</tr>
+<tr>
+<td><code>manifest_version</code></td>
+<td>The current manifest version used. This is a versioning for the manifest and allow better retrocompatiblity when processing app manifest</td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td><em>(konnector specific)</em> Array of message identifiers, which can be used by application to display information at known areas. See <a href="#konnectors-message-property">example below</a>.</td>
+</tr>
+<tr>
+<td><code>mobile</code></td>
+<td><em>(application specific)</em> JSON object containing information about app&rsquo;s mobile version (see <a href="https://docs.cozy.io/en/cozy-stack/apps/#mobile">cozy-stack routes doc</a> for more details)</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>the name to display on the home (<strong>REQUIRED</strong>)</td>
+</tr>
+<tr>
+<td><code>name_prefix</code></td>
+<td>the prefix to display with the name</td>
+</tr>
+<tr>
+<td><code>oauth</code></td>
+<td><em>(konnector specific)</em> JSON object containing oAuth information, like <code>scope</code>. If a manifest provides an <code>oauth</code> property, it is considered as an OAuth konnector. Note: scope can be a string or an array. If it is an array, its values will be joined with a space. A <code>false</code> or <code>null</code> value in scope will remove any scope parameter in the request sent to the oauth provider.</td>
+</tr>
+<tr>
+<td><code>parameters</code></td>
+<td><em>(konnector specific)</em> Additional parameters which should be passed to the konnector. Used for example for bank konnectors to pass a <code>bankId</code> parameter.</td>
+</tr>
+<tr>
+<td><code>partnership</code></td>
+<td>an object to provide informations (to display in the Store for example) about a partnership related to the application (<code>icon</code> <code>description</code>, <code>name</code> and <code>domain</code>). It can also be used to trigger alternative konnector connection policies for some vendors (see the <a href="https://github.com/cozy/cozy-libs/blob/065f7e2f3e89efa3b6b49e4ba7f9e20f92825560/packages/cozy-harvest-lib/src/services/budget-insight.js#L123">budget-insight konnector policy in cozy-harvest</a>).</td>
+</tr>
+<tr>
+<td><code>permissions</code></td>
+<td>a map of permissions needed by the app (see <a href="https://docs.cozy.io/en/cozy-stack/permissions/">see cozy-stack permissions doc </a> for more details)</td>
+</tr>
+<tr>
+<td><code>platforms</code></td>
+<td><em>(application specific)</em> List of objects for platform native applications. For now there are only two properties: <code>type</code> (i.e. <code>'ios'</code> or <code>'linux'</code>) and the optional <code>url</code> to reach this application page.</td>
+</tr>
+<tr>
+<td><code>qualification_labels</code></td>
+<td>(konnector specific) Array of one or more labels from the <a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/assets/qualifications.json">Cozy Client’s qualifications list</a> to associate with the files the konnector will receive from the website.</td>
+</tr>
+<tr>
+<td><code>routes</code></td>
+<td><em>(application specific)</em> a map of routes for the app (see <a href="https://docs.cozy.io/en/cozy-stack/apps/#routes">cozy-stack routes doc</a> for more details) (<strong>REQUIRED</strong>)</td>
+</tr>
+<tr>
+<td><code>screenshots</code></td>
+<td>an array of paths to the screenshots of the application (paths in the build)</td>
+</tr>
+<tr>
+<td><code>services</code></td>
+<td><em>(application specific)</em> a map of the services associated with the app (see <a href="https://docs.cozy.io/en/cozy-stack/apps/#services">cozy-stack services doc</a> for more details)</td>
+</tr>
+<tr>
+<td><code>slug</code></td>
+<td>the default slug that should never change (alpha-numeric lowercase) (<strong>REQUIRED</strong>)</td>
+</tr>
+<tr>
+<td><code>source</code></td>
+<td>where the files of the app can be downloaded (by default it will look for the branch <code>build</code>)</td>
+</tr>
+<tr>
+<td><code>terms</code></td>
+<td>an object defining  properties for terms that need to be displayed/accepted by the user when installing the application (<a href="#application-terms">more-info-below</a>)</td>
+</tr>
+<tr>
+<td><code>time_interval</code></td>
+<td><em>(konnector specific)</em> By defaults, konnector triggers are scheduled randomly between 00:00 AM and 05:00 AM. Those two values can be overwritten thanks to this property, by passing an array containing two values: first is the interval start hour, second is the interval end hour. Example: <code>[15, 21]</code> will randomly schedule the konnector trigger between 15:00 (03:00 PM) and 21:00 (09:00 PM). The time zone used is GMT.</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td>type of application (<code>konnector</code> or <code>webapp</code>) (<strong>REQUIRED</strong>)</td>
+</tr>
+<tr>
+<td><code>version</code></td>
+<td>the current version number (<strong>REQUIRED</strong>)</td>
+</tr>
+<tr>
+<td><code>vendor_link</code></td>
+<td><em>(konnector specific)</em> URL to editor or service website</td>
+</tr>
+</tbody>
+</table>
+<h4 id="available-manifests-features-list">Available manifest’s features list :<a class="headerlink" href="#available-manifests-features-list" title="Permanent link">&para;</a></h4>
 <ul>
-<li><code>categories</code></li>
-<li><code>data_types</code></li>
-<li><code>developer</code></li>
-<li><code>doctypes</code></li>
-<li><code>editor</code></li>
-<li><code>fields</code></li>
-<li><code>frequency</code> - Value can be: <code>['hourly', 'daily', 'weekly', 'monthly']</code></li>
-<li><code>icon</code></li>
-<li><code>langs</code></li>
-<li><code>language</code></li>
-<li><code>license</code></li>
-<li><code>locales</code></li>
-<li><code>messages</code></li>
-<li><code>name</code></li>
-<li><code>name_prefix</code></li>
-<li><code>notifications</code></li>
-<li><code>oauth</code></li>
-<li><code>parameters</code></li>
-<li><code>permissions</code></li>
-<li><code>platforms</code></li>
-<li><code>screenshots</code></li>
-<li><code>slug</code></li>
-<li><code>source</code></li>
-<li><code>state</code></li>
-<li><code>tags</code></li>
-<li><code>time_interval</code></li>
-<li><code>type</code></li>
-<li><code>vendor_link</code></li>
-<li><code>version</code></li>
+<li>
+<p><strong>2FA</strong></p>
+<p>Two Factors identification.</p>
+</li>
+<li>
+<p><strong>BILLS</strong></p>
+<p>Import bills documents, doctype “io.cozy.bills”.</p>
+</li>
+<li>
+<p><strong>FILES</strong></p>
+<p>Import files documents, doctype “io.cozy.files”.</p>
+</li>
+<li>
+<p><strong>CAPTCHA_RESOLUTION</strong></p>
+<p>The konnector using a captcha resolution process.</p>
+</li>
+<li>
+<p><strong>CARBON_COPY</strong></p>
+<p>The konnector import legally true copy of the original files.</p>
+</li>
+<li>
+<p><strong>DOC_QUALIFICATION</strong></p>
+<p>The konnector uses the first version of files qualifications, you may stumble upon on some konnectors wich hasn’t been treated.</p>
+</li>
+<li>
+<p><strong>DOC_QUALIFICATION_V2</strong></p>
+<p>The konnector uses new version (last one for now) of files qualifications.</p>
+</li>
+<li>
+<p><strong>ELECTRONIC_SAFE</strong></p>
+<p>Files comes from a known electronic safe.</p>
+</li>
+<li>
+<p><strong>HEALTH</strong></p>
+<p>The konnector treat health documents</p>
+</li>
+<li>
+<p><strong>HTML_TO_PDF</strong></p>
+<p>The konnector needs to convert HTML page(s) to make pdf files.</p>
+</li>
+<li>
+<p><strong>IDENTITY</strong></p>
+<p>The konnector create identity(ies) for doctype “io.cozy.identities”</p>
+</li>
+<li>
+<p><strong>LOGIN_OK</strong></p>
+<p>The konnector deactivate the auto-notification </p>
+</li>
+<li>
+<p><strong>METADATA_DEDUP</strong></p>
+<p>The konnector uses a fileIdAttribute as detection to avoid deduplication.</p>
+</li>
+<li>
+<p><strong>VENDOR_REF</strong></p>
+<p>The konnector uses.</p>
+</li>
+<li>
+<p><strong>SENTRY_V2</strong></p>
+<p>The konnector had been migrated (or packaged) to sentry V2 (errors.cozycloud.cc)</p>
+</li>
 </ul>
 <h3 id="other-attributes">Other Attributes<a class="headerlink" href="#other-attributes" title="Permanent link">&para;</a></h3>
 <table>
@@ -2696,34 +2908,107 @@
 </table>
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Debug&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;editor&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;debug&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;konnector&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;language&quot;</span><span class="p">:</span> <span class="s2">&quot;node&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;icon&quot;</span><span class="p">:</span> <span class="s2">&quot;icon.svg&quot;</span><span class="p">,</span>
   <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;debug&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;developer&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;cozy&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;cozy.io&quot;</span>
-  <span class="p">},</span>
-  <span class="nt">&quot;long_description&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;short_description&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;categories&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;other&quot;</span><span class="p">],</span>
-  <span class="nt">&quot;locales&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-  <span class="nt">&quot;langs&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-  <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-  <span class="nt">&quot;icon&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;license&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;state&quot;</span><span class="p">:</span> <span class="s2">&quot;ready&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;git://github.com/cozy/cozy-konnector-debug.git#build&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;parameters&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-  <span class="nt">&quot;version&quot;</span><span class="p">:</span> <span class="s2">&quot;1.0.0-edf48da7b2d959517aea59767c3d8d45b2ce7fa2&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&quot;accounts&quot;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.accounts&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Required to get the account&#39;s data&quot;</span><span class="p">,</span>
-      <span class="nt">&quot;verbs&quot;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="s2">&quot;GET&quot;</span>
-      <span class="p">]</span>
+  <span class="nt">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;git@github.com:konnectors/debug.git&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;editor&quot;</span><span class="p">:</span> <span class="s2">&quot;Cozy&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;vendor_link&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;categories&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">],</span>
+  <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;login&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;text&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;password&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;password&quot;</span>
     <span class="p">}</span>
-  <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;folders&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="nt">&quot;defaultDir&quot;</span><span class="p">:</span> <span class="s2">&quot;$administrative/$konnector/$account&quot;</span><span class="p">}],</span>
+  <span class="nt">&quot;data_types&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&quot;bill&quot;</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;screenshots&quot;</span><span class="p">:</span> <span class="p">[],</span>
+  <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;carbon_copy&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.certified.carbon_copy&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;bank operations&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.bank.operations&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;bills&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.bills&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;accounts&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.accounts&quot;</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;developer&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Cozy Cloud&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://cozy.io&quot;</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;langs&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;fr&quot;</span><span class="p">,</span> <span class="s2">&quot;en&quot;</span><span class="p">],</span>
+  <span class="nt">&quot;locales&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;fr&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;short_description&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;long_description&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;carboncopy&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Utilisé pour certifier que vos fichiers sont copie conforme avec les documents d&#39;origine&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;bank operations&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Utilisé pour relier les factures à des operations bancaires&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;bills&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Utilisé pour sauver les données des factures&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Utilisé pour sauvegarder les factures&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;accounts&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Utilisé pour obtenir les données du compte&quot;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;en&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;short_description&quot;</span><span class="p">:</span> <span class="s2">&quot;Fetch your personnal documents.&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;long_description&quot;</span><span class="p">:</span> <span class="s2">&quot;Fetch the list of bills and personnal documents from your Luko account.&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;permissions&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;carboncopy&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Use to certify your files are the exact copy of the originals&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;bank operations&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Required to link bank operations to bills&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;bills&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Required to save the bills data&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Required to save the bills&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;accounts&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Required to get the account&#39;s data&quot;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;qualification_labels&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&quot;&quot;</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;features&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&quot;LOGIN_OK&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;METADATA_DEDUP&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;CARBON_COPY&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;DOC_QUALIFICATION_V2&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;SENTRY_V2&quot;</span>
+  <span class="p">],</span>
+  <span class="nt">&quot;banksTransactionRegExp&quot;</span><span class="p">:</span> <span class="s2">&quot;\\bdebug\\b&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;manifest_version&quot;</span><span class="p">:</span> <span class="s2">&quot;2&quot;</span>
 <span class="p">}</span>
 </pre></div>
                 
