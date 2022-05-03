@@ -23,6 +23,7 @@ module.exports = {
         '../react/Buttons',
         '../react/ButtonAction/index.jsx',
         '../react/Card/index.jsx',
+        '../react/CircleButton',
         '../react/Chip/index.jsx',
         '../react/Chips',
         '../react/Counter/index.jsx',
