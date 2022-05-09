@@ -8,7 +8,6 @@ import {
   KONNECTOR_DOCTYPE,
   IDENTITIES_DOCTYPE
 } from 'doctypes'
-import { isBankTrigger } from 'utils/triggers'
 import { updateUserConfig } from 'cozy-harvest-lib/dist/services/budget-insight'
 
 export const defaultIdentityIdentifier = 'regulatory-info'
@@ -92,7 +91,11 @@ export const saveIdentity = async (client, identity, contactAttrs) => {
  * - Birth city
  * - Nationalities
  */
-export const updateBIUserConfig = async (client, identity) => {
+export const updateBIUserConfig = async ({
+  client,
+  identity,
+  isBankTrigger
+}) => {
   const { data: allTriggers } = await client.query(
     cronKonnectorTriggersConn.query(),
     cronKonnectorTriggersConn

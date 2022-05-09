@@ -10,7 +10,7 @@ import PropTypes from 'prop-types'
 import CozyClient, { Q } from 'cozy-client'
 import { KONNECTOR_DOCTYPE } from 'doctypes'
 import { useJobsContext } from 'ducks/context/JobsContext'
-import { isBankKonnector } from 'utils/triggers'
+import useBankingSlugs from 'hooks/useBankingSlugs'
 
 export const BanksContext = createContext({})
 
@@ -31,10 +31,11 @@ const EMPTY_ARRAY = []
 const BanksProvider = ({ children, client }) => {
   const { jobsInProgress = [] } = useJobsContext()
   const [banksJobsInProgress, setBanksJobsInProgress] = useState([])
+  const { isBankKonnector, isFetchingBankSlugs } = useBankingSlugs()
 
   const onlyBanksInProgress = useMemo(
     () => jobsInProgress.filter(isBankKonnector),
-    [jobsInProgress]
+    [jobsInProgress, isFetchingBankSlugs]
   )
 
   useEffect(() => {
@@ -66,7 +67,7 @@ const BanksProvider = ({ children, client }) => {
     } else {
       setBanksJobsInProgress(EMPTY_ARRAY)
     }
-  }, [jobsInProgress])
+  }, [jobsInProgress, isFetchingBankSlugs])
 
   return (
     <BanksContext.Provider

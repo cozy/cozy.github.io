@@ -1,4 +1,3 @@
-import isEqual from 'lodash/isEqual'
 import keyBy from 'lodash/keyBy'
 import { createSelector, createSelectorCreator, defaultMemoize } from 'reselect'
 
@@ -72,11 +71,6 @@ export const documentSelector = createSelector(
     const client = getClient()
     const docs = Object.values(documents || {})
     return client.hydrateDocuments(TRANSACTION_DOCTYPE, docs)
-  },
-  {
-    memoizeOptions: {
-      equalityCheck: (a, b) => isEqual(a, b)
-    }
   }
 )
 

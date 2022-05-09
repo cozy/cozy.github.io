@@ -2,11 +2,11 @@ import React from 'react'
 
 import JobsProvider from '../context/JobsContext'
 import BanksProvider, { BanksContext } from '../context/BanksContext'
-import { render } from '@testing-library/react'
-import CozyClient from 'cozy-client'
+import { render, act } from '@testing-library/react'
+import CozyClient, { useClient, Q } from 'cozy-client'
 import CozyRealtime from 'cozy-realtime'
-import { KONNECTOR_DOCTYPE } from '../../doctypes'
 
+jest.mock('cozy-client')
 jest.mock('cozy-realtime')
 
 export const createKonnectorMsg = (state, konnector, account) => ({
@@ -28,19 +28,16 @@ const KONNECTORS = [
 describe('Banks Context', () => {
   const setup = ({ konnectors }) => {
     const client = new CozyClient({})
-    client.query = jest.fn().mockImplementation(options => {
-      const { doctype, ids } = options
-
-      if (doctype === KONNECTOR_DOCTYPE) {
-        return {
-          data: KONNECTORS.filter(k =>
-            ids.includes(`io.cozy.konnectors/${k.konnector}`)
-          ).map(k => ({
-            account: k.account,
-            slug: k.konnector
-          }))
-        }
-      }
+    useClient.mockImplementation(() => client)
+    Q.mockImplementation(() => ({
+      where: jest.fn().mockImplementation(() => ({ indexFields: jest.fn() })),
+      getByIds: jest.fn()
+    }))
+    client.query.mockResolvedValue({
+      data: [{ slug: 'caissedepargne1' }, { slug: 'boursorama83' }]
+    })
+    client.queryAll.mockResolvedValue({
+      data: [{ slug: 'caissedepargne1' }, { slug: 'boursorama83' }]
     })
     CozyRealtime.mockImplementation(() => {
       return {
@@ -79,10 +76,11 @@ describe('Banks Context', () => {
       </JobsProvider>
     )
 
-    return root
+    return { root, client }
   }
   it('should display banks job in progress', async () => {
-    const root = setup({ konnectors: KONNECTORS })
+    const { root, client } = setup({ konnectors: KONNECTORS })
+    await act(async () => expect(client.queryAll).toHaveBeenCalledTimes(1))
     expect(await root.findByText('caissedepargne1')).toBeTruthy()
     expect(await root.findByText('1234')).toBeTruthy()
     expect(await root.findByText('boursorama83')).toBeTruthy()
@@ -91,8 +89,9 @@ describe('Banks Context', () => {
     expect(root.queryByText('any')).toBeNull()
   })
 
-  it('should not display banks job in progress', () => {
-    const root = setup({ konnectors: [] })
+  it('should not display banks job in progress', async () => {
+    const { root, client } = setup({ konnectors: [] })
+    await act(async () => expect(client.queryAll).toHaveBeenCalledTimes(1))
     expect(root.queryByText('caissedepargne1')).toBeNull()
     expect(root.queryByText('1234')).toBeNull()
     expect(root.queryByText('boursorama83')).toBeNull()

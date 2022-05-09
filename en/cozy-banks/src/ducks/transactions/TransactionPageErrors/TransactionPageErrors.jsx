@@ -12,6 +12,7 @@ import { cronKonnectorTriggersConn } from 'doctypes'
 import Carrousel from 'components/Carrousel'
 import flag from 'cozy-flags'
 import { getTransactionPageErrors } from 'ducks/transactions/TransactionPageErrors/errors'
+import withBankingSlugs from 'hoc/withBankingSlugs'
 
 /**
  * Shows connection errors for the currently filtered bank accounts.
@@ -73,5 +74,6 @@ export default compose(
       fetchPolicy: CozyClient.fetchPolicies.noFetch
     }
   }),
-  React.memo
+  React.memo,
+  withBankingSlugs
 )(TransactionPageErrors)

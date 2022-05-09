@@ -1,7 +1,6 @@
 import sortBy from 'lodash/sortBy'
 import keyBy from 'lodash/keyBy'
 import mapValues from 'lodash/mapValues'
-import { isBankTrigger } from 'utils/triggers'
 import { utils, trigger as triggerLibs } from 'cozy-client/dist/models'
 import flag from 'cozy-flags'
 
@@ -12,7 +11,11 @@ const { triggers: triggerUtils, triggerStates } = triggerLibs
  *
  * @returns
  */
-export const getTransactionPageErrors = ({ triggerCol, accounts }) => {
+export const getTransactionPageErrors = ({
+  triggerCol,
+  accounts,
+  isBankTrigger
+}) => {
   const konnectorToAccounts = keyBy(accounts, utils.getCreatedByApp)
   const konnectorToInstitutionLabel = mapValues(
     konnectorToAccounts,

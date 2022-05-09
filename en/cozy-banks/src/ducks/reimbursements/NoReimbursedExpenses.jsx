@@ -31,11 +31,10 @@ const NoReimbursedExpenses = ({ hasHealthBrands, doc }) => {
     [doc.categoryId]
   )
 
-  const message = useMemo(() => makeMessage({ doc, categoryName, t }), [
-    categoryName,
-    doc,
-    t
-  ])
+  const message = useMemo(
+    () => makeMessage({ doc, categoryName, t }),
+    [categoryName, doc, t]
+  )
 
   return (
     <Padded className="u-pv-0">

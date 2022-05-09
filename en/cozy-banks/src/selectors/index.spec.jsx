@@ -65,9 +65,6 @@ describe('getTransactions selectors', () => {
 
     state = reducer(state, anotherObject)
     expect(getTransactions(state)).toEqual([{ label: 1 }])
-    expect(getTransactions.recomputations()).toEqual(1) // this tests the memoizeOptions
-    // when cozy-client fixed extractAndMergeDocument, we can uncomment this
-    // https://github.com/cozy/cozy-client/pull/1122
-    // expect(getTransactions.recomputations()).toEqual(2)
+    expect(getTransactions.recomputations()).toEqual(2)
   })
 })

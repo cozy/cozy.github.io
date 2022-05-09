@@ -45,6 +45,7 @@ describe('Balance page', () => {
         filterByAccounts={filterByAccounts}
         router={router}
         client={client}
+        isBankTrigger={() => true}
       />
     )
     const instance = root.instance()
@@ -93,6 +94,7 @@ describe('Balance page', () => {
           filterByAccounts={jest.fn()}
           router={router}
           client={getClient()}
+          isBankTrigger={() => true}
         />
       )
       const instance = root.instance()
@@ -218,7 +220,8 @@ describe('Balance page', () => {
       triggers: fakeCollection('io.cozy.triggers'),
       filterByAccounts: jest.fn(),
       router: router,
-      client: getClient()
+      client: getClient(),
+      isBankTrigger: () => true
     }
 
     const isLoading = root => root.find(Loading).length > 0

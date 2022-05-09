@@ -43,7 +43,6 @@ import AccountsImporting from 'ducks/balance/AccountsImporting'
 
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import { getAccountBalance } from 'ducks/account/helpers'
-import { isBankTrigger } from 'utils/triggers'
 import styles from 'ducks/balance/Balance.styl'
 import BalancePanels from 'ducks/balance/BalancePanels'
 import { getPanelsState } from 'ducks/balance/helpers'
@@ -54,6 +53,7 @@ import { isVirtualAccount } from 'ducks/balance/helpers'
 import ImportGroupPanel from 'ducks/balance/ImportGroupPanel'
 import Delayed from 'components/Delayed'
 import useFullyLoadedQuery from 'hooks/useFullyLoadedQuery'
+import withBankingSlugs from 'hoc/withBankingSlugs'
 
 const syncPouchImmediately = async client => {
   const pouchLink = client.links.find(link => link.pouches)
@@ -358,7 +358,7 @@ class Balance extends PureComponent {
     ) {
       let konnectorInfos = triggers
         .map(x => x.attributes)
-        .filter(isBankTrigger)
+        .filter(this.props.isBankTrigger)
         .map(t => ({
           konnector: get(t, 'message.konnector'),
           account: get(t, 'message.account'),
@@ -472,5 +472,6 @@ export default compose(
     })
   ),
   withClient,
-  addTransactions
+  addTransactions,
+  withBankingSlugs
 )(Balance)

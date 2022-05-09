@@ -38,6 +38,7 @@ describe('App', () => {
 
   const setup = () => {
     const client = new CozyClient({ links: [link] })
+    jest.spyOn(client, 'queryAll').mockResolvedValue({ data: [] })
     const root = render(
       <AppLike client={client}>
         <App>

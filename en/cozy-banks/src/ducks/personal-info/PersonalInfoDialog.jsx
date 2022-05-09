@@ -23,6 +23,7 @@ import {
   isCurrentAppIdentity
 } from 'ducks/personal-info/utils'
 import Typography from 'cozy-ui/transpiled/react/Typography'
+import withBankingSlugs from 'hoc/withBankingSlugs'
 
 const defaultNationality = { label: 'Française', value: 'FR' }
 
@@ -121,7 +122,7 @@ export class PersonalInfoDialog extends React.Component {
    * Validates form and saves identity
    */
   async handleSave(ev) {
-    const { client, onSaveSuccessful, t } = this.props
+    const { client, onSaveSuccessful, t, isBankTrigger } = this.props
     const { formData, identity } = this.state
     ev && ev.preventDefault()
 
@@ -145,7 +146,11 @@ export class PersonalInfoDialog extends React.Component {
       })
       onSaveSuccessful && onSaveSuccessful(updatedIdentity)
       Alerter.success(t('PersonalInfo.info-saved-successfully'))
-      await updateBIUserConfig(client, updatedIdentity)
+      await updateBIUserConfig({
+        client,
+        identity: updatedIdentity,
+        isBankTrigger
+      })
       trackEvent('sauver')
     } finally {
       this.setState({ saving: false })
@@ -238,4 +243,8 @@ PersonalInfoDialog.defaultProps = {
   sourceIdentitySelectors: [client => getDefaultIdentitySelector(client)]
 }
 
-export default compose(translate(), withClient)(PersonalInfoDialog)
+export default compose(
+  translate(),
+  withClient,
+  withBankingSlugs
+)(PersonalInfoDialog)

@@ -44,10 +44,8 @@ export const DumbReimbursements = ({
     return <Loading loadingType />
   }
 
-  const {
-    reimbursed: reimbursedExpenses,
-    pending: pendingExpenses
-  } = groupedExpenses
+  const { reimbursed: reimbursedExpenses, pending: pendingExpenses } =
+    groupedExpenses
 
   const pendingAmount = sumBy(pendingExpenses, t => -t.amount)
 

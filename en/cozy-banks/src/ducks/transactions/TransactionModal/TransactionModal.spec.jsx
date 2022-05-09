@@ -14,6 +14,14 @@ import { showAlertAfterApplicationDateUpdate } from 'ducks/transactions/Transact
 import data from 'test/fixtures'
 import { getT, enLocaleOption } from 'utils/lang'
 
+jest.mock('hooks/useBankingSlugs', () => {
+  return jest.fn().mockImplementation(() => {
+    return {
+      isBankKonnector: () => true
+    }
+  })
+})
+
 jest.mock('ducks/tracking/tracker', () => {
   const tracker = {
     trackPage: jest.fn(),

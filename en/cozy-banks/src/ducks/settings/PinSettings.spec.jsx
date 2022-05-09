@@ -4,6 +4,14 @@ import { render, act } from '@testing-library/react'
 import AppLike from 'test/AppLike'
 import PinSettings from './PinSettings'
 
+jest.mock('hooks/useBankingSlugs', () => {
+  return jest.fn().mockImplementation(() => {
+    return {
+      isBankKonnector: () => true
+    }
+  })
+})
+
 const getCheckbox = root => {
   const container = root.getByLabelText(
     'Lock my app with a pin code or a fingerprint. Unlocking will be required after 1 minute of inactivity.'

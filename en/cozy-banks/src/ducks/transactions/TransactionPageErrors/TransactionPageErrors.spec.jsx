@@ -14,7 +14,8 @@ describe('get derived data', () => {
   it('should work', () => {
     const errors = getTransactionPageErrors({
       accounts: DEFAULT_ACCOUNTS,
-      triggerCol: { data: DEFAULT_TRIGGERS }
+      triggerCol: { data: DEFAULT_TRIGGERS },
+      isBankTrigger: () => true
     })
     expect(errors.length).toBe(1)
   })
@@ -29,6 +30,7 @@ describe('transaction page errors', () => {
       <TransactionPageErrors
         accounts={accounts}
         triggerCol={{ data: triggers }}
+        isBankTrigger={() => true}
       />
     )
     return {

@@ -9,6 +9,16 @@ import PersonalInfoDialog, {
 
 jest.mock('cozy-harvest-lib/dist/services/budget-insight')
 
+jest.mock('hooks/useBankingSlugs', () => {
+  return jest.fn().mockImplementation(() => {
+    return {
+      bankingKonnectors: [],
+      isBankKonnector: () => true,
+      isBankTrigger: () => true
+    }
+  })
+})
+
 import { updateUserConfig } from 'cozy-harvest-lib/dist/services/budget-insight'
 
 const mockIdentities = [
