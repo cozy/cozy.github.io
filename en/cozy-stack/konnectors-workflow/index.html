@@ -2337,6 +2337,13 @@
     Webauth
   </a>
   
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bi-weview" title="BI Weview" class="md-nav__link">
+    BI Weview
+  </a>
+  
     <nav class="md-nav">
       <ul class="md-nav__list">
         
@@ -3113,6 +3120,13 @@
     Webauth
   </a>
   
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bi-weview" title="BI Weview" class="md-nav__link">
+    BI Weview
+  </a>
+  
     <nav class="md-nav">
       <ul class="md-nav__list">
         
@@ -3491,7 +3505,7 @@ are not related to OAuth. The document still need to be injected manually in
 </pre></div>
 
 
-<p><strong>Note</strong>: <code>grant_mode</code> must be <code>secret</code> (or <code>bi_webauth+secret</code>), <code>slug</code> must
+<p><strong>Note</strong>: <code>grant_mode</code> must be <code>secret</code> (or <code>bi_webauth+secret</code> or <code>bi_webview+secret</code>), <code>slug</code> must
 be the slug of the konnector,  but <code>secret</code> can be a map instead of a simple
 string if several secrets are needed for this service.</p>
 <p>The secret is given to the konnector in the <code>COZY_PARAMETERS</code> env variable.</p>
@@ -3727,6 +3741,19 @@ type with the following parameter:</p>
 <li><code>redirect_uri</code>, with an URL like <code>https://oauthcallback.mycozy.cloud/accounts/paypal/redirect</code></li>
 <li><code>client_id</code>, with the client ID given by Budget Insight</li>
 <li><code>auth_endpoint</code>, with <code>https://{domain}.biapi.pro/2.0/webauth</code> (with the correct <code>domain</code>)</li>
+<li><code>reconnect_endpoint</code>, with <code>https://{domain}.biapi.pro/2.0/auth/webview/reconnect</code> (idem).</li>
+</ul>
+<h3 id="bi-weview">BI Weview<a class="headerlink" href="#bi-weview" title="Permanent link">&para;</a></h3>
+<p>A new integration of Budget Insight is available for all the proposed banks.
+This is a workflow similar to OAuth called
+<a href="https://docs.budget-insight.com/reference/webview">webview</a></p>
+<p>It is possible to use this workflow for konnectors by registering an account
+type with the following parameter:</p>
+<ul>
+<li><code>grant_mode</code>, with <code>bi_webview+secret</code> as the value</li>
+<li><code>redirect_uri</code>, with an URL like <code>https://oauthcallback.mycozy.cloud/accounts/paypal/redirect</code></li>
+<li><code>client_id</code>, with the client ID given by Budget Insight</li>
+<li><code>auth_endpoint</code>, with <code>https://{domain}.biapi.pro/2.0/auth/webview/fr/connect</code> (with the correct <code>domain</code>)</li>
 <li><code>reconnect_endpoint</code>, with <code>https://{domain}.biapi.pro/2.0/auth/webview/reconnect</code> (idem).</li>
 </ul>
 <h4 id="reconnect">Reconnect<a class="headerlink" href="#reconnect" title="Permanent link">&para;</a></h4>

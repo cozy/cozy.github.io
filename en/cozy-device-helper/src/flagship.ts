@@ -1,5 +1,3 @@
-import { Platform } from 'react-native'
-
 export enum FlagshipRoutes {
   Home = 'home',
   Cozyapp = 'cozyapp',
@@ -11,7 +9,7 @@ export enum FlagshipRoutes {
 export interface FlagshipMetadata {
   immersive?: boolean
   navbarHeight?: number
-  platform?: typeof Platform
+  platform?: Record<string, unknown>
   route?: FlagshipRoutes
   statusBarHeight?: number
   version?: string
