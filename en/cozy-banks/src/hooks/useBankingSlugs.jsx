@@ -20,7 +20,7 @@ const useBankingSlugs = () => {
           })
           .indexFields(['categories'])
       )
-      const result = bankingKonnectors?.data?.map(konnector => konnector.slug)
+      const result = bankingKonnectors?.map(konnector => konnector.slug)
       setBankingSlugs(result)
       setIsFetchingBankSlugs(false)
     }

@@ -2436,6 +2436,46 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#open-an-application-inside-the-flagship-app" title="Open an application inside the flagship app" class="md-nav__link">
+    Open an application inside the flagship app
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-appsslugopen" title="GET /apps/:slug/open" class="md-nav__link">
+    GET /apps/:slug/open
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_6" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_6" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#uninstall-an-application" title="Uninstall an application" class="md-nav__link">
     Uninstall an application
   </a>
@@ -2452,14 +2492,14 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#request_6" title="Request" class="md-nav__link">
+  <a href="#request_7" title="Request" class="md-nav__link">
     Request
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#response_6" title="Response" class="md-nav__link">
+  <a href="#response_7" title="Response" class="md-nav__link">
     Response
   </a>
   
@@ -3230,6 +3270,46 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#open-an-application-inside-the-flagship-app" title="Open an application inside the flagship app" class="md-nav__link">
+    Open an application inside the flagship app
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-appsslugopen" title="GET /apps/:slug/open" class="md-nav__link">
+    GET /apps/:slug/open
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_6" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_6" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#uninstall-an-application" title="Uninstall an application" class="md-nav__link">
     Uninstall an application
   </a>
@@ -3246,14 +3326,14 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#request_6" title="Request" class="md-nav__link">
+  <a href="#request_7" title="Request" class="md-nav__link">
     Request
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#response_6" title="Response" class="md-nav__link">
+  <a href="#response_7" title="Response" class="md-nav__link">
     Response
   </a>
   
@@ -3931,14 +4011,64 @@ apps installed:
 </pre></div>
 
 
-<h2 id="uninstall-an-application">Uninstall an application<a class="headerlink" href="#uninstall-an-application" title="Permanent link">&para;</a></h2>
-<h3 id="delete-appsslug">DELETE /apps/:slug<a class="headerlink" href="#delete-appsslug" title="Permanent link">&para;</a></h3>
+<h2 id="open-an-application-inside-the-flagship-app">Open an application inside the flagship app<a class="headerlink" href="#open-an-application-inside-the-flagship-app" title="Permanent link">&para;</a></h2>
+<p>This endpoint can be used by the flagship app to get all the parameters needed
+to open a webview for a Cozy webapp. It includes a cookie for a session, and
+the values for filling the HTML template.</p>
+<h3 id="get-appsslugopen">GET /apps/:slug/open<a class="headerlink" href="#get-appsslugopen" title="Permanent link">&para;</a></h3>
 <h4 id="request_6">Request<a class="headerlink" href="#request_6" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/apps/tasky</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/apps/drive/open</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer flagship-token</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.net</span>
 </pre></div>
 
 
 <h4 id="response_6">Response<a class="headerlink" href="#response_6" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;da903430-af6e-013a-8b14-18c04daba326&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.apps.open&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;Cookie&quot;</span><span class="p">:</span> <span class="s2">&quot;sess-cozyfa713dc4b104110f181959012ef2e0c5=AAAAAGJ1GI8zZDZlNTJhZTgxNThhY2VlMjhhMjE1NTY3ZTA1OTYyOCZ9ShFEsLD-2cb9bUdvYSg91XRw919a5oK1VxfshaZB; Path=/; Domain=example.net; HttpOnly; Secure; SameSite=Lax&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;AppEditor&quot;</span><span class="p">:</span> <span class="s2">&quot;Cozy&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;AppName&quot;</span><span class="p">:</span> <span class="s2">&quot;Drive&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;AppSlug&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;Capabilities&quot;</span><span class="p">:</span> <span class="s2">&quot;{ \&quot;file_versioning\&quot;: true }&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;CozyBar&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;CozyClientJS&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;DefaultWallpaper&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;Domain&quot;</span><span class="p">:</span> <span class="s2">&quot;cozy.example.net&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;Favicon&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;Flags&quot;</span><span class="p">:</span> <span class="s2">&quot;{}&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;IconPath&quot;</span><span class="p">:</span> <span class="s2">&quot;icon.svg&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;Locale&quot;</span><span class="p">:</span> <span class="s2">&quot;en&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;SubDomain&quot;</span><span class="p">:</span> <span class="s2">&quot;flat&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;ThemeCSS&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;Token&quot;</span><span class="p">:</span> <span class="s2">&quot;eyJhb...Y4KdA&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;Tracking&quot;</span><span class="p">:</span> <span class="s2">&quot;false&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/apps/drive/open&quot;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h2 id="uninstall-an-application">Uninstall an application<a class="headerlink" href="#uninstall-an-application" title="Permanent link">&para;</a></h2>
+<h3 id="delete-appsslug">DELETE /apps/:slug<a class="headerlink" href="#delete-appsslug" title="Permanent link">&para;</a></h3>
+<h4 id="request_7">Request<a class="headerlink" href="#request_7" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/apps/tasky</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</pre></div>
+
+
+<h4 id="response_7">Response<a class="headerlink" href="#response_7" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
 </pre></div>
 

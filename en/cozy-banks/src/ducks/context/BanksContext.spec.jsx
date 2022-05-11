@@ -36,9 +36,10 @@ describe('Banks Context', () => {
     client.query.mockResolvedValue({
       data: [{ slug: 'caissedepargne1' }, { slug: 'boursorama83' }]
     })
-    client.queryAll.mockResolvedValue({
-      data: [{ slug: 'caissedepargne1' }, { slug: 'boursorama83' }]
-    })
+    client.queryAll.mockResolvedValue([
+      { slug: 'caissedepargne1' },
+      { slug: 'boursorama83' }
+    ])
     CozyRealtime.mockImplementation(() => {
       return {
         subscribe: (eventName, doctype, handleRealtime) => {

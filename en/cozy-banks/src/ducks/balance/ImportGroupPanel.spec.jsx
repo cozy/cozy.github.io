@@ -14,9 +14,12 @@ describe('ImportGroupPanel', () => {
   const setup = ({ jobsInProgress, mockResolvedValue }) => {
     const client = new CozyClient({})
     client.query = jest.fn().mockResolvedValue(mockResolvedValue)
-    client.queryAll = jest.fn().mockResolvedValue({
-      data: [{ slug: 'caissedepargne1' }, { slug: 'boursorama83' }]
-    })
+    client.queryAll = jest
+      .fn()
+      .mockResolvedValue([
+        { slug: 'caissedepargne1' },
+        { slug: 'boursorama83' }
+      ])
 
     CozyRealtime.mockReturnValue({
       subscribe: () => {},
