@@ -176,7 +176,7 @@ const TransactionModalInfoContent = props => {
           })}
         </ListItemText>
         {shouldShowRestoreApplicationDateIcon && (
-          <IconButton onClick={handleResetApplicationDate}>
+          <IconButton onClick={handleResetApplicationDate} size="medium">
             <Icon color="var(--slateGrey)" icon={RestoreIcon} />
           </IconButton>
         )}

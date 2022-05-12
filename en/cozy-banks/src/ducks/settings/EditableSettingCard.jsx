@@ -23,7 +23,7 @@ const styles = {
 }
 
 export const CrossButton = ({ onClick }) => (
-  <IconButton onClick={onClick} style={styles.crossButton}>
+  <IconButton onClick={onClick} style={styles.crossButton} size="medium">
     <Icon color="var(--coolGrey)" icon={CrossMediumIcon} size={12} />
   </IconButton>
 )

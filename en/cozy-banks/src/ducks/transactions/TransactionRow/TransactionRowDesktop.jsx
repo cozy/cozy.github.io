@@ -147,6 +147,7 @@ const TransactionRowDesktop = ({
                 disabled={!canEditTransaction}
                 className={styles.CategoryIconButton}
                 onClick={canEditTransaction && handleClickCategory}
+                size="medium"
               >
                 <CategoryIcon
                   categoryId={categoryId}

@@ -14,6 +14,7 @@ const SearchIconLink = ({ className }) => {
       component="a"
       href="#/search"
       className={cx('u-mr-half', className)}
+      size="medium"
     >
       <Icon icon={MagnifierIcon} />
     </IconButton>

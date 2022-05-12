@@ -13,7 +13,7 @@ const SelectionIconLink = ({
   }, [isSelectionModeActive, setIsSelectionModeActive])
 
   return (
-    <IconButton className="u-mr-half" onClick={handleClick}>
+    <IconButton className="u-mr-half" onClick={handleClick} size="medium">
       <Icon icon={CheckboxIcon} />
     </IconButton>
   )

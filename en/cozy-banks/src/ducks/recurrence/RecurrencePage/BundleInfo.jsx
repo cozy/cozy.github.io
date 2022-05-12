@@ -97,7 +97,11 @@ const BundleInfo = ({ bundle }) => {
           <BackButton theme="primary" onClick={goToRecurrenceRoot} />
           <BarTitle>{getLabel(bundle)}</BarTitle>
           <BarRight>
-            <IconButton className="u-mr-half" onClick={showActionsMenu}>
+            <IconButton
+              className="u-mr-half"
+              onClick={showActionsMenu}
+              size="medium"
+            >
               <Icon icon={DotsIcon} />
             </IconButton>
           </BarRight>

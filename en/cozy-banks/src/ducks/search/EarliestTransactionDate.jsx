@@ -23,6 +23,7 @@ const EarliestTransactionDate = ({
           <IconButton
             disabled={isQueryLoading(transactionCol)}
             onClick={onFetchMore}
+            size="medium"
           >
             <Icon icon={HistoryIcon} />
           </IconButton>

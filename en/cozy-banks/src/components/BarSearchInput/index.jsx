@@ -32,7 +32,7 @@ const BarSearchInput = ({
   return (
     <div onClick={onClick} className={styles.InputWrapper}>
       <BarSearchIcon className={styles.SearchIcon}>
-        <IconButton className="u-ml-half">
+        <IconButton className="u-ml-half" size="medium">
           <Icon icon={MagnifierIcon} />
         </IconButton>
       </BarSearchIcon>

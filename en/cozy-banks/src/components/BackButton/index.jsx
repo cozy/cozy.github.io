@@ -27,6 +27,7 @@ export const BackIcon = () => {
 export const BackButton = ({ className, onClick, ...props }) => (
   <IconButton
     className={cx(styles.BackArrow, className)}
+    size="medium"
     onClick={onClick}
     {...props}
   >
