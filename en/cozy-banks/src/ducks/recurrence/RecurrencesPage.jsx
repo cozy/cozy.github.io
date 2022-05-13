@@ -11,7 +11,7 @@ import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Breadcrumbs from 'cozy-ui/transpiled/react/Breadcrumbs'
 import ListSubheader from 'cozy-ui/transpiled/react/MuiCozyTheme/ListSubheader'
 import flag from 'cozy-flags'
-import { withStyles } from '@material-ui/styles'
+import { withStyles } from '@material-ui/core/styles'
 
 import Loading from 'components/Loading'
 import { recurrenceConn } from 'doctypes'
