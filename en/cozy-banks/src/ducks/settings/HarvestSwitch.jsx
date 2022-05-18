@@ -68,7 +68,10 @@ class Switch extends React.Component {
     }
 
     this.pushHistory = this.pushHistory.bind(this)
-    this.mountPointContext = { pushHistory: this.pushHistory }
+    this.mountPointContext = {
+      pushHistory: this.pushHistory,
+      replaceHistory: this.pushHistory
+    }
   }
 
   pushHistory(fragment) {
