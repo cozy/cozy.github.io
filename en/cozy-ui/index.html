@@ -1123,6 +1123,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#guidelines-for-component-development" title="Guidelines for component development" class="md-nav__link">
+    Guidelines for component development
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#add-an-icon" title="Add an icon" class="md-nav__link">
     Add an icon
   </a>
@@ -1136,29 +1143,29 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#guidelines-for-component-development" title="Guidelines for component development" class="md-nav__link">
-    Guidelines for component development
+          <li class="md-nav__item">
+  <a href="#making-a-demo-when-creating-a-pull-request" title="Making a demo when creating a pull request" class="md-nav__link">
+    Making a demo when creating a pull request
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#unit-testing" title="Unit testing" class="md-nav__link">
     Unit testing
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#ui-regression-testing" title="UI regression testing" class="md-nav__link">
     UI regression testing
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2766,6 +2773,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#guidelines-for-component-development" title="Guidelines for component development" class="md-nav__link">
+    Guidelines for component development
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#add-an-icon" title="Add an icon" class="md-nav__link">
     Add an icon
   </a>
@@ -2779,29 +2793,29 @@
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#guidelines-for-component-development" title="Guidelines for component development" class="md-nav__link">
-    Guidelines for component development
+          <li class="md-nav__item">
+  <a href="#making-a-demo-when-creating-a-pull-request" title="Making a demo when creating a pull request" class="md-nav__link">
+    Making a demo when creating a pull request
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#unit-testing" title="Unit testing" class="md-nav__link">
     Unit testing
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#ui-regression-testing" title="UI regression testing" class="md-nav__link">
     UI regression testing
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2854,6 +2868,7 @@
 <h1 id="cozy-ui">Cozy UI<a class="headerlink" href="#cozy-ui" title="Permanent link">&para;</a></h1>
 <p>CSS classes and React components designed to build <a href="https://cozy.io/">Cozy</a> apps.</p>
 <p>If you plan to build a webapp to run on Cozy, you&rsquo;ll probably want to use a simple and elegant solution to build your interfaces without the mess of dealing with complex markup and CSS. Then Cozy UI is here for you!</p>
+<p>Cozy UI relies heavily on <a href="https://v4.mui.com/">Material UI v4</a> and it can be useful to know how it works.</p>
 <h2 id="react-components-styleguidist">React components (styleguidist)<a class="headerlink" href="#react-components-styleguidist" title="Permanent link">&para;</a></h2>
 <p>Check out <a href="https://docs.cozy.io/cozy-ui/react/">UI components</a> to see how to use ready made React components.</p>
 <h2 id="css-styleguide">CSS Styleguide<a class="headerlink" href="#css-styleguide" title="Permanent link">&para;</a></h2>
@@ -2910,7 +2925,14 @@ yarn start:doc <span class="c1"># Run the styleguide in watch mode</span>
 <li>Expose it in the API by adding it in <code>react/index.js</code></li>
 <li>Add it in the documentation by modifying <code>docs/styleguide.config.js</code></li>
 <li>If necessary you can add snapshots for it by modifying <code>react/examples.spec.jsx</code> and updating them <code>yarn build &amp;&amp; yarn test -u</code></li>
-<li>Remember to propagate the possible <code>ref</code> with <code>React.forwardRef</code>. (<a href="https://en.reactjs.org/docs/forwarding-refs.html">https://en.reactjs.org/docs/forwarding-refs.html</a>)</li>
+<li>Remember to propagate the possible <code>ref</code> with <code>React.forwardRef</code>. <a href="https://en.reactjs.org/docs/forwarding-refs.html">See forwardRef documentation</a></li>
+</ul>
+<h3 id="guidelines-for-component-development">Guidelines for component development<a class="headerlink" href="#guidelines-for-component-development" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Use material UI whenever possible</li>
+<li>Override material UI components inside <code>makeOverrides.js</code> when necessary</li>
+<li>Avoid stylus to style new components based on MUI and prefer <code>/helpers/makeStyles</code></li>
+<li>Use semantic variables for colors from <code>stylus/settings/palette.styl</code>, or color from <code>theme</code> objects in <code>makeStyles</code></li>
 </ul>
 <h3 id="add-an-icon">Add an icon<a class="headerlink" href="#add-an-icon" title="Permanent link">&para;</a></h3>
 <p>If you want to add a new icon to cozy-ui, you must follow these steps:</p>
@@ -2927,17 +2949,19 @@ yarn start:doc <span class="c1"># Run the styleguide in watch mode</span>
 </ul>
 <h3 id="develop-inside-an-app">Develop inside an app<a class="headerlink" href="#develop-inside-an-app" title="Permanent link">&para;</a></h3>
 <p>Sometimes, you want to develop on a component, from the context of an app.
-Then you need to link cozy-ui with <code>yarn link</code>.</p>
+Then you need to link cozy-ui with <code>yarn link</code>. Since <code>cozy-ui</code> is transpiled, when linking you must first <code>yarn release</code>. If you change the icons, or the palette, you must run <code>yarn release</code> again.</p>
 <div class="codehilite"><pre><span></span><span class="nb">cd</span> cozy-ui
+yarn release <span class="c1"># if first time</span>
 yarn link
 yarn start <span class="c1"># Launch transpilation</span>
+yarn release <span class="c1"># if you change icons or palette</span>
 </pre></div>
 
 
 <p>Then in your application folder, you can link to your local Cozy UI.
-You can use <a href="https://gist.github.com/ptbrowne/add609bdcf4396d32072acc4674fff23">rlink</a>
-instead of <code>yarn link</code>. It will prevent common build problems due
-to module resolution inside symlinked folders.</p>
+You can use <a href="https://gist.github.com/ptbrowne/add609bdcf4396d32072acc4674fff23">rlink</a> instead of <code>yarn link</code>. It will prevent common build problems due to module resolution inside symlinked folders.
+If your application doesn&rsquo;t use cozy-ui directly as dependency but through a library, you have to use <code>rlink</code> inside your application folder, not inside the library&rsquo;s one.
+<code>rlink</code> only copies the build and not the node_modules of cozy-ui, so you have to install a version of cozy-ui before making a <code>rlink</code>.</p>
 <div class="codehilite"><pre><span></span><span class="nb">cd</span> my-app
 rlink cozy-ui <span class="c1"># Prefer rlink to yarn link</span>
 yarn start
@@ -2945,8 +2969,10 @@ yarn start
 
 
 <p>All your modifications in your local Cozy UI will now be visible in your application!</p>
+<h3 id="making-a-demo-when-creating-a-pull-request">Making a demo when creating a pull request<a class="headerlink" href="#making-a-demo-when-creating-a-pull-request" title="Permanent link">&para;</a></h3>
 <p>When sending a PR, if your changes have graphic impacts, it is useful for the reviewers if
-you have deployed a version of the styleguidist containing your changes to your fork&rsquo;s repository.</p>
+you have deployed a version of the styleguidist containing your changes to your fork&rsquo;s repository.
+Don&rsquo;t forget to change <code>USERNAME</code> by yours.</p>
 <div class="codehilite"><pre><span></span>yarn build
 yarn build:css:all
 yarn build:doc
@@ -2955,24 +2981,7 @@ yarn deploy:doc --repo git@github.com:USERNAME/cozy-ui.git
 
 
 <p>⚠️ If the <code>deploy:doc</code> failed, you need to checkout your dev branch by doing <code>git checkout -</code></p>
-<h2 id="guidelines-for-component-development">Guidelines for component development<a class="headerlink" href="#guidelines-for-component-development" title="Permanent link">&para;</a></h2>
-<ul>
-<li>Use material UI whenever possible</li>
-<li>Override material UI components inside theme.js when necessary</li>
-<li>Avoid stylus to style new components</li>
-<li>Prefer withStyles / useStyles from material UI</li>
-<li>Use semantic variables for colors</li>
-</ul>
-<div class="codehilite"><pre><span></span>withStyles(theme =&gt; ({
-    root: {
--        backgroundColor: &#39;var(--paleGrey)&#39;,
-+        backgroundColor: theme.palette.background.default
-    }
-}))
-</pre></div>
-
-
-<h2 id="unit-testing">Unit testing<a class="headerlink" href="#unit-testing" title="Permanent link">&para;</a></h2>
+<h3 id="unit-testing">Unit testing<a class="headerlink" href="#unit-testing" title="Permanent link">&para;</a></h3>
 <p>Be aware that snapshots in unit tests use the transpiled version of cozy-ui. Therefore if you make changes and need to update the snapshots, you need to transpile first.</p>
 <div class="codehilite"><pre><span></span>yarn build <span class="o">&amp;&amp;</span> yarn <span class="nb">test</span> -u
 </pre></div>
@@ -2995,18 +3004,15 @@ it pushes to test for what the user sees.</p>
 </pre></div>
 
 
-<h2 id="ui-regression-testing">UI regression testing<a class="headerlink" href="#ui-regression-testing" title="Permanent link">&para;</a></h2>
+<h3 id="ui-regression-testing">UI regression testing<a class="headerlink" href="#ui-regression-testing" title="Permanent link">&para;</a></h3>
 <p>Components in <code>cozy-ui</code> are showcased with <a href="https://react-styleguidist.js.org/">React Styleguidist</a>. To prevent UI regressions,
 for each PR, each component is screenshotted and compared to the master version to find any
 regression (thanks <a href="https://github.com/argos-ci/argos">Argos</a> !).</p>
 <p>If your app uses <a href="https://react-styleguidist.js.org/">React Styleguidist</a>, <code>cozy-ui</code> provides <code>rsg-screenshots</code>, a CLI tool to take
 screenshots of your components (uses Puppeteer under the hood).</p>
-<div class="codehilite"><pre><span></span>yarn add cozy-ui
-<span class="c1"># The rsg-screenshots binary is now installed</span>
+<div class="codehilite"><pre><span></span>yarn add cozy-ui <span class="c1"># The rsg-screenshots binary is now installed</span>
 yarn build:doc:react <span class="c1"># Build our styleguide, the output directory is docs/react</span>
-rsg-screenshots --screenshot-dir screenshots/ --styleguide-dir docs/react
-<span class="c1"># Each component in the styleguide will be screenshotted and saved inside the</span>
-screenshots/ directory
+rsg-screenshots --screenshot-dir screenshots/ --styleguide-dir docs/react <span class="c1"># Each component in the styleguide will be screenshotted and saved inside the screenshots/ directory</span>
 </pre></div>
 
 
