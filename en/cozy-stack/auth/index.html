@@ -2019,6 +2019,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../flagship/" title="Flagship app" class="md-nav__link">
+      Flagship app
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../move-design/" title="Move design" class="md-nav__link">
       Move design
     </a>
@@ -2147,6 +2159,33 @@
   <a href="#post-authtwofactor" title="POST /auth/twofactor" class="md-nav__link">
     POST /auth/twofactor
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-authloginflagship" title="POST /auth/login/flagship" class="md-nav__link">
+    POST /auth/login/flagship
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2434,7 +2473,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#response" title="Response" class="md-nav__link">
+  <a href="#response_1" title="Response" class="md-nav__link">
     Response
   </a>
   
@@ -3085,6 +3124,33 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#post-authloginflagship" title="POST /auth/login/flagship" class="md-nav__link">
+    POST /auth/login/flagship
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#delete-authlogin" title="DELETE /auth/login" class="md-nav__link">
     DELETE /auth/login
   </a>
@@ -3368,7 +3434,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#response" title="Response" class="md-nav__link">
+  <a href="#response_1" title="Response" class="md-nav__link">
     Response
   </a>
   
@@ -3696,6 +3762,81 @@ two-factor-token=123123123123&amp;two-factor-passcode=678678&amp;redirect=https%
 </pre></div>
 
 
+<h3 id="post-authloginflagship">POST /auth/login/flagship<a class="headerlink" href="#post-authloginflagship" title="Permanent link">&para;</a></h3>
+<p>This endpoint is similar to <code>POST /auth/login</code>, but it allows the flagship app
+to also obtain OAuth access and register tokens without having to make the
+OAuth dance (which can be awkward for the user).</p>
+<h4 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/auth/login/flagship</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;passphrase&quot;</span><span class="p">:</span> <span class="s2">&quot;4f58133ea0f415424d0a856e0d3d2e0cd28e4358fce7e333cb524729796b2791&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;client_id&quot;</span><span class="p">:</span> <span class="s2">&quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;client_secret&quot;</span><span class="p">:</span> <span class="s2">&quot;eyJpc3Mi[...omitted for brevity...]&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h4 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;access_token&quot;</span><span class="p">:</span> <span class="s2">&quot;OWY0MjNjMGEtOTNmNi0xMWVjLWIyZGItN2I5YjgwNmRjYzBiCg&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;token_type&quot;</span><span class="p">:</span> <span class="s2">&quot;bearer&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;refresh_token&quot;</span><span class="p">:</span> <span class="s2">&quot;YTUwMjcyYjgtOTNmNi0xMWVjLWE4YTQtZWJhMzlmMTAwMWJiCg&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;scope&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p><strong>Note:</strong> if two-factor authentication is enabled on the Cozy, an email
+will be sent to the user with a code, and this request will return:</p>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">202</span> <span class="ne">Accepted</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;two_factor_token&quot;</span><span class="p">:</span> <span class="s2">&quot;123123123123&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Then, the client can retry by sending the two-factor token and code:</p>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;passphrase&quot;</span><span class="p">:</span> <span class="s2">&quot;4f58133ea0f415424d0a856e0d3d2e0cd28e4358fce7e333cb524729796b2791&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;client_id&quot;</span><span class="p">:</span> <span class="s2">&quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;client_secret&quot;</span><span class="p">:</span> <span class="s2">&quot;eyJpc3Mi[...omitted for brevity...]&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;two_factor_token&quot;</span><span class="p">:</span> <span class="s2">&quot;123123123123&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;two_factor_code&quot;</span><span class="p">:</span> <span class="s2">&quot;123456&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p><strong>Note:</strong> if the OAuth client has not been certified as the flagship app,
+this request will return:</p>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">202</span> <span class="ne">Accepted</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;session_code&quot;</span><span class="p">:</span> <span class="s2">&quot;ZmY4ODI3NGMtOTY1Yy0xMWVjLThkMDgtMmI5M2&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>The <code>session_code</code> can be put in the query string while opening the OAuth
+authorize page. It will be used to open the session, and let the user type the
+6-digits code they have received by mail to confirm that they want to use this
+app as the flagship app.</p>
 <h3 id="delete-authlogin">DELETE /auth/login<a class="headerlink" href="#delete-authlogin" title="Permanent link">&para;</a></h3>
 <p>This can be used to log-out the user. An app token must be passed in the
 <code>Authorization</code> header, to protect against CSRF attack on this (this can part of
@@ -4363,7 +4504,7 @@ passphrase (and 2FA if needed) to create a session for the authorize page.</p>
 </pre></div>
 
 
-<h4 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h4>
+<h4 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">201</span> <span class="ne">Created</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </pre></div>
