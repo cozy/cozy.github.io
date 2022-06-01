@@ -2448,6 +2448,46 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#download-the-code-of-an-app" title="Download the code of an app" class="md-nav__link">
+    Download the code of an app
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-appsslugdownload-get-appsslugdownloadversion" title="GET /apps/:slug/download &amp; GET /apps/:slug/download/:version" class="md-nav__link">
+    GET /apps/:slug/download &amp; GET /apps/:slug/download/:version
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_6" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_6" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#open-an-application-inside-the-flagship-app" title="Open an application inside the flagship app" class="md-nav__link">
     Open an application inside the flagship app
   </a>
@@ -2464,14 +2504,14 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#request_6" title="Request" class="md-nav__link">
+  <a href="#request_7" title="Request" class="md-nav__link">
     Request
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#response_6" title="Response" class="md-nav__link">
+  <a href="#response_7" title="Response" class="md-nav__link">
     Response
   </a>
   
@@ -2504,14 +2544,14 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#request_7" title="Request" class="md-nav__link">
+  <a href="#request_8" title="Request" class="md-nav__link">
     Request
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#response_7" title="Response" class="md-nav__link">
+  <a href="#response_8" title="Response" class="md-nav__link">
     Response
   </a>
   
@@ -3282,6 +3322,46 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#download-the-code-of-an-app" title="Download the code of an app" class="md-nav__link">
+    Download the code of an app
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-appsslugdownload-get-appsslugdownloadversion" title="GET /apps/:slug/download &amp; GET /apps/:slug/download/:version" class="md-nav__link">
+    GET /apps/:slug/download &amp; GET /apps/:slug/download/:version
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_6" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_6" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#open-an-application-inside-the-flagship-app" title="Open an application inside the flagship app" class="md-nav__link">
     Open an application inside the flagship app
   </a>
@@ -3298,14 +3378,14 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#request_6" title="Request" class="md-nav__link">
+  <a href="#request_7" title="Request" class="md-nav__link">
     Request
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#response_6" title="Response" class="md-nav__link">
+  <a href="#response_7" title="Response" class="md-nav__link">
     Response
   </a>
   
@@ -3338,14 +3418,14 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#request_7" title="Request" class="md-nav__link">
+  <a href="#request_8" title="Request" class="md-nav__link">
     Request
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#response_7" title="Response" class="md-nav__link">
+  <a href="#response_8" title="Response" class="md-nav__link">
     Response
   </a>
   
@@ -4023,12 +4103,38 @@ apps installed:
 </pre></div>
 
 
+<h2 id="download-the-code-of-an-app">Download the code of an app<a class="headerlink" href="#download-the-code-of-an-app" title="Permanent link">&para;</a></h2>
+<p>This endpoint is used by the flagship app to download the code of an
+application, in order to use it even while offline.</p>
+<h3 id="get-appsslugdownload-get-appsslugdownloadversion">GET /apps/:slug/download &amp; GET /apps/:slug/download/:version<a class="headerlink" href="#get-appsslugdownload-get-appsslugdownloadversion" title="Permanent link">&para;</a></h3>
+<p>The first route will download a tarball of the source code of the latest
+installed version of the application. The second route will force a specific
+version of an app (and a 412 Precondition failed may be sent if the code of
+this specific version is not available).</p>
+<h4 id="request_6">Request<a class="headerlink" href="#request_6" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/apps/drive/download/3.0.1</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer flagship-token</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.net</span>
+</pre></div>
+
+
+<h4 id="response_6">Response<a class="headerlink" href="#response_6" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/gzip</span>
+</pre></div>
+
+
+<p>When the application has been installed from the registry, the stack will
+respond with a redirect to the registry. In that case, the downloaded tarball
+can be gzipped or not (the registry allows both). When the application is
+installed from another source, the stack will create a gzipped tarball and
+send it to the client.</p>
 <h2 id="open-an-application-inside-the-flagship-app">Open an application inside the flagship app<a class="headerlink" href="#open-an-application-inside-the-flagship-app" title="Permanent link">&para;</a></h2>
 <p>This endpoint can be used by the flagship app to get all the parameters needed
 to open a webview for a Cozy webapp. It includes a cookie for a session, and
 the values for filling the HTML template.</p>
 <h3 id="get-appsslugopen">GET /apps/:slug/open<a class="headerlink" href="#get-appsslugopen" title="Permanent link">&para;</a></h3>
-<h4 id="request_6">Request<a class="headerlink" href="#request_6" title="Permanent link">&para;</a></h4>
+<h4 id="request_7">Request<a class="headerlink" href="#request_7" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/apps/drive/open</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 <span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer flagship-token</span>
@@ -4036,7 +4142,7 @@ the values for filling the HTML template.</p>
 </pre></div>
 
 
-<h4 id="response_6">Response<a class="headerlink" href="#response_6" title="Permanent link">&para;</a></h4>
+<h4 id="response_7">Response<a class="headerlink" href="#response_7" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </pre></div>
@@ -4075,12 +4181,12 @@ the values for filling the HTML template.</p>
 
 <h2 id="uninstall-an-application">Uninstall an application<a class="headerlink" href="#uninstall-an-application" title="Permanent link">&para;</a></h2>
 <h3 id="delete-appsslug">DELETE /apps/:slug<a class="headerlink" href="#delete-appsslug" title="Permanent link">&para;</a></h3>
-<h4 id="request_7">Request<a class="headerlink" href="#request_7" title="Permanent link">&para;</a></h4>
+<h4 id="request_8">Request<a class="headerlink" href="#request_8" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/apps/tasky</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 </pre></div>
 
 
-<h4 id="response_7">Response<a class="headerlink" href="#response_7" title="Permanent link">&para;</a></h4>
+<h4 id="response_8">Response<a class="headerlink" href="#response_8" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
 </pre></div>
 
