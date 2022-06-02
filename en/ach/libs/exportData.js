@@ -1,6 +1,7 @@
 const _ = require('lodash')
 const fs = require('fs').promises
 const log = require('./log')
+const { Q } = require('cozy-client')
 
 // helpers
 const stripMeta = function(obj) {
@@ -14,12 +15,9 @@ const stripMeta = function(obj) {
   return _.omit(obj, omitted)
 }
 
-const fetchAll = async (cozyClient, doctype, limit) => {
+const fetchAll = async (cozyClient, doctype) => {
   try {
     let options = `include_docs=true`
-    if (limit) {
-      options += `&limit=${limit}`
-    }
     const result = await cozyClient.stackClient.fetchJSON(
       'GET',
       `/data/${doctype}/_all_docs?${options}`
@@ -36,18 +34,39 @@ const fetchAll = async (cozyClient, doctype, limit) => {
   }
 }
 
-module.exports = (cozyClient, doctypes, filename, limit) => {
+const fetchRecent = async (cozyClient, doctype, last) => {
+  try {
+    const query = Q(doctype)
+      .where({
+        'cozyMetadata.updatedAt': {
+          $gt: null
+        }
+      })
+      .sortBy([{ 'cozyMetadata.updatedAt': 'desc' }])
+      .limitBy(last)
+
+    const result = await cozyClient.query(query)
+    return result.data
+  } catch (e) {
+    console.error(e)
+    throw e
+  }
+}
+
+module.exports = (cozyClient, doctypes, filename, last) => {
   log.debug('Exporting data...')
 
-  const allExports = doctypes.map(doctype => {
-    return fetchAll(cozyClient, doctype, limit)
-      .then(docs => {
-        log.success('Exported documents for ' + doctype + ' : ' + docs.length)
-        return docs
-      })
-      .catch(err => {
-        console.error(err)
-      })
+  const allExports = doctypes.map(async doctype => {
+    try {
+      const docs = last
+        ? await fetchRecent(cozyClient, doctype, last)
+        : await fetchAll(cozyClient, doctype)
+
+      log.success('Exported documents for ' + doctype + ' : ' + docs.length)
+      return docs
+    } catch (err) {
+      console.error(err)
+    }
   })
 
   return Promise.all(allExports)
