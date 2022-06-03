@@ -247,6 +247,9 @@ const autotoken = (url, doctypes) => {
  * ouput: https://moncozy.mycozy.cloud
  */
 const parseCozyURL = stringUrl => {
+  if (!stringUrl.startsWith('http')) {
+    throw new Error('Cozy url must start with `http`')
+  }
   const parsedUrl = urls.parse(stringUrl)
   const splittedHost = parsedUrl.host.split('.')
   parsedUrl.host = `${splittedHost[0].split('-')[0]}.${splittedHost

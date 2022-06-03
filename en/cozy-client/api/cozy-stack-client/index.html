@@ -1603,6 +1603,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#oauthclientloginflagship-promiseaccesstokenrestwofactorneededressessioncoderes" title="oAuthClient.loginFlagship() ⇒ Promise.&lt;(AccessTokenRes|TwoFactorNeededRes|SessionCodeRes)&gt;" class="md-nav__link">
+    oAuthClient.loginFlagship() ⇒ Promise.&lt;(AccessTokenRes|TwoFactorNeededRes|SessionCodeRes)&gt;
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#oauthclientrefreshtoken-promise" title="oAuthClient.refreshToken() ⇒ Promise" class="md-nav__link">
     oAuthClient.refreshToken() ⇒ Promise
   </a>
@@ -2178,6 +2185,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#oauthclientloginflagship-promiseaccesstokenrestwofactorneededressessioncoderes_1" title="oAuthClient.loginFlagship() ⇒ Promise.&lt;(AccessTokenRes|TwoFactorNeededRes|SessionCodeRes)&gt;" class="md-nav__link">
+    oAuthClient.loginFlagship() ⇒ Promise.&lt;(AccessTokenRes|TwoFactorNeededRes|SessionCodeRes)&gt;
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#oauthclientrefreshtoken-promise_1" title="oAuthClient.refreshToken() ⇒ Promise" class="md-nav__link">
     oAuthClient.refreshToken() ⇒ Promise
   </a>
@@ -2255,6 +2269,20 @@
         <li class="md-nav__item">
   <a href="#sessioncoderes" title="SessionCodeRes" class="md-nav__link">
     SessionCodeRes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#accesstokenres" title="AccessTokenRes" class="md-nav__link">
+    AccessTokenRes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#twofactorneededres" title="TwoFactorNeededRes" class="md-nav__link">
+    TwoFactorNeededRes
   </a>
   
 </li>
@@ -4424,6 +4452,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#oauthclientloginflagship-promiseaccesstokenrestwofactorneededressessioncoderes" title="oAuthClient.loginFlagship() ⇒ Promise.&lt;(AccessTokenRes|TwoFactorNeededRes|SessionCodeRes)&gt;" class="md-nav__link">
+    oAuthClient.loginFlagship() ⇒ Promise.&lt;(AccessTokenRes|TwoFactorNeededRes|SessionCodeRes)&gt;
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#oauthclientrefreshtoken-promise" title="oAuthClient.refreshToken() ⇒ Promise" class="md-nav__link">
     oAuthClient.refreshToken() ⇒ Promise
   </a>
@@ -4999,6 +5034,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#oauthclientloginflagship-promiseaccesstokenrestwofactorneededressessioncoderes_1" title="oAuthClient.loginFlagship() ⇒ Promise.&lt;(AccessTokenRes|TwoFactorNeededRes|SessionCodeRes)&gt;" class="md-nav__link">
+    oAuthClient.loginFlagship() ⇒ Promise.&lt;(AccessTokenRes|TwoFactorNeededRes|SessionCodeRes)&gt;
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#oauthclientrefreshtoken-promise_1" title="oAuthClient.refreshToken() ⇒ Promise" class="md-nav__link">
     oAuthClient.refreshToken() ⇒ Promise
   </a>
@@ -5076,6 +5118,20 @@
         <li class="md-nav__item">
   <a href="#sessioncoderes" title="SessionCodeRes" class="md-nav__link">
     SessionCodeRes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#accesstokenres" title="AccessTokenRes" class="md-nav__link">
+    AccessTokenRes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#twofactorneededres" title="TwoFactorNeededRes" class="md-nav__link">
+    TwoFactorNeededRes
   </a>
   
 </li>
@@ -5344,6 +5400,10 @@ not.</p>
 <dd><p>Attributes representing a design doc</p>
 </dd>
 <dt><a href="#SessionCodeRes">SessionCodeRes</a></dt>
+<dd></dd>
+<dt><a href="#AccessTokenRes">AccessTokenRes</a></dt>
+<dd></dd>
+<dt><a href="#TwoFactorNeededRes">TwoFactorNeededRes</a></dt>
 <dd></dd>
 <dt><a href="#Permission">Permission</a> ⇒ <code><a href="#Permission">Permission</a></code></dt>
 <dd><p>async getOwnPermissions - deprecated: please use fetchOwnPermissions instead</p>
@@ -6842,6 +6902,7 @@ through OAuth.</p>
 <li><a href="#OAuthClient+fetchAccessToken">.fetchAccessToken(accessCode, oauthOptionsArg, uri, codeVerifier)</a> ⇒ <code>Promise</code></li>
 <li><a href="#OAuthClient+fetchSessionCode">.fetchSessionCode()</a> ⇒ <a href="#SessionCodeRes"><code>Promise.&lt;SessionCodeRes&gt;</code></a></li>
 <li><a href="#OAuthClient+fetchSessionCodeWithPassword">.fetchSessionCodeWithPassword()</a> ⇒ <a href="#SessionCodeRes"><code>Promise.&lt;SessionCodeRes&gt;</code></a></li>
+<li><a href="#OAuthClient+loginFlagship">.loginFlagship()</a> ⇒ <code>Promise.&lt;(AccessTokenRes|TwoFactorNeededRes|SessionCodeRes)&gt;</code></li>
 <li><a href="#OAuthClient+refreshToken">.refreshToken()</a> ⇒ <code>Promise</code></li>
 <li><a href="#OAuthClient+setToken">.setToken(token)</a></li>
 <li><a href="#OAuthClient+setOAuthOptions">.setOAuthOptions(options)</a></li>
@@ -7050,7 +7111,16 @@ sets internal information from the server response</p>
 <ul>
 <li><code>NotRegisteredException</code> When the client isn&rsquo;t certified to be the Flagship application</li>
 </ul>
-<p><a name="OAuthClient+refreshToken"></a></p>
+<p><a name="OAuthClient+loginFlagship"></a></p>
+<h3 id="oauthclientloginflagship-promiseaccesstokenrestwofactorneededressessioncoderes">oAuthClient.loginFlagship() ⇒ <code>Promise.&lt;(AccessTokenRes|TwoFactorNeededRes|SessionCodeRes)&gt;</code><a class="headerlink" href="#oauthclientloginflagship-promiseaccesstokenrestwofactorneededressessioncoderes" title="Permanent link">&para;</a></h3>
+<p>Get OAuth access and register tokens without having to make OAuth dance</p>
+<p>This endpoint returns registration tokens only from a Flagship app,
+otherwise it returns a session_code that should be used in an OAuth dance</p>
+<p>More info: https://docs.cozy.io/en/cozy-stack/flagship/
+More info: https://docs.cozy.io/en/cozy-stack/auth/#post-authloginflagship</p>
+<p><strong>Kind</strong>: instance method of <a href="#OAuthClient"><code>OAuthClient</code></a><br />
+<strong>Returns</strong>: <code>Promise.&lt;(AccessTokenRes|TwoFactorNeededRes|SessionCodeRes)&gt;</code> - A promise that resolves with an access token, a session_code or a 2FA code<br />
+<a name="OAuthClient+refreshToken"></a></p>
 <h3 id="oauthclientrefreshtoken-promise">oAuthClient.refreshToken() ⇒ <code>Promise</code><a class="headerlink" href="#oauthclientrefreshtoken-promise" title="Permanent link">&para;</a></h3>
 <p>Retrieves a new access token by refreshing the currently used token.</p>
 <p><strong>Kind</strong>: instance method of <a href="#OAuthClient"><code>OAuthClient</code></a><br />
@@ -8651,6 +8721,7 @@ Deleted and design docs are filtered by default, thus documents are retrieved in
 <li><a href="#OAuthClient+fetchAccessToken">.fetchAccessToken(accessCode, oauthOptionsArg, uri, codeVerifier)</a> ⇒ <code>Promise</code></li>
 <li><a href="#OAuthClient+fetchSessionCode">.fetchSessionCode()</a> ⇒ <a href="#SessionCodeRes"><code>Promise.&lt;SessionCodeRes&gt;</code></a></li>
 <li><a href="#OAuthClient+fetchSessionCodeWithPassword">.fetchSessionCodeWithPassword()</a> ⇒ <a href="#SessionCodeRes"><code>Promise.&lt;SessionCodeRes&gt;</code></a></li>
+<li><a href="#OAuthClient+loginFlagship">.loginFlagship()</a> ⇒ <code>Promise.&lt;(AccessTokenRes|TwoFactorNeededRes|SessionCodeRes)&gt;</code></li>
 <li><a href="#OAuthClient+refreshToken">.refreshToken()</a> ⇒ <code>Promise</code></li>
 <li><a href="#OAuthClient+setToken">.setToken(token)</a></li>
 <li><a href="#OAuthClient+setOAuthOptions">.setOAuthOptions(options)</a></li>
@@ -8859,7 +8930,16 @@ sets internal information from the server response</p>
 <ul>
 <li><code>NotRegisteredException</code> When the client isn&rsquo;t certified to be the Flagship application</li>
 </ul>
-<p><a name="OAuthClient+refreshToken"></a></p>
+<p><a name="OAuthClient+loginFlagship"></a></p>
+<h3 id="oauthclientloginflagship-promiseaccesstokenrestwofactorneededressessioncoderes_1">oAuthClient.loginFlagship() ⇒ <code>Promise.&lt;(AccessTokenRes|TwoFactorNeededRes|SessionCodeRes)&gt;</code><a class="headerlink" href="#oauthclientloginflagship-promiseaccesstokenrestwofactorneededressessioncoderes_1" title="Permanent link">&para;</a></h3>
+<p>Get OAuth access and register tokens without having to make OAuth dance</p>
+<p>This endpoint returns registration tokens only from a Flagship app,
+otherwise it returns a session_code that should be used in an OAuth dance</p>
+<p>More info: https://docs.cozy.io/en/cozy-stack/flagship/
+More info: https://docs.cozy.io/en/cozy-stack/auth/#post-authloginflagship</p>
+<p><strong>Kind</strong>: instance method of <a href="#OAuthClient"><code>OAuthClient</code></a><br />
+<strong>Returns</strong>: <code>Promise.&lt;(AccessTokenRes|TwoFactorNeededRes|SessionCodeRes)&gt;</code> - A promise that resolves with an access token, a session_code or a 2FA code<br />
+<a name="OAuthClient+refreshToken"></a></p>
 <h3 id="oauthclientrefreshtoken-promise_1">oAuthClient.refreshToken() ⇒ <code>Promise</code><a class="headerlink" href="#oauthclientrefreshtoken-promise_1" title="Permanent link">&para;</a></h3>
 <p>Retrieves a new access token by refreshing the currently used token.</p>
 <p><strong>Kind</strong>: instance method of <a href="#OAuthClient"><code>OAuthClient</code></a><br />
@@ -9205,6 +9285,61 @@ not.</p>
 <td>session_code</td>
 <td><code>string</code></td>
 <td>The value of the session code</td>
+</tr>
+</tbody>
+</table>
+<p><a name="AccessTokenRes"></a></p>
+<h2 id="accesstokenres">AccessTokenRes<a class="headerlink" href="#accesstokenres" title="Permanent link">&para;</a></h2>
+<p><strong>Kind</strong>: global typedef<br />
+<strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>access_token</td>
+<td><code>string</code></td>
+<td>The OAuth access token</td>
+</tr>
+<tr>
+<td>refresh_token</td>
+<td><code>string</code></td>
+<td>The OAuth refresh token</td>
+</tr>
+<tr>
+<td>token_type</td>
+<td><code>string</code></td>
+<td>The OAuth token type</td>
+</tr>
+<tr>
+<td>scope</td>
+<td><code>string</code></td>
+<td>The OAuth scope</td>
+</tr>
+</tbody>
+</table>
+<p><a name="TwoFactorNeededRes"></a></p>
+<h2 id="twofactorneededres">TwoFactorNeededRes<a class="headerlink" href="#twofactorneededres" title="Permanent link">&para;</a></h2>
+<p><strong>Kind</strong>: global typedef<br />
+<strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>two_factor_token</td>
+<td><code>string</code></td>
+<td>The 2FA token</td>
 </tr>
 </tbody>
 </table>
