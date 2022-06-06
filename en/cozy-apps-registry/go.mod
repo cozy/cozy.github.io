@@ -20,5 +20,5 @@ require (
 	github.com/spf13/viper v1.12.0
 	github.com/stretchr/testify v1.7.1
 	golang.org/x/crypto v0.0.0-20220525230936-793ad666bf5e
-	golang.org/x/sync v0.0.0-20220513210516-0976fa681c29
+	golang.org/x/sync v0.0.0-20220601150217-0de741cfad7f
 )
