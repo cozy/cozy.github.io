@@ -2751,6 +2751,13 @@ will have to do a few more steps to have access to the Cozy:</p>
 <li>creating a session code with <code>POST /auth/session_code</code></li>
 <li>getting the parameters to open a webapp with <code>GET /apps/:slug/open</code></li>
 </ul>
+<p>And some routes accept a <code>session_code</code> to open a session in a webview or
+inAppBrowser, like:</p>
+<ul>
+<li>serving the <code>index.html</code> of a webapp</li>
+<li>starting the OAuth danse of a konnector (<code>/accounts/:slug/start</code>)</li>
+<li>starting the reconnect BI flow (<code>/accounts/:slug/reconnect</code>).</li>
+</ul>
                 
                   
                 

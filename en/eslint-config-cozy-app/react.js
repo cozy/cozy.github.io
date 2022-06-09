@@ -11,6 +11,10 @@ module.exports = {
   settings: { react: { version: 'latest' } },
   rules: Object.assign({}, basics.rules, {
     'react/prop-types': 'off',
+    'react/jsx-curly-brace-presence': [
+      'error',
+      { props: 'never', children: 'never' }
+    ],
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn'
   }),

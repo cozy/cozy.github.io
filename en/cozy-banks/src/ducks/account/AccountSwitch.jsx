@@ -7,7 +7,6 @@ import cx from 'classnames'
 import { useQuery } from 'cozy-client'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
-import Icon from 'cozy-ui/transpiled/react/Icon'
 import Button from 'cozy-ui/transpiled/react/MuiCozyTheme/Buttons'
 import List from 'cozy-ui/transpiled/react/MuiCozyTheme/List'
 import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
@@ -16,9 +15,8 @@ import ListSubheader from 'cozy-ui/transpiled/react/MuiCozyTheme/ListSubheader'
 import ListItemSecondaryAction from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemSecondaryAction'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import Radio from 'cozy-ui/transpiled/react/Radios'
-import BottomIcon from 'cozy-ui/transpiled/react/Icons/Bottom'
-import Typography from 'cozy-ui/transpiled/react/Typography'
-import CozyTheme, { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
+import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
+import DropdownText from 'cozy-ui/transpiled/react/DropdownText'
 
 import RawContentDialog from 'components/RawContentDialog'
 import AccountSharingStatus from 'components/AccountSharingStatus'
@@ -53,22 +51,6 @@ const filteringDocPropType = PropTypes.oneOfType([
   PropTypes.object
 ])
 
-const DownArrow = ({ size }) => {
-  const theme = useCozyTheme()
-  return (
-    <Icon
-      width={size}
-      height={size}
-      icon={BottomIcon}
-      className={cx(styles.DownArrow, styles[`DownArrowColor_${theme}`])}
-    />
-  )
-}
-
-DownArrow.defaultProps = {
-  size: 12
-}
-
 const getFilteringDocLabel = (filteringDoc, t, accounts) => {
   if (filteringDoc.length) {
     return t('AccountSwitch.some-accounts', {
@@ -82,11 +64,6 @@ const getFilteringDocLabel = (filteringDoc, t, accounts) => {
   }
 }
 
-const defaultTypographyProps = {
-  color: 'primary',
-  variant: 'h4'
-}
-
 // t is passed from above and not through useI18n() since AccountSwitchSelect can be
 // rendered in the Bar and in this case it has a different context
 const AccountSwitchSelect = ({
@@ -94,25 +71,22 @@ const AccountSwitchSelect = ({
   filteringDoc,
   onClick,
   t,
-  typographyProps,
-  arrowProps
+  typographyProps
 }) => {
   const noAccounts = !accounts || accounts.length === 0
 
   return (
     <div className={styles.AccountSwitch__Select} onClick={onClick}>
-      <Typography
-        className={cx(styles.AccountSwitch__SelectText, 'u-ellipsis')}
-        {...defaultTypographyProps}
-        {...typographyProps}
+      <DropdownText
+        noWrap
+        innerTextProps={{ variant: 'h1', ...typographyProps }}
       >
         {noAccounts
           ? t('Categories.noAccount')
           : filteringDoc
           ? getFilteringDocLabel(filteringDoc, t, accounts)
           : t('AccountSwitch.all-accounts')}
-      </Typography>
-      <DownArrow {...arrowProps} />
+      </DropdownText>
     </div>
   )
 }
@@ -283,26 +257,17 @@ const barItemStyle = { overflow: 'hidden', paddingRight: '1rem' }
 const selectPropsBySize = {
   normal: {
     typographyProps: {
-      variant: 'body1',
-      color: 'primary'
+      variant: 'body1'
     }
   },
   large: {
     typographyProps: {
-      variant: 'h4',
-      color: 'primary'
-    },
-    arrowProps: {
-      size: 16
+      variant: 'h4'
     }
   },
   small: {
     typographyProps: {
-      variant: 'caption',
-      color: 'primary'
-    },
-    arrowProps: {
-      size: 10
+      variant: 'caption'
     }
   }
 }
