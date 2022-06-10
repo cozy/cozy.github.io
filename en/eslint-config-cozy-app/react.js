@@ -8,7 +8,7 @@ module.exports = {
   parser: basics.parser,
   parserOptions: { ecmaFeatures: { jsx: true } },
   env: basics.env,
-  settings: { react: { version: 'latest' } },
+  settings: { react: { version: 'detect' } },
   rules: Object.assign({}, basics.rules, {
     'react/prop-types': 'off',
     'react/jsx-curly-brace-presence': [

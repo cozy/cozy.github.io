@@ -2664,8 +2664,9 @@
 <div class="codehilite"><pre><span></span>$ docker run -d <span class="se">\</span>
     --name cozy-stack-couch <span class="se">\</span>
     -p <span class="m">5984</span>:5984 <span class="se">\</span>
+    -e <span class="nv">COUCHDB_USER</span><span class="o">=</span>admin -e <span class="nv">COUCHDB_PASSWORD</span><span class="o">=</span>password <span class="se">\</span>
     -v <span class="nv">$HOME</span>/.cozy-stack-couch:/opt/couchdb/data <span class="se">\</span>
-    couchdb:2.3
+    couchdb:3.2
 $ curl -X PUT http://127.0.0.1:5984/<span class="o">{</span>_users,_replicator<span class="o">}</span>
 </pre></div>
 
