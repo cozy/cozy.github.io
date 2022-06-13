@@ -2238,6 +2238,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#warnings-for-slow-requests" title="Warnings for slow requests" class="md-nav__link">
+    Warnings for slow requests
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#comparison-of-strings" title="Comparison of strings" class="md-nav__link">
     Comparison of strings
   </a>
@@ -2664,6 +2671,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#warnings-for-slow-requests" title="Warnings for slow requests" class="md-nav__link">
+    Warnings for slow requests
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#comparison-of-strings" title="Comparison of strings" class="md-nav__link">
     Comparison of strings
   </a>
@@ -2769,6 +2783,27 @@ reasons. In general, you can follow these two rules of thumb:</p>
    order).</p>
 </li>
 </ol>
+<h3 id="warnings-for-slow-requests">Warnings for slow requests<a class="headerlink" href="#warnings-for-slow-requests" title="Permanent link">&para;</a></h3>
+<p>When requesting a mango index, CouchDB can use an index. But there are also
+cases where no index can be used, or where the index is not optimal. Let&rsquo;s
+see the different scenarios:</p>
+<ul>
+<li>
+<p>CouchDB does use an index, it will respond with a warning, and cozy-stack
+  will transform this warning in an error, as developers should really avoid
+  this issue</p>
+</li>
+<li>
+<p>CouchDB can use an index for the selector but not for the sort, it will
+  respond with an error, and the cozy-stack will just forward the error</p>
+</li>
+<li>
+<p>CouchDB can use an index, but will still look at much more documents in
+  the index that what will be in the response (it happens with <code>$or</code> and <code>$in</code>
+  operators, which should be avoided), CouchDB 3+ will send a warning and the
+  cozy-stack will forward the documents and the warning to the client.</p>
+</li>
+</ul>
 <h3 id="comparison-of-strings">Comparison of strings<a class="headerlink" href="#comparison-of-strings" title="Permanent link">&para;</a></h3>
 <p>Comparison of strings is done using ICU which implements the Unicode Collation
 Algorithm, giving a dictionary sorting of keys. This can give surprising

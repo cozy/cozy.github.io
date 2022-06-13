@@ -10,13 +10,13 @@ import {
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 
 import { VaultUnlockProvider, VaultUnlockPlaceholder } from 'cozy-keys-lib'
-import AccountModalContent from 'cozy-harvest-lib/dist/components/AccountModal'
 import EditAccountModal from 'cozy-harvest-lib/dist/components/EditAccountModal'
 import HarvestVaultProvider from 'cozy-harvest-lib/dist/components/HarvestVaultProvider'
 
 import { TrackingContext as HarvestTrackingContext } from 'cozy-harvest-lib/dist/components/hoc/tracking'
 
 import { useTracker } from 'ducks/tracking/browser'
+import HarvestAccountModal from './HarvestAccountModal'
 import HarvestSwitch from './HarvestSwitch'
 import {
   COZY_ACCOUNT_DOCTYPE,
@@ -179,8 +179,7 @@ const HarvestBankAccountSettings = ({ connectionId, onDismiss }) => {
                     <HarvestLoader connectionId={connectionId}>
                       {({ triggers, konnector, accountsAndTriggers }) => {
                         return (
-                          <AccountModalContent
-                            initialActiveTab="configuration"
+                          <HarvestAccountModal
                             accountId={connectionId}
                             triggers={triggers}
                             konnector={konnector}
@@ -188,8 +187,6 @@ const HarvestBankAccountSettings = ({ connectionId, onDismiss }) => {
                             onDismiss={() => {
                               onDismiss()
                             }}
-                            showAccountSelection={false}
-                            showNewAccountButton={false}
                           />
                         )
                       }}
