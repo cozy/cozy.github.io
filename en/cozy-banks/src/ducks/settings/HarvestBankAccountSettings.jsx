@@ -16,8 +16,8 @@ import HarvestVaultProvider from 'cozy-harvest-lib/dist/components/HarvestVaultP
 import { TrackingContext as HarvestTrackingContext } from 'cozy-harvest-lib/dist/components/hoc/tracking'
 
 import { useTracker } from 'ducks/tracking/browser'
-import HarvestAccountModal from './HarvestAccountModal'
-import HarvestSwitch from './HarvestSwitch'
+import HarvestAccountModal from 'ducks/settings/HarvestAccountModal'
+import HarvestSwitch from 'ducks/settings/HarvestSwitch'
 import {
   COZY_ACCOUNT_DOCTYPE,
   cronKonnectorTriggersConn,
