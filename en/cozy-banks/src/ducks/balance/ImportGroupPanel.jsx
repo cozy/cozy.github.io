@@ -106,7 +106,12 @@ const Row = React.memo(({ account, t }) => {
   const slug = account.konnector
 
   return (
-    <ListItem button disableRipple>
+    <ListItem
+      disabled
+      onClick={ev => {
+        ev.stopPropagation()
+      }}
+    >
       <ListItemIcon>
         <AccountIcon
           account={{
