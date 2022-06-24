@@ -1,3 +1,5 @@
+import log from 'cozy-logger'
+
 export enum FlagshipRoutes {
   Home = 'home',
   Cozyapp = 'cozyapp',
@@ -15,7 +17,19 @@ export interface FlagshipMetadata {
   version?: string
 }
 
-export const getFlagshipMetadata = (): FlagshipMetadata =>
-  window.cozy?.flagship || {}
+const getGlobalWindow = (): Window => {
+  if (typeof window !== 'undefined') return window
+  else {
+    log(
+      'error',
+      `"window" is not defined. This means that getGlobalWindow() shouldn't have been called and investigation should be done to prevent this call`
+    )
+    return undefined
+  }
+}
 
-export const isFlagshipApp = (): boolean => window.cozy?.flagship !== undefined
+export const getFlagshipMetadata = (): FlagshipMetadata =>
+  getGlobalWindow()?.cozy?.flagship || {}
+
+export const isFlagshipApp = (): boolean =>
+  getGlobalWindow()?.cozy?.flagship !== undefined

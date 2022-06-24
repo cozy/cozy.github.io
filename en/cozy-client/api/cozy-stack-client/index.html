@@ -1932,6 +1932,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#getindexnamefromfields-string" title="getIndexNameFromFields ⇒ string" class="md-nav__link">
+    getIndexNameFromFields ⇒ string
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#getindexfields-array" title="getIndexFields ⇒ Array" class="md-nav__link">
     getIndexFields ⇒ Array
   </a>
@@ -4781,6 +4788,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#getindexnamefromfields-string" title="getIndexNameFromFields ⇒ string" class="md-nav__link">
+    getIndexNameFromFields ⇒ string
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#getindexfields-array" title="getIndexFields ⇒ Array" class="md-nav__link">
     getIndexFields ⇒ Array
   </a>
@@ -5285,6 +5299,11 @@ through OAuth.</p>
 </dd>
 <dt><a href="#getIllegalCharacters">getIllegalCharacters</a> ⇒ <code>string</code></dt>
 <dd><p>Get the list of illegal characters in the file name</p>
+</dd>
+<dt><a href="#getIndexNameFromFields">getIndexNameFromFields</a> ⇒ <code>string</code></dt>
+<dd><p>Name an index, based on its indexed fields and partial filter.</p>
+<p>It follows this naming convention:
+`by_{indexed_field1}<em>and</em>{indexed_field2}<em>filter</em>{partial_filter_field1}<em>and</em>{partial_filter_field2}</p>
 </dd>
 <dt><a href="#getIndexFields">getIndexFields</a> ⇒ <code>Array</code></dt>
 <dd><p>Compute fields that should be indexed for a mango
@@ -8120,6 +8139,39 @@ found&rdquo; error.  </p>
 </tr>
 </tbody>
 </table>
+<p><a name="getIndexNameFromFields"></a></p>
+<h2 id="getindexnamefromfields-string">getIndexNameFromFields ⇒ <code>string</code><a class="headerlink" href="#getindexnamefromfields-string" title="Permanent link">&para;</a></h2>
+<p>Name an index, based on its indexed fields and partial filter.</p>
+<p>It follows this naming convention:
+`by_{indexed_field1}<em indexed_field2="indexed_field2">and</em><em partial_filter_field1="partial_filter_field1">filter</em><em partial_filter_field2="partial_filter_field2">and</em></p>
+<p><strong>Kind</strong>: global constant<br />
+<strong>Returns</strong>: <code>string</code> - The index name, built from the fields  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fields</td>
+<td><code>Array.&lt;string&gt;</code></td>
+<td>The indexed fields</td>
+</tr>
+<tr>
+<td>params</td>
+<td><code>object</code></td>
+<td>The additional params</td>
+</tr>
+<tr>
+<td>params.partialFilterFields</td>
+<td><code>Array.&lt;string&gt;</code></td>
+<td>The partial filter fields</td>
+</tr>
+</tbody>
+</table>
 <p><a name="getIndexFields"></a></p>
 <h2 id="getindexfields-array">getIndexFields ⇒ <code>Array</code><a class="headerlink" href="#getindexfields-array" title="Permanent link">&para;</a></h2>
 <p>Compute fields that should be indexed for a mango
@@ -9204,6 +9256,11 @@ not.</p>
 <td>[fields]</td>
 <td><code>Array.&lt;string&gt;</code></td>
 <td>The fields to return</td>
+</tr>
+<tr>
+<td>[partialFilterFields]</td>
+<td><code>Array.&lt;string&gt;</code></td>
+<td>The partial filter fields</td>
 </tr>
 <tr>
 <td>[limit]</td>
