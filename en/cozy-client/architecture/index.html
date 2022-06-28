@@ -1033,6 +1033,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#about-updates" title="About updates" class="md-nav__link">
+    About updates
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2649,6 +2656,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#about-updates" title="About updates" class="md-nav__link">
+    About updates
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2834,6 +2848,19 @@ document
 <p>So in our previous example our <code>todoslist</code> is concerned by the addition of the new todo, then 
 the <code>id</code> is added to <code>todolist</code> data, then the component linked will be refreshed with this new 
 document.</p>
+<h3 id="about-updates">About updates<a class="headerlink" href="#about-updates" title="Permanent link">&para;</a></h3>
+<p>As already mentioned, when a mutated document already exists in the store throught its <code>_id</code>, it is updated with the new content. However, this update never removes existing fields, it only merges or adds new fields. This is typically useful when two queries retrieve the same document, but not with all the fields. 
+Let us illustrate with this example:</p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">Q1</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">definition</span><span class="o">:</span> <span class="nx">Q</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">).</span><span class="nx">getById</span><span class="p">(</span><span class="s1">&#39;my-todo&#39;</span><span class="p">),</span> <span class="nx">options</span><span class="o">:</span> <span class="p">{</span> <span class="nx">as</span><span class="o">:</span> <span class="s1">&#39;todoslist-full&#39;</span><span class="p">,</span> <span class="nx">fetchPolicy</span><span class="o">:</span> <span class="nx">lessThan30s</span> <span class="p">}}</span>
+<span class="kr">const</span> <span class="nx">Q2</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">definition</span><span class="o">:</span> <span class="nx">Q</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">).</span><span class="nx">getById</span><span class="p">(</span><span class="s1">&#39;my-todo&#39;</span><span class="p">).</span><span class="nx">select</span><span class="p">([</span><span class="s1">&#39;label&#39;</span><span class="p">]),</span> <span class="nx">options</span><span class="o">:</span> <span class="p">{</span> <span class="nx">as</span><span class="o">:</span> <span class="s1">&#39;todoslist-label&#39;</span> <span class="p">}}</span>
+
+<span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">Q1</span><span class="p">)</span> <span class="c1">// returns { _id: &#39;my-todo&#39;, _type: &#39;io.cozy.todos&#39;, label: &#39;TODOTODO&#39; }, from the database</span>
+<span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">Q2</span><span class="p">)</span> <span class="c1">// returns { label: &#39;TODOTODO&#39; }, from the database</span>
+<span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">Q1</span><span class="p">)</span> <span class="c1">// returns { _id: &#39;my-todo&#39;, _type: &#39;io.cozy.todos&#39;, label: &#39;TODOTODO&#39; }, from the store</span>
+</pre></div>
+
+
+<p>Q1 retrieves the full content of &lsquo;my-todo&rsquo; while Q2 only retrieves its label. When Q2 is run, &lsquo;my-todo&rsquo; already exists in the store, as Q1 was previsouly run. However, the fields retrieved by Q1 for &lsquo;my-todos&rsquo; but absent from Q2 are not lost. This way, when Q1 is run again, the results fetched from the store (thanks to the fetch policy) will include all the fields.</p>
                 
                   
                 

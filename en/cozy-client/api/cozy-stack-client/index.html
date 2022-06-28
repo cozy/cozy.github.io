@@ -1897,6 +1897,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#isindexnotusedwarning-boolean" title="isIndexNotUsedWarning ⇒ boolean" class="md-nav__link">
+    isIndexNotUsedWarning ⇒ boolean
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#isnousableindexerror-boolean" title="isNoUsableIndexError ⇒ boolean" class="md-nav__link">
     isNoUsableIndexError ⇒ boolean
   </a>
@@ -4753,6 +4760,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#isindexnotusedwarning-boolean" title="isIndexNotUsedWarning ⇒ boolean" class="md-nav__link">
+    isIndexNotUsedWarning ⇒ boolean
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#isnousableindexerror-boolean" title="isNoUsableIndexError ⇒ boolean" class="md-nav__link">
     isNoUsableIndexError ⇒ boolean
   </a>
@@ -5285,6 +5299,9 @@ through OAuth.</p>
 <dt><a href="#isIndexConflictError">isIndexConflictError</a> ⇒ <code>boolean</code></dt>
 <dd><p>Helper to identify an index conflict</p>
 </dd>
+<dt><a href="#isIndexNotUsedWarning">isIndexNotUsedWarning</a> ⇒ <code>boolean</code></dt>
+<dd><p>Helper to identify a not used index</p>
+</dd>
 <dt><a href="#isNoUsableIndexError">isNoUsableIndexError</a> ⇒ <code>boolean</code></dt>
 <dd><p>Helper to identify a no usable index error</p>
 </dd>
@@ -5310,8 +5327,11 @@ through OAuth.</p>
 query to work</p>
 </dd>
 <dt><a href="#isInconsistentIndex">isInconsistentIndex</a> ⇒ <code>boolean</code></dt>
-<dd><p>Check if an index is in an inconsistent state, i.e. its name
-contains the indexed attributes which are not in correct order.</p>
+<dd><p>Check if an index is in an inconsistent state, i.e. it evaluates one of these:</p>
+<ul>
+<li>its name contains the indexed attributes which are not in correct order</li>
+<li>it contains a partial filter, but the fields are not in the name</li>
+</ul>
 </dd>
 <dt><a href="#isMatchingIndex">isMatchingIndex</a> ⇒ <code>boolean</code></dt>
 <dd><p>Check if an index is matching the given fields</p>
@@ -8023,6 +8043,27 @@ found&rdquo; error.  </p>
 </tr>
 </tbody>
 </table>
+<p><a name="isIndexNotUsedWarning"></a></p>
+<h2 id="isindexnotusedwarning-boolean">isIndexNotUsedWarning ⇒ <code>boolean</code><a class="headerlink" href="#isindexnotusedwarning-boolean" title="Permanent link">&para;</a></h2>
+<p>Helper to identify a not used index</p>
+<p><strong>Kind</strong>: global constant<br />
+<strong>Returns</strong>: <code>boolean</code> - Whether or not this is a not used index warning  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>warning</td>
+<td><code>string</code></td>
+<td>The warning returned by CouchDB</td>
+</tr>
+</tbody>
+</table>
 <p><a name="isNoUsableIndexError"></a></p>
 <h2 id="isnousableindexerror-boolean">isNoUsableIndexError ⇒ <code>boolean</code><a class="headerlink" href="#isnousableindexerror-boolean" title="Permanent link">&para;</a></h2>
 <p>Helper to identify a no usable index error</p>
@@ -8196,8 +8237,9 @@ query to work</p>
 </table>
 <p><a name="isInconsistentIndex"></a></p>
 <h2 id="isinconsistentindex-boolean">isInconsistentIndex ⇒ <code>boolean</code><a class="headerlink" href="#isinconsistentindex-boolean" title="Permanent link">&para;</a></h2>
-<p>Check if an index is in an inconsistent state, i.e. its name
-contains the indexed attributes which are not in correct order.</p>
+<p>Check if an index is in an inconsistent state, i.e. it evaluates one of these:
+- its name contains the indexed attributes which are not in correct order
+- it contains a partial filter, but the fields are not in the name</p>
 <p><strong>Kind</strong>: global constant<br />
 <strong>Returns</strong>: <code>boolean</code> - True if the index is inconsistent  </p>
 <table>

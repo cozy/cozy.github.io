@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import { ButtonLink } from 'cozy-ui/transpiled/react/Button'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
-import OpenWithIcon from 'cozy-ui/transpiled/react/Icons/Openwith'
 
 import HarvestBankAccountSettings from 'ducks/settings/HarvestBankAccountSettings'
 
@@ -23,7 +22,6 @@ const ReconnectTriggerButton = ({ trigger, label }) => {
         extension={isMobile ? 'full' : 'narrow'}
         className="u-mh-0"
         label={label || t('Transactions.trigger-error.cta')}
-        icon={OpenWithIcon}
         onClick={handleClick}
       />
       {harvestConnectionId ? (
