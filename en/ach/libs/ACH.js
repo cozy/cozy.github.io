@@ -52,6 +52,9 @@ class ACH {
       this.client = CozyClient.fromOldClient(this.oldClient)
     } catch (err) {
       log.warn('Could not connect to ' + this.url)
+      log.warn(
+        'You can specify the Cozy URL by using the --url argument: ACH --url http://bob.cozy.localhost:8080 '
+      )
       throw err
     }
   }
