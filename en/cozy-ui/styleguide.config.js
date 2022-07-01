@@ -195,8 +195,7 @@ module.exports = {
         '../react/Modal/index.jsx',
         '../react/MuiCozyTheme/RaisedList',
         '../react/PercentageLine/index.jsx',
-        '../react/Radio/index.jsx',
-        '../react/Text/index.jsx'
+        '../react/Radio/index.jsx'
       ]
     },
     {
