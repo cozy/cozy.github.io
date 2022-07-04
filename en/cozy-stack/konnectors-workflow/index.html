@@ -3883,6 +3883,11 @@ can be called with this route:</p>
 <li><code>COZY_PAYLOAD={"param_from_http_body": "bar"}</code></li>
 <li>etc.</li>
 </ul>
+<p><strong>Note:</strong> the environnement variables have a limit for their size defined by
+the linux kernel. If the payload is too big to fit inside the env variable,
+the stack will put the payload in a temporary file, and will set the
+<code>COZY_PAYLOAD</code> variable to <code>@</code> + the filename of this file, like:</p>
+<p><code>COZY_PAYLOAD=@cozy_payload.json</code></p>
 <ol start="7">
 <li>The konnector will fetch the documents from the external service and save
    them in the Cozy.</li>

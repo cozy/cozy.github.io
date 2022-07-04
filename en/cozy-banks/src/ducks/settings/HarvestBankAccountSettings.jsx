@@ -158,7 +158,11 @@ const HarvestTrackingProvider = ({ children }) => {
 /**
  * Shows a modal displaying the AccountModal from Harvest
  */
-const HarvestBankAccountSettings = ({ connectionId, onDismiss, intentsApi }) => {
+const HarvestBankAccountSettings = ({
+  connectionId,
+  onDismiss,
+  intentsApi
+}) => {
   const { dialogProps } = useCozyDialog({
     open: true,
     size: 'medium'
@@ -201,13 +205,21 @@ const HarvestBankAccountSettings = ({ connectionId, onDismiss, intentsApi }) => 
                 connectionId => (
                   // TODO Avoid passing reconnect in props,
                   // prefer to use location instead.
-                  <EditModal connectionId={connectionId} reconnect={true} intentsApi={intentsApi} />
+                  <EditModal
+                    connectionId={connectionId}
+                    reconnect={true}
+                    intentsApi={intentsApi}
+                  />
                 )
               ],
               [
                 '/accounts/:connectionId/edit',
                 connectionId => (
-                  <EditModal connectionId={connectionId} reconnect={false} intentsApi={intentsApi} />
+                  <EditModal
+                    connectionId={connectionId}
+                    reconnect={false}
+                    intentsApi={intentsApi}
+                  />
                 )
               ]
             ]}
