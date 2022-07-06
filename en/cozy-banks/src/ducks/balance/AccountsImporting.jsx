@@ -1,8 +1,7 @@
 import React, { Fragment, memo } from 'react'
 import PropTypes from 'prop-types'
-import compose from 'lodash/flowRight'
-import { withStyles } from '@material-ui/core/styles'
 import LinearProgress from 'cozy-ui/transpiled/react/LinearProgress'
+import Typography from 'cozy-ui/transpiled/react/Typography'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 
 import Figure from 'cozy-ui/transpiled/react/Figure'
@@ -16,16 +15,6 @@ import headerTitleStyles from 'ducks/balance/HeaderTitle.styl'
 import styles from 'ducks/balance/AccountsImporting.styl'
 import flag from 'cozy-flags'
 import Delayed from 'components/Delayed'
-
-const muiStyles = () => ({
-  linearColorPrimary: {
-    backgroundColor: 'var(--primaryColorLight)',
-    borderRadius: '2px'
-  },
-  linearBarColorPrimary: {
-    backgroundColor: 'white'
-  }
-})
 
 const createGroups = (types, konnectorInfos) => {
   const accounts = konnectorInfos.map(konnectorInfo => ({
@@ -62,13 +51,12 @@ const createPanelsState = types => {
   return panelsState
 }
 
-const AccountsImporting = ({ classes, konnectorInfos }) => {
+const AccountsImporting = ({ konnectorInfos }) => {
   const types = ['Checkings', 'Savings']
-
   const groups = createGroups(types, konnectorInfos)
   const panelsState = createPanelsState(types)
-
   const hasRunning = konnectorInfos.some(k => k.status === 'running')
+
   return (
     <Fragment>
       <BarTheme theme="primary" />
@@ -83,7 +71,7 @@ const AccountsImporting = ({ classes, konnectorInfos }) => {
               total={0}
               symbol="€"
             />
-            {hasRunning && <ImportInProgress classes={classes} />}
+            {hasRunning && <ImportInProgress />}
           </Padded>
         </VerticalBox>
       </Header>
@@ -100,19 +88,13 @@ const AccountsImporting = ({ classes, konnectorInfos }) => {
 
 const groupPanelDelay = flag('balance.no-delay-groups') ? 0 : 150
 
-const ImportInProgress = ({ classes }) => {
+const ImportInProgress = () => {
   const { t } = useI18n()
   return (
     <Delayed delay={groupPanelDelay}>
-      <LinearProgress
-        className={styles.progress}
-        classes={{
-          colorPrimary: classes.linearColorPrimary,
-          barColorPrimary: classes.linearBarColorPrimary
-        }}
-      />
-      <div className={styles.text}>{t('Balance.import-accounts')}</div>
-      <div className={styles.text}>{t('Balance.delay')}</div>
+      <LinearProgress className="u-mv-1 u-mh-auto" />
+      <Typography>{t('Balance.import-accounts')}</Typography>
+      <Typography>{t('Balance.delay')}</Typography>
     </Delayed>
   )
 }
@@ -121,4 +103,4 @@ AccountsImporting.propTypes = {
   konnectorInfos: PropTypes.arrayOf(PropTypes.object)
 }
 
-export default compose(withStyles(muiStyles), memo)(AccountsImporting)
+export default memo(AccountsImporting)
