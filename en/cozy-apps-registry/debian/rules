@@ -1,0 +1,14 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@ --with=systemd
+
+override_dh_auto_build:
+	$(shell git log -1 HEAD > git-log.txt)
+	dh_auto_build
+	cp go/bin/cozy-apps-registry go/bin/cozy-registry
+	mkdir -p go/bin/completion
+	go/bin/cozy-registry completion bash > go/bin/completion/cozy-registry
+
+override_dh_installinit:
+	true

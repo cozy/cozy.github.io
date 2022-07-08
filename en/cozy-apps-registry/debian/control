@@ -1,0 +1,17 @@
+Source: cozy-registry
+Section: devel
+Priority: optional
+Maintainer: Cozycloud Packaging Team <debian@cozycloud.cc>
+Build-Depends:
+  debhelper (>= 9.20160709) | dh-systemd,
+  dh-exec
+Standards-Version: 3.9.8
+Homepage: https://github.com/cozy/cozy-apps-registry
+XS-Go-Import-Path: github.com/cozy/cozy-apps-registry
+
+Package: cozy-registry
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, adduser, members
+Description: Cozy: Simple, Versatile, Yours
+ The cozy-registry is a go project that implement the registry API intended
+ to work with the cozy-stack.

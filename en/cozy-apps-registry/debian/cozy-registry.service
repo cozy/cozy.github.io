@@ -1,0 +1,16 @@
+[Unit]
+Description=Cozy registry
+After=network.target
+
+[Service]
+User=cozy-registry
+PermissionsStartOnly=true
+EnvironmentFile=-/run/secrets.conf
+ExecStart=/usr/bin/cozy-registry serve -c /etc/cozy/cozy-registry.yml
+ExecStartPost=-/usr/local/bin/cozy-registry-post-start.sh
+ExecStop=-/usr/local/bin/cozy-registry-pre-stop.sh
+KillSignal=SIGINT
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
