@@ -2310,6 +2310,27 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#daily-syntax" title="@daily syntax" class="md-nav__link">
+    @daily syntax
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#weekly-syntax" title="@weekly syntax" class="md-nav__link">
+    @weekly syntax
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monthly-syntax" title="@monthly syntax" class="md-nav__link">
+    @monthly syntax
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#every-syntax" title="@every syntax" class="md-nav__link">
     @every syntax
   </a>
@@ -3207,6 +3228,27 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#daily-syntax" title="@daily syntax" class="md-nav__link">
+    @daily syntax
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#weekly-syntax" title="@weekly syntax" class="md-nav__link">
+    @weekly syntax
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monthly-syntax" title="@monthly syntax" class="md-nav__link">
+    @monthly syntax
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#every-syntax" title="@every syntax" class="md-nav__link">
     @every syntax
   </a>
@@ -3845,6 +3887,9 @@ and the triggers are the way to do that.</p>
 <li><code>@at</code> to schedule a one-time job executed after at a specific time in the
   future</li>
 <li><code>@in</code> to schedule a one-time job executed after a specific amount of time</li>
+<li><code>@daily</code> to schedule jobs that run once a day</li>
+<li><code>@weekly</code> to schedule jobs that run once a week</li>
+<li><code>@monthly</code> to schedule jobs that run once a month</li>
 <li><code>@every</code> to schedule periodic jobs executed at a given fix interval</li>
 <li><code>@cron</code> to schedule recurring jobs scheduled at specific times</li>
 <li><code>@event</code> to launch a job after a change on documents in the cozy</li>
@@ -3870,6 +3915,48 @@ future. The date is of this form: <code>YYYY-MM-DDTHH:mm:ss.sssZ</code></p>
 </pre></div>
 
 
+<h3 id="daily-syntax"><code>@daily</code> syntax<a class="headerlink" href="#daily-syntax" title="Permanent link">&para;</a></h3>
+<p>The <code>@daily</code> trigger will create a job once a day. By default, the stack is
+free to choose the day and hour when to do that, but you can add restrictions:</p>
+<div class="codehilite"><pre><span></span><span class="nv">@daily</span>                      <span class="c1"># Once a day, any hour</span>
+<span class="nv">@daily</span> <span class="n">before</span> <span class="mi">5</span><span class="n">am</span>           <span class="c1"># Once a day, between midnight and 5am (UTC)</span>
+<span class="nv">@daily</span> <span class="n">after</span> <span class="mi">10</span><span class="n">pm</span>           <span class="c1"># Once a day, between 10pm and midnight (UTC)</span>
+<span class="nv">@daily</span> <span class="n">between</span> <span class="mi">8</span><span class="n">am</span> <span class="ow">and</span> <span class="mi">6</span><span class="n">pm</span>  <span class="c1"># Once a day, between 8am and 6pm (UTC)</span>
+</pre></div>
+
+
+<h3 id="weekly-syntax"><code>@weekly</code> syntax<a class="headerlink" href="#weekly-syntax" title="Permanent link">&para;</a></h3>
+<p>The <code>@weekly</code> trigger will create a job once a week. By default, the stack is
+free to choose the day and hour when to do that, but you can add restrictions:</p>
+<div class="codehilite"><pre><span></span><span class="nv">@weekly</span>                      <span class="c1"># Once a week, any day, any hour</span>
+<span class="nv">@weekly</span> <span class="n">on</span> <span class="n">monday</span>            <span class="c1"># Every monday</span>
+<span class="nv">@weekly</span> <span class="n">on</span> <span class="n">mon</span><span class="p">,</span><span class="n">wed</span><span class="p">,</span><span class="n">fri</span>       <span class="c1"># Once a week, on a monday, wednesday, or friday</span>
+<span class="nv">@weekly</span> <span class="n">on</span> <span class="n">wed</span><span class="o">-</span><span class="n">fri</span>           <span class="c1"># Once a week, on a wednesday, thursday, or friday</span>
+<span class="nv">@weekly</span> <span class="n">on</span> <span class="n">weekday</span>           <span class="c1"># Once a week, but not the week-end</span>
+<span class="nv">@weekly</span> <span class="n">on</span> <span class="n">weekend</span>           <span class="c1"># Every week-end (saturday or sunday)</span>
+<span class="nv">@weekly</span> <span class="n">before</span> <span class="mi">5</span><span class="n">am</span>           <span class="c1"># Once a week, any day, but between midnight and 5am (UTC)</span>
+<span class="nv">@weekly</span> <span class="n">after</span> <span class="mi">10</span><span class="n">pm</span>           <span class="c1"># Once a week, any day, but between 10pm and midnight (UTC)</span>
+<span class="nv">@weekly</span> <span class="n">between</span> <span class="mi">8</span><span class="n">am</span> <span class="ow">and</span> <span class="mi">6</span><span class="n">pm</span>  <span class="c1"># Once a week, any day, between 8am and 6pm (UTC)</span>
+<span class="nv">@weekly</span> <span class="n">on</span> <span class="n">monday</span> <span class="n">before</span> <span class="mi">9</span><span class="n">am</span> <span class="c1"># Every monday, between midnight and 9am (UTC)</span>
+</pre></div>
+
+
+<h3 id="monthly-syntax"><code>@monthly</code> syntax<a class="headerlink" href="#monthly-syntax" title="Permanent link">&para;</a></h3>
+<p>The <code>@monthly</code> trigger will create a job once a month. By default, the stack is
+free to choose the day and hour when to do that, but you can add restrictions:</p>
+<div class="codehilite"><pre><span></span><span class="nv">@monthly</span>                      <span class="c1"># Once a month, any day, any hour</span>
+<span class="nv">@monthly</span> <span class="n">on</span> <span class="n">the</span> <span class="mi">1</span>             <span class="c1"># Every first day of the month</span>
+<span class="nv">@monthly</span> <span class="n">on</span> <span class="n">the</span> <span class="mi">1</span><span class="o">-</span><span class="mi">5</span>           <span class="c1"># Once a month, on the first five days of the month</span>
+<span class="nv">@monthly</span> <span class="n">before</span> <span class="mi">5</span><span class="n">am</span>           <span class="c1"># Once a month, any day, but between midnight and 5am (UTC)</span>
+<span class="nv">@monthly</span> <span class="n">after</span> <span class="mi">10</span><span class="n">pm</span>           <span class="c1"># Once a month, any day, but between 10pm and midnight (UTC)</span>
+<span class="nv">@monthly</span> <span class="n">between</span> <span class="mi">8</span><span class="n">am</span> <span class="ow">and</span> <span class="mi">6</span><span class="n">pm</span>  <span class="c1"># Once a month, any day, between 8am and 6pm (UTC)</span>
+<span class="nv">@monthly</span> <span class="n">on</span> <span class="n">the</span> <span class="mi">1</span> <span class="n">before</span> <span class="mi">9</span><span class="n">am</span>  <span class="c1"># Every first day of the month, between midnight and 9am (UTC)</span>
+</pre></div>
+
+
+<p><strong>Note:</strong> the current implementation is to take a random day/hour and run the
+job each month at this day/hour. So, you should avoid 29-31 if you really want
+the job to run each month.</p>
 <h3 id="every-syntax"><code>@every</code> syntax<a class="headerlink" href="#every-syntax" title="Permanent link">&para;</a></h3>
 <p>The <code>@every</code> trigger uses the same syntax as golang&rsquo;s <code>time.ParseDuration</code> (but
 only support time units above seconds):</p>
@@ -4650,6 +4737,8 @@ It requires no permission, but a trigger of type <code>@webhook</code> must have
 created before using this endpoint. Its body must be a JSON that will be
 available to the konnector or to the service through the
 <code>process.env['COZY_PAYLOAD']</code> variable.</p>
+<p>It is possible to pass a <code>Manual=true</code> parameter in the query-string if the job
+is interactive. It will give it an higher priority in the queues.</p>
 <h4 id="request_13">Request<a class="headerlink" href="#request_13" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/jobs/webhooks/f34c74d0-0c91-0139-5af5-543d7eb8149c</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
