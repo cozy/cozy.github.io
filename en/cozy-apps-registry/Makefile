@@ -30,7 +30,7 @@ lint: bin/golangci-lint
 .PHONY: lint
 
 bin/golangci-lint: Makefile
-	@curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- v1.46.2
+	@curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- v1.47.0
 
 ## tests: run the tests
 tests:

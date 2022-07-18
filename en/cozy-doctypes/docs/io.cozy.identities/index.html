@@ -1223,11 +1223,52 @@
     Description
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#relation-between-identities-and-accounts" title="Relation between Identities and Accounts" class="md-nav__link">
+    Relation between Identities and Accounts
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual-identity" title="Manual identity" class="md-nav__link">
+    Manual identity
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#factorized-identity" title="Factorized identity" class="md-nav__link">
+    Factorized identity
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
   <a href="#mandatory-attributes" title="Mandatory attributes" class="md-nav__link">
     Mandatory attributes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contextual-attributes" title="Contextual attributes" class="md-nav__link">
+    Contextual attributes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" title="Example" class="md-nav__link">
+    Example
   </a>
   
 </li>
@@ -2604,11 +2645,52 @@
     Description
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#relation-between-identities-and-accounts" title="Relation between Identities and Accounts" class="md-nav__link">
+    Relation between Identities and Accounts
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual-identity" title="Manual identity" class="md-nav__link">
+    Manual identity
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#factorized-identity" title="Factorized identity" class="md-nav__link">
+    Factorized identity
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
   <a href="#mandatory-attributes" title="Mandatory attributes" class="md-nav__link">
     Mandatory attributes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contextual-attributes" title="Contextual attributes" class="md-nav__link">
+    Contextual attributes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" title="Example" class="md-nav__link">
+    Example
   </a>
   
 </li>
@@ -2641,52 +2723,233 @@
 <h1 id="identities-doctype">Identities doctype<a class="headerlink" href="#identities-doctype" title="Permanent link">&para;</a></h1>
 <h2 id="iocozyidentities"><code>io.cozy.identities</code><a class="headerlink" href="#iocozyidentities" title="Permanent link">&para;</a></h2>
 <h3 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h3>
+<p>This doctype represents the differents identities (or profile) of the user, fetched by datasources (connectors most of the time).</p>
+<p>In an identity, data is grouped by category : contact, tax_information, housing, incomes…</p>
+<p>There are three sources of identity, considering the source of the data:</p>
 <ul>
-<li>Represents the differents identities fetched by datasources (connectors most of the time)</li>
+<li>source = <code>connector</code>:</li>
+<li>gathers the data held by the online service</li>
+<li>is the “user profile” known by each different service</li>
+<li>source = <code>manual</code> : attributes manually modified byt the user are stored apart in a “manual” identity document. There is only one <code>manual</code> identity.</li>
+<li>source = <code>factorized</code> : data from <code>manual</code> and <code>connector</code> identities are automatically factorized in a single identity of type “factorized”. There is only one <code>factorized</code> identity.</li>
 </ul>
+<p>ℹ️ Whatever the source of the data, all identities must follow the same format, described below.</p>
+<h4 id="relation-between-identities-and-accounts">Relation between Identities and Accounts<a class="headerlink" href="#relation-between-identities-and-accounts" title="Permanent link">&para;</a></h4>
+<p>There is one identity per <code>identifier/slug</code> couple:</p>
+<ul>
+<li><code>identifier</code> is the unique identifier of the user account, often an email.</li>
+<li><code>slug</code> is the brand</li>
+</ul>
+<p>An identity is associated to a unique <code>io.cozy.accounts</code>.</p>
+<p>ℹ️ Multiple connectors may create an identity for a given identifier. That is why an identity will be unique by identifier <strong>and</strong> slug.</p>
+<p>ℹ️ When an account is disconnected in a connector, then the associated CouchDB document is deleted, but not its corresponding identity. If the same “user account” is connected again, then a new account is created but the corresponding identity is reused.</p>
+<p>The id of the corresponding account and the identifier of the account are in the .cozyMetadata:</p>
+<ul>
+<li><code>sourceAccount</code>: id of the <code>io.cozy.accounts</code> document</li>
+<li><code>sourceAccountIdentifier</code>: identifier of this account, for instance “jo32@gmail.com”</li>
+<li>ℹ️ The identifier is also stored in the <code>identifier</code> attribute (data is duplicated)</li>
+</ul>
+<h4 id="manual-identity">Manual identity<a class="headerlink" href="#manual-identity" title="Permanent link">&para;</a></h4>
+<p>Data might be modified manually by the user, for instance when modifiying his own contact (i.e. myself contact). Data modified by the user is stored in the &ldquo;manual identity&rdquo;.</p>
+<ul>
+<li>The identity factorization service will then be able to choose which data should be put into the factorized identity.</li>
+</ul>
+<h4 id="factorized-identity">Factorized identity<a class="headerlink" href="#factorized-identity" title="Permanent link">&para;</a></h4>
+<p>Data from different identities is factored into a single identity called the “factorized identity”. It is an identity where source = <code>factorized</code>.</p>
+<p>For instance, if a user has different email addresses in different online services, only one of these will be chosen to be factorized in the “factorized identity”. 
+And if the user modifies his email address, then this one will be stored in the “manual identity” and will be prioritized into the “factorized identity” to be chosen as default.</p>
+<p>A service (WIP) is in charge of updating this factorized identity each time a modification occurs in an identity. The service has the knowledge to choose the better information for the factorized identity.</p>
+<p>ℹ️ The &ldquo;factorized identity&rdquo; might update the mySelf contact document.</p>
 <h3 id="mandatory-attributes">Mandatory attributes<a class="headerlink" href="#mandatory-attributes" title="Permanent link">&para;</a></h3>
 <ul>
-<li><code>identifier</code>: {string} - login or other identifier unique to the data source</li>
-<li><code>contact</code>: {object} - identity data following the <a href="../io.cozy.contacts/">io.cozy.contacts</a> format</li>
+<li><code>identifier</code>: {string} Login or other identifier unique to the data source</li>
+<li><code>source</code>: {string} A value among <code>[connector | manual | factorized]</code></li>
 </ul>
-<p>Multiple connectors may create an identity for a given identifier. That is why an identity will
-unique by identifier <strong>and</strong> cozyMetadata.createdByApp</p>
+<h3 id="contextual-attributes">Contextual attributes<a class="headerlink" href="#contextual-attributes" title="Permanent link">&para;</a></h3>
+<p>Depending on the data retrieved by the source, the identity might include those attibutes:</p>
+<ul>
+<li><code>contact</code>: {object} - identity data following the <a href="../io.cozy.contacts/">io.cozy.contacts</a> format</li>
+<li><code>tax_information</code>: {array} - there is one element per year<ul>
+<li><code>year</code>: {number} year of the last tax_information</li>
+<li><code>rfr</code>: {number} “revenu fiscal de référence”, scrapped from “Avis d’imposition” file</li>
+<li><code>1AJ</code>: {number} scrapped from “Avis d’imposition” file</li>
+<li><code>1BJ</code>: {number} scrapped from “Avis d’imposition” file</li>
+<li><code>net_monthly_income</code>: {number}  (1AJ+1BJ) /12 or RFR/12</li>
+<li><code>currency</code>: {string} https://en.wikipedia.org/wiki/ISO_4217</li>
+</ul>
+</li>
+<li><code>housing</code> {array} : WIP</li>
+<li><code>incomes</code> {array} : WIP</li>
+</ul>
+<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span>{
   &quot;_id&quot;: &quot;62e5d66d6e11d19992b7efce794263f0&quot;,
+  &quot;source&quot;: &quot;connector&quot;,
   &quot;identifier&quot;: &quot;example@email.com&quot;,
   &quot;contact&quot;: {
-      &quot;address&quot;: [
-        {
-          &quot;formattedAddress&quot;: &quot;2 rue du moulin, 75000 Paris&quot;,
-          &quot;street&quot;: &quot;2 rue du moulin&quot;,
-          &quot;postcode&quot;: &quot;75000&quot;,
-          &quot;city&quot;: &quot;Paris&quot;
-        }
-      &quot;email&quot;: [
-        {
-          &quot;address&quot;: &quot;example@email.com&quot;,
-        }
-      ],
-      &quot;name&quot;: {
-        &quot;familyName&quot;: &quot;Dupond&quot;,
-        &quot;givenName&quot;: &quot;Jean&quot;
+    &quot;address&quot;: [
+      {
+        &quot;formattedAddress&quot;: &quot;2 rue du moulin, 75000 Paris&quot;,
+        &quot;street&quot;: &quot;2 rue du moulin&quot;,
+        &quot;postcode&quot;: &quot;75000&quot;,
+        &quot;city&quot;: &quot;Paris&quot;
+      }
+    ],
+    &quot;email&quot;: [
+      {
+        &quot;address&quot;: &quot;example@email.com&quot;
+      }
+    ],
+    &quot;name&quot;: {
+      &quot;familyName&quot;: &quot;Dupond&quot;,
+      &quot;givenName&quot;: &quot;Jean&quot;
+    },
+    &quot;phone&quot;: [
+      {
+        &quot;number&quot;: &quot;06 06 06 06 06&quot;,
+        &quot;primary&quot;: true,
+        &quot;type&quot;: &quot;mobile&quot;
+      }
+    ],
+    &quot;maritalStatus&quot;: &quot;married&quot;,
+    &quot;numberOfDependants&quot;: 1
+  },
+  &quot;tax_information&quot;: [
+    {
+      &quot;year&quot;: 2022,
+      &quot;RFR&quot;: 56789.10,
+      &quot;1AJ&quot;: 12345.67,
+      &quot;1BJ&quot;: 23456.78,
+      &quot;net_monthly_income&quot;: 1234.56, # RFR/12
+      &quot;currency&quot;: &quot;EUR&quot;,
+      &quot;file&quot;: &quot;avis_impot_2022.pdf&quot;      
+    },
+    {
+      &quot;year&quot;: 2021,
+      &quot;RFR&quot;: 45678.91,
+      &quot;1AJ&quot;: 34567.89,
+      &quot;1BJ&quot;: 23456.78,
+      &quot;net_monthly_income&quot;: 3806.5, # RFR/12
+      &quot;currency&quot;: &quot;EUR&quot;,
+      &quot;file&quot;: &quot;avis_impot_revenu_2022.pdf&quot;      
+    }
+  ],
+  &quot;housing&quot;: [
+    {
+      &quot;address&quot;: {
+        &quot;formattedAddress&quot;: &quot;2 rue du moulin, 75000 Paris&quot;,
+        &quot;street&quot;: &quot;2 rue du moulin&quot;,
+        &quot;postcode&quot;: &quot;75000&quot;,
+        &quot;city&quot;: &quot;Paris&quot;
       },
-      &quot;phone&quot;: [
+      &quot;construction_year&quot;: 2013,
+      &quot;residence_type&quot;: &quot;primary&quot;,
+      &quot;housing_type&quot;: &quot;appartment&quot;,
+      &quot;residents_number&quot;: 1,
+      &quot;living_space_m2&quot;: 30,
+      &quot;heating_system&quot;: &quot;collective&quot;,
+      &quot;water_heating_system&quot;: &quot;collective&quot;,
+      &quot;baking_types&quot;: [{
+        &quot;type&quot;: &quot;electric hob&quot;,
+        &quot;number&quot;: 1
+      }],
+      &quot;energy_providers&quot;: [
+        // one record per energy_type. It means that if the vendor is the same for gas
+        // and electricity, then there are still two records, one for gas and one for 
+        // electricity
         {
-          &quot;number&quot;: &quot;06 06 06 06 06&quot;,
-          &quot;primary&quot;: true,
-          &quot;type&quot;: &quot;mobile&quot;
+          &quot;vendor&quot;: &quot;edf&quot;,
+          &quot;energy_type&quot;: &quot;electricity&quot;,
+          &quot;contract_number&quot;: &quot;004037770580&quot;,
+          &quot;pdl_number&quot;: &quot;05548480447301&quot;,
+          &quot;contract_type&quot;: &quot;TARIF_BLEU_V2&quot;,
+          &quot;powerkVA&quot;: 6,
+          &quot;charging_type&quot;: &quot;monthly&quot;,
+          &quot;electric_consumption&quot;: [
+            {
+              &quot;year&quot;: 2022,
+              &quot;consumptionkWh&quot;: 210,
+              &quot;months&quot;: [
+                {
+                  &quot;month&quot;: 1,
+                  &quot;consumptionkWh&quot;: 65
+                },
+                {
+                  &quot;month&quot;: 2,
+                  &quot;consumptionkWh&quot;: 75
+                },
+                {
+                  &quot;month&quot;: 3,
+                  &quot;consumptionkWh&quot;: 70
+                }
+              ]
+            },
+            {
+              &quot;year&quot;: 2021,
+              &quot;consumptionkWh&quot;: 210,
+              &quot;months&quot;: [
+                {
+                  &quot;month&quot;: 10,
+                  &quot;consumptionkWh&quot;: 65
+                },
+                {
+                  &quot;month&quot;: 11,
+                  &quot;consumptionkWh&quot;: 75
+                },
+                {
+                  &quot;month&quot;: 12,
+                  &quot;consumptionkWh&quot;: 70
+                }
+              ]
+            }
+          ]
+        },
+        {
+          &quot;vendor&quot;: &quot;edf&quot;,
+          &quot;energy_type&quot;: &quot;gas&quot;,
+          &quot;contract_number&quot;: &quot;004037770545&quot;,
+          &quot;pce_number&quot;: &quot;055484804495&quot;,
+          &quot;contract_type&quot;: &quot;MCGN_PG&quot;,
+          &quot;charging_type&quot;: &quot;monthly&quot;,
+          &quot;gas_consumption&quot;: [
+            {
+              &quot;year&quot;: 2022,
+              &quot;consumptionkWh&quot;: 145,
+              &quot;months&quot;: [
+                {
+                  &quot;month&quot;: 1,
+                  &quot;consumptionkWh&quot;: 30
+                },
+                {
+                  &quot;month&quot;: 2,
+                  &quot;consumptionkWh&quot;: 65
+                },
+                {
+                  &quot;month&quot;: 3,
+                  &quot;consumptionkWh&quot;: 50
+                }
+              ]
+            }
+          ]
         }
       ]
-  },
+    }
+  ],
   &quot;cozyMetadata&quot;: {
     &quot;doctypeVersion&quot;: 1,
-    &quot;createdAt&quot;: &quot;xxxxx&quot;,
-    &quot;createdByApp&quot;: &quot;orange&quot;,
+    &quot;createdAt&quot;: &quot;2020-11-23T10:36:49.752Z&quot;,
+    &quot;createdByApp&quot;: &quot;edfclientside&quot;,
     &quot;createdByAppVersion&quot;: &quot;1.0.0&quot;,
-    &quot;updatedAt&quot;: &quot;xxxxx&quot;,
-    &quot;updatedByApps&quot;: [ &quot;orange&quot; ],
-    &quot;sourceAccount&quot;: &quot;94263f062e5d66d6e11d19992b7efce7&quot;
+    &quot;updatedAt&quot;: &quot;2021-11-23T10:36:49.752Z&quot;,
+    &quot;updatedByApps&quot;: [
+      {
+        &quot;date&quot;: &quot;2021-11-23T10:36:49.752Z&quot;,
+        &quot;slug&quot;: &quot;edfclientside&quot;,
+        &quot;version&quot;: &quot;1.0.0&quot;
+      }
+    ],
+    &quot;sourceAccount&quot;: &quot;94263f062e5d66d6e11d19992b7efce7&quot;,
+    &quot;sourceAccountIdentifier&quot;: &quot;example@email.com&quot;
   }
 }
 </pre></div>
