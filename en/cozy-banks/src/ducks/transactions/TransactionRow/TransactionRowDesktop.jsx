@@ -30,6 +30,7 @@ import ApplicationDateCaption from 'ducks/transactions/TransactionRow/Applicatio
 import AccountCaption from 'ducks/transactions/TransactionRow/AccountCaption'
 import TransactionDate from 'ducks/transactions/TransactionRow/TransactionDate'
 import RecurrenceCaption from 'ducks/transactions/TransactionRow/RecurrenceCaption'
+import TagChips from 'components/Tag/TagChips'
 
 const TransactionRowDesktop = ({
   transaction,
@@ -186,6 +187,9 @@ const TransactionRowDesktop = ({
         {showTransactionActions && (
           <TdSecondary className={styles.ColumnSizeAction}>
             <TransactionActions transaction={transaction} onlyDefault />
+            {flag('banks.tags.enabled') && (
+              <TagChips transaction={transaction} clickable />
+            )}
           </TdSecondary>
         )}
       </tr>

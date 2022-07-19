@@ -309,3 +309,20 @@ export const computeTransactionsByDateAndApplicationDate = ({
 
   return [...newTransactionsByDate, ...transactionsByApplicationDate]
 }
+
+export const getTransactionTags = transaction => transaction.tags?.data
+
+export const getTransactionTagsIds = transaction =>
+  transaction.tags?.data.map(tag => tag._id)
+
+export const hasAtLeastFiveTags = transaction =>
+  getTransactionTags(transaction)?.length >= 5
+
+export const addTag = (transaction, tag) => transaction.tags?.add(tag)
+
+export const removeTag = (transaction, tag) => transaction.tags?.remove(tag)
+
+export const hasTag = (transaction, tag) =>
+  getTransactionTags(transaction)?.some(
+    transactionTag => transactionTag._id === tag._id
+  )

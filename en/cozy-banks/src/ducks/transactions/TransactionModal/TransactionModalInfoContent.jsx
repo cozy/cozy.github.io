@@ -39,6 +39,7 @@ import DeleteTransactionRow from 'ducks/transactions/TransactionModal/DeleteTran
 import TransactionCategoryEditorDialog from 'ducks/transactions/TransactionModal/TransactionCategoryEditorDialog'
 import TransactionApplicationDateEditorDialog from 'ducks/transactions/TransactionModal/TransactionApplicationDateEditorDialog'
 import TransactionRecurrenceEditorDialog from 'ducks/transactions/TransactionModal/TransactionRecurrenceEditorDialog'
+import TagListItem from 'components/Tag/TagListItem'
 
 import styles from 'ducks/transactions/TransactionModal/TransactionModal.styl'
 
@@ -193,6 +194,8 @@ const TransactionModalInfoContent = props => {
         displayDefaultAction
         isModalItem
       />
+
+      {flag('banks.tags.enabled') && <TagListItem transaction={transaction} />}
 
       <DeleteTransactionRow transaction={transaction} onDelete={requestClose} />
 

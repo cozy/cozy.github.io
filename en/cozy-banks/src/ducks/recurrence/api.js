@@ -10,14 +10,14 @@
  */
 
 import set from 'lodash/set'
-import flatten from 'lodash/flatten'
 import uniq from 'lodash/uniq'
-
+import flatMap from 'lodash/flatMap'
 import omit from 'lodash/omit'
-import { Q, dehydrate } from 'cozy-client'
 import maxBy from 'lodash/maxBy'
 import get from 'lodash/get'
 import groupBy from 'lodash/groupBy'
+
+import { Q, dehydrate } from 'cozy-client'
 
 import {
   queryRecurrenceTransactions,
@@ -73,6 +73,21 @@ export const createRecurrenceClientBundles = recurrenceClientBundles =>
     return withoutOps
   })
 
+const notInBundle = (bundle, transaction) => {
+  return (
+    transaction.relationships == null ||
+    transaction.relationships.recurrence == null ||
+    transaction.relationships.recurrence.data._id !== bundle._id
+  )
+}
+
+const addToBundle = (bundle, transaction) => {
+  return addRelationship(dehydrate(transaction), 'recurrence', {
+    _id: bundle._id,
+    _type: RECURRENCE_DOCTYPE
+  })
+}
+
 /**
  * Saves recurrence bundles and update related transactions
  *
@@ -95,19 +110,17 @@ export const saveHydratedBundles = async (client, recurrenceClientBundles) => {
     _id: saveBundlesResp[i].id
   }))
 
-  const ops = flatten(
-    bundlesWithIds.map(recurrenceBundle =>
-      recurrenceBundle.ops.map(op =>
-        addRelationship(dehydrate(op), 'recurrence', {
-          _id: recurrenceBundle._id,
-          _type: RECURRENCE_DOCTYPE
-        })
-      )
-    )
-  )
+  // Only update transactions which don't alredy have the bundle set as their
+  // recurrence relation to avoid triggering the service for up-to-date
+  // transactions.
+  const opsToUpdate = flatMap(bundlesWithIds, bundle => {
+    return bundle.ops
+      .filter(notInBundle.bind(null, bundle))
+      .map(addToBundle.bind(null, bundle))
+  })
 
   const opCollection = client.collection('io.cozy.bank.operations')
-  await opCollection.updateAll(ops.map(op => omit(op, '_type')))
+  await opCollection.updateAll(opsToUpdate.map(op => omit(op, '_type')))
 }
 
 export const resetBundles = async client => {

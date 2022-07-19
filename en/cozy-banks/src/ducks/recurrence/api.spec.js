@@ -5,7 +5,11 @@ import CozyClient from 'cozy-client'
 import { TRANSACTION_DOCTYPE, RECURRENCE_DOCTYPE } from 'doctypes'
 import fixtures from 'test/fixtures'
 import fixtures4 from './fixtures/fixtures4.json'
-import { fetchHydratedBundles, createRecurrenceClientBundles } from './api'
+import {
+  fetchHydratedBundles,
+  createRecurrenceClientBundles,
+  saveHydratedBundles
+} from './api'
 
 describe('fetch hydrated bundles', () => {
   const setup = () => {
@@ -17,6 +21,15 @@ describe('fetch hydrated bundles', () => {
         return fixtures[RECURRENCE_DOCTYPE]
       } else {
         throw new Error(`Unexpected doctype ${qdef.doctype} in queryAll`)
+      }
+    })
+    client.collection = jest.fn().mockImplementation(col => {
+      if (col === TRANSACTION_DOCTYPE) {
+        return {
+          updateAll: jest.fn().mockImplementation(async data => data)
+        }
+      } else {
+        throw new Error(`Unexpected doctype ${col} in collection`)
       }
     })
     return { client }
@@ -70,6 +83,91 @@ describe('createRecurrenceClientBundles', () => {
         latestDate: '2021-05-01T12:00:00.000Z',
         automaticLabel: 'Mon Salaire Fevrier',
         latestAmount: 2150
+      }
+    ])
+  })
+})
+
+describe('saveHydratedBundles', () => {
+  const setup = () => {
+    const client = new CozyClient()
+    const collections = {
+      [TRANSACTION_DOCTYPE]: {
+        updateAll: jest
+          .fn()
+          .mockImplementation(async data =>
+            data.map(d => ({ ...d, id: d._id }))
+          )
+      },
+      [RECURRENCE_DOCTYPE]: {
+        updateAll: jest
+          .fn()
+          .mockImplementation(async data =>
+            data.map(d => ({ ...d, id: d._id }))
+          )
+      }
+    }
+    client.collection = jest
+      .fn()
+      .mockImplementation(doctype => collections[doctype])
+    return { client }
+  }
+
+  it('should add bundle relationship to transactions missing it', async () => {
+    const { client } = setup()
+    const transactionsByKey = keyBy(fixtures4[TRANSACTION_DOCTYPE], '_id')
+    const transactions = [
+      transactionsByKey['february'],
+      transactionsByKey['april']
+    ]
+    const recurrence = {
+      _id: 1234,
+      categoryIds: ['200110'],
+      amounts: [2000, 2150],
+      accounts: [
+        '1d22740c6c510e5368d1b6b670deee05',
+        '1d22740c6c510e5368d1b6b670deee05'
+      ],
+      ops: transactions
+    }
+
+    await saveHydratedBundles(client, [recurrence])
+    expect(
+      client.collection(TRANSACTION_DOCTYPE).updateAll
+    ).toHaveBeenCalledTimes(1)
+
+    const updatedTransactions = transactions.map(op => ({
+      ...op,
+      relationships: {
+        recurrence: {
+          data: { _id: recurrence._id, _type: RECURRENCE_DOCTYPE }
+        }
+      }
+    }))
+    expect(
+      client.collection(TRANSACTION_DOCTYPE).updateAll
+    ).toHaveBeenCalledWith(updatedTransactions)
+
+    // Update `ops` with "saved" transactions to mimick a second service call
+    recurrence.ops = updatedTransactions
+    client.collection(TRANSACTION_DOCTYPE).updateAll.mockClear()
+
+    recurrence.ops.push(transactionsByKey['march'])
+
+    await saveHydratedBundles(client, [recurrence])
+    expect(
+      client.collection(TRANSACTION_DOCTYPE).updateAll
+    ).toHaveBeenCalledTimes(1)
+    expect(
+      client.collection(TRANSACTION_DOCTYPE).updateAll
+    ).toHaveBeenCalledWith([
+      {
+        ...transactionsByKey['march'],
+        relationships: {
+          recurrence: {
+            data: { _id: recurrence._id, _type: RECURRENCE_DOCTYPE }
+          }
+        }
       }
     ])
   })

@@ -56,6 +56,7 @@ export const SyncTransactionActions = ({
   menuPosition = 'left',
   isModalItem,
   compact,
+  children,
   className
 }) => {
   const Tag = isModalItem ? React.Fragment : 'span'
@@ -83,6 +84,7 @@ export const SyncTransactionActions = ({
             isModalItem={isModalItem}
           />
         ))}
+      {children}
     </Tag>
   )
 }

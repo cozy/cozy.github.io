@@ -1,5 +1,10 @@
 import fromPairs from 'lodash/fromPairs'
-import CozyClient, { QueryDefinition, HasManyInPlace, Q } from 'cozy-client'
+import CozyClient, {
+  QueryDefinition,
+  HasManyInPlace,
+  Q,
+  HasMany
+} from 'cozy-client'
 import subYears from 'date-fns/sub_years'
 import format from 'date-fns/format'
 
@@ -22,6 +27,7 @@ export const BANK_ACCOUNT_STATS_DOCTYPE = 'io.cozy.bank.accounts.stats'
 export const CONTACT_DOCTYPE = 'io.cozy.contacts'
 export const RECURRENCE_DOCTYPE = 'io.cozy.bank.recurrence'
 export const IDENTITIES_DOCTYPE = 'io.cozy.identities'
+export const TAGS_DOCTYPE = 'io.cozy.tags'
 
 export const offlineDoctypes = [
   ACCOUNT_DOCTYPE,
@@ -29,7 +35,8 @@ export const offlineDoctypes = [
   TRANSACTION_DOCTYPE,
   SETTINGS_DOCTYPE,
   BILLS_DOCTYPE,
-  CONTACT_DOCTYPE
+  CONTACT_DOCTYPE,
+  TAGS_DOCTYPE
 ]
 
 class HasManyBills extends HasManyInPlace {
@@ -101,6 +108,56 @@ export class HasManyReimbursements extends HasManyInPlace {
   }
 }
 
+// Add transactions relationships on tags
+export class HasManyTags extends HasMany {
+  add(docsArg) {
+    const docs = Array.isArray(docsArg) ? docsArg : [docsArg]
+    const targets = Array.isArray(this.target) ? this.target : [this.target]
+
+    for (const tag of docs) {
+      tag.transactions?.add(targets)
+    }
+
+    super.add(docs)
+  }
+
+  remove(docsArg) {
+    const docs = Array.isArray(docsArg) ? docsArg : [docsArg]
+    const targets = Array.isArray(this.target) ? this.target : [this.target]
+
+    for (const tag of docs) {
+      tag.transactions?.remove(targets)
+    }
+
+    super.remove(docs)
+  }
+}
+
+// Add tags relationships on transactions
+export class HasManyTransactions extends HasMany {
+  add(docsArg) {
+    const docs = Array.isArray(docsArg) ? docsArg : [docsArg]
+    const targets = Array.isArray(this.target) ? this.target : [this.target]
+
+    for (const transaction of docs) {
+      transaction.tags?.add(targets)
+    }
+
+    super.add(docs)
+  }
+
+  remove(docsArg) {
+    const docs = Array.isArray(docsArg) ? docsArg : [docsArg]
+    const targets = Array.isArray(this.target) ? this.target : [this.target]
+
+    for (const transaction of docs) {
+      transaction.tags?.remove(targets)
+    }
+
+    super.remove(docs)
+  }
+}
+
 export const schema = {
   transactions: {
     doctype: TRANSACTION_DOCTYPE,
@@ -121,6 +178,10 @@ export const schema = {
       reimbursements: {
         type: HasManyReimbursements,
         doctype: BILLS_DOCTYPE
+      },
+      tags: {
+        type: HasManyTags,
+        doctype: TAGS_DOCTYPE
       }
     }
   },
@@ -184,6 +245,15 @@ export const schema = {
         doctype: ACCOUNT_DOCTYPE
       }
     }
+  },
+  tags: {
+    doctype: TAGS_DOCTYPE,
+    relationships: {
+      transactions: {
+        type: HasManyTransactions,
+        doctype: TRANSACTION_DOCTYPE
+      }
+    }
   }
 }
 
@@ -214,7 +284,7 @@ export const transactionsConn = {
   query: () =>
     Q(TRANSACTION_DOCTYPE)
       .UNSAFE_noLimit()
-      .include(['bills', 'account', 'reimbursements', 'recurrence']),
+      .include(['bills', 'account', 'reimbursements', 'recurrence', 'tags']),
   as: 'transactions',
   fetchPolicy: older30s
 }
@@ -296,4 +366,20 @@ export const myselfConn = {
 export const konnectorConn = {
   query: slug => Q(KONNECTOR_DOCTYPE).getById(`${KONNECTOR_DOCTYPE}/${slug}`),
   as: 'konnector'
+}
+
+export const tagsConn = {
+  query: () => Q(TAGS_DOCTYPE).include(['transactions']),
+  as: `${TAGS_DOCTYPE}/withTransactions`,
+  fetchPolicy: older30s
+}
+
+export const buildTagsQueryByIds = ids => {
+  return {
+    definition: Q(TAGS_DOCTYPE).getByIds(ids).include(['transactions']),
+    options: {
+      as: `${TAGS_DOCTYPE}/${JSON.stringify(ids)}/withTransactions`,
+      fetchPolicy: older30s
+    }
+  }
 }

@@ -32,6 +32,7 @@ import AccountCaption from 'ducks/transactions/TransactionRow/AccountCaption'
 import RecurrenceCaption from 'ducks/transactions/TransactionRow/RecurrenceCaption'
 import { useSelectionContext } from 'ducks/context/SelectionContext'
 import TransactionOpener from 'ducks/transactions/TransactionRow/TransactionOpener'
+import TagChips from 'components/Tag/TagChips'
 
 const RowCheckbox = ({ isSelected }) => {
   const { isSelectionModeActive } = useSelectionContext()
@@ -140,7 +141,11 @@ const TransactionRowMobile = ({
                     'u-mb-half',
                     styles.TransactionRowMobile__actions
                   )}
-                />
+                >
+                  {flag('banks.tags.enabled') && (
+                    <TagChips transaction={transaction} clickable />
+                  )}
+                </TransactionActions>
               )}
             </Bd>
           </Media>
