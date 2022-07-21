@@ -2,6 +2,7 @@ import React from 'react'
 import { IndexRoute, Route, Redirect } from 'react-router'
 import App from 'components/App'
 import { isWebApp } from 'cozy-device-helper'
+import flag from 'cozy-flags'
 
 import { CategoriesPage } from 'ducks/categories'
 import {
@@ -10,6 +11,7 @@ import {
   GroupsSettings,
   ExistingGroupSettings,
   NewGroupSettings,
+  TagsSettings,
   Configuration
 } from 'ducks/settings'
 import { Balance, BalanceDetailsPage } from 'ducks/balance'
@@ -87,6 +89,9 @@ const AppRoute = () => (
           <IndexRoute component={Configuration} />
           <Route path="accounts" component={AccountsSettings} />
           <Route path="groups" component={GroupsSettings} />
+          {flag('banks.tags.enabled') && (
+            <Route path="tags" component={TagsSettings} />
+          )}
           <Route path="configuration" component={Configuration} />
         </Route>
       </Route>

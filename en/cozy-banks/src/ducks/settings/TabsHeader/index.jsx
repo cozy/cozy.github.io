@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react'
 
+import flag from 'cozy-flags'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
@@ -11,6 +12,11 @@ import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
 import { useLocation, useHistory } from 'components/RouterContext'
 
 export const tabNames = ['configuration', 'accounts', 'groups']
+
+if (flag('banks.tags.enabled')) {
+  tabNames.push('tags')
+}
+
 const TabsHeader = () => {
   const { isMobile } = useBreakpoints()
   const { t } = useI18n()
