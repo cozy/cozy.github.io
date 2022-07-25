@@ -1,9 +1,10 @@
 import CozyClient from 'cozy-client'
-import { Document } from 'cozy-doctypes'
+import { BankTransaction, Document } from 'cozy-doctypes'
 import { sendNotification } from 'cozy-notifications'
 
 import LateHealthReimbursement from './index'
 import { Transaction, Bill, BankAccount } from 'src/models'
+import { setAlreadyNotified } from 'ducks/transactions/helpers'
 
 import fetch from 'node-fetch'
 window.fetch = fetch
@@ -49,9 +50,21 @@ const mockTransactions = [
     account: 'accountId5',
     reimbursements: [{ billId: 'io.cozy.bills:billId12345' }]
   },
+  // This transaction is not taken into account since we already sent a notification
+  setAlreadyNotified(
+    {
+      _id: 't5',
+      amount: -30,
+      date: '2018-09-07T12:00',
+      manualCategoryId: '400610',
+      label: '1',
+      account: 'accountId1'
+    },
+    LateHealthReimbursement
+  ),
 
   {
-    _id: 't5',
+    _id: 't6',
     amount: -20,
     date: '2018-09-16T12:00',
     manualCategoryId: '400610',
@@ -132,6 +145,7 @@ describe('LateHealthReimbursement', () => {
         return [{ _id: 'accountId3' }, { _id: 'accountId1' }]
       }
     })
+    jest.spyOn(BankTransaction, 'updateAll').mockImplementation()
     const client = new CozyClient({
       uri: 'http://localhost:8080'
     })
@@ -141,5 +155,11 @@ describe('LateHealthReimbursement', () => {
     jest.spyOn(client.stackClient, 'fetchJSON').mockResolvedValue({})
     await sendNotification(client, notification)
     expect(notification.onSuccess).toHaveBeenCalled()
+    expect(BankTransaction.updateAll).toHaveBeenCalledWith([
+      setAlreadyNotified(
+        mockTransactions[mockTransactions.length - 1],
+        LateHealthReimbursement
+      )
+    ])
   })
 })

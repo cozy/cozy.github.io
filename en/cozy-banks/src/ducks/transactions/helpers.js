@@ -1,6 +1,7 @@
 import find from 'lodash/find'
 import findLast from 'lodash/findLast'
 import get from 'lodash/get'
+import set from 'lodash/set'
 import sumBy from 'lodash/sumBy'
 
 import flag from 'cozy-flags'
@@ -228,6 +229,16 @@ export const isAlreadyNotified = (transaction, notificationClass) => {
       `cozyMetadata.notifications.${notificationClass.settingKey}`
     )
   )
+}
+
+export const setAlreadyNotified = (transaction, notificationClass) => {
+  const today = new Date()
+  set(
+    transaction,
+    `cozyMetadata.notifications.${notificationClass.settingKey}`,
+    today.toISOString()
+  )
+  return transaction
 }
 
 export const setTransactionCategory = (transaction, category) => {

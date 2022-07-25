@@ -182,6 +182,12 @@ const onOperationOrBillCreate = async (client, options) => {
     log('info', 'Skip transactions matching')
   }
 
+  // Select which notifications should be be sent
+  // BalanceLower - does not depend on transactions modifications
+  // TransactionGreater
+  // HealthBillLinked
+  // LateHealthReimbursement
+  // DelayedDebit - does not depend on transactions modifications
   await doSendNotifications(setting, notifChanges)
   setting = await updateSettings(client, setting)
 

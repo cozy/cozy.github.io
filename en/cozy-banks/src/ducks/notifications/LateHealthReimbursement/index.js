@@ -11,7 +11,8 @@ import NotificationView from '../BaseNotificationView'
 import { isHealthExpense } from 'ducks/categories/helpers'
 import {
   isReimbursementLate,
-  isAlreadyNotified
+  isAlreadyNotified,
+  setAlreadyNotified
 } from 'ducks/transactions/helpers'
 import templateRaw from './template.hbs'
 import {
@@ -113,22 +114,13 @@ class LateHealthReimbursement extends NotificationView {
     // so we get original transactions from filtered enhanced transactions
     const healthExpensesById = keyBy(healthExpenses, h => h._id)
 
-    const lateReimbursements = enhancedHealthExpenses
+    return enhancedHealthExpenses
       .filter(tr => isReimbursementLate(tr, this.interval))
       .map(t => healthExpensesById[t._id])
-
-    log('info', `${lateReimbursements.length} are late health reimbursements`)
-
-    const toNotify = lateReimbursements.filter(
-      lateReimbursement =>
-        !isAlreadyNotified(lateReimbursement, LateHealthReimbursement)
-    )
-
-    log('info', `${toNotify.length} need to be notified`)
-
-    this.toNotify = toNotify
-
-    return toNotify
+      .filter(
+        lateReimbursement =>
+          !isAlreadyNotified(lateReimbursement, LateHealthReimbursement)
+      )
   }
 
   fetchAccounts(transactions) {
@@ -147,6 +139,8 @@ class LateHealthReimbursement extends NotificationView {
     }
 
     log('info', `${transactions.length} late health reimbursements`)
+
+    this.toNotify = transactions
 
     log('info', 'Fetching accounts for late health reimbursements')
     const accounts = await this.fetchAccounts(transactions)
@@ -194,21 +188,9 @@ class LateHealthReimbursement extends NotificationView {
    * See `Notification::sendNotification`
    */
   async onSuccess() {
-    this.toNotify.forEach(reimb => {
-      if (!reimb.cozyMetadata) {
-        reimb.cozyMetadata = {}
-      }
-
-      if (!reimb.cozyMetadata.notifications) {
-        reimb.cozyMetadata.notifications = {}
-      }
-
-      const today = new Date()
-      reimb.cozyMetadata.notifications[LateHealthReimbursement.settingKey] = [
-        today.toISOString()
-      ]
+    this.toNotify.forEach(transaction => {
+      setAlreadyNotified(transaction, LateHealthReimbursement)
     })
-
     await BankTransaction.updateAll(this.toNotify)
   }
 }

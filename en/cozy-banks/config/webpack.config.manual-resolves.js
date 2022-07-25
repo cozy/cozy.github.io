@@ -46,7 +46,6 @@ module.exports = {
         'hoist-non-react-statics',
         'inherits',
         'lodash',
-        '@material-ui/core',
         'node-forge',
         'node-polyglot',
         'pouchdb-binary-utils',

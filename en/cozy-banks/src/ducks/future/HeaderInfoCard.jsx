@@ -1,6 +1,6 @@
 import React from 'react'
-import { withStyles } from '@material-ui/core/styles'
 
+import withStyles from 'cozy-ui/transpiled/react/helpers/withStyles'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Figure from 'cozy-ui/transpiled/react/Figure'
 import Card from 'cozy-ui/transpiled/react/Card'

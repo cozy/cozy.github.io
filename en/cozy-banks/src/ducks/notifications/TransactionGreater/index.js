@@ -7,6 +7,7 @@ import groupBy from 'lodash/groupBy'
 import fromPairs from 'lodash/fromPairs'
 
 import log from 'cozy-logger'
+import { BankTransaction } from 'cozy-doctypes'
 
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import NotificationView from 'ducks/notifications/BaseNotificationView'
@@ -19,6 +20,10 @@ import {
   isTransactionAmountGreaterThan,
   makeAtAttributes
 } from 'ducks/notifications/helpers'
+import {
+  isAlreadyNotified,
+  setAlreadyNotified
+} from 'ducks/transactions/helpers'
 import template from 'ducks/notifications/TransactionGreater/template.hbs'
 import {
   customToText,
@@ -127,7 +132,7 @@ class TransactionGreater extends NotificationView {
     const transactionsFiltered = uniqBy(
       flatten(matchingRules.map(result => result.transactions)),
       getDocumentId
-    )
+    ).filter(transaction => !isAlreadyNotified(transaction, TransactionGreater))
     return {
       matchingRules,
       accounts,
@@ -137,11 +142,13 @@ class TransactionGreater extends NotificationView {
 
   async buildData() {
     const { accounts, transactions, matchingRules } = await this.fetchData()
-    this.transactions = transactions
+
     if (transactions.length === 0) {
       log('info', 'TransactionGreater: no matched transactions')
       return
     }
+
+    this.toNotify = transactions
 
     const accountsById = fromPairs(
       accounts.map(account => [account._id, account])
@@ -160,7 +167,7 @@ class TransactionGreater extends NotificationView {
 
   getExtraAttributes() {
     const attributes = super.getExtraAttributes()
-    const accountIds = Object.keys(groupBy(this.transactions, x => x.account))
+    const accountIds = Object.keys(groupBy(this.toNotify, x => x.account))
 
     return merge(attributes, {
       data: {
@@ -233,6 +240,20 @@ class TransactionGreater extends NotificationView {
         : transactions.map(formatTransaction).join('\n')
 
     return pushContent
+  }
+
+  /**
+   * Saves last notification date to transactions for which there was
+   * the notification.
+   *
+   * Executed by `Notification` when the notification has been successfuly sent
+   * See `Notification::sendNotification`
+   */
+  async onSuccess() {
+    this.toNotify.forEach(transaction => {
+      setAlreadyNotified(transaction, TransactionGreater)
+    })
+    await BankTransaction.updateAll(this.toNotify)
   }
 }
 

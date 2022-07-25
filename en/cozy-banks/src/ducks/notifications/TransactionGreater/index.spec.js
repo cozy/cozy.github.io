@@ -9,6 +9,7 @@ import maxBy from 'lodash/maxBy'
 import minBy from 'lodash/minBy'
 import frLocale from 'locales/fr.json'
 import { formatTransaction, MAX_CHAR_BY_LINE } from './utils'
+import { setAlreadyNotified } from 'ducks/transactions/helpers'
 
 const unique = arr => Array.from(new Set(arr))
 
@@ -288,6 +289,22 @@ describe('transaction greater', () => {
       expect(transactionSalaire).toEqual(
         'Salaire Du Mois De Septembre 2021 (01/0 : 1234,56€'
       )
+    })
+  })
+
+  describe('buildData', () => {
+    const operations = fixturesTransactionGreater['io.cozy.bank.operations']
+
+    it('should filter out transactions which have already been notified', async () => {
+      const transactions = operations
+        .filter(({ amount }) => amount > 1000)
+        .map((op, i) => {
+          return i % 2 === 0 ? setAlreadyNotified(op, TransactionGreater) : op
+        })
+      const { notification } = setup({ transactions, value: 1000 })
+
+      const data = await notification.buildData()
+      expect(data.transactions).toHaveLength(1)
     })
   })
 })

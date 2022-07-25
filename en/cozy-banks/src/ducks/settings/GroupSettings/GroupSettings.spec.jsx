@@ -1,13 +1,15 @@
 import React from 'react'
-import GroupSettings from './GroupSettings'
-import AccountsList from './AccountsList'
 import { render, fireEvent, act } from '@testing-library/react'
-import { createMockClient } from 'cozy-client/dist/mock'
-import AppLike from 'test/AppLike'
-import fixtures from 'test/fixtures'
 import omit from 'lodash/omit'
 import cloneDeep from 'lodash/cloneDeep'
+
+import { createMockClient } from 'cozy-client/dist/mock'
+
 import { schema, GROUP_DOCTYPE } from 'doctypes'
+import AppLike from 'test/AppLike'
+import fixtures from 'test/fixtures'
+import GroupSettings from './GroupSettings'
+import AccountsList from './AccountsList'
 
 const fixtureGroup = fixtures[GROUP_DOCTYPE][0]
 

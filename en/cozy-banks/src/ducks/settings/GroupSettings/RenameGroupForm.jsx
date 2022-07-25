@@ -54,7 +54,7 @@ const RenameGroupForm = props => {
             <Typography variant="body1">{getGroupLabel(group, t)}</Typography>
           ) : (
             <Input
-              inputRef={inputRef}
+              ref={inputRef}
               placeholder={t('Groups.name-placeholder')}
               autoFocus
               type="text"
