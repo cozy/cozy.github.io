@@ -39,6 +39,7 @@ nav:
     - Use Hot Module Replacement in Your App: howTos/dev/hmr.md
     - Make a Mobile App Using Cordova: howTos/dev/cordova.md
     - Connect a Mobile App to Your Local Stack: howTos/dev/connect-mobile-app-local-stack.md
+    - Run Connectors With a Local cozy-stack: howTos/dev/run-connectors-on-local-cozy-stack.md
     - Send and Receive E-mails in Development: howTos/dev/sendmail.md
     - Our Front-End Git Flow: references/git-flow.md
     - Technical introduction to the Cozy platform: references/tech-intro.md
