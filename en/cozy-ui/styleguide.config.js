@@ -136,6 +136,8 @@ module.exports = {
     {
       name: 'Special',
       components: () => [
+        '../react/Alert/index.jsx',
+        '../react/AlertTitle/index.jsx',
         '../react/Alerter/index.jsx',
         '../react/AppIcon/index.jsx',
         '../react/AppTile/index.jsx',

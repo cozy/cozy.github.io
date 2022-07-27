@@ -57,6 +57,7 @@ const TagAddNewTagModal = ({ transaction, onClose }) => {
             label={t('Tag.tag-name')}
             variant="outlined"
             inputProps={{ maxLength: 30 }}
+            autoFocus
             onChange={handleChange}
           ></TextField>
         </>
