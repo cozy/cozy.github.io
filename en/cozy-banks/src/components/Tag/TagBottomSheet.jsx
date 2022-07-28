@@ -8,6 +8,7 @@ import Typography from 'cozy-ui/transpiled/react/Typography'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
 import Overlay from 'cozy-ui/transpiled/react/Overlay'
+import Button from 'cozy-ui/transpiled/react/Buttons'
 
 import TagAddModalContent from 'components/Tag/TagAddModalContent'
 
@@ -18,7 +19,8 @@ const TagBottomSheet = ({
   isLoading,
   toggleAddNewTagModal,
   onClick,
-  onClose
+  onClose,
+  withButton
 }) => {
   const { t } = useI18n()
 
@@ -41,7 +43,13 @@ const TagBottomSheet = ({
           selectedTagIds={selectedTagIds}
           tags={tags}
           onClick={onClick}
+          withButton={withButton}
         />
+        {withButton && (
+          <div className="u-p-1">
+            <Button fullWidth onClick={onClose} label={t('General.valid')} />
+          </div>
+        )}
       </BottomSheetItem>
     </BottomSheet>
   )

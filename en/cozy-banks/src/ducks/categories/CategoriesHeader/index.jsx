@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from 'react'
+import React, { useMemo, useCallback, useState } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
@@ -25,10 +25,14 @@ import IncomeToggle from 'ducks/categories/IncomeToggle'
 import DesktopFragment from './DesktopFragment'
 import MobileFragment from './MobileFragment'
 import { makeBreadcrumbs } from './utils'
+import AdvancedFilterModal from '../AdvancedFilterModal/AdvancedFilterModal'
 
 const CategoriesHeader = props => {
   const { t } = useI18n()
   const { isMobile } = useBreakpoints()
+  const [isAdvancedFilterDisplayed, setIsAdvancedFilterDisplayed] =
+    useState(false)
+
   const {
     emptyIcon,
     hasAccount,
@@ -41,7 +45,9 @@ const CategoriesHeader = props => {
     isFetchingNewData,
     categoryName,
     subcategoryName,
-    classes
+    classes,
+    setSelectedTags,
+    selectedTags
   } = props
 
   const hasData =
@@ -102,22 +108,42 @@ const CategoriesHeader = props => {
     />
   )
 
+  const showAdvancedFilter = () => {
+    setIsAdvancedFilterDisplayed(true)
+  }
+  const hideAdvancedFilter = () => {
+    setIsAdvancedFilterDisplayed(false)
+  }
+
   const Fragment = isMobile ? MobileFragment : DesktopFragment
 
   return (
-    <Fragment
-      breadcrumbItems={breadcrumbItems}
-      chart={chart}
-      classes={classes}
-      dateSelector={dateSelector}
-      emptyIcon={emptyIcon}
-      hasAccount={hasAccount}
-      hasData={hasData}
-      selectedCategory={selectedCategory}
-      incomeToggle={incomeToggle}
-      isFetching={isFetching}
-      isFetchingNewData={isFetchingNewData}
-    />
+    <>
+      <Fragment
+        breadcrumbItems={breadcrumbItems}
+        chart={chart}
+        classes={classes}
+        dateSelector={dateSelector}
+        emptyIcon={emptyIcon}
+        hasAccount={hasAccount}
+        hasData={hasData}
+        selectedCategory={selectedCategory}
+        incomeToggle={incomeToggle}
+        isFetching={isFetching}
+        isFetchingNewData={isFetchingNewData}
+        showAdvancedFilter={showAdvancedFilter}
+        selectedTags={selectedTags}
+      />
+      {isAdvancedFilterDisplayed && (
+        <AdvancedFilterModal
+          onClose={hideAdvancedFilter}
+          onConfirm={onWithIncomeToggle}
+          withIncome={withIncome}
+          setSelectedTags={setSelectedTags}
+          selectedTags={selectedTags}
+        />
+      )}
+    </>
   )
 }
 

@@ -110,7 +110,9 @@ export class CategoriesPage extends Component {
       accounts,
       settings,
       isFetching: isFetchingNewData,
-      filteredTransactionsByAccount
+      filteredTransactionsByAccount,
+      setSelectedTags,
+      selectedTags
     } = this.props
     const isFetching = some(
       [accounts, transactions, settings, transactionsByApplicationDate],
@@ -150,6 +152,8 @@ export class CategoriesPage extends Component {
           isFetchingNewData={isFetchingNewData}
           hasAccount={hasAccount}
           chart={!isSubcategory}
+          setSelectedTags={setSelectedTags}
+          selectedTags={selectedTags}
         />
         <Delayed delay={this.props.delayContent}>
           {hasAccount &&

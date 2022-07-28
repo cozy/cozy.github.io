@@ -1,10 +1,13 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { APPLICATION_DATE } from 'ducks/transactions/constants'
 import useLast from 'hooks/useLast'
 import useFullyLoadedQuery from 'hooks/useFullyLoadedQuery'
-import { computeTransactionsByDateAndApplicationDate } from 'ducks/transactions/helpers'
+import {
+  computeTransactionsByDateAndApplicationDate,
+  getTransactionTags
+} from 'ducks/transactions/helpers'
 import { computeCategoriesData } from 'ducks/categories/selectors'
 import {
   makeFilteredTransactionsConn,
@@ -28,6 +31,7 @@ const enhanceCategoriesPage = Component => props => {
   const accounts = useQuery(accountsConn.query, accountsConn)
   const groups = useQuery(groupsConn.query, groupsConn)
   const settings = useQuery(settingsConn.query, settingsConn)
+  const [selectedTags, setSelectedTags] = useState([])
 
   const filteringDoc = useSelector(getFilteringDoc)
   const period = useSelector(getPeriod)
@@ -97,13 +101,26 @@ const enhanceCategoriesPage = Component => props => {
     [transactionsByApplicationDate.data, transactionsByDate.data]
   )
 
+  const transactionsWithTags = useMemo(() => {
+    if (selectedTags.length > 0) {
+      return transactionsData.filter(tr =>
+        getTransactionTags(tr).some(trRel =>
+          selectedTags.some(st => st._id === trRel._id)
+        )
+      )
+    }
+    return transactionsData
+  }, [selectedTags, transactionsData])
+
   const categories = useMemo(() => {
-    return computeCategoriesData(transactionsData || [])
-  }, [transactionsData])
+    return computeCategoriesData(transactionsWithTags || [])
+  }, [transactionsWithTags])
 
   return (
     <Component
       {...props}
+      setSelectedTags={setSelectedTags}
+      selectedTags={selectedTags}
       accounts={accounts}
       groups={groups}
       settings={settings}

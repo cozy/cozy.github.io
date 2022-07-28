@@ -1,17 +1,20 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
+
+import flag from 'cozy-flags'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import Empty from 'cozy-ui/transpiled/react/Empty'
+
 import Header from 'components/Header'
 import Padded from 'components/Padded'
-import styles from 'ducks/categories/CategoriesHeader/CategoriesHeader.styl'
 import AddAccountButton from 'ducks/categories/AddAccountButton'
-
 import HeaderLoadingProgress from 'components/HeaderLoadingProgress'
 import LegalMention from 'ducks/legal/LegalMention'
 import DateSelectorHeader from 'ducks/categories/DateSelectorHeader'
+import AdvancedFilter from 'ducks/categories/CategoriesHeader/AdvancedFilter'
+import styles from 'ducks/categories/CategoriesHeader/CategoriesHeader.styl'
 
 const MobileFragment = React.memo(props => {
   const { t } = useI18n()
@@ -27,7 +30,9 @@ const MobileFragment = React.memo(props => {
     incomeToggle,
     isFetching,
     isFetchingNewData,
-    selectedCategory
+    selectedCategory,
+    showAdvancedFilter,
+    selectedTags
   } = props
 
   return (
@@ -44,6 +49,12 @@ const MobileFragment = React.memo(props => {
           })}
           theme={isMobile ? 'normal' : 'inverted'}
         >
+          {flag('banks.tags.enabled') && (
+            <AdvancedFilter
+              onClick={showAdvancedFilter}
+              selectedTagsLength={selectedTags.length}
+            />
+          )}
           <HeaderLoadingProgress
             isFetching={!!isFetchingNewData && !isFetching}
           />
@@ -87,7 +98,8 @@ MobileFragment.propTypes = {
   incomeToggle: PropTypes.node.isRequired,
   isFetching: PropTypes.bool.isRequired,
   isFetchingNewData: PropTypes.bool.isRequired,
-  selectedCategory: PropTypes.object
+  selectedCategory: PropTypes.object,
+  showAdvancedFilter: PropTypes.func
 }
 
 export default MobileFragment

@@ -14,7 +14,8 @@ const TagAddModalContent = ({
   toggleAddNewTagModal,
   selectedTagIds,
   tags,
-  onClick
+  onClick,
+  withButton
 }) => {
   const { t } = useI18n()
 
@@ -37,6 +38,7 @@ const TagAddModalContent = ({
       toggleAddNewTagModal={toggleAddNewTagModal}
       selectedTagIds={selectedTagIds}
       onClick={onClick}
+      withButton={withButton}
     />
   )
 }

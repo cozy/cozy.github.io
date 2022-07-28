@@ -1,23 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
+
+import flag from 'cozy-flags'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Empty from 'cozy-ui/transpiled/react/Empty'
-import Header from 'components/Header'
-import Padded from 'components/Padded'
 import Stack from 'cozy-ui/transpiled/react/Stack'
-import Table from 'components/Table'
-import styles from 'ducks/categories/CategoriesHeader/CategoriesHeader.styl'
-import AddAccountButton from 'ducks/categories/AddAccountButton'
-
 import Fade from 'cozy-ui/transpiled/react/Fade'
 import Breadcrumb from 'cozy-ui/transpiled/react/Breadcrumbs'
-import CategoryAccountSwitch from 'ducks/categories/CategoryAccountSwitch'
 
+import Table from 'components/Table'
+import Header from 'components/Header'
+import Padded from 'components/Padded'
 import HeaderLoadingProgress from 'components/HeaderLoadingProgress'
-
+import AddAccountButton from 'ducks/categories/AddAccountButton'
+import CategoriesTableHead from 'ducks/categories/CategoriesHeader/CategoriesTableHead'
+import AdvancedFilter from 'ducks/categories/CategoriesHeader/AdvancedFilter'
+import styles from 'ducks/categories/CategoriesHeader/CategoriesHeader.styl'
+import CategoryAccountSwitch from 'ducks/categories/CategoryAccountSwitch'
 import catStyles from 'ducks/categories/styles.styl'
-import CategoriesTableHead from './CategoriesTableHead'
+
 const stTableCategory = catStyles['bnk-table-category']
 
 const DesktopFragment = React.memo(
@@ -31,7 +33,8 @@ const DesktopFragment = React.memo(
     incomeToggle,
     isFetching,
     isFetchingNewData,
-    selectedCategory
+    selectedCategory,
+    showAdvancedFilter
   }) => {
     const { t } = useI18n()
 
@@ -58,7 +61,14 @@ const DesktopFragment = React.memo(
                       <Breadcrumb className="u-mt-1" items={breadcrumbItems} />
                     </Fade>
                   )}
-                  {incomeToggle}
+                  {flag('banks.tags.enabled') ? (
+                    <AdvancedFilter
+                      onClick={showAdvancedFilter}
+                      className="u-mt-1"
+                    />
+                  ) : (
+                    incomeToggle
+                  )}
                 </div>
                 {chart}
               </>
@@ -99,7 +109,8 @@ DesktopFragment.propTypes = {
   incomeToggle: PropTypes.node.isRequired,
   isFetching: PropTypes.bool.isRequired,
   isFetchingNewData: PropTypes.bool.isRequired,
-  selectedCategory: PropTypes.object
+  selectedCategory: PropTypes.object,
+  showAdvancedFilter: PropTypes.func
 }
 
 export default DesktopFragment

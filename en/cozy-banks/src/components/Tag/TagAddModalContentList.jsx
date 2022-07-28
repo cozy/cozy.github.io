@@ -15,29 +15,38 @@ const TagAddModalContentList = ({
   tags,
   toggleAddNewTagModal,
   selectedTagIds,
-  onClick
+  onClick,
+  withButton
 }) => {
   const { t } = useI18n()
 
   return (
-    <List>
-      {tags.map((tag, index) => (
-        <Fragment key={`${tag.label} ${index}`}>
-          <TagAddModalContentListItem
-            tag={tag}
-            checked={selectedTagIds.some(id => id === tag._id)}
-            onClick={onClick}
-          />
-          <Divider component="li" variant="inset" />
-        </Fragment>
-      ))}
-      <ListItem button onClick={toggleAddNewTagModal}>
-        <ListItemIcon>
-          <Icon icon={PlusIcon} />
-        </ListItemIcon>
-        <ListItemText primary={t('Tag.new-tag')} />
-      </ListItem>
-    </List>
+    <>
+      <List>
+        {tags.map((tag, index) => (
+          <Fragment key={`${tag.label} ${index}`}>
+            <TagAddModalContentListItem
+              tag={tag}
+              checked={selectedTagIds.some(id => id === tag._id)}
+              onClick={onClick}
+            />
+            {tags.length - 1 > index && (
+              <Divider component="li" variant="inset" />
+            )}
+          </Fragment>
+        ))}
+        {withButton ? (
+          <Divider component="li" />
+        ) : (
+          <ListItem button onClick={toggleAddNewTagModal}>
+            <ListItemIcon>
+              <Icon icon={PlusIcon} />
+            </ListItemIcon>
+            <ListItemText primary={t('Tag.new-tag')} />
+          </ListItem>
+        )}
+      </List>
+    </>
   )
 }
 

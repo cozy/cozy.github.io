@@ -3,6 +3,7 @@ import React from 'react'
 import { ConfirmDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import Button from 'cozy-ui/transpiled/react/Buttons'
 
 import TagAddModalContent from 'components/Tag/TagAddModalContent'
 
@@ -13,7 +14,8 @@ const TagAddModal = ({
   isLoading,
   toggleAddNewTagModal,
   onClick,
-  onClose
+  onClose,
+  withButton
 }) => {
   const { t } = useI18n()
 
@@ -30,12 +32,25 @@ const TagAddModal = ({
             className="u-flex u-flex-justify-center u-mv-1"
           />
         ) : (
-          <TagAddModalContent
-            toggleAddNewTagModal={toggleAddNewTagModal}
-            selectedTagIds={selectedTagIds}
-            tags={tags}
-            onClick={onClick}
-          />
+          <>
+            <TagAddModalContent
+              toggleAddNewTagModal={toggleAddNewTagModal}
+              selectedTagIds={selectedTagIds}
+              tags={tags}
+              onClick={onClick}
+              withButton={withButton}
+            />
+
+            {withButton && (
+              <div className="u-p-1">
+                <Button
+                  fullWidth
+                  onClick={onClose}
+                  label={t('General.valid')}
+                />
+              </div>
+            )}
+          </>
         )
       }
       onClose={isSaving ? undefined : onClose}
