@@ -6,10 +6,12 @@ import TagIcon from 'cozy-ui/transpiled/react/Icons/Tag'
 
 import { TAGS_DOCTYPE } from 'doctypes'
 import useDocument from 'components/useDocument'
+import { useHistory } from 'components/RouterContext'
 import { removeTag } from 'ducks/transactions/helpers'
 
 const TagChip = ({ className, transaction, tag, clickable, deletable }) => {
   const tagFromDoctype = useDocument(TAGS_DOCTYPE, tag._id)
+  const history = useHistory()
 
   const handleDelete = deletable
     ? () => removeTag(transaction, tagFromDoctype)
@@ -17,7 +19,9 @@ const TagChip = ({ className, transaction, tag, clickable, deletable }) => {
 
   const handleClick = ev => {
     ev?.preventDefault() // works only on desktop, hammer is used to prevent click on mobile
-    clickable && alert('TODO click!') // TODO: should open tags management url
+    if (clickable) {
+      history.push(`tag/${tag._id}`)
+    }
   }
 
   return (

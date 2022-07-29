@@ -37,6 +37,11 @@ jest.mock('hooks/useVisible', () => {
   }
 })
 
+jest.mock('ducks/transactions/helpers', () => ({
+  ...jest.requireActual('ducks/transactions/helpers'),
+  getTransactionTags: jest.fn(() => [])
+}))
+
 const mockTransactions = data['io.cozy.bank.operations'].map((x, i) => ({
   // eslint-disable-next-line
   _id: `transaction-id-${i++}`,

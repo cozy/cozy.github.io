@@ -110,51 +110,51 @@ export class HasManyReimbursements extends HasManyInPlace {
 
 // Add transactions relationships on tags
 export class HasManyTags extends HasMany {
-  add(docsArg) {
+  async add(docsArg) {
     const docs = Array.isArray(docsArg) ? docsArg : [docsArg]
     const targets = Array.isArray(this.target) ? this.target : [this.target]
 
     for (const tag of docs) {
-      tag.transactions?.add(targets)
+      await tag.transactions?.add(targets)
     }
 
-    super.add(docs)
+    return super.add(docs)
   }
 
-  remove(docsArg) {
+  async remove(docsArg) {
     const docs = Array.isArray(docsArg) ? docsArg : [docsArg]
     const targets = Array.isArray(this.target) ? this.target : [this.target]
 
     for (const tag of docs) {
-      tag.transactions?.remove(targets)
+      await tag.transactions?.remove(targets)
     }
 
-    super.remove(docs)
+    return super.remove(docs)
   }
 }
 
 // Add tags relationships on transactions
 export class HasManyTransactions extends HasMany {
-  add(docsArg) {
+  async add(docsArg) {
     const docs = Array.isArray(docsArg) ? docsArg : [docsArg]
     const targets = Array.isArray(this.target) ? this.target : [this.target]
 
     for (const transaction of docs) {
-      transaction.tags?.add(targets)
+      await transaction.tags?.add(targets)
     }
 
-    super.add(docs)
+    return super.add(docs)
   }
 
-  remove(docsArg) {
+  async remove(docsArg) {
     const docs = Array.isArray(docsArg) ? docsArg : [docsArg]
     const targets = Array.isArray(this.target) ? this.target : [this.target]
 
     for (const transaction of docs) {
-      transaction.tags?.remove(targets)
+      await transaction.tags?.remove(targets)
     }
 
-    super.remove(docs)
+    return super.remove(docs)
   }
 }
 
@@ -374,11 +374,21 @@ export const tagsConn = {
   fetchPolicy: older30s
 }
 
-export const buildTagsQueryByIds = ids => {
+export const buildTagsQueryWithTransactionsByIds = ids => {
   return {
     definition: Q(TAGS_DOCTYPE).getByIds(ids).include(['transactions']),
     options: {
       as: `${TAGS_DOCTYPE}/${JSON.stringify(ids)}/withTransactions`,
+      fetchPolicy: older30s
+    }
+  }
+}
+
+export const buildTransactionsWithTagsQueryByIds = ids => {
+  return {
+    definition: Q(TRANSACTION_DOCTYPE).getByIds(ids).include(['tags']),
+    options: {
+      as: `${TRANSACTION_DOCTYPE}/${JSON.stringify(ids)}/withTags`,
       fetchPolicy: older30s
     }
   }

@@ -13,10 +13,13 @@ export const useParams = () => {
 
 export const useHistory = () => {
   const router = useRouter()
+  const goBack = useMemo(() => {
+    return router.goBack.bind(router)
+  }, [router])
   const push = useMemo(() => {
     return router.push.bind(router)
   }, [router])
-  return { push }
+  return { goBack, push }
 }
 
 export const useLocation = () => {

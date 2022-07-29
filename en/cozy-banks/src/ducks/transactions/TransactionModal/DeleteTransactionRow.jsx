@@ -10,12 +10,23 @@ import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import TrashIcon from 'cozy-ui/transpiled/react/Icons/Trash'
 import { ConfirmDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 import Button from 'cozy-ui/transpiled/react/Button'
+import flag from 'cozy-flags'
+
+import { getTransactionTags, removeTag } from 'ducks/transactions/helpers'
+import useDocuments from 'components/useDocuments'
+import { TAGS_DOCTYPE } from 'doctypes'
 
 const DeleteTransactionRow = ({ transaction }) => {
   const { t } = useI18n()
   const client = useClient()
   const [showingDeleteConfirmation, setShowDeleteConfirmation] = useState(false)
   const [deleting, setDeleting] = useState(false)
+
+  const transactionTagsIds = getTransactionTags(transaction).map(t => t._id)
+  const transactionTagsWithTransactions = useDocuments(
+    TAGS_DOCTYPE,
+    transactionTagsIds
+  )
 
   const handleRequestDeleteTransaction = () => {
     setShowDeleteConfirmation(true)
@@ -28,7 +39,15 @@ const DeleteTransactionRow = ({ transaction }) => {
   const handleConfirmDeleteTransaction = async () => {
     try {
       setDeleting(true)
-      await client.destroy(transaction)
+      if (flag('banks.tags.enabled')) {
+        const { data: lastTransactionRev } = await removeTag(
+          transaction,
+          transactionTagsWithTransactions
+        )
+        await client.destroy(lastTransactionRev)
+      } else {
+        await client.destroy(transaction)
+      }
       Alerter.success(
         t('Transactions.infos.delete-transaction.deleting-success')
       )

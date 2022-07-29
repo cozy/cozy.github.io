@@ -329,11 +329,16 @@ export const getTransactionTagsIds = transaction =>
 export const hasAtLeastFiveTags = transaction =>
   getTransactionTags(transaction)?.length >= 5
 
-export const addTag = (transaction, tag) => transaction.tags?.add(tag)
+export const addTag = async (transaction, tag) =>
+  await transaction.tags?.add(tag)
 
-export const removeTag = (transaction, tag) => transaction.tags?.remove(tag)
+export const removeTag = async (transaction, tag) =>
+  await transaction.tags?.remove(tag)
 
 export const hasTag = (transaction, tag) =>
   getTransactionTags(transaction)?.some(
     transactionTag => transactionTag._id === tag._id
   )
+
+export const removeTransaction = async (tag, transaction) =>
+  await tag.transactions?.remove(transaction)

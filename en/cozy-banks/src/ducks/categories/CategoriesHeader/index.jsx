@@ -22,10 +22,10 @@ import { onSubcategory } from 'ducks/categories/utils'
 
 import { useParams } from 'components/RouterContext'
 import IncomeToggle from 'ducks/categories/IncomeToggle'
-import DesktopFragment from './DesktopFragment'
-import MobileFragment from './MobileFragment'
-import { makeBreadcrumbs } from './utils'
-import AdvancedFilterModal from '../AdvancedFilterModal/AdvancedFilterModal'
+import DesktopFragment from 'ducks/categories/CategoriesHeader/DesktopFragment'
+import MobileFragment from 'ducks/categories/CategoriesHeader/MobileFragment'
+import { makeBreadcrumbs } from 'ducks/categories/CategoriesHeader/utils'
+import AdvancedFilterModal from 'ducks/categories/AdvancedFilterModal/AdvancedFilterModal'
 
 const CategoriesHeader = props => {
   const { t } = useI18n()

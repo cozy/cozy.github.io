@@ -27,6 +27,7 @@ import UserActionRequired from 'components/UserActionRequired'
 import scrollToTopOnMount from 'components/scrollToTopOnMount'
 import PlannedTransactionsPage from 'ducks/future/PlannedTransactionsPage'
 import SetFilterAndRedirect from 'ducks/balance/SetFilterAndRedirect'
+import TagPage from 'ducks/tags/TagPage'
 
 // Use a function to delay instantation and have access to AppRoute.renderExtraRoutes
 const AppRoute = () => (
@@ -95,6 +96,9 @@ const AppRoute = () => (
           <Route path="configuration" component={Configuration} />
         </Route>
       </Route>
+      {flag('banks.tags.enabled') && (
+        <Route path="tag/:tagId" component={scrollToTopOnMount(TagPage)} />
+      )}
       <Route path="transfers" component={scrollToTopOnMount(TransferPage)} />
       <Route path="search" component={scrollToTopOnMount(SearchPage)} />
       <Route path="search/:search" component={scrollToTopOnMount(SearchPage)} />

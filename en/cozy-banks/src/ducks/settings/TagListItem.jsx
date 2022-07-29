@@ -11,6 +11,7 @@ import Icon from 'cozy-ui/transpiled/react/Icon'
 import RightIcon from 'cozy-ui/transpiled/react/Icons/Right'
 import TagIcon from 'cozy-ui/transpiled/react/Icons/Tag'
 
+import { useHistory } from 'components/RouterContext'
 import { countTransactions } from 'components/Tag/helpers'
 
 const useStyles = makeStyles({
@@ -24,10 +25,10 @@ const TagListItem = ({ tag }) => {
   const { isMobile } = useBreakpoints()
   const styles = useStyles()
   const { t } = useI18n()
+  const history = useHistory()
 
   const handleListItemClick = () => {
-    // TODO: this should open a dialog to manage the tag
-    alert('Not implemented')
+    history.push(`tag/${tag._id}`)
   }
 
   return (

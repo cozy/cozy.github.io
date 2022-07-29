@@ -2090,6 +2090,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#basekonnectorreadpayload-object-null" title="baseKonnector.readPayload() ⇒ Object | null" class="md-nav__link">
+    baseKonnector.readPayload() ⇒ Object | null
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#basekonnectorinitattributes" title="baseKonnector.initAttributes()" class="md-nav__link">
     baseKonnector.initAttributes()
   </a>
@@ -3937,6 +3944,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#basekonnectorreadpayload-object-null" title="baseKonnector.readPayload() ⇒ Object | null" class="md-nav__link">
+    baseKonnector.readPayload() ⇒ Object | null
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#basekonnectorinitattributes" title="baseKonnector.initAttributes()" class="md-nav__link">
     baseKonnector.initAttributes()
   </a>
@@ -5402,6 +5416,7 @@ the konnector cannot know that asynchronous code has been called.</p>
 <li><a href="#BaseKonnector+main">.main()</a> ⇒ <code>Promise</code></li>
 <li><a href="#BaseKonnector+end">.end()</a></li>
 <li><a href="#BaseKonnector+fail">.fail()</a></li>
+<li><a href="#BaseKonnector+readPayload">.readPayload()</a> ⇒ <code>Object</code> | <code>null</code></li>
 <li><a href="#BaseKonnector+initAttributes">.initAttributes()</a></li>
 <li><a href="#BaseKonnector+saveAccountData">.saveAccountData(data, options)</a> ⇒ <code>Promise</code></li>
 <li><a href="#BaseKonnector+getAccountData">.getAccountData()</a> ⇒ <code>object</code></li>
@@ -5478,6 +5493,12 @@ Errors thrown will be automatically handled.</p>
 <h3 id="basekonnectorfail">baseKonnector.fail()<a class="headerlink" href="#basekonnectorfail" title="Permanent link">&para;</a></h3>
 <p>Hook called when the connector fails</p>
 <p><strong>Kind</strong>: instance method of <a href="#BaseKonnector"><code>BaseKonnector</code></a><br />
+<a name="BaseKonnector+readPayload"></a></p>
+<h3 id="basekonnectorreadpayload-object-null">baseKonnector.readPayload() ⇒ <code>Object</code> | <code>null</code><a class="headerlink" href="#basekonnectorreadpayload-object-null" title="Permanent link">&para;</a></h3>
+<p>Read an eventual payload from COZY_PAYLOAD env var, wether it is a JSON string or a reference
+to a file containing a JSON string</p>
+<p><strong>Kind</strong>: instance method of <a href="#BaseKonnector"><code>BaseKonnector</code></a><br />
+<strong>Returns</strong>: <code>Object</code> | <code>null</code> - Promise&lt;&gt; result of JSON.parse from the JSON string or null if no payload<br />
 <a name="BaseKonnector+initAttributes"></a></p>
 <h3 id="basekonnectorinitattributes">baseKonnector.initAttributes()<a class="headerlink" href="#basekonnectorinitattributes" title="Permanent link">&para;</a></h3>
 <p>Initializes konnector attributes that will be used during its lifetime</p>
