@@ -38,6 +38,12 @@ module.exports = {
         '@typescript-eslint/no-explicit-any': 'error',
         '@typescript-eslint/explicit-function-return-type': 'error'
       }
+    },
+    {
+      files: ['**/*.spec.jsx', '**/*.spec.js', '**/*.spec.tsx', '**/*.spec.ts'],
+      rules: {
+        'react/display-name': ['off']
+      }
     }
   ]
 }
