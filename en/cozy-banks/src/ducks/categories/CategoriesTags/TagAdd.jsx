@@ -13,7 +13,10 @@ const TagAdd = ({ tags, tagListSelected, onConfirm }) => {
 
   return (
     <>
-      <TagAddChip onClick={() => setShowModalOrBottomSheet(true)} />
+      <TagAddChip
+        onClick={() => setShowModalOrBottomSheet(true)}
+        disabled={tags.length === 0}
+      />
       {showModalOrBottomSheet && (
         <TagAddModalOrBottomSheet
           tags={tags}

@@ -184,9 +184,11 @@ const TransactionRowDesktop = ({
             signed
           />
         </TdSecondary>
-        {showTransactionActions && (
+        {(showTransactionActions || flag('banks.tags.enabled')) && (
           <TdSecondary className={styles.ColumnSizeAction}>
-            <TransactionActions transaction={transaction} onlyDefault />
+            {showTransactionActions && (
+              <TransactionActions transaction={transaction} onlyDefault />
+            )}
             {flag('banks.tags.enabled') && (
               <TagChips transaction={transaction} clickable />
             )}

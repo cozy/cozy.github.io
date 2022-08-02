@@ -3,7 +3,13 @@ import React from 'react'
 import TagChip from 'components/Tag/TagChip'
 import { getTransactionTags } from 'ducks/transactions/helpers'
 
-const TagChips = ({ className, transaction, clickable, deletable }) => {
+const TagChips = ({
+  className,
+  transaction,
+  clickable,
+  deletable,
+  withIcon
+}) => {
   const transactionTags = getTransactionTags(transaction)
 
   return (
@@ -16,6 +22,7 @@ const TagChips = ({ className, transaction, clickable, deletable }) => {
           tag={transactionTag}
           clickable={clickable}
           deletable={deletable}
+          withIcon={withIcon}
         />
       ))}
     </>

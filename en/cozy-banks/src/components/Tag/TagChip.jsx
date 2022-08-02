@@ -9,7 +9,14 @@ import useDocument from 'components/useDocument'
 import { useHistory } from 'components/RouterContext'
 import { removeTag } from 'ducks/transactions/helpers'
 
-const TagChip = ({ className, transaction, tag, clickable, deletable }) => {
+const TagChip = ({
+  className,
+  transaction,
+  tag,
+  clickable,
+  deletable,
+  withIcon
+}) => {
   const tagFromDoctype = useDocument(TAGS_DOCTYPE, tag._id)
   const history = useHistory()
 
@@ -28,13 +35,19 @@ const TagChip = ({ className, transaction, tag, clickable, deletable }) => {
     <Chip
       style={{ marginBottom: '0.25rem', marginRight: '0.25rem' }}
       className={className}
-      icon={<Icon className="u-ml-half" icon={TagIcon} />}
+      {...(withIcon && {
+        icon: <Icon className="u-ml-half" icon={TagIcon} />
+      })}
       label={tag.label}
       clickable
       onDelete={handleDelete}
       onClick={handleClick}
     />
   )
+}
+
+TagChip.defaultProps = {
+  withIcon: true
 }
 
 export default TagChip

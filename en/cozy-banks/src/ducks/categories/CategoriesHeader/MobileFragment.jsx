@@ -58,9 +58,11 @@ const MobileFragment = React.memo(props => {
           <HeaderLoadingProgress
             isFetching={!!isFetchingNewData && !isFetching}
           />
-          <LegalMention className="u-flex u-flex-items-center u-flex-justify-around u-mr-1">
-            {incomeToggle}
-          </LegalMention>
+          {!flag('banks.tags.enabled') && (
+            <LegalMention className="u-flex u-flex-items-center u-flex-justify-around u-mr-1">
+              {incomeToggle}
+            </LegalMention>
+          )}
 
           {!hasData && !isFetching && !isFetchingNewData && (
             <Empty

@@ -134,7 +134,7 @@ describe('transaction action defaults', () => {
         })
       } else {
         it('should not render an action', () => {
-          expect(root.find(SyncTransactionActions).html()).toBe('<span></span>')
+          expect(root.find(SyncTransactionActions).html()).toBe('')
         })
       }
 

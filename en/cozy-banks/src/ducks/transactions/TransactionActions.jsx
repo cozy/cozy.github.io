@@ -56,13 +56,10 @@ export const SyncTransactionActions = ({
   menuPosition = 'left',
   isModalItem,
   compact,
-  children,
-  className
+  children
 }) => {
-  const Tag = isModalItem ? React.Fragment : 'span'
-  const childProps = !isModalItem ? { className } : null
   return (
-    <Tag {...childProps}>
+    <>
       {(displayDefaultAction || onlyDefault) && actions.default && (
         <MenuAction
           action={actions.default}
@@ -85,7 +82,7 @@ export const SyncTransactionActions = ({
           />
         ))}
       {children}
-    </Tag>
+    </>
   )
 }
 

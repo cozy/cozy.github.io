@@ -10,7 +10,7 @@ import { hasAtLeastFiveTags } from 'ducks/transactions/helpers'
 import TagAdd from 'components/Tag/TagAdd'
 import TagChips from 'components/Tag/TagChips'
 
-const TagListItem = ({ transaction }) => {
+const TagListItem = ({ transaction, withIcon }) => {
   return (
     <>
       <ListItem divider button disableRipple>
@@ -21,7 +21,11 @@ const TagListItem = ({ transaction }) => {
           ellipsis={false}
           primary={
             <>
-              <TagChips transaction={transaction} deletable />
+              <TagChips
+                transaction={transaction}
+                deletable
+                withIcon={withIcon}
+              />
               <TagAdd
                 transaction={transaction}
                 disabled={hasAtLeastFiveTags(transaction)}

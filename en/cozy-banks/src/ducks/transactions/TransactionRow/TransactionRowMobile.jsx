@@ -130,22 +130,25 @@ const TransactionRowMobile = ({
                   ) : null}
                 </Img>
               </Media>
-
-              {showTransactionActions && (
-                <TransactionActions
-                  transaction={transaction}
-                  onlyDefault
-                  compact
-                  menuPosition="right"
+              {(showTransactionActions || flag('banks.tags.enabled')) && (
+                <div
                   className={cx(
                     'u-mb-half',
                     styles.TransactionRowMobile__actions
                   )}
                 >
+                  {showTransactionActions && (
+                    <TransactionActions
+                      transaction={transaction}
+                      onlyDefault
+                      compact
+                      menuPosition="right"
+                    />
+                  )}
                   {flag('banks.tags.enabled') && (
                     <TagChips transaction={transaction} clickable />
                   )}
-                </TransactionActions>
+                </div>
               )}
             </Bd>
           </Media>

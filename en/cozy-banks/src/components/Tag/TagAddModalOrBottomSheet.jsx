@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import { useQueryAll, isQueryLoading } from 'cozy-client'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 
 import { tagsConn } from 'doctypes'
 import TagAddModal from 'components/Tag/TagAddModal'
@@ -17,6 +18,7 @@ import { makeTagsToRemove, makeTagsToAdd } from 'components/Tag/helpers'
 
 const TagAddModalOrBottomSheet = ({ transaction, onClose }) => {
   const { isMobile } = useBreakpoints()
+  const { t } = useI18n()
   const [showAddNewTagModal, setShowAddNewTagModal] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
   const [selectedTagIds, setSelectedTagIds] = useState(() =>
@@ -80,6 +82,7 @@ const TagAddModalOrBottomSheet = ({ transaction, onClose }) => {
     <>
       <ModalOrBottomSheet
         tags={tags}
+        title={t('Tag.add-tag')}
         selectedTagIds={selectedTagIds}
         isSaving={isSaving}
         isLoading={isLoading}

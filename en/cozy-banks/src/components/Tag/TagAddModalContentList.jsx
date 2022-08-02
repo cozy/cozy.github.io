@@ -15,8 +15,7 @@ const TagAddModalContentList = ({
   tags,
   toggleAddNewTagModal,
   selectedTagIds,
-  onClick,
-  withButton
+  onClick
 }) => {
   const { t } = useI18n()
 
@@ -30,14 +29,10 @@ const TagAddModalContentList = ({
               checked={selectedTagIds.some(id => id === tag._id)}
               onClick={onClick}
             />
-            {tags.length - 1 > index && (
-              <Divider component="li" variant="inset" />
-            )}
+            <Divider component="li" variant="inset" />
           </Fragment>
         ))}
-        {withButton ? (
-          <Divider component="li" />
-        ) : (
+        {toggleAddNewTagModal && (
           <ListItem button onClick={toggleAddNewTagModal}>
             <ListItemIcon>
               <Icon icon={PlusIcon} />
@@ -45,6 +40,7 @@ const TagAddModalContentList = ({
             <ListItemText primary={t('Tag.new-tag')} />
           </ListItem>
         )}
+        <Divider component="li" />
       </List>
     </>
   )

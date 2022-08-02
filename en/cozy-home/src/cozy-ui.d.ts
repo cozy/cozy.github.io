@@ -24,3 +24,9 @@ declare module 'cozy-ui/transpiled/react/I18n' {
 declare module 'cozy-ui/transpiled/react/Button' {
   export const Button: (props: React.PropsWithChildren) => JSX.Element
 }
+
+declare module 'cozy-ui/transpiled/react/Icons/Help' {
+  export default function HelpIcon(
+    props?: Omit<React.SVGAttributes<SVGElement>, 'children'>
+  ): JSX.Element
+}

@@ -1,12 +1,14 @@
 import React from 'react'
 import cx from 'classnames'
 
+import flag from 'cozy-flags'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 
 import { Table } from 'components/Table'
 
 import transactionsStyles from 'ducks/transactions/Transactions.styl'
+import { showTransactionActions } from 'ducks/transactions/TransactionRow'
 
 const TableHead = ({ isSubcategory }) => {
   const { t } = useI18n()
@@ -32,9 +34,11 @@ const TableHead = ({ isSubcategory }) => {
           <td className={transactionsStyles.ColumnSizeAmount}>
             {t('Transactions.header.amount')}
           </td>
-          <td className={transactionsStyles.ColumnSizeAction}>
-            {t('Transactions.header.action')}
-          </td>
+          {(showTransactionActions || flag('banks.tags.enabled')) && (
+            <td className={transactionsStyles.ColumnSizeAction}>
+              {t('Transactions.header.action')}
+            </td>
+          )}
         </tr>
       </thead>
     </Table>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 
 import TagAddModal from 'components/Tag/TagAddModal'
 import TagBottomSheet from 'components/Tag/TagBottomSheet'
@@ -10,6 +11,7 @@ const isAlreadyChecked = (selectedTagIds, tag) =>
 
 const TagAddModalOrBottomSheet = ({ tags, tagListSelected, onClose }) => {
   const { isMobile } = useBreakpoints()
+  const { t } = useI18n()
   const [selectedTagIds, setSelectedTagIds] = useState(
     tagListSelected.map(tagSelected => tagSelected._id)
   )
@@ -34,10 +36,10 @@ const TagAddModalOrBottomSheet = ({ tags, tagListSelected, onClose }) => {
   return (
     <ModalOrBottomSheet
       tags={tags}
+      title={t('Tag.filter-tag')}
       selectedTagIds={selectedTagIds}
       onClick={handleClick}
       onClose={handleClose}
-      withButton
     />
   )
 }

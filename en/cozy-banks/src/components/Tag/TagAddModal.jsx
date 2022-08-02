@@ -15,7 +15,7 @@ const TagAddModal = ({
   toggleAddNewTagModal,
   onClick,
   onClose,
-  withButton
+  title
 }) => {
   const { t } = useI18n()
 
@@ -24,7 +24,7 @@ const TagAddModal = ({
       size="small"
       open
       disableGutters
-      title={<div className="u-mt-1-half">{t('Tag.add-tag')}</div>}
+      title={<div className="u-mt-1-half">{title}</div>}
       content={
         isSaving || isLoading ? (
           <Spinner
@@ -38,18 +38,11 @@ const TagAddModal = ({
               selectedTagIds={selectedTagIds}
               tags={tags}
               onClick={onClick}
-              withButton={withButton}
             />
 
-            {withButton && (
-              <div className="u-p-1">
-                <Button
-                  fullWidth
-                  onClick={onClose}
-                  label={t('General.valid')}
-                />
-              </div>
-            )}
+            <div className="u-p-1">
+              <Button fullWidth onClick={onClose} label={t('General.valid')} />
+            </div>
           </>
         )
       }
