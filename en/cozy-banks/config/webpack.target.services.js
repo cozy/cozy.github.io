@@ -1,10 +1,10 @@
 'use strict'
 
 const path = require('path')
+const fs = require('fs')
 const webpack = require('webpack')
 const { production } = require('./webpack.vars')
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
-const pickBy = require('lodash/pickBy')
 
 const SRC_DIR = path.resolve(__dirname, '../src')
 
@@ -16,28 +16,16 @@ const mimerPath = require.resolve(
 const noop = require.resolve(path.join(SRC_DIR, 'ducks/notifications/noop'))
 
 const serviceDir = path.resolve(SRC_DIR, './targets/services/')
-const entries = pickBy(
-  {
-    onOperationOrBillCreate: path.resolve(
-      serviceDir,
-      './onOperationOrBillCreate'
-    ),
-    categorization: path.resolve(serviceDir, './categorization.js'),
-    stats: path.resolve(serviceDir, './stats.js'),
-    autogroups: path.resolve(serviceDir, './autogroups.js'),
-    budgetAlerts: path.resolve(serviceDir, './budgetAlerts.js'),
-    linkMyselfToAccounts: path.resolve(serviceDir, './linkMyselfToAccounts.js'),
-    recurrence: path.resolve(serviceDir, './recurrence.js'),
-    konnectorAlerts: path.resolve(serviceDir, './konnectorAlerts.js')
-  },
-  (entrypointPath, entrypointName) => {
-    if (!process.env.WEBPACK_ENTRYPOINT) {
-      return true
-    } else {
-      return entrypointName === process.env.WEBPACK_ENTRYPOINT
-    }
-  }
-)
+const servicesPaths = fs.existsSync(serviceDir)
+  ? fs.readdirSync(serviceDir)
+  : []
+
+const entries = {}
+servicesPaths.forEach(file => {
+  if (!file.match(/^[^.]*.js$/)) return
+  const filename = file.match(/^([^.]*).js$/)[1]
+  entries[filename] = path.resolve(path.join(serviceDir, file))
+})
 
 if (process.env.TEST_TEMPLATES) {
   entries.testTemplates = path.resolve(

@@ -2674,7 +2674,7 @@
                   <h1>Getting started</h1>
                 
                 <p><code>cozy-client</code> is the sdk to interact with the cozy stack from a Javascript application. It aims at hiding all low level details and providing a simple high level API to fetch and cache documents.</p>
-<p>Main features :</p>
+<p>Main features:</p>
 <ul>
 <li>Authentication with a Cozy</li>
 <li>Querying and caching documents</li>
@@ -2689,7 +2689,7 @@
 <li><a href="https://github.com/cozy/cozy-libs/tree/master/packages/cozy-interapp">InterApp</a>: Interact with other apps (example : file picking within your app)</li>
 <li><a href="https://docs.cozy.io/en/cozy-flags/">Flag</a>: Use feature flags</li>
 </ul>
-<p>The following guide is an overview of a cozy-client integration to help you getting started.</p>
+<p>The following guide is an overview of a cozy-client integration to help you to get started.</p>
 <h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
 <div class="codehilite"><pre><span></span>npm install --save cozy-client
 # or yarn add cozy-client
@@ -2718,7 +2718,7 @@
 
 
 <p>Usually, the token and URI are provided by the stack on the DOM node <code>&lt;div role="application"&gt;</code>.
-When using this, you can instantiate a client with :</p>
+When using this, you can instantiate a client with:</p>
 <div class="codehilite"><pre><span></span>const client = CozyClient.fromDOM({
    schema
 }) // Note how token and uri are not passed, instead they are taken from the DOM
@@ -2730,7 +2730,7 @@ see <a href="https://docs.cozy.io/en/tutorials/app/#behind-the-magic">the app tu
 <p>Every doctype accessed in <code>cozy-client</code> needs to be declared in the schema section of the options.
 See <a href="https://docs.cozy.io/en/cozy-client/schema">how to use the schema features</a></p>
 <h2 id="fetch-data">Fetch data<a class="headerlink" href="#fetch-data" title="Permanent link">&para;</a></h2>
-<p>To fetch data, we first build a <code>QueryDefinition</code> with the <code>Q</code> helper:</p>
+<p>To fetch data, we first build a <a href="../api/cozy-client/classes/QueryDefinition/"><code>QueryDefinition</code></a> with the <code>Q</code> helper:</p>
 <div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">Q</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 
 <span class="kr">const</span> <span class="nx">allTodosQuery</span> <span class="o">=</span> <span class="nx">Q</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">)</span>
@@ -2755,7 +2755,7 @@ See <a href="https://docs.cozy.io/en/cozy-client/schema">how to use the schema f
 <li><code>sortBy</code> sorts the documents by their <code>updatedAt</code> metadata in descending order</li>
 <li><code>limitBy</code> limits the number of results to 20</li>
 </ul>
-<p>By default all fields in the <code>where()</code> are automatically indexed. You can turn off this behavior by specifying
+<p>By default, all fields in the <code>where()</code> are automatically indexed. You can turn off this behavior by specifying
 explicitly the list of fields to be indexed in <code>indexFields()</code>.</p>
 <p>Finally, <code>client.query()</code> will execute your query and return a promise with a <code>data</code> attribute containing the requested documents.</p>
 <div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">CozyClient</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
@@ -2775,7 +2775,7 @@ to connect your components to cozy-client queries</a>.</p>
 know more about querying with cozy-client and avoid common traps that can dramatically impact your app performances.</p>
 <p>🚀 Cozy-client&rsquo;s <a href="../devtools/">devtools</a> allows to monitor your queries data and performance.</p>
 <h2 id="mutate-the-data">Mutate the data<a class="headerlink" href="#mutate-the-data" title="Permanent link">&para;</a></h2>
-<p>An instance of <code>CozyClient</code> allows you to query and mutate (update) data, here&rsquo;s how it looks:</p>
+<p>An instance of <a href="../api/cozy-client/classes/CozyClient/"><code>CozyClient</code></a> allows you to query and mutate (update) data, here&rsquo;s how it looks:</p>
 <div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">CozyClient</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 
 <span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CozyClient</span><span class="p">({</span>
@@ -2795,10 +2795,10 @@ know more about querying with cozy-client and avoid common traps that can dramat
 
 
 <p><code>save()</code> will return a Promise with a <code>data</code> attribute containing the saved document.</p>
-<p>ℹ️ When mutating data, queries that depend on the mutated document(s) will automatically be refreshed : components
-that depend on these queries will be re-rendered.</p>
+<p>ℹ️ When mutating data, queries that depend on the mutated document(s) will automatically be refreshed: 
+components that depend on these queries will be re-rendered.</p>
 <h2 id="mutate-several-documents-in-batch">Mutate several documents in batch<a class="headerlink" href="#mutate-several-documents-in-batch" title="Permanent link">&para;</a></h2>
-<p>The <code>saveAll</code> method can be used to save multiple documents in one request.</p>
+<p>The <code>saveAll()</code> method can be used to save multiple documents in one request.</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">data</span><span class="o">:</span> <span class="nx">updatedDocs</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">saveAll</span><span class="p">([</span>
   <span class="p">{</span> <span class="nx">_type</span><span class="o">:</span> <span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">,</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Buy milk&#39;</span> <span class="p">},</span>
   <span class="p">{</span> <span class="nx">_type</span><span class="o">:</span> <span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">,</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Make dinner&#39;</span> <span class="p">}</span>

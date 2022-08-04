@@ -17,7 +17,7 @@ import { fetchSettings } from 'ducks/settings/helpers'
 import { TRANSACTION_DOCTYPE, BILLS_DOCTYPE } from 'doctypes'
 import isCreatedDoc from 'utils/isCreatedDoc'
 import { findAppSuggestions } from 'ducks/appSuggestions/services'
-import { fetchChangesOrAll, getOptions } from './helpers'
+import { fetchChangesOrAll, getOptions } from './helpers/helpers'
 import assert from '../../utils/assert'
 
 const log = logger.namespace('onOperationOrBillCreate')
