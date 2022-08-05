@@ -3077,7 +3077,7 @@ It is highly recommended to take some time to understand how to <a href="#index-
 <p>⚠️ This implies that a query performed after many writes can take a certain time to complete, as it will update the index before returning any result. Likewise, the first query after an index creation will include the index build. Hence, developers should keep this behaviour in mind when designing applications and typically might need to handle query latency.</p>
 <p>ℹ️ Starting from CouchDB 3.0.0, a <a href="https://docs.couchdb.org/en/stable/config/indexbuilds.html">background indexing</a> is implemented. It aims to avoid this latency by forcing the index to update in background after writes.</p>
 <h3 id="index-with-several-fields">Index with several fields<a class="headerlink" href="#index-with-several-fields" title="Permanent link">&para;</a></h3>
-<p>Here is how to declare a query asking for todos having a “work” category and a creation date starting from 2019:</p>
+<p>Here is how to declare a query asking for todos having a “work” category and have been created since 1st January 2019:</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">queryDef</span> <span class="o">=</span> <span class="nx">client</span>
   <span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">)</span>
   <span class="p">.</span><span class="nx">where</span><span class="p">({</span>

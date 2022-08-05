@@ -3000,7 +3000,7 @@ If you are interested about this, you can learn more <a href="https://use-the-in
 
 
 <p>As the <code>$ne</code> operator cannot guarantee contiguous rows, it needs to scan all the index on documents with the <code>"title": "Exercices"</code> to find those that are not in the sport <code>category</code>.</p>
-<p><a href="https://docs.couchdb.org/en/2.3.1/api/database/find.html#find-partial-indexes">Partial indexes</a> are a way to circumvent this issue. They allow to define a partial selector condition that will be evaluated at the indexing time, and will add the document in the index if it matches the condition.
+<p><a href="https://docs.couchdb.org/en/3.2.2/api/database/find.html#find-partial-indexes">Partial indexes</a> are a way to circumvent this issue. They allow to define a partial selector condition that will be evaluated at the indexing time, and will add the document in the index if it matches the condition.
 Thanks to this, it becomes possible to tell CouchDB at indexing time to exlude documents that do not match the condition, e.g. <code>"category": { "$exists": false}</code> or <code>"category": { "$ne": "sport"}</code>.</p>
 <p>Hence, the produced index will only include documents that already matched the partial filter selector, making it possible to query them, as this selector enforces contiguous rows or documents with missing fields.</p>
 <p>You can declare a partial index in cozy-client like this:</p>
@@ -3021,7 +3021,7 @@ Thanks to this, it becomes possible to tell CouchDB at indexing time to exlude d
 <p><code>partialIndex</code> supports the same syntax than the <code>where</code>, so you can easily move inefficient selectors into partial indexes.</p>
 <p>Note in this example, it is no longer necessary to index the <code>category</code> field, as the field is now evaluated at indexing time, rather than during the query. Hence, a partial index is also useful to design less heavy indexes.</p>
 <h2 id="mango-pagination-performances">Mango pagination: performances<a class="headerlink" href="#mango-pagination-performances" title="Permanent link">&para;</a></h2>
-<p>With mango queries, the recommanded method to paginate is through the <code>bookmark</code> parameter. However, one could also notice the <code>skip</code> parameter in the CouchDB <a href="https://docs.couchdb.org/en/2.3.1/api/database/find.html">API</a> and be tempted to paginate with it.</p>
+<p>With mango queries, the recommanded method to paginate is through the <code>bookmark</code> parameter. However, one could also notice the <code>skip</code> parameter in the CouchDB <a href="https://docs.couchdb.org/en/3.2.2/api/database/find.html">API</a> and be tempted to paginate with it.</p>
 <p>We detail here why you should <strong>never use</strong> <code>skip</code> to paginate and use <code>bookmark</code> instead. We explain it for exhaustiveness and to prevent developers to fall into this trap.</p>
 <p>This method consists of specifying a <code>limit</code> to the query, which is the maximum number of documents to return, and a <code>skip</code> parameter that is the number of documents returned so far. With cozy-client, its is expressed through <code>limitBy</code> and <code>offset</code>.</p>
 <p>⚠️ Do not use this:</p>
@@ -3055,23 +3055,23 @@ Thanks to this, it becomes possible to tell CouchDB at indexing time to exlude d
 <p>This is mainly because CouchDB itself is written in Erlang, while views are JavaScript <a href="https://en.wikipedia.org/wiki/User-defined_function">UDF</a> and are executed in isolated JavaScript query processes to serialize the map-reduce functions. The communication between thoses processes and CouchDB is done through <code>stdio</code> , which is synchronous and thus require to process one doc at a time.
 For more details, see this great <a href="https://www.garrensmith.com/blogs/fortuna-rs-couchdb-view-server">blog post</a> from a CouchDB contributor.</p>
 <p>See also the <a href="./#couchdb-performances">CouchDB benchmark</a> we performed.</p>
-<p>As quoted from the <a href="https://docs.couchdb.org/en/2.3.1/maintenance/performance.html#views-generation">CouchDB documentation</a>:</p>
+<p>As quoted from the <a href="https://docs.couchdb.org/en/3.2.2/maintenance/performance.html#views-generation">CouchDB documentation</a>:</p>
 <blockquote>
 <p>Views with the JavaScript query server are extremely slow to generate when there are a non-trivial number of documents to process.</p>
 <p>A 10 million document database took about 4 hours to do view generation</p>
 </blockquote>
 <p>Let alone the very slow indexing time, this also requires a lot of server CPU to build views. Hence, applications cannot create views to ensure the scalability of Cozy.</p>
 <p>ℹ️ Mango queries are directly interpreted in Erlang and therefore do not suffer from the same limitations.</p>
-<p>❌ It is possible to express views in Erlang and thus circumvent this performance issues. However, this is completely forbidden in Cozy, because of the security: doing so requires to enable the Erlang query server that needs root access to the CouchDB server, as explained in the <a href="https://docs.couchdb.org/en/2.3.1/config/query-servers.html#config-native-query-servers">CouchDB documentation</a>. This would break the isolation system and let open the possibilty to define adversary UDF functions.</p>
+<p>❌ It is possible to express views in Erlang and thus circumvent this performance issues. However, this is completely forbidden in Cozy, because of the security: doing so requires to enable the Erlang query server that needs root access to the CouchDB server, as explained in the <a href="https://docs.couchdb.org/en/3.2.2/config/query-servers.html#config-native-query-servers">CouchDB documentation</a>. This would break the isolation system and let open the possibilty to define adversary UDF functions.</p>
 <h2 id="views-pagination">Views: pagination<a class="headerlink" href="#views-pagination" title="Permanent link">&para;</a></h2>
 <p>The CouchDB views does not implement the Mango queries <code>bookmark</code> system. However, it is still possible to paginate results efficiently by using a <code>cursor</code>.
-This method, described in the <a href="https://docs.couchdb.org/en/2.3.1/ddocs/views/pagination.html#paging-alternate-method">CouchDB documentation</a>, combines the <code>startkey</code> and <code>startkey_docid</code> parameters.</p>
+This method, described in the <a href="https://docs.couchdb.org/en/3.2.2//ddocs/views/pagination.html#paging-alternate-method">CouchDB documentation</a>, combines the <code>startkey</code> and <code>startkey_docid</code> parameters.</p>
 <p>For each query, get the last returned document and extract the searched key as well as the <code>_id</code> to respectively set the next <code>startkey</code> and <code>startkey_docid</code> query parameters.</p>
 <p>See this <a href="https://github.com/cozy/cozy-client/blob/0a31ec888c16d9ec1620aae3a1ec001274c0eea4/packages/cozy-client/src/associations/HasManyFiles.js#L12-L42">cursor pagination example</a> in cozy-client.</p>
 <h2 id="revisions">Revisions<a class="headerlink" href="#revisions" title="Permanent link">&para;</a></h2>
 <p>CouchDB keeps for each document a list of its revision (or more exactly a tree with replication and conflicts).
 It&rsquo;s possible to ask to the <a href="https://docs.cozy.io/en/cozy-stack/">cozy-stack</a> the list of the old revisions of a document with <code>[GET /db/{docid}?revs_info=true](http://docs.couchdb.org/en/stable/api/document/common.html#get--db-docid)</code>. It works only if the document has not been deleted. For a deleted document, <a href="https://stackoverflow.com/questions/10854883/retrieve-just-deleted-document/10857330#10857330">a trick</a> is to query the changes feed to know the last revision of the document, and to recreate the document from this revision.</p>
-<p>With an old revision, it&rsquo;s possible to get the content of the document at this revision with <code>GET /db/{docid}?rev={rev}</code> if the database was not compacted. On CouchDB 2.x, compaction happen automatically on all databases from times to times.</p>
+<p>With an old revision, it&rsquo;s possible to get the content of the document at this revision with <code>GET /db/{docid}?rev={rev}</code> if the database was not compacted. On CouchDB 3.x, compaction happen automatically on all databases from times to times.</p>
 <p>A <code>purge</code> operation consists to remove the tombstone for the deleted documents. It is a manual operation, triggered by a <code>[POST /db/_purge](http://docs.couchdb.org/en/stable/api/database/misc.html)</code>.</p>
 <h2 id="conflicts">Conflicts<a class="headerlink" href="#conflicts" title="Permanent link">&para;</a></h2>
 <p>It is possible to create a conflict on CouchDB like it does for the replication by using <code>new_edits: false</code>, but it is not well documented to say the least. The more accurate description was in the old wiki, that <a href="https://wiki.apache.org/couchdb/HTTP_Bulk_Document_API#Posting_Existing_Revisions">no longer exists</a>. Here is a copy of what it said:</p>
