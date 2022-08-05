@@ -154,7 +154,7 @@ CouchDB updates the Mango indexes when the data is read, but not on writes. This
 
 ### Index with several fields
 
-Here is how to declare a query asking for todos having a “work” category and a creation date starting from 2019:
+Here is how to declare a query asking for todos having a “work” category and have been created since 1st January 2019:
 
 ```javascript
 const queryDef = client
