@@ -2893,7 +2893,7 @@ Cozy Stack, and that there is a DOM node with the stack info. See
 <p><code>useQuery</code> is the most straightforward to fetch data from the Cozy.
 Query results are cached and can be reused across components, you just
 have to name the query results (&ldquo;checked-todos&rdquo;) below.</p>
-<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">CozyClient</span><span class="p">,</span> <span class="p">{</span> <span class="nx">Query</span><span class="p">,</span> <span class="nx">isQueryLoading</span><span class="p">,</span> <span class="nx">Q</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">CozyClient</span><span class="p">,</span> <span class="p">{</span> <span class="nx">useQuery</span><span class="p">,</span> <span class="nx">isQueryLoading</span><span class="p">,</span> <span class="nx">Q</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 
 <span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="nx">CozyClient</span><span class="p">.</span><span class="nx">fromDOM</span><span class="p">()</span>
 <span class="nx">client</span><span class="p">.</span><span class="nx">ensureStore</span><span class="p">()</span>
@@ -2901,10 +2901,10 @@ have to name the query results (&ldquo;checked-todos&rdquo;) below.</p>
 <span class="kr">const</span> <span class="nx">checked</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span> <span class="p">}</span>
 
 <span class="c1">// Use the Q helper to build queries</span>
-<span class="kr">const</span> <span class="nx">query</span> <span class="o">=</span> <span class="nx">Q</span><span class="p">(</span><span class="nx">todos</span><span class="p">).</span><span class="nx">where</span><span class="p">(</span><span class="nx">checked</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">queryDefinition</span> <span class="o">=</span> <span class="nx">Q</span><span class="p">(</span><span class="nx">todos</span><span class="p">).</span><span class="nx">where</span><span class="p">(</span><span class="nx">checked</span><span class="p">)</span>
 
 <span class="kd">function</span> <span class="nx">TodoList</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kr">const</span> <span class="nx">queryResult</span> <span class="o">=</span> <span class="nx">useQuery</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">queryResult</span> <span class="o">=</span> <span class="nx">useQuery</span><span class="p">(</span><span class="nx">queryDefinition</span><span class="p">,</span> <span class="p">{</span>
     <span class="nx">as</span><span class="o">:</span> <span class="s1">&#39;checked-todos&#39;</span><span class="p">,</span>
     <span class="nx">fetchPolicy</span><span class="o">:</span> <span class="nx">CozyClient</span><span class="p">.</span><span class="nx">fetchPolicies</span><span class="p">.</span><span class="nx">olderThan</span><span class="p">(</span><span class="mi">30</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span>
   <span class="p">})</span>
@@ -2931,22 +2931,22 @@ of another query to have been fetched.</p>
 <h3 id="2b-requesting-data-with-ltquery-gt">2.b Requesting data with <code>&lt;Query /&gt;</code><a class="headerlink" href="#2b-requesting-data-with-ltquery-gt" title="Permanent link">&para;</a></h3>
 <p>If you cannot use a hook, you can use the <code>Query</code> render-prop component. Basic example of usage:</p>
 <div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">Query</span><span class="p">,</span> <span class="nx">isQueryLoading</span><span class="p">,</span> <span class="nx">Q</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
+<span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span>
 
 <span class="kr">const</span> <span class="nx">todos</span> <span class="o">=</span> <span class="s1">&#39;io.cozy.todos&#39;</span>
 <span class="kr">const</span> <span class="nx">checked</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span> <span class="p">}</span>
 
 <span class="c1">// Use the Q helper to build queries</span>
-<span class="kr">const</span> <span class="nx">query</span> <span class="o">=</span> <span class="nx">Q</span><span class="p">(</span><span class="nx">todos</span><span class="p">).</span><span class="nx">where</span><span class="p">(</span><span class="nx">checked</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">queryDefinition</span> <span class="o">=</span> <span class="nx">Q</span><span class="p">(</span><span class="nx">todos</span><span class="p">).</span><span class="nx">where</span><span class="p">(</span><span class="nx">checked</span><span class="p">)</span>
 
-<span class="kd">function</span> <span class="nx">TodoList</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">Query</span> <span class="na">query</span><span class="o">=</span><span class="p">{</span><span class="nx">query</span><span class="p">}&gt;</span>
-    <span class="p">{</span>
-      <span class="nx">queryResult</span> <span class="p">=&gt;</span> <span class="nx">isQueryLoading</span><span class="p">(</span><span class="nx">queryResult</span><span class="p">)</span>
-        <span class="o">?</span> <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span><span class="nx">Loading</span><span class="p">...&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
-        <span class="o">:</span> <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;{</span><span class="nx">queryResult</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">todo</span> <span class="p">=&gt;</span> <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;{</span><span class="nx">todo</span><span class="p">.</span><span class="nx">label</span><span class="p">}&lt;/</span><span class="nt">li</span><span class="p">&gt;)}&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<span class="kr">const</span> <span class="nx">TodoList</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nt">Query</span> <span class="na">query</span><span class="o">=</span><span class="p">{</span><span class="nx">queryDefinition</span><span class="p">}&gt;</span>
+    <span class="p">{</span><span class="nx">queryResult</span> <span class="p">=&gt;</span> <span class="nx">isQueryLoading</span><span class="p">(</span><span class="nx">queryResult</span><span class="p">)</span>
+      <span class="o">?</span> <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span><span class="nx">Loading</span><span class="p">...&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+      <span class="o">:</span> <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;{</span><span class="nx">queryResult</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">todo</span> <span class="p">=&gt;</span> <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;{</span><span class="nx">todo</span><span class="p">.</span><span class="nx">label</span><span class="p">}&lt;/</span><span class="nt">li</span><span class="p">&gt;)}&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
     <span class="p">}</span>
   <span class="p">&lt;/</span><span class="nt">Query</span><span class="p">&gt;</span>
-<span class="p">}</span>
+<span class="p">)</span>
 </pre></div>
 
 
@@ -2957,36 +2957,37 @@ of another query to have been fetched.</p>
 <p>The following props will be given to your wrapped component:
  - <code>data</code>: an array of documents
  - <code>fetchStatus</code>: the status of the fetch (<code>pending</code>, <code>loading</code>, <code>loaded</code> or <code>error</code>)
- - <code>lastFetch</code>: when the last fetch occured
+ - <code>lastFetch</code>: when the last fetch occurred
  - <code>hasMore</code>: the fetches being paginated, this property indicates if there are more documents to load</p>
-<p>You can also pass a function instead of a direct query. Your function will be given the props of the component and should return the requested query:</p>
+<p>You can also pass a function instead of a direct query definition. Your function will be given the props of the component and should return the requested query definition:</p>
 <div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">Query</span><span class="p">,</span> <span class="nx">Q</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
+<span class="kr">import</span> <span class="nx">React</span> <span class="nx">from</span> <span class="s1">&#39;react&#39;</span>
 
-<span class="kr">const</span> <span class="nx">query</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+<span class="kr">const</span> <span class="nx">queryDefinition</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
   <span class="kr">const</span> <span class="nx">todos</span> <span class="o">=</span> <span class="s1">&#39;io.cozy.todos&#39;</span>
   <span class="kr">const</span> <span class="nx">where</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">checked</span><span class="o">:</span> <span class="nx">props</span><span class="p">.</span><span class="nx">checked</span> <span class="p">}</span>
   <span class="k">return</span> <span class="nx">Q</span><span class="p">(</span><span class="nx">todos</span><span class="p">).</span><span class="nx">where</span><span class="p">(</span><span class="nx">where</span><span class="p">)</span>
 <span class="p">}</span>
 
-<span class="kd">function</span> <span class="nx">TodoList</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">Query</span> <span class="na">query</span><span class="o">=</span><span class="p">{</span><span class="nx">query</span><span class="p">}</span> <span class="na">checked</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">checked</span><span class="p">}&gt;</span>
-    <span class="p">{</span>
-      <span class="p">({</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">fetchStatus</span> <span class="p">})</span> <span class="p">=&gt;</span>
+<span class="kr">const</span> <span class="nx">TodoList</span> <span class="o">=</span> <span class="p">({</span> <span class="nx">props</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="p">(</span>
+  <span class="p">&lt;</span><span class="nt">Query</span> <span class="na">query</span><span class="o">=</span><span class="p">{</span><span class="nx">queryDefinition</span><span class="p">}</span> <span class="na">checked</span><span class="o">=</span><span class="p">{</span><span class="nx">props</span><span class="p">.</span><span class="nx">checked</span><span class="p">}&gt;</span>
+    <span class="p">{({</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">fetchStatus</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="p">(</span>
       <span class="nx">fetchStatus</span> <span class="o">!==</span> <span class="s1">&#39;loaded&#39;</span>
         <span class="o">?</span> <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span><span class="nx">Loading</span><span class="p">...&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
         <span class="o">:</span> <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;{</span><span class="nx">data</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">todo</span> <span class="p">=&gt;</span> <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;{</span><span class="nx">todo</span><span class="p">.</span><span class="nx">label</span><span class="p">}&lt;/</span><span class="nt">li</span><span class="p">&gt;)}&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+      <span class="p">)</span>
     <span class="p">}</span>
   <span class="p">&lt;/</span><span class="nt">Query</span><span class="p">&gt;</span>
-<span class="p">}</span>
+<span class="p">)</span>
 
-<span class="c1">// use &lt;TodoList checked={false} /&gt;</span>
+<span class="c1">// use &lt;TodoList checked={false}/&gt;</span>
 </pre></div>
 
 
-<p>Note: Your query will be bound when the <code>&lt;Query/&gt;</code> component mounts. Future changes in props will not modify the query.</p>
+<p>Note: Your query definition will be bound when the <code>&lt;Query/&gt;</code> component mounts. Future changes in props will not modify the query.</p>
 <h3 id="2c-requesting-data-with-the-queryconnect-hoc">2.c Requesting data with the <code>queryConnect</code> HOC<a class="headerlink" href="#2c-requesting-data-with-the-queryconnect-hoc" title="Permanent link">&para;</a></h3>
-<p>At your preference, you can use an higher-order component. <code>queryConnect</code> will take the name of the props field where it should send the result of the query and the actual query:</p>
-<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">queryConnect</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
+<p>At your preference, you can use a higher-order component. <code>queryConnect</code> will take the name of the props field where it should send the result of the query and the actual query:</p>
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">queryConnect</span><span class="p">,</span> <span class="nx">Q</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 
 <span class="kd">function</span> <span class="nx">TodoList</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
   <span class="kr">const</span> <span class="p">{</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">fetchStatus</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">props</span><span class="p">.</span><span class="nx">result</span>
@@ -3005,9 +3006,9 @@ of another query to have been fetched.</p>
 </pre></div>
 
 
-<p><code>queryConnect</code> will use <code>&lt;Query /&gt;</code> internally so you will inherits the same behaviour.</p>
+<p><code>queryConnect</code> will use <code>&lt;Query /&gt;</code> internally, so you will inherit the same behaviour.</p>
 <p>With the same syntax, you may register multiple queries to run:</p>
-<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">queryConnect</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">queryConnect</span><span class="p">,</span> <span class="nx">Q</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 
 <span class="kd">function</span> <span class="nx">TodoList</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
   <span class="kr">const</span> <span class="p">{</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">fetchStatus</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">props</span><span class="p">.</span><span class="nx">checked</span>
@@ -3033,28 +3034,31 @@ of another query to have been fetched.</p>
 components. In this case, you do not want to execute 2 network requests for the same data, the
 two components should share the same data and only 1 network request should be executed.</p>
 <p>There are two solutions:</p>
-<p>1) Lift the data fetching up the React tree: make a parent of the two components be the responsible of the data.
+<p>1) Lift the data fetching up the React tree: make a parent of the two components be the responsible for the data.
 2) Using fetch policies to prevent re-fetching of the data</p>
 <p>1 can be a good solution but sometimes the components needing the data are too far down the tree and/or too decoupled;
 it might not make sense to lift the data fetching up only to have to drill the data down the tree again.</p>
-<p>Using both <code>Query</code> and <code>queryConnect</code>, you can declare a <em>fetch policy</em>. It tells cozy-client if it should
-execute the <code>query</code> at componentDidMount time. It enables n components to be connected to the same query without
-triggering n requests.</p>
+<p>Using <code>useQuery</code>, <code>Query</code> and <code>queryConnect</code>, you can declare a <em>fetch policy</em>. It tells cozy-client if it should
+execute the <code>query</code> at componentDidMount time. It enables <em>N</em> components to be connected to the same query without
+triggering <em>N</em> requests.</p>
 <p>A fetch policy is a function receiving the state of the current query and returning true if it should
 be fetched and false otherwise. It is important to name the query with <code>as</code> when using fetch policies
 otherwise query data cannot be shared across components.</p>
 <div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">Q</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
-<span class="kr">const</span> <span class="nx">query</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">Q</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">queryDefinition</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="nx">Q</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">)</span>
 
-<span class="c1">// io.cozy.todos will not be refetched if there are already io.cozy.todos</span>
-<span class="c1">// in the store and the data is fresh (updated less than 30s ago). </span>
-<span class="kr">const</span> <span class="nx">fetchPolicy</span> <span class="o">=</span> <span class="nx">CozyClient</span><span class="p">.</span><span class="nx">olderThan</span><span class="p">(</span><span class="mi">30</span><span class="o">*</span><span class="mi">1000</span><span class="p">)</span>
-<span class="kr">const</span> <span class="nx">as</span> <span class="o">=</span> <span class="s1">&#39;my-query&#39;</span>
+<span class="kr">const</span> <span class="nx">MyComponent</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
 
-<span class="c1">// With Query and a render prop</span>
-<span class="p">&lt;</span><span class="nt">Query</span> <span class="na">as</span><span class="o">=</span><span class="p">{</span><span class="nx">as</span><span class="p">}</span> <span class="na">query</span><span class="o">=</span><span class="p">{</span><span class="nx">query</span><span class="p">}</span> <span class="na">fetchPolicy</span><span class="o">=</span><span class="p">{</span><span class="nx">fetchPolicy</span><span class="p">}&gt;{</span>
-  <span class="p">({</span> <span class="nx">data</span><span class="o">:</span> <span class="nx">todos</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="p">{&lt;</span><span class="nt">TodoList</span> <span class="na">todos</span><span class="o">=</span><span class="p">{</span><span class="nx">todos</span><span class="p">}</span> <span class="p">/&gt;}</span>
-<span class="p">}&lt;/</span><span class="nt">Query</span><span class="p">&gt;</span>
+  <span class="c1">// io.cozy.todos will not be refetched if there are already io.cozy.todos</span>
+  <span class="c1">// in the store and the data is fresh (updated less than 30s ago). </span>
+  <span class="kr">const</span> <span class="nx">fetchPolicy</span> <span class="o">=</span> <span class="nx">CozyClient</span><span class="p">.</span><span class="nx">olderThan</span><span class="p">(</span><span class="mi">30</span><span class="o">*</span><span class="mi">1000</span><span class="p">)</span>
+  <span class="kr">const</span> <span class="nx">as</span> <span class="o">=</span> <span class="s1">&#39;my-query&#39;</span>
+
+  <span class="c1">// With Query and a render prop</span>
+  <span class="k">return</span> <span class="p">(&lt;</span><span class="nt">Query</span> <span class="na">as</span><span class="o">=</span><span class="p">{</span><span class="nx">as</span><span class="p">}</span> <span class="na">query</span><span class="o">=</span><span class="p">{</span><span class="nx">queryDefinition</span><span class="p">}</span> <span class="na">fetchPolicy</span><span class="o">=</span><span class="p">{</span><span class="nx">fetchPolicy</span><span class="p">}&gt;{</span>
+    <span class="p">({</span> <span class="nx">data</span><span class="o">:</span> <span class="nx">todos</span> <span class="p">})</span> <span class="p">=&gt;</span> <span class="p">{&lt;</span><span class="nt">TodoList</span> <span class="na">todos</span><span class="o">=</span><span class="p">{</span><span class="nx">todos</span><span class="p">}</span> <span class="p">/&gt;}</span>
+  <span class="p">}&lt;/</span><span class="nt">Query</span><span class="p">&gt;)</span>
+<span class="p">}</span>
 
 <span class="c1">// With queryConnect</span>
 <span class="nx">queryConnect</span><span class="p">({</span>
@@ -3077,7 +3081,7 @@ for the API documentation.</p>
 <span class="kd">function</span> <span class="nx">MyParentComponent</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">return</span> <span class="p">(</span>
     <span class="o">&lt;&gt;</span>
-      <span class="p">&lt;</span><span class="nt">ConnectedTodoList</span> <span class="err">+</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">ConnectedTodoList</span> <span class="p">/&gt;</span>
       <span class="p">&lt;</span><span class="nt">RealTimeQueries</span> <span class="na">doctype</span><span class="o">=</span><span class="s">&quot;io.cozy.todos&quot;</span> <span class="p">/&gt;</span>
     <span class="o">&lt;</span><span class="err">/&gt;</span>
   <span class="p">)</span>
@@ -3097,14 +3101,16 @@ for the API documentation.</p>
     <span class="p">{</span> <span class="nx">label</span><span class="o">:</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">elements</span><span class="p">[</span><span class="s1">&#39;new-todo&#39;</span><span class="p">],</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span> <span class="p">}</span>
   <span class="p">)</span>
   <span class="k">return</span> <span class="p">(</span>
-    <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
-      <span class="p">{</span><span class="cm">/* todo items */</span><span class="p">}</span>
-    <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">form</span> <span class="na">onSubmit</span><span class="o">=</span><span class="p">{</span><span class="nx">createNewTodo</span><span class="p">}&gt;</span>
-      <span class="p">&lt;</span><span class="nt">label</span> <span class="na">htmlFor</span><span class="o">=</span><span class="s">&quot;new-todo&quot;</span><span class="p">&gt;</span><span class="nx">Todo</span><span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
-      <span class="p">&lt;</span><span class="nt">input</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;new-todo&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;new-todo&quot;</span> <span class="p">/&gt;</span>
-      <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span><span class="p">&gt;</span><span class="nx">Add</span> <span class="nx">todo</span><span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
-    <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+    <span class="o">&lt;&gt;</span>
+      <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+        <span class="p">{</span><span class="cm">/* todo items */</span><span class="p">}</span>
+      <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">form</span> <span class="na">onSubmit</span><span class="o">=</span><span class="p">{</span><span class="nx">createNewTodo</span><span class="p">}&gt;</span>
+        <span class="p">&lt;</span><span class="nt">label</span> <span class="na">htmlFor</span><span class="o">=</span><span class="s">&quot;new-todo&quot;</span><span class="p">&gt;</span><span class="nx">Todo</span><span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;new-todo&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;new-todo&quot;</span> <span class="p">/&gt;</span>
+        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span><span class="p">&gt;</span><span class="nx">Add</span> <span class="nx">todo</span><span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+    <span class="o">&lt;</span><span class="err">/&gt;</span>
   <span class="p">)</span>
 <span class="p">}</span>
 
@@ -3117,11 +3123,11 @@ for the API documentation.</p>
 
 <span class="kr">const</span> <span class="nx">todos</span> <span class="o">=</span> <span class="s1">&#39;io.cozy.todos&#39;</span>
 <span class="kr">const</span> <span class="nx">checked</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span> <span class="p">}</span>
-<span class="kr">const</span> <span class="nx">query</span> <span class="o">=</span> <span class="nx">Q</span><span class="p">(</span><span class="nx">todos</span><span class="p">).</span><span class="nx">where</span><span class="p">(</span><span class="nx">checked</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">queryDefinition</span> <span class="o">=</span> <span class="nx">Q</span><span class="p">(</span><span class="nx">todos</span><span class="p">).</span><span class="nx">where</span><span class="p">(</span><span class="nx">checked</span><span class="p">)</span>
 <span class="kr">const</span> <span class="nx">mutations</span> <span class="o">=</span> <span class="nx">client</span> <span class="p">=&gt;</span> <span class="p">({</span> <span class="nx">createDocument</span><span class="o">:</span> <span class="nx">client</span><span class="p">.</span><span class="nx">create</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">client</span><span class="p">)</span> <span class="p">})</span>
 
 <span class="kd">function</span> <span class="nx">TodoList</span><span class="p">()</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">Query</span> <span class="na">query</span><span class="o">=</span><span class="p">{</span><span class="nx">query</span><span class="p">}</span> <span class="na">mutations</span><span class="o">=</span><span class="p">{</span><span class="nx">mutations</span><span class="p">}&gt;</span>
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">Query</span> <span class="na">query</span><span class="o">=</span><span class="p">{</span><span class="nx">queryDefinition</span><span class="p">}</span> <span class="na">mutations</span><span class="o">=</span><span class="p">{</span><span class="nx">mutations</span><span class="p">}&gt;</span>
     <span class="p">{</span>
       <span class="p">({</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">fetchStatus</span> <span class="p">})</span> <span class="p">=&gt;</span>
       <span class="nx">fetchStatus</span> <span class="o">!==</span> <span class="s1">&#39;loaded&#39;</span>
@@ -3145,13 +3151,11 @@ network. You can use <code>createMockClient</code> for this.</p>
   <span class="k">if</span> <span class="p">(</span><span class="nx">fetchStatus</span> <span class="o">!==</span> <span class="s1">&#39;loaded&#39;</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span><span class="nx">Loading</span><span class="p">...&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
   <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="p">(</span>
-      <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
-        <span class="p">{</span><span class="nx">data</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">todo</span> <span class="p">=&gt;</span> <span class="p">(</span>
-          <span class="p">&lt;</span><span class="nt">li</span> <span class="na">key</span><span class="o">=</span><span class="p">{</span><span class="nx">todo</span><span class="p">.</span><span class="nx">id</span><span class="p">}&gt;{</span><span class="nx">todo</span><span class="p">.</span><span class="nx">label</span><span class="p">}&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
-        <span class="p">))}</span>
-      <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
-    <span class="p">)</span>
+    <span class="k">return</span> <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+      <span class="p">{</span><span class="nx">data</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">todo</span> <span class="p">=&gt;</span> <span class="p">(</span>
+              <span class="p">&lt;</span><span class="nt">li</span> <span class="na">key</span><span class="o">=</span><span class="p">{</span><span class="nx">todo</span><span class="p">.</span><span class="nx">id</span><span class="p">}&gt;{</span><span class="nx">todo</span><span class="p">.</span><span class="nx">label</span><span class="p">}&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+      <span class="p">))}</span>
+    <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
