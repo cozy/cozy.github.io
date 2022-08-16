@@ -2000,8 +2000,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#transformsort-mangopartialsort" title="transformSort ⇒ MangoPartialSort" class="md-nav__link">
-    transformSort ⇒ MangoPartialSort
+  <a href="#transformsort-mangosort" title="transformSort ⇒ MangoSort" class="md-nav__link">
+    transformSort ⇒ MangoSort
   </a>
   
 </li>
@@ -2335,15 +2335,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mangopartialselector-object" title="MangoPartialSelector : object" class="md-nav__link">
-    MangoPartialSelector : object
+  <a href="#mangoselector-object" title="MangoSelector : object" class="md-nav__link">
+    MangoSelector : object
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#mangopartialsort-arrayobject" title="MangoPartialSort : Array.&lt;object&gt;" class="md-nav__link">
-    MangoPartialSort : Array.&lt;object&gt;
+  <a href="#mangosort-arrayobject" title="MangoSort : Array.&lt;object&gt;" class="md-nav__link">
+    MangoSort : Array.&lt;object&gt;
   </a>
   
 </li>
@@ -5014,8 +5014,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#transformsort-mangopartialsort" title="transformSort ⇒ MangoPartialSort" class="md-nav__link">
-    transformSort ⇒ MangoPartialSort
+  <a href="#transformsort-mangosort" title="transformSort ⇒ MangoSort" class="md-nav__link">
+    transformSort ⇒ MangoSort
   </a>
   
 </li>
@@ -5349,15 +5349,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mangopartialselector-object" title="MangoPartialSelector : object" class="md-nav__link">
-    MangoPartialSelector : object
+  <a href="#mangoselector-object" title="MangoSelector : object" class="md-nav__link">
+    MangoSelector : object
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#mangopartialsort-arrayobject" title="MangoPartialSort : Array.&lt;object&gt;" class="md-nav__link">
-    MangoPartialSort : Array.&lt;object&gt;
+  <a href="#mangosort-arrayobject" title="MangoSort : Array.&lt;object&gt;" class="md-nav__link">
+    MangoSort : Array.&lt;object&gt;
   </a>
   
 </li>
@@ -5624,7 +5624,7 @@ through OAuth.</p>
 <p>It follows this naming convention:
 `by_{indexed_field1}<em>and</em>{indexed_field2}<em>filter</em>{partial_filter_field1}<em>and</em>{partial_filter_field2}</p>
 </dd>
-<dt><a href="#transformSort">transformSort</a> ⇒ <code><a href="#MangoPartialSort">MangoPartialSort</a></code></dt>
+<dt><a href="#transformSort">transformSort</a> ⇒ <code><a href="#MangoSort">MangoSort</a></code></dt>
 <dd><p>Transform sort into Array</p>
 </dd>
 <dt><a href="#getIndexFields">getIndexFields</a> ⇒ <code>Array</code></dt>
@@ -5741,9 +5741,9 @@ not.</p>
 </dd>
 <dt><a href="#MangoPartialFilter">MangoPartialFilter</a> : <code>object</code></dt>
 <dd></dd>
-<dt><a href="#MangoPartialSelector">MangoPartialSelector</a> : <code>object</code></dt>
+<dt><a href="#MangoSelector">MangoSelector</a> : <code>object</code></dt>
 <dd></dd>
-<dt><a href="#MangoPartialSort">MangoPartialSort</a> : <code>Array.&lt;object&gt;</code></dt>
+<dt><a href="#MangoSort">MangoSort</a> : <code>Array.&lt;object&gt;</code></dt>
 <dd></dd>
 <dt><a href="#MangoQueryOptions">MangoQueryOptions</a> : <code>object</code></dt>
 <dd></dd>
@@ -6117,7 +6117,7 @@ document as data attribute  </p>
 </tr>
 <tr>
 <td>selector</td>
-<td><a href="#MangoPartialSelector"><code>MangoPartialSelector</code></a></td>
+<td><a href="#MangoSelector"><code>MangoSelector</code></a></td>
 <td>selector</td>
 </tr>
 <tr>
@@ -6154,7 +6154,7 @@ the query run again.</p>
 </tr>
 <tr>
 <td>selector</td>
-<td><a href="#MangoPartialSelector"><code>MangoPartialSelector</code></a></td>
+<td><a href="#MangoSelector"><code>MangoSelector</code></a></td>
 <td>The mango selector</td>
 </tr>
 <tr>
@@ -6169,7 +6169,7 @@ the query run again.</p>
 <p>Returns a filtered list of documents using a Mango selector.</p>
 <p>The returned documents are paginated by the stack.</p>
 <p><strong>Kind</strong>: instance method of <a href="#DocumentCollection"><code>DocumentCollection</code></a><br />
-<strong>Returns</strong>: <code>Promise.&lt;{data, skip, bookmark, next, execution_stats}&gt;</code> - Response in JSON<br />
+<strong>Returns</strong>: <code>Promise.&lt;{data, skip, bookmark, next, execution_stats}&gt;</code> - The JSON API conformant response.<br />
 <strong>Throws</strong>:</p>
 <ul>
 <li><code>FetchError</code> </li>
@@ -6185,7 +6185,7 @@ the query run again.</p>
 <tbody>
 <tr>
 <td>selector</td>
-<td><a href="#MangoPartialSelector"><code>MangoPartialSelector</code></a></td>
+<td><a href="#MangoSelector"><code>MangoSelector</code></a></td>
 <td>The Mango selector.</td>
 </tr>
 <tr>
@@ -6203,7 +6203,7 @@ superior to the pagination limit.
 Can result in a lot of network requests.</p>
 <p>The returned documents are paginated by the stack.</p>
 <p><strong>Kind</strong>: instance method of <a href="#DocumentCollection"><code>DocumentCollection</code></a><br />
-<strong>Returns</strong>: <code>Promise.&lt;{data, skip, bookmark, next, execution_stats}&gt;</code> - Response in JSON<br />
+<strong>Returns</strong>: <code>Promise.&lt;{data, skip, bookmark, next, execution_stats}&gt;</code> - The JSON API conformant response.<br />
 <strong>Throws</strong>:</p>
 <ul>
 <li><code>FetchError</code> </li>
@@ -6219,7 +6219,7 @@ Can result in a lot of network requests.</p>
 <tbody>
 <tr>
 <td>selector</td>
-<td><a href="#MangoPartialSelector"><code>MangoPartialSelector</code></a></td>
+<td><a href="#MangoSelector"><code>MangoSelector</code></a></td>
 <td>The Mango selector.</td>
 </tr>
 <tr>
@@ -6370,7 +6370,7 @@ Can result in a lot of network requests.</p>
 <tbody>
 <tr>
 <td>selector</td>
-<td><a href="#MangoPartialSelector"><code>MangoPartialSelector</code></a></td>
+<td><a href="#MangoSelector"><code>MangoSelector</code></a></td>
 <td>Mango selector</td>
 </tr>
 <tr>
@@ -8769,7 +8769,7 @@ found&rdquo; error.  </p>
 </tbody>
 </table>
 <p><a name="transformSort"></a></p>
-<h2 id="transformsort-mangopartialsort">transformSort ⇒ <a href="#MangoPartialSort"><code>MangoPartialSort</code></a><a class="headerlink" href="#transformsort-mangopartialsort" title="Permanent link">&para;</a></h2>
+<h2 id="transformsort-mangosort">transformSort ⇒ <a href="#MangoSort"><code>MangoSort</code></a><a class="headerlink" href="#transformsort-mangosort" title="Permanent link">&para;</a></h2>
 <p>Transform sort into Array</p>
 <p><strong>Kind</strong>: global constant  </p>
 <table>
@@ -8783,7 +8783,7 @@ found&rdquo; error.  </p>
 <tbody>
 <tr>
 <td>sort</td>
-<td><a href="#MangoPartialSort"><code>MangoPartialSort</code></a></td>
+<td><a href="#MangoSort"><code>MangoSort</code></a></td>
 <td>The sorting parameters</td>
 </tr>
 </tbody>
@@ -8810,7 +8810,7 @@ query to work</p>
 </tr>
 <tr>
 <td>options.selector</td>
-<td><a href="#MangoPartialSelector"><code>MangoPartialSelector</code></a> | <code>null</code></td>
+<td><a href="#MangoSelector"><code>MangoSelector</code></a> | <code>null</code></td>
 <td>Mango selector</td>
 </tr>
 <tr>
@@ -8820,7 +8820,7 @@ query to work</p>
 </tr>
 <tr>
 <td>[options.sort]</td>
-<td><a href="#MangoPartialSort"><code>MangoPartialSort</code></a></td>
+<td><a href="#MangoSort"><code>MangoSort</code></a></td>
 <td>The sorting parameters</td>
 </tr>
 </tbody>
@@ -9835,11 +9835,11 @@ not.</p>
 <p><a name="MangoPartialFilter"></a></p>
 <h2 id="mangopartialfilter-object">MangoPartialFilter : <code>object</code><a class="headerlink" href="#mangopartialfilter-object" title="Permanent link">&para;</a></h2>
 <p><strong>Kind</strong>: global typedef<br />
-<a name="MangoPartialSelector"></a></p>
-<h2 id="mangopartialselector-object">MangoPartialSelector : <code>object</code><a class="headerlink" href="#mangopartialselector-object" title="Permanent link">&para;</a></h2>
+<a name="MangoSelector"></a></p>
+<h2 id="mangoselector-object">MangoSelector : <code>object</code><a class="headerlink" href="#mangoselector-object" title="Permanent link">&para;</a></h2>
 <p><strong>Kind</strong>: global typedef<br />
-<a name="MangoPartialSort"></a></p>
-<h2 id="mangopartialsort-arrayobject">MangoPartialSort : <code>Array.&lt;object&gt;</code><a class="headerlink" href="#mangopartialsort-arrayobject" title="Permanent link">&para;</a></h2>
+<a name="MangoSort"></a></p>
+<h2 id="mangosort-arrayobject">MangoSort : <code>Array.&lt;object&gt;</code><a class="headerlink" href="#mangosort-arrayobject" title="Permanent link">&para;</a></h2>
 <p><strong>Kind</strong>: global typedef<br />
 <a name="MangoQueryOptions"></a></p>
 <h2 id="mangoqueryoptions-object">MangoQueryOptions : <code>object</code><a class="headerlink" href="#mangoqueryoptions-object" title="Permanent link">&para;</a></h2>
@@ -9856,12 +9856,12 @@ not.</p>
 <tbody>
 <tr>
 <td>[selector]</td>
-<td><a href="#MangoPartialSelector"><code>MangoPartialSelector</code></a></td>
+<td><a href="#MangoSelector"><code>MangoSelector</code></a></td>
 <td>Selector</td>
 </tr>
 <tr>
 <td>[sort]</td>
-<td><a href="#MangoPartialSort"><code>MangoPartialSort</code></a></td>
+<td><a href="#MangoSort"><code>MangoSort</code></a></td>
 <td>The sorting parameters</td>
 </tr>
 <tr>

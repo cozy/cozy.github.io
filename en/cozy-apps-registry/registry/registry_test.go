@@ -570,7 +570,6 @@ func TestMain(m *testing.M) {
 }
 
 // Helpers
-//
 func generatePackageJSON(tw *tar.Writer, content map[string]interface{}) error {
 	packageContent, _ := json.Marshal(content)
 	packageHeaders := &tar.Header{
