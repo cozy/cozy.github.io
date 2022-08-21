@@ -163,7 +163,7 @@ And create configuration:
     EOF
     sudo chown cozy-stack:cozy /etc/cozy/cozy.yml
     sudo chmod 0644 /etc/cozy/cozy.yml
-    sudo sh -c "COZY_ADMIN_PASSWORD=\"${COZY_PASS}\" cozy-stack config passwd /etc/cozy/cozy-admin-passphrase"
+    sudo sh -c "COZY_ADMIN_PASSPHRASE=\"${COZY_PASS}\" cozy-stack config passwd /etc/cozy/cozy-admin-passphrase"
     sudo chown cozy-stack:cozy /etc/cozy/cozy-admin-passphrase
     sudo cozy-stack config gen-keys /etc/cozy/vault
     sudo chown cozy-stack:cozy /etc/cozy/vault.enc /etc/cozy/vault.dec
