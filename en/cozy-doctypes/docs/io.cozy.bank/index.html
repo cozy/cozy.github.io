@@ -2919,9 +2919,9 @@
                 
                 <p><a href="../#table-of-contents">Table of contents</a></p>
 <h1 id="cozy-bank-doctypes">Cozy Bank doctypes<a class="headerlink" href="#cozy-bank-doctypes" title="Permanent link">&para;</a></h1>
-<p>Cozy can stores and manipulate bank related datas, distributed across several doctypes.</p>
+<p>Cozy can store and manipulate bank related datas, distributed across several doctypes.</p>
 <h2 id="iocozybanksettings"><code>io.cozy.bank.settings</code><a class="headerlink" href="#iocozybanksettings" title="Permanent link">&para;</a></h2>
-<p>This doctype store informations about Bank application settings. There is only one document, by default:</p>
+<p>This doctype store information about Bank application settings. There is only one document, by default:</p>
 <div class="codehilite"><pre><span></span>{
   notifications: {
     amountMax: {
@@ -2934,7 +2934,7 @@
 
 
 <h2 id="iocozybankaccounts"><code>io.cozy.bank.accounts</code><a class="headerlink" href="#iocozybankaccounts" title="Permanent link">&para;</a></h2>
-<p>This doctypes stores informations about a Bank account:</p>
+<p>This doctype stores information about a Bank account:</p>
 <ul>
 <li><code>label</code>: {string} - The bank account label (e.g. <em>John Doe Bank Account</em>)</li>
 <li><code>institutionLabel</code>: {string} - The financial institution name the bank account belongs to</li>
@@ -2942,7 +2942,7 @@
 <li><code>type</code>: {string} - The account type in the list <code>['none', 'bank', 'cash', 'asset', 'credit card', 'liability']</code></li>
 <li><code>number</code>: {string} - The bank account number in its institution</li>
 <li><code>iban</code>: {string} - The bank account international identifier</li>
-<li><code>serviceID</code>: {number} - In case of external service used to import transactions, this key can stores the service&rsquo;s account ID; can be <code>undefined</code> is the account isn&rsquo;t managed by any external service</li>
+<li><code>serviceID</code>: {number} - In case of external service used to import transactions, this key can store the service&rsquo;s account ID; can be <code>undefined</code> is the account isn&rsquo;t managed by any external service</li>
 <li><code>vendorId</code>: {string} - Id of the bank account on the vendor side</li>
 <li><code>loan</code>: {Object} - Specific properties for loan accounts. Will be undefined for all other account types</li>
 <li><code>contactName</code>: {string} - The name of the contact in the credit institution</li>
@@ -3062,7 +3062,7 @@
 best the result of Date.toString() -&gt; like &lsquo;Fri Mar 09 2018 19:04:40 GMT+0100 (CET)&rsquo; which contains
 the time zones.</p>
 <h3 id="categories">Categories<a class="headerlink" href="#categories" title="Permanent link">&para;</a></h3>
-<p>There are up to four categories that can be assigned to a <code>io.cozy.bank.operations</code> document. But there is only one that a connector have to set when retrieving the transactions from a bank: <code>automaticCategoryId</code>. This property have to be one of the categories ID listed <a href="https://github.com/cozy/cozy-banks/blob/master/src/ducks/categories/tree.json">here</a>. If you want to see more human labels, you can check the translations of each label in <a href="https://github.com/cozy/cozy-banks/blob/master/src/locales/en.json">english</a> or <a href="https://github.com/cozy/cozy-banks/blob/master/src/locales/fr.json">french</a>.</p>
+<p>There are up to four categories that can be assigned to a <code>io.cozy.bank.operations</code> document. But there is only one that a connector has to set when retrieving the transactions from a bank: <code>automaticCategoryId</code>. This property has to be one of the categories ID listed <a href="https://github.com/cozy/cozy-banks/blob/master/src/ducks/categories/tree.json">here</a>. If you want to see more human labels, you can check the translations of each label in <a href="https://github.com/cozy/cozy-banks/blob/master/src/locales/en.json">english</a> or <a href="https://github.com/cozy/cozy-banks/blob/master/src/locales/fr.json">french</a>.</p>
 <p>Other category properties are to be set by other sources: the user or Cozy Banks services.</p>
 <h3 id="example_2">Example<a class="headerlink" href="#example_2" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span>{
