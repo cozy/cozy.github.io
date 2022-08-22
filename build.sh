@@ -2,7 +2,7 @@
 
 set -e
 
-rm -rf docs/*
+[ ! -d docs ] && mkdir docs
 cp index.html docs/
 cp CNAME docs/
 
