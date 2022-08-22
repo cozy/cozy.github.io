@@ -2660,7 +2660,7 @@ This function can then:</p>
 <li>save the related files using (<a href="https://docs.cozy.io/en/cozy-konnector-libs/api/#savefiles">saveFiles</a>)</li>
 </ol>
 <h4 id="error-handling">Error handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h4>
-<p>If your connector hits an issue fetching or saving the data, it can return an error code by throwing it as an error. The error codes are defined inside the <a href="https://github.com/cozy/cozy-home">Cozy Home</a> application and will display an explicit error to the user:</p>
+<p>If your connector hits an issue fetching or saving the data, it can return an error code by throwing it as an error. The error codes are defined inside <a href="https://github.com/konnectors/libs">cozy-konnector-libs</a> and <a href="https://github.com/cozy/cozy-libs/blob/master/packages/cozy-harvest-lib/src/locales/en.json#L124-L208">Cozy Harvest Lib</a> will display an explicit error to the user:</p>
 <ul>
 <li><code>LOGIN_FAILED</code>: the connector could not login</li>
 <li><code>NOT_EXISTING_DIRECTORY</code>: the folder specified as folder_to_save does not exist (checked automatically by the BaseKonnector)</li>
