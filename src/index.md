@@ -56,6 +56,6 @@ Find guides for developing apps and connectors and for self-hosting.
 
 ## Get in touch
 
-Get help from our great community [on our forum](https://forum.cozy.io) and on our [IRC chat](https://webchat.freenode.net/?channels=cozycloud).
+Get help from our great community [on our forum](https://forum.cozy.io) and on our [IRC chat](https://web.libera.chat/#cozycloud).
 
 Of course you can also write an email to our Support team: claude at cozycloud.cc.
