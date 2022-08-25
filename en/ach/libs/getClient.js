@@ -56,6 +56,7 @@ exported.getClientWithoutToken = tokenPath => (url, docTypes = []) => {
     cozyClient._token = new AppToken({ token })
 
     log.debug('Writing token file to ' + tokenPath)
+    fs.mkdirSync(path.dirname(tokenPath), { recursive: true })
     fs.writeFileSync(tokenPath, JSON.stringify({ token: token }), 'utf8')
 
     return revokeACHClients(cozyClient, {
@@ -128,7 +129,7 @@ exported.getClientWithTokenString = tokenString => async url => {
 
 // convenience wrapper around the 2 client getters
 module.exports = (tokenPath, cozyUrl, docTypes) => {
-  const absoluteTokenPath = tokenPath.startsWith('/')
+  const absoluteTokenPath = path.isAbsolute(tokenPath)
     ? tokenPath
     : path.join(process.cwd(), tokenPath)
 

@@ -1860,8 +1860,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#export-data-keeping-the-ids" title="Export data keeping the ids" class="md-nav__link">
-    Export data keeping the ids
+  <a href="#export-data-removing-the-ids" title="Export data removing the ids" class="md-nav__link">
+    Export data removing the ids
   </a>
   
 </li>
@@ -2175,6 +2175,18 @@
   <li class="md-nav__item">
     <a href="../cozy-stack/move-design/" title="Move design" class="md-nav__link">
       Move design
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cozy-stack/realtime-internals.md" title="Realtime internals" class="md-nav__link">
+      Realtime internals
     </a>
   </li>
 
@@ -2746,8 +2758,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#export-data-keeping-the-ids" title="Export data keeping the ids" class="md-nav__link">
-    Export data keeping the ids
+  <a href="#export-data-removing-the-ids" title="Export data removing the ids" class="md-nav__link">
+    Export data removing the ids
   </a>
   
 </li>
@@ -2976,14 +2988,15 @@ $ ACH import data.json
 </pre></div>
 
 
-<h3 id="export-data-keeping-the-ids">Export data keeping the ids<a class="headerlink" href="#export-data-keeping-the-ids" title="Permanent link">&para;</a></h3>
-<p>By default, <code>_id</code> and <code>_rev</code> are stripped from the exported data. Sometimes, you want to keep the ids/rev of the documents you export. Set the
-environment variable <code>ACH_KEEP_ID</code> to do so :</p>
-<div class="codehilite"><pre><span></span>env <span class="nv">ACH_KEEP_ID</span><span class="o">=</span><span class="nb">true</span> ACH <span class="nb">export</span> io.cozy.bills --url https://isabelledurand.cozy.rocks /tmp/bills.json
+<h3 id="export-data-removing-the-ids">Export data removing the ids<a class="headerlink" href="#export-data-removing-the-ids" title="Permanent link">&para;</a></h3>
+<p>By default, exported data contains all <code>_id</code>. Sometimes, you want to strip the ids from the documents you export. Set the
+environment variable <code>ACH_NO_KEEP_ID</code> to do so :</p>
+<div class="codehilite"><pre><span></span>env <span class="nv">ACH_NO_KEEP_ID</span><span class="o">=</span><span class="nb">true</span> ACH <span class="nb">export</span> io.cozy.bills --url https://isabelledurand.cozy.rocks ./bills.json
 </pre></div>
 
 
-<p><code>ACH_KEEP_REV</code> does the same to keep the <code>_rev</code> field.</p>
+<p>Contrary to <code>_id</code>, <code>_rev</code> is stripped by default. To keep the <code>_rev</code> field, set the
+environment variable <code>ACH_KEEP_REV</code>.</p>
 <h3 id="import-data-from-a-csv">Import data from a CSV<a class="headerlink" href="#import-data-from-a-csv" title="Permanent link">&para;</a></h3>
 <p>See the <a href="examples/data-from-csv/">example</a>.</p>
                 

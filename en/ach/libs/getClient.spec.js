@@ -1,7 +1,8 @@
 const getClient = require('./getClient')
 
 jest.mock('fs', () => ({
-  existsSync: () => true
+  existsSync: () => true,
+  mkdirSync: jest.fn()
 }))
 
 describe('getClient', () => {

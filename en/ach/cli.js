@@ -84,7 +84,9 @@ const handleImportDirCommand = async args => {
 
 const handleGenerateFilesCommand = async args => {
   const { path = '/', filesCount = 10, url, token } = args
-  const ach = new ACH(token, url, ['io.cozy.files'])
+  const ach = new ACH(token || autotoken(url, ['io.cozy.files']), url, [
+    'io.cozy.files'
+  ])
   await ach.connect()
   await ach.createFiles(path, parseInt(filesCount))
 }
@@ -127,7 +129,9 @@ const handleUpdateSettingsCommand = async args => {
   const { url, token } = args
   let { settings } = args
   settings = JSON.parse(settings) // should be done with type
-  const ach = new ACH(token, url, ['io.cozy.settings'])
+  const ach = new ACH(token || autotoken(url, ['io.cozy.settings']), url, [
+    'io.cozy.settings'
+  ])
   await ach.connect()
   await ach.updateSettings(settings)
 }
@@ -207,7 +211,7 @@ const isCommandAvailable = command => {
 
 const handleDeleteDocumentsCommand = async args => {
   const { url, token, doctype, ids } = args
-  const ach = new ACH(token, url, [doctype])
+  const ach = new ACH(token || autotoken(url, [doctype]), url, [doctype])
   await ach.connect()
   await ach.deleteDocuments(doctype, ids)
 }

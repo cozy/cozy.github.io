@@ -1,5 +1,6 @@
 const _ = require('lodash')
-const fs = require('fs').promises
+const fs = require('fs')
+const path = require('path')
 const log = require('./log')
 const { Q } = require('cozy-client')
 
@@ -81,7 +82,8 @@ module.exports = (cozyClient, doctypes, filename, last) => {
       if (filename === '-' || !filename) {
         console.log(json)
       } else {
-        return fs.writeFile(filename, json)
+        fs.mkdirSync(path.dirname(filename), { recursive: true })
+        return fs.promises.writeFile(filename, json)
       }
     })
 }

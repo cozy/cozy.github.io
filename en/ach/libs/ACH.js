@@ -10,6 +10,8 @@ const cozyFetch = require('./cozyFetch')
 const log = require('./log')
 const request = require('request')
 const fs = require('fs')
+const path = require('path')
+const os = require('os')
 
 const { handleBadToken } = require('../libs/utils')
 
@@ -34,7 +36,7 @@ const getTokenPath = function(url, doctypes) {
       .slice()
       .sort()
       .join(',')
-  return '/tmp/.ach-token-' + hashCode(key) + '.json'
+  return path.join(os.tmpdir(), '.ach-token-' + hashCode(key) + '.json')
 }
 
 class ACH {
