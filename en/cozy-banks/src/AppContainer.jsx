@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import { WebviewIntentProvider } from 'cozy-intent'
 import I18n from 'cozy-ui/transpiled/react/I18n'
 import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
-import { CozyProvider } from 'cozy-client'
+import { CozyProvider, RealTimeQueries } from 'cozy-client'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import {
   StylesProvider,
@@ -22,6 +22,7 @@ import SelectionProvider from 'ducks/context/SelectionContext'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import { initTranslation } from 'cozy-ui/transpiled/react/I18n'
 import cozyBar from 'utils/cozyBar'
+import { TRIGGER_DOCTYPE } from 'doctypes'
 
 const jobsProviderOptions = t => ({
   onSuccess: () => Alerter.success(t('JobsContext.alerter-success')),
@@ -77,6 +78,7 @@ const AppContainer = ({ store, lang, history, client }) => {
                     <BanksProvider client={client}>
                       <SelectionProvider>
                         <MuiCozyTheme>
+                          <RealTimeQueries doctype={TRIGGER_DOCTYPE}></RealTimeQueries>
                           <Router history={history} routes={AppRoute()} />
                         </MuiCozyTheme>
                       </SelectionProvider>
