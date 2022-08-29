@@ -132,8 +132,8 @@ describe('makeEarliestLatestQueries', () => {
           account: 'comptelou1',
           date: { $gt: null }
         },
-        indexedFields: ['date'],
-        sort: [{ date: 'asc' }],
+        indexedFields: ['account', 'date'],
+        sort: [{ account: 'asc' }, { date: 'asc' }],
         limit: 1
       }),
       expect.objectContaining({
@@ -141,8 +141,8 @@ describe('makeEarliestLatestQueries', () => {
           account: 'comptelou1',
           date: { $gt: null }
         },
-        indexedFields: ['date'],
-        sort: [{ date: 'desc' }],
+        indexedFields: ['account', 'date'],
+        sort: [{ account: 'desc' }, { date: 'desc' }],
         limit: 1
       })
     ])
@@ -159,8 +159,8 @@ describe('makeEarliestLatestQueries', () => {
           account: { $in: ['comptelou1', 'compteisa2'] },
           date: { $gt: null }
         },
-        indexedFields: ['date'],
-        sort: [{ date: 'asc' }],
+        indexedFields: ['account', 'date'],
+        sort: [{ account: 'asc' }, { date: 'asc' }],
         limit: 1
       }),
       expect.objectContaining({
@@ -168,8 +168,8 @@ describe('makeEarliestLatestQueries', () => {
           account: { $in: ['comptelou1', 'compteisa2'] },
           date: { $gt: null }
         },
-        indexedFields: ['date'],
-        sort: [{ date: 'desc' }],
+        indexedFields: ['account', 'date'],
+        sort: [{ account: 'desc' }, { date: 'desc' }],
         limit: 1
       })
     ])

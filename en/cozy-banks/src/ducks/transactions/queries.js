@@ -100,16 +100,25 @@ export const makeFilteredTransactionsConn = options => {
  * @return {[QueryDefinition, QueryDefinition]} - Earliest and latest queries
  */
 export const makeEarliestLatestQueries = baseQuery => {
+  const indexedFields = Object.keys(baseQuery.selector)
+  indexedFields.push('date')
+
+  const sortByDesc = []
+  const sortByAsc = []
+  indexedFields.map(field => {
+    sortByDesc.push({ [field]: 'desc' })
+    sortByAsc.push({ [field]: 'asc' })
+  })
   const latestQuery = Q('io.cozy.bank.operations')
     .limitBy(1)
     .where({ ...baseQuery.selector, date: { $gt: null } }) // must reset the date
-    .indexFields(['date'])
-    .sortBy([{ date: 'desc' }])
+    .indexFields(indexedFields)
+    .sortBy(sortByDesc)
   const earliestQuery = Q('io.cozy.bank.operations')
     .limitBy(1)
     .where({ ...baseQuery.selector, date: { $gt: null } }) // must reset the date
-    .indexFields(['date'])
-    .sortBy([{ date: 'asc' }])
+    .indexFields(indexedFields)
+    .sortBy(sortByAsc)
   return [earliestQuery, latestQuery]
 }
 

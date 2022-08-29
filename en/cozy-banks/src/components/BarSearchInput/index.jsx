@@ -37,6 +37,7 @@ const BarSearchInput = ({
         </IconButton>
       </BarSearchIcon>
       <Input
+        fullwidth
         ref={inputRef}
         type="text"
         onChange={onChange}
