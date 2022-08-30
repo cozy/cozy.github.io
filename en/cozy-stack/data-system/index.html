@@ -4002,19 +4002,17 @@ header to prevent conflict on deletion:</p>
 <li>If no id is provided in URL, an error 400 is returned</li>
 </ul>
 <h2 id="list-all-the-documents-recommended-paginated-way">List all the documents (recommended &amp; paginated way)<a class="headerlink" href="#list-all-the-documents-recommended-paginated-way" title="Permanent link">&para;</a></h2>
-<p>We have added a non-standard <code>_normal_docs</code> endpoint. Since 
-<code>_all_docs</code> endpoint sends the design docs in the response 
-and that : 
-- It makes it hard to use pagination on it. 
-- You can have performance issue when querying lot of docs </p>
-<p>This <code>_normal_docs</code> endpoint skip the design docs (and does 
+<p>We have added a non-standard <code>_normal_docs</code> endpoint since
+<code>_all_docs</code> endpoint sends the design docs in the response
+and that it makes it hard to use pagination on it.</p>
+<p>This <code>_normal_docs</code> endpoint skip the design docs (and does
 not count them in the<code>total_rows</code>). It accepts three parameters
- in the query string: <code>limit</code> (default: 100), <code>skip</code> (default: 0), 
+ in the query string: <code>limit</code> (default: 100), <code>skip</code> (default: 0),
  and <code>bookmark</code> (default: &lsquo;&rsquo;).</p>
-<p>The response format looks like a <code>_find</code> response with mango. 
+<p>The response format looks like a <code>_find</code> response with mango.
 And, like for <code>_find</code>, the limit cannot be more than 1000.
 The <a href="https://github.com/cozy/cozy-stack/blob/master/docs/mango.md#pagination-cookbook">pagination</a>
-is also the same: both <code>bookmark</code> and <code>skip</code> can be used, but 
+is also the same: both <code>bookmark</code> and <code>skip</code> can be used, but
 <code>bookmark</code> is recommended for performances.</p>
 <h3 id="request_6">Request<a class="headerlink" href="#request_6" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/data/io.cozy.events/_normal_docs?limit=100&amp;bookmark=g1AAAAB2eJzLYWBgYMpgSmHgKy5JLCrJTq2MT8lPzkzJBYorGKQYpVqaJRoZm1paWFiapFkamhknGpilJiampZkYJRmC9HHA9OUAdTASpS0rCwAlah76</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
@@ -4049,11 +4047,13 @@ is also the same: both <code>bookmark</code> and <code>skip</code> can be used, 
 
 
 <h2 id="list-all-the-documents-alternative-not-pagginated-way">List all the documents (alternative &amp; not pagginated way)<a class="headerlink" href="#list-all-the-documents-alternative-not-pagginated-way" title="Permanent link">&para;</a></h2>
-<p>You can use <code>_all_docs</code> endpoint to get the list of all the documents. 
+<p>You can use <code>_all_docs</code> endpoint to get the list of all the documents.
 In some cases the use of this route is legitimate, but we recommend to
-avoid it as much as possible. 
-Indeed, calling this route on a database with a lot of documents can
-be very time consuming. </p>
+avoid it as much as possible.</p>
+<p>The stack also supports a <code>Fields</code> query parameter to only include those fields
+in the response (with an uppercase <code>F</code> to avoid collusion with a possible
+future <code>fields</code> by CouchDB), and a <code>DesignDocs</code> query parameter to skip design
+docs. Example: <code>?Fields=name,metadata.title,tags&amp;DesignDocs=false</code>.</p>
 <h3 id="request_7">Request<a class="headerlink" href="#request_7" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/data/io.cozy.events/_all_docs?include_docs=true</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
