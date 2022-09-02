@@ -15,34 +15,34 @@ const TagAddModalContentList = ({
   tags,
   toggleAddNewTagModal,
   selectedTagIds,
-  onClick
+  onClick,
+  isSaving
 }) => {
   const { t } = useI18n()
 
   return (
-    <>
-      <List>
-        {tags.map((tag, index) => (
-          <Fragment key={`${tag.label} ${index}`}>
-            <TagAddModalContentListItem
-              tag={tag}
-              checked={selectedTagIds.some(id => id === tag._id)}
-              onClick={onClick}
-            />
-            <Divider component="li" variant="inset" />
-          </Fragment>
-        ))}
-        {toggleAddNewTagModal && (
-          <ListItem button onClick={toggleAddNewTagModal}>
-            <ListItemIcon>
-              <Icon icon={PlusIcon} />
-            </ListItemIcon>
-            <ListItemText primary={t('Tag.new-tag')} />
-          </ListItem>
-        )}
-        <Divider component="li" />
-      </List>
-    </>
+    <List>
+      {tags.map((tag, index) => (
+        <Fragment key={`${tag.label} ${index}`}>
+          <TagAddModalContentListItem
+            tag={tag}
+            checked={selectedTagIds.some(id => id === tag._id)}
+            onClick={onClick}
+            disabled={toggleAddNewTagModal && selectedTagIds.length >= 5}
+            isSaving={isSaving}
+          />
+          <Divider component="li" variant="inset" />
+        </Fragment>
+      ))}
+      {toggleAddNewTagModal && (
+        <ListItem button onClick={toggleAddNewTagModal} disabled={isSaving}>
+          <ListItemIcon>
+            <Icon icon={PlusIcon} />
+          </ListItemIcon>
+          <ListItemText primary={t('Tag.add-new-tag')} />
+        </ListItem>
+      )}
+    </List>
   )
 }
 

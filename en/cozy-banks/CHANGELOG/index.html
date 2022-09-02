@@ -2610,7 +2610,9 @@
 <li>Add tags on transactions</li>
 <li>Add a tab in the settings to list all the tags</li>
 <li>Add a modal to filter by Tags on the analysis page</li>
-<li>Upgrade cozy-ui from 69.3.0 to 70.2.4</li>
+<li>Upgrade cozy-ui from 69.3.0 to 70.6.1</li>
+<li>Add a page for managing a given tag</li>
+<li>Optimization of the Mango query to get first / last date for an account </li>
 <li>Add a page for managing a given tag</li>
 </ul>
 <h2 id="bug-fixes_1">🐛 Bug Fixes<a class="headerlink" href="#bug-fixes_1" title="Permanent link">&para;</a></h2>
@@ -2619,6 +2621,11 @@
 <li>Fix typo in French translation <a href="https://github.com/cozy/cozy-banks/pull/2430">[PR]</a></li>
 <li>Transactions actions style on mobile</li>
 <li>Notifications based on transactions changes will only be sent once, even if the transaction is modified after the first trigger <a href="https://github.com/cozy/cozy-banks/pull/2437">[PR]</a></li>
+<li>Update trigger without fetch policy in AccountModal, while reconnecting a konnector</li>
+<li>Update cozy-harvest-lib</li>
+<li>9.15.1 : Update trigger while status changed <a href="https://github.com/cozy/cozy-libs/pull/1697">[PR]</a></li>
+<li>Update trigger without fetch policy in AccountModal, while reconnecting a konnector <a href="https://github.com/cozy/cozy-banks/pull/2404">[PR]</a></li>
+<li>Prevent recurrence service from running until we figure out why it is triggering itself in an infinite loop <a href="https://github.com/cozy/cozy-banks/pull/2423">[PR]</a></li>
 </ul>
 <h2 id="tech">🔧 Tech<a class="headerlink" href="#tech" title="Permanent link">&para;</a></h2>
 <ul>
@@ -2636,6 +2643,7 @@
 <li>9.12.0 : Do not show Popup when intentsApi parameter is given <a href="https://github.com/cozy/cozy-libs/pull/1683">[PR]</a></li>
 <li>9.12.2 : Do not pre encode oauth url <a href="https://github.com/cozy/cozy-libs/pull/1685">[PR]</a> and Do not show popup when intentsApi is given <a href="https://github.com/cozy/cozy-libs/pull/1686">[PR]</a></li>
 <li>9.12.3 : Do not double encode oauth url <a href="https://github.com/cozy/cozy-libs/pull/1687">[PR]</a></li>
+<li>9.14.1 : Change RedirectToAccountFormButton label &amp; size <a href="https://github.com/cozy/cozy-libs/pull/1688">[PR]</a></li>
 <li>9.15.1 : Update trigger while status changed <a href="https://github.com/cozy/cozy-libs/pull/1697">[PR]</a></li>
 <li>9.16.0 :<ul>
 <li>Allow EditAccountModal to have intentsApi (<a href="https://github.com/cozy/cozy-libs/commit/43c5910aba989fa09534cdfab8933512da606b2e">43c5910</a>)</li>
@@ -2673,6 +2681,7 @@
 <li>Change wording for toast message when importing data from a bank is completed</li>
 <li>Remove icon on ReconnectTriggerButton</li>
 <li>Add intentsApi prop to HarvestBankAccountSettings</li>
+<li>Add a spinner in OAuth popup/InAppBrowser after OAuth redirection</li>
 </ul>
 <h2 id="bug-fixes_2">🐛 Bug Fixes<a class="headerlink" href="#bug-fixes_2" title="Permanent link">&para;</a></h2>
 <ul>
@@ -2687,6 +2696,26 @@
 <li>Lodash.merge is not creating a new object  <a href="https://github.com/cozy/cozy-client/pull/1201">PR</a></li>
 <li>fix temporary token cache when beginning with an empty cache <a href="https://github.com/cozy/cozy-client/pull/1198">PR</a></li>
 <li>Breaking changes are not supposed to affect cozy-banks</li>
+<li>Update cozy-harvest-lib</li>
+<li>9.12.2 : Do not pre encode oauth url <a href="https://github.com/cozy/cozy-libs/pull/1685">PR</a> and Do not show popup when intentsApi is given <a href="https://github.com/cozy/cozy-libs/pull/1686">PR</a></li>
+<li>9.12.3 : Do not double encode oauth url <a href="https://github.com/cozy/cozy-libs/pull/1687">PR</a></li>
+<li>Prevent recurrence service from running until we figure out why it is triggering itself in an infinite loop <a href="https://github.com/cozy/cozy-banks/pull/2423">[PR]</a></li>
+<li>Do not allways show the same bank in BI webview</li>
+<li>Do fail the connector for banks with multiple bank ids</li>
+<li>Update cozy-client to 32.2.6 :</li>
+<li>fix temporary token cache when beginning with an empty cache <a href="https://github.com/cozy/cozy-client/pull/1198">PR</a></li>
+<li>Breaking changes are not supposed to affect cozy-banks</li>
+<li>Invalidate temporary token cache when there is a change of BI user</li>
+<li>OauthWindowInAppBrowser re-render</li>
+<li>9.12.2 : Do not pre encode oauth url <a href="https://github.com/cozy/cozy-libs/pull/1685">PR</a> and Do not show popup when intentsApi is given <a href="https://github.com/cozy/cozy-libs/pull/1686">PR</a></li>
+<li>Harvest 9.25.0:</li>
+<li>Remove an BI webview reconnection step</li>
+<li>Remove an unused request to BI api to be faster</li>
+<li>9.26.6 :</li>
+<li>Better handling of duplicate accounts : locale + realtime in bank accounts</li>
+<li>Display the resulting account in the Settings screen after an account creation (with realtime)</li>
+<li>Update cozy-harvest-lib 9.14.1</li>
+<li>Update cozy-client to 32.2.6</li>
 </ul>
 <h2 id="tech_1">🔧 Tech<a class="headerlink" href="#tech_1" title="Permanent link">&para;</a></h2>
 <ul>

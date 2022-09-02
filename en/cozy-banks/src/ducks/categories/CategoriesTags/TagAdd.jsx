@@ -6,11 +6,6 @@ import TagAddModalOrBottomSheet from 'ducks/categories/CategoriesTags/TagAddModa
 const TagAdd = ({ tags, tagListSelected, onConfirm }) => {
   const [showModalOrBottomSheet, setShowModalOrBottomSheet] = useState(false)
 
-  const handleClose = selectedTagIds => {
-    onConfirm(selectedTagIds)
-    setShowModalOrBottomSheet(false)
-  }
-
   return (
     <>
       <TagAddChip
@@ -21,7 +16,8 @@ const TagAdd = ({ tags, tagListSelected, onConfirm }) => {
         <TagAddModalOrBottomSheet
           tags={tags}
           tagListSelected={tagListSelected}
-          onClose={handleClose}
+          onConfirm={onConfirm}
+          onClose={() => setShowModalOrBottomSheet(false)}
         />
       )}
     </>

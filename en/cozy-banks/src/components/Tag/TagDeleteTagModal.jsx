@@ -9,7 +9,7 @@ import { ConfirmDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 import { useHistory } from 'components/RouterContext'
 
 import { countTransactions } from 'components/Tag/helpers'
-import { removeTransaction } from 'ducks/transactions/helpers'
+import { removeTag } from 'ducks/transactions/helpers'
 
 const TagDeleteTagModal = ({ tag, transactions, onClose }) => {
   const client = useClient()
@@ -19,8 +19,7 @@ const TagDeleteTagModal = ({ tag, transactions, onClose }) => {
 
   const handleClick = async () => {
     toggleBusy()
-    const { data: newTag } = await removeTransaction(tag, transactions)
-    await client.destroy(newTag)
+    await removeTag(client, tag, transactions)
     history.goBack()
     onClose()
   }

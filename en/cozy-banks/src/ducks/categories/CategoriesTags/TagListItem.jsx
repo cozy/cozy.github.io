@@ -17,7 +17,7 @@ const TagListItem = ({
   ...props
 }) => {
   return (
-    <ListItem button disableRipple {...props}>
+    <ListItem {...props}>
       <ListItemIcon>
         <Icon icon={TagIcon} />
       </ListItemIcon>

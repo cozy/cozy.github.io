@@ -21,6 +21,7 @@ import FastClick from 'fastclick'
 import { setupLocale as setupD3Locale } from 'utils/d3'
 import { isIOSApp } from 'cozy-device-helper'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import flag from 'cozy-flags'
 import { handleOAuthResponse } from 'cozy-harvest-lib'
 
@@ -48,7 +49,13 @@ if (__TARGET__ === 'mobile') {
 let store, client, history, lang, root
 
 const initRender = () => {
-  if (handleOAuthResponse()) return
+  if (handleOAuthResponse()) {
+    render(
+      <Spinner size="xxlarge" middle={true} />,
+      document.querySelector('[role=application]')
+    )
+    return
+  }
   const AppContainer = require('./AppContainer').default
   root = render(
     <AppContainer

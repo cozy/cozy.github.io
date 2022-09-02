@@ -277,8 +277,7 @@ export const cronKonnectorTriggersConn = {
       worker: 'konnector',
       type: '@cron'
     }),
-  as: 'triggers',
-  fetchPolicy: older30s
+  as: 'triggers'
 }
 
 export const transactionsConn = {

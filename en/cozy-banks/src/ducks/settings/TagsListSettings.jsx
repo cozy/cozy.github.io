@@ -7,6 +7,7 @@ import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import SearchInput from 'components/SearchInput'
 import SelectInput from 'components/SelectInput'
 import { Unpadded } from 'components/Padded'
+import TagAddNewTagModal from 'components/Tag/TagAddNewTagModal'
 import TagsList from 'ducks/settings/TagsList'
 
 const useStyles = makeStyles({
@@ -30,8 +31,9 @@ const TagsListSettings = ({ tags }) => {
   const { t } = useI18n()
   const [filter, setFilter] = useState('')
   const [sort, setSort] = useState('label-asc')
+  const [isCreateModalOpened, setIsCreateModalOpened] = useState(false)
 
-  const filterPlaceholder = t('Tag.search')
+  const filterPlaceholder = t('Tag.search-tag')
 
   const sortOptions = {
     'label-asc': t('Tag.sortLabelAsc'),
@@ -51,7 +53,15 @@ const TagsListSettings = ({ tags }) => {
           setValue={setSort}
         />
       </div>
-      <TagsList tags={tags} filter={filter} sort={sort} />
+      <TagsList
+        tags={tags}
+        filter={filter}
+        sort={sort}
+        setIsCreateModalOpened={setIsCreateModalOpened}
+      />
+      {isCreateModalOpened && (
+        <TagAddNewTagModal onClose={() => setIsCreateModalOpened(false)} />
+      )}
     </Unpadded>
   )
 }

@@ -19,7 +19,7 @@ const TagDialog = ({ tag }) => {
   }, 0)
   const currency = 'EUR'
 
-  const handleDialogBack = () => {
+  const handleDialogClose = () => {
     history.goBack()
   }
 
@@ -30,6 +30,7 @@ const TagDialog = ({ tag }) => {
       currency={currency}
       setIsRenameModalOpened={setIsRenameModalOpened}
       setIsDeleteModalOpened={setIsDeleteModalOpened}
+      onClose={handleDialogClose}
     />
   )
 
@@ -51,7 +52,6 @@ const TagDialog = ({ tag }) => {
           size="large"
           disableTitleAutoPadding
           disableGutters
-          onBack={handleDialogBack}
           title={title}
           content={content}
         />

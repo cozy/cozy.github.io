@@ -39,7 +39,7 @@ jest.mock('hooks/useVisible', () => {
 
 jest.mock('ducks/transactions/helpers', () => ({
   ...jest.requireActual('ducks/transactions/helpers'),
-  getTransactionTags: jest.fn(() => [])
+  getTagsRelationshipByTransaction: jest.fn(() => [])
 }))
 
 const mockTransactions = data['io.cozy.bank.operations'].map((x, i) => ({

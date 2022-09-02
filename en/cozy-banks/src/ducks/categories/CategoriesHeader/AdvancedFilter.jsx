@@ -31,7 +31,7 @@ const AdvancedFilter = ({ onClick, selectedTagsLength, className }) => {
   if (isMobile) {
     return (
       <List>
-        <ListItem button onClick={onClick}>
+        <ListItem onClick={onClick}>
           <ListItemIcon>
             <Icon icon={SettingIcon} />
           </ListItemIcon>

@@ -6,7 +6,7 @@ import useLast from 'hooks/useLast'
 import useFullyLoadedQuery from 'hooks/useFullyLoadedQuery'
 import {
   computeTransactionsByDateAndApplicationDate,
-  getTransactionTags
+  getTagsRelationshipByTransaction
 } from 'ducks/transactions/helpers'
 import { computeCategoriesData } from 'ducks/categories/selectors'
 import {
@@ -104,7 +104,7 @@ const enhanceCategoriesPage = Component => props => {
   const transactionsWithTags = useMemo(() => {
     if (selectedTags.length > 0) {
       return transactionsData.filter(tr =>
-        getTransactionTags(tr).some(trRel =>
+        getTagsRelationshipByTransaction(tr).some(trRel =>
           selectedTags.some(st => st._id === trRel._id)
         )
       )

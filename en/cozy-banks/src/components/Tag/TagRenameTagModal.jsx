@@ -8,7 +8,7 @@ import TextField from 'cozy-ui/transpiled/react/MuiCozyTheme/TextField'
 import { ConfirmDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 import Button from 'cozy-ui/transpiled/react/Buttons'
 
-const TagRenameTagModal = ({ tag, onClose }) => {
+const TagRenameTagModal = ({ tag, onClose, withLabel }) => {
   const client = useClient()
   const { t } = useI18n()
   const [label, setLabel] = useState(tag.label)
@@ -33,7 +33,7 @@ const TagRenameTagModal = ({ tag, onClose }) => {
           <TextField
             fullWidth
             margin="normal"
-            label={t('Tag.renameModal.label')}
+            {...(withLabel && { label: t('Tag.renameModal.label') })}
             defaultValue={tag.label}
             autoFocus
             variant="outlined"
@@ -61,9 +61,14 @@ const TagRenameTagModal = ({ tag, onClose }) => {
   )
 }
 
+TagRenameTagModal.defaultProps = {
+  withLabel: true
+}
+
 TagRenameTagModal.propTypes = {
   tag: PropTypes.object.isRequired,
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
+  withLabel: PropTypes.bool
 }
 
 export default TagRenameTagModal

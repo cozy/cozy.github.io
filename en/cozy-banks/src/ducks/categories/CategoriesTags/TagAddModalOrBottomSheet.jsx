@@ -9,7 +9,12 @@ import TagBottomSheet from 'components/Tag/TagBottomSheet'
 const isAlreadyChecked = (selectedTagIds, tag) =>
   selectedTagIds.some(tagId => tagId === tag._id)
 
-const TagAddModalOrBottomSheet = ({ tags, tagListSelected, onClose }) => {
+const TagAddModalOrBottomSheet = ({
+  tags,
+  tagListSelected,
+  onClose,
+  onConfirm
+}) => {
   const { isMobile } = useBreakpoints()
   const { t } = useI18n()
   const [selectedTagIds, setSelectedTagIds] = useState(
@@ -19,16 +24,17 @@ const TagAddModalOrBottomSheet = ({ tags, tagListSelected, onClose }) => {
   const handleClick = tag => {
     if (isAlreadyChecked(selectedTagIds, tag)) {
       setSelectedTagIds(prev => prev.filter(id => id !== tag._id))
-    } else if (selectedTagIds.length < 5) {
+    } else {
       setSelectedTagIds(prev => [...prev, tag._id])
     }
   }
 
-  const handleClose = () => {
+  const handleConfirm = () => {
     const selectedTagList = tags.filter(tag =>
       selectedTagIds.some(selectedTagId => selectedTagId === tag._id)
     )
-    onClose(selectedTagList)
+    onConfirm(selectedTagList)
+    onClose()
   }
 
   const ModalOrBottomSheet = isMobile ? TagBottomSheet : TagAddModal
@@ -39,7 +45,9 @@ const TagAddModalOrBottomSheet = ({ tags, tagListSelected, onClose }) => {
       title={t('Tag.filter-tag')}
       selectedTagIds={selectedTagIds}
       onClick={handleClick}
-      onClose={handleClose}
+      onClose={onClose}
+      onConfirm={handleConfirm}
+      disabled={selectedTagIds.length === 0}
     />
   )
 }

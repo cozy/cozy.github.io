@@ -38,7 +38,7 @@ jest.mock('cozy-ui/transpiled/react/Alerter', () => ({
 
 jest.mock('ducks/transactions/helpers', () => ({
   ...jest.requireActual('ducks/transactions/helpers'),
-  getTransactionTags: jest.fn(() => [])
+  getTagsRelationshipByTransaction: jest.fn(() => [])
 }))
 
 describe('transaction modal', () => {

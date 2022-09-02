@@ -1,7 +1,7 @@
 import React from 'react'
 
 import TagChip from 'components/Tag/TagChip'
-import { getTransactionTags } from 'ducks/transactions/helpers'
+import { getTagsRelationshipByTransaction } from 'ducks/transactions/helpers'
 
 const TagChips = ({
   className,
@@ -10,7 +10,7 @@ const TagChips = ({
   deletable,
   withIcon
 }) => {
-  const transactionTags = getTransactionTags(transaction)
+  const transactionTags = getTagsRelationshipByTransaction(transaction)
 
   return (
     <>

@@ -1,4 +1,5 @@
 import React, { useState, useReducer } from 'react'
+import PropTypes from 'prop-types'
 
 import { useClient } from 'cozy-client'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
@@ -7,42 +8,33 @@ import { ConfirmDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 import Button from 'cozy-ui/transpiled/react/Buttons'
 
 import { TAGS_DOCTYPE } from 'doctypes'
-import useDocument from 'components/useDocument'
-import { addTag } from 'ducks/transactions/helpers'
-import { useEffect } from 'react'
 
-const TagAddNewTagModal = ({ transaction, onClose }) => {
+const labelMaxLength = 30
+
+const TagAddNewTagModal = ({ onClick, onClose, withLabel }) => {
   const client = useClient()
   const { t } = useI18n()
   const [label, setLabel] = useState('')
-  const [tagSaved, setTagSaved] = useState(null)
   const [isBusy, toggleBusy] = useReducer(prev => !prev, false)
 
-  const tagFromDoc = useDocument(TAGS_DOCTYPE, tagSaved?._id || ' ')
-
   const handleChange = ev => {
-    setLabel(ev.target.value)
+    const currentValue = ev.target.value
+    if (currentValue.match(/^\S.*/)) {
+      setLabel(currentValue.substring(0, labelMaxLength))
+    } else setLabel('')
   }
 
   const handleClick = async () => {
-    if (!label) return
     toggleBusy()
 
     const { data: tag } = await client.save({
       _type: TAGS_DOCTYPE,
-      label
+      label: label.trim()
     })
 
-    setTagSaved(tag)
+    if (onClick) onClick(tag)
+    onClose()
   }
-
-  useEffect(() => {
-    if (tagSaved) {
-      addTag(transaction, tagFromDoc)
-      setTagSaved(null)
-      onClose()
-    }
-  }, [transaction, tagFromDoc, tagSaved, onClose])
 
   return (
     <ConfirmDialog
@@ -50,35 +42,50 @@ const TagAddNewTagModal = ({ transaction, onClose }) => {
       onClose={onClose}
       title={t('Tag.add-new-tag')}
       content={
-        <>
-          <TextField
-            fullWidth
-            margin="normal"
-            label={t('Tag.tag-name')}
-            variant="outlined"
-            inputProps={{ maxLength: 30 }}
-            autoFocus
-            onChange={handleChange}
-          ></TextField>
-        </>
+        <TextField
+          fullWidth
+          value={label}
+          margin="normal"
+          {...(withLabel && { label: t('Tag.tag-name') })}
+          variant="outlined"
+          inputProps={{
+            maxLength: labelMaxLength,
+            'data-testid': 'TagAddNewTagModal-TextField'
+          }}
+          autoFocus
+          onChange={handleChange}
+        />
       }
       actions={
         <>
           <Button
+            fullWidth
             variant="secondary"
-            label={t('Confirmation.cancel')}
+            label={t('Tag.addModal.actions.cancel')}
             onClick={onClose}
           />
           <Button
-            variant="primary"
-            label={t('Confirmation.ok')}
+            fullWidth
+            label={t('Tag.addModal.actions.submit')}
             busy={isBusy}
+            disabled={label.length === 0}
             onClick={handleClick}
+            data-testid="TagAddNewTagModal-Button-submit"
           />
         </>
       }
     />
   )
+}
+
+TagAddNewTagModal.defaultProps = {
+  withLabel: true
+}
+
+TagAddNewTagModal.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
+  withLabel: PropTypes.bool
 }
 
 export default TagAddNewTagModal

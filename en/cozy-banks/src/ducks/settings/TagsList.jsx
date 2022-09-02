@@ -7,6 +7,7 @@ import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
 import List from 'cozy-ui/transpiled/react/MuiCozyTheme/List'
 
 import TagListItem from 'ducks/settings/TagListItem'
+import TagCreateListItem from 'ducks/settings/TagCreateListItem'
 import { filterTags, sortTags } from 'ducks/settings/tagsSettingsHelpers'
 
 const useStyles = makeStyles({
@@ -18,7 +19,7 @@ const useStyles = makeStyles({
   }
 })
 
-const TagsList = ({ tags, filter, sort }) => {
+const TagsList = ({ tags, filter, sort, setIsCreateModalOpened }) => {
   const { isMobile } = useBreakpoints()
   const styles = useStyles()
   const [sortKey, sortOrder] = sort.split('-')
@@ -32,20 +33,19 @@ const TagsList = ({ tags, filter, sort }) => {
     <>
       {isMobile && filteredAndSortedTags.length !== 0 && <Divider />}
       <List className={styles.list}>
-        {filteredAndSortedTags.map((tag, index) => {
+        {filteredAndSortedTags.map(tag => {
           return (
             <Fragment key={tag._id}>
-              {index !== 0 && (
-                <Divider
-                  variant="inset"
-                  component="li"
-                  className={!isMobile ? styles.desktopDivider : null}
-                />
-              )}
               <TagListItem tag={tag} />
+              <Divider
+                variant="inset"
+                component="li"
+                className={!isMobile ? styles.desktopDivider : null}
+              />
             </Fragment>
           )
         })}
+        <TagCreateListItem setIsCreateModalOpened={setIsCreateModalOpened} />
       </List>
       {isMobile && <Divider />}
     </>
@@ -55,7 +55,8 @@ const TagsList = ({ tags, filter, sort }) => {
 TagsList.propTypes = {
   tags: PropTypes.array.isRequired,
   filter: PropTypes.string.isRequired,
-  sort: PropTypes.string.isRequired
+  sort: PropTypes.string.isRequired,
+  setIsCreateModalOpened: PropTypes.func.isRequired
 }
 
 export default TagsList

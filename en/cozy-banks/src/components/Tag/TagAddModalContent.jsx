@@ -14,14 +14,15 @@ const TagAddModalContent = ({
   toggleAddNewTagModal,
   selectedTagIds,
   tags,
-  onClick
+  onClick,
+  isSaving
 }) => {
   const { t } = useI18n()
 
   if (tags.length === 0 && toggleAddNewTagModal) {
     return (
       <List>
-        <ListItem onClick={toggleAddNewTagModal}>
+        <ListItem button onClick={toggleAddNewTagModal} disabled={isSaving}>
           <ListItemIcon>
             <Icon icon={PlusIcon} />
           </ListItemIcon>
@@ -37,6 +38,7 @@ const TagAddModalContent = ({
       toggleAddNewTagModal={toggleAddNewTagModal}
       selectedTagIds={selectedTagIds}
       onClick={onClick}
+      isSaving={isSaving}
     />
   )
 }

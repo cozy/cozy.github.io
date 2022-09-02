@@ -12,29 +12,23 @@ import TagChips from 'components/Tag/TagChips'
 
 const TagListItem = ({ transaction, withIcon }) => {
   return (
-    <>
-      <ListItem divider button disableRipple>
-        <ListItemIcon>
-          <Icon icon={TagIcon} />
-        </ListItemIcon>
-        <ListItemText
-          ellipsis={false}
-          primary={
-            <>
-              <TagChips
-                transaction={transaction}
-                deletable
-                withIcon={withIcon}
-              />
-              <TagAdd
-                transaction={transaction}
-                disabled={hasAtLeastFiveTags(transaction)}
-              />
-            </>
-          }
-        />
-      </ListItem>
-    </>
+    <ListItem divider>
+      <ListItemIcon>
+        <Icon icon={TagIcon} />
+      </ListItemIcon>
+      <ListItemText
+        ellipsis={false}
+        primary={
+          <>
+            <TagChips transaction={transaction} deletable withIcon={withIcon} />
+            <TagAdd
+              transaction={transaction}
+              disabled={hasAtLeastFiveTags(transaction)}
+            />
+          </>
+        }
+      />
+    </ListItem>
   )
 }
 

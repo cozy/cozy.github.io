@@ -161,6 +161,14 @@ describe('AccountsSettings', () => {
       getRedirectionURL: () => ''
     }
 
+    client.plugins = {
+      realtime: {
+        subscribe: jest.fn(),
+        unsubscribe: jest.fn()
+      }
+    }
+    client.dispatch = jest.fn()
+
     const root = render(
       <AppLike client={client}>
         <AccountsSettings />

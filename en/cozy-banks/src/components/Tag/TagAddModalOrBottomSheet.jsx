@@ -9,9 +9,9 @@ import TagAddModal from 'components/Tag/TagAddModal'
 import TagBottomSheet from 'components/Tag/TagBottomSheet'
 import TagAddNewTagModal from 'components/Tag/TagAddNewTagModal'
 import {
-  addTag,
-  removeTag,
-  getTransactionTags,
+  addTagRelationshipToTransaction,
+  removeTagRelationshipFromTransaction,
+  getTagsRelationshipByTransaction,
   getTransactionTagsIds
 } from 'ducks/transactions/helpers'
 import { makeTagsToRemove, makeTagsToAdd } from 'components/Tag/helpers'
@@ -44,37 +44,29 @@ const TagAddModalOrBottomSheet = ({ transaction, onClose }) => {
     setHasTagsBeenModified(true)
   }
 
-  const handleClose = () => {
+  const handleConfirm = async () => {
     if (hasTagsBeenModified) {
       setIsSaving(true)
-    } else {
-      onClose()
-    }
-  }
-
-  useEffect(() => {
-    if (isSaving) {
       const tagsToRemove = makeTagsToRemove({
-        transactionTags: getTransactionTags(transaction),
+        transactionTags: getTagsRelationshipByTransaction(transaction),
         selectedTagIds,
         allTags: tags
       })
       const tagsToAdd = makeTagsToAdd({
-        transactionTags: getTransactionTags(transaction),
+        transactionTags: getTagsRelationshipByTransaction(transaction),
         selectedTagIds,
         allTags: tags
       })
 
       if (tagsToRemove.length > 0) {
-        removeTag(transaction, tagsToRemove)
+        await removeTagRelationshipFromTransaction(transaction, tagsToRemove)
       }
       if (tagsToAdd.length > 0) {
-        addTag(transaction, tagsToAdd)
+        await addTagRelationshipToTransaction(transaction, tagsToAdd)
       }
-
       onClose()
-    }
-  }, [isSaving, transaction, selectedTagIds, tags, onClose])
+    } else onClose()
+  }
 
   const ModalOrBottomSheet = isMobile ? TagBottomSheet : TagAddModal
 
@@ -88,12 +80,13 @@ const TagAddModalOrBottomSheet = ({ transaction, onClose }) => {
         isLoading={isLoading}
         toggleAddNewTagModal={toggleAddNewTagModal}
         onClick={handleClick}
-        onClose={handleClose}
+        onClose={onClose}
+        onConfirm={handleConfirm}
       />
       {showAddNewTagModal && (
         <TagAddNewTagModal
-          transaction={transaction}
           onClose={toggleAddNewTagModal}
+          onClick={handleClick}
         />
       )}
     </>

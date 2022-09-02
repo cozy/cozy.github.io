@@ -7,7 +7,7 @@ import TagIcon from 'cozy-ui/transpiled/react/Icons/Tag'
 import { TAGS_DOCTYPE } from 'doctypes'
 import useDocument from 'components/useDocument'
 import { useHistory } from 'components/RouterContext'
-import { removeTag } from 'ducks/transactions/helpers'
+import { removeTagRelationshipFromTransaction } from 'ducks/transactions/helpers'
 
 const TagChip = ({
   className,
@@ -21,7 +21,7 @@ const TagChip = ({
   const history = useHistory()
 
   const handleDelete = deletable
-    ? () => removeTag(transaction, tagFromDoctype)
+    ? () => removeTagRelationshipFromTransaction(transaction, tagFromDoctype)
     : undefined
 
   const handleClick = ev => {

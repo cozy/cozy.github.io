@@ -15,7 +15,9 @@ const TagAddModal = ({
   toggleAddNewTagModal,
   onClick,
   onClose,
-  title
+  onConfirm,
+  title,
+  disabled
 }) => {
   const { t } = useI18n()
 
@@ -26,7 +28,7 @@ const TagAddModal = ({
       disableGutters
       title={<div className="u-mt-1-half">{title}</div>}
       content={
-        isSaving || isLoading ? (
+        isLoading ? (
           <Spinner
             size="xlarge"
             className="u-flex u-flex-justify-center u-mv-1"
@@ -38,10 +40,23 @@ const TagAddModal = ({
               selectedTagIds={selectedTagIds}
               tags={tags}
               onClick={onClick}
+              isSaving={isSaving}
             />
 
             <div className="u-p-1">
-              <Button fullWidth onClick={onClose} label={t('General.valid')} />
+              <Button
+                fullWidth
+                onClick={onConfirm}
+                label={
+                  isSaving
+                    ? t('Tag.addingTagToTransaction', {
+                        smart_count: selectedTagIds.length
+                      })
+                    : t('General.valid')
+                }
+                disabled={disabled}
+                busy={isSaving}
+              />
             </div>
           </>
         )
