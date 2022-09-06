@@ -8,7 +8,19 @@ export enum FlagshipRoutes {
   Stack = 'stack'
 }
 
+export enum BiometryType {
+  Face = 'Face',
+  FaceID = 'FaceID',
+  Fingerprint = 'Fingerprint',
+  Iris = 'Iris',
+  TouchID = 'TouchID'
+}
+
 export interface FlagshipMetadata {
+  capabilities?: {
+    biometryType?: BiometryType
+  }
+  hasBiometry?: boolean
   immersive?: boolean
   navbarHeight?: number
   platform?: Record<string, unknown>
