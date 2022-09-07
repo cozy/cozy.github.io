@@ -20,12 +20,23 @@ func SetDefaults() {
 	viper.AutomaticEnv()
 	viper.SetDefault("port", 8080)
 	viper.SetDefault("host", "localhost")
+	viper.SetDefault("network_topology", "direct") // Direct connection from internet
 	viper.SetDefault("couchdb.url", "http://localhost:5984/")
 	viper.SetDefault("couchdb.prefix", "cozyregistry")
 	viper.SetDefault("conservation.enable_background_cleaning", false)
 	viper.SetDefault("conservation.major", 2)
 	viper.SetDefault("conservation.minor", 2)
 	viper.SetDefault("conservation.month", 2)
+}
+
+// Validate the config items loaded in viper requiring validation.
+func Validate() error {
+	topology := viper.GetString("access_topology")
+	if (topology != "direct") && (topology != "xff") && (topology != "xrip") {
+		return fmt.Errorf("Unknown access_topology value in configuration: %s", topology)
+	}
+
+	return nil
 }
 
 // ReadFile reads the config file, parses it, and loads the values in viper.

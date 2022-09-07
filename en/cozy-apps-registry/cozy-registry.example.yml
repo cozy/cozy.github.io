@@ -3,6 +3,13 @@ host: "127.0.0.1"
 # server port (serve command) - flag --port
 port: 8081
 
+# Network topology in front of cozy apps registry
+# allowed values are:
+# - direct: (default) application is directly serving clients, with no reverse proxy. Client IP is available at network level
+# - xff: A reverse proxy is forwarding trafic to the application and save the client's real IP in the X-Forwarded-For HTTP header
+# - xrip: A reverse proxy is forwarding trafic to the application and save the client's real IP in the X-Real-IP HTTP header
+access_topology: "direct"
+
 couchdb:
   # CouchDB server url - flag --couchdb-url
   url: http://localhost:5984

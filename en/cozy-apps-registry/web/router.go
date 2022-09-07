@@ -21,6 +21,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"github.com/sirupsen/logrus"
+	"github.com/spf13/viper"
 )
 
 const authTokenScheme = "Token "
@@ -236,7 +237,7 @@ func httpErrorHandler(err error, c echo.Context) {
 		"is_json":     isJSON,
 		"method":      c.Request().Method,
 		"request_uri": c.Request().RequestURI,
-		"remote_ip":   c.Request().RemoteAddr,
+		"remote_ip":   c.RealIP(),
 		"status":      code,
 		"error_msg":   msg,
 	})
@@ -346,6 +347,14 @@ func Router() *echo.Echo {
 	e := echo.New()
 	e.HideBanner = true
 	e.HidePort = true
+	switch viper.GetString("access_topology") {
+	case "direct":
+		e.IPExtractor = echo.ExtractIPDirect()
+	case "xff":
+		e.IPExtractor = echo.ExtractIPFromXFFHeader()
+	case "xrip":
+		e.IPExtractor = echo.ExtractIPFromRealIPHeader()
+	}
 	e.HTTPErrorHandler = httpErrorHandler
 
 	e.Pre(middleware.RemoveTrailingSlash())
