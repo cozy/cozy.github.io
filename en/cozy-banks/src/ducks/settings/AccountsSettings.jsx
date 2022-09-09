@@ -7,7 +7,12 @@ import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Button from 'cozy-ui/transpiled/react/MuiCozyTheme/Buttons'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import PlusIcon from 'cozy-ui/transpiled/react/Icons/Plus'
-import { hasQueryBeenLoaded, isQueryLoading, useQuery, RealTimeQueries } from 'cozy-client'
+import {
+  hasQueryBeenLoaded,
+  isQueryLoading,
+  useQuery,
+  RealTimeQueries
+} from 'cozy-client'
 
 import Loading from 'components/Loading'
 

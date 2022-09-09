@@ -78,7 +78,9 @@ const AppContainer = ({ store, lang, history, client }) => {
                     <BanksProvider client={client}>
                       <SelectionProvider>
                         <MuiCozyTheme>
-                          <RealTimeQueries doctype={TRIGGER_DOCTYPE}></RealTimeQueries>
+                          <RealTimeQueries
+                            doctype={TRIGGER_DOCTYPE}
+                          ></RealTimeQueries>
                           <Router history={history} routes={AppRoute()} />
                         </MuiCozyTheme>
                       </SelectionProvider>

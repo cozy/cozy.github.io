@@ -51,7 +51,6 @@ describe('getTransactions selectors', () => {
       }
     }
   })
-  const anotherObject = x => ({ ...x })
   const id = x => x
 
   it('should filter / hydrate documents', () => {
@@ -62,9 +61,5 @@ describe('getTransactions selectors', () => {
     state = reducer(state, id)
     expect(getTransactions(state)).toEqual([{ label: 1 }])
     expect(getTransactions.recomputations()).toEqual(1)
-
-    state = reducer(state, anotherObject)
-    expect(getTransactions(state)).toEqual([{ label: 1 }])
-    expect(getTransactions.recomputations()).toEqual(2)
   })
 })
