@@ -8,7 +8,7 @@ import AccordionDetails from 'cozy-ui/transpiled/react/MuiCozyTheme/AccordionDet
 import Box from 'cozy-ui/transpiled/react/Box'
 
 import { useClient } from 'cozy-client'
-import withStyles from 'cozy-ui/transpiled/react/helpers/withStyles'
+import { withStyles } from 'cozy-ui/transpiled/react/styles'
 import Accordion from 'cozy-ui/transpiled/react/MuiCozyTheme/Accordion'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'

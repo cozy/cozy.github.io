@@ -8,7 +8,7 @@ import SadCozyIcon from 'cozy-ui/transpiled/react/Icons/SadCozy'
 
 import { useSelector, useDispatch } from 'react-redux'
 
-import { useRouter } from 'components/RouterContext'
+import { useRouter, useParams } from 'components/RouterContext'
 import TransactionSelectDates from 'ducks/transactions/TransactionSelectDates'
 import { getPeriod, addFilterByPeriod } from 'ducks/filters'
 
@@ -20,7 +20,6 @@ import {
 import styles from 'ducks/categories/CategoriesHeader/CategoriesHeader.styl'
 import { onSubcategory } from 'ducks/categories/utils'
 
-import { useParams } from 'components/RouterContext'
 import IncomeToggle from 'ducks/categories/IncomeToggle'
 import DesktopFragment from 'ducks/categories/CategoriesHeader/DesktopFragment'
 import MobileFragment from 'ducks/categories/CategoriesHeader/MobileFragment'

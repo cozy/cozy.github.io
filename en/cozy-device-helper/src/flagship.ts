@@ -25,6 +25,12 @@ export interface FlagshipMetadata {
   navbarHeight?: number
   platform?: Record<string, unknown>
   route?: FlagshipRoutes
+  settings?: {
+    PINEnabled?: boolean
+    autoLockDelay?: number
+    autoLockEnabled?: boolean
+    biometryEnabled?: boolean
+  }
   statusBarHeight?: number
   version?: string
 }

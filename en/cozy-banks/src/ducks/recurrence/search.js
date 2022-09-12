@@ -1,5 +1,4 @@
 import groupBy from 'lodash/groupBy'
-import unique from 'lodash/uniq'
 import uniq from 'lodash/uniq'
 import compose from 'lodash/flowRight'
 import flatMap from 'lodash/flatMap'
@@ -61,7 +60,7 @@ export const findRecurrences = (operations, rules) => {
   for (let rulesStageKey of rulesStageKeys) {
     const rulesInfos = rulesGroupedByStage[rulesStageKey]
     assert(
-      unique(rulesInfos.map(r => r.type)).length === 1,
+      uniq(rulesInfos.map(r => r.type)).length === 1,
       'Cannot have multiple types per stage'
     )
     const type = rulesInfos[0].type

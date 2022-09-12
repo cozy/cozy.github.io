@@ -8,7 +8,7 @@ import Accordion from 'cozy-ui/transpiled/react/MuiCozyTheme/Accordion'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import styles from 'ducks/balance/GroupPanel.styl'
 
-import withStyles from 'cozy-ui/transpiled/react/helpers/withStyles'
+import { withStyles } from 'cozy-ui/transpiled/react/styles'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import List from 'cozy-ui/transpiled/react/MuiCozyTheme/List'
 import AccountIcon from 'components/AccountIcon'

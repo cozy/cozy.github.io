@@ -1,6 +1,6 @@
 import React from 'react'
 
-import withStyles from 'cozy-ui/transpiled/react/helpers/withStyles'
+import { withStyles } from 'cozy-ui/transpiled/react/styles'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Figure from 'cozy-ui/transpiled/react/Figure'
 import Card from 'cozy-ui/transpiled/react/Card'

@@ -5,7 +5,7 @@ import cx from 'classnames'
 import compose from 'lodash/flowRight'
 import flag from 'cozy-flags'
 
-import withStyles from 'cozy-ui/transpiled/react/helpers/withStyles'
+import { withStyles } from 'cozy-ui/transpiled/react/styles'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import Switch from 'cozy-ui/transpiled/react/MuiCozyTheme/Switch'
 import Figure from 'cozy-ui/transpiled/react/Figure'

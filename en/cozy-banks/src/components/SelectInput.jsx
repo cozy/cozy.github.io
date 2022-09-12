@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 
-import makeStyles from 'cozy-ui/transpiled/react/helpers/makeStyles'
+import { makeStyles } from 'cozy-ui/transpiled/react/styles'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import ActionMenu, {
   ActionMenuItem,

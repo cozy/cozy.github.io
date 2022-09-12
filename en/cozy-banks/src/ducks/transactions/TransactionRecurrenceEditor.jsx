@@ -15,7 +15,7 @@ import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import PlusIcon from 'cozy-ui/transpiled/react/Icons/Plus'
 
-import { accountsConn } from 'doctypes'
+import { accountsConn, recurrenceConn, RECURRENCE_DOCTYPE } from 'doctypes'
 import {
   getLabel,
   makeRecurrenceFromTransaction,
@@ -23,7 +23,6 @@ import {
   getFrequencyText
 } from 'ducks/recurrence/utils'
 import { NOT_RECURRENT_ID } from 'ducks/recurrence/constants'
-import { recurrenceConn, RECURRENCE_DOCTYPE } from 'doctypes'
 import { updateTransactionRecurrence } from 'ducks/transactions/helpers'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import styles from './TransactionRecurrenceEditor.styl'

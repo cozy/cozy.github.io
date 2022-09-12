@@ -11,7 +11,12 @@ import { BankTransaction } from 'cozy-doctypes'
 
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import NotificationView from 'ducks/notifications/BaseNotificationView'
-import { getDate, isNew as isNewTransaction } from 'ducks/transactions/helpers'
+import {
+  getDate,
+  isNew as isNewTransaction,
+  isAlreadyNotified,
+  setAlreadyNotified
+} from 'ducks/transactions/helpers'
 import { getCurrencySymbol } from 'utils/currencySymbol'
 import {
   prepareTransactions,
@@ -20,10 +25,6 @@ import {
   isTransactionAmountGreaterThan,
   makeAtAttributes
 } from 'ducks/notifications/helpers'
-import {
-  isAlreadyNotified,
-  setAlreadyNotified
-} from 'ducks/transactions/helpers'
 import template from 'ducks/notifications/TransactionGreater/template.hbs'
 import {
   customToText,

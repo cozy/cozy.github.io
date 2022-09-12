@@ -14,7 +14,7 @@ import SettingIcon from 'cozy-ui/transpiled/react/Icons/Setting'
 import RightIcon from 'cozy-ui/transpiled/react/Icons/Right'
 import Badge from 'cozy-ui/transpiled/react/Badge'
 import IconButton from 'cozy-ui/transpiled/react/IconButton'
-import makeStyles from 'cozy-ui/transpiled/react/helpers/makeStyles'
+import { makeStyles } from 'cozy-ui/transpiled/react/styles'
 
 const useStyles = makeStyles({
   badge: {

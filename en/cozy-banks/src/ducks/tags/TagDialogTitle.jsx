@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
-import makeStyles from 'cozy-ui/transpiled/react/helpers/makeStyles'
+import { makeStyles } from 'cozy-ui/transpiled/react/styles'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import { DialogBackButton } from 'cozy-ui/transpiled/react/CozyDialogs'

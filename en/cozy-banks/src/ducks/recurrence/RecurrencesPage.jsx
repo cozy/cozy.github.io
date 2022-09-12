@@ -11,7 +11,7 @@ import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Breadcrumbs from 'cozy-ui/transpiled/react/Breadcrumbs'
 import ListSubheader from 'cozy-ui/transpiled/react/MuiCozyTheme/ListSubheader'
-import withStyles from 'cozy-ui/transpiled/react/helpers/withStyles'
+import { withStyles } from 'cozy-ui/transpiled/react/styles'
 
 import Loading from 'components/Loading'
 import { recurrenceConn } from 'doctypes'

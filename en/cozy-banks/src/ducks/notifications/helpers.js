@@ -4,7 +4,6 @@ import groupBy from 'lodash/groupBy'
 import sortBy from 'lodash/sortBy'
 import toPairs from 'lodash/toPairs'
 import flow from 'lodash/flow'
-import unique from 'lodash/uniq'
 import get from 'lodash/get'
 
 import logger from 'cozy-logger'
@@ -110,7 +109,7 @@ export const treatedByFormat = function (reimbursements, billsById) {
   if (!billsById) {
     throw new Error('No billsById passed')
   }
-  const vendors = unique(
+  const vendors = uniq(
     (reimbursements || [])
       .map(reimbursement => {
         const billId = billIdFromReimbursement(reimbursement)

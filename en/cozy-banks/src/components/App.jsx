@@ -10,7 +10,7 @@ import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import { Content, Layout, Main } from 'cozy-ui/transpiled/react/Layout'
 import UISidebar from 'cozy-ui/transpiled/react/Sidebar'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import useTheme from 'cozy-ui/transpiled/react/helpers/useTheme'
+import { useTheme } from 'cozy-ui/transpiled/react/styles'
 
 import { settingsConn } from 'doctypes'
 import Nav from 'ducks/commons/Nav'

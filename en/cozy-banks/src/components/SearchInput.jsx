@@ -5,7 +5,7 @@ import debounce from 'lodash/debounce'
 import InputGroup from 'cozy-ui/transpiled/react/InputGroup'
 import Input from 'cozy-ui/transpiled/react/Input'
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import makeStyles from 'cozy-ui/transpiled/react/helpers/makeStyles'
+import { makeStyles } from 'cozy-ui/transpiled/react/styles'
 import MagnifierIcon from 'cozy-ui/transpiled/react/Icons/Magnifier'
 
 const useStyles = makeStyles(theme => ({

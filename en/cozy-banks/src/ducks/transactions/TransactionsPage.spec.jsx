@@ -3,12 +3,11 @@
 import React from 'react'
 import { createMockClient } from 'cozy-client/dist/mock'
 
-import data from 'test/fixtures'
+import fixtures from 'test/fixtures'
 import PropTypes from 'prop-types'
 import AppLike from 'test/AppLike'
 import getClient from 'src/selectors/getClient'
 import mockRouter from 'test/mockRouter'
-import fixtures from 'test/fixtures'
 
 import { GROUP_DOCTYPE, ACCOUNT_DOCTYPE, schema } from 'doctypes'
 
@@ -22,8 +21,8 @@ jest.mock('src/selectors/getClient', () => ({
   default: jest.fn()
 }))
 
-const allAccounts = data['io.cozy.bank.accounts']
-const allTransactions = data['io.cozy.bank.operations']
+const allAccounts = fixtures['io.cozy.bank.accounts']
+const allTransactions = fixtures['io.cozy.bank.operations']
 
 const saveWindowWidth = () => {
   let windowWidth = window.innerWidth

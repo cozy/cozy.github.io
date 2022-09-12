@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import makeStyles from 'cozy-ui/transpiled/react/helpers/makeStyles'
+import { makeStyles } from 'cozy-ui/transpiled/react/styles'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
 import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
