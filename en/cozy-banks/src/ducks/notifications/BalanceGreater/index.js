@@ -15,8 +15,9 @@ import {
   formatAmount,
   makeAtAttributes
 } from 'ducks/notifications/helpers'
-import template from './template.hbs'
 import { ruleAccountFilter } from 'ducks/settings/ruleUtils'
+
+import template from './template.hbs'
 
 const addCurrency = o => ({ ...o, currency: '€' })
 
@@ -55,24 +56,23 @@ const customToText = cozyHTMLEmail => {
   return toText(cozyHTMLEmail, getContent)
 }
 
-class BalanceLower extends NotificationView {
+class BalanceGreater extends NotificationView {
   constructor(config) {
     super(config)
     this.rules = config.rules
     log(
       'info',
-      `[🔔 notifications] value of BalanceLower: ${this.rules.map(
+      `[🔔 notifications] value of BalanceGreater: ${this.rules.map(
         x => x.value
       )}`
     )
   }
 
   filterForRule(rule, account) {
-    const isBalanceUnder = getAccountBalance(account) < rule.value
+    const isBalanceOver = getAccountBalance(account) > rule.value
     const accountFilter = ruleAccountFilter(rule, this.data.groups)
     const correspondsAccountToGroup = accountFilter(account)
-    const isNotCreditCard = account.type !== 'CreditCard'
-    return isBalanceUnder && correspondsAccountToGroup && isNotCreditCard // CreditCard are always in negative balance
+    return isBalanceOver && correspondsAccountToGroup
   }
 
   /**
@@ -112,13 +112,13 @@ class BalanceLower extends NotificationView {
   async buildData() {
     const { accounts, matchingRules } = await this.fetchData()
     if (accounts.length === 0) {
-      log('info', '[🔔 notifications] BalanceLower: no matched accounts')
+      log('info', '[🔔 notifications] BalanceGreater: no matched accounts')
       return
     }
 
     log(
       'info',
-      `[🔔 notifications] BalanceLower: ${accounts.length} accountsFiltered`
+      `[🔔 notifications] BalanceGreater: ${accounts.length} accountsFiltered`
     )
 
     return {
@@ -135,7 +135,7 @@ class BalanceLower extends NotificationView {
       data: {
         route: '/balances'
       },
-      at: makeAtAttributes('BalanceLower')
+      at: makeAtAttributes('BalanceGreater')
     })
   }
 
@@ -145,10 +145,10 @@ class BalanceLower extends NotificationView {
     const firstAccount = accounts[0]
 
     const titleKey = onlyOne
-      ? 'Notifications.if-balance-lower.notification.one.title'
+      ? 'Notifications.if-balance-greater.notification.one.title'
       : matchingRules.length === 1
-      ? 'Notifications.if-balance-lower.notification.several.title'
-      : 'Notifications.if-balance-lower.notification.several-multi-rule.title'
+      ? 'Notifications.if-balance-greater.notification.several.title'
+      : 'Notifications.if-balance-greater.notification.several-multi-rule.title'
 
     const firstRule = matchingRules[0].rule
     const titleData = onlyOne
@@ -159,7 +159,7 @@ class BalanceLower extends NotificationView {
         }
       : {
           accountsLength: accounts.length,
-          lowerBalance: firstRule.value,
+          greaterBalance: firstRule.value,
           currency: '€'
         }
     return this.t(titleKey, titleData)
@@ -179,12 +179,12 @@ class BalanceLower extends NotificationView {
   }
 }
 
-BalanceLower.supportsMultipleRules = true
-BalanceLower.template = template
-BalanceLower.toText = customToText
-BalanceLower.category = 'balance-lower'
-BalanceLower.preferredChannels = ['mobile', 'mail']
-BalanceLower.settingKey = 'balanceLower'
-BalanceLower.isValidRule = config => Number.isFinite(config.value)
+BalanceGreater.supportsMultipleRules = true
+BalanceGreater.template = template
+BalanceGreater.toText = customToText
+BalanceGreater.category = 'balance-greater'
+BalanceGreater.preferredChannels = ['mobile', 'mail']
+BalanceGreater.settingKey = 'balanceGreater'
+BalanceGreater.isValidRule = config => Number.isFinite(config.value)
 
-export default BalanceLower
+export default BalanceGreater

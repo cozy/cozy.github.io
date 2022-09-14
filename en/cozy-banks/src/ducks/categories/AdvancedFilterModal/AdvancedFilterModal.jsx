@@ -14,6 +14,7 @@ import { tagsConn } from 'doctypes'
 import IncomeListItem from 'ducks/categories/AdvancedFilterModal/IncomeListItem'
 import style from 'ducks/categories/AdvancedFilterModal/AdvancedFilterModal.styl'
 import TagListItem from 'ducks/categories/CategoriesTags/TagListItem'
+import { trackEvent, trackPage, useTrackPage } from 'ducks/tracking/browser'
 
 const AdvancedFilterModal = ({
   onClose,
@@ -28,11 +29,15 @@ const AdvancedFilterModal = ({
   const { data: tags, ...tagsQueryRest } = useQueryAll(tagsConn.query, tagsConn)
   const isLoading = isQueryLoading(tagsQueryRest) || tagsQueryRest.hasMore
 
+  useTrackPage('analyse:filtres-avances-saisie')
+
   const toogleIncome = () => {
+    trackEvent({ name: 'masquer-revenus' })
     setIsWithIncomeChecked(prev => !prev)
   }
 
   const handleConfirm = () => {
+    trackPage('analyse:filtres-avances-confirmation')
     onConfirm(isWithIncomeChecked)
     setSelectedTags(tagListSelected)
     onClose()

@@ -8,6 +8,8 @@ import Icon from 'cozy-ui/transpiled/react/Icon'
 import { makeStyles } from 'cozy-ui/transpiled/react/styles'
 import MagnifierIcon from 'cozy-ui/transpiled/react/Icons/Magnifier'
 
+import { trackPage } from 'ducks/tracking/browser'
+
 const useStyles = makeStyles(theme => ({
   input: {
     borderRadius: '1.25rem',
@@ -36,6 +38,10 @@ const SearchInput = ({ placeholder, setValue }) => {
     [setValue]
   )
 
+  const handleFocus = () => {
+    trackPage('parametres:labels:recherche-saisie')
+  }
+
   return (
     <>
       <InputGroup
@@ -51,6 +57,7 @@ const SearchInput = ({ placeholder, setValue }) => {
         <Input
           placeholder={placeholder}
           onChange={event => delayedSetValue(event.target.value)}
+          onFocus={handleFocus}
         />
       </InputGroup>
     </>

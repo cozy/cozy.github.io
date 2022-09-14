@@ -25,7 +25,7 @@ const useConfirmation = ({
 
   const component = confirming ? (
     <ConfirmDialog
-      opened={true}
+      open
       title={title}
       content={description}
       actions={

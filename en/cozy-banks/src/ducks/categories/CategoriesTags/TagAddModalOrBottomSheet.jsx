@@ -5,6 +5,7 @@ import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 
 import TagAddModal from 'components/Tag/TagAddModal'
 import TagBottomSheet from 'components/Tag/TagBottomSheet'
+import { trackPage, useTrackPage } from 'ducks/tracking/browser'
 
 const isAlreadyChecked = (selectedTagIds, tag) =>
   selectedTagIds.some(tagId => tagId === tag._id)
@@ -21,6 +22,8 @@ const TagAddModalOrBottomSheet = ({
     tagListSelected.map(tagSelected => tagSelected._id)
   )
 
+  useTrackPage('analyse:filtres:labels-saisie')
+
   const handleClick = tag => {
     if (isAlreadyChecked(selectedTagIds, tag)) {
       setSelectedTagIds(prev => prev.filter(id => id !== tag._id))
@@ -30,6 +33,7 @@ const TagAddModalOrBottomSheet = ({
   }
 
   const handleConfirm = () => {
+    trackPage('analyse:filtres:labels-confirmation')
     const selectedTagList = tags.filter(tag =>
       selectedTagIds.some(selectedTagId => selectedTagId === tag._id)
     )

@@ -8,14 +8,24 @@ import { ConfirmDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 import Button from 'cozy-ui/transpiled/react/Buttons'
 
 import { TAGS_DOCTYPE } from 'doctypes'
+import { trackPage, useTrackPage } from 'ducks/tracking/browser'
+import { useLocation } from 'components/RouterContext'
 
 const labelMaxLength = 30
 
 const TagAddNewTagModal = ({ onClick, onClose, withLabel }) => {
   const client = useClient()
   const { t } = useI18n()
+  const location = useLocation()
   const [label, setLabel] = useState('')
   const [isBusy, toggleBusy] = useReducer(prev => !prev, false)
+  const inSettings = location.pathname.startsWith('/settings')
+
+  useTrackPage(
+    inSettings
+      ? 'parametres:labels:creation-label-saisie'
+      : 'mon_compte:depense:creation-label-saisie'
+  )
 
   const handleChange = ev => {
     const currentValue = ev.target.value
@@ -25,6 +35,11 @@ const TagAddNewTagModal = ({ onClick, onClose, withLabel }) => {
   }
 
   const handleClick = async () => {
+    trackPage(
+      inSettings
+        ? 'parametres:labels:creation-label-confirmation'
+        : 'mon_compte:depense:creation-label-confirmation'
+    )
     toggleBusy()
 
     const { data: tag } = await client.save({

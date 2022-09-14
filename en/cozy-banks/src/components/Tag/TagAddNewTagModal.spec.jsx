@@ -14,9 +14,17 @@ const setup = ({
   const client = getClient()
   const defautlMockSave = mockSave.mockResolvedValue({ data: [] })
   client.save = defautlMockSave
-
+  const location = {
+    pathname: '/settings'
+  }
+  const router = {
+    getCurrentLocation: () => {
+      return location
+    },
+    location
+  }
   return render(
-    <AppLike client={client}>
+    <AppLike client={client} router={router}>
       <TagAddNewTagModal onClose={onClose} onClick={onClick} />
     </AppLike>
   )

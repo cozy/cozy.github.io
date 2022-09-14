@@ -208,6 +208,15 @@ describe('remove account from notifications', () => {
         enabled: true,
         id: 0,
         value: 100
+      },
+      {
+        accountOrGroup: {
+          _id: 'compteisa1',
+          _type: 'io.cozy.bank.accounts'
+        },
+        enabled: true,
+        id: 0,
+        value: 1000
       }
     ])
   })

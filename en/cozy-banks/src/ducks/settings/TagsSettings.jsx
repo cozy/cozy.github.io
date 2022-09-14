@@ -6,11 +6,14 @@ import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 
 import TagsListSettings from 'ducks/settings/TagsListSettings'
+import { useTrackPage } from 'ducks/tracking/browser'
 
 const TagsSettings = () => {
   const { t } = useI18n()
   const response = useQueryAll(tagsConn.query, tagsConn)
   const hasFailed = response.fetchStatus === 'failed'
+
+  useTrackPage('parametres:labels')
 
   if (hasFailed) {
     return (

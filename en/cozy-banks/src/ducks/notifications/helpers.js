@@ -77,12 +77,15 @@ export const makeAtAttributes = notificationName => {
     const newDate = scheduledDate.toISOString()
     logger(
       'info',
-      `➡️ Scheduling notification for ${notificationName} at ${newDate}`
+      `[🔔 notifications] ➡️ Scheduling notification for ${notificationName} at ${newDate}`
     )
     return newDate
   }
 
-  logger('info', `➡️ Sending notification for ${notificationName} right now`)
+  logger(
+    'info',
+    `[🔔 notifications] ➡️ Sending notification for ${notificationName} right now`
+  )
   return undefined
 }
 

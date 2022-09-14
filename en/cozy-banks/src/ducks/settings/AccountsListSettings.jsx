@@ -123,6 +123,9 @@ const AccountsListSettings = ({
               account={accounts[0]}
               secondary={secondary(connection, isLoading)}
               onClick={() => {
+                if (accounts?.[0]?.inProgress === true) {
+                  return
+                }
                 return setEditionModalOptions({
                   connection: connection,
                   connectionId: connectionId

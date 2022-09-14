@@ -8,6 +8,7 @@ import { TAGS_DOCTYPE } from 'doctypes'
 import useDocument from 'components/useDocument'
 import { useHistory } from 'components/RouterContext'
 import { removeTagRelationshipFromTransaction } from 'ducks/transactions/helpers'
+import { trackEvent } from 'ducks/tracking/browser'
 
 const TagChip = ({
   className,
@@ -21,7 +22,10 @@ const TagChip = ({
   const history = useHistory()
 
   const handleDelete = deletable
-    ? () => removeTagRelationshipFromTransaction(transaction, tagFromDoctype)
+    ? () => {
+        trackEvent({ name: 'retrait-label' })
+        removeTagRelationshipFromTransaction(transaction, tagFromDoctype)
+      }
     : undefined
 
   const handleClick = ev => {

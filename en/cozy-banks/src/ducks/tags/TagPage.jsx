@@ -7,11 +7,14 @@ import Spinner from 'cozy-ui/transpiled/react/Spinner'
 
 import { useLocation } from 'components/RouterContext'
 import TagDialog from 'ducks/tags/TagDialog'
+import { useTrackPage } from 'ducks/tracking/browser'
 
 const TagPage = () => {
   const { pathname } = useLocation()
   const tagId = pathname.split('/').pop()
   const { t } = useI18n()
+
+  useTrackPage('parametres:labels:labels-detail-operations')
 
   const tagsQueryByIds = buildTagsQueryWithTransactionsByIds([tagId])
   const response = useQueryAll(

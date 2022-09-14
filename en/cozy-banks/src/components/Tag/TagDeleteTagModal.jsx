@@ -10,6 +10,7 @@ import { useHistory } from 'components/RouterContext'
 
 import { countTransactions } from 'components/Tag/helpers'
 import { removeTag } from 'ducks/transactions/helpers'
+import { trackPage, useTrackPage } from 'ducks/tracking/browser'
 
 const TagDeleteTagModal = ({ tag, transactions, onClose }) => {
   const client = useClient()
@@ -17,7 +18,10 @@ const TagDeleteTagModal = ({ tag, transactions, onClose }) => {
   const history = useHistory()
   const [isBusy, toggleBusy] = useReducer(prev => !prev, false)
 
+  useTrackPage('parametres:labels:supprimer-label-popin')
+
   const handleClick = async () => {
+    trackPage('parametres:labels:supprimer-label-confirmation')
     toggleBusy()
     await removeTag(client, tag, transactions)
     history.goBack()

@@ -10,6 +10,8 @@ import ActionMenu, {
 import DropdownText from 'cozy-ui/transpiled/react/DropdownText'
 import InputGroup from 'cozy-ui/transpiled/react/InputGroup'
 
+import { trackEvent } from 'ducks/tracking/browser'
+
 const useStyles = makeStyles({
   mobileInput: {
     width: '100%',
@@ -53,12 +55,17 @@ const SelectInput = ({ options, name, value, setValue }) => {
 
   const anchorRef = useRef()
 
+  const handleClick = () => {
+    trackEvent({ name: 'tri' })
+    setIsOpened(true)
+  }
+
   return (
     <InputGroup className={isMobile ? styles.mobileInput : styles.desktopInput}>
       <DropdownText
         className={isMobile ? styles.mobileButton : styles.desktopButton}
         variant="caption"
-        onClick={() => setIsOpened(true)}
+        onClick={handleClick}
         ref={anchorRef}
       >
         {options[value]}

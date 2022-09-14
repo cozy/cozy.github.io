@@ -15,6 +15,7 @@ import {
   getTransactionTagsIds
 } from 'ducks/transactions/helpers'
 import { makeTagsToRemove, makeTagsToAdd } from 'components/Tag/helpers'
+import { trackPage, useTrackPage } from 'ducks/tracking/browser'
 
 const TagAddModalOrBottomSheet = ({ transaction, onClose }) => {
   const { isMobile } = useBreakpoints()
@@ -25,6 +26,8 @@ const TagAddModalOrBottomSheet = ({ transaction, onClose }) => {
     getTransactionTagsIds(transaction)
   )
   const [hasTagsBeenModified, setHasTagsBeenModified] = useState(false)
+
+  useTrackPage('mon_compte:depense:ajout-label-saisie')
 
   const toggleAddNewTagModal = () => setShowAddNewTagModal(prev => !prev)
 
@@ -45,6 +48,7 @@ const TagAddModalOrBottomSheet = ({ transaction, onClose }) => {
   }
 
   const handleConfirm = async () => {
+    trackPage('mon_compte:depense:ajout-label-confirmation')
     if (hasTagsBeenModified) {
       setIsSaving(true)
       const tagsToRemove = makeTagsToRemove({

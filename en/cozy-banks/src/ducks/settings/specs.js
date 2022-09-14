@@ -55,6 +55,31 @@ export const balanceLower = {
   }
 }
 
+export const balanceGreater = {
+  modalTitle: 'Notifications.editModal.title',
+  fieldSpecs: {
+    value: {
+      type: CHOOSING_TYPES.number,
+      getValue: getValueFromNotification,
+      updater: updatedNotificationFromValue,
+      sectionProps: {
+        unit: '€'
+      }
+    },
+    accountOrGroup: {
+      type: CHOOSING_TYPES.accountOrGroup,
+      getValue: getAccountOrGroupFromNotification,
+      updater: updatedNotificationFromAccountGroup
+    }
+  },
+  fieldOrder: ['value', 'accountOrGroup'],
+  fieldLabels: {
+    value: 'Notifications.if-balance-greater.fieldLabels.value',
+    accountOrGroup:
+      'Notifications.if-balance-greater.fieldLabels.accountOrGroup'
+  }
+}
+
 export const transactionGreater = {
   modalTitle: 'Notifications.editModal.title',
   fieldSpecs: {

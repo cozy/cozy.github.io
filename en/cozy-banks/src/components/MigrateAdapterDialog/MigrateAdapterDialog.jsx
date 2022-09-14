@@ -17,7 +17,7 @@ const MigrateAdapterDialog = ({ handleMigrateModaleAnswer }) => {
 
   return (
     <ConfirmDialog
-      open={true}
+      open
       onClose={onClose}
       title={t('Migration.title')}
       content={t('Migration.content')}

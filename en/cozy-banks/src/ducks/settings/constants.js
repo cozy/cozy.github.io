@@ -20,6 +20,13 @@ export const DEFAULTS_SETTINGS = {
         enabled: false
       }
     ],
+    balanceGreater: [
+      {
+        id: 0,
+        value: 1000,
+        enabled: false
+      }
+    ],
     transactionGreater: [
       {
         id: 0,

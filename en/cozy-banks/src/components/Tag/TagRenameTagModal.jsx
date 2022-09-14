@@ -8,13 +8,18 @@ import TextField from 'cozy-ui/transpiled/react/MuiCozyTheme/TextField'
 import { ConfirmDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 import Button from 'cozy-ui/transpiled/react/Buttons'
 
+import { trackPage, useTrackPage } from 'ducks/tracking/browser'
+
 const TagRenameTagModal = ({ tag, onClose, withLabel }) => {
   const client = useClient()
   const { t } = useI18n()
   const [label, setLabel] = useState(tag.label)
   const [isBusy, toggleBusy] = useReducer(prev => !prev, false)
 
+  useTrackPage('parametres:labels:renommer-label-saisie')
+
   const handleClick = async () => {
+    trackPage('parametres:labels:renommer-label-confirmation')
     toggleBusy()
     await client.save({
       ...tag,

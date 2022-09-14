@@ -27,6 +27,7 @@ import EditableSettingCard from './EditableSettingCard'
 import { withAccountOrGroupLabeller } from './helpers'
 import ToggleRow from 'ducks/settings/ToggleRow'
 import BalanceLowerRules from './BalanceLowerRules'
+import BalanceGreaterRules from './BalanceGreaterRules'
 import TransactionGreaterRules from './TransactionGreaterRules'
 
 import { PersonalInfoDialog } from 'ducks/personal-info'
@@ -50,6 +51,9 @@ export class Configuration extends React.Component {
     this.handleToggleAmountBlur = this.handleToggleAmountBlur.bind(this)
 
     this.onChangeBalanceLower = this.onChangeDoc('notifications.balanceLower')
+    this.onChangeBalanceGreater = this.onChangeDoc(
+      'notifications.balanceGreater'
+    )
     this.onChangeTransactionGreater = this.onChangeDoc(
       'notifications.transactionGreater'
     )
@@ -135,6 +139,15 @@ export class Configuration extends React.Component {
               rules={settings.notifications.balanceLower}
               getAccountOrGroupLabel={this.props.getAccountOrGroupLabel}
               onChangeRules={this.onChangeBalanceLower}
+            />
+          </SubSection>
+          <SubSection
+            title={t('Notifications.if-balance-greater.settingTitle')}
+          >
+            <BalanceGreaterRules
+              rules={settings.notifications.balanceGreater}
+              getAccountOrGroupLabel={this.props.getAccountOrGroupLabel}
+              onChangeRules={this.onChangeBalanceGreater}
             />
           </SubSection>
           <SubSection
