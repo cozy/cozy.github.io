@@ -93,7 +93,7 @@ const AccountsListSettings = ({
         if (isInMaintenance) {
           return t('Settings.accounts-tab.in-maintenance')
         }
-        return connection.auth.identifier
+        return connection?.auth?.identifier
       } else {
         return (
           <>
