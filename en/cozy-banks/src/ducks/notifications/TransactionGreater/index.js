@@ -84,6 +84,7 @@ class TransactionGreater extends NotificationView {
   constructor(config) {
     super(config)
     this.rules = config.rules
+    this.amountCensoring = config.amountCensoring
   }
 
   /**
@@ -205,13 +206,19 @@ class TransactionGreater extends NotificationView {
       notificationSubtype === SINGLE_TRANSACTION
         ? {
             firstTransaction: firstTransaction,
-            amount: formatAmount(Math.abs(firstTransaction.amount)),
+            amount: formatAmount(
+              Math.abs(firstTransaction.amount),
+              this.amountCensoring
+            ),
             currency: getCurrencySymbol(firstTransaction.currency)
           }
         : notificationSubtype === MULTI_TRANSACTION
         ? {
             transactionsLength: transactions.length,
-            maxAmount: formatAmount(matchingRules[0].rule.value)
+            maxAmount: formatAmount(
+              matchingRules[0].rule.value,
+              this.amountCensoring
+            )
           }
         : {
             transactionsLength: transactions.length,
@@ -235,10 +242,16 @@ class TransactionGreater extends NotificationView {
       transactions.length > 3
         ? transactions
             .slice(0, 3)
-            .map(formatTransaction)
+            .map(transaction =>
+              formatTransaction(transaction, this.amountCensoring)
+            )
             .join('\n')
             .concat('...')
-        : transactions.map(formatTransaction).join('\n')
+        : transactions
+            .map(transaction =>
+              formatTransaction(transaction, this.amountCensoring)
+            )
+            .join('\n')
 
     return pushContent
   }

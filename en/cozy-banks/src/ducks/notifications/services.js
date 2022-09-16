@@ -107,6 +107,10 @@ export const sendNotificationForClass = async (
   { config, client, data, lang }
 ) => {
   const klassRules = getClassRules(Klass, config)
+  const amountCensoring = getClassRules(
+    { settingKey: 'amountCensoring' },
+    config
+  )
   const klassOptions = {
     client,
     t,
@@ -114,7 +118,8 @@ export const sendNotificationForClass = async (
       [lang]: dictRequire(lang)
     },
     lang,
-    data
+    data,
+    amountCensoring
   }
   if (isKlassSupportingSeveralRules(Klass)) {
     klassOptions.rules = klassRules

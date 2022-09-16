@@ -57,6 +57,13 @@ class ACH {
       log.warn(
         'You can specify the Cozy URL by using the --url argument: ACH --url http://bob.cozy.localhost:8080 '
       )
+
+      if (this.url.includes('localhost')) {
+        log.warn(
+          `Seems like you are trying to connecto to a localhost server, please verify that this domain is declared in your system's hosts file (i.e. '127.0.0.1 bob.cozy.localhost')`
+        )
+      }
+
       throw err
     }
   }

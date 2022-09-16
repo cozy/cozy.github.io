@@ -2,6 +2,8 @@ import { getCurrencySymbol } from 'utils/currencySymbol'
 import capitalize from 'lodash/capitalize'
 import { toText } from 'cozy-notifications'
 
+import { formatAmount } from 'ducks/notifications/helpers'
+
 const ACCOUNT_SEL = '.js-account'
 const DATE_SEL = '.js-date'
 const TRANSACTION_SEL = '.js-transaction'
@@ -11,12 +13,11 @@ const SEPARATOR = ' : '
 
 const capitalizeEachWords = str => str.split(' ').map(capitalize).join(' ')
 
-export const formatTransaction = transaction => {
+export const formatTransaction = (transaction, censoring) => {
   const { amount, currency } = transaction
-  const amountFormat = `${amount}${getCurrencySymbol(currency)}`.replace(
-    '.',
-    ','
-  )
+  const amountFormat = `${formatAmount(amount, censoring)}${getCurrencySymbol(
+    currency
+  )}`
   const REMAINS_LENGTH =
     MAX_CHAR_BY_LINE - SEPARATOR.length - amountFormat.length
   const labelCapitalize = capitalizeEachWords(transaction.label)

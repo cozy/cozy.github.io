@@ -171,9 +171,9 @@ describe('balance lower', () => {
           rules: [lou1Rule, { ...allAccountsRule, enabled: false }]
         })
         expect(title).toBe(
-          "Balance alert: 'Compte jeune Louise' account is at 325.24€"
+          "Balance alert: 'Compte jeune Louise' account is at 325,24€"
         )
-        expect(pushContent).toBe('Compte jeune Louise +325.24€')
+        expect(pushContent).toBe('Compte jeune Louise +325,24€')
       })
     })
 
@@ -186,7 +186,7 @@ describe('balance lower', () => {
           '4 accounts are below your threshold amount of 5000€'
         )
         expect(pushContent).toBe(
-          'PEE Isabelle +1421.20€\nCompte courant Claude +4135.62€\nCompte courant Isabelle +3974.20€\nCompte jeune Louise +325.24€'
+          'PEE Isabelle +1421,20€\nCompte courant Claude +4135,62€\nCompte courant Isabelle +3974,20€\nCompte jeune Louise +325,24€'
         )
       })
     })
@@ -198,7 +198,7 @@ describe('balance lower', () => {
         })
         expect(title).toBe('4 accounts are below their threshold amount')
         expect(pushContent).toBe(
-          'Compte jeune Louise +325.24€\nPEE Isabelle +1421.20€\nCompte courant Claude +4135.62€\nCompte courant Isabelle +3974.20€'
+          'Compte jeune Louise +325,24€\nPEE Isabelle +1421,20€\nCompte courant Claude +4135,62€\nCompte courant Isabelle +3974,20€'
         )
       })
     })

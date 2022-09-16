@@ -131,5 +131,23 @@ export const getCurrentDate = () => {
   return new Date()
 }
 
-export const formatAmount = amount =>
-  amount % 1 !== 0 ? amount.toFixed(2) : amount
+export const formatAmount = (amount, censoring) => {
+  if (censoring) {
+    return '***,**'
+  }
+  const formattedAmount = Math.abs(amount)
+    .toFixed(2)
+    .replace('.00', '')
+    .replace('.', ',')
+  const sign = formattedAmount !== '0' && amount < 0 ? '-' : ''
+  return `${sign}${formattedAmount}`
+}
+
+export const formatAmountWithSign = (amount, censoring) => {
+  if (censoring) {
+    return '***,**'
+  }
+  const formattedAmount = formatAmount(amount, false)
+  const sign = formattedAmount !== '0' && amount > 0 ? '+' : ''
+  return `${sign}${formattedAmount}`
+}

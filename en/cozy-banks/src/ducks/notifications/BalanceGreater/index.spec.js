@@ -176,9 +176,9 @@ describe('BalanceGreater', () => {
         })
 
         expect(title).toBe(
-          "Balance alert: 'Compte jeune Louise' account is at 325.24€"
+          "Balance alert: 'Compte jeune Louise' account is at 325,24€"
         )
-        expect(pushContent).toBe('Compte jeune Louise +325.24€')
+        expect(pushContent).toBe('Compte jeune Louise +325,24€')
       })
     })
 
@@ -191,7 +191,7 @@ describe('BalanceGreater', () => {
           '2 accounts are above your threshold amount of 5000€'
         )
         expect(pushContent).toBe(
-          'Livret A Isabelle +11635.10€\nCompte courant Genevieve +22471.46€'
+          'Livret A Isabelle +11635,10€\nCompte courant Genevieve +22471,46€'
         )
       })
     })
@@ -203,7 +203,7 @@ describe('BalanceGreater', () => {
         })
         expect(title).toBe('3 accounts are above their threshold amount')
         expect(pushContent).toBe(
-          'Compte jeune Louise +325.24€\nLivret A Isabelle +11635.10€\nCompte courant Genevieve +22471.46€'
+          'Compte jeune Louise +325,24€\nLivret A Isabelle +11635,10€\nCompte courant Genevieve +22471,46€'
         )
       })
     })

@@ -4,7 +4,9 @@ import {
   getReimbursementBillIds,
   getScheduleDate,
   prepareTransactions,
-  treatedByFormat
+  treatedByFormat,
+  formatAmount,
+  formatAmountWithSign
 } from './helpers'
 
 describe('isTransactionAmountGreaterThan', () => {
@@ -131,5 +133,51 @@ describe('treatedByFormat', () => {
     expect(treatedByFormat(reimbursements, billsById)).toBe(
       'Vendor 1, Vendor 2'
     )
+  })
+})
+
+describe('formatAmount', () => {
+  it('should format amounts', () => {
+    expect(formatAmount(0, false)).toBe('0')
+    expect(formatAmount(0.001, false)).toBe('0')
+    expect(formatAmount(0.999, false)).toBe('1')
+    expect(formatAmount(123, false)).toBe('123')
+    expect(formatAmount(123.4, false)).toBe('123,40')
+    expect(formatAmount(123.45, false)).toBe('123,45')
+    expect(formatAmount(123.456, false)).toBe('123,46')
+    expect(formatAmount(-0, false)).toBe('0')
+    expect(formatAmount(-0.001, false)).toBe('0')
+    expect(formatAmount(-0.999, false)).toBe('-1')
+    expect(formatAmount(-123, false)).toBe('-123')
+    expect(formatAmount(-123.4, false)).toBe('-123,40')
+    expect(formatAmount(-123.45, false)).toBe('-123,45')
+    expect(formatAmount(-123.456, false)).toBe('-123,46')
+    expect(formatAmount(1, true)).toBe('***,**')
+    expect(formatAmount(123.456, true)).toBe('***,**')
+    expect(formatAmount(-1, true)).toBe('***,**')
+    expect(formatAmount(-123.456, true)).toBe('***,**')
+  })
+})
+
+describe('formatAmountWithSign', () => {
+  it('should format amounts with sign', () => {
+    expect(formatAmountWithSign(0, false)).toBe('0')
+    expect(formatAmountWithSign(0.001, false)).toBe('0')
+    expect(formatAmountWithSign(0.999, false)).toBe('+1')
+    expect(formatAmountWithSign(123, false)).toBe('+123')
+    expect(formatAmountWithSign(123.4, false)).toBe('+123,40')
+    expect(formatAmountWithSign(123.45, false)).toBe('+123,45')
+    expect(formatAmountWithSign(123.456, false)).toBe('+123,46')
+    expect(formatAmountWithSign(-0, false)).toBe('0')
+    expect(formatAmountWithSign(-0.001, false)).toBe('0')
+    expect(formatAmountWithSign(-0.999, false)).toBe('-1')
+    expect(formatAmountWithSign(-123, false)).toBe('-123')
+    expect(formatAmountWithSign(-123.4, false)).toBe('-123,40')
+    expect(formatAmountWithSign(-123.45, false)).toBe('-123,45')
+    expect(formatAmountWithSign(-123.456, false)).toBe('-123,46')
+    expect(formatAmountWithSign(1, true)).toBe('***,**')
+    expect(formatAmountWithSign(123.456, true)).toBe('***,**')
+    expect(formatAmountWithSign(-1, true)).toBe('***,**')
+    expect(formatAmountWithSign(-123.456, true)).toBe('***,**')
   })
 })

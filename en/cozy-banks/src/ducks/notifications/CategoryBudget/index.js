@@ -68,7 +68,7 @@ const transformForTemplate = (budgetAlert, t, accountsById, groupsById) => {
   return {
     ...budgetAlert.alert,
     categoryLabel: t(`Data.${type}.${catName}`),
-    currentAmount: (-sumBy(budgetAlert.expenses, tr => tr.amount)).toFixed(0),
+    currentAmount: Math.round(-sumBy(budgetAlert.expenses, tr => tr.amount)),
     accountOrGroupLabel
   }
 }
@@ -78,6 +78,7 @@ class CategoryBudget extends NotificationView {
     super(options)
     this.currentDate = options.currentDate
     this.force = options.force
+    this.amountCensoring = options.amountCensoring
   }
 
   shouldSend(templateData) {
@@ -150,12 +151,13 @@ class CategoryBudget extends NotificationView {
             alert =>
               `${alert.categoryLabel}: ${formatAmount(
                 alert.currentAmount
-              )}€ > ${alert.maxThreshold}€`
+              )}€ > ${formatAmount(alert.maxThreshold, this.amountCensoring)}€`
           )
           .join('\n')
-      : `${formatAmount(budgetAlerts[0].currentAmount)}€ > ${
-          budgetAlerts[0].maxThreshold
-        }€`
+      : `${formatAmount(
+          budgetAlerts[0].currentAmount,
+          this.amountCensoring
+        )}€ > ${formatAmount(budgetAlerts[0].maxThreshold)}€`
   }
 
   getExtraAttributes() {

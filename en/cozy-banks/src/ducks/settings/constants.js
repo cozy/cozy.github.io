@@ -47,7 +47,10 @@ export const DEFAULTS_SETTINGS = {
         enabled: false,
         value: 2
       }
-    ]
+    ],
+    amountCensoring: {
+      enabled: false
+    }
   },
   categoryBudgetAlerts: [],
   billsMatching: {
