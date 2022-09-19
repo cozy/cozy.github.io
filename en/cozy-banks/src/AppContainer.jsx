@@ -21,8 +21,13 @@ import BanksProvider from 'ducks/context/BanksContext'
 import SelectionProvider from 'ducks/context/SelectionContext'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import cozyBar from 'utils/cozyBar'
-import { TRIGGER_DOCTYPE } from 'doctypes'
-
+import {
+  TRIGGER_DOCTYPE,
+  ACCOUNT_DOCTYPE,
+  TRANSACTION_DOCTYPE,
+  GROUP_DOCTYPE
+} from 'doctypes'
+import { StoreURLProvider } from 'ducks/store/StoreContext'
 const jobsProviderOptions = t => ({
   onSuccess: () => Alerter.success(t('JobsContext.alerter-success')),
   onError: () => Alerter.error(t('JobsContext.alerter-errored'))
@@ -76,10 +81,15 @@ const AppContainer = ({ store, lang, history, client }) => {
                   >
                     <BanksProvider client={client}>
                       <SelectionProvider>
-                        <MuiCozyTheme>
-                          <RealTimeQueries doctype={TRIGGER_DOCTYPE} />
-                          <Router history={history} routes={AppRoute()} />
-                        </MuiCozyTheme>
+                        <StoreURLProvider>
+                          <MuiCozyTheme>
+                            <RealTimeQueries doctype={TRIGGER_DOCTYPE} />
+                            <RealTimeQueries doctype={ACCOUNT_DOCTYPE} />
+                            <RealTimeQueries doctype={TRANSACTION_DOCTYPE} />
+                            <RealTimeQueries doctype={GROUP_DOCTYPE} />
+                            <Router history={history} routes={AppRoute()} />
+                          </MuiCozyTheme>
+                        </StoreURLProvider>
                       </SelectionProvider>
                     </BanksProvider>
                   </JobsProvider>

@@ -2,10 +2,12 @@ import StartupChecksPlugin from './checks'
 import CozyClient from 'cozy-client'
 import merge from 'lodash/merge'
 import sleep from 'utils/sleep'
+import logger from 'cozy-client/dist/logger'
 
 describe('startup checks', () => {
   beforeEach(() => {
     jest.spyOn(console, 'warn').mockImplementation(() => {})
+    jest.spyOn(logger, 'warn').mockImplementation(() => {})
   })
   const setup = async ({ loggedIn = false, existingTriggers = [] } = {}) => {
     const clientOpts = loggedIn

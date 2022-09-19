@@ -1,10 +1,12 @@
 import { mount, shallow } from 'enzyme'
 import AppLike from 'test/AppLike'
+import { useQuery } from 'cozy-client'
 import getClient from 'test/client'
 import Loading from 'components/Loading'
 import NoAccount from './NoAccount'
 import AccountsImporting from './AccountsImporting'
 import fixtures from 'test/fixtures'
+import { useBanksContext } from 'ducks/context/BanksContext'
 
 const React = require('react')
 const { DumbBalance } = require('./Balance')
@@ -15,7 +17,12 @@ jest.mock('lodash/debounce', () => jest.fn(fn => fn))
 jest.mock('ducks/balance/BalanceHeader', () => () => null)
 jest.mock('ducks/balance/NoAccount', () => () => null)
 jest.mock('components/Loading', () => () => null)
-
+jest.mock('cozy-client/dist/hooks/useQuery', () => jest.fn())
+jest.mock('ducks/context/BanksContext', () => ({
+  __esModule: true,
+  ...jest.requireActual('ducks/context/BanksContext'),
+  useBanksContext: jest.fn()
+}))
 jest.useFakeTimers()
 
 const fakeCollection = (doctype, data, fetchStatus) => ({
@@ -100,15 +107,6 @@ describe('Balance page', () => {
       const instance = root.instance()
       return instance
     }
-    it('should start periodic data fetch if no accounts', () => {
-      const { instance } = setup()
-
-      jest.spyOn(instance, 'startRealtimeFallback')
-      jest.spyOn(instance, 'stopRealtimeFallback')
-      instance.ensureListenersProperlyConfigured()
-      expect(instance.startRealtimeFallback).toHaveBeenCalled()
-      expect(instance.startRealtimeFallback).toHaveBeenCalled()
-    })
 
     it('should call all fetch when there are accounts', async () => {
       const instance = setupWithFetch({
@@ -122,7 +120,6 @@ describe('Balance page', () => {
       expect(resp).toEqual({ meta: { count: 7 } })
       expect(instance.props.groups.fetch).toHaveBeenCalled()
       expect(instance.props.transactions.fetch).toHaveBeenCalled()
-      expect(instance.props.triggers.fetch).toHaveBeenCalled()
     })
 
     it('should call all fetch except groups when there are no accounts', async () => {
@@ -137,7 +134,6 @@ describe('Balance page', () => {
       expect(resp).toEqual({ meta: { count: 0 } })
       expect(instance.props.groups.fetch).not.toHaveBeenCalled()
       expect(instance.props.transactions.fetch).toHaveBeenCalled()
-      expect(instance.props.triggers.fetch).toHaveBeenCalled()
     })
 
     // See issue #2009 https://github.com/cozy/cozy-banks/issues/2009
@@ -151,40 +147,6 @@ describe('Balance page', () => {
     //   expect(instance.startRealtimeFallback).not.toHaveBeenCalled()
     //   expect(instance.stopRealtimeFallback).toHaveBeenCalled()
     // })
-
-    it('should correctly start realtime fallback', () => {
-      const { instance } = setup()
-      jest
-        .spyOn(global, 'setInterval')
-        .mockReset()
-        .mockImplementation(() => 1337)
-      instance.startRealtimeFallback()
-      expect(global.setInterval).toHaveBeenCalledWith(
-        instance.updateQueries,
-        30000
-      )
-      expect(global.setInterval).toHaveBeenCalledTimes(1)
-      instance.startRealtimeFallback()
-      expect(global.setInterval).toHaveBeenCalledTimes(1)
-    })
-
-    it('should correctly stop realtime fallback', () => {
-      const { instance } = setup()
-      jest
-        .spyOn(global, 'setInterval')
-        .mockReset()
-        .mockImplementation(() => 1337)
-      jest
-        .spyOn(global, 'clearInterval')
-        .mockReset()
-        .mockImplementation(() => {})
-      instance.startRealtimeFallback()
-      instance.stopRealtimeFallback()
-      expect(global.clearInterval).toHaveBeenCalledWith(1337)
-      expect(instance.realtimeFallbackInterval).toBe(null)
-      instance.stopRealtimeFallback()
-      expect(global.clearInterval).toHaveBeenCalledTimes(1)
-    })
   })
 
   describe('panel toggling', () => {
@@ -217,7 +179,6 @@ describe('Balance page', () => {
     const commonProps = {
       virtualAccounts: [],
       virtualGroups: [],
-      triggers: fakeCollection('io.cozy.triggers'),
       filterByAccounts: jest.fn(),
       router: router,
       client: getClient(),
@@ -274,23 +235,6 @@ describe('Balance page', () => {
       ).toBe(true)
     })
 
-    it('should not be in loading state if triggers are loading (since they are not stored offline)', () => {
-      expect(
-        isLoading(
-          mount(
-            <DumbBalance
-              accounts={fakeCollection('io.cozy.bank.accounts', [])}
-              groups={fakeCollection('io.cozy.bank.groups', [])}
-              settings={fakeCollection('io.cozy.bank.settings', [])}
-              transactions={fakeCollection('io.cozy.bank.operations', [])}
-              {...commonProps}
-              triggers={fakeCollection('io.cozy.bank.triggers', [], 'loading')}
-            />
-          )
-        )
-      ).toBe(false)
-    })
-
     it('should show no account', () => {
       const triggers = [
         {
@@ -305,19 +249,24 @@ describe('Balance page', () => {
           }
         }
       ]
+      useBanksContext.mockReturnValue({
+        isFetchingBankSlugs: false,
+        isBankTrigger: x => x
+      })
+      useQuery.mockReturnValue({
+        fetchStatus: 'loaded',
+        data: triggers
+      })
       const wrapper = mount(
-        <DumbBalance
-          accounts={fakeCollection('io.cozy.bank.accounts', [])}
-          groups={fakeCollection('io.cozy.bank.groups', [])}
-          settings={fakeCollection('io.cozy.bank.settings', [])}
-          transactions={fakeCollection('io.cozy.bank.operations', [])}
-          {...commonProps}
-          triggers={fakeCollection(
-            'io.cozy.bank.triggers',
-            triggers,
-            'loading'
-          )}
-        />
+        <AppLike client={getClient()}>
+          <DumbBalance
+            accounts={fakeCollection('io.cozy.bank.accounts', [])}
+            groups={fakeCollection('io.cozy.bank.groups', [])}
+            settings={fakeCollection('io.cozy.bank.settings', [])}
+            transactions={fakeCollection('io.cozy.bank.operations', [])}
+            {...commonProps}
+          />
+        </AppLike>
       )
       expect(wrapper.find(NoAccount)).toHaveLength(1)
     })
@@ -336,6 +285,14 @@ describe('Balance page', () => {
           }
         }
       ]
+      useBanksContext.mockReturnValue({
+        isFetchingBankSlugs: false,
+        isBankTrigger: x => x
+      })
+      useQuery.mockReturnValue({
+        fetchStatus: 'loaded',
+        data: triggers
+      })
       const wrapper = mount(
         <AppLike client={getClient()}>
           <DumbBalance
@@ -344,7 +301,6 @@ describe('Balance page', () => {
             settings={fakeCollection('io.cozy.bank.settings', [])}
             transactions={fakeCollection('io.cozy.bank.operations', [])}
             {...commonProps}
-            triggers={fakeCollection('io.cozy.bank.triggers', triggers)}
           />
         </AppLike>
       )

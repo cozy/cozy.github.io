@@ -3,12 +3,10 @@ import React, {
   createContext,
   useContext,
   useEffect,
-  useMemo,
   useRef,
   useState
 } from 'react'
 import { JOBS_DOCTYPE } from 'doctypes'
-import CozyRealtime from 'cozy-realtime'
 import logger from 'cozy-logger'
 import isFunction from 'lodash/isFunction'
 import PropTypes from 'prop-types'
@@ -31,10 +29,6 @@ const JobsProvider = ({ children, client, options = {} }) => {
   const [jobsInProgress, setJobsInProgress] = useState([])
   const realtimeStartedRef = useRef(false)
   const jobsInProgressRef = useRef([])
-
-  const realtime = useMemo(() => {
-    return new CozyRealtime({ client })
-  }, [client])
 
   const handleRealtime = data => {
     const { worker, state, message: msg } = data
@@ -76,9 +70,9 @@ const JobsProvider = ({ children, client, options = {} }) => {
       log('info', 'Start Jobs Realtime')
       realtimeStartedRef.current = true
 
-      realtime.subscribe('created', JOBS_DOCTYPE, handleRealtime)
-      realtime.subscribe('updated', JOBS_DOCTYPE, handleRealtime)
-      realtime.subscribe('deleted', JOBS_DOCTYPE, handleRealtime)
+      client.plugins.realtime.subscribe('created', JOBS_DOCTYPE, handleRealtime)
+      client.plugins.realtime.subscribe('updated', JOBS_DOCTYPE, handleRealtime)
+      client.plugins.realtime.subscribe('deleted', JOBS_DOCTYPE, handleRealtime)
     }
   }
 
@@ -87,9 +81,21 @@ const JobsProvider = ({ children, client, options = {} }) => {
       log('info', 'Stop Jobs Realtime')
       realtimeStartedRef.current = false
 
-      realtime.unsubscribe('created', JOBS_DOCTYPE, handleRealtime)
-      realtime.unsubscribe('updated', JOBS_DOCTYPE, handleRealtime)
-      realtime.unsubscribe('deleted', JOBS_DOCTYPE, handleRealtime)
+      client.plugins.realtime.unsubscribe(
+        'created',
+        JOBS_DOCTYPE,
+        handleRealtime
+      )
+      client.plugins.realtime.unsubscribe(
+        'updated',
+        JOBS_DOCTYPE,
+        handleRealtime
+      )
+      client.plugins.realtime.unsubscribe(
+        'deleted',
+        JOBS_DOCTYPE,
+        handleRealtime
+      )
     }
   }
 

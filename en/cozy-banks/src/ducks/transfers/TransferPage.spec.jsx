@@ -38,6 +38,16 @@ jest.mock('ducks/transfers/steps/Amount', () => {
   return MockChooseAmount
 })
 
+jest.mock('hooks/useBankingSlugs', () => {
+  return jest.fn().mockImplementation(() => {
+    return {
+      bankingKonnectors: [],
+      isBankKonnector: () => true,
+      isBankTrigger: () => true
+    }
+  })
+})
+
 const accounts = fixtures['io.cozy.bank.accounts']
 const recipients = [
   {

@@ -22,11 +22,14 @@ import {
 } from 'doctypes'
 import MockDate from 'mockdate'
 import CozyClient from 'cozy-client'
+import logger from 'cozy-client/dist/logger'
+
 import { createClientWithData } from 'test/client'
 import { getCategoryIdFromName } from 'ducks/categories/helpers'
 
 // eslint-disable-next-line no-console
 console.warn = jest.fn()
+jest.spyOn(logger, 'warn').mockImplementation(() => {})
 
 describe('reimbursements', () => {
   let client

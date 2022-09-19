@@ -15,6 +15,11 @@ import {
   DumbTransactionsPage,
   UnpluggedTransactionsPage
 } from './TransactionsPage'
+jest.mock('hooks/useTransactionExtent', () => {
+  return jest.fn().mockImplementation(() => {
+    return ['', '', false]
+  })
+})
 
 jest.mock('src/selectors/getClient', () => ({
   __esModule: true,
@@ -121,7 +126,6 @@ describe('TransactionsPage', () => {
     const tp = root.find(DumbTransactionsPage)
     const instance = tp.instance()
     instance.setState = jest.fn()
-
     instance.handleChangeTopmostTransaction({ date: '2018-01-02T12:00' })
     expect(instance.setState).toHaveBeenCalledWith({
       currentMonth: '2018-01'

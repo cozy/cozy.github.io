@@ -2,11 +2,11 @@ import React, { useCallback, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import sortBy from 'lodash/sortBy'
 
-import { useClient } from 'cozy-client'
+import { useClient, useQuery } from 'cozy-client'
 import List from 'cozy-ui/transpiled/react/MuiCozyTheme/List'
 import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
 
-import { ACCOUNT_DOCTYPE } from 'doctypes'
+import { ACCOUNT_DOCTYPE, cronKonnectorTriggersConn } from 'doctypes'
 import { useFilters } from 'components/withFilters'
 import AccountRow from 'ducks/balance/AccountRow'
 import { getAccountBalance } from 'ducks/account/helpers'
@@ -24,7 +24,7 @@ const getSortedAccounts = (group, accounts) => {
   }
 }
 
-export const AccountsList = props => {
+const AccountsList = props => {
   const { group, switches, onSwitchChange, initialVisibleAccounts } = props
   const client = useClient()
   const router = useRouter()
@@ -47,7 +47,10 @@ export const AccountsList = props => {
       getSortedAccounts(group, groupAccounts).filter(a => a.status !== 'done'),
     [group, groupAccounts]
   )
-
+  const { data: triggers } = useQuery(
+    cronKonnectorTriggersConn.query,
+    cronKonnectorTriggersConn
+  )
   return (
     <List>
       {sortedAndFilteredAccounts.map((a, i) => {
@@ -71,6 +74,7 @@ export const AccountsList = props => {
             id={`${group._id}.accounts.${a._id}`}
             onSwitchChange={onSwitchChange}
             initialVisible={initialVisibleAccounts}
+            triggers={triggers}
           />
         )
 
@@ -93,4 +97,7 @@ AccountsList.propTypes = {
   onSwitchChange: PropTypes.func
 }
 
-export default AccountsList
+const MemoizedAccountsList = React.memo(props => {
+  return <AccountsList {...props} />
+})
+export default MemoizedAccountsList

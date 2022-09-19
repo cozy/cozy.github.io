@@ -3,8 +3,8 @@
 import debounce from 'lodash/debounce'
 import set from 'lodash/set'
 import sumBy from 'lodash/sumBy'
-import get from 'lodash/get'
 import compose from 'lodash/flowRight'
+import isEqual from 'lodash/isEqual'
 
 import React, { PureComponent, Fragment } from 'react'
 import { connect } from 'react-redux'
@@ -19,17 +19,11 @@ import {
   hasQueryBeenLoaded
 } from 'cozy-client'
 import flag from 'cozy-flags'
-import CozyRealtime from 'cozy-realtime'
 
 import {
   groupsConn,
   settingsConn,
-  cronKonnectorTriggersConn,
   accountsConn,
-  ACCOUNT_DOCTYPE,
-  GROUP_DOCTYPE,
-  TRIGGER_DOCTYPE,
-  TRANSACTION_DOCTYPE,
   makeBalanceTransactionsConn
 } from 'doctypes'
 
@@ -38,8 +32,7 @@ import { getVirtualAccounts, getVirtualGroups } from 'selectors'
 import Loading from 'components/Loading'
 import Padded from 'components/Padded'
 import BalanceHeader from 'ducks/balance/BalanceHeader'
-import NoAccount from 'ducks/balance/NoAccount'
-import AccountsImporting from 'ducks/balance/AccountsImporting'
+import EmptyAccount from 'ducks/balance/EmptyAccount'
 
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import { getAccountBalance } from 'ducks/account/helpers'
@@ -52,20 +45,12 @@ import { trackPage } from 'ducks/tracking/browser'
 import ImportGroupPanel from 'ducks/balance/ImportGroupPanel'
 import Delayed from 'components/Delayed'
 import useFullyLoadedQuery from 'hooks/useFullyLoadedQuery'
-import withBankingSlugs from 'hoc/withBankingSlugs'
 
 const syncPouchImmediately = async client => {
   const pouchLink = client.links.find(link => link.pouches)
   const pouchManager = pouchLink.pouches
   await pouchManager.syncImmediately()
 }
-
-const REALTIME_DOCTYPES = [
-  ACCOUNT_DOCTYPE,
-  TRIGGER_DOCTYPE,
-  TRANSACTION_DOCTYPE,
-  GROUP_DOCTYPE
-]
 
 const isLoading = props => {
   const {
@@ -104,10 +89,6 @@ class Balance extends PureComponent {
 
     this.handleResume = this.handleResume.bind(this)
     this.updateQueries = this.updateQueries.bind(this)
-    this.handleRealtime = debounce(this.handleRealtime.bind(this), 1000, {
-      leading: false,
-      trailing: true
-    })
     this.realtime = null
   }
 
@@ -121,9 +102,14 @@ class Balance extends PureComponent {
     const allGroups = getAllGroups(props)
     const currentPanelsState = state.panels || settings.panelsState || {}
     const newPanelsState = getPanelsState(allGroups, currentPanelsState)
-
+    // prevent rerender if the content is the same
+    if (!isEqual(state.panels, newPanelsState)) {
+      return {
+        panels: newPanelsState
+      }
+    }
     return {
-      panels: newPanelsState
+      panels: state.panels
     }
   }
 
@@ -197,48 +183,6 @@ class Balance extends PureComponent {
     })
   }
 
-  ensureRealtime() {
-    if (this.realtime) {
-      return
-    }
-    const client = this.props.client
-    this.realtime = new CozyRealtime({ client })
-  }
-
-  startRealtime() {
-    if (this.realtimeStarted) {
-      return
-    }
-    this.ensureRealtime()
-    for (const doctype of REALTIME_DOCTYPES) {
-      this.realtime.subscribe('created', doctype, this.handleRealtime)
-      this.realtime.subscribe('updated', doctype, this.handleRealtime)
-      this.realtime.subscribe('deleted', doctype, this.handleRealtime)
-    }
-    this.realtimeStarted = true
-  }
-
-  stopRealtime() {
-    if (!this.realtimeStarted || !this.realtime) {
-      return
-    }
-    for (const doctype of REALTIME_DOCTYPES) {
-      this.realtime.unsubscribe('created', doctype, this.handleRealtime)
-      this.realtime.unsubscribe('updated', doctype, this.handleRealtime)
-      this.realtime.unsubscribe('deleted', doctype, this.handleRealtime)
-    }
-    this.realtimeStarted = false
-  }
-
-  async handleRealtime() {
-    const { client } = this.props
-    if (__TARGET__ === 'mobile') {
-      syncPouchImmediately(client)
-    }
-    // TODO discriminate on the ev received to only fetch what is important
-    this.updateQueries()
-  }
-
   updateQueries() {
     // eslint-disable-next-line
     this.props.accounts.fetch().then(resp => {
@@ -248,11 +192,14 @@ class Balance extends PureComponent {
       }
     })
     this.props.transactions.fetch()
-    this.props.triggers.fetch()
   }
 
   handleResume() {
     this.updateQueries()
+    if (__TARGET__ === 'mobile') {
+      const { client } = this.props
+      syncPouchImmediately(client)
+    }
   }
 
   startResumeListeners() {
@@ -275,62 +222,7 @@ class Balance extends PureComponent {
   }
 
   componentWillUnmount() {
-    this.stopRealtime()
-    this.stopRealtimeFallback()
     this.stopResumeListeners()
-  }
-
-  componentDidUpdate() {
-    this.ensureListenersProperlyConfigured()
-  }
-
-  ensureListenersProperlyConfigured() {
-    try {
-      this._ensureListenersProperlyConfigured()
-    } catch (e) {
-      /* eslint-disable no-console */
-      console.error(e)
-      console.warn(
-        'Balance: Could not correctly configure realtime, see error above.'
-      )
-      /* eslint-enable no-console */
-    }
-  }
-
-  _ensureListenersProperlyConfigured() {
-    const { accounts: accountsCollection } = this.props
-
-    const collections = [accountsCollection]
-    if (collections.some(isQueryLoading)) {
-      return
-    }
-
-    // See issue #2009 https://github.com/cozy/cozy-banks/issues/2009
-    this.startRealtime()
-    this.startRealtimeFallback()
-    this.startResumeListeners()
-  }
-
-  /**
-   * Starts setInterval loop, as a fallback in case realtime does not work.
-   * If already started, does nothing.
-   */
-  startRealtimeFallback() {
-    if (!this.realtimeFallbackInterval && !this.realtimeStarted) {
-      this.realtimeFallbackInterval = setInterval(this.updateQueries, 30 * 1000)
-    }
-  }
-
-  /**
-   * Stops  the realtime fallback loop, and clears the setIntervalId
-   * If not started, does nothing.
-   */
-  stopRealtimeFallback() {
-    if (!this.realtimeFallbackInterval) {
-      return
-    }
-    clearInterval(this.realtimeFallbackInterval)
-    this.realtimeFallbackInterval = null
   }
 
   render() {
@@ -344,9 +236,7 @@ class Balance extends PureComponent {
       )
     }
 
-    const { triggers: triggersCollection } = this.props
     const accounts = this.getAllAccounts()
-    const triggers = triggersCollection.data
 
     const hasNoAccount = accounts.filter(a => !isVirtualAccount(a)).length === 0
 
@@ -355,42 +245,7 @@ class Balance extends PureComponent {
       flag('balance.no-account') ||
       flag('banks.balance.account-loading')
     ) {
-      let konnectorInfos = triggers
-        .map(x => x.attributes)
-        .filter(this.props.isBankTrigger)
-        .map(t => ({
-          konnector: get(t, 'message.konnector'),
-          account: get(t, 'message.account'),
-          status: get(t, 'current_state.status')
-        }))
-
-      if (flag('banks.balance.account-loading')) {
-        // eslint-disable-next-line no-console
-        console.log('konnectorInfos', konnectorInfos)
-
-        if (konnectorInfos.length === 0) {
-          konnectorInfos = [
-            {
-              konnector: 'creditcooperatif148',
-              status: 'done'
-            },
-            {
-              konnector: 'labanquepostale44',
-              account: 'fakeId',
-              status: 'errored'
-            }
-          ]
-        }
-      }
-
-      const hasKonnectorRunning = konnectorInfos.some(
-        k => k.status === 'running'
-      )
-      if (hasKonnectorRunning) {
-        return <AccountsImporting konnectorInfos={konnectorInfos} />
-      }
-
-      return <NoAccount />
+      return <EmptyAccount />
     }
 
     const groups = getAllGroups(this.props)
@@ -400,9 +255,9 @@ class Balance extends PureComponent {
       checkedAccounts.length === accounts.length
         ? undefined
         : {
-            nbCheckedAccounts: checkedAccounts.length,
-            nbAccounts: accounts.length
-          }
+          nbCheckedAccounts: checkedAccounts.length,
+          nbAccounts: accounts.length
+        }
 
     return (
       <Fragment>
@@ -449,9 +304,8 @@ const addTransactions = Component => {
     const transactions = useFullyLoadedQuery(conn.query, conn)
     return <Component {...props} transactions={transactions} />
   }
-  Wrapped.displayName = `withTransactions(${
-    Component.displayName || Component.name
-  })`
+  Wrapped.displayName = `withTransactions(${Component.displayName || Component.name
+    })`
   return Wrapped
 }
 
@@ -461,8 +315,7 @@ export default compose(
   queryConnect({
     accounts: accountsConn,
     groups: groupsConn,
-    settings: settingsConn,
-    triggers: cronKonnectorTriggersConn
+    settings: settingsConn
   }),
   connect(
     createStructuredSelector({
@@ -471,6 +324,5 @@ export default compose(
     })
   ),
   withClient,
-  addTransactions,
-  withBankingSlugs
+  addTransactions
 )(Balance)

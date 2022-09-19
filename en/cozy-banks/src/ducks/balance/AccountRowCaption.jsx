@@ -7,8 +7,7 @@ import Typography from 'cozy-ui/transpiled/react/Typography'
 import SyncIcon from 'cozy-ui/transpiled/react/Icons/Sync'
 
 import flag from 'cozy-flags'
-import { models, useQuery } from 'cozy-client'
-import { cronKonnectorTriggersConn } from 'doctypes'
+import { models } from 'cozy-client'
 import {
   getAccountUpdatedAt,
   isReimbursementsAccount
@@ -45,11 +44,8 @@ const getAccountIdFromBankAccount = bankAccount => {
 }
 const DumbAccountCaption = props => {
   const { t } = useI18n()
-  const { account, className, ...rest } = props
-  const { data: triggers } = useQuery(
-    cronKonnectorTriggersConn.query,
-    cronKonnectorTriggersConn
-  )
+  const { account, className, triggers, ...rest } = props
+
   const trigger = useMemo(
     () =>
       triggers &&

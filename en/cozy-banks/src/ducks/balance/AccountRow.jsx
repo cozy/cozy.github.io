@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import compose from 'lodash/flowRight'
+import isEqual from 'lodash/isEqual'
 import flag from 'cozy-flags'
 
 import { withStyles } from 'cozy-ui/transpiled/react/styles'
@@ -116,8 +117,10 @@ const AccountRow = props => {
     disabled,
     onSwitchChange,
     id,
-    initialVisible
+    initialVisible,
+    triggers
   } = props
+
   const [ref, visible] = useVisible(
     flag('banks.balance.account-row-skeleton') ? initialVisible : true,
     observerOptions
@@ -170,6 +173,7 @@ const AccountRow = props => {
         <AccountCaption
           gutterBottom={isMobile && hasOwners}
           account={account}
+          triggers={triggers}
         />
         {isMobile && hasOwners ? (
           <Typography variant="caption" color="textSecondary">
@@ -223,6 +227,10 @@ AccountRow.propTypes = {
   id: PropTypes.string.isRequired
 }
 
+const MemoAccountRow = React.memo(props => {
+  return <AccountRow {...props} />
+}, isEqual)
+
 export default compose(
   connect((state, { account }) => {
     const warningLimits = getWarningLimitPerAccount(state)
@@ -230,6 +238,5 @@ export default compose(
     return {
       hasWarning: accountLimit ? accountLimit > account.balance : false
     }
-  }),
-  React.memo
-)(AccountRow)
+  })
+)(MemoAccountRow)

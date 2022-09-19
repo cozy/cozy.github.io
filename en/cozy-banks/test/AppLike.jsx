@@ -9,7 +9,7 @@ import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoin
 import RouterContext from 'components/RouterContext'
 import { TrackerProvider } from 'ducks/tracking/browser'
 import { JobsContext } from 'ducks/context/JobsContext'
-import BanksProvider from 'ducks/context/BanksContext'
+import { BanksContext } from 'ducks/context/BanksContext'
 import SelectionProvider from 'ducks/context/SelectionContext'
 import { WebviewIntentProvider } from 'cozy-intent'
 
@@ -31,11 +31,19 @@ const AppLike = ({ children, store, client, router, jobsInProgress }) => {
             <Provider store={(client && client.store) || store}>
               <CozyProvider client={client}>
                 <JobsContext.Provider value={{ jobsInProgress }}>
-                  <BanksProvider client={client}>
+                  <BanksContext.Provider
+                    value={{
+                      client,
+                      jobsInProgress,
+                      hasJobsInProgress: jobsInProgress
+                        ? jobsInProgress.length > 0
+                        : false
+                    }}
+                  >
                     <SelectionProvider>
                       <TestI18n>{children}</TestI18n>
                     </SelectionProvider>
-                  </BanksProvider>
+                  </BanksContext.Provider>
                 </JobsContext.Provider>
               </CozyProvider>
             </Provider>

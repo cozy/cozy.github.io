@@ -7,6 +7,7 @@ import CozyClient, {
 } from 'cozy-client'
 import subYears from 'date-fns/sub_years'
 import format from 'date-fns/format'
+import flag from 'cozy-flags'
 
 // eslint-disable-next-line no-unused-vars
 import { Connection } from './types'
@@ -158,6 +159,14 @@ export class HasManyTransactions extends HasMany {
   }
 }
 
+const addTag = flag('banks.tags.enabled')
+  ? {
+      tags: {
+        type: HasManyTags,
+        doctype: TAGS_DOCTYPE
+      }
+    }
+  : {}
 export const schema = {
   transactions: {
     doctype: TRANSACTION_DOCTYPE,
@@ -179,10 +188,7 @@ export const schema = {
         type: HasManyReimbursements,
         doctype: BILLS_DOCTYPE
       },
-      tags: {
-        type: HasManyTags,
-        doctype: TAGS_DOCTYPE
-      }
+      ...addTag
     }
   },
   bills: {
@@ -258,6 +264,7 @@ export const schema = {
 }
 
 export const older30s = CozyClient.fetchPolicies.olderThan(30 * 1000)
+export const neverReload = CozyClient.fetchPolicies.olderThan(100000 * 1000)
 
 export const accountsConn = {
   query: () => Q(ACCOUNT_DOCTYPE).include(['owners', 'connection']),
@@ -268,17 +275,24 @@ export const accountsConn = {
 export const groupsConn = {
   query: () => Q(GROUP_DOCTYPE),
   as: 'groups',
-  fetchPolicy: older30s
+  fetchPolicy: neverReload
 }
-
+export const outdatedKonnectorsConn = {
+  query: () =>
+    Q(KONNECTOR_DOCTYPE).where({ available_version: { $exists: true } }),
+  fetchPolicy: neverReload,
+  as: 'outdatedKonnectors'
+}
 export const cronKonnectorTriggersConn = {
   query: () =>
     Q(TRIGGER_DOCTYPE).where({
       worker: 'konnector',
       type: '@cron'
     }),
-  as: 'triggers',
-  fetchPolicy: older30s
+  as: 'io.cozy.triggers/konnector_cron',
+  fetchPolicy: neverReload,
+  hydrated: false,
+  singleDocData: false
 }
 
 export const transactionsConn = {
@@ -294,7 +308,7 @@ export const makeBalanceTransactionsConn = () => {
   const fromDate = format(subYears(new Date(), 1), 'YYYY-MM-DD')
   return {
     as: 'home/transactions',
-    fetchPolicy: older30s,
+    fetchPolicy: neverReload,
     query: () =>
       Q(TRANSACTION_DOCTYPE)
         .limitBy(1000)
@@ -328,7 +342,7 @@ export const makeBalanceTransactionsConn = () => {
 export const appsConn = {
   query: () => Q(APP_DOCTYPE),
   as: 'apps',
-  fetchPolicy: older30s
+  fetchPolicy: neverReload
 }
 
 export const billsConn = {

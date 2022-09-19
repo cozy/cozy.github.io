@@ -92,4 +92,4 @@ BalanceAddAccountButton.defaultProps = {
   theme: 'ghost'
 }
 
-export default BalancePanels
+export default React.memo(BalancePanels)

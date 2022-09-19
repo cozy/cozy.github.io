@@ -2,10 +2,7 @@ import React from 'react'
 
 import JobsProvider, { JobsContext } from '../context/JobsContext'
 import { render } from '@testing-library/react'
-import CozyClient from 'cozy-client'
-import CozyRealtime from 'cozy-realtime'
-
-jest.mock('cozy-realtime')
+import { createMockClient } from 'cozy-client'
 
 export const createKonnectorMsg = (state, konnector, account) => ({
   worker: 'konnector',
@@ -24,24 +21,22 @@ const KONNECTORS = [
 
 describe('Jobs Context', () => {
   const setup = ({ konnectors }) => {
-    const client = new CozyClient({})
-    CozyRealtime.mockImplementation(() => {
-      return {
-        subscribe: (eventName, doctype, handleRealtime) => {
-          // There are 3 subscribers (created, updated, deleted)
-          // To simulate handle realtime we check if there are
-          // at least the first event and we call handleRealtime callbacks
-          if (eventName === 'created') {
-            for (const konn of konnectors) {
-              handleRealtime(
-                createKonnectorMsg(RUNNING, konn.konnector, konn.account)
-              )
-            }
+    const client = new createMockClient({})
+    client.plugins.realtime = {
+      subscribe: (eventName, doctype, handleRealtime) => {
+        // There are 3 subscribers (created, updated, deleted)
+        // To simulate handle realtime we check if there are
+        // at least the first event and we call handleRealtime callbacks
+        if (eventName === 'created') {
+          for (const konn of konnectors) {
+            handleRealtime(
+              createKonnectorMsg(RUNNING, konn.konnector, konn.account)
+            )
           }
-        },
-        unsubscribe: () => {}
-      }
-    })
+        }
+      },
+      unsubscribe: () => {}
+    }
 
     const children = (
       <JobsContext.Consumer>
@@ -55,7 +50,6 @@ describe('Jobs Context', () => {
         }}
       </JobsContext.Consumer>
     )
-
     const root = render(
       <JobsProvider client={client} options={{}}>
         {children}

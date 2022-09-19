@@ -31,7 +31,8 @@ const EMPTY_ARRAY = []
 const BanksProvider = ({ children, client }) => {
   const { jobsInProgress = [] } = useJobsContext()
   const [banksJobsInProgress, setBanksJobsInProgress] = useState([])
-  const { isBankKonnector, isFetchingBankSlugs } = useBankingSlugs()
+  const { isFetchingBankSlugs, isBankKonnector, bankingSlugs } =
+    useBankingSlugs()
 
   const onlyBanksInProgress = useMemo(
     () => jobsInProgress.filter(isBankKonnector),
@@ -68,12 +69,14 @@ const BanksProvider = ({ children, client }) => {
       setBanksJobsInProgress(EMPTY_ARRAY)
     }
   }, [jobsInProgress, isFetchingBankSlugs])
-
   return (
     <BanksContext.Provider
       value={{
         jobsInProgress: banksJobsInProgress,
-        hasJobsInProgress: banksJobsInProgress.length > 0
+        hasJobsInProgress: banksJobsInProgress.length > 0,
+        isFetchingBankSlugs,
+        isBankKonnector,
+        bankingSlugs
       }}
     >
       {children}

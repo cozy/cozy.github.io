@@ -25,9 +25,10 @@ const DeleteTransactionRow = ({ transaction }) => {
   const [showingDeleteConfirmation, setShowDeleteConfirmation] = useState(false)
   const [deleting, setDeleting] = useState(false)
 
-  const transactionTagsIds = getTagsRelationshipByTransaction(transaction).map(
-    t => t._id
-  )
+  const tagsRelationship = getTagsRelationshipByTransaction(transaction)
+  const transactionTagsIds = tagsRelationship
+    ? tagsRelationship.map(t => t._id)
+    : []
   const transactionTagsWithTransactions = useDocuments(
     TAGS_DOCTYPE,
     transactionTagsIds

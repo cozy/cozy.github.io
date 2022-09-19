@@ -7,6 +7,16 @@ import { IDENTITIES_DOCTYPE } from 'doctypes'
 
 import PersonalInfoGate from './PersonalInfoGate'
 
+jest.mock('hooks/useBankingSlugs', () => {
+  return jest.fn().mockImplementation(() => {
+    return {
+      isBankKonnector: () => true,
+      isBankTrigger: () => true,
+      bankingSlugs: []
+    }
+  })
+})
+
 jest.mock('cozy-flags', () => flagName => {
   if (flagName == 'banks.transfers.need-personal-information') {
     return true
