@@ -25,7 +25,9 @@ const DeleteTransactionRow = ({ transaction }) => {
   const [showingDeleteConfirmation, setShowDeleteConfirmation] = useState(false)
   const [deleting, setDeleting] = useState(false)
 
-  const tagsRelationship = getTagsRelationshipByTransaction(transaction)
+  const tagsRelationship = flag('banks.tags.enabled')
+    ? getTagsRelationshipByTransaction(transaction)
+    : []
   const transactionTagsIds = tagsRelationship
     ? tagsRelationship.map(t => t._id)
     : []

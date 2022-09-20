@@ -120,7 +120,14 @@ class BalanceGreater extends NotificationView {
 
     log(
       'info',
-      `[🔔 notifications] BalanceGreater: ${accounts.length} accountsFiltered`
+      `[🔔 notifications] BalanceGreater: ${accounts.length} matching account(s)`
+    )
+
+    accounts.forEach(account =>
+      log(
+        'info',
+        `[🔔 notifications] BalanceGreater: account id: ${account._id}, label: ${account.label}, balance: ${account.balance}`
+      )
     )
 
     return {
