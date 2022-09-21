@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Link } from 'react-router'
 import orderBy from 'lodash/orderBy'
 import groupBy from 'lodash/groupBy'
@@ -12,6 +12,7 @@ import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Breadcrumbs from 'cozy-ui/transpiled/react/Breadcrumbs'
 import ListSubheader from 'cozy-ui/transpiled/react/MuiCozyTheme/ListSubheader'
 import { withStyles } from 'cozy-ui/transpiled/react/styles'
+import Button from 'cozy-ui/transpiled/react/Buttons'
 
 import Loading from 'components/Loading'
 import { recurrenceConn } from 'doctypes'
@@ -60,6 +61,8 @@ const DeprecatedNotice = withStyles(theme => ({
 export const RecurrencesPage = ({ emptyIcon, showTitle }) => {
   const history = useHistory()
   const { isMobile } = useBreakpoints()
+  const [areDeprecatedBundleShown, setAreDeprecatedBundleShown] =
+    useState(false)
   const bundleCol = useQuery(recurrenceConn.query, recurrenceConn)
   const { data: rawBundles } = bundleCol
   const { live: liveBundles, deprecated: deprecatedBundles } = useMemo(() => {
@@ -115,16 +118,32 @@ export const RecurrencesPage = ({ emptyIcon, showTitle }) => {
             liveBundles.map(bundle => (
               <BundleRow key={bundle._id} bundle={bundle} />
             ))}
-          {typeof deprecatedBundles !== 'undefined' && (
-            <>
-              <DeprecatedNotice>
-                {t('Recurrence.deprecated-bundles-help')}
-              </DeprecatedNotice>
-              {deprecatedBundles.map(bundle => (
-                <BundleRow key={bundle._id} bundle={bundle} />
-              ))}
-            </>
-          )}
+          {typeof deprecatedBundles !== 'undefined' &&
+            deprecatedBundles.length && (
+              <>
+                {!areDeprecatedBundleShown && (
+                  <Button
+                    className="u-mh-1 u-mv-half"
+                    variant="text"
+                    label={t('Recurrence.show-deprecated-bundles', {
+                      number: deprecatedBundles.length
+                    })}
+                    size="small"
+                    onClick={() => setAreDeprecatedBundleShown(true)}
+                  />
+                )}
+                {areDeprecatedBundleShown && (
+                  <>
+                    <DeprecatedNotice>
+                      {t('Recurrence.deprecated-bundles-help')}
+                    </DeprecatedNotice>
+                    {deprecatedBundles.map(bundle => (
+                      <BundleRow key={bundle._id} bundle={bundle} />
+                    ))}
+                  </>
+                )}
+              </>
+            )}
         </BundlesWrapper>
       ) : (
         <Padded>

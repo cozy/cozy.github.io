@@ -137,7 +137,7 @@ const BundlesTableHead = () => {
 }
 
 const BundleMobileWrapper = ({ children }) => {
-  return <div className={styles.RecurrencesMobileContent}>{children}</div>
+  return <div className="u-pt-3">{children}</div>
 }
 
 const BundlesTable = ({ children }) => {

@@ -2668,8 +2668,12 @@ the OAuth2 flow.</p>
   Optional, declared by the client</li>
 <li><code>notifications_device_token</code>: {string}: Token for the notifications. Optional,
   declared by the client.</li>
-<li><code>synchronized_at</code>: {string}: Date of the last synchronization. Used by
+<li><code>client_os</code>: {string}: The Operating System of the client, inferred from the
+  user-agent.</li>
+<li><code>synchronized_at</code>: {date}: Date of the last synchronization. Used by
   settings.</li>
+<li><code>last_refreshed_at</code>: {date}: Date of the last time an access_token has been
+  given for this client (from an authorization_code or a refresh_token).</li>
 <li><code>onboarding_*</code> {string}: <code>onboarding_secret</code>, <code>onboarding_app</code>, <code>onboarding_permissions</code> &amp; <code>onboarding_state</code> are used for an onboarding straight on the mobile.</li>
 </ul>
 <p>The <a href="https://docs.cozy.io/en/cozy-stack/auth/#what-about-oauth2">official documentation</a> give a more in-depth overview of the OAuth client authorization workflow.</p>

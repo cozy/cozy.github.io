@@ -9,6 +9,7 @@ import orderBy from 'lodash/orderBy'
 import { getRecurrences } from 'selectors'
 import { getFilteredAccountIds } from 'ducks/filters'
 import { nextDate, STATUS_FINISHED } from 'ducks/recurrence'
+import { isFinished } from 'ducks/recurrence/api'
 import getClient from 'selectors/getClient'
 import { TRANSACTION_DOCTYPE } from 'doctypes'
 
@@ -24,6 +25,9 @@ const MIN_MEDIAN_FOR_PLANNING = 15
  * Returns whether a recurrence should generate planned transactions
  */
 export const isDeprecatedBundle = recurrence => {
+  if (isFinished(recurrence)) {
+    return true
+  }
   const now = Date.now()
   const latestDate = parse(recurrence.latestDate)
   const deltaToNow = differenceInDays(now, latestDate)
