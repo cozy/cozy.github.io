@@ -1205,8 +1205,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#documentcollectionfindallselector-options-promisedata-skip-bookmark-next-execution_stats" title="documentCollection.findAll(selector, options) ⇒ Promise.&lt;{data, skip, bookmark, next, execution_stats}&gt;" class="md-nav__link">
-    documentCollection.findAll(selector, options) ⇒ Promise.&lt;{data, skip, bookmark, next, execution_stats}&gt;
+  <a href="#documentcollectionfindallselector-options-promisearraydata" title="documentCollection.findAll(selector, options) ⇒ Promise.&lt;Array.&lt;{data}&gt;&gt;" class="md-nav__link">
+    documentCollection.findAll(selector, options) ⇒ Promise.&lt;Array.&lt;{data}&gt;&gt;
   </a>
   
 </li>
@@ -2328,8 +2328,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mangopartialfilter-object" title="MangoPartialFilter : object" class="md-nav__link">
-    MangoPartialFilter : object
+  <a href="#mangopartialfilter-object" title="MangoPartialFilter : Object" class="md-nav__link">
+    MangoPartialFilter : Object
   </a>
   
 </li>
@@ -4231,8 +4231,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#documentcollectionfindallselector-options-promisedata-skip-bookmark-next-execution_stats" title="documentCollection.findAll(selector, options) ⇒ Promise.&lt;{data, skip, bookmark, next, execution_stats}&gt;" class="md-nav__link">
-    documentCollection.findAll(selector, options) ⇒ Promise.&lt;{data, skip, bookmark, next, execution_stats}&gt;
+  <a href="#documentcollectionfindallselector-options-promisearraydata" title="documentCollection.findAll(selector, options) ⇒ Promise.&lt;Array.&lt;{data}&gt;&gt;" class="md-nav__link">
+    documentCollection.findAll(selector, options) ⇒ Promise.&lt;Array.&lt;{data}&gt;&gt;
   </a>
   
 </li>
@@ -5354,8 +5354,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#mangopartialfilter-object" title="MangoPartialFilter : object" class="md-nav__link">
-    MangoPartialFilter : object
+  <a href="#mangopartialfilter-object" title="MangoPartialFilter : Object" class="md-nav__link">
+    MangoPartialFilter : Object
   </a>
   
 </li>
@@ -5751,7 +5751,7 @@ not.</p>
 <dt><a href="#JobDocument">JobDocument</a> : <code>object</code></dt>
 <dd><p>Document representing a io.cozy.jobs</p>
 </dd>
-<dt><a href="#MangoPartialFilter">MangoPartialFilter</a> : <code>object</code></dt>
+<dt><a href="#MangoPartialFilter">MangoPartialFilter</a> : <code>Object</code></dt>
 <dd></dd>
 <dt><a href="#MangoSelector">MangoSelector</a> : <code>object</code></dt>
 <dd></dd>
@@ -6034,7 +6034,7 @@ document as data attribute  </p>
 <li><a href="#DocumentCollection+fetchDocumentsWithMango">.fetchDocumentsWithMango(path, selector, options)</a></li>
 <li><a href="#DocumentCollection+findWithMango">.findWithMango(path, selector, options)</a> ⇒ <code>Promise.&lt;object&gt;</code></li>
 <li><a href="#DocumentCollection+find">.find(selector, options)</a> ⇒ <code>Promise.&lt;{data, skip, bookmark, next, execution_stats}&gt;</code></li>
-<li><a href="#DocumentCollection+findAll">.findAll(selector, options)</a> ⇒ <code>Promise.&lt;{data, skip, bookmark, next, execution_stats}&gt;</code></li>
+<li><a href="#DocumentCollection+findAll">.findAll(selector, options)</a> ⇒ <code>Promise.&lt;Array.&lt;{data}&gt;&gt;</code></li>
 <li><a href="#DocumentCollection+get">.get(id)</a> ⇒ <code>Promise.&lt;object&gt;</code></li>
 <li><a href="#DocumentCollection+getAll">.getAll()</a></li>
 <li><a href="#DocumentCollection+create">.create(doc)</a></li>
@@ -6208,14 +6208,14 @@ the query run again.</p>
 </tbody>
 </table>
 <p><a name="DocumentCollection+findAll"></a></p>
-<h3 id="documentcollectionfindallselector-options-promisedata-skip-bookmark-next-execution_stats">documentCollection.findAll(selector, options) ⇒ <code>Promise.&lt;{data, skip, bookmark, next, execution_stats}&gt;</code><a class="headerlink" href="#documentcollectionfindallselector-options-promisedata-skip-bookmark-next-execution_stats" title="Permanent link">&para;</a></h3>
+<h3 id="documentcollectionfindallselector-options-promisearraydata">documentCollection.findAll(selector, options) ⇒ <code>Promise.&lt;Array.&lt;{data}&gt;&gt;</code><a class="headerlink" href="#documentcollectionfindallselector-options-promisearraydata" title="Permanent link">&para;</a></h3>
 <p>Returns a filtered list with all documents using a Mango selector,
 automatically fetching more documents if the total of documents is
 superior to the pagination limit.
 Can result in a lot of network requests.</p>
 <p>The returned documents are paginated by the stack.</p>
 <p><strong>Kind</strong>: instance method of <a href="#DocumentCollection"><code>DocumentCollection</code></a><br />
-<strong>Returns</strong>: <code>Promise.&lt;{data, skip, bookmark, next, execution_stats}&gt;</code> - The JSON API conformant response.<br />
+<strong>Returns</strong>: <code>Promise.&lt;Array.&lt;{data}&gt;&gt;</code> - Documents fetched<br />
 <strong>Throws</strong>:</p>
 <ul>
 <li><code>FetchError</code> </li>
@@ -6416,7 +6416,7 @@ Can result in a lot of network requests.</p>
 </tr>
 <tr>
 <td>[indexOption.partialFilter]</td>
-<td><code>string</code></td>
+<td><a href="#MangoPartialFilter"><code>MangoPartialFilter</code></a></td>
 <td>partialFilter</td>
 </tr>
 <tr>
@@ -8817,17 +8817,17 @@ query to work</p>
 <tbody>
 <tr>
 <td>options</td>
-<td><a href="#MangoQueryOptions"><code>MangoQueryOptions</code></a></td>
+<td><code>object</code></td>
 <td>Mango query options</td>
 </tr>
 <tr>
-<td>options.selector</td>
-<td><a href="#MangoSelector"><code>MangoSelector</code></a> | <code>null</code></td>
+<td>[options.selector]</td>
+<td><a href="#MangoSelector"><code>MangoSelector</code></a></td>
 <td>Mango selector</td>
 </tr>
 <tr>
-<td>options.partialFilter</td>
-<td><a href="#MangoPartialFilter"><code>MangoPartialFilter</code></a> | <code>null</code></td>
+<td>[options.partialFilter]</td>
+<td><a href="#MangoPartialFilter"><code>MangoPartialFilter</code></a></td>
 <td>An optional partial filter</td>
 </tr>
 <tr>
@@ -9845,7 +9845,7 @@ not.</p>
 </tbody>
 </table>
 <p><a name="MangoPartialFilter"></a></p>
-<h2 id="mangopartialfilter-object">MangoPartialFilter : <code>object</code><a class="headerlink" href="#mangopartialfilter-object" title="Permanent link">&para;</a></h2>
+<h2 id="mangopartialfilter-object">MangoPartialFilter : <code>Object</code><a class="headerlink" href="#mangopartialfilter-object" title="Permanent link">&para;</a></h2>
 <p><strong>Kind</strong>: global typedef<br />
 <a name="MangoSelector"></a></p>
 <h2 id="mangoselector-object">MangoSelector : <code>object</code><a class="headerlink" href="#mangoselector-object" title="Permanent link">&para;</a></h2>
@@ -9910,6 +9910,16 @@ not.</p>
 <td>[indexedFields]</td>
 <td><code>Array.&lt;string&gt;</code></td>
 <td></td>
+</tr>
+<tr>
+<td>[use_index]</td>
+<td><code>string</code></td>
+<td>Name of the index to use</td>
+</tr>
+<tr>
+<td>[execution_stats]</td>
+<td><code>boolean</code></td>
+<td>If true, we request the stats from Couch</td>
 </tr>
 <tr>
 <td>[partialFilter]</td>

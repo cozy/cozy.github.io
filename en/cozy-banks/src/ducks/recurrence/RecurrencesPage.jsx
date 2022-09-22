@@ -49,9 +49,12 @@ const DeprecatedNotice = withStyles(theme => ({
     textTransform: 'none',
     justifyContent: 'center',
     fontWeight: 'normal',
+    textIndent: '0',
+    height: 'auto',
+    padding: '.5rem 2rem',
     [theme.breakpoints.down('sm')]: {
       textAlign: 'center',
-      padding: '1.5rem',
+      padding: '.5rem 1rem',
       top: '6rem', // twice the cozy-bar height
       zIndex: 1 // goes above the category icons
     }
@@ -123,7 +126,7 @@ export const RecurrencesPage = ({ emptyIcon, showTitle }) => {
               <>
                 {!areDeprecatedBundleShown && (
                   <Button
-                    className="u-mh-1 u-mv-half"
+                    className="u-mh-1 u-mv-half u-flex-self-start"
                     variant="text"
                     label={t('Recurrence.show-deprecated-bundles', {
                       number: deprecatedBundles.length

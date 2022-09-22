@@ -107,10 +107,7 @@ export const sendNotificationForClass = async (
   { config, client, data, lang }
 ) => {
   const klassRules = getClassRules(Klass, config)
-  const amountCensoring = getClassRules(
-    { settingKey: 'amountCensoring' },
-    config
-  )
+  const amountCensoring = config.notifications.amountCensoring?.enabled
   const klassOptions = {
     client,
     t,
