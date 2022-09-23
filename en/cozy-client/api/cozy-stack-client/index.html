@@ -1275,8 +1275,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#documentcollectionfetchallmangoindexes-promisearray" title="documentCollection.fetchAllMangoIndexes() ⇒ Promise.&lt;Array&gt;" class="md-nav__link">
-    documentCollection.fetchAllMangoIndexes() ⇒ Promise.&lt;Array&gt;
+  <a href="#documentcollectionfetchallmangoindexes-promisearraydesigndoc" title="documentCollection.fetchAllMangoIndexes() ⇒ Promise.&lt;Array.&lt;DesignDoc&gt;&gt;" class="md-nav__link">
+    documentCollection.fetchAllMangoIndexes() ⇒ Promise.&lt;Array.&lt;DesignDoc&gt;&gt;
   </a>
   
 </li>
@@ -1289,8 +1289,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#documentcollectioncopyindexexistingindex-newindexname-promiseobject" title="documentCollection.copyIndex(existingIndex, newIndexName) ⇒ Promise.&lt;object&gt;" class="md-nav__link">
-    documentCollection.copyIndex(existingIndex, newIndexName) ⇒ Promise.&lt;object&gt;
+  <a href="#documentcollectioncopyindexexistingindex-newindexname-promisedesigndoc" title="documentCollection.copyIndex(existingIndex, newIndexName) ⇒ Promise.&lt;DesignDoc&gt;" class="md-nav__link">
+    documentCollection.copyIndex(existingIndex, newIndexName) ⇒ Promise.&lt;DesignDoc&gt;
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentcollectionremoveinconsistentindexindexes" title="documentCollection.removeInconsistentIndex(indexes)" class="md-nav__link">
+    documentCollection.removeInconsistentIndex(indexes)
   </a>
   
 </li>
@@ -4301,8 +4308,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#documentcollectionfetchallmangoindexes-promisearray" title="documentCollection.fetchAllMangoIndexes() ⇒ Promise.&lt;Array&gt;" class="md-nav__link">
-    documentCollection.fetchAllMangoIndexes() ⇒ Promise.&lt;Array&gt;
+  <a href="#documentcollectionfetchallmangoindexes-promisearraydesigndoc" title="documentCollection.fetchAllMangoIndexes() ⇒ Promise.&lt;Array.&lt;DesignDoc&gt;&gt;" class="md-nav__link">
+    documentCollection.fetchAllMangoIndexes() ⇒ Promise.&lt;Array.&lt;DesignDoc&gt;&gt;
   </a>
   
 </li>
@@ -4315,8 +4322,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#documentcollectioncopyindexexistingindex-newindexname-promiseobject" title="documentCollection.copyIndex(existingIndex, newIndexName) ⇒ Promise.&lt;object&gt;" class="md-nav__link">
-    documentCollection.copyIndex(existingIndex, newIndexName) ⇒ Promise.&lt;object&gt;
+  <a href="#documentcollectioncopyindexexistingindex-newindexname-promisedesigndoc" title="documentCollection.copyIndex(existingIndex, newIndexName) ⇒ Promise.&lt;DesignDoc&gt;" class="md-nav__link">
+    documentCollection.copyIndex(existingIndex, newIndexName) ⇒ Promise.&lt;DesignDoc&gt;
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#documentcollectionremoveinconsistentindexindexes" title="documentCollection.removeInconsistentIndex(indexes)" class="md-nav__link">
+    documentCollection.removeInconsistentIndex(indexes)
   </a>
   
 </li>
@@ -6044,9 +6058,10 @@ document as data attribute  </p>
 <li><a href="#DocumentCollection+destroyAll">.destroyAll(docs)</a></li>
 <li><a href="#DocumentCollection+toMangoOptions">.toMangoOptions(selector, options)</a> ⇒ <a href="#MangoQueryOptions"><code>MangoQueryOptions</code></a></li>
 <li><a href="#DocumentCollection+createIndex">.createIndex(fields, indexOption)</a> ⇒ <code>Promise.&lt;{id, fields}&gt;</code></li>
-<li><a href="#DocumentCollection+fetchAllMangoIndexes">.fetchAllMangoIndexes()</a> ⇒ <code>Promise.&lt;Array&gt;</code></li>
+<li><a href="#DocumentCollection+fetchAllMangoIndexes">.fetchAllMangoIndexes()</a> ⇒ <code>Promise.&lt;Array.&lt;DesignDoc&gt;&gt;</code></li>
 <li><a href="#DocumentCollection+destroyIndex">.destroyIndex(index)</a> ⇒ <code>Promise.&lt;object&gt;</code></li>
-<li><a href="#DocumentCollection+copyIndex">.copyIndex(existingIndex, newIndexName)</a> ⇒ <code>Promise.&lt;object&gt;</code></li>
+<li><a href="#DocumentCollection+copyIndex">.copyIndex(existingIndex, newIndexName)</a> ⇒ <a href="#DesignDoc"><code>Promise.&lt;DesignDoc&gt;</code></a></li>
+<li><a href="#DocumentCollection+removeInconsistentIndex">.removeInconsistentIndex(indexes)</a></li>
 <li><a href="#DocumentCollection+fetchChangesRaw">.fetchChangesRaw(couchOptions)</a></li>
 </ul>
 </li>
@@ -6427,10 +6442,10 @@ Can result in a lot of network requests.</p>
 </tbody>
 </table>
 <p><a name="DocumentCollection+fetchAllMangoIndexes"></a></p>
-<h3 id="documentcollectionfetchallmangoindexes-promisearray">documentCollection.fetchAllMangoIndexes() ⇒ <code>Promise.&lt;Array&gt;</code><a class="headerlink" href="#documentcollectionfetchallmangoindexes-promisearray" title="Permanent link">&para;</a></h3>
+<h3 id="documentcollectionfetchallmangoindexes-promisearraydesigndoc">documentCollection.fetchAllMangoIndexes() ⇒ <code>Promise.&lt;Array.&lt;DesignDoc&gt;&gt;</code><a class="headerlink" href="#documentcollectionfetchallmangoindexes-promisearraydesigndoc" title="Permanent link">&para;</a></h3>
 <p>Retrieve all design docs of mango indexes</p>
 <p><strong>Kind</strong>: instance method of <a href="#DocumentCollection"><code>DocumentCollection</code></a><br />
-<strong>Returns</strong>: <code>Promise.&lt;Array&gt;</code> - The design docs<br />
+<strong>Returns</strong>: <code>Promise.&lt;Array.&lt;DesignDoc&gt;&gt;</code> - The design docs<br />
 <a name="DocumentCollection+destroyIndex"></a></p>
 <h3 id="documentcollectiondestroyindexindex-promiseobject">documentCollection.destroyIndex(index) ⇒ <code>Promise.&lt;object&gt;</code><a class="headerlink" href="#documentcollectiondestroyindexindex-promiseobject" title="Permanent link">&para;</a></h3>
 <p>Delete the specified design doc</p>
@@ -6447,18 +6462,18 @@ Can result in a lot of network requests.</p>
 <tbody>
 <tr>
 <td>index</td>
-<td><code>object</code></td>
+<td><a href="#DesignDoc"><code>DesignDoc</code></a></td>
 <td>The design doc to remove</td>
 </tr>
 </tbody>
 </table>
 <p><a name="DocumentCollection+copyIndex"></a></p>
-<h3 id="documentcollectioncopyindexexistingindex-newindexname-promiseobject">documentCollection.copyIndex(existingIndex, newIndexName) ⇒ <code>Promise.&lt;object&gt;</code><a class="headerlink" href="#documentcollectioncopyindexexistingindex-newindexname-promiseobject" title="Permanent link">&para;</a></h3>
+<h3 id="documentcollectioncopyindexexistingindex-newindexname-promisedesigndoc">documentCollection.copyIndex(existingIndex, newIndexName) ⇒ <a href="#DesignDoc"><code>Promise.&lt;DesignDoc&gt;</code></a><a class="headerlink" href="#documentcollectioncopyindexexistingindex-newindexname-promisedesigndoc" title="Permanent link">&para;</a></h3>
 <p>Copy an existing design doc.</p>
 <p>This is useful to create a new design doc without
 having to recompute the existing index.</p>
 <p><strong>Kind</strong>: instance method of <a href="#DocumentCollection"><code>DocumentCollection</code></a><br />
-<strong>Returns</strong>: <code>Promise.&lt;object&gt;</code> - The copy response  </p>
+<strong>Returns</strong>: <a href="#DesignDoc"><code>Promise.&lt;DesignDoc&gt;</code></a> - The copy response  </p>
 <table>
 <thead>
 <tr>
@@ -6470,13 +6485,32 @@ having to recompute the existing index.</p>
 <tbody>
 <tr>
 <td>existingIndex</td>
-<td><code>object</code></td>
+<td><a href="#DesignDoc"><code>DesignDoc</code></a></td>
 <td>The design doc to copy</td>
 </tr>
 <tr>
 <td>newIndexName</td>
 <td><code>string</code></td>
 <td>The name of the copy</td>
+</tr>
+</tbody>
+</table>
+<p><a name="DocumentCollection+removeInconsistentIndex"></a></p>
+<h3 id="documentcollectionremoveinconsistentindexindexes">documentCollection.removeInconsistentIndex(indexes)<a class="headerlink" href="#documentcollectionremoveinconsistentindexindexes" title="Permanent link">&para;</a></h3>
+<p><strong>Kind</strong>: instance method of <a href="#DocumentCollection"><code>DocumentCollection</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>indexes</td>
+<td><a href="#DesignDoc"><code>Array.&lt;DesignDoc&gt;</code></a></td>
+<td>Index to remove</td>
 </tr>
 </tbody>
 </table>
@@ -8805,39 +8839,8 @@ found&rdquo; error.  </p>
 <p>Compute fields that should be indexed for a mango
 query to work</p>
 <p><strong>Kind</strong>: global constant<br />
-<strong>Returns</strong>: <code>Array</code> - - Fields to index  </p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>options</td>
-<td><code>object</code></td>
-<td>Mango query options</td>
-</tr>
-<tr>
-<td>[options.selector]</td>
-<td><a href="#MangoSelector"><code>MangoSelector</code></a></td>
-<td>Mango selector</td>
-</tr>
-<tr>
-<td>[options.partialFilter]</td>
-<td><a href="#MangoPartialFilter"><code>MangoPartialFilter</code></a></td>
-<td>An optional partial filter</td>
-</tr>
-<tr>
-<td>[options.sort]</td>
-<td><a href="#MangoSort"><code>MangoSort</code></a></td>
-<td>The sorting parameters</td>
-</tr>
-</tbody>
-</table>
-<p><a name="isInconsistentIndex"></a></p>
+<strong>Returns</strong>: <code>Array</code> - - Fields to index<br />
+<a name="isInconsistentIndex"></a></p>
 <h2 id="isinconsistentindex-boolean">isInconsistentIndex ⇒ <code>boolean</code><a class="headerlink" href="#isinconsistentindex-boolean" title="Permanent link">&para;</a></h2>
 <p>Check if an index is in an inconsistent state, i.e. it evaluates one of these:
 - its name contains the indexed attributes which are not in correct order
@@ -9956,6 +9959,11 @@ not.</p>
 <td>views</td>
 <td><code>object</code></td>
 <td>Views definition, i.e. the index.</td>
+</tr>
+<tr>
+<td>_rev</td>
+<td><code>string</code></td>
+<td>Rev version</td>
 </tr>
 </tbody>
 </table>
