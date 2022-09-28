@@ -22,8 +22,6 @@ import Select from 'components/Select'
 import { rangedSome } from 'components/SelectDates/utils'
 import { themed } from 'components/useTheme'
 
-const isAllYear = value => value && value.includes('allyear')
-
 const getOptionValue = option => option.value
 const capitalizeFirstLetter = string => {
   return string.charAt(0).toUpperCase() + string.slice(1)
@@ -115,6 +113,8 @@ class SelectDateButton extends PureComponent {
 }
 
 const isFullYearValue = value => value && value.length === 4
+const isAllYear = value =>
+  value && (isFullYearValue(value) || value.includes('allyear'))
 const isOptionEnabled = option => option && !option.isDisabled
 const allDisabledFrom = (options, maxIndex) => {
   return !rangedSome(options, isOptionEnabled, maxIndex, -1)
@@ -215,7 +215,7 @@ class SelectDates extends PureComponent {
         value = nearest.value
       }
     }
-    if (value && value.includes('allyear')) {
+    if (allyear) {
       value = value.substr(0, 4)
     }
 
