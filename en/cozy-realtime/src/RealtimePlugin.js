@@ -69,6 +69,14 @@ class RealtimePlugin {
     this.checkRealtimeInstance()
     this.realtime.unsubscribeAll()
   }
+
+  /**
+   * @see CozyRealtime.sendNotification
+   */
+  sendNotification(...args) {
+    this.checkRealtimeInstance()
+    this.realtime.sendNotification(...args)
+  }
 }
 
 RealtimePlugin.pluginName = 'realtime'

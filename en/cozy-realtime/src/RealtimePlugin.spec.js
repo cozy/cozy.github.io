@@ -21,6 +21,7 @@ it('should expose the same API as CozyRealtime', () => {
   expect(client.plugins.realtime.subscribe).toBeInstanceOf(Function)
   expect(client.plugins.realtime.unsubscribe).toBeInstanceOf(Function)
   expect(client.plugins.realtime.unsubscribeAll).toBeInstanceOf(Function)
+  expect(client.plugins.realtime.sendNotification).toBeInstanceOf(Function)
 })
 
 it('should login/logout correctly', async () => {

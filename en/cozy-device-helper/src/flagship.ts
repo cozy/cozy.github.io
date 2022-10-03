@@ -8,46 +8,34 @@ export enum FlagshipRoutes {
   Stack = 'stack'
 }
 
-export enum BiometryType {
-  Face = 'Face',
-  FaceID = 'FaceID',
-  Fingerprint = 'Fingerprint',
-  Iris = 'Iris',
-  TouchID = 'TouchID'
-}
+export type BiometryType = 'TouchID' | 'FaceID' | 'Biometrics'
 
 export interface FlagshipMetadata {
-  capabilities?: {
-    biometryType?: BiometryType
-  }
-  hasBiometry?: boolean
+  biometry_available?: boolean
+  biometry_type?: BiometryType
   immersive?: boolean
   navbarHeight?: number
   platform?: Record<string, unknown>
   route?: FlagshipRoutes
-  settings?: {
-    PINEnabled?: boolean
-    autoLockDelay?: number
-    autoLockEnabled?: boolean
-    biometryEnabled?: boolean
-  }
+  settings_PINEnabled?: boolean
+  settings_autoLockDelay?: number
+  settings_autoLockEnabled?: boolean
+  settings_biometryEnabled?: boolean
   statusBarHeight?: number
   version?: string
 }
 
-const getGlobalWindow = (): Window => {
-  if (typeof window !== 'undefined') return window
-  else {
-    log(
-      'error',
-      `"window" is not defined. This means that getGlobalWindow() shouldn't have been called and investigation should be done to prevent this call`
-    )
-    return undefined
-  }
-}
+const getGlobalWindow = (): (Window & typeof globalThis) | undefined =>
+  typeof window !== 'undefined'
+    ? window
+    : (log(
+        'error',
+        `"window" is not defined. This means that getGlobalWindow() shouldn't have been called and investigation should be done to prevent this call`
+      ),
+      undefined)
 
 export const getFlagshipMetadata = (): FlagshipMetadata =>
-  getGlobalWindow()?.cozy?.flagship || {}
+  getGlobalWindow()?.cozy?.flagship ?? {}
 
 export const isFlagshipApp = (): boolean =>
   getGlobalWindow()?.cozy?.flagship !== undefined
