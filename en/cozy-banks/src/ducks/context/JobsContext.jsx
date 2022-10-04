@@ -10,6 +10,7 @@ import { JOBS_DOCTYPE } from 'doctypes'
 import logger from 'cozy-logger'
 import isFunction from 'lodash/isFunction'
 import PropTypes from 'prop-types'
+import { WaitJobQueue } from '../settings/WaitJobQueue'
 
 const log = logger.namespace('import.context')
 
@@ -27,10 +28,37 @@ export const useJobsContext = () => {
  */
 const JobsProvider = ({ children, client, options = {} }) => {
   const [jobsInProgress, setJobsInProgress] = useState([])
+  const [waitJobsInProgress, setWaitJobsInProgress] = useState([])
   const realtimeStartedRef = useRef(false)
   const jobsInProgressRef = useRef([])
+  let waitJobQueue = null
+  useEffect(() => {
+    waitJobQueue = new WaitJobQueue({
+      setter: setWaitJobsInProgress,
+      duration: 15 * 1000
+    })
+    return () => waitJobQueue.clearInterval()
+  }, [])
 
-  const handleRealtime = data => {
+  const realtime = client.plugins.realtime
+
+  const handleRealtimeJobNotification = ({ data }) => {
+    // Add a virtual job in progress on harvest
+    // notification because we know job will come, triggered by webhook
+    // and we want to display it to the user
+    const { slug } = data
+    if (slug) {
+      const currentJobWithSameSlug = jobsInProgress.findIndex(
+        j => j.konnector === slug
+      )
+      if (currentJobWithSameSlug === -1) {
+        // no need for a virtual job if a real one is already running
+        waitJobQueue.addWaitJob({ slug })
+      }
+    }
+  }
+
+  const handleRealtimeJobEvent = data => {
     const { worker, state, message: msg } = data
 
     // hack: Using jobsInProgressRef because jobsInProgress (from state)
@@ -46,6 +74,7 @@ const JobsProvider = ({ children, client, options = {} }) => {
     let arr = [...currJobsInProgress]
     if (worker === 'konnector' && hasAccount) {
       if (state === 'running' && !exist) {
+        waitJobQueue.removeWaitJob({ slug: msg.konnector })
         arr.push(msg)
       } else if (state === 'done' && exist) {
         arr.splice(index, 1)
@@ -70,9 +99,14 @@ const JobsProvider = ({ children, client, options = {} }) => {
       log('info', 'Start Jobs Realtime')
       realtimeStartedRef.current = true
 
-      client.plugins.realtime.subscribe('created', JOBS_DOCTYPE, handleRealtime)
-      client.plugins.realtime.subscribe('updated', JOBS_DOCTYPE, handleRealtime)
-      client.plugins.realtime.subscribe('deleted', JOBS_DOCTYPE, handleRealtime)
+      realtime.subscribe('created', JOBS_DOCTYPE, handleRealtimeJobEvent)
+      realtime.subscribe('updated', JOBS_DOCTYPE, handleRealtimeJobEvent)
+      realtime.subscribe('deleted', JOBS_DOCTYPE, handleRealtimeJobEvent)
+      realtime.subscribe(
+        'notified',
+        JOBS_DOCTYPE,
+        handleRealtimeJobNotification
+      )
     }
   }
 
@@ -81,20 +115,13 @@ const JobsProvider = ({ children, client, options = {} }) => {
       log('info', 'Stop Jobs Realtime')
       realtimeStartedRef.current = false
 
-      client.plugins.realtime.unsubscribe(
-        'created',
+      realtime.unsubscribe('created', JOBS_DOCTYPE, handleRealtimeJobEvent)
+      realtime.unsubscribe('updated', JOBS_DOCTYPE, handleRealtimeJobEvent)
+      realtime.unsubscribe('deleted', JOBS_DOCTYPE, handleRealtimeJobEvent)
+      realtime.unsubscribe(
+        'notified',
         JOBS_DOCTYPE,
-        handleRealtime
-      )
-      client.plugins.realtime.unsubscribe(
-        'updated',
-        JOBS_DOCTYPE,
-        handleRealtime
-      )
-      client.plugins.realtime.unsubscribe(
-        'deleted',
-        JOBS_DOCTYPE,
-        handleRealtime
+        handleRealtimeJobNotification
       )
     }
   }
@@ -105,11 +132,12 @@ const JobsProvider = ({ children, client, options = {} }) => {
     return () => stopJobsRealtime()
   }, [])
 
+  const jobsInProgressAndWait = [...jobsInProgress, ...waitJobsInProgress]
   return (
     <JobsContext.Provider
       value={{
-        jobsInProgress,
-        hasJobsInProgress: jobsInProgress.length > 0
+        jobsInProgress: jobsInProgressAndWait,
+        hasJobsInProgress: jobsInProgressAndWait.length > 0
       }}
     >
       {children}

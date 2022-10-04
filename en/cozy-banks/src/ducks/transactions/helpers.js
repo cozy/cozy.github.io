@@ -344,6 +344,30 @@ export const removeTagRelationshipFromTransaction = async (
   return await transaction.tags?.remove(tag)
 }
 
+export const updateTagRelationshipFromTransaction = async ({
+  client,
+  transaction,
+  tagsToRemove,
+  tagsToAdd
+}) => {
+  if (tagsToRemove.length > 0 && tagsToAdd.length > 0) {
+    const { data } = await removeTagRelationshipFromTransaction(
+      transaction,
+      tagsToRemove
+    )
+    const hydratedTransaction = client.hydrateDocument(data)
+    await addTagRelationshipToTransaction(hydratedTransaction, tagsToAdd)
+  } else {
+    if (tagsToRemove.length > 0) {
+      await removeTagRelationshipFromTransaction(transaction, tagsToRemove)
+    }
+
+    if (tagsToAdd.length > 0) {
+      await addTagRelationshipToTransaction(transaction, tagsToAdd)
+    }
+  }
+}
+
 export const hasTags = (transaction, tags) => {
   return getTagsRelationshipByTransaction(transaction)?.some(transactionTag =>
     tags.some(tag => transactionTag._id === tag._id)

@@ -226,6 +226,7 @@ class Balance extends PureComponent {
   }
 
   render() {
+    const { hasJobsInProgress } = this.props
     if (isLoading(this.props)) {
       return (
         <Fragment>
@@ -241,7 +242,7 @@ class Balance extends PureComponent {
     const hasNoAccount = accounts.filter(a => !isVirtualAccount(a)).length === 0
 
     if (
-      hasNoAccount ||
+      (hasNoAccount && !hasJobsInProgress) ||
       flag('balance.no-account') ||
       flag('banks.balance.account-loading')
     ) {
@@ -255,9 +256,9 @@ class Balance extends PureComponent {
       checkedAccounts.length === accounts.length
         ? undefined
         : {
-          nbCheckedAccounts: checkedAccounts.length,
-          nbAccounts: accounts.length
-        }
+            nbCheckedAccounts: checkedAccounts.length,
+            nbAccounts: accounts.length
+          }
 
     return (
       <Fragment>
@@ -304,8 +305,9 @@ const addTransactions = Component => {
     const transactions = useFullyLoadedQuery(conn.query, conn)
     return <Component {...props} transactions={transactions} />
   }
-  Wrapped.displayName = `withTransactions(${Component.displayName || Component.name
-    })`
+  Wrapped.displayName = `withTransactions(${
+    Component.displayName || Component.name
+  })`
   return Wrapped
 }
 

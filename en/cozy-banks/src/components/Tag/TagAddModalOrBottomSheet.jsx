@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-import { useQueryAll, isQueryLoading } from 'cozy-client'
+import { useQueryAll, isQueryLoading, useClient } from 'cozy-client'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 
@@ -9,10 +9,9 @@ import TagAddModal from 'components/Tag/TagAddModal'
 import TagBottomSheet from 'components/Tag/TagBottomSheet'
 import TagAddNewTagModal from 'components/Tag/TagAddNewTagModal'
 import {
-  addTagRelationshipToTransaction,
-  removeTagRelationshipFromTransaction,
   getTagsRelationshipByTransaction,
-  getTransactionTagsIds
+  getTransactionTagsIds,
+  updateTagRelationshipFromTransaction
 } from 'ducks/transactions/helpers'
 import { makeTagsToRemove, makeTagsToAdd } from 'components/Tag/helpers'
 import { trackPage, useTrackPage } from 'ducks/tracking/browser'
@@ -20,6 +19,7 @@ import { trackPage, useTrackPage } from 'ducks/tracking/browser'
 const TagAddModalOrBottomSheet = ({ transaction, onClose }) => {
   const { isMobile } = useBreakpoints()
   const { t } = useI18n()
+  const client = useClient()
   const [showAddNewTagModal, setShowAddNewTagModal] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
   const [selectedTagIds, setSelectedTagIds] = useState(() =>
@@ -62,12 +62,13 @@ const TagAddModalOrBottomSheet = ({ transaction, onClose }) => {
         allTags: tags
       })
 
-      if (tagsToRemove.length > 0) {
-        await removeTagRelationshipFromTransaction(transaction, tagsToRemove)
-      }
-      if (tagsToAdd.length > 0) {
-        await addTagRelationshipToTransaction(transaction, tagsToAdd)
-      }
+      await updateTagRelationshipFromTransaction({
+        client,
+        transaction,
+        tagsToRemove,
+        tagsToAdd
+      })
+
       onClose()
     } else onClose()
   }

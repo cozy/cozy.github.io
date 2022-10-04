@@ -82,9 +82,9 @@ const AccountsListSettings = ({
   const [editionModalOptions, setEditionModalOptions] = useState(null)
 
   const secondary = useCallback(
-    (connection, isLoading) => {
-      if (connection) {
-        if (isLoading) {
+    (connection, isAnyJobLoading, isCurrentJobInProgress) => {
+      if (connection || isCurrentJobInProgress) {
+        if (isAnyJobLoading) {
           return t('Settings.accounts-tab.import-in-progress')
         }
         const isInMaintenance = slugInMaintenance.includes(
@@ -113,17 +113,22 @@ const AccountsListSettings = ({
       {/* Bank accounts still connected to io.cozy.accounts */}
       <List>
         {connectionGroups.map(({ accounts, connection, connectionId }) => {
-          const isLoading =
+          const isAnyJobLoading =
             jobsInProgress.some(j => j.account === connectionId) ||
             accounts[0].inProgress
+          const isCurrentJobInProgress = accounts?.[0]?.inProgress
 
           return (
             <AccountListItem
               key={accounts[0]._id}
               account={accounts[0]}
-              secondary={secondary(connection, isLoading)}
+              secondary={secondary(
+                connection,
+                isAnyJobLoading,
+                isCurrentJobInProgress
+              )}
               onClick={() => {
-                if (accounts?.[0]?.inProgress === true) {
+                if (isCurrentJobInProgress === true) {
                   return
                 }
                 return setEditionModalOptions({
@@ -131,7 +136,7 @@ const AccountsListSettings = ({
                   connectionId: connectionId
                 })
               }}
-              isLoading={isLoading}
+              isAnyJobLoading={isAnyJobLoading}
               hasError={hasError(connection)}
             />
           )

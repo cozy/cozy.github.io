@@ -46,9 +46,14 @@ const BanksProvider = ({ children, client }) => {
           const slug = jobsInProgress.konnector
           return `${KONNECTOR_DOCTYPE}/${slug}`
         })
-        const resp = await client.query(Q(KONNECTOR_DOCTYPE).getByIds(ids), {
-          as: 'io.cozy.konnectors/in-progress',
-          fetchPolicy: CozyClient.fetchPolicies.olderThan(30 * 1000)
+        // use client.fetchQueryAndGetFromState to avoid a null response on second call. see
+        // https://github.com/cozy/cozy-client/issues/931#issuecomment-1065010796
+        const resp = await client.fetchQueryAndGetFromState({
+          definition: Q(KONNECTOR_DOCTYPE).getByIds(ids),
+          options: {
+            as: 'io.cozy.konnectors/in-progress',
+            fetchPolicy: CozyClient.fetchPolicies.olderThan(30 * 1000)
+          }
         })
         const newJobInProgress = resp.data.map(konnector => {
           const slug = konnector.slug
