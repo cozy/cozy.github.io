@@ -145,6 +145,7 @@ module.exports = {
         '../react/SquareAppIcon/index.jsx',
         '../react/AppSections/index.jsx',
         '../react/CipherIcon/index.jsx',
+        '../react/CircularChart',
         '../react/CozyTheme/index.jsx',
         '../react/FilePicker/index.jsx',
         '../react/Overlay/index.jsx',
