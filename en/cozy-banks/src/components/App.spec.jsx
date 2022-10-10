@@ -39,9 +39,14 @@ describe('App', () => {
   const setup = () => {
     const client = new CozyClient({ links: [link] })
     jest.spyOn(client, 'queryAll').mockResolvedValue([])
+    const router = {
+      location: {
+        pathname: '/'
+      }
+    }
     const root = render(
       <AppLike client={client}>
-        <App>
+        <App router={router}>
           <DumbComponent client={client} />
         </App>
       </AppLike>

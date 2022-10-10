@@ -1,7 +1,8 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { APPLICATION_DATE } from 'ducks/transactions/constants'
+import { useSelectedTags } from 'ducks/context/SelectedTagsContext'
 import useLast from 'hooks/useLast'
 import useFullyLoadedQuery from 'hooks/useFullyLoadedQuery'
 import {
@@ -31,7 +32,7 @@ const enhanceCategoriesPage = Component => props => {
   const accounts = useQuery(accountsConn.query, accountsConn)
   const groups = useQuery(groupsConn.query, groupsConn)
   const settings = useQuery(settingsConn.query, settingsConn)
-  const [selectedTags, setSelectedTags] = useState([])
+  const [selectedTags, setSelectedTags] = useSelectedTags()
 
   const filteringDoc = useSelector(getFilteringDoc)
   const period = useSelector(getPeriod)

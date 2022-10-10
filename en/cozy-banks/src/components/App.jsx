@@ -14,6 +14,7 @@ import { useTheme } from 'cozy-ui/transpiled/react/styles'
 
 import { settingsConn } from 'doctypes'
 import Nav from 'ducks/commons/Nav'
+import SelectedTagsProvider from 'ducks/context/SelectedTagsContext'
 import { Warnings } from 'ducks/warnings'
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import { pinGuarded } from 'ducks/pin'
@@ -81,27 +82,29 @@ const App = props => {
 
   return (
     <RouterContext.Provider value={props.router}>
-      <AppSearchBar />
-      <Layout>
-        {showBottomNav && (
-          <KeyboardAwareSidebar>
-            <Nav />
-          </KeyboardAwareSidebar>
-        )}
+      <SelectedTagsProvider>
+        <AppSearchBar />
+        <Layout>
+          {showBottomNav && (
+            <KeyboardAwareSidebar>
+              <Nav />
+            </KeyboardAwareSidebar>
+          )}
 
-        <Main>
-          <Content className={styles.Main}>
-            <ErrorBoundary>{props.children}</ErrorBoundary>
-          </Content>
-        </Main>
+          <Main>
+            <Content className={styles.Main}>
+              <ErrorBoundary>{props.children}</ErrorBoundary>
+            </Content>
+          </Main>
 
-        {/* Outside every other component to bypass overflow:hidden */}
-        <ReactHint />
+          {/* Outside every other component to bypass overflow:hidden */}
+          <ReactHint />
 
-        <Warnings />
-        <Alerter />
-      </Layout>
-      {flag('debug') ? <CozyDevTools panels={banksPanels} /> : null}
+          <Warnings />
+          <Alerter />
+        </Layout>
+        {flag('debug') ? <CozyDevTools panels={banksPanels} /> : null}
+      </SelectedTagsProvider>
     </RouterContext.Provider>
   )
 }
