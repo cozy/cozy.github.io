@@ -1,14 +1,23 @@
 import { TRIGGER_DOCTYPE } from 'doctypes'
 import { logger } from 'ducks/konnectorAlerts'
-import { ONE_DAY } from 'ducks/recurrence/constants'
-import { getTriggerStates, fetchRelatedFuturAtTriggers } from './helpers'
-
-const dateInDays = (referenceDate, n) => {
-  return new Date(+new Date(referenceDate) + n * ONE_DAY)
-}
+import {
+  add,
+  getTriggerStates,
+  fetchRelatedFuturAtTriggers
+} from 'targets/services/konnectorAlerts/helpers'
 
 const createTriggerAt = async ({ client, date, konnectorTriggerId }) => {
   try {
+    if (date <= add(Date.now(), { days: 2 })) {
+      // If the date is in the past or too close to the current execution of the
+      // service, we don't create a trigger.
+      logger(
+        'info',
+        '@at trigger not created: this konnector trigger would be too close to this execution (less than 2 days)'
+      )
+      return
+    }
+
     await client.save({
       _type: TRIGGER_DOCTYPE,
       type: '@at',
@@ -56,19 +65,19 @@ export const createScheduledTrigger = async client => {
     if (relatedFuturAtTriggers.length > 0) {
       logger(
         'info',
-        `@at triggers not created: @at triggers already existing in the futur for this konnector trigger`
+        `@at triggers not created: @at triggers already existing in the future for this konnector trigger`
       )
       continue
     }
 
     await containerForTesting.createTriggerAt({
       client,
-      date: dateInDays(triggerStates.last_failure, 3),
+      date: add(triggerStates.last_failure, { days: 3 }),
       konnectorTriggerId: id
     })
     await containerForTesting.createTriggerAt({
       client,
-      date: dateInDays(triggerStates.last_failure, 7),
+      date: add(triggerStates.last_failure, { days: 7 }),
       konnectorTriggerId: id
     })
   }

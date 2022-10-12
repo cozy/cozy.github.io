@@ -1,5 +1,6 @@
 import CozyClient from 'cozy-client'
 import { sendNotification } from 'cozy-notifications'
+import MockDate from 'mockdate'
 
 import matchAll from 'utils/matchAll'
 import { sendTriggerNotifications } from './sendTriggerNotifications'
@@ -222,6 +223,11 @@ describe('sendTriggerNotifications', () => {
 
   beforeEach(() => {
     sendNotification.mockClear()
+    MockDate.set('2020-01-02')
+  })
+
+  afterEach(() => {
+    MockDate.reset()
   })
 
   const expectTriggerStatesToHaveBeenSaved = client => {

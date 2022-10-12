@@ -6,15 +6,16 @@ import { JOBS_DOCTYPE } from 'doctypes'
 import {
   getKonnectorSlug,
   fetchRegistryInfo,
-  isErrorActionable
-} from './helpers'
+  isErrorActionable,
+  isOlderThan
+} from 'targets/services/konnectorAlerts/helpers'
 
 /**
  * Returns whether we need to send a notification for a trigger
  *
  * @typedef {Object} ShouldNotifyResult
- * @property {number} ok - Whether the trigger generates a notification
- * @property {number} reason - If ok=false, describes why.
+ * @property {boolean} ok - Whether the trigger generates a notification
+ * @property {string} reason - If ok=false, describes why.
  *
  * @return {ShouldNotifyResult}
  */
@@ -35,6 +36,17 @@ export const shouldNotify = async ({ client, trigger, previousStates }) => {
 
   if (!trigger.current_state.last_success) {
     return { ok: false, reason: 'never-been-in-success' }
+  }
+
+  // We do not want to send notifications for connectors that failed a long time
+  // ago without any retry since then.
+  // The last reminder is scheduled 7 days after the last failure plus a few
+  // minutes, with a maximum of 15 minutes, so we prevent notifications to be
+  // sent if we're past that delay.
+  if (
+    isOlderThan(trigger.current_state.last_failure, { days: 7, minutes: 15 })
+  ) {
+    return { ok: false, reason: 'last-failure-too-old' }
   }
 
   if (

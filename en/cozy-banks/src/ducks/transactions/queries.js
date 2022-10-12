@@ -100,35 +100,33 @@ export const makeFilteredTransactionsConn = options => {
  * @return {[QueryDefinition, QueryDefinition]} - Earliest and latest queries
  */
 export const makeEarliestLatestQueries = baseQuery => {
-
   /**
-   * Big hack. We worked to optimize this query see 
+   * Big hack. We worked to optimize this query see
    * commit 2bb11660ec40c683898673b3270c763404552cd8
-   * 
-   * But by doing so, we had an issue where when selecting 
+   *
+   * But by doing so, we had an issue where when selecting
    * "all accounts", the result was not right. This is because
    * we indexed by _id first and then date.
-   * So the current fix is : 
-   * - If we have a selector on an account, then the index should 
-   * be indexed by account first and then we ensure that we have 
+   * So the current fix is :
+   * - If we have a selector on an account, then the index should
+   * be indexed by account first and then we ensure that we have
    * the date within the index
    * - If we don't have a slector on an account, then the index
    * should be indexed first by the date and then by the selector
-   * 
-   * @todo: We should really split all this query creation to several 
+   *
+   * @todo: We should really split all this query creation to several
    * methods. We can't have optimized query with such generic methods
-   */ 
+   */
 
   const selectors = Object.keys(baseQuery.selector)
   let indexedFields
-  if(selectors.includes('account')){
+  if (selectors.includes('account')) {
     indexedFields = selectors
-    indexedFields.push('date')  
+    indexedFields.push('date')
   } else {
     indexedFields = ['date']
     indexedFields.push(...selectors)
   }
-  
 
   const sortByDesc = []
   const sortByAsc = []
