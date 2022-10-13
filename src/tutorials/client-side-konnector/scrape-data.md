@@ -2,16 +2,16 @@ In this part, we are going to see how to scrape data from the service you want t
 
 ## Implement your konnector
 
->For the purpose of this guide, let's consider we are in the case of a full HTML webpage, like the service given as an example in the template: http://books.toscrape.com
+> For the purpose of this guide, let's consider we are in the case of a full HTML webpage, like the service given as an example in the template: [books to scrape](http://books.toscrape.com).
 
-There are three steps for a konnector to save data to [Cozy Stack](https://github.com/cozy/cozy-stack):
+There are few steps for a konnector to save data to [Cozy Stack](https://github.com/cozy/cozy-stack):
 
 1. Authentication
 2. Scrap and/or request data
 3. Parse and format data
 4. Save data to cozy stack
 
-In a _client-side connector_ those steps are mainly done by the following three functions called by the [ContentScript.js](https://github.com/cozy/cozy-react-native/blob/master/connectors/connectorLibs/ContentScript.js) each and every time the konnector is triggered.
+In a _client-side connector_ those steps are mainly done by the following three functions called by the [ContentScript.js](https://github.com/cozy/cozy-flagship-app/blob/master/connectors/connectorLibs/ContentScript.js) each and every time the konnector is triggered.
 
 ```javascript
 /////////
@@ -32,24 +32,24 @@ async fetch(context) {
 
 
 ```
-As mentionned, those three fundamental function are called every time the konnector is executing, but it is up to you to custom them regarding your needs and the service you are expecting to take the data from.
+As mentionned, those three fundamental functions are called every time the konnector is executing, but it is up to you to custom them regarding your needs and the service you are expecting to take the data from.
 
 > ### The pilot/worker principle
-> A very specific notion important to keep in mind :
+> A very specific and important notion to keep in mind:
 >  
 > We are using two webviews to make a konnector run
 > - a `Pilot`
 > - and a `Worker`
 > 
 > As explicit as the name can be, the `Pilot` treats with the cozy-stack, the `Worker` interacts with the webservice and sends information to the `Pilot`.
-> Both accesses the ContentScript.js methods, but some methods are designed to be restricted (like `runInWorker`, only usable in the `Pilot`) but we'll come to that in details during this tutorial.
+> Both accesses the `ContentScript.js` methods, but some methods are designed to be restricted (like `runInWorker`, only usable in the `Pilot`) but we'll come to that in details during this tutorial.
 
 ___
 
 ### Authentication
 
 Open the `src/index.js` file, there are comments to guide you through it.
-The very first step is to be able to define if the user is authenticated to the remote service, this is done with:
+The very first step is to be able to define if the user is authenticated to the remote service. This is done with:
 
 
 ```javascript
@@ -129,7 +129,7 @@ async ensureAuthenticated() {
   }
 ```
 
-The `showLoginFormAndWaitForAuthentication` function will remain at least like this : 
+The `showLoginFormAndWaitForAuthentication` function will remain at least like this: 
 
 ```javascript
 async showLoginFormAndWaitForAuthentication() {
@@ -153,7 +153,7 @@ async showLoginFormAndWaitForAuthentication() {
     await this.setWorkerState({ visible: false })
   }
 ```
-`checkAuthenticated` is a `ContentScript.js` method that you need to customize and it needs to return true at some point. This is a check to determine if the user login had been successful or not and as it is launched with `runInWorkerUntilTrue`, it will run again and again until ... well, until it responds `true` !
+`checkAuthenticated` is a `ContentScript.js` method that you need to customize and it needs to return true at some point. This is a check to determine if the user login had been successful or not and as it is launched with `runInWorkerUntilTrue`, it will run again and again until... Well, until it responds `true`!
 
 ```javascript
 async checkAuthenticated() {
@@ -170,11 +170,11 @@ ___
 
 ### Getting the data
 
-Once the user has been authenticated, the konnector is able to navigate on the web service to fetch data. The most common case is that the invoices we want to fetch are listed in a HTML page. So to fetch data, we navigate to the target webpage that contains invoices list like a user would.
+Once the user has been authenticated, the konnector is able to navigate on the web service to fetch data. The most common case is that the documents, e.g. invoices, we want to fetch are listed in a HTML page. So to fetch data, we navigate to the target webpage that contains the invoices, just like a user would.
 
 But sometimes, the webpage is a JavaScript page that uses a JSON API URL. We'll cover this case later in this tutorial.
 
-First you need to customize the `getUserDataFromWebsite` function. Remember, every actions needed to be taken to access the data you are looking for must be execute in the `Worker` webview. Some functions are already forseen in the `ContentScript`, but for mor complex action, you will need to make your own. So how it works ?
+First you need to customize the `getUserDataFromWebsite` function. Remember, any required action to access the data you are looking for, must be executed in the `Worker` webview. Some functions are already foreseen in the `ContentScript`, but for more complex action, you will need to make your own. So, how does it works?
 
 In this example, we wanna scrap data of the user but also the `Music` section. 
 
@@ -187,11 +187,11 @@ async getUserDataFromWebsite() {
 }
 ```
 
-Now we need to check if the landing page is what we expected. On this website, one of the way to do this is to see if the element with the class `section-header` is containing the string "Music". To do this, we'll need a more powerful function than the ones we have in the `ContentScript`. Let's do this :
+Now we need to check if the landing page is what we expected. On this website, one of the way to do this is to see if the element with the class `section-header` is containing the string "Music". To do this, we'll need a more powerful function than the ones we have in the `ContentScript`. Let's do this.
 
 First, you will need to declare this function to the `ContentScript`, so it knows it exist and it can be triggered. At the very bottom of the `index.js`, you can find the `connector.init` function taking one argument with an array `additionalExposedMethodsNames`.
 
-Everytime you will need to build a new function for the pilot to give to the worker, you will need to declare it in this array like so :
+Everytime you will need to build a new function for the pilot to give to the worker, you will need to declare it in this array like so:
 
 ```javascript
 connector.init({ additionalExposedMethodsNames: [
@@ -199,7 +199,7 @@ connector.init({ additionalExposedMethodsNames: [
 ] })
 
 ```
-Now it is done, we can give it to the `Worker` : 
+Now it is done, we can give it to the `Worker`: 
 
 ```javascript
 async getUserDataFromWebsite() {
@@ -238,7 +238,7 @@ async getUserDataFromWebsite() {
   }
 }
 ```
-Dont forget to declare it ! 
+Dont forget to declare it!
 
 ```javascript
 connector.init({ additionalExposedMethodsNames: [
@@ -276,9 +276,9 @@ getBooksData() {
 }
 ```
 
->Once you are at the `Worker` level, if you need more functions, these ones do not need to be declared in `additionalExposedMethodsNames`, juste add it into the Class.
+> Once you are at the `Worker` level, if you need more functions, these ones do not need to be declared in `additionalExposedMethodsNames`, just add it into the Class.
 
-Now the `Music` section has been scraped and the result of this scraping is return and stocked in the `musicBooks` variable, let's do the same for the user data.
+Now the `Music` section has been scraped and the result of this scraping is returned and stored in the `musicBooks` variable, let's do the same for the user data.
 
 ```javascript
 async getUserDataFromWebsite() {
@@ -305,7 +305,7 @@ connector.init({ additionalExposedMethodsNames: [
 
 ```
 
-And define what it will do. In this website, there are no login possible so there no user's informations page. We'll just act like there is one.
+And define what it will do. In this website, there is no  possible login so there is no user's information page. We'll just act like there is one.
 
 ```javascript
 getUserData() {
@@ -345,13 +345,13 @@ getUserData() {
 
 There we have both wanted data, let's speak about the `sendToPilot`.
 
-As mentioned earlier, the `Pilot` _do not_ see what's happening in the `Worker`. It cannot access the page like the `Worker` does so it cannot find and manipulate the data by itself. It is a way for us to ensure that there is no communication between the website and your cozy. The `Pilot` is the only one who can save data into your cozy, but the `Worker` is the only one who could access these data. The only way to access any type of data manipulations in the `Pilot` is to pass the data from the `Worker` to the `Pilot`. This is done with `sendToPilot`.
+As mentioned earlier, the `Pilot` _do not_ see what's happening in the `Worker`. It cannot access the page like the `Worker` does so it cannot find and manipulate the data by itself. It is a way for us to ensure that there is no communication between the website and your cozy. The `Pilot` is the only one who can save data into your cozy, but the `Worker` is the only one who can access this data. The only way to access any type of data manipulation in the `Pilot` is to pass the data from the `Worker` to the `Pilot`. This is done with `sendToPilot`.
 
 This function will trigger a `storeFromWorker` function on the `Pilot` side and will save the data into the `store`. You will be able to access this data anywhere in the execution now, in the `Pilot` with `this.store` and in the `Worker` when passing the store as an argument of a function.
 
-To finished properly the `getUserDataFromWebsite` function, the stack is waiting for a `sourceAccountIdentifier` to get returned. 
+To properly finish the `getUserDataFromWebsite` function, the stack is waiting for a `sourceAccountIdentifier` to get returned.
 
-If you found an email while scraping the user's data, it is usually what is used. If you don't end up with an email for some reason, you got to define at the beginning of the code a  `DEFAULT_SOURCE_ACCOUNT_IDENTIFIER` with the vendor's name.
+If you found an email while scraping the user's data, it is usually what is used. If you don't end up with an email for some reason, you got to define at the beginning of the code a `DEFAULT_SOURCE_ACCOUNT_IDENTIFIER` with the vendor's name.
 
 ```javascript
 const DEFAULT_SOURCE_ACCOUNT_IDENTIFIER = "bookstoscrape"
@@ -375,7 +375,7 @@ async getUserDataFromWebsite() {
 }
 ```
 
-Well done, you just finished the data part !
+Well done, you just finished the data part!
 Now let's save it with the `fetch` method, the last step in freeing your data with a client-side konnector.
 ___
 ### Saving the data
@@ -385,27 +385,28 @@ Saving data is pretty easy after the work done above and it's done within `fetch
 async fetch(context) {}
 ```
 
-One thing you will need everytime when you want to save files in your cozy is the `context`. This allows the `Pilot` to use the same contex as the `Worker`, meaning the download call will look like it is made from the same webview as the navigation was made.
+One thing you will need everytime when you save files in your cozy is the `context`. This allows the `Pilot` to use the same context as the `Worker`, meaning the download call will look like it is made from the same webview as the navigation was made.
 
 Next, you have some questions to ask to yourself before actually saving those data on your cozy.
 
-- What type of file is it ?
+- What kind of data is it?
 
+For now, we'll consider you are dealing with files.
 You need to define if the file you are about to save is either a _bill_ or a _file_.
-The specificity of the _bill_ is that it represents actual invoices. It could be linked to operations in your Cozy Banks, but it will need some data like an `amount` and a `vendor` added . Here we gonna save the books "themselves", as there is no actual file to download, we'll pretend we're saving the `.pdf` of the books so let's go with a `saveFiles`
+The specificity of the _bill_ is that it represents actual invoices. It could be linked to operations in your Cozy Banks, but it will need some data like an `amount` and a `vendor` added . Here we gonna save the books "themselves", as there is no actual file to download, we'll pretend we're saving the `.pdf` of the books so let's go with a `saveFiles`.
 
-- What is the content type of the file ? 
+- What is the content-type of the file?
 
-Usually something you can find in headers, describing what type of content is supposed to be downloaded. For us it's a `pdf` (like the majority of the files you will save on your cozy), but it can be anything : zip, photos, excel sheets ...
+Usually something you can find in headers, describing what type of content is supposed to be downloaded. For us it's a `pdf`, but it can be anything : zip, photos, excel sheets ...
 
-- What will be the attribute on which the deduplication will base its logic ?
+- What will be the attribute on which the deduplication will base its logic?
 
 The `fileIdAttribute` will use the given attribute to know if the file needed to be saved or if it had already been downloaded. The simpliest way to differentiate two files is by their name, but in some cases (like _linked bills_) you will need something more revelant for the linking operation to hold all the bills for a same month and still save one file per month.
 
-- What is the qualification label for these documents ?
+- What is the qualification label for these documents?
 
-Cozy follows certains conventions regarding the documents qualification, you can find the list of [available qualifications](https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/assets/qualifications.json) and see if something is fitting your needs. Otherwise for now it is recommended to not qualify them at all.
-Here, even if the qualification does not exist, let's say it is "digital_book".
+Cozy follows certains conventions regarding the documents qualification. You can find the list of [available qualifications](https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/assets/qualifications.json) and see if something is fitting your needs. Those qualification attributes are very useful to enrich the fetched documents with metadata and use them in apps.
+Here, let's use a fictive qualification label, named "digital_book".
 
 ```javascript
 async fetch(context) {
@@ -424,7 +425,7 @@ async fetch(context) {
 If needed, you can add some actions in `fetch` before or after the `saveFiles`.
 Here we'll pretend we need to disconnect from the webservice after retrieving the data.
 
-For that, we can simply click on the logout button in the worker and wait for the button leading you to the login form
+For that, we can simply click on the logout button in the worker and wait for the button leading you to the login form.
 
 ```javascript
 async fetch(context) {
@@ -440,11 +441,11 @@ async fetch(context) {
     await this.clickAndWait(logoutButtonSelector, loginButtonSelector)
   }
 ```
-And that's all done ! You successfully saved your data, you now have new books to read in your cozy !
+And that's all done! You successfully saved your data, you now have new books to read in your cozy!
 
-This is the basics of freeing your data with a client-side konnector. We will address a topic about more specific cases requiring other `ContentScript` methods and other technics to get back what you own (your data, right ?).
+This is the basics of freeing your data with a client-side konnector. In the future, we will address a topic about more specific cases requiring other `ContentScript` methods and other technics to get back what you own (your data, right ?).
 
-Just for information, this is what your konnector should look like all together : 
+To wrap up, this is what your konnector should look like all together: 
 
 ```javascript
 const DEFAULT_SOURCE_ACCOUNT_IDENTIFIER = "bookstoscrape"
