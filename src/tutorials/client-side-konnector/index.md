@@ -1,11 +1,11 @@
-A client side connector (also know as _CLISK_ ) is a script that imports data from another web service and put those data into your cozy.
-Each client-side connector is an independent application, managed by the [Cozy Home](https://github.com/cozy/cozy-home) application.
+A client-side konnector (also know as _CLISK_ ) is a script that imports data from another web service and put those data into your cozy.
+Each client-side konnector is an independent application, managed by the [Cozy Home](https://github.com/cozy/cozy-home) application.
 
-The specificity with the client-side connectors in comparaison with a _basic konnector_ is that it's not only using requests to obtain the datas but actually interact with the web service targeted by navigating throught the website, clicking and scraping directly into the client, as a user would in a web browser.
+The specificity with the client-side konnectors in comparaison with a _server-side konnector_ is that it's not only using requests to obtain the data but actually interact with the web service targeted by navigating throught the website, clicking and scraping directly into the client, as a user would in a web browser.
 
-To protect your data, each connector runs inside a container in order to sandbox all their interactions with your data.
+To protect your data, each konnector runs inside a container in order to sandbox all their interactions with your data.
 
-> ⚠️ For historical reasons, in the Cozy codebase, a cozy connector is named _konnector_, please follow this convention if modifying an existing application
+> ⚠️ For historical reasons, in the Cozy codebase, a cozy konnector is named _konnector_, please follow this convention if modifying an existing application
 
 What will you need to start ?
 
@@ -18,6 +18,6 @@ What will you need to start ?
 
 In this tutorial you will learn how to:
 
-- [Create the basic structure for your connector](./getting-started.md)
+- [Create the basic structure for your konnector](./getting-started.md)
 - [Scrape data from the service](./scrape-data.md)
 - [Save data to your Cozy](./save-data.md)

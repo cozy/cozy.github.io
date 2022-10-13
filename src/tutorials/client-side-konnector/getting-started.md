@@ -26,9 +26,3 @@ As a demo we will scrape a fictional website: [books.toscrape.com](http://books.
 Please check [CLI section of the documentation](https://docs.cozy.io/en/cozy-konnector-libs/cli/) for more information.
 
 If you have arrived here, good job ! You are ready to [implement your connector](./scrape-data.md).
-
-[Cozy Home]: https://github.com/cozy/cozy-home
-
-[Cozy Stack]: https://github.com/cozy/cozy-stack
-
-[cozy-client-js]: https://github.com/cozy/cozy-client-js
