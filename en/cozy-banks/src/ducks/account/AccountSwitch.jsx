@@ -40,7 +40,7 @@ import {
 } from 'doctypes'
 import { getGroupLabel } from 'ducks/groups/helpers'
 
-import { getVirtualGroups } from 'selectors'
+import { getVirtualAccounts, getVirtualGroups } from 'selectors'
 import {
   getAccountInstitutionLabel,
   getAccountLabel
@@ -292,6 +292,7 @@ const AccountSwitch = props => {
   const { isMobile } = useBreakpoints()
   const filteringDoc = useSelector(getFilteringDoc)
   const filteredAccounts = useSelector(getFilteredAccounts)
+  const virtualAccounts = useSelector(getVirtualAccounts)
   const virtualGroups = useSelector(getVirtualGroups)
 
   const handleToggle = useCallback(
@@ -326,6 +327,7 @@ const AccountSwitch = props => {
   }, [dispatch, handleClose])
 
   const accounts = accountsCollection.data
+  const allAccounts = [...accounts, ...virtualAccounts]
 
   const orderedGroups = useMemo(() => {
     const groups = [...(groupsCollection.data || []), ...virtualGroups].map(
@@ -340,7 +342,7 @@ const AccountSwitch = props => {
   const selectProps = selectPropsBySize[size]
   const select = (
     <AccountSwitchSelect
-      accounts={accounts}
+      accounts={allAccounts}
       filteredAccounts={filteredAccounts}
       filteringDoc={filteringDoc}
       onClick={handleToggle}
