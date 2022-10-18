@@ -32,8 +32,12 @@ const AdvancedFilterModal = ({
   useTrackPage('analyse:filtres-avances-saisie')
 
   const toogleIncome = () => {
-    trackEvent({ name: 'masquer-revenus' })
-    setIsWithIncomeChecked(prev => !prev)
+    setIsWithIncomeChecked(prev => {
+      if (prev) {
+        trackEvent({ name: 'masquer-revenus' })
+      }
+      return !prev
+    })
   }
 
   const handleConfirm = () => {
