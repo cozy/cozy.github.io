@@ -10,7 +10,6 @@ import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import TrashIcon from 'cozy-ui/transpiled/react/Icons/Trash'
 import { ConfirmDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 import Button from 'cozy-ui/transpiled/react/Button'
-import flag from 'cozy-flags'
 
 import {
   removeTransaction,
@@ -25,9 +24,8 @@ const DeleteTransactionRow = ({ transaction }) => {
   const [showingDeleteConfirmation, setShowDeleteConfirmation] = useState(false)
   const [deleting, setDeleting] = useState(false)
 
-  const tagsRelationship = flag('banks.tags.enabled')
-    ? getTagsRelationshipByTransaction(transaction)
-    : []
+  const tagsRelationship = getTagsRelationshipByTransaction(transaction)
+
   const transactionTagsIds = tagsRelationship
     ? tagsRelationship.map(t => t._id)
     : []
@@ -47,15 +45,12 @@ const DeleteTransactionRow = ({ transaction }) => {
   const handleConfirmDeleteTransaction = async () => {
     try {
       setDeleting(true)
-      if (flag('banks.tags.enabled')) {
-        await removeTransaction(
-          client,
-          transaction,
-          transactionTagsWithTransactions
-        )
-      } else {
-        await client.destroy(transaction)
-      }
+      await removeTransaction(
+        client,
+        transaction,
+        transactionTagsWithTransactions
+      )
+
       Alerter.success(
         t('Transactions.infos.delete-transaction.deleting-success')
       )

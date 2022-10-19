@@ -1,7 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
 
-import flag from 'cozy-flags'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 
@@ -34,7 +33,7 @@ const TableHead = ({ isSubcategory }) => {
           <td className={transactionsStyles.ColumnSizeAmount}>
             {t('Transactions.header.amount')}
           </td>
-          {(showTransactionActions || flag('banks.tags.enabled')) && (
+          {showTransactionActions && (
             <td className={transactionsStyles.ColumnSizeAction}>
               {t('Transactions.header.action')}
             </td>

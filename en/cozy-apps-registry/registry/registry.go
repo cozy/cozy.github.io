@@ -33,7 +33,10 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-const maxApplicationSize = 20 * 1024 * 1024 // 20 Mo
+const (
+	maxApplicationSizeInMB = 20
+	maxApplicationSize     = maxApplicationSizeInMB * 1024 * 1024 // 20 Mo
+)
 
 var (
 	validSlugReg    = regexp.MustCompile(`^[a-z0-9\-]*$`)
@@ -468,13 +471,14 @@ func downloadRequest(rawURL string, shasum string) (reader *bytes.Reader, conten
 	}
 
 	buf := new(bytes.Buffer)
+	var bytesRead int64
 
 	if url.Scheme == "file" {
 		f, err := os.Open(url.EscapedPath())
 		if err != nil {
 			return nil, "", err
 		}
-		_, err = io.Copy(buf, io.LimitReader(f, maxApplicationSize))
+		bytesRead, err = io.Copy(buf, io.LimitReader(f, maxApplicationSize))
 		if err != nil {
 			return nil, "", err
 		}
@@ -505,7 +509,7 @@ func downloadRequest(rawURL string, shasum string) (reader *bytes.Reader, conten
 			return nil, "", err
 		}
 
-		_, err = io.Copy(buf, io.LimitReader(resp.Body, maxApplicationSize))
+		bytesRead, err = io.Copy(buf, io.LimitReader(resp.Body, maxApplicationSize))
 		if err != nil {
 			err = errshttp.NewError(http.StatusUnprocessableEntity,
 				"Could not reach version on specified url %s: %s",
@@ -515,6 +519,13 @@ func downloadRequest(rawURL string, shasum string) (reader *bytes.Reader, conten
 
 		contentType = resp.Header.Get("content-type")
 	}
+
+	if bytesRead >= maxApplicationSize {
+		err = errshttp.NewError(http.StatusUnprocessableEntity,
+			"Application is larger than max allowed %dMB", maxApplicationSizeInMB)
+		return
+	}
+
 	h := sha256.New()
 	if _, err = h.Write(buf.Bytes()); err != nil {
 		return

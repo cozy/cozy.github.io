@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
-import flag from 'cozy-flags'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Empty from 'cozy-ui/transpiled/react/Empty'
 import Stack from 'cozy-ui/transpiled/react/Stack'
@@ -30,7 +29,6 @@ const DesktopFragment = React.memo(
     emptyIcon,
     hasAccount,
     hasData,
-    incomeToggle,
     isFetching,
     isFetchingNewData,
     selectedCategory,
@@ -61,14 +59,10 @@ const DesktopFragment = React.memo(
                       <Breadcrumb className="u-mt-1" items={breadcrumbItems} />
                     </Fade>
                   )}
-                  {flag('banks.tags.enabled') ? (
-                    <AdvancedFilter
-                      onClick={showAdvancedFilter}
-                      className="u-mt-1"
-                    />
-                  ) : (
-                    incomeToggle
-                  )}
+                  <AdvancedFilter
+                    onClick={showAdvancedFilter}
+                    className="u-mt-1"
+                  />
                 </div>
                 {chart}
               </>

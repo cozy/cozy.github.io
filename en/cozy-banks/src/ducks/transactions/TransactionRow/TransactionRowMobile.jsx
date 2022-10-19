@@ -130,7 +130,7 @@ const TransactionRowMobile = ({
                   ) : null}
                 </Img>
               </Media>
-              {(showTransactionActions || flag('banks.tags.enabled')) && (
+              {showTransactionActions && (
                 <div
                   className={cx(
                     'u-mb-half',
@@ -145,9 +145,7 @@ const TransactionRowMobile = ({
                       menuPosition="right"
                     />
                   )}
-                  {flag('banks.tags.enabled') && (
-                    <TagChips transaction={transaction} clickable />
-                  )}
+                  <TagChips transaction={transaction} clickable />
                 </div>
               )}
             </Bd>

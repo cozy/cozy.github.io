@@ -5026,7 +5026,9 @@ to <code>https://&lt;instance&gt;/bitwarden</code>.</p>
 <h2 id="routes-for-accounts-and-connect">Routes for accounts and connect<a class="headerlink" href="#routes-for-accounts-and-connect" title="Permanent link">&para;</a></h2>
 <h3 id="post-bitwardenapiaccountsprelogin">POST /bitwarden/api/accounts/prelogin<a class="headerlink" href="#post-bitwardenapiaccountsprelogin" title="Permanent link">&para;</a></h3>
 <p>It allows the client to know the number of KDF iterations to apply when hashing
-the master password.</p>
+the master password. It can also tell if the login via OIDC is mandatory, and
+if the vault is empty (when both conditions are true, the onboarding process is
+a bit different).</p>
 <h4 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/bitwarden/api/accounts/prelogin</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
@@ -5048,7 +5050,9 @@ the master password.</p>
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;Kdf&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-  <span class="nt">&quot;KdfIterations&quot;</span><span class="p">:</span> <span class="mi">10000</span>
+  <span class="nt">&quot;KdfIterations&quot;</span><span class="p">:</span> <span class="mi">10000</span><span class="p">,</span>
+  <span class="nt">&quot;OIDC&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="nt">&quot;HasCiphers&quot;</span><span class="p">:</span> <span class="kc">true</span>
 <span class="p">}</span>
 </pre></div>
 

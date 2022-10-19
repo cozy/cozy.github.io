@@ -68,7 +68,7 @@ const TagDialog = ({ tag }) => {
 }
 
 TagDialog.propTypes = {
-  tag: PropTypes.object.required
+  tag: PropTypes.object.isRequired
 }
 
 export default TagDialog

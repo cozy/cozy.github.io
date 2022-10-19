@@ -2,7 +2,6 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
-import flag from 'cozy-flags'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import Empty from 'cozy-ui/transpiled/react/Empty'
@@ -49,20 +48,16 @@ const MobileFragment = React.memo(props => {
           })}
           theme={isMobile ? 'normal' : 'inverted'}
         >
-          {flag('banks.tags.enabled') && (
-            <AdvancedFilter
-              onClick={showAdvancedFilter}
-              selectedTagsLength={selectedTags.length}
-            />
-          )}
+          <AdvancedFilter
+            onClick={showAdvancedFilter}
+            selectedTagsLength={selectedTags.length}
+          />
           <HeaderLoadingProgress
             isFetching={!!isFetchingNewData && !isFetching}
           />
-          {!flag('banks.tags.enabled') && (
-            <LegalMention className="u-flex u-flex-items-center u-flex-justify-around u-mr-1">
-              {incomeToggle}
-            </LegalMention>
-          )}
+          <LegalMention className="u-flex u-flex-items-center u-flex-justify-around u-mr-1">
+            {incomeToggle}
+          </LegalMention>
 
           {!hasData && !isFetching && !isFetchingNewData && (
             <Empty

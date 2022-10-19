@@ -2891,6 +2891,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#request_14" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#response_13" title="Response" class="md-nav__link">
     Response
   </a>
@@ -2911,7 +2918,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#request_14" title="Request" class="md-nav__link">
+  <a href="#request_15" title="Request" class="md-nav__link">
     Request
   </a>
   
@@ -3809,6 +3816,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#request_14" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#response_13" title="Response" class="md-nav__link">
     Response
   </a>
@@ -3829,7 +3843,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#request_14" title="Request" class="md-nav__link">
+  <a href="#request_15" title="Request" class="md-nav__link">
     Request
   </a>
   
@@ -4797,7 +4811,16 @@ is interactive. It will give it an higher priority in the queues.</p>
 payload with the format defined by <a href="https://docs.budget-insight.com/guides/webhooks">Budget
 Insight</a> and an
 <code>Authorization</code> header with a Bearer token, where a trigger and an account can
-be found on this instance matching their data.</p>
+be found on this instance matching their data. The event type and the URL of
+the BI API (on the good environment) are also sent in the query string.</p>
+<h4 id="request_14">Request<a class="headerlink" href="#request_14" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/jobs/webhooks/bi?event=CONNECTION_SYNCED&amp;bi_url=https://.../</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer token-from-bi</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.com</span>
+</pre></div>
+
+
 <h4 id="response_13">Response<a class="headerlink" href="#response_13" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
 </pre></div>
@@ -4814,7 +4837,7 @@ Some parameters can be given to this route:</p>
 <li>&ldquo;2M&rdquo; will keep jobs up to 2 months</li>
 <li><code>workers</code> is a comma-separated list of workers to apply the purge job.</li>
 </ul>
-<h4 id="request_14">Request<a class="headerlink" href="#request_14" title="Permanent link">&para;</a></h4>
+<h4 id="request_15">Request<a class="headerlink" href="#request_15" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/jobs/purge</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
 </pre></div>
