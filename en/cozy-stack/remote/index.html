@@ -2921,24 +2921,13 @@ resources available are defined in the configuration file.</p>
 doctype asked, the parameter (even those that have not been used, like <code>comment</code>
 in the previous example), and the application that has made the request.</p>
 <h2 id="secrets">Secrets<a class="headerlink" href="#secrets" title="Permanent link">&para;</a></h2>
-<p>It is possible to make the stack inject a secret in a request. For example, if
-we want to make the stack add a <code>token</code>, we can use <code>{{secret_token}}</code> in the
-remote doctype declation:</p>
-<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">https://foobar.com/baz/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer {{secret_token}}</span>
-</pre></div>
-
-
-<div class="codehilite"><pre><span></span><span class="p">{</span>
-  <span class="nt">&quot;foo&quot;</span><span class="p">:</span> <span class="s2">&quot;{{json foo}}&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;bar&quot;</span><span class="p">:</span> <span class="s2">&quot;{{json bar}}&quot;</span>
-<span class="p">}</span>
-</pre></div>
-
-
-<p>And the secret must be stored in CouchDB, in the
-<code>secrets/io-cozy-remote-secrets</code> database. The document must have the remote
-doctype as an id, and the secret in another field, like this:</p>
+<p>It is possible to make the stack inject a secret in a request. </p>
+<p>For example, if we want to make the stack inject a <code>token</code> for 
+the request, then:</p>
+<p>1- We need to store the secret in CouchDB, in the 
+<code>secrets/io-cozy-remote-secrets</code> database. The document must 
+have the remote doctype as an id, and the secret in another field, 
+like this:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;cc.cozycloud.foobar&quot;</span><span class="p">,</span>
   <span class="nt">&quot;token&quot;</span><span class="p">:</span> <span class="s2">&quot;1c7f3ba03bd801391a91543d7eb8149c&quot;</span>
@@ -2946,6 +2935,19 @@ doctype as an id, and the secret in another field, like this:</p>
 </pre></div>
 
 
+<p>2- Use this secret in the remote doctype declaration:</p>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">https://foobar.com/baz/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer {{secret_token}}</span>
+</pre></div>
+
+
+<p>You can see that we store <code>token</code> in the <code>io-cozy-remote-secret</code>
+but we use <code>secret_token</code> in the remote doctype declaration, this
+is a convention to follow. Like that, we quickly know what come 
+from secrets and what come from the caller. </p>
+<p>If you use secret and you get a 400 Bad Request error 
+<code>a variable is used in the template, but no value was given</code> 
+check if you follow this convention. </p>
 <h2 id="for-developers">For developers<a class="headerlink" href="#for-developers" title="Permanent link">&para;</a></h2>
 <p>If you are a developer and you want to use a new remote doctype, it can be
 difficult to first make it available in the github.com/cozy/cozy-doctypes

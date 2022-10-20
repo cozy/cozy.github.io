@@ -2396,6 +2396,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#manage" title="Manage" class="md-nav__link">
+    Manage
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#reconnect" title="Reconnect" class="md-nav__link">
     Reconnect
   </a>
@@ -3179,6 +3186,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#manage" title="Manage" class="md-nav__link">
+    Manage
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#reconnect" title="Reconnect" class="md-nav__link">
     Reconnect
   </a>
@@ -3802,8 +3816,29 @@ type with the following parameter:</p>
 <li><code>redirect_uri</code>, with an URL like <code>https://oauthcallback.mycozy.cloud/accounts/paypal/redirect</code></li>
 <li><code>client_id</code>, with the client ID given by Budget Insight</li>
 <li><code>auth_endpoint</code>, with <code>https://{domain}.biapi.pro/2.0/auth/webview/fr/connect</code> (with the correct <code>domain</code>)</li>
+<li><code>manage_endpoint</code>, with <code>https://{domain}.biapi.pro/2.0/auth/webview/reconnect</code> (idem).</li>
 <li><code>reconnect_endpoint</code>, with <code>https://{domain}.biapi.pro/2.0/auth/webview/reconnect</code> (idem).</li>
 </ul>
+<h4 id="manage">Manage<a class="headerlink" href="#manage" title="Permanent link">&para;</a></h4>
+<p>The <a href="https://docs.budget-insight.com/reference/webview#manage-connections">manage webview</a>
+can be called with this route:</p>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/accounts/:accountType/:accountID/manage?code={code}&amp;connection_id={id}&amp;slug={slug}&amp;state={state}</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">jane.cozy.example</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">303</span> <span class="ne">See Other</span>
+<span class="na">Location</span><span class="o">:</span> <span class="l">https://domain.biapi.pro/2.0/auth/webview/manage</span>
+    <span class="l">?client_id={client_id}</span>
+    <span class="l">&amp;code={code}</span>
+    <span class="l">&amp;connection_id={id}</span>
+    <span class="l">&amp;redirect_uri=https://oauthcallback.cozy.example/accounts/{accountType}/redirect</span>
+    <span class="l">&amp;state={stackState}</span>
+</pre></div>
+
+
+<p>At the end of flow, the user will be redirected to
+<code>https://jane-{slug}.cozy.example/?state={state}</code>.</p>
 <h4 id="reconnect">Reconnect<a class="headerlink" href="#reconnect" title="Permanent link">&para;</a></h4>
 <p>The <a href="https://docs.budget-insight.com/guides/handle-scas-connection-states#use-our-reconnection-webview">reconnection webview</a>
 can be called with this route:</p>
