@@ -2623,159 +2623,319 @@
 </thead>
 <tbody>
 <tr>
-<td align="left"><code>Permissions</code></td>
-<td align="left">{ <code>io</code>: { <code>cozy</code>: { <code>accounts</code>: <code>string</code> = &ldquo;Login details&rdquo;; <code>apps</code>: <code>string</code> = &ldquo;List of installed applications&rdquo;; <code>apps.suggestions</code>: <code>string</code> = &ldquo;Application suggestions&rdquo;; <code>bank.accounts</code>: <code>string</code> = &ldquo;Banking accounts&rdquo;; <code>bank.accounts.stats</code>: <code>string</code> = &ldquo;Stats on banking accounts&rdquo;; <code>bank.balancehistories</code>: <code>string</code> = &ldquo;Bank balances&rdquo;; <code>bank.groups</code>: <code>string</code> = &ldquo;Banking groups&rdquo;; <code>bank.operations</code>: <code>string</code> = &ldquo;Bank operations&rdquo;; <code>bank.recipients</code>: <code>string</code> = &ldquo;Banking transfer recipients&rdquo;; <code>bank.recurrence</code>: <code>string</code> = &ldquo;Banks recurrence groups&rdquo;; <code>bank.settings</code>: <code>string</code> = &ldquo;Banks app settings&rdquo;; <code>bills</code>: <code>string</code> = &ldquo;Bills&rdquo;; <code>certified.carbon_copy</code>: <code>string</code> = &ldquo;Carbon copy&rdquo;; <code>certified.electronic_safe</code>: <code>string</code> = &ldquo;Electronic safe&rdquo;; <code>coachco2.settings</code>: <code>string</code> = &ldquo;CoachCO2 app settings&rdquo;; <code>contacts</code>: <code>string</code> = &ldquo;Contacts&rdquo;; <code>contacts.accounts</code>: <code>string</code> = &ldquo;Accounts linked to the contacts&rdquo;; <code>contacts.groups</code>: <code>string</code> = &ldquo;Contacts groups&rdquo;; <code>files</code>: <code>string</code> = &ldquo;Files&rdquo;; <code>files.*</code>: <code>string</code> = &ldquo;File-related data (files, folders, versions, &hellip;)&rdquo;; <code>files.versions</code>: <code>string</code> = &ldquo;Files versions&rdquo;; <code>identities</code>: <code>string</code> = &ldquo;Identities&rdquo;; <code>jobs</code>: <code>string</code> = &ldquo;Jobs&rdquo;; <code>konnectors</code>: <code>string</code> = &ldquo;Connectors for importing data&rdquo;; <code>konnectors.result</code>: <code>string</code> = &ldquo;Connectors results&rdquo;; <code>netflix.opinions</code>: <code>string</code> = &ldquo;Netflix opinions&rdquo;; <code>netflix.views</code>: <code>string</code> = &ldquo;Netflix history&rdquo;; <code>notifications</code>: <code>string</code> = &ldquo;Notifications&rdquo;; <code>oauth.clients</code>: <code>string</code> = &ldquo;Connected devices&rdquo;; <code>permissions</code>: <code>string</code> = &ldquo;Delegating permissions&rdquo;; <code>photos.albums</code>: <code>string</code> = &ldquo;Photo albums&rdquo;; <code>photos.settings</code>: <code>string</code> = &ldquo;Photo settings&rdquo;; <code>settings</code>: <code>string</code> = &ldquo;Settings&rdquo;; <code>sharings</code>: <code>string</code> = &ldquo;Sharing&rdquo;; <code>timeseries.geojson</code>: <code>string</code> = &ldquo;Trips&rdquo;; <code>triggers</code>: <code>string</code> = &ldquo;Scheduling jobs&rdquo; }  }  }</td>
+<td align="left"><code>cc</code></td>
+<td align="left">{ <code>cozycloud</code>: { <code>autocategorization</code>: <code>string</code> = &ldquo;Categorization model enrichment file&rdquo;; <code>dacc</code>: <code>string</code> = &ldquo;Anonymous aggregated statistics&rdquo;; <code>dacc.dev</code>: <code>string</code> = &ldquo;Anonymous aggregated statistics for development&rdquo;; <code>dacc.dev_v2</code>: <code>string</code> = &ldquo;Anonymous aggregated statistics for development&rdquo;; <code>dacc_v2</code>: <code>string</code> = &ldquo;Anonymous aggregated statistics&rdquo;; <code>errors</code>: <code>string</code> = &ldquo;The application logs&rdquo;; <code>sentry</code>: <code>string</code> = &ldquo;The application logs&rdquo; }  }</td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io</code></td>
-<td align="left">{ <code>cozy</code>: { <code>accounts</code>: <code>string</code> = &ldquo;Login details&rdquo;; <code>apps</code>: <code>string</code> = &ldquo;List of installed applications&rdquo;; <code>apps.suggestions</code>: <code>string</code> = &ldquo;Application suggestions&rdquo;; <code>bank.accounts</code>: <code>string</code> = &ldquo;Banking accounts&rdquo;; <code>bank.accounts.stats</code>: <code>string</code> = &ldquo;Stats on banking accounts&rdquo;; <code>bank.balancehistories</code>: <code>string</code> = &ldquo;Bank balances&rdquo;; <code>bank.groups</code>: <code>string</code> = &ldquo;Banking groups&rdquo;; <code>bank.operations</code>: <code>string</code> = &ldquo;Bank operations&rdquo;; <code>bank.recipients</code>: <code>string</code> = &ldquo;Banking transfer recipients&rdquo;; <code>bank.recurrence</code>: <code>string</code> = &ldquo;Banks recurrence groups&rdquo;; <code>bank.settings</code>: <code>string</code> = &ldquo;Banks app settings&rdquo;; <code>bills</code>: <code>string</code> = &ldquo;Bills&rdquo;; <code>certified.carbon_copy</code>: <code>string</code> = &ldquo;Carbon copy&rdquo;; <code>certified.electronic_safe</code>: <code>string</code> = &ldquo;Electronic safe&rdquo;; <code>coachco2.settings</code>: <code>string</code> = &ldquo;CoachCO2 app settings&rdquo;; <code>contacts</code>: <code>string</code> = &ldquo;Contacts&rdquo;; <code>contacts.accounts</code>: <code>string</code> = &ldquo;Accounts linked to the contacts&rdquo;; <code>contacts.groups</code>: <code>string</code> = &ldquo;Contacts groups&rdquo;; <code>files</code>: <code>string</code> = &ldquo;Files&rdquo;; <code>files.*</code>: <code>string</code> = &ldquo;File-related data (files, folders, versions, &hellip;)&rdquo;; <code>files.versions</code>: <code>string</code> = &ldquo;Files versions&rdquo;; <code>identities</code>: <code>string</code> = &ldquo;Identities&rdquo;; <code>jobs</code>: <code>string</code> = &ldquo;Jobs&rdquo;; <code>konnectors</code>: <code>string</code> = &ldquo;Connectors for importing data&rdquo;; <code>konnectors.result</code>: <code>string</code> = &ldquo;Connectors results&rdquo;; <code>netflix.opinions</code>: <code>string</code> = &ldquo;Netflix opinions&rdquo;; <code>netflix.views</code>: <code>string</code> = &ldquo;Netflix history&rdquo;; <code>notifications</code>: <code>string</code> = &ldquo;Notifications&rdquo;; <code>oauth.clients</code>: <code>string</code> = &ldquo;Connected devices&rdquo;; <code>permissions</code>: <code>string</code> = &ldquo;Delegating permissions&rdquo;; <code>photos.albums</code>: <code>string</code> = &ldquo;Photo albums&rdquo;; <code>photos.settings</code>: <code>string</code> = &ldquo;Photo settings&rdquo;; <code>settings</code>: <code>string</code> = &ldquo;Settings&rdquo;; <code>sharings</code>: <code>string</code> = &ldquo;Sharing&rdquo;; <code>timeseries.geojson</code>: <code>string</code> = &ldquo;Trips&rdquo;; <code>triggers</code>: <code>string</code> = &ldquo;Scheduling jobs&rdquo; }  }</td>
+<td align="left"><code>cc.cozycloud</code></td>
+<td align="left">{ <code>autocategorization</code>: <code>string</code> = &ldquo;Categorization model enrichment file&rdquo;; <code>dacc</code>: <code>string</code> = &ldquo;Anonymous aggregated statistics&rdquo;; <code>dacc.dev</code>: <code>string</code> = &ldquo;Anonymous aggregated statistics for development&rdquo;; <code>dacc.dev_v2</code>: <code>string</code> = &ldquo;Anonymous aggregated statistics for development&rdquo;; <code>dacc_v2</code>: <code>string</code> = &ldquo;Anonymous aggregated statistics&rdquo;; <code>errors</code>: <code>string</code> = &ldquo;The application logs&rdquo;; <code>sentry</code>: <code>string</code> = &ldquo;The application logs&rdquo; }</td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy</code></td>
-<td align="left">{ <code>accounts</code>: <code>string</code> = &ldquo;Login details&rdquo;; <code>apps</code>: <code>string</code> = &ldquo;List of installed applications&rdquo;; <code>apps.suggestions</code>: <code>string</code> = &ldquo;Application suggestions&rdquo;; <code>bank.accounts</code>: <code>string</code> = &ldquo;Banking accounts&rdquo;; <code>bank.accounts.stats</code>: <code>string</code> = &ldquo;Stats on banking accounts&rdquo;; <code>bank.balancehistories</code>: <code>string</code> = &ldquo;Bank balances&rdquo;; <code>bank.groups</code>: <code>string</code> = &ldquo;Banking groups&rdquo;; <code>bank.operations</code>: <code>string</code> = &ldquo;Bank operations&rdquo;; <code>bank.recipients</code>: <code>string</code> = &ldquo;Banking transfer recipients&rdquo;; <code>bank.recurrence</code>: <code>string</code> = &ldquo;Banks recurrence groups&rdquo;; <code>bank.settings</code>: <code>string</code> = &ldquo;Banks app settings&rdquo;; <code>bills</code>: <code>string</code> = &ldquo;Bills&rdquo;; <code>certified.carbon_copy</code>: <code>string</code> = &ldquo;Carbon copy&rdquo;; <code>certified.electronic_safe</code>: <code>string</code> = &ldquo;Electronic safe&rdquo;; <code>coachco2.settings</code>: <code>string</code> = &ldquo;CoachCO2 app settings&rdquo;; <code>contacts</code>: <code>string</code> = &ldquo;Contacts&rdquo;; <code>contacts.accounts</code>: <code>string</code> = &ldquo;Accounts linked to the contacts&rdquo;; <code>contacts.groups</code>: <code>string</code> = &ldquo;Contacts groups&rdquo;; <code>files</code>: <code>string</code> = &ldquo;Files&rdquo;; <code>files.*</code>: <code>string</code> = &ldquo;File-related data (files, folders, versions, &hellip;)&rdquo;; <code>files.versions</code>: <code>string</code> = &ldquo;Files versions&rdquo;; <code>identities</code>: <code>string</code> = &ldquo;Identities&rdquo;; <code>jobs</code>: <code>string</code> = &ldquo;Jobs&rdquo;; <code>konnectors</code>: <code>string</code> = &ldquo;Connectors for importing data&rdquo;; <code>konnectors.result</code>: <code>string</code> = &ldquo;Connectors results&rdquo;; <code>netflix.opinions</code>: <code>string</code> = &ldquo;Netflix opinions&rdquo;; <code>netflix.views</code>: <code>string</code> = &ldquo;Netflix history&rdquo;; <code>notifications</code>: <code>string</code> = &ldquo;Notifications&rdquo;; <code>oauth.clients</code>: <code>string</code> = &ldquo;Connected devices&rdquo;; <code>permissions</code>: <code>string</code> = &ldquo;Delegating permissions&rdquo;; <code>photos.albums</code>: <code>string</code> = &ldquo;Photo albums&rdquo;; <code>photos.settings</code>: <code>string</code> = &ldquo;Photo settings&rdquo;; <code>settings</code>: <code>string</code> = &ldquo;Settings&rdquo;; <code>sharings</code>: <code>string</code> = &ldquo;Sharing&rdquo;; <code>timeseries.geojson</code>: <code>string</code> = &ldquo;Trips&rdquo;; <code>triggers</code>: <code>string</code> = &ldquo;Scheduling jobs&rdquo; }</td>
-</tr>
-<tr>
-<td align="left"><code>Permissions.io.cozy.accounts</code></td>
+<td align="left"><code>cc.cozycloud.autocategorization</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.apps</code></td>
+<td align="left"><code>cc.cozycloud.dacc</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.apps.suggestions</code></td>
+<td align="left"><code>cc.cozycloud.dacc.dev</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.bank.accounts</code></td>
+<td align="left"><code>cc.cozycloud.dacc.dev_v2</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.bank.accounts.stats</code></td>
+<td align="left"><code>cc.cozycloud.dacc_v2</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.bank.balancehistories</code></td>
+<td align="left"><code>cc.cozycloud.errors</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.bank.groups</code></td>
+<td align="left"><code>cc.cozycloud.sentry</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.bank.operations</code></td>
+<td align="left"><code>com</code></td>
+<td align="left">{ <code>bitwarden.ciphers</code>: <code>string</code> = &ldquo;Password manager entries&rdquo;; <code>bitwarden.contacts</code>: <code>string</code> = &ldquo;Password manager contacts&rdquo;; <code>bitwarden.folders</code>: <code>string</code> = &ldquo;Password manager folders&rdquo;; <code>bitwarden.organizations</code>: <code>string</code> = &ldquo;Password manager shared folders&rdquo;; <code>bitwarden.profiles</code>: <code>string</code> = &ldquo;Password manager profiles&rdquo;; <code>grandlyon</code>: { <code>ecolyo.*</code>: <code>string</code> = &ldquo;Ecolyo data&rdquo;; <code>egl.*</code>: <code>string</code> = &ldquo;Water consumption data&rdquo;; <code>enedis.*</code>: <code>string</code> = &ldquo;Electricity consumption data&rdquo;; <code>grdf.*</code>: <code>string</code> = &ldquo;Gas consumption data&rdquo; } ; <code>splitwise.expenses</code>: <code>string</code> = &ldquo;Expenses Splitwise&rdquo;; <code>tricount.expenses</code>: <code>string</code> = &ldquo;Expenses Tricount&rdquo; }</td>
+</tr>
+<tr>
+<td align="left"><code>com.bitwarden.ciphers</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.bank.recipients</code></td>
+<td align="left"><code>com.bitwarden.contacts</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.bank.recurrence</code></td>
+<td align="left"><code>com.bitwarden.folders</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.bank.settings</code></td>
+<td align="left"><code>com.bitwarden.organizations</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.bills</code></td>
+<td align="left"><code>com.bitwarden.profiles</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.certified.carbon_copy</code></td>
+<td align="left"><code>com.grandlyon</code></td>
+<td align="left">{ <code>ecolyo.*</code>: <code>string</code> = &ldquo;Ecolyo data&rdquo;; <code>egl.*</code>: <code>string</code> = &ldquo;Water consumption data&rdquo;; <code>enedis.*</code>: <code>string</code> = &ldquo;Electricity consumption data&rdquo;; <code>grdf.*</code>: <code>string</code> = &ldquo;Gas consumption data&rdquo; }</td>
+</tr>
+<tr>
+<td align="left"><code>com.grandlyon.ecolyo.*</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.certified.electronic_safe</code></td>
+<td align="left"><code>com.grandlyon.egl.*</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.coachco2.settings</code></td>
+<td align="left"><code>com.grandlyon.enedis.*</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.contacts</code></td>
+<td align="left"><code>com.grandlyon.grdf.*</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.contacts.accounts</code></td>
+<td align="left"><code>com.splitwise.expenses</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.contacts.groups</code></td>
+<td align="left"><code>com.tricount.expenses</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.files</code></td>
+<td align="left"><code>eu</code></td>
+<td align="left">{ <code>mycozy</code>: { <code>dacc</code>: <code>string</code> = &ldquo;Anonymous aggregated statistics&rdquo;; <code>dacc_v2</code>: <code>string</code> = &ldquo;Anonymous aggregated statistics&rdquo; }  }</td>
+</tr>
+<tr>
+<td align="left"><code>eu.mycozy</code></td>
+<td align="left">{ <code>dacc</code>: <code>string</code> = &ldquo;Anonymous aggregated statistics&rdquo;; <code>dacc_v2</code>: <code>string</code> = &ldquo;Anonymous aggregated statistics&rdquo; }</td>
+</tr>
+<tr>
+<td align="left"><code>eu.mycozy.dacc</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.files.*</code></td>
+<td align="left"><code>eu.mycozy.dacc_v2</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.files.versions</code></td>
+<td align="left"><code>fr</code></td>
+<td align="left">{ <code>maif</code>: { <code>events</code>: <code>string</code> = &ldquo;Events (Maif)&rdquo;; <code>maifuser</code>: { <code>contrat</code>: <code>string</code> = &ldquo;Contract (Maif)&rdquo;; <code>family</code>: <code>string</code> = &ldquo;Family (Maif)&rdquo;; <code>home</code>: <code>string</code> = &ldquo;Home (Maif)&rdquo;; <code>paymentterms</code>: <code>string</code> = &ldquo;Payment terms (Maif)&rdquo;; <code>sinistre</code>: <code>string</code> = &ldquo;Damage (Maif)&rdquo;; <code>societaire</code>: <code>string</code> = &ldquo;Societary (Maif)&rdquo; }  }  }</td>
+</tr>
+<tr>
+<td align="left"><code>fr.maif</code></td>
+<td align="left">{ <code>events</code>: <code>string</code> = &ldquo;Events (Maif)&rdquo;; <code>maifuser</code>: { <code>contrat</code>: <code>string</code> = &ldquo;Contract (Maif)&rdquo;; <code>family</code>: <code>string</code> = &ldquo;Family (Maif)&rdquo;; <code>home</code>: <code>string</code> = &ldquo;Home (Maif)&rdquo;; <code>paymentterms</code>: <code>string</code> = &ldquo;Payment terms (Maif)&rdquo;; <code>sinistre</code>: <code>string</code> = &ldquo;Damage (Maif)&rdquo;; <code>societaire</code>: <code>string</code> = &ldquo;Societary (Maif)&rdquo; }  }</td>
+</tr>
+<tr>
+<td align="left"><code>fr.maif.events</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.identities</code></td>
+<td align="left"><code>fr.maif.maifuser</code></td>
+<td align="left">{ <code>contrat</code>: <code>string</code> = &ldquo;Contract (Maif)&rdquo;; <code>family</code>: <code>string</code> = &ldquo;Family (Maif)&rdquo;; <code>home</code>: <code>string</code> = &ldquo;Home (Maif)&rdquo;; <code>paymentterms</code>: <code>string</code> = &ldquo;Payment terms (Maif)&rdquo;; <code>sinistre</code>: <code>string</code> = &ldquo;Damage (Maif)&rdquo;; <code>societaire</code>: <code>string</code> = &ldquo;Societary (Maif)&rdquo; }</td>
+</tr>
+<tr>
+<td align="left"><code>fr.maif.maifuser.contrat</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.jobs</code></td>
+<td align="left"><code>fr.maif.maifuser.family</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.konnectors</code></td>
+<td align="left"><code>fr.maif.maifuser.home</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.konnectors.result</code></td>
+<td align="left"><code>fr.maif.maifuser.paymentterms</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.netflix.opinions</code></td>
+<td align="left"><code>fr.maif.maifuser.sinistre</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.netflix.views</code></td>
+<td align="left"><code>fr.maif.maifuser.societaire</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.notifications</code></td>
+<td align="left"><code>io</code></td>
+<td align="left">{ <code>cozy</code>: { <code>accounts</code>: <code>string</code> = &ldquo;Login details&rdquo;; <code>apps</code>: <code>string</code> = &ldquo;List of installed applications&rdquo;; <code>apps.suggestions</code>: <code>string</code> = &ldquo;Application suggestions&rdquo;; <code>bank.accounts</code>: <code>string</code> = &ldquo;Banking accounts&rdquo;; <code>bank.accounts.stats</code>: <code>string</code> = &ldquo;Stats on banking accounts&rdquo;; <code>bank.balancehistories</code>: <code>string</code> = &ldquo;Bank balances&rdquo;; <code>bank.groups</code>: <code>string</code> = &ldquo;Banking groups&rdquo;; <code>bank.operations</code>: <code>string</code> = &ldquo;Bank operations&rdquo;; <code>bank.recipients</code>: <code>string</code> = &ldquo;Banking transfer recipients&rdquo;; <code>bank.recurrence</code>: <code>string</code> = &ldquo;Banks recurrence groups&rdquo;; <code>bank.settings</code>: <code>string</code> = &ldquo;Banks app settings&rdquo;; <code>bills</code>: <code>string</code> = &ldquo;Bills&rdquo;; <code>certified.carbon_copy</code>: <code>string</code> = &ldquo;Carbon copy&rdquo;; <code>certified.electronic_safe</code>: <code>string</code> = &ldquo;Electronic safe&rdquo;; <code>coachco2.settings</code>: <code>string</code> = &ldquo;CoachCO2 app settings&rdquo;; <code>contacts</code>: <code>string</code> = &ldquo;Contacts&rdquo;; <code>contacts.accounts</code>: <code>string</code> = &ldquo;Accounts linked to the contacts&rdquo;; <code>contacts.groups</code>: <code>string</code> = &ldquo;Contacts groups&rdquo;; <code>files</code>: <code>string</code> = &ldquo;Files&rdquo;; <code>files.*</code>: <code>string</code> = &ldquo;File-related data (files, folders, versions, &hellip;)&rdquo;; <code>files.versions</code>: <code>string</code> = &ldquo;Files versions&rdquo;; <code>identities</code>: <code>string</code> = &ldquo;Identities&rdquo;; <code>jobs</code>: <code>string</code> = &ldquo;Jobs&rdquo;; <code>konnectors</code>: <code>string</code> = &ldquo;Connectors for importing data&rdquo;; <code>konnectors.result</code>: <code>string</code> = &ldquo;Connectors results&rdquo;; <code>netflix.opinions</code>: <code>string</code> = &ldquo;Netflix opinions&rdquo;; <code>netflix.views</code>: <code>string</code> = &ldquo;Netflix history&rdquo;; <code>notifications</code>: <code>string</code> = &ldquo;Notifications&rdquo;; <code>oauth.clients</code>: <code>string</code> = &ldquo;Connected devices&rdquo;; <code>permissions</code>: <code>string</code> = &ldquo;Delegating permissions&rdquo;; <code>photos.albums</code>: <code>string</code> = &ldquo;Photo albums&rdquo;; <code>photos.settings</code>: <code>string</code> = &ldquo;Photo settings&rdquo;; <code>settings</code>: <code>string</code> = &ldquo;Settings&rdquo;; <code>sharings</code>: <code>string</code> = &ldquo;Sharing&rdquo;; <code>tags</code>: <code>string</code> = &ldquo;Tags&rdquo;; <code>timeseries.geojson</code>: <code>string</code> = &ldquo;Trips&rdquo;; <code>triggers</code>: <code>string</code> = &ldquo;Scheduling jobs&rdquo; }  }</td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy</code></td>
+<td align="left">{ <code>accounts</code>: <code>string</code> = &ldquo;Login details&rdquo;; <code>apps</code>: <code>string</code> = &ldquo;List of installed applications&rdquo;; <code>apps.suggestions</code>: <code>string</code> = &ldquo;Application suggestions&rdquo;; <code>bank.accounts</code>: <code>string</code> = &ldquo;Banking accounts&rdquo;; <code>bank.accounts.stats</code>: <code>string</code> = &ldquo;Stats on banking accounts&rdquo;; <code>bank.balancehistories</code>: <code>string</code> = &ldquo;Bank balances&rdquo;; <code>bank.groups</code>: <code>string</code> = &ldquo;Banking groups&rdquo;; <code>bank.operations</code>: <code>string</code> = &ldquo;Bank operations&rdquo;; <code>bank.recipients</code>: <code>string</code> = &ldquo;Banking transfer recipients&rdquo;; <code>bank.recurrence</code>: <code>string</code> = &ldquo;Banks recurrence groups&rdquo;; <code>bank.settings</code>: <code>string</code> = &ldquo;Banks app settings&rdquo;; <code>bills</code>: <code>string</code> = &ldquo;Bills&rdquo;; <code>certified.carbon_copy</code>: <code>string</code> = &ldquo;Carbon copy&rdquo;; <code>certified.electronic_safe</code>: <code>string</code> = &ldquo;Electronic safe&rdquo;; <code>coachco2.settings</code>: <code>string</code> = &ldquo;CoachCO2 app settings&rdquo;; <code>contacts</code>: <code>string</code> = &ldquo;Contacts&rdquo;; <code>contacts.accounts</code>: <code>string</code> = &ldquo;Accounts linked to the contacts&rdquo;; <code>contacts.groups</code>: <code>string</code> = &ldquo;Contacts groups&rdquo;; <code>files</code>: <code>string</code> = &ldquo;Files&rdquo;; <code>files.*</code>: <code>string</code> = &ldquo;File-related data (files, folders, versions, &hellip;)&rdquo;; <code>files.versions</code>: <code>string</code> = &ldquo;Files versions&rdquo;; <code>identities</code>: <code>string</code> = &ldquo;Identities&rdquo;; <code>jobs</code>: <code>string</code> = &ldquo;Jobs&rdquo;; <code>konnectors</code>: <code>string</code> = &ldquo;Connectors for importing data&rdquo;; <code>konnectors.result</code>: <code>string</code> = &ldquo;Connectors results&rdquo;; <code>netflix.opinions</code>: <code>string</code> = &ldquo;Netflix opinions&rdquo;; <code>netflix.views</code>: <code>string</code> = &ldquo;Netflix history&rdquo;; <code>notifications</code>: <code>string</code> = &ldquo;Notifications&rdquo;; <code>oauth.clients</code>: <code>string</code> = &ldquo;Connected devices&rdquo;; <code>permissions</code>: <code>string</code> = &ldquo;Delegating permissions&rdquo;; <code>photos.albums</code>: <code>string</code> = &ldquo;Photo albums&rdquo;; <code>photos.settings</code>: <code>string</code> = &ldquo;Photo settings&rdquo;; <code>settings</code>: <code>string</code> = &ldquo;Settings&rdquo;; <code>sharings</code>: <code>string</code> = &ldquo;Sharing&rdquo;; <code>tags</code>: <code>string</code> = &ldquo;Tags&rdquo;; <code>timeseries.geojson</code>: <code>string</code> = &ldquo;Trips&rdquo;; <code>triggers</code>: <code>string</code> = &ldquo;Scheduling jobs&rdquo; }</td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.accounts</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.oauth.clients</code></td>
+<td align="left"><code>io.cozy.apps</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.permissions</code></td>
+<td align="left"><code>io.cozy.apps.suggestions</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.photos.albums</code></td>
+<td align="left"><code>io.cozy.bank.accounts</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.photos.settings</code></td>
+<td align="left"><code>io.cozy.bank.accounts.stats</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.settings</code></td>
+<td align="left"><code>io.cozy.bank.balancehistories</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.sharings</code></td>
+<td align="left"><code>io.cozy.bank.groups</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.timeseries.geojson</code></td>
+<td align="left"><code>io.cozy.bank.operations</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.triggers</code></td>
+<td align="left"><code>io.cozy.bank.recipients</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.bank.recurrence</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.bank.settings</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.bills</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.certified.carbon_copy</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.certified.electronic_safe</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.coachco2.settings</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.contacts</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.contacts.accounts</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.contacts.groups</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.files</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.files.*</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.files.versions</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.identities</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.jobs</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.konnectors</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.konnectors.result</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.netflix.opinions</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.netflix.views</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.notifications</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.oauth.clients</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.permissions</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.photos.albums</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.photos.settings</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.settings</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.sharings</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.tags</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.timeseries.geojson</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.triggers</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>org</code></td>
+<td align="left">{ <code>fing</code>: { <code>mesinfos</code>: { <code>insuranceclaim</code>: <code>string</code> = &ldquo;Insurance claims (Maif)&rdquo; }  }  }</td>
+</tr>
+<tr>
+<td align="left"><code>org.fing</code></td>
+<td align="left">{ <code>mesinfos</code>: { <code>insuranceclaim</code>: <code>string</code> = &ldquo;Insurance claims (Maif)&rdquo; }  }</td>
+</tr>
+<tr>
+<td align="left"><code>org.fing.mesinfos</code></td>
+<td align="left">{ <code>insuranceclaim</code>: <code>string</code> = &ldquo;Insurance claims (Maif)&rdquo; }</td>
+</tr>
+<tr>
+<td align="left"><code>org.fing.mesinfos.insuranceclaim</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 </tbody>
@@ -2793,159 +2953,315 @@
 </thead>
 <tbody>
 <tr>
-<td align="left"><code>Permissions</code></td>
-<td align="left">{ <code>io</code>: { <code>cozy</code>: { <code>accounts</code>: <code>string</code> = &ldquo;Identifiants&rdquo;; <code>apps</code>: <code>string</code> = &ldquo;Liste des applications installées&rdquo;; <code>apps.suggestions</code>: <code>string</code> = &ldquo;Suggestions d&rsquo;applications&rdquo;; <code>bank.accounts</code>: <code>string</code> = &ldquo;Comptes bancaires&rdquo;; <code>bank.accounts.stats</code>: <code>string</code> = &ldquo;Statistiques sur les comptes bancaires&rdquo;; <code>bank.balancehistories</code>: <code>string</code> = &ldquo;Soldes bancaires&rdquo;; <code>bank.groups</code>: <code>string</code> = &ldquo;Groupes de comptes bancaires&rdquo;; <code>bank.operations</code>: <code>string</code> = &ldquo;Opérations bancaires&rdquo;; <code>bank.recipients</code>: <code>string</code> = &ldquo;Bénéficiaires de virements bancaires&rdquo;; <code>bank.recurrence</code>: <code>string</code> = &ldquo;Groupes de récurrence bancaire&rdquo;; <code>bank.settings</code>: <code>string</code> = &ldquo;Paramètres de l&rsquo;application Banks&rdquo;; <code>bills</code>: <code>string</code> = &ldquo;Factures&rdquo;; <code>certified.carbon_copy</code>: <code>string</code> = &ldquo;Copie carbone&rdquo;; <code>certified.electronic_safe</code>: <code>string</code> = &ldquo;Coffre-fort numérique&rdquo;; <code>coachco2.settings</code>: <code>string</code> = &ldquo;Paramètres de l&rsquo;application CoachCO2&rdquo;; <code>contacts</code>: <code>string</code> = &ldquo;Contacts&rdquo;; <code>contacts.accounts</code>: <code>string</code> = &ldquo;Comptes associés aux contacts&rdquo;; <code>contacts.groups</code>: <code>string</code> = &ldquo;Groupe de contacts&rdquo;; <code>files</code>: <code>string</code> = &ldquo;Fichiers&rdquo;; <code>files.*</code>: <code>string</code> = &ldquo;Données liées aux fichiers (fichiers, dossiers, versions, &hellip;)&rdquo;; <code>files.versions</code>: <code>string</code> = &ldquo;Versions des fichiers&rdquo;; <code>identities</code>: <code>string</code> = &ldquo;Identities&rdquo;; <code>jobs</code>: <code>string</code> = &ldquo;Tâches à exécuter&rdquo;; <code>konnectors</code>: <code>string</code> = &ldquo;Connecteurs pour importer des données&rdquo;; <code>konnectors.result</code>: <code>string</code> = &ldquo;Résultats de connecteurs&rdquo;; <code>netflix.opinions</code>: <code>string</code> = &ldquo;Opinions Netflix&rdquo;; <code>netflix.views</code>: <code>string</code> = &ldquo;Historique Netflix&rdquo;; <code>notifications</code>: <code>string</code> = &ldquo;Notifications&rdquo;; <code>oauth.clients</code>: <code>string</code> = &ldquo;Appareils connectés&rdquo;; <code>permissions</code>: <code>string</code> = &ldquo;Délégation de permissions&rdquo;; <code>photos.albums</code>: <code>string</code> = &ldquo;Albums photos&rdquo;; <code>photos.settings</code>: <code>string</code> = &ldquo;Paramètres des photos&rdquo;; <code>settings</code>: <code>string</code> = &ldquo;Paramètres&rdquo;; <code>sharings</code>: <code>string</code> = &ldquo;Partage&rdquo;; <code>timeseries.geojson</code>: <code>string</code> = &ldquo;Déplacements&rdquo;; <code>triggers</code>: <code>string</code> = &ldquo;Planification de tâches à exécuter dans le futur&rdquo; }  }  }</td>
+<td align="left"><code>cc</code></td>
+<td align="left">{ <code>cozycloud</code>: { <code>autocategorization</code>: <code>string</code> = &ldquo;Fichier d&rsquo;enrichissement du modèle de catégorisation&rdquo;; <code>dacc</code>: <code>string</code> = &ldquo;Statistiques agrégées anonymes&rdquo;; <code>dacc.dev</code>: <code>string</code> = &ldquo;Statistiques agrégées anonymes pour le développement&rdquo;; <code>dacc.dev_v2</code>: <code>string</code> = &ldquo;Statistiques agrégées anonymes pour le développement&rdquo;; <code>dacc_v2</code>: <code>string</code> = &ldquo;Statistiques agrégées anonymes&rdquo;; <code>errors</code>: <code>string</code> = &ldquo;Journaux de l&rsquo;application&rdquo;; <code>sentry</code>: <code>string</code> = &ldquo;Journaux de l&rsquo;application&rdquo; }  }</td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io</code></td>
-<td align="left">{ <code>cozy</code>: { <code>accounts</code>: <code>string</code> = &ldquo;Identifiants&rdquo;; <code>apps</code>: <code>string</code> = &ldquo;Liste des applications installées&rdquo;; <code>apps.suggestions</code>: <code>string</code> = &ldquo;Suggestions d&rsquo;applications&rdquo;; <code>bank.accounts</code>: <code>string</code> = &ldquo;Comptes bancaires&rdquo;; <code>bank.accounts.stats</code>: <code>string</code> = &ldquo;Statistiques sur les comptes bancaires&rdquo;; <code>bank.balancehistories</code>: <code>string</code> = &ldquo;Soldes bancaires&rdquo;; <code>bank.groups</code>: <code>string</code> = &ldquo;Groupes de comptes bancaires&rdquo;; <code>bank.operations</code>: <code>string</code> = &ldquo;Opérations bancaires&rdquo;; <code>bank.recipients</code>: <code>string</code> = &ldquo;Bénéficiaires de virements bancaires&rdquo;; <code>bank.recurrence</code>: <code>string</code> = &ldquo;Groupes de récurrence bancaire&rdquo;; <code>bank.settings</code>: <code>string</code> = &ldquo;Paramètres de l&rsquo;application Banks&rdquo;; <code>bills</code>: <code>string</code> = &ldquo;Factures&rdquo;; <code>certified.carbon_copy</code>: <code>string</code> = &ldquo;Copie carbone&rdquo;; <code>certified.electronic_safe</code>: <code>string</code> = &ldquo;Coffre-fort numérique&rdquo;; <code>coachco2.settings</code>: <code>string</code> = &ldquo;Paramètres de l&rsquo;application CoachCO2&rdquo;; <code>contacts</code>: <code>string</code> = &ldquo;Contacts&rdquo;; <code>contacts.accounts</code>: <code>string</code> = &ldquo;Comptes associés aux contacts&rdquo;; <code>contacts.groups</code>: <code>string</code> = &ldquo;Groupe de contacts&rdquo;; <code>files</code>: <code>string</code> = &ldquo;Fichiers&rdquo;; <code>files.*</code>: <code>string</code> = &ldquo;Données liées aux fichiers (fichiers, dossiers, versions, &hellip;)&rdquo;; <code>files.versions</code>: <code>string</code> = &ldquo;Versions des fichiers&rdquo;; <code>identities</code>: <code>string</code> = &ldquo;Identities&rdquo;; <code>jobs</code>: <code>string</code> = &ldquo;Tâches à exécuter&rdquo;; <code>konnectors</code>: <code>string</code> = &ldquo;Connecteurs pour importer des données&rdquo;; <code>konnectors.result</code>: <code>string</code> = &ldquo;Résultats de connecteurs&rdquo;; <code>netflix.opinions</code>: <code>string</code> = &ldquo;Opinions Netflix&rdquo;; <code>netflix.views</code>: <code>string</code> = &ldquo;Historique Netflix&rdquo;; <code>notifications</code>: <code>string</code> = &ldquo;Notifications&rdquo;; <code>oauth.clients</code>: <code>string</code> = &ldquo;Appareils connectés&rdquo;; <code>permissions</code>: <code>string</code> = &ldquo;Délégation de permissions&rdquo;; <code>photos.albums</code>: <code>string</code> = &ldquo;Albums photos&rdquo;; <code>photos.settings</code>: <code>string</code> = &ldquo;Paramètres des photos&rdquo;; <code>settings</code>: <code>string</code> = &ldquo;Paramètres&rdquo;; <code>sharings</code>: <code>string</code> = &ldquo;Partage&rdquo;; <code>timeseries.geojson</code>: <code>string</code> = &ldquo;Déplacements&rdquo;; <code>triggers</code>: <code>string</code> = &ldquo;Planification de tâches à exécuter dans le futur&rdquo; }  }</td>
+<td align="left"><code>cc.cozycloud</code></td>
+<td align="left">{ <code>autocategorization</code>: <code>string</code> = &ldquo;Fichier d&rsquo;enrichissement du modèle de catégorisation&rdquo;; <code>dacc</code>: <code>string</code> = &ldquo;Statistiques agrégées anonymes&rdquo;; <code>dacc.dev</code>: <code>string</code> = &ldquo;Statistiques agrégées anonymes pour le développement&rdquo;; <code>dacc.dev_v2</code>: <code>string</code> = &ldquo;Statistiques agrégées anonymes pour le développement&rdquo;; <code>dacc_v2</code>: <code>string</code> = &ldquo;Statistiques agrégées anonymes&rdquo;; <code>errors</code>: <code>string</code> = &ldquo;Journaux de l&rsquo;application&rdquo;; <code>sentry</code>: <code>string</code> = &ldquo;Journaux de l&rsquo;application&rdquo; }</td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy</code></td>
-<td align="left">{ <code>accounts</code>: <code>string</code> = &ldquo;Identifiants&rdquo;; <code>apps</code>: <code>string</code> = &ldquo;Liste des applications installées&rdquo;; <code>apps.suggestions</code>: <code>string</code> = &ldquo;Suggestions d&rsquo;applications&rdquo;; <code>bank.accounts</code>: <code>string</code> = &ldquo;Comptes bancaires&rdquo;; <code>bank.accounts.stats</code>: <code>string</code> = &ldquo;Statistiques sur les comptes bancaires&rdquo;; <code>bank.balancehistories</code>: <code>string</code> = &ldquo;Soldes bancaires&rdquo;; <code>bank.groups</code>: <code>string</code> = &ldquo;Groupes de comptes bancaires&rdquo;; <code>bank.operations</code>: <code>string</code> = &ldquo;Opérations bancaires&rdquo;; <code>bank.recipients</code>: <code>string</code> = &ldquo;Bénéficiaires de virements bancaires&rdquo;; <code>bank.recurrence</code>: <code>string</code> = &ldquo;Groupes de récurrence bancaire&rdquo;; <code>bank.settings</code>: <code>string</code> = &ldquo;Paramètres de l&rsquo;application Banks&rdquo;; <code>bills</code>: <code>string</code> = &ldquo;Factures&rdquo;; <code>certified.carbon_copy</code>: <code>string</code> = &ldquo;Copie carbone&rdquo;; <code>certified.electronic_safe</code>: <code>string</code> = &ldquo;Coffre-fort numérique&rdquo;; <code>coachco2.settings</code>: <code>string</code> = &ldquo;Paramètres de l&rsquo;application CoachCO2&rdquo;; <code>contacts</code>: <code>string</code> = &ldquo;Contacts&rdquo;; <code>contacts.accounts</code>: <code>string</code> = &ldquo;Comptes associés aux contacts&rdquo;; <code>contacts.groups</code>: <code>string</code> = &ldquo;Groupe de contacts&rdquo;; <code>files</code>: <code>string</code> = &ldquo;Fichiers&rdquo;; <code>files.*</code>: <code>string</code> = &ldquo;Données liées aux fichiers (fichiers, dossiers, versions, &hellip;)&rdquo;; <code>files.versions</code>: <code>string</code> = &ldquo;Versions des fichiers&rdquo;; <code>identities</code>: <code>string</code> = &ldquo;Identities&rdquo;; <code>jobs</code>: <code>string</code> = &ldquo;Tâches à exécuter&rdquo;; <code>konnectors</code>: <code>string</code> = &ldquo;Connecteurs pour importer des données&rdquo;; <code>konnectors.result</code>: <code>string</code> = &ldquo;Résultats de connecteurs&rdquo;; <code>netflix.opinions</code>: <code>string</code> = &ldquo;Opinions Netflix&rdquo;; <code>netflix.views</code>: <code>string</code> = &ldquo;Historique Netflix&rdquo;; <code>notifications</code>: <code>string</code> = &ldquo;Notifications&rdquo;; <code>oauth.clients</code>: <code>string</code> = &ldquo;Appareils connectés&rdquo;; <code>permissions</code>: <code>string</code> = &ldquo;Délégation de permissions&rdquo;; <code>photos.albums</code>: <code>string</code> = &ldquo;Albums photos&rdquo;; <code>photos.settings</code>: <code>string</code> = &ldquo;Paramètres des photos&rdquo;; <code>settings</code>: <code>string</code> = &ldquo;Paramètres&rdquo;; <code>sharings</code>: <code>string</code> = &ldquo;Partage&rdquo;; <code>timeseries.geojson</code>: <code>string</code> = &ldquo;Déplacements&rdquo;; <code>triggers</code>: <code>string</code> = &ldquo;Planification de tâches à exécuter dans le futur&rdquo; }</td>
-</tr>
-<tr>
-<td align="left"><code>Permissions.io.cozy.accounts</code></td>
+<td align="left"><code>cc.cozycloud.autocategorization</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.apps</code></td>
+<td align="left"><code>cc.cozycloud.dacc</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.apps.suggestions</code></td>
+<td align="left"><code>cc.cozycloud.dacc.dev</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.bank.accounts</code></td>
+<td align="left"><code>cc.cozycloud.dacc.dev_v2</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.bank.accounts.stats</code></td>
+<td align="left"><code>cc.cozycloud.dacc_v2</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.bank.balancehistories</code></td>
+<td align="left"><code>cc.cozycloud.errors</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.bank.groups</code></td>
+<td align="left"><code>cc.cozycloud.sentry</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.bank.operations</code></td>
+<td align="left"><code>com</code></td>
+<td align="left">{ <code>bitwarden.ciphers</code>: <code>string</code> = &ldquo;Entrées du gestionnaire de mot de passe&rdquo;; <code>bitwarden.contacts</code>: <code>string</code> = &ldquo;Contacts du gestionnaire de mot de passe&rdquo;; <code>bitwarden.folders</code>: <code>string</code> = &ldquo;Dossiers du gestionnaire de mot de passe&rdquo;; <code>bitwarden.organizations</code>: <code>string</code> = &ldquo;Dossiers partagés du gestionnaire de mot de passe&rdquo;; <code>bitwarden.profiles</code>: <code>string</code> = &ldquo;Profils du gestionnaire de mot de passe&rdquo;; <code>grandlyon</code>: { <code>ecolyo.*</code>: <code>string</code> = &ldquo;Données Ecolyo&rdquo;; <code>egl.*</code>: <code>string</code> = &ldquo;Données de consommation d&rsquo;eau&rdquo;; <code>enedis.*</code>: <code>string</code> = &ldquo;Données de consommation d&rsquo;électricité&rdquo;; <code>grdf.*</code>: <code>string</code> = &ldquo;Données de consommation de gaz&rdquo; } ; <code>splitwise.expenses</code>: <code>string</code> = &ldquo;Dépenses Splitwise&rdquo;; <code>tricount.expenses</code>: <code>string</code> = &ldquo;Dépenses Tricount&rdquo; }</td>
+</tr>
+<tr>
+<td align="left"><code>com.bitwarden.ciphers</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.bank.recipients</code></td>
+<td align="left"><code>com.bitwarden.contacts</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.bank.recurrence</code></td>
+<td align="left"><code>com.bitwarden.folders</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.bank.settings</code></td>
+<td align="left"><code>com.bitwarden.organizations</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.bills</code></td>
+<td align="left"><code>com.bitwarden.profiles</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.certified.carbon_copy</code></td>
+<td align="left"><code>com.grandlyon</code></td>
+<td align="left">{ <code>ecolyo.*</code>: <code>string</code> = &ldquo;Données Ecolyo&rdquo;; <code>egl.*</code>: <code>string</code> = &ldquo;Données de consommation d&rsquo;eau&rdquo;; <code>enedis.*</code>: <code>string</code> = &ldquo;Données de consommation d&rsquo;électricité&rdquo;; <code>grdf.*</code>: <code>string</code> = &ldquo;Données de consommation de gaz&rdquo; }</td>
+</tr>
+<tr>
+<td align="left"><code>com.grandlyon.ecolyo.*</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.certified.electronic_safe</code></td>
+<td align="left"><code>com.grandlyon.egl.*</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.coachco2.settings</code></td>
+<td align="left"><code>com.grandlyon.enedis.*</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.contacts</code></td>
+<td align="left"><code>com.grandlyon.grdf.*</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.contacts.accounts</code></td>
+<td align="left"><code>com.splitwise.expenses</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.contacts.groups</code></td>
+<td align="left"><code>com.tricount.expenses</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.files</code></td>
+<td align="left"><code>eu</code></td>
+<td align="left">{ <code>mycozy</code>: { <code>dacc</code>: <code>string</code> = &ldquo;Statistiques agrégées anonymes&rdquo; }  }</td>
+</tr>
+<tr>
+<td align="left"><code>eu.mycozy</code></td>
+<td align="left">{ <code>dacc</code>: <code>string</code> = &ldquo;Statistiques agrégées anonymes&rdquo; }</td>
+</tr>
+<tr>
+<td align="left"><code>eu.mycozy.dacc</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.files.*</code></td>
+<td align="left"><code>fr</code></td>
+<td align="left">{ <code>maif</code>: { <code>events</code>: <code>string</code> = &ldquo;Évènements (Maif)&rdquo;; <code>maifuser</code>: { <code>contrat</code>: <code>string</code> = &ldquo;Contrat (Maif)&rdquo;; <code>family</code>: <code>string</code> = &ldquo;Foyer (Maif)&rdquo;; <code>home</code>: <code>string</code> = &ldquo;Maison (Maif)&rdquo;; <code>paymentterms</code>: <code>string</code> = &ldquo;Paiement (Maif)&rdquo;; <code>sinistre</code>: <code>string</code> = &ldquo;Sinistre (Maif)&rdquo;; <code>societaire</code>: <code>string</code> = &ldquo;Sociétaire (Maif)&rdquo; }  }  }</td>
+</tr>
+<tr>
+<td align="left"><code>fr.maif</code></td>
+<td align="left">{ <code>events</code>: <code>string</code> = &ldquo;Évènements (Maif)&rdquo;; <code>maifuser</code>: { <code>contrat</code>: <code>string</code> = &ldquo;Contrat (Maif)&rdquo;; <code>family</code>: <code>string</code> = &ldquo;Foyer (Maif)&rdquo;; <code>home</code>: <code>string</code> = &ldquo;Maison (Maif)&rdquo;; <code>paymentterms</code>: <code>string</code> = &ldquo;Paiement (Maif)&rdquo;; <code>sinistre</code>: <code>string</code> = &ldquo;Sinistre (Maif)&rdquo;; <code>societaire</code>: <code>string</code> = &ldquo;Sociétaire (Maif)&rdquo; }  }</td>
+</tr>
+<tr>
+<td align="left"><code>fr.maif.events</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.files.versions</code></td>
+<td align="left"><code>fr.maif.maifuser</code></td>
+<td align="left">{ <code>contrat</code>: <code>string</code> = &ldquo;Contrat (Maif)&rdquo;; <code>family</code>: <code>string</code> = &ldquo;Foyer (Maif)&rdquo;; <code>home</code>: <code>string</code> = &ldquo;Maison (Maif)&rdquo;; <code>paymentterms</code>: <code>string</code> = &ldquo;Paiement (Maif)&rdquo;; <code>sinistre</code>: <code>string</code> = &ldquo;Sinistre (Maif)&rdquo;; <code>societaire</code>: <code>string</code> = &ldquo;Sociétaire (Maif)&rdquo; }</td>
+</tr>
+<tr>
+<td align="left"><code>fr.maif.maifuser.contrat</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.identities</code></td>
+<td align="left"><code>fr.maif.maifuser.family</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.jobs</code></td>
+<td align="left"><code>fr.maif.maifuser.home</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.konnectors</code></td>
+<td align="left"><code>fr.maif.maifuser.paymentterms</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.konnectors.result</code></td>
+<td align="left"><code>fr.maif.maifuser.sinistre</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.netflix.opinions</code></td>
+<td align="left"><code>fr.maif.maifuser.societaire</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.netflix.views</code></td>
+<td align="left"><code>io</code></td>
+<td align="left">{ <code>cozy</code>: { <code>accounts</code>: <code>string</code> = &ldquo;Identifiants&rdquo;; <code>apps</code>: <code>string</code> = &ldquo;Liste des applications installées&rdquo;; <code>apps.suggestions</code>: <code>string</code> = &ldquo;Suggestions d&rsquo;applications&rdquo;; <code>bank.accounts</code>: <code>string</code> = &ldquo;Comptes bancaires&rdquo;; <code>bank.accounts.stats</code>: <code>string</code> = &ldquo;Statistiques sur les comptes bancaires&rdquo;; <code>bank.balancehistories</code>: <code>string</code> = &ldquo;Soldes bancaires&rdquo;; <code>bank.groups</code>: <code>string</code> = &ldquo;Groupes de comptes bancaires&rdquo;; <code>bank.operations</code>: <code>string</code> = &ldquo;Opérations bancaires&rdquo;; <code>bank.recipients</code>: <code>string</code> = &ldquo;Bénéficiaires de virements bancaires&rdquo;; <code>bank.recurrence</code>: <code>string</code> = &ldquo;Groupes de récurrence bancaire&rdquo;; <code>bank.settings</code>: <code>string</code> = &ldquo;Paramètres de l&rsquo;application Banks&rdquo;; <code>bills</code>: <code>string</code> = &ldquo;Factures&rdquo;; <code>certified.carbon_copy</code>: <code>string</code> = &ldquo;Copie carbone&rdquo;; <code>certified.electronic_safe</code>: <code>string</code> = &ldquo;Coffre-fort numérique&rdquo;; <code>coachco2.settings</code>: <code>string</code> = &ldquo;Paramètres de l&rsquo;application CoachCO2&rdquo;; <code>contacts</code>: <code>string</code> = &ldquo;Contacts&rdquo;; <code>contacts.accounts</code>: <code>string</code> = &ldquo;Comptes associés aux contacts&rdquo;; <code>contacts.groups</code>: <code>string</code> = &ldquo;Groupe de contacts&rdquo;; <code>files</code>: <code>string</code> = &ldquo;Fichiers&rdquo;; <code>files.*</code>: <code>string</code> = &ldquo;Données liées aux fichiers (fichiers, dossiers, versions, &hellip;)&rdquo;; <code>files.versions</code>: <code>string</code> = &ldquo;Versions des fichiers&rdquo;; <code>identities</code>: <code>string</code> = &ldquo;Identities&rdquo;; <code>jobs</code>: <code>string</code> = &ldquo;Tâches à exécuter&rdquo;; <code>konnectors</code>: <code>string</code> = &ldquo;Connecteurs pour importer des données&rdquo;; <code>konnectors.result</code>: <code>string</code> = &ldquo;Résultats de connecteurs&rdquo;; <code>netflix.opinions</code>: <code>string</code> = &ldquo;Opinions Netflix&rdquo;; <code>netflix.views</code>: <code>string</code> = &ldquo;Historique Netflix&rdquo;; <code>notifications</code>: <code>string</code> = &ldquo;Notifications&rdquo;; <code>oauth.clients</code>: <code>string</code> = &ldquo;Appareils connectés&rdquo;; <code>permissions</code>: <code>string</code> = &ldquo;Délégation de permissions&rdquo;; <code>photos.albums</code>: <code>string</code> = &ldquo;Albums photos&rdquo;; <code>photos.settings</code>: <code>string</code> = &ldquo;Paramètres des photos&rdquo;; <code>settings</code>: <code>string</code> = &ldquo;Paramètres&rdquo;; <code>sharings</code>: <code>string</code> = &ldquo;Partage&rdquo;; <code>tags</code>: <code>string</code> = &ldquo;Tags&rdquo;; <code>timeseries.geojson</code>: <code>string</code> = &ldquo;Déplacements&rdquo;; <code>triggers</code>: <code>string</code> = &ldquo;Planification de tâches à exécuter dans le futur&rdquo; }  }</td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy</code></td>
+<td align="left">{ <code>accounts</code>: <code>string</code> = &ldquo;Identifiants&rdquo;; <code>apps</code>: <code>string</code> = &ldquo;Liste des applications installées&rdquo;; <code>apps.suggestions</code>: <code>string</code> = &ldquo;Suggestions d&rsquo;applications&rdquo;; <code>bank.accounts</code>: <code>string</code> = &ldquo;Comptes bancaires&rdquo;; <code>bank.accounts.stats</code>: <code>string</code> = &ldquo;Statistiques sur les comptes bancaires&rdquo;; <code>bank.balancehistories</code>: <code>string</code> = &ldquo;Soldes bancaires&rdquo;; <code>bank.groups</code>: <code>string</code> = &ldquo;Groupes de comptes bancaires&rdquo;; <code>bank.operations</code>: <code>string</code> = &ldquo;Opérations bancaires&rdquo;; <code>bank.recipients</code>: <code>string</code> = &ldquo;Bénéficiaires de virements bancaires&rdquo;; <code>bank.recurrence</code>: <code>string</code> = &ldquo;Groupes de récurrence bancaire&rdquo;; <code>bank.settings</code>: <code>string</code> = &ldquo;Paramètres de l&rsquo;application Banks&rdquo;; <code>bills</code>: <code>string</code> = &ldquo;Factures&rdquo;; <code>certified.carbon_copy</code>: <code>string</code> = &ldquo;Copie carbone&rdquo;; <code>certified.electronic_safe</code>: <code>string</code> = &ldquo;Coffre-fort numérique&rdquo;; <code>coachco2.settings</code>: <code>string</code> = &ldquo;Paramètres de l&rsquo;application CoachCO2&rdquo;; <code>contacts</code>: <code>string</code> = &ldquo;Contacts&rdquo;; <code>contacts.accounts</code>: <code>string</code> = &ldquo;Comptes associés aux contacts&rdquo;; <code>contacts.groups</code>: <code>string</code> = &ldquo;Groupe de contacts&rdquo;; <code>files</code>: <code>string</code> = &ldquo;Fichiers&rdquo;; <code>files.*</code>: <code>string</code> = &ldquo;Données liées aux fichiers (fichiers, dossiers, versions, &hellip;)&rdquo;; <code>files.versions</code>: <code>string</code> = &ldquo;Versions des fichiers&rdquo;; <code>identities</code>: <code>string</code> = &ldquo;Identities&rdquo;; <code>jobs</code>: <code>string</code> = &ldquo;Tâches à exécuter&rdquo;; <code>konnectors</code>: <code>string</code> = &ldquo;Connecteurs pour importer des données&rdquo;; <code>konnectors.result</code>: <code>string</code> = &ldquo;Résultats de connecteurs&rdquo;; <code>netflix.opinions</code>: <code>string</code> = &ldquo;Opinions Netflix&rdquo;; <code>netflix.views</code>: <code>string</code> = &ldquo;Historique Netflix&rdquo;; <code>notifications</code>: <code>string</code> = &ldquo;Notifications&rdquo;; <code>oauth.clients</code>: <code>string</code> = &ldquo;Appareils connectés&rdquo;; <code>permissions</code>: <code>string</code> = &ldquo;Délégation de permissions&rdquo;; <code>photos.albums</code>: <code>string</code> = &ldquo;Albums photos&rdquo;; <code>photos.settings</code>: <code>string</code> = &ldquo;Paramètres des photos&rdquo;; <code>settings</code>: <code>string</code> = &ldquo;Paramètres&rdquo;; <code>sharings</code>: <code>string</code> = &ldquo;Partage&rdquo;; <code>tags</code>: <code>string</code> = &ldquo;Tags&rdquo;; <code>timeseries.geojson</code>: <code>string</code> = &ldquo;Déplacements&rdquo;; <code>triggers</code>: <code>string</code> = &ldquo;Planification de tâches à exécuter dans le futur&rdquo; }</td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.accounts</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.notifications</code></td>
+<td align="left"><code>io.cozy.apps</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.oauth.clients</code></td>
+<td align="left"><code>io.cozy.apps.suggestions</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.permissions</code></td>
+<td align="left"><code>io.cozy.bank.accounts</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.photos.albums</code></td>
+<td align="left"><code>io.cozy.bank.accounts.stats</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.photos.settings</code></td>
+<td align="left"><code>io.cozy.bank.balancehistories</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.settings</code></td>
+<td align="left"><code>io.cozy.bank.groups</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.sharings</code></td>
+<td align="left"><code>io.cozy.bank.operations</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.timeseries.geojson</code></td>
+<td align="left"><code>io.cozy.bank.recipients</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
-<td align="left"><code>Permissions.io.cozy.triggers</code></td>
+<td align="left"><code>io.cozy.bank.recurrence</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.bank.settings</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.bills</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.certified.carbon_copy</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.certified.electronic_safe</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.coachco2.settings</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.contacts</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.contacts.accounts</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.contacts.groups</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.files</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.files.*</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.files.versions</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.identities</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.jobs</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.konnectors</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.konnectors.result</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.netflix.opinions</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.netflix.views</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.notifications</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.oauth.clients</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.permissions</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.photos.albums</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.photos.settings</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.settings</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.sharings</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.tags</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.timeseries.geojson</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>io.cozy.triggers</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>org</code></td>
+<td align="left">{ <code>fing</code>: { <code>mesinfos</code>: { <code>insuranceclaim</code>: <code>string</code> = &ldquo;Déclarations d&rsquo;assurance (Maif)&rdquo; }  }  }</td>
+</tr>
+<tr>
+<td align="left"><code>org.fing</code></td>
+<td align="left">{ <code>mesinfos</code>: { <code>insuranceclaim</code>: <code>string</code> = &ldquo;Déclarations d&rsquo;assurance (Maif)&rdquo; }  }</td>
+</tr>
+<tr>
+<td align="left"><code>org.fing.mesinfos</code></td>
+<td align="left">{ <code>insuranceclaim</code>: <code>string</code> = &ldquo;Déclarations d&rsquo;assurance (Maif)&rdquo; }</td>
+</tr>
+<tr>
+<td align="left"><code>org.fing.mesinfos.insuranceclaim</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 </tbody>
