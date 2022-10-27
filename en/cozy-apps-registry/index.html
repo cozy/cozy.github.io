@@ -4088,6 +4088,8 @@ curl -X <span class="s2">&quot;POST&quot;</span> <span class="s2">&quot;http://l
 <p><strong><img alt="⚠️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/26a0.png" title=":warning:" /> Important notices:</strong></p>
 <ul>
 <li>The version must match the one in the <code>manifest.webapp</code> file for stable release. For beta (X.X.X-betaX) or dev releases (X.X.X-dev.hash256), the version before the cyphen must match the one in the <code>manifest.webapp</code>.</li>
+<li>If version starts with the <code>v</code> letter (like <code>v1.2.3</code>), then the <code>v</code> letter is silently stripped from version, allowing you to simply publish according to tag name
+  if your tags are labelled <code>vx.y.z</code>.</li>
 <li>For better integrity, the <code>sha256</code> provided must match the sha256 of the archive provided in <code>url</code>. If it&rsquo;s not the case, that will be considered as an error and the version won&rsquo;t be registered.</li>
 </ul>
 </blockquote>
