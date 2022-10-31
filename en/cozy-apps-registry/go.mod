@@ -16,7 +16,7 @@ require (
 	github.com/onsi/gomega v1.10.5 // indirect
 	github.com/pkg/xattr v0.4.9
 	github.com/sirupsen/logrus v1.9.0
-	github.com/spf13/cobra v1.6.0
+	github.com/spf13/cobra v1.6.1
 	github.com/spf13/viper v1.13.0
 	github.com/stretchr/testify v1.8.1
 	golang.org/x/crypto v0.0.0-20221012134737-56aed061732a
