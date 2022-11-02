@@ -132,7 +132,7 @@ export const getFilteredAccountIds = createSelector(
       } else {
         return availableAccountIds
       }
-    } else if (doc.length) {
+    } else if (Array.isArray(doc)) {
       // In this case we have already been provided with
       // accountsIds
       return doc

@@ -40,7 +40,7 @@ import {
 } from 'doctypes'
 import { getGroupLabel } from 'ducks/groups/helpers'
 
-import { getVirtualAccounts, getVirtualGroups } from 'selectors'
+import { getVirtualGroups } from 'selectors'
 import {
   getAccountInstitutionLabel,
   getAccountLabel
@@ -51,41 +51,51 @@ const filteringDocPropType = PropTypes.oneOfType([
   PropTypes.object
 ])
 
-const getFilteringDocLabel = (filteringDoc, t, accounts) => {
-  if (filteringDoc.length) {
-    return t('AccountSwitch.some-accounts', {
-      count: filteringDoc.length,
-      smart_count: accounts.length
-    })
-  } else if (filteringDoc._type === ACCOUNT_DOCTYPE) {
+const getFilteringDocLabel = (filteringDoc, t) => {
+  if (filteringDoc._type === ACCOUNT_DOCTYPE) {
     return getAccountLabel(filteringDoc)
   } else if (filteringDoc._type === GROUP_DOCTYPE) {
     return getGroupLabel(filteringDoc, t)
   }
 }
 
+const getFilteredAccountsLabel = (filteredAccounts, accounts, t) => {
+  return t('AccountSwitch.some-accounts', {
+    count: filteredAccounts.length,
+    smart_count: accounts.length
+  })
+}
+
+const getFilterLabel = (filteredAccounts, filteringDoc, accounts, t) => {
+  if (accounts == null || accounts.length === 0) {
+    return t('Categories.noAccount')
+  }
+  if (filteringDoc == null) {
+    return t('AccountSwitch.all-accounts')
+  }
+  if (!Array.isArray(filteringDoc)) {
+    return getFilteringDocLabel(filteringDoc, t)
+  }
+  return getFilteredAccountsLabel(filteredAccounts, accounts, t)
+}
+
 // t is passed from above and not through useI18n() since AccountSwitchSelect can be
 // rendered in the Bar and in this case it has a different context
 const AccountSwitchSelect = ({
   accounts,
+  filteredAccounts,
   filteringDoc,
   onClick,
   t,
   typographyProps
 }) => {
-  const noAccounts = !accounts || accounts.length === 0
-
   return (
     <div className={styles.AccountSwitch__Select} onClick={onClick}>
       <DropdownText
         noWrap
         innerTextProps={{ variant: 'h1', ...typographyProps }}
       >
-        {noAccounts
-          ? t('Categories.noAccount')
-          : filteringDoc
-          ? getFilteringDocLabel(filteringDoc, t, accounts)
-          : t('AccountSwitch.all-accounts')}
+        {getFilterLabel(filteredAccounts, filteringDoc, accounts, t)}
       </DropdownText>
     </div>
   )
@@ -292,7 +302,6 @@ const AccountSwitch = props => {
   const { isMobile } = useBreakpoints()
   const filteringDoc = useSelector(getFilteringDoc)
   const filteredAccounts = useSelector(getFilteredAccounts)
-  const virtualAccounts = useSelector(getVirtualAccounts)
   const virtualGroups = useSelector(getVirtualGroups)
 
   const handleToggle = useCallback(
@@ -327,7 +336,6 @@ const AccountSwitch = props => {
   }, [dispatch, handleClose])
 
   const accounts = accountsCollection.data
-  const allAccounts = [...accounts, ...virtualAccounts]
 
   const orderedGroups = useMemo(() => {
     const groups = [...(groupsCollection.data || []), ...virtualGroups].map(
@@ -342,7 +350,7 @@ const AccountSwitch = props => {
   const selectProps = selectPropsBySize[size]
   const select = (
     <AccountSwitchSelect
-      accounts={allAccounts}
+      accounts={accounts}
       filteredAccounts={filteredAccounts}
       filteringDoc={filteringDoc}
       onClick={handleToggle}
