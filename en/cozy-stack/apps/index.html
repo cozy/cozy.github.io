@@ -2604,6 +2604,53 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#send-application-logs-to-cozy-stack" title="Send application logs to cozy-stack" class="md-nav__link">
+    Send application logs to cozy-stack
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post-appssluglogs" title="POST /apps/:slug/logs" class="md-nav__link">
+    POST /apps/:slug/logs
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#status-codes_2" title="Status codes" class="md-nav__link">
+    Status codes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request_9" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_9" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#access-an-application" title="Access an application" class="md-nav__link">
     Access an application
   </a>
@@ -3478,6 +3525,53 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#send-application-logs-to-cozy-stack" title="Send application logs to cozy-stack" class="md-nav__link">
+    Send application logs to cozy-stack
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post-appssluglogs" title="POST /apps/:slug/logs" class="md-nav__link">
+    POST /apps/:slug/logs
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#status-codes_2" title="Status codes" class="md-nav__link">
+    Status codes
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request_9" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_9" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#access-an-application" title="Access an application" class="md-nav__link">
     Access an application
   </a>
@@ -4225,6 +4319,36 @@ corresponding session when opening the webapp.</p>
 
 
 <h4 id="response_8">Response<a class="headerlink" href="#response_8" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+
+
+<h2 id="send-application-logs-to-cozy-stack">Send application logs to cozy-stack<a class="headerlink" href="#send-application-logs-to-cozy-stack" title="Permanent link">&para;</a></h2>
+<h3 id="post-appssluglogs">POST /apps/:slug/logs<a class="headerlink" href="#post-appssluglogs" title="Permanent link">&para;</a></h3>
+<p>Send client-side logs to cozy-stack so they can be stored in the server&rsquo;s 
+logging system.</p>
+<h4 id="status-codes_2">Status codes<a class="headerlink" href="#status-codes_2" title="Permanent link">&para;</a></h4>
+<ul>
+<li>204 No Content, when all the log lines have been processed.</li>
+<li>400 Bad-Request, when the JSON body is invalid.</li>
+<li>404 Not Found, when no apps with the given slug could be found.</li>
+<li>422 Unprocessable Entity, when the sent data is invalid (for example, the
+    slug is invalid or log level does not exist)</li>
+</ul>
+<h4 id="request_9">Request<a class="headerlink" href="#request_9" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/apps/emails/logs</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">[</span>
+  <span class="p">{</span> <span class="nt">&quot;timestamp&quot;</span><span class="p">:</span> <span class="s2">&quot;2022-10-27T17:13:37.293Z&quot;</span><span class="p">,</span> <span class="nt">&quot;level&quot;</span><span class="p">:</span> <span class="s2">&quot;info&quot;</span><span class="p">,</span> <span class="nt">&quot;msg&quot;</span><span class="p">:</span> <span class="s2">&quot;Fetching e-mail data...&quot;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nt">&quot;timestamp&quot;</span><span class="p">:</span> <span class="s2">&quot;2022-10-27T17:13:38.382Z&quot;</span><span class="p">,</span> <span class="nt">&quot;level&quot;</span><span class="p">:</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="nt">&quot;msg&quot;</span><span class="p">:</span> <span class="s2">&quot;Could not find requested e-mail&quot;</span> <span class="p">}</span>
+<span class="p">]</span>
+</pre></div>
+
+
+<h4 id="response_9">Response<a class="headerlink" href="#response_9" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
 </pre></div>
 
