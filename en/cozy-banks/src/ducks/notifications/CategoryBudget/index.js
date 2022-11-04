@@ -44,7 +44,7 @@ const getAccountOrGroupLabelFromAlert = (
     const doc = col[_id]
     if (doc) {
       return _type === ACCOUNT_DOCTYPE
-        ? getAccountLabel(doc)
+        ? getAccountLabel(doc, t)
         : getGroupLabel(doc, t)
     } else {
       return ''

@@ -42,8 +42,13 @@ export const getAccountInstitutionLabel = account => {
   return label
 }
 
-export const getAccountLabel = account =>
-  account ? account.shortLabel || account.label : ''
+export const getAccountLabel = (account, t) => {
+  if (account == null) {
+    return ''
+  }
+  const accountLabel = account.shortLabel || account.label
+  return account.virtual ? t(accountLabel) : accountLabel
+}
 
 export const distanceInWords = distance => {
   if (!Number.isFinite(distance)) {

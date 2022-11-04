@@ -4,19 +4,39 @@ import JobsProvider, { JobsContext } from '../context/JobsContext'
 import { render, act } from '@testing-library/react'
 import CozyClient from 'cozy-client'
 
-export const createKonnectorMsg = (state, konnector, account) => ({
+export const createKonnectorMsg = (
+  state,
+  konnector,
+  account,
+  event,
+  bi_webhook
+) => ({
   worker: 'konnector',
   state,
   message: {
     konnector,
-    account
+    account,
+    bi_webhook,
+    event
   }
 })
 
 const RUNNING = 'running'
 const KONNECTORS = [
   { konnector: 'caissedepargne1', account: '1234' },
-  { konnector: 'boursorama83', account: '5678' }
+  { konnector: 'boursorama83', account: '5678' },
+  {
+    konnector: 'caissedepargne1',
+    account: '1234',
+    bi_webhook: true,
+    event: 'CONNECTION_SYNCED'
+  },
+  {
+    konnector: 'caissedepargne1',
+    account: '1234',
+    bi_webhook: true,
+    event: 'CONNECTION_DELETED'
+  }
 ]
 
 describe('Jobs Context', () => {
@@ -32,7 +52,13 @@ describe('Jobs Context', () => {
             setTimeout(
               () =>
                 handleRealtime(
-                  createKonnectorMsg(RUNNING, konn.konnector, konn.account)
+                  createKonnectorMsg(
+                    RUNNING,
+                    konn.konnector,
+                    konn.account,
+                    konn.event,
+                    konn.bi_webhook
+                  )
                 ),
               konn.timeout || 1
             )
@@ -81,8 +107,8 @@ describe('Jobs Context', () => {
     expect(await root.findByText('5678')).toBeTruthy()
   })
 
-  it('should not display job in progress', () => {
-    const root = setup({ konnectors: [] })
+  it('should not display job in progress for a CONNECTION_DELETED job', () => {
+    const root = setup({ konnectors: [KONNECTORS[3]] })
     expect(root.queryByText('caissedepargne1')).toBeNull()
     expect(root.queryByText('1234')).toBeNull()
     expect(root.queryByText('boursorama83')).toBeNull()
@@ -99,7 +125,7 @@ describe('Jobs Context', () => {
   })
   it('should still display job in progress when real job is running', async () => {
     const root = setup({
-      konnectors: [KONNECTORS[0]],
+      konnectors: [KONNECTORS[2]],
       waitKonnectors: [{ slug: 'caissedepargne1', timeout: 10 }]
     })
     expect(await root.findByText('caissedepargne1')).toBeTruthy()

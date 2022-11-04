@@ -159,7 +159,7 @@ class DelayedDebit extends NotificationView {
         this.amountCensoring
       ),
       currency: '€',
-      label: getAccountLabel(account.checkingsAccount.data)
+      label: getAccountLabel(account.checkingsAccount.data, this.t)
     })
   }
 

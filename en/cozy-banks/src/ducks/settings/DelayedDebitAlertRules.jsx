@@ -52,10 +52,10 @@ const getDescriptionProps = props => {
   const { docCreditCardAccount, docCheckingsAccount } =
     getRelevantAccounts(props)
   const creditCardLabel = docCreditCardAccount
-    ? getAccountLabel(docCreditCardAccount)
+    ? getAccountLabel(docCreditCardAccount, props.t)
     : '...'
   const checkingsLabel = docCheckingsAccount
-    ? getAccountLabel(docCheckingsAccount)
+    ? getAccountLabel(docCheckingsAccount, props.t)
     : '...'
 
   return {

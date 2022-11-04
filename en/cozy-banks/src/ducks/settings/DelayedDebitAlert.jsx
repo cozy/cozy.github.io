@@ -126,10 +126,10 @@ class DumbDelayedDebitCard extends React.Component {
     }
 
     const creditCardLabel = creditCardAccount
-      ? getAccountLabel(creditCardAccount)
+      ? getAccountLabel(creditCardAccount, t)
       : '...'
     const checkingsLabel = checkingsAccount
-      ? getAccountLabel(checkingsAccount)
+      ? getAccountLabel(checkingsAccount, t)
       : '...'
 
     return (

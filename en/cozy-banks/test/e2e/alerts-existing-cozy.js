@@ -41,8 +41,10 @@ const accountOrGroupFormatter = (accountsById, groupsById) => {
     if (!accountOrGroup) {
       return 'all accounts'
     } else if (accountOrGroup._type === ACCOUNT_DOCTYPE) {
+      const fakeT = x => x
       return (
-        getAccountLabel(accountsById[accountOrGroup._id]) || 'Unknown account'
+        getAccountLabel(accountsById[accountOrGroup._id], fakeT) ||
+        'Unknown account'
       )
     } else if (accountOrGroup._type === GROUP_DOCTYPE) {
       const fakeT = x => x

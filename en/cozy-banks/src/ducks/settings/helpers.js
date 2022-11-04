@@ -147,7 +147,7 @@ export const getAccountOrGroupLabel = (accountOrGroup, t) => {
   }
   switch (accountOrGroup._type) {
     case ACCOUNT_DOCTYPE:
-      return getAccountLabel(accountOrGroup)
+      return getAccountLabel(accountOrGroup, t)
     case GROUP_DOCTYPE:
       return getGroupLabel(accountOrGroup, t)
     default:

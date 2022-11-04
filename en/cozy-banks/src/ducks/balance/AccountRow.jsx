@@ -46,7 +46,7 @@ const Owners = React.memo(function Owners(props) {
   )
 })
 
-const AccountRowIcon = ({ account }) => {
+export const AccountRowIcon = ({ account }) => {
   return isReimbursementsAccount(account) ? (
     <ReimbursementsIcon account={account} />
   ) : (
@@ -130,7 +130,7 @@ const AccountRow = props => {
   const owners = account.owners.data.filter(Boolean).filter(owner => !owner.me)
   const hasOwners = owners.length > 0
   const hasAlert = account.balance < 0
-  const accountLabel = getAccountLabel(account)
+  const accountLabel = getAccountLabel(account, t)
   const handleSwitchClick = useCallback(ev => {
     ev.stopPropagation()
   }, [])
@@ -168,7 +168,7 @@ const AccountRow = props => {
           variant="body1"
           color={disabled ? 'textSecondary' : 'textPrimary'}
         >
-          {account.virtual ? t(accountLabel) : accountLabel}
+          {accountLabel}
         </EllipseTypography>
         <AccountCaption
           gutterBottom={isMobile && hasOwners}

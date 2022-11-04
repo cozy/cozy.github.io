@@ -1,4 +1,5 @@
 import {
+  getAccountLabel,
   getAccountUpdatedAt,
   distanceInWords,
   getAccountType,
@@ -17,6 +18,33 @@ import triggersFixtures from 'test/fixtures/triggers.json'
 import flag from 'cozy-flags'
 
 jest.mock('cozy-flags')
+
+describe('translateGroup', () => {
+  const translate = jest.fn(key => key)
+
+  afterEach(() => {
+    translate.mockReset()
+  })
+
+  it("should translate the account label only if it's a virtual account", () => {
+    const virtualAccount = {
+      virtual: true,
+      label: 'Data.virtualAccounts.othersReimbursements'
+    }
+
+    const normalAccount = {
+      virtual: false,
+      label: 'Isabelle checkings'
+    }
+
+    expect(getAccountLabel(virtualAccount, translate)).toEqual(
+      'Data.virtualAccounts.othersReimbursements'
+    )
+    expect(getAccountLabel(normalAccount, translate)).toEqual(
+      normalAccount.label
+    )
+  })
+})
 
 describe('getAccountUpdatedAt', () => {
   beforeEach(() => {

@@ -122,7 +122,7 @@ const TransactionModalInfoContent = props => {
             infos={[
               {
                 label: t('Transactions.infos.account'),
-                value: getAccountLabel(account)
+                value: getAccountLabel(account, t)
               },
               {
                 label: t('Transactions.infos.institution'),

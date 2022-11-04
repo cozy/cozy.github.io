@@ -18,9 +18,9 @@ import Radio from 'cozy-ui/transpiled/react/Radios'
 import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
 import DropdownText from 'cozy-ui/transpiled/react/DropdownText'
 
+import { AccountRowIcon } from 'ducks/balance/AccountRow'
 import RawContentDialog from 'components/RawContentDialog'
 import AccountSharingStatus from 'components/AccountSharingStatus'
-import AccountIcon from 'components/AccountIcon'
 import BarItem from 'components/BarItem'
 import { BarCenter } from 'components/Bar'
 
@@ -40,7 +40,7 @@ import {
 } from 'doctypes'
 import { getGroupLabel } from 'ducks/groups/helpers'
 
-import { getVirtualGroups } from 'selectors'
+import { getVirtualAccounts, getVirtualGroups } from 'selectors'
 import {
   getAccountInstitutionLabel,
   getAccountLabel
@@ -53,7 +53,7 @@ const filteringDocPropType = PropTypes.oneOfType([
 
 const getFilteringDocLabel = (filteringDoc, t) => {
   if (filteringDoc._type === ACCOUNT_DOCTYPE) {
-    return getAccountLabel(filteringDoc)
+    return getAccountLabel(filteringDoc, t)
   } else if (filteringDoc._type === GROUP_DOCTYPE) {
     return getGroupLabel(filteringDoc, t)
   }
@@ -133,7 +133,9 @@ const AccountSwitchListItem = props => {
 
 const AccountSwitchMenu = ({
   accounts,
+  virtualAccounts,
   groups,
+  virtualGroups,
   filteringDoc,
   filterByDoc,
   resetFilterByDoc
@@ -152,12 +154,17 @@ const AccountSwitchMenu = ({
   )
 
   const sortedGroups = useMemo(() => {
-    return sortBy(groups, g => getGroupLabel(g, t))
-  }, [groups, t])
+    return sortBy([...groups, ...virtualGroups], g =>
+      getGroupLabel(g, t).toLowerCase()
+    )
+  }, [groups, virtualGroups, t])
 
   const sortedAccounts = useMemo(() => {
-    return sortBy(accounts, ['institutionLabel', getAccountLabel])
-  }, [accounts])
+    return sortBy(
+      [...accounts, ...virtualAccounts],
+      ['institutionLabel', a => getAccountLabel(a, t).toLowerCase()]
+    )
+  }, [accounts, virtualAccounts, t])
 
   return (
     <CozyTheme theme="normal">
@@ -228,10 +235,10 @@ const AccountSwitchMenu = ({
             selected={filteringDoc && account._id === filteringDoc._id}
           >
             <ListItemIcon>
-              <AccountIcon account={account} />
+              <AccountRowIcon account={account} />
             </ListItemIcon>
             <AccountListItemText
-              primary={account.shortLabel || account.label}
+              primary={getAccountLabel(account, t)}
               secondary={getAccountInstitutionLabel(account)}
             />
             <ListItemSecondaryAction>
@@ -302,6 +309,7 @@ const AccountSwitch = props => {
   const { isMobile } = useBreakpoints()
   const filteringDoc = useSelector(getFilteringDoc)
   const filteredAccounts = useSelector(getFilteredAccounts)
+  const virtualAccounts = useSelector(getVirtualAccounts)
   const virtualGroups = useSelector(getVirtualGroups)
 
   const handleToggle = useCallback(
@@ -335,17 +343,8 @@ const AccountSwitch = props => {
     handleClose()
   }, [dispatch, handleClose])
 
-  const accounts = accountsCollection.data
-
-  const orderedGroups = useMemo(() => {
-    const groups = [...(groupsCollection.data || []), ...virtualGroups].map(
-      group => ({
-        ...group,
-        label: getGroupLabel(group, t)
-      })
-    )
-    return sortBy(groups, x => x.label.toLowerCase())
-  }, [groupsCollection.data, t, virtualGroups])
+  const accounts = accountsCollection.data || []
+  const groups = groupsCollection.data || []
 
   const selectProps = selectPropsBySize[size]
   const select = (
@@ -379,8 +378,10 @@ const AccountSwitch = props => {
                 filterByDoc={handleFilterByDoc}
                 resetFilterByDoc={handleResetFilterByDoc}
                 close={handleClose}
-                groups={orderedGroups}
+                groups={groups}
+                virtualGroups={virtualGroups}
                 accounts={accounts}
+                virtualAccounts={virtualAccounts}
               />
             }
           />
