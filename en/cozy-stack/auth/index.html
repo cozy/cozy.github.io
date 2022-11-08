@@ -2527,6 +2527,40 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#post-authtokenskonnectorsslug" title="POST /auth/tokens/konnectors/:slug" class="md-nav__link">
+    POST /auth/tokens/konnectors/:slug
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_1" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_2" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#faq_1" title="FAQ" class="md-nav__link">
+    FAQ
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3483,6 +3517,40 @@
         
           <li class="md-nav__item">
   <a href="#faq" title="FAQ" class="md-nav__link">
+    FAQ
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-authtokenskonnectorsslug" title="POST /auth/tokens/konnectors/:slug" class="md-nav__link">
+    POST /auth/tokens/konnectors/:slug
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_1" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_2" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#faq_1" title="FAQ" class="md-nav__link">
     FAQ
   </a>
   
@@ -4628,6 +4696,72 @@ and still-valid pair <code>(passcode, token)</code>, the user is granted with
 authentication cookie.</p>
 <p>The passcode can be sent to the instance&rsquo;s owner via email — more transport
 shall be added later.</p>
+<h3 id="post-authtokenskonnectorsslug">POST /auth/tokens/konnectors/:slug<a class="headerlink" href="#post-authtokenskonnectorsslug" title="Permanent link">&para;</a></h3>
+<p>This endpoint can be used by the flagship application in order to create a
+token for the konnector with the given slug. This token can then be used by the
+client-side konnector to make requests to cozy-stack.
+The flagship app will need to use its own access token to request the konnector 
+token.</p>
+<h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/auth/tokens/konnectors/impots</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer eyJpc3Mi...</span>
+</pre></div>
+
+
+<h4 id="response_2">Response<a class="headerlink" href="#response_2" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">201</span> <span class="ne">Created</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="s2">&quot;OWY0MjNjMGEtOTNmNi0xMWVjLWIyZGItN2I5YjgwNmRjYzBiCg&quot;</span>
+</pre></div>
+
+
+<h3 id="faq_1">FAQ<a class="headerlink" href="#faq_1" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>What format is used for tokens?</p>
+</blockquote>
+<p>The access tokens are formatted as <a href="https://jwt.io/">JSON Web Tokens (JWT)</a>,
+like this:</p>
+<table>
+<thead>
+<tr>
+<th>Claim</th>
+<th>Fullname</th>
+<th>What it identifies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>aud</code></td>
+<td>Audience</td>
+<td>Identify the recipient where the token can be used (i.e. <code>konn</code>)</td>
+</tr>
+<tr>
+<td><code>iss</code></td>
+<td>Issuer</td>
+<td>Identify the Cozy instance (its domain in fact)</td>
+</tr>
+<tr>
+<td><code>iat</code></td>
+<td>Issued At</td>
+<td>Identify when the token was issued (Unix timestamp)</td>
+</tr>
+<tr>
+<td><code>sub</code></td>
+<td>Subject</td>
+<td>Identify the client that can use the token (i.e. the konnector slug)</td>
+</tr>
+<tr>
+<td><code>scope</code></td>
+<td>Scope</td>
+<td>Konnector tokens don&rsquo;t have any scope</td>
+</tr>
+</tbody>
+</table>
 <h2 id="client-side-apps">Client-side apps<a class="headerlink" href="#client-side-apps" title="Permanent link">&para;</a></h2>
 <p><strong>Important</strong>: OAuth2 is not used here! The steps looks similar (like obtaining
 a token), but when going in the details, it doesn&rsquo;t match.</p>
