@@ -12,6 +12,7 @@ export type BiometryType = 'TouchID' | 'FaceID' | 'Biometrics'
 
 export interface FlagshipMetadata {
   biometry_available?: boolean
+  biometry_authorisation_denied?: boolean
   biometry_type?: BiometryType
   immersive?: boolean
   navbarHeight?: number
