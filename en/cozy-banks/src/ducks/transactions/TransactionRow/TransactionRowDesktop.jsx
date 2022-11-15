@@ -184,14 +184,12 @@ const TransactionRowDesktop = ({
             signed
           />
         </TdSecondary>
-        {showTransactionActions && (
-          <TdSecondary className={styles.ColumnSizeAction}>
-            {showTransactionActions && (
-              <TransactionActions transaction={transaction} onlyDefault />
-            )}
-            <TagChips transaction={transaction} clickable />
-          </TdSecondary>
-        )}
+        <TdSecondary className={styles.ColumnSizeAction}>
+          {showTransactionActions && (
+            <TransactionActions transaction={transaction} onlyDefault />
+          )}
+          <TagChips transaction={transaction} clickable />
+        </TdSecondary>
       </tr>
       {categoryModal}
       {transactionModal}

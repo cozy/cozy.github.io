@@ -263,6 +263,7 @@ module.exports = {
         '../react/StepIcon/index.js',
         '../react/StepLabel/index.js',
         '../react/SvgIcon/index.js',
+        '../react/Skeleton/index.js',
         '../react/SwipeableDrawer/index.js',
         '../react/TextareaAutosize/index.js',
         '../react/Toolbar/index.js',

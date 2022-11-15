@@ -130,24 +130,22 @@ const TransactionRowMobile = ({
                   ) : null}
                 </Img>
               </Media>
-              {showTransactionActions && (
-                <div
-                  className={cx(
-                    'u-mb-half',
-                    styles.TransactionRowMobile__actions
-                  )}
-                >
-                  {showTransactionActions && (
-                    <TransactionActions
-                      transaction={transaction}
-                      onlyDefault
-                      compact
-                      menuPosition="right"
-                    />
-                  )}
-                  <TagChips transaction={transaction} clickable />
-                </div>
-              )}
+              <div
+                className={cx(
+                  'u-mb-half',
+                  styles.TransactionRowMobile__actions
+                )}
+              >
+                {showTransactionActions && (
+                  <TransactionActions
+                    transaction={transaction}
+                    onlyDefault
+                    compact
+                    menuPosition="right"
+                  />
+                )}
+                <TagChips transaction={transaction} clickable />
+              </div>
             </Bd>
           </Media>
         </ListItem>
