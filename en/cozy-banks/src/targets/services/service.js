@@ -18,7 +18,8 @@ export const runService = async service => {
     appMetadata
   })
   Document.registerClient(client)
-
+  client.registerPlugin(flag.plugin)
+  await client.plugins.flags.initializing
   const settings = await fetchSettings(client)
   const localModelOverrideValue = settings.community.localModelOverride.enabled
   log('info', 'Setting local model override flag to ' + localModelOverrideValue)
