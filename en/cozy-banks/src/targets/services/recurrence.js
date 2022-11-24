@@ -5,9 +5,6 @@ import runRecurrenceService from 'ducks/recurrence/service'
 import { runService } from './service'
 
 runService(async ({ client }) => {
-  client.registerPlugin(flag.plugin)
-  await client.plugins.flags.refresh()
-
   if (!flag('banks.services.recurrence.enabled')) {
     logger(
       'info',

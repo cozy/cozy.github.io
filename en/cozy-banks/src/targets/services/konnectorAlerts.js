@@ -7,9 +7,10 @@ import { createScheduledTrigger } from './konnectorAlerts/createTriggerAt'
 import { setIgnoredErrorsFlag } from './konnectorAlerts/setIgnoredErrorsFlag'
 
 const main = async ({ client }) => {
-  client.registerPlugin(flag.plugin)
-  await client.plugins.flags.refresh()
-
+  if (require.main !== module && process.env.NODE_ENV !== 'production') {
+    client.registerPlugin(flag.plugin)
+    await client.plugins.flags.refresh()
+  }
   if (!flag('banks.konnector-alerts')) {
     logger(
       'info',
