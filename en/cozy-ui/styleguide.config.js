@@ -239,6 +239,7 @@ module.exports = {
         '../react/GridListTileBar/index.js',
         '../react/Grow/index.js',
         '../react/Hidden/index.js',
+        '../react/InputAdornment/index.js',
         '../react/LinearProgress/index.js',
         '../react/Link/index.js',
         '../react/ListItemAvatar/index.js',

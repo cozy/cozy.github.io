@@ -74,7 +74,11 @@ const JobsProvider = ({ children, client, options = {} }) => {
     const isConnectionSynced = msg?.event === 'CONNECTION_SYNCED'
     const isBiWebhook = Boolean(msg?.bi_webhook)
     let arr = [...currJobsInProgress]
-    if (worker === 'konnector' && hasAccount && (!isBiWebhook || isConnectionSynced)) {
+    if (
+      worker === 'konnector' &&
+      hasAccount &&
+      (!isBiWebhook || isConnectionSynced)
+    ) {
       if (state === 'running' && !exist) {
         waitJobQueue.removeWaitJob({ slug: msg.konnector })
         arr.push(msg)
