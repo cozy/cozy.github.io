@@ -1,5 +1,5 @@
 import CozyClient from 'cozy-client'
-import { BankTransaction, Document } from 'cozy-doctypes'
+import { Document } from 'cozy-doctypes'
 import { sendNotification } from 'cozy-notifications'
 
 import HealthBillLinked from './index'
@@ -22,7 +22,7 @@ const mockTransactions = [
 ]
 
 describe('HealthBillLinked', () => {
-  const setup = ({ lang, data }) => {
+  const setup = ({ client, lang, data }) => {
     const localeStrings = require(`locales/${lang}.json`)
     const {
       initTranslation
@@ -36,7 +36,7 @@ describe('HealthBillLinked', () => {
       locales: {
         en: localeStrings
       },
-      client: { stackClient: { uri: 'http://cozy.tools:8080' } },
+      client: client || { stackClient: { uri: 'http://cozy.tools:8080' } },
       value: 20
     })
     return { notification }
@@ -83,15 +83,16 @@ describe('HealthBillLinked', () => {
   describe('onSuccess', () => {
     it('should be called after successfuly sending notifications', async () => {
       jest.spyOn(Bill, 'getAll').mockResolvedValue(mockBills)
-      jest.spyOn(BankTransaction, 'updateAll').mockImplementation()
 
       const client = new CozyClient({
         uri: 'http://localhost:8080'
       })
       Document.registerClient(client)
+      jest.spyOn(client, 'saveAll').mockImplementation()
       jest.spyOn(client.stackClient, 'fetchJSON').mockResolvedValue({})
 
       const { notification } = setup({
+        client,
         lang: 'en',
         data: { transactions: mockTransactions, accounts: mockAccounts }
       })
@@ -99,7 +100,7 @@ describe('HealthBillLinked', () => {
 
       await sendNotification(client, notification)
       expect(notification.onSuccess).toHaveBeenCalled()
-      expect(BankTransaction.updateAll).toHaveBeenCalledWith(
+      expect(client.saveAll).toHaveBeenCalledWith(
         mockTransactions.map(transaction =>
           setAlreadyNotified(transaction, HealthBillLinked)
         )

@@ -138,7 +138,10 @@ class LateHealthReimbursement extends NotificationView {
       return
     }
 
-    log('info', `${transactions.length} late health reimbursements`)
+    log(
+      'info',
+      `${transactions.length} late health reimbursements never notified`
+    )
 
     this.toNotify = transactions
 
@@ -188,10 +191,15 @@ class LateHealthReimbursement extends NotificationView {
    * See `Notification::sendNotification`
    */
   async onSuccess() {
+    log('info', 'LateHealthReimbursement notification successfuly sent')
     this.toNotify.forEach(transaction => {
       setAlreadyNotified(transaction, LateHealthReimbursement)
     })
-    await BankTransaction.updateAll(this.toNotify)
+    log(
+      'info',
+      `Marking ${this.toNotify.length} transactions as already notified:`
+    )
+    await this.client.saveAll(this.toNotify)
   }
 }
 

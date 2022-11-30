@@ -3,7 +3,6 @@ import merge from 'lodash/merge'
 
 import log from 'cozy-logger'
 import { toText } from 'cozy-notifications'
-import { BankTransaction } from 'cozy-doctypes'
 
 import { Bill } from 'models'
 import {
@@ -134,7 +133,7 @@ class HealthBillLinked extends NotificationView {
     this.toNotify.forEach(transaction => {
       setAlreadyNotified(transaction, HealthBillLinked)
     })
-    await BankTransaction.updateAll(this.toNotify)
+    await this.client.saveAll(this.toNotify)
   }
 }
 

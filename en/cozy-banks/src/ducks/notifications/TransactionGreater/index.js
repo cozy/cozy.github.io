@@ -7,7 +7,6 @@ import groupBy from 'lodash/groupBy'
 import fromPairs from 'lodash/fromPairs'
 
 import log from 'cozy-logger'
-import { BankTransaction } from 'cozy-doctypes'
 
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import NotificationView from 'ducks/notifications/BaseNotificationView'
@@ -267,7 +266,7 @@ class TransactionGreater extends NotificationView {
     this.toNotify.forEach(transaction => {
       setAlreadyNotified(transaction, TransactionGreater)
     })
-    await BankTransaction.updateAll(this.toNotify)
+    await this.client.saveAll(this.toNotify)
   }
 }
 
