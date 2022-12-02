@@ -84,16 +84,16 @@ const AppContainer = ({ store, lang, history, client }) => {
                     <BanksProvider client={client}>
                       <SelectionProvider>
                         <StoreURLProvider>
-                          <CozyConfirmDialogProvider>
-                            <MuiCozyTheme>
+                          <MuiCozyTheme>
+                            <CozyConfirmDialogProvider>
                               <RealTimeQueries doctype={TRIGGER_DOCTYPE} />
                               <RealTimeQueries doctype={ACCOUNT_DOCTYPE} />
                               <RealTimeQueries doctype={COZY_ACCOUNT_DOCTYPE} />
                               <RealTimeQueries doctype={TRANSACTION_DOCTYPE} />
                               <RealTimeQueries doctype={GROUP_DOCTYPE} />
                               <Router history={history} routes={AppRoute()} />
-                            </MuiCozyTheme>
-                          </CozyConfirmDialogProvider>
+                            </CozyConfirmDialogProvider>
+                          </MuiCozyTheme>
                         </StoreURLProvider>
                       </SelectionProvider>
                     </BanksProvider>
