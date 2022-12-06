@@ -71,7 +71,7 @@ const AccountsListSettings = ({
     const errors =
       triggers?.data
         ?.filter(trigger => get(trigger, 'current_state.status') === 'errored')
-        .map(trigger => get(trigger, 'message.konnector')) || []
+        .map(trigger => get(trigger, 'message.account')) || []
     setKonnInError(errors)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [triggers.lastUpdate])
@@ -106,7 +106,7 @@ const AccountsListSettings = ({
     [slugInMaintenance, t]
   )
 
-  const hasError = connection => konnInError.includes(connection?.account_type)
+  const hasError = connection => konnInError.includes(connection?._id)
 
   return (
     <Unpadded horizontal className={LegalMention.active ? 'u-mv-1' : 'u-mb-1'}>

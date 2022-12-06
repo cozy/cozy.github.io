@@ -1,12 +1,9 @@
-/* global __TARGET__ */
-
 import { Q } from 'cozy-client'
 import { BankTransaction } from 'cozy-doctypes'
 import flag from 'cozy-flags'
 import chunk from 'lodash/chunk'
 import sortBy from 'lodash/sortBy'
 import { differenceInSeconds } from 'date-fns'
-import { getTracker } from 'ducks/tracking/node'
 import { TRANSACTION_DOCTYPE } from 'doctypes'
 
 // Each chunk will contain 100 transactions
@@ -42,33 +39,6 @@ export const fetchChunksToCategorize = async client => {
 }
 
 /**
- * Send local categorization results to Matomo for stats
- *
- * @param {Object[]} transactions - An array of categorized io.cozy.bank.operations
- */
-export const sendResultsToMatomo = transactions => {
-  const tracker = getTracker(__TARGET__, { e_a: 'LocalCategorization' })
-  const nbTransactionsAboveThreshold = transactions.reduce(
-    (sum, transaction) => {
-      if (
-        transaction.localCategoryProba >
-        BankTransaction.LOCAL_MODEL_USAGE_THRESHOLD
-      ) {
-        return sum + 1
-      }
-
-      return sum
-    },
-    0
-  )
-
-  tracker.trackEvent({
-    e_n: 'TransactionsUsingLocalCategory',
-    e_v: nbTransactionsAboveThreshold
-  })
-}
-
-/**
  * Apply global and local categorization models to a chunk
  *
  * @param {Object} categorizer - A categorizer (see https://docs.cozy.io/en/cozy-konnector-libs/api/#categorization)
@@ -82,8 +52,6 @@ export const categorizeChunk = async (categorizer, chunk) => {
   categorizedTransactions.forEach(t => (t.toCategorize = false))
 
   await BankTransaction.bulkSave(categorizedTransactions, 30)
-
-  sendResultsToMatomo(categorizedTransactions)
 
   const timeEnd = new Date()
   const timeElapsed = differenceInSeconds(timeEnd, timeStart)

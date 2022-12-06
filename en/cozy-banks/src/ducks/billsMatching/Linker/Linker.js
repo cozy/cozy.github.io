@@ -1,5 +1,3 @@
-/* global __TARGET__ */
-
 const bluebird = require('bluebird')
 const {
   findDebitOperation,
@@ -15,7 +13,6 @@ const max = require('lodash/max')
 const geco = require('geco')
 const format = require('date-fns/format')
 const { getBillDate, log } = require('../utils')
-const { getTracker } = require('ducks/tracking/node')
 const { Transaction, Bill } = require('models')
 
 const DOCTYPE_OPERATIONS = 'io.cozy.bank.operations'
@@ -29,21 +26,10 @@ class Linker {
   constructor() {
     this.toUpdate = []
     this.groupVendors = ['Numéricable']
-
-    try {
-      this.tracker = getTracker(__TARGET__, { e_a: 'BillsMatching' })
-    } catch (err) {
-      log('warning', "Can't get tracker: " + err)
-    }
   }
 
-  trackEvent(event) {
-    if (!this.tracker) {
-      log('warning', "Can't track event: no tracker initialized")
-      return
-    }
-
-    this.tracker.trackEvent(event)
+  trackEvent() {
+    return
   }
 
   async removeBillsFromOperations(bills, operations) {
@@ -130,10 +116,6 @@ class Linker {
     log('debug', `Adding bill ${bill._id} to operation ${operation._id}`)
 
     if (!bill._id) {
-      this.trackEvent({
-        e_n: 'BillWithoutId'
-      })
-
       log('warn', 'bill has no id, impossible to add it to an operation')
       return false
     }
@@ -152,10 +134,6 @@ class Linker {
     )
 
     if (isOverflowing) {
-      this.trackEvent({
-        e_n: 'BillAmountOverflowingOperationAmount'
-      })
-
       log(
         'warn',
         `Impossible to match bill ${bill._id} with transation ${operation._id} because the linked bills amount would overflow the transaction amount`
@@ -188,10 +166,6 @@ class Linker {
     )
 
     if (!bill._id) {
-      this.trackEvent({
-        e_n: 'BillWithoutId'
-      })
-
       log('warn', 'bill has no id, impossible to add it as a reimbursement')
       return Promise.resolve()
     }
@@ -433,18 +407,6 @@ class Linker {
     })
 
     await this.findCombinations(result, optionsToUse, allOperations)
-
-    const nbBillsLinked = Object.values(result).filter(
-      bill => bill.creditOperation || bill.debitOperation
-    ).length
-
-    if (nbBillsLinked > 0) {
-      this.trackEvent({
-        e_n: 'BillsMatched',
-        e_v: nbBillsLinked
-      })
-    }
-
     await this.commitChanges()
 
     return result

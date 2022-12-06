@@ -48,7 +48,8 @@ const JobsProvider = ({ children, client, options = {} }) => {
     // and we want to display it to the user
     const { slug } = data
     if (slug) {
-      const currentJobWithSameSlug = jobsInProgress.findIndex(
+      const { current: currJobsInProgress } = jobsInProgressRef
+      const currentJobWithSameSlug = currJobsInProgress.findIndex(
         j => j.konnector === slug
       )
       if (currentJobWithSameSlug === -1) {
@@ -73,15 +74,19 @@ const JobsProvider = ({ children, client, options = {} }) => {
     const hasAccount = msg.account
     const isConnectionSynced = msg?.event === 'CONNECTION_SYNCED'
     const isBiWebhook = Boolean(msg?.bi_webhook)
+    const isAccountDeleted = msg?.account_deleted === true
     let arr = [...currJobsInProgress]
     if (
       worker === 'konnector' &&
       hasAccount &&
-      (!isBiWebhook || isConnectionSynced)
+      (!isBiWebhook || isConnectionSynced) &&
+      !isAccountDeleted
     ) {
-      if (state === 'running' && !exist) {
+      if ((state === 'running' || state === 'done') && !exist) {
         waitJobQueue.removeWaitJob({ slug: msg.konnector })
-        arr.push(msg)
+        if (state !== 'done') {
+          arr.push(msg)
+        }
       } else if (state === 'done' && exist) {
         arr.splice(index, 1)
 
