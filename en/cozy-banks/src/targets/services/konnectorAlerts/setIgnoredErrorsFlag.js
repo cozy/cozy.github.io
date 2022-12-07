@@ -9,7 +9,7 @@ export const setIgnoredErrorsFlag = async client => {
   const jobId = process.env.COZY_JOB_ID?.split('/').pop()
 
   logger(
-    'info',
+    'warn',
     `Executing job notifications service by trigger: ${triggerId}, job: ${jobId}...`
   )
 
@@ -22,11 +22,11 @@ export const setIgnoredErrorsFlag = async client => {
     if (forcedIgnoredErrors) {
       flag('banks.konnector-alerts.ignored-errors', forcedIgnoredErrors)
       logger(
-        'info',
+        'warn',
         `Forced flag banks.konnector-alerts.ignored-errors to: ${forcedIgnoredErrors}`
       )
     } else {
-      logger('info', 'Flag banks.konnector-alerts.ignored-errors not forced')
+      logger('warn', 'Flag banks.konnector-alerts.ignored-errors not forced')
     }
   } catch (e) {
     logger(

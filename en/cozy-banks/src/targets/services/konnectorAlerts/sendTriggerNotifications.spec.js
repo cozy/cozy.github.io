@@ -295,7 +295,7 @@ describe('sendTriggerNotifications', () => {
       }
 
       expect(logger).toHaveBeenCalledWith(
-        'info',
+        'warn',
         `Will not notify trigger for ${result.konnectorSlug} because ${result.state}`
       )
     }

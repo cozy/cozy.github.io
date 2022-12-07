@@ -13,7 +13,7 @@ const main = async ({ client }) => {
   }
   if (!flag('banks.konnector-alerts')) {
     logger(
-      'info',
+      'warn',
       'Bailing out of job notifications service since flag "banks.konnector-alerts" is not set'
     )
     return

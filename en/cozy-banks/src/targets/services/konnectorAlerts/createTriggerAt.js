@@ -12,7 +12,7 @@ const createTriggerAt = async ({ client, date, konnectorTriggerId }) => {
       // If the date is in the past or too close to the current execution of the
       // service, we don't create a trigger.
       logger(
-        'info',
+        'warn',
         '@at trigger not created: this konnector trigger would be too close to this execution (less than 2 days)'
       )
       return
@@ -31,7 +31,7 @@ const createTriggerAt = async ({ client, date, konnectorTriggerId }) => {
       }
     })
     logger(
-      'info',
+      'warn',
       `⭐ Created: new @at trigger at ${date.toISOString().split('T')[0]}`
     )
   } catch (error) {
@@ -48,13 +48,13 @@ export const createScheduledTrigger = async client => {
 
   for (const [id, triggerStates] of Object.entries(settingTriggerStates)) {
     logger(
-      'info',
+      'warn',
       `⌛ Try to create @at triggers for konnectorTriggerId: ${id}...`
     )
 
     if (triggerStates?.shouldNotify?.ok !== true) {
       logger(
-        'info',
+        'warn',
         `@at triggers not created: this konnector trigger doesn't sent any notification`
       )
       continue
@@ -64,7 +64,7 @@ export const createScheduledTrigger = async client => {
 
     if (relatedFuturAtTriggers.length > 0) {
       logger(
-        'info',
+        'warn',
         `@at triggers not created: @at triggers already existing in the future for this konnector trigger`
       )
       continue

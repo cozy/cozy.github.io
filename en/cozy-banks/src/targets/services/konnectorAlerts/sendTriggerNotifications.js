@@ -30,7 +30,7 @@ export const sendTriggerNotifications = async client => {
       worker: 'konnector'
     })
   )
-  logger('info', `${cronKonnectorTriggers.length} konnector triggers`)
+  logger('warn', `${cronKonnectorTriggers.length} konnector triggers`)
 
   const triggerStatesDoc = await fetchTriggerStates(client)
   const previousStates = get(triggerStatesDoc, 'triggerStates', {})
@@ -56,11 +56,11 @@ export const sendTriggerNotifications = async client => {
   const willBeNotifiedTriggers = cronKonnectorTriggersAndNotifsInfo.filter(
     ({ trigger, shouldNotify }) => {
       if (shouldNotify.ok || ignoredErrors.has(shouldNotify.reason)) {
-        logger('info', `Will notify trigger for ${getKonnectorSlug(trigger)}`)
+        logger('warn', `Will notify trigger for ${getKonnectorSlug(trigger)}`)
         return true
       } else {
         logger(
-          'info',
+          'warn',
           `Will not notify trigger for ${getKonnectorSlug(trigger)} because ${
             shouldNotify.reason
           }`
@@ -88,7 +88,7 @@ export const sendTriggerNotifications = async client => {
   )
 
   logger(
-    'info',
+    'warn',
     `${willBeNotifiedTriggers.length} konnector triggers to notify`
   )
 
@@ -103,7 +103,14 @@ export const sendTriggerNotifications = async client => {
     })
 
     const notification = buildNotification(client, { konnectorAlerts })
-    await sendNotification(client, notification)
+    if (flag('banks.konnector-alerts.notification.disable')) {
+      logger(
+        'warn',
+        'Abort sending notification because of flag "banks.konnector-alerts.notification.disable"'
+      )
+    } else {
+      await sendNotification(client, notification)
+    }
   }
 
   await storeTriggerStates(
