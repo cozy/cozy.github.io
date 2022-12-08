@@ -236,7 +236,10 @@ const makeToken = (url, doctypes) => {
 }
 
 const autotoken = (url, doctypes) => {
-  if (isCommandAvailable('make-token') && url.indexOf('cozy.tools') === -1) {
+  if (
+    isCommandAvailable('make-token') &&
+    url.indexOf('cozy.localhost') === -1
+  ) {
     return makeToken(url, doctypes)
   }
 }
