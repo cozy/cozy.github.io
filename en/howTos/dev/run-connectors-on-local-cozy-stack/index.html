@@ -749,8 +749,43 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#configure-your-local-cozy-stack" title="Configure your local cozy-stack" class="md-nav__link">
-    Configure your local cozy-stack
+  <a href="#copy-the-default-config-file-if-not-already-done" title="Copy the default config file if not already done" class="md-nav__link">
+    Copy the default config file if not already done
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#edit-the-config-file" title="Edit the config file" class="md-nav__link">
+    Edit the config file
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-the-script-to-execute-the-service" title="Create the script to execute the service" class="md-nav__link">
+    Create the script to execute the service
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get-your-service-logs-in-a-isolated-file" title="Get your service logs in a isolated file" class="md-nav__link">
+    Get your service logs in a isolated file
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-your-konnector" title="Install your konnector" class="md-nav__link">
+    Install your konnector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#konnector-is-a-service-anyway" title="Konnector is a service anyway" class="md-nav__link">
+    Konnector is a service anyway
   </a>
   
 </li>
@@ -2626,8 +2661,43 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#configure-your-local-cozy-stack" title="Configure your local cozy-stack" class="md-nav__link">
-    Configure your local cozy-stack
+  <a href="#copy-the-default-config-file-if-not-already-done" title="Copy the default config file if not already done" class="md-nav__link">
+    Copy the default config file if not already done
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#edit-the-config-file" title="Edit the config file" class="md-nav__link">
+    Edit the config file
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-the-script-to-execute-the-service" title="Create the script to execute the service" class="md-nav__link">
+    Create the script to execute the service
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get-your-service-logs-in-a-isolated-file" title="Get your service logs in a isolated file" class="md-nav__link">
+    Get your service logs in a isolated file
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-your-konnector" title="Install your konnector" class="md-nav__link">
+    Install your konnector
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#konnector-is-a-service-anyway" title="Konnector is a service anyway" class="md-nav__link">
+    Konnector is a service anyway
   </a>
   
 </li>
@@ -2654,21 +2724,49 @@
                   <h1>Run Connectors With a Local cozy-stack</h1>
                 
                 <p>Running connectors to test them with a local cozy-stack gives a quick feedback loop but requires a little setup.</p>
-<h2 id="prerequisite">Prerequisite<a class="headerlink" href="#prerequisite" title="Permanent link">&para;</a></h2>
+<h3 id="prerequisite">Prerequisite<a class="headerlink" href="#prerequisite" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Have a local cozy-stack installed</li>
 <li>Have NodeJS installed at the system level</li>
 </ul>
-<h2 id="configure-your-local-cozy-stack">Configure your local cozy-stack<a class="headerlink" href="#configure-your-local-cozy-stack" title="Permanent link">&para;</a></h2>
-<p>Your local cozy-stack needs to know where to find the connectors runner on your filesystem. To this end, you&rsquo;ll need to <a href="https://raw.githubusercontent.com/cozy/cozy-stack/master/scripts/konnector-node-run.sh">download the script</a> from the <a href="https://github.com/cozy/cozy-stack">cozy-stack repository</a> (or clone the entire repository) and then set the path in your <code>cozy.yaml</code> file as such:</p>
-<div class="codehilite"><pre><span></span><span class="c1"># This top-level key might already exist if you used the template from the </span>
-<span class="c1"># cozy-stack repository</span>
-<span class="l l-Scalar l-Scalar-Plain">konnectors</span><span class="p p-Indicator">:</span>
-  <span class="l l-Scalar l-Scalar-Plain">cmd</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">&lt;absolute path to konnector-node-run.sh&gt;</span>
+<h3 id="copy-the-default-config-file-if-not-already-done">Copy the default config file if not already done<a class="headerlink" href="#copy-the-default-config-file-if-not-already-done" title="Permanent link">&para;</a></h3>
+<p>Create a directory  <code>~/.cozy</code> and copy the default configuration file into it. Be careful, the file name and location matter, as explained in the <a href="https://docs.cozy.io/en/cozy-stack/config/">config documentation</a>.</p>
+<div class="codehilite"><pre><span></span>cp cozy-stack/cozy.example.yaml ~/.cozy/cozy.yaml<span class="sb">`</span>
 </pre></div>
 
 
-<p>You can now restart your local cozy-stack and install your connector (for more information on how to run a connector from a local directory, check the <a href="https://docs.cozy.io/en/tutorials/konnector/save-data/">connectors tutorial</a>).</p>
+<h3 id="edit-the-config-file">Edit the config file<a class="headerlink" href="#edit-the-config-file" title="Permanent link">&para;</a></h3>
+<p>Edit the file <code>~/.cozy/cozy.yaml</code> and change the line after the <code>konnectors:</code> entry to have this:</p>
+<div class="codehilite"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">cmd</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">/home/alice/.cozy/scripts/konnector-node-run.sh</span>
+</pre></div>
+
+
+<h3 id="create-the-script-to-execute-the-service">Create the script to execute the service<a class="headerlink" href="#create-the-script-to-execute-the-service" title="Permanent link">&para;</a></h3>
+<p>Copy the file <code>cozy-stack/scripts/konnector-node-run.sh</code> to <code>~/.cozy/konnector-node-run.sh</code>:</p>
+<p>Then you need to <code>chmod +x ~/.cozy/scripts/konnector-node-run.sh</code></p>
+<p>Be sure to have <code>node</code> in your <code>/usr/bin</code> or <code>/usr/local/bin</code> folder. If not, you can add a symlink to <code>node</code> in one of those folder, for example by typing <code>ln -s $(which node) /usr/local/bin/node</code></p>
+<h3 id="get-your-service-logs-in-a-isolated-file">Get your service logs in a isolated file<a class="headerlink" href="#get-your-service-logs-in-a-isolated-file" title="Permanent link">&para;</a></h3>
+<p>Edit your <code>~/.cozy/konnector-node-run.sh</code> by adding a tee output.</p>
+<div class="codehilite"><pre><span></span>node <span class="s2">&quot;</span><span class="si">${</span><span class="nv">arg</span><span class="si">}</span><span class="s2">&quot;</span> <span class="p">|</span> tee -a ~/.cozy/services.log
+</pre></div>
+
+
+<p>Now you can <code>tail -f ~/.cozy/services.log</code> to watch logs in real time.</p>
+<h2 id="install-your-konnector">Install your konnector<a class="headerlink" href="#install-your-konnector" title="Permanent link">&para;</a></h2>
+<p>To install the konnector containing the service on your local stack, you must give the path of your build:</p>
+<div class="codehilite"><pre><span></span>cozy-stack konnector install &lt;konnector_name&gt; file://&lt;build_path&gt;
+<span class="c1"># Example:</span>
+<span class="c1"># cozy-stack apps install ameli file:///home/alice/ameli/build</span>
+</pre></div>
+
+
+<p>Each time you make modifications to your builded konnector, you must update the app on the stack to propagate the changes:</p>
+<div class="codehilite"><pre><span></span>cozy-stack konnectors update &lt;konnector_name&gt;
+</pre></div>
+
+
+<h2 id="konnector-is-a-service-anyway">Konnector is a service anyway<a class="headerlink" href="#konnector-is-a-service-anyway" title="Permanent link">&para;</a></h2>
+<p>As a konnector is subtype of service in cozy, you can look at a more global documentation here: <a href="https://docs.cozy.io/en/howTos/dev/services/">Develop a service</a></p>
                 
                   
                 

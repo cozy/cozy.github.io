@@ -737,8 +737,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#copy-the-default-config-file" title="Copy the default config file" class="md-nav__link">
-    Copy the default config file
+  <a href="#copy-the-default-config-file-if-not-already-done" title="Copy the default config file if not already done" class="md-nav__link">
+    Copy the default config file if not already done
   </a>
   
 </li>
@@ -751,8 +751,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#create-the-script-to-store-the-logs" title="Create the script to store the logs" class="md-nav__link">
-    Create the script to store the logs
+  <a href="#create-the-script-to-execute-the-service" title="Create the script to execute the service" class="md-nav__link">
+    Create the script to execute the service
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-your-service-logs-in-a-isolated-file" title="Get your service logs in a isolated file" class="md-nav__link">
+    Get your service logs in a isolated file
   </a>
   
 </li>
@@ -2744,8 +2751,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#copy-the-default-config-file" title="Copy the default config file" class="md-nav__link">
-    Copy the default config file
+  <a href="#copy-the-default-config-file-if-not-already-done" title="Copy the default config file if not already done" class="md-nav__link">
+    Copy the default config file if not already done
   </a>
   
 </li>
@@ -2758,8 +2765,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#create-the-script-to-store-the-logs" title="Create the script to store the logs" class="md-nav__link">
-    Create the script to store the logs
+  <a href="#create-the-script-to-execute-the-service" title="Create the script to execute the service" class="md-nav__link">
+    Create the script to execute the service
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-your-service-logs-in-a-isolated-file" title="Get your service logs in a isolated file" class="md-nav__link">
+    Get your service logs in a isolated file
   </a>
   
 </li>
@@ -2823,7 +2837,7 @@
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h2>
 <p>You can find an example of an existing service in the <a href="https://github.com/cozy/cozy-banks/blob/master/src/targets/services/onOperationOrBillCreate.js">cozy-banks app</a>.</p>
 <h2 id="cozyclient-instantiation">CozyClient instantiation<a class="headerlink" href="#cozyclient-instantiation" title="Permanent link">&para;</a></h2>
-<p>By using <code>fromEnv</code>, you will be able to use the service in dev mode (via cozy-konnector-dev see <a href="#execution">Execution</a>) or in production. </p>
+<p>By using <code>fromEnv</code>, you will be able to use the service in dev mode (via cozy-konnector-dev see <a href="#execution">Execution</a>) or in production.</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="nx">CozyClient</span><span class="p">.</span><span class="nx">fromEnv</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">,</span> <span class="p">{</span> <span class="nx">schema</span> <span class="p">})</span>
 </pre></div>
 
@@ -2861,7 +2875,7 @@
 <p>As the service is run on a dedicated process on the server side, a running stack is necessary. You can either use a stack installed <a href="https://docs.cozy.io/en/howTos/dev/runCozyDocker/#run-with-a-custom-stack-config-file">with docker</a> or directly <a href="https://docs.cozy.io/en/cozy-stack/INSTALL/">from source</a>.</p>
 <p>Some configuration is required to execute the service and store the produced logs, to facilitate the development. The following instructions are for a stack installed from source, but you can adapt it for a docker installation: you have to download the <a href="https://github.com/cozy/cozy-stack/blob/master/cozy.example.yaml">default config file</a>, modify it as described below and indicate its location through the docker command, as explained <a href="https://docs.cozy.io/en/howTos/dev/runCozyDocker/#run-with-a-custom-stack-config-file">here</a>.</p>
 <p>In the following, we assume that your <code>$HOME</code> is /home/alice, so change accordingly to your own <code>$HOME</code>.</p>
-<h3 id="copy-the-default-config-file">Copy the default config file<a class="headerlink" href="#copy-the-default-config-file" title="Permanent link">&para;</a></h3>
+<h3 id="copy-the-default-config-file-if-not-already-done">Copy the default config file if not already done<a class="headerlink" href="#copy-the-default-config-file-if-not-already-done" title="Permanent link">&para;</a></h3>
 <p>Create a directory  <code>~/.cozy</code> and copy the default configuration file into it. Be careful, the file name and location matter, as explained in the <a href="https://docs.cozy.io/en/cozy-stack/config/">config documentation</a>.</p>
 <div class="codehilite"><pre><span></span>cp cozy-stack/cozy.example.yaml ~/.cozy/cozy.yaml<span class="sb">`</span>
 </pre></div>
@@ -2878,22 +2892,22 @@
 </pre></div>
 
 
-<h3 id="create-the-script-to-store-the-logs">Create the script to store the logs<a class="headerlink" href="#create-the-script-to-store-the-logs" title="Permanent link">&para;</a></h3>
-<p>Create the file <code>~/.cozy/scripts/konnector-node-run.sh</code>:</p>
-<div class="codehilite"><pre><span></span><span class="ch">#!/bin/bash</span>
-
-<span class="nv">rundir</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">1</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="nb">cd</span> <span class="nv">$rundir</span>
-node index.js <span class="p">|</span> tee ~/.cozy/services.log
+<h3 id="create-the-script-to-execute-the-service">Create the script to execute the service<a class="headerlink" href="#create-the-script-to-execute-the-service" title="Permanent link">&para;</a></h3>
+<p>Copy the file <code>cozy-stack/scripts/konnector-node-run.sh</code> to <code>~/.cozy/konnector-node-run.sh</code>:</p>
+<p>Then you need to <code>chmod +x ~/.cozy/scripts/konnector-node-run.sh</code></p>
+<p>Be sure to have <code>node</code> in your <code>/usr/bin</code> or <code>/usr/local/bin</code> folder. If not, you can add a symlink to <code>node</code> in one of those folder, for example by typing <code>ln -s $(which node) /usr/local/bin/node</code></p>
+<h3 id="get-your-service-logs-in-a-isolated-file">Get your service logs in a isolated file<a class="headerlink" href="#get-your-service-logs-in-a-isolated-file" title="Permanent link">&para;</a></h3>
+<p>Edit your <code>~/.cozy/konnector-node-run.sh</code> by adding a tee output.</p>
+<div class="codehilite"><pre><span></span>node <span class="s2">&quot;</span><span class="si">${</span><span class="nv">arg</span><span class="si">}</span><span class="s2">&quot;</span> <span class="p">|</span> tee -a ~/.cozy/services.log
 </pre></div>
 
 
-<p>Then you need to <code>chmod +x ~/.cozy/scripts/konnector-node-run.sh</code></p>
-<p>Be sure to have <code>node</code> in your <code>/usr/bin</code> or <code>/usr/local/bin</code> folder. If not, you can add a symlink to <code>node</code> in one of those folder, for example by typing <code>ln -s $(which node) /usr/local/bin/node</code></p>
 <p>Now you can <code>tail -f ~/.cozy/services.log</code> to watch logs in real time.</p>
 <h2 id="install-your-app">Install your app<a class="headerlink" href="#install-your-app" title="Permanent link">&para;</a></h2>
 <p>To install the app containing the service on your local stack, you must give the path of your build:</p>
 <div class="codehilite"><pre><span></span>cozy-stack apps install &lt;app_name&gt; file://&lt;build_path&gt;
+<span class="c1"># Example:</span>
+<span class="c1"># cozy-stack apps install banks file:///home/alice/cozy-banks/build</span>
 </pre></div>
 
 
