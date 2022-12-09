@@ -4,21 +4,62 @@ title: How to run connectors with a local cozy-stack
 
 Running connectors to test them with a local cozy-stack gives a quick feedback loop but requires a little setup.
 
-## Prerequisite
+### Prerequisite
 
 - Have a local cozy-stack installed
 - Have NodeJS installed at the system level
 
-## Configure your local cozy-stack
+### Copy the default config file if not already done
 
-Your local cozy-stack needs to know where to find the connectors runner on your filesystem. To this end, you'll need to [download the script](https://raw.githubusercontent.com/cozy/cozy-stack/master/scripts/konnector-node-run.sh) from the [cozy-stack repository](https://github.com/cozy/cozy-stack) (or clone the entire repository) and then set the path in your `cozy.yaml` file as such:
+Create a directory  `~/.cozy` and copy the default configuration file into it. Be careful, the file name and location matter, as explained in the [config documentation](https://docs.cozy.io/en/cozy-stack/config/).
 
-```yaml
-# This top-level key might already exist if you used the template from the 
-# cozy-stack repository
-konnectors:
-  cmd: <absolute path to konnector-node-run.sh>
- 
+```bash
+cp cozy-stack/cozy.example.yaml ~/.cozy/cozy.yaml`
 ```
 
-You can now restart your local cozy-stack and install your connector (for more information on how to run a connector from a local directory, check the [connectors tutorial](https://docs.cozy.io/en/tutorials/konnector/save-data/)).
+### Edit the config file
+
+Edit the file `~/.cozy/cozy.yaml` and change the line after the `konnectors:` entry to have this:
+
+```yaml
+cmd: /home/alice/.cozy/scripts/konnector-node-run.sh
+```
+
+### Create the script to execute the service
+
+Copy the file `cozy-stack/scripts/konnector-node-run.sh` to `~/.cozy/konnector-node-run.sh`:
+
+Then you need to `chmod +x ~/.cozy/scripts/konnector-node-run.sh`
+
+Be sure to have `node` in your `/usr/bin` or `/usr/local/bin` folder. If not, you can add a symlink to `node` in one of those folder, for example by typing `ln -s $(which node) /usr/local/bin/node`
+
+### Get your service logs in a isolated file
+
+Edit your `~/.cozy/konnector-node-run.sh` by adding a tee output.
+
+```bash
+node "${arg}" | tee -a ~/.cozy/services.log
+```
+
+Now you can `tail -f ~/.cozy/services.log` to watch logs in real time.
+
+## Install your konnector
+
+To install the konnector containing the service on your local stack, you must give the path of your build:
+
+```bash
+cozy-stack konnector install <konnector_name> file://<build_path>
+# Example:
+# cozy-stack apps install ameli file:///home/alice/ameli/build
+```
+
+Each time you make modifications to your builded konnector, you must update the app on the stack to propagate the changes:
+
+```bash
+cozy-stack konnectors update <konnector_name>
+```
+
+
+## Konnector is a service anyway
+
+As a konnector is subtype of service in cozy, you can look at a more global documentation here: [Develop a service](https://docs.cozy.io/en/howTos/dev/services/)

@@ -15,7 +15,7 @@ You can find an example of an existing service in the [cozy-banks app](https://g
 
 ## CozyClient instantiation
 
-By using `fromEnv`, you will be able to use the service in dev mode (via cozy-konnector-dev see [Execution](#execution)) or in production. 
+By using `fromEnv`, you will be able to use the service in dev mode (via cozy-konnector-dev see [Execution](#execution)) or in production.
 
 ```js
 const client = CozyClient.fromEnv(process.env, { schema })
@@ -64,7 +64,7 @@ Some configuration is required to execute the service and store the produced log
 
 In the following, we assume that your `$HOME` is /home/alice, so change accordingly to your own `$HOME`.
 
-### Copy the default config file
+### Copy the default config file if not already done
 
 Create a directory  `~/.cozy` and copy the default configuration file into it. Be careful, the file name and location matter, as explained in the [config documentation](https://docs.cozy.io/en/cozy-stack/config/).
 
@@ -86,21 +86,21 @@ cmd: /home/alice/.cozy/scripts/konnector-node-run.sh
 url: file:///home/alice/.cozy/storage
 ```
 
-### Create the script to store the logs
+### Create the script to execute the service
 
-Create the file `~/.cozy/scripts/konnector-node-run.sh`:
-
-```bash
-#!/bin/bash
-
-rundir="${1}"
-cd $rundir
-node index.js | tee ~/.cozy/services.log
-```
+Copy the file `cozy-stack/scripts/konnector-node-run.sh` to `~/.cozy/konnector-node-run.sh`:
 
 Then you need to `chmod +x ~/.cozy/scripts/konnector-node-run.sh`
 
 Be sure to have `node` in your `/usr/bin` or `/usr/local/bin` folder. If not, you can add a symlink to `node` in one of those folder, for example by typing `ln -s $(which node) /usr/local/bin/node`
+
+### Get your service logs in a isolated file
+
+Edit your `~/.cozy/konnector-node-run.sh` by adding a tee output.
+
+```bash
+node "${arg}" | tee -a ~/.cozy/services.log
+```
 
 Now you can `tail -f ~/.cozy/services.log` to watch logs in real time.
 
@@ -110,6 +110,8 @@ To install the app containing the service on your local stack, you must give the
 
 ```bash
 cozy-stack apps install <app_name> file://<build_path>
+# Example:
+# cozy-stack apps install banks file:///home/alice/cozy-banks/build
 ```
 
 Each time you make modifications to your service, you must update the app on the stack to propagate the changes:
