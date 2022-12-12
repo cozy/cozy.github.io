@@ -58,7 +58,7 @@ class KonnectorAlertNotification extends NotificationView {
     if (flagPreferredChannel) {
       KonnectorAlertNotification.preferredChannels = [flagPreferredChannel]
       logger(
-        'warn',
+        'info',
         `Set KonnectorAlertNotification preferredChannel to ${flagPreferredChannel} because of flag`
       )
     }
@@ -68,7 +68,7 @@ class KonnectorAlertNotification extends NotificationView {
     const willSend =
       !!templateData.konnectorAlerts && templateData.konnectorAlerts.length > 0
     if (!willSend) {
-      logger('warn', 'Nothing to send, bailing out')
+      logger('info', 'Nothing to send, bailing out')
     }
     return willSend
   }
@@ -132,7 +132,7 @@ class KonnectorAlertNotification extends NotificationView {
       const date = getScheduleDate()
       const flagAt = flag('banks.konnector-alerts.schedule-date')
       const at = flagAt || date.toISOString()
-      logger('warn', `Scheduling notification at ${at}`)
+      logger('info', `Scheduling notification at ${at}`)
       attributes.at = at
     }
 

@@ -30,7 +30,7 @@ export const sendTriggerNotifications = async client => {
       worker: 'konnector'
     })
   )
-  logger('warn', `${cronKonnectorTriggers.length} konnector triggers`)
+  logger('info', `${cronKonnectorTriggers.length} konnector triggers`)
 
   const triggerStatesDoc = await fetchTriggerStates(client)
   const previousStates = get(triggerStatesDoc, 'triggerStates', {})
@@ -56,11 +56,11 @@ export const sendTriggerNotifications = async client => {
   const willBeNotifiedTriggers = cronKonnectorTriggersAndNotifsInfo.filter(
     ({ trigger, shouldNotify }) => {
       if (shouldNotify.ok || ignoredErrors.has(shouldNotify.reason)) {
-        logger('warn', `Will notify trigger for ${getKonnectorSlug(trigger)}`)
+        logger('info', `Will notify trigger for ${getKonnectorSlug(trigger)}`)
         return true
       } else {
         logger(
-          'warn',
+          'info',
           `Will not notify trigger for ${getKonnectorSlug(trigger)} because ${
             shouldNotify.reason
           }`
