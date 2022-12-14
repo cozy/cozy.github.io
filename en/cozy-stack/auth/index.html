@@ -3981,7 +3981,12 @@ session fixation).</p>
 <p>Display a form for the user to reset its password, in case he has forgotten it
 for example. If the user is connected, he won&rsquo;t be shown this form and he will
 be directly redirected to his cozy.</p>
-<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/auth/passphrase_reset</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<p>This endpoint accepts a <code>hideBackButton</code> parameter. If this parameter is present
+and set to <code>true</code> then the passphrase reset page won&rsquo;t display any button to go
+back to the login page.
+This is useful when this page is opened in a different context from the one in 
+which the login page was opened (e.g. a browser vs a mobile native application).</p>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/auth/passphrase_reset?hideBackButton=true</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">text/html</span>
 <span class="na">Cookie</span><span class="o">:</span> <span class="l">...</span>
