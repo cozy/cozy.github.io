@@ -39,7 +39,6 @@ module.exports = {
         'cozy-realtime',
         'cozy-stack-client',
         'cozy-ui',
-        'date-fns',
         'domutils',
         'extsprintf',
         'has',
