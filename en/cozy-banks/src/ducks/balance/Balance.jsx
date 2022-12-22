@@ -38,7 +38,7 @@ import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import { getAccountBalance } from 'ducks/account/helpers'
 import styles from 'ducks/balance/Balance.styl'
 import BalancePanels from 'ducks/balance/BalancePanels'
-import { getPanelsState, isVirtualAccount } from 'ducks/balance/helpers'
+import { getPanelsState } from 'ducks/balance/helpers'
 import BarTheme from 'ducks/bar/BarTheme'
 import { filterByAccounts } from 'ducks/filters'
 import { trackPage } from 'ducks/tracking/browser'
@@ -70,6 +70,10 @@ const getAllGroups = props => {
   const { groups, virtualGroups } = props
 
   return [...groups.data, ...virtualGroups]
+}
+
+const getAccounts = props => {
+  return props.accounts.data
 }
 
 class Balance extends PureComponent {
@@ -166,13 +170,8 @@ class Balance extends PureComponent {
       .filter(Boolean)
   }
 
-  getAllAccounts() {
-    const { accounts: accountsCollection, virtualAccounts } = this.props
-    return [...accountsCollection.data, ...virtualAccounts]
-  }
-
   getCheckedAccounts() {
-    const accounts = this.getAllAccounts()
+    const accounts = getAccounts(this.props)
 
     return accounts.filter(account => {
       const occurrences = this.getAccountOccurrencesInState(account)
@@ -237,9 +236,8 @@ class Balance extends PureComponent {
       )
     }
 
-    const accounts = this.getAllAccounts()
-
-    const hasNoAccount = accounts.filter(a => !isVirtualAccount(a)).length === 0
+    const accounts = getAccounts(this.props)
+    const hasNoAccount = accounts.length === 0
 
     if (
       (hasNoAccount && !hasJobsInProgress) ||
@@ -249,7 +247,6 @@ class Balance extends PureComponent {
       return <EmptyAccount />
     }
 
-    const groups = getAllGroups(this.props)
     const checkedAccounts = this.getCheckedAccounts()
     const accountsBalance = sumBy(checkedAccounts, getAccountBalance)
     const subtitleParams =
@@ -259,6 +256,8 @@ class Balance extends PureComponent {
             nbCheckedAccounts: checkedAccounts.length,
             nbAccounts: accounts.length
           }
+
+    const groups = getAllGroups(this.props)
 
     return (
       <Fragment>
