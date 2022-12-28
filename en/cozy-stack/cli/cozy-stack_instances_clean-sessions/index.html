@@ -13,7 +13,7 @@
         <meta name="description" content="Cozy documentation">
       
       
-        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/cli/cozy-stack_instances/">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/cli/cozy-stack_instances_clean-sessions/">
       
       
         <meta name="author" content="CozyCloud - https://cozy.io">
@@ -42,7 +42,7 @@
     
     
       
-        <title>Cozy stack instances - Cozy Developer Documentation</title>
+        <title>Cozy stack instances clean sessions - Cozy Developer Documentation</title>
       
     
     
@@ -100,7 +100,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#cozy-stack-instances" tabindex="1" class="md-skip">
+      <a href="#cozy-stack-instances-clean-sessions" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -126,7 +126,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Cozy stack instances
+                Cozy stack instances clean sessions
               
             </span>
           
@@ -2572,16 +2572,16 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#cozy-stack-instances" title="cozy-stack instances" class="md-nav__link">
-    cozy-stack instances
+  <a href="#cozy-stack-instances-clean-sessions" title="cozy-stack instances clean-sessions" class="md-nav__link">
+    cozy-stack instances clean-sessions
   </a>
   
     <nav class="md-nav">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#synopsis" title="Synopsis" class="md-nav__link">
-    Synopsis
+  <a href="#examples" title="Examples" class="md-nav__link">
+    Examples
   </a>
   
 </li>
@@ -2628,26 +2628,24 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-stack/cli/cozy-stack_instances.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-stack/cli/cozy-stack_instances_clean-sessions.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                  <h1>Cozy stack instances</h1>
+                  <h1>Cozy stack instances clean sessions</h1>
                 
-                <h2 id="cozy-stack-instances">cozy-stack instances<a class="headerlink" href="#cozy-stack-instances" title="Permanent link">&para;</a></h2>
-<p>Manage instances of a stack</p>
-<h3 id="synopsis">Synopsis<a class="headerlink" href="#synopsis" title="Permanent link">&para;</a></h3>
-<p>cozy-stack instances allows to manage the instances of this stack</p>
-<p>An instance is a logical space owned by one user and identified by a domain.
-For example, bob.cozycloud.cc is the instance of Bob. A single cozy-stack
-process can manage several instances.</p>
-<p>Each instance has a separate space for storing files and a prefix used to
-create its CouchDB databases.</p>
-<div class="codehilite"><pre><span></span>cozy-stack instances &lt;command&gt; [flags]
+                <h2 id="cozy-stack-instances-clean-sessions">cozy-stack instances clean-sessions<a class="headerlink" href="#cozy-stack-instances-clean-sessions" title="Permanent link">&para;</a></h2>
+<p>Remove the io.cozy.sessions and io.cozy.sessions.logins bases</p>
+<div class="codehilite"><pre><span></span>cozy-stack instances clean-sessions &lt;domain&gt; [flags]
+</pre></div>
+
+
+<h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span>$ cozy-stack instance clean-sessions cozy.localhost:8080
 </pre></div>
 
 
 <h3 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span>  -h, --help   help for instances
+<div class="codehilite"><pre><span></span>  -h, --help   help for clean-sessions
 </pre></div>
 
 
@@ -2662,32 +2660,7 @@ create its CouchDB databases.</p>
 
 <h3 id="see-also">SEE ALSO<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h3>
 <ul>
-<li><a href="../cozy-stack/">cozy-stack</a>    - cozy-stack is the main command</li>
-<li><a href="../cozy-stack_instances_add/">cozy-stack instances add</a>    - Manage instances of a stack</li>
-<li><a href="../cozy-stack_instances_auth-mode/">cozy-stack instances auth-mode</a>    - Set instance auth-mode</li>
-<li><a href="../cozy-stack_instances_clean-sessions/">cozy-stack instances clean-sessions</a>  - Remove the io.cozy.sessions and io.cozy.sessions.logins bases</li>
-<li><a href="../cozy-stack_instances_client-oauth/">cozy-stack instances client-oauth</a>  - Register a new OAuth client</li>
-<li><a href="../cozy-stack_instances_count/">cozy-stack instances count</a>    - Count the instances</li>
-<li><a href="../cozy-stack_instances_debug/">cozy-stack instances debug</a>    - Activate or deactivate debugging of the instance</li>
-<li><a href="../cozy-stack_instances_destroy/">cozy-stack instances destroy</a>    - Remove instance</li>
-<li><a href="../cozy-stack_instances_export/">cozy-stack instances export</a>  - Export an instance</li>
-<li><a href="../cozy-stack_instances_find-oauth-client/">cozy-stack instances find-oauth-client</a>    - Find an OAuth client</li>
-<li><a href="../cozy-stack_instances_fsck/">cozy-stack instances fsck</a>  - Check a vfs</li>
-<li><a href="../cozy-stack_instances_import/">cozy-stack instances import</a>  - Import data from an export link</li>
-<li><a href="../cozy-stack_instances_ls/">cozy-stack instances ls</a>  - List instances</li>
-<li><a href="../cozy-stack_instances_modify/">cozy-stack instances modify</a>  - Modify the instance properties</li>
-<li><a href="../cozy-stack_instances_refresh-token-oauth/">cozy-stack instances refresh-token-oauth</a>    - Generate a new OAuth refresh token</li>
-<li><a href="../cozy-stack_instances_set-disk-quota/">cozy-stack instances set-disk-quota</a>  - Change the disk-quota of the instance</li>
-<li><a href="../cozy-stack_instances_set-passphrase/">cozy-stack instances set-passphrase</a>  - Change the passphrase of the instance</li>
-<li><a href="../cozy-stack_instances_show/">cozy-stack instances show</a>  - Show the instance of the specified domain</li>
-<li><a href="../cozy-stack_instances_show-app-version/">cozy-stack instances show-app-version</a>  - Show instances that have a particular app version</li>
-<li><a href="../cozy-stack_instances_show-db-prefix/">cozy-stack instances show-db-prefix</a>  - Show the instance DB prefix of the specified domain</li>
-<li><a href="../cozy-stack_instances_show-swift-prefix/">cozy-stack instances show-swift-prefix</a>    - Show the instance swift prefix of the specified domain</li>
-<li><a href="../cozy-stack_instances_token-app/">cozy-stack instances token-app</a>    - Generate a new application token</li>
-<li><a href="../cozy-stack_instances_token-cli/">cozy-stack instances token-cli</a>    - Generate a new CLI access token (global access)</li>
-<li><a href="../cozy-stack_instances_token-konnector/">cozy-stack instances token-konnector</a>    - Generate a new konnector token</li>
-<li><a href="../cozy-stack_instances_token-oauth/">cozy-stack instances token-oauth</a>    - Generate a new OAuth access token</li>
-<li><a href="../cozy-stack_instances_update/">cozy-stack instances update</a>  - Start the updates for the specified domain instance.</li>
+<li><a href="../cozy-stack_instances/">cozy-stack instances</a>    - Manage instances of a stack</li>
 </ul>
                 
                   
