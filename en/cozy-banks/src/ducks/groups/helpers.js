@@ -22,7 +22,9 @@ export const isReimbursementsVirtualGroup = group =>
   Boolean(group.virtual && group._id === 'Reimbursements')
 
 export const getGroupLabel = (group, t) => {
-  if (isReimbursementsVirtualGroup(group)) {
+  if (group == null) {
+    return ''
+  } else if (isReimbursementsVirtualGroup(group)) {
     return t(`Data.accountTypes.Reimbursements`, { _: 'other' })
   } else if (group.virtual) {
     return (
