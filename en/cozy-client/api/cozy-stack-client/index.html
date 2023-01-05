@@ -1657,6 +1657,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#oauthclientfetchkonnectortokenslug-promisestring" title="oAuthClient.fetchKonnectorToken(slug) ⇒ Promise.&lt;string&gt;" class="md-nav__link">
+    oAuthClient.fetchKonnectorToken(slug) ⇒ Promise.&lt;string&gt;
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#oauthclientfetchsessioncode-promisesessioncoderes" title="oAuthClient.fetchSessionCode() ⇒ Promise.&lt;SessionCodeRes&gt;" class="md-nav__link">
     oAuthClient.fetchSessionCode() ⇒ Promise.&lt;SessionCodeRes&gt;
   </a>
@@ -2269,6 +2276,13 @@
           <li class="md-nav__item">
   <a href="#oauthclientfetchaccesstokenaccesscode-oauthoptionsarg-uri-codeverifier-promise_1" title="oAuthClient.fetchAccessToken(accessCode, oauthOptionsArg, uri, codeVerifier) ⇒ Promise" class="md-nav__link">
     oAuthClient.fetchAccessToken(accessCode, oauthOptionsArg, uri, codeVerifier) ⇒ Promise
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oauthclientfetchkonnectortokenslug-promisestring_1" title="oAuthClient.fetchKonnectorToken(slug) ⇒ Promise.&lt;string&gt;" class="md-nav__link">
+    oAuthClient.fetchKonnectorToken(slug) ⇒ Promise.&lt;string&gt;
   </a>
   
 </li>
@@ -4716,6 +4730,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#oauthclientfetchkonnectortokenslug-promisestring" title="oAuthClient.fetchKonnectorToken(slug) ⇒ Promise.&lt;string&gt;" class="md-nav__link">
+    oAuthClient.fetchKonnectorToken(slug) ⇒ Promise.&lt;string&gt;
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#oauthclientfetchsessioncode-promisesessioncoderes" title="oAuthClient.fetchSessionCode() ⇒ Promise.&lt;SessionCodeRes&gt;" class="md-nav__link">
     oAuthClient.fetchSessionCode() ⇒ Promise.&lt;SessionCodeRes&gt;
   </a>
@@ -5328,6 +5349,13 @@
           <li class="md-nav__item">
   <a href="#oauthclientfetchaccesstokenaccesscode-oauthoptionsarg-uri-codeverifier-promise_1" title="oAuthClient.fetchAccessToken(accessCode, oauthOptionsArg, uri, codeVerifier) ⇒ Promise" class="md-nav__link">
     oAuthClient.fetchAccessToken(accessCode, oauthOptionsArg, uri, codeVerifier) ⇒ Promise
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oauthclientfetchkonnectortokenslug-promisestring_1" title="oAuthClient.fetchKonnectorToken(slug) ⇒ Promise.&lt;string&gt;" class="md-nav__link">
+    oAuthClient.fetchKonnectorToken(slug) ⇒ Promise.&lt;string&gt;
   </a>
   
 </li>
@@ -7609,6 +7637,7 @@ through OAuth.</p>
 <li><a href="#OAuthClient+getAuthCodeURL">.getAuthCodeURL(options)</a> ⇒ <code>string</code></li>
 <li><a href="#OAuthClient+getAccessCodeFromURL">.getAccessCodeFromURL(pageURL, stateCode)</a> ⇒ <code>string</code></li>
 <li><a href="#OAuthClient+fetchAccessToken">.fetchAccessToken(accessCode, oauthOptionsArg, uri, codeVerifier)</a> ⇒ <code>Promise</code></li>
+<li><a href="#OAuthClient+fetchKonnectorToken">.fetchKonnectorToken(slug)</a> ⇒ <code>Promise.&lt;string&gt;</code></li>
 <li><a href="#OAuthClient+fetchSessionCode">.fetchSessionCode()</a> ⇒ <a href="#SessionCodeRes"><code>Promise.&lt;SessionCodeRes&gt;</code></a></li>
 <li><a href="#OAuthClient+fetchSessionCodeWithPassword">.fetchSessionCodeWithPassword()</a> ⇒ <a href="#SessionCodeRes"><code>Promise.&lt;SessionCodeRes&gt;</code></a></li>
 <li><a href="#OAuthClient+loginFlagship">.loginFlagship()</a> ⇒ <code>Promise.&lt;(AccessTokenRes|TwoFactorNeededRes|SessionCodeRes)&gt;</code></li>
@@ -7799,6 +7828,29 @@ sets internal information from the server response</p>
 <td>codeVerifier</td>
 <td><code>string</code></td>
 <td>— The PKCE code verifier (see https://docs.cozy.io/en/cozy-stack/auth/#pkce-extension)</td>
+</tr>
+</tbody>
+</table>
+<p><a name="OAuthClient+fetchKonnectorToken"></a></p>
+<h3 id="oauthclientfetchkonnectortokenslug-promisestring">oAuthClient.fetchKonnectorToken(slug) ⇒ <code>Promise.&lt;string&gt;</code><a class="headerlink" href="#oauthclientfetchkonnectortokenslug-promisestring" title="Permanent link">&para;</a></h3>
+<p>Used by the flagship application in order to create a token for the konnector with the given slug.
+This token can then be used by the client-side konnector to make requests to cozy-stack.
+The flagship app will need to use its own access token to request the konnector token.</p>
+<p><strong>Kind</strong>: instance method of <a href="#OAuthClient"><code>OAuthClient</code></a><br />
+<strong>Returns</strong>: <code>Promise.&lt;string&gt;</code> - - A promise that resolves with a new token  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>slug</td>
+<td><code>string</code></td>
+<td>The slug of the konnector</td>
 </tr>
 </tbody>
 </table>
@@ -9473,6 +9525,7 @@ Deleted and design docs are filtered by default, thus documents are retrieved in
 <li><a href="#OAuthClient+getAuthCodeURL">.getAuthCodeURL(options)</a> ⇒ <code>string</code></li>
 <li><a href="#OAuthClient+getAccessCodeFromURL">.getAccessCodeFromURL(pageURL, stateCode)</a> ⇒ <code>string</code></li>
 <li><a href="#OAuthClient+fetchAccessToken">.fetchAccessToken(accessCode, oauthOptionsArg, uri, codeVerifier)</a> ⇒ <code>Promise</code></li>
+<li><a href="#OAuthClient+fetchKonnectorToken">.fetchKonnectorToken(slug)</a> ⇒ <code>Promise.&lt;string&gt;</code></li>
 <li><a href="#OAuthClient+fetchSessionCode">.fetchSessionCode()</a> ⇒ <a href="#SessionCodeRes"><code>Promise.&lt;SessionCodeRes&gt;</code></a></li>
 <li><a href="#OAuthClient+fetchSessionCodeWithPassword">.fetchSessionCodeWithPassword()</a> ⇒ <a href="#SessionCodeRes"><code>Promise.&lt;SessionCodeRes&gt;</code></a></li>
 <li><a href="#OAuthClient+loginFlagship">.loginFlagship()</a> ⇒ <code>Promise.&lt;(AccessTokenRes|TwoFactorNeededRes|SessionCodeRes)&gt;</code></li>
@@ -9663,6 +9716,29 @@ sets internal information from the server response</p>
 <td>codeVerifier</td>
 <td><code>string</code></td>
 <td>— The PKCE code verifier (see https://docs.cozy.io/en/cozy-stack/auth/#pkce-extension)</td>
+</tr>
+</tbody>
+</table>
+<p><a name="OAuthClient+fetchKonnectorToken"></a></p>
+<h3 id="oauthclientfetchkonnectortokenslug-promisestring_1">oAuthClient.fetchKonnectorToken(slug) ⇒ <code>Promise.&lt;string&gt;</code><a class="headerlink" href="#oauthclientfetchkonnectortokenslug-promisestring_1" title="Permanent link">&para;</a></h3>
+<p>Used by the flagship application in order to create a token for the konnector with the given slug.
+This token can then be used by the client-side konnector to make requests to cozy-stack.
+The flagship app will need to use its own access token to request the konnector token.</p>
+<p><strong>Kind</strong>: instance method of <a href="#OAuthClient"><code>OAuthClient</code></a><br />
+<strong>Returns</strong>: <code>Promise.&lt;string&gt;</code> - - A promise that resolves with a new token  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>slug</td>
+<td><code>string</code></td>
+<td>The slug of the konnector</td>
 </tr>
 </tbody>
 </table>
