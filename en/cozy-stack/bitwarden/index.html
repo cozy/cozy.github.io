@@ -2219,8 +2219,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#post-bitwardenapiaccountsprelogin" title="POST /bitwarden/api/accounts/prelogin" class="md-nav__link">
-    POST /bitwarden/api/accounts/prelogin
+  <a href="#post-bitwardenapiaccountsprelogin-post-bitwardenidentityaccountsprelogin" title="POST /bitwarden/api/accounts/prelogin &amp; POST /bitwarden/identity/accounts/prelogin" class="md-nav__link">
+    POST /bitwarden/api/accounts/prelogin &amp; POST /bitwarden/identity/accounts/prelogin
   </a>
   
     <nav class="md-nav">
@@ -3822,8 +3822,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#post-bitwardenapiaccountsprelogin" title="POST /bitwarden/api/accounts/prelogin" class="md-nav__link">
-    POST /bitwarden/api/accounts/prelogin
+  <a href="#post-bitwardenapiaccountsprelogin-post-bitwardenidentityaccountsprelogin" title="POST /bitwarden/api/accounts/prelogin &amp; POST /bitwarden/identity/accounts/prelogin" class="md-nav__link">
+    POST /bitwarden/api/accounts/prelogin &amp; POST /bitwarden/identity/accounts/prelogin
   </a>
   
     <nav class="md-nav">
@@ -5036,13 +5036,15 @@ with the stack, to be used for the konnectors.</p>
 <p>The bitwarden clients can connect to the cozy-stack APIs by setting their URL
 to <code>https://&lt;instance&gt;/bitwarden</code>.</p>
 <h2 id="routes-for-accounts-and-connect">Routes for accounts and connect<a class="headerlink" href="#routes-for-accounts-and-connect" title="Permanent link">&para;</a></h2>
-<h3 id="post-bitwardenapiaccountsprelogin">POST /bitwarden/api/accounts/prelogin<a class="headerlink" href="#post-bitwardenapiaccountsprelogin" title="Permanent link">&para;</a></h3>
+<h3 id="post-bitwardenapiaccountsprelogin-post-bitwardenidentityaccountsprelogin">POST /bitwarden/api/accounts/prelogin &amp; POST /bitwarden/identity/accounts/prelogin<a class="headerlink" href="#post-bitwardenapiaccountsprelogin-post-bitwardenidentityaccountsprelogin" title="Permanent link">&para;</a></h3>
 <p>It allows the client to know the number of KDF iterations to apply when hashing
 the master password. It can also tell if the login via OIDC is mandatory, if
 the vault is empty (when both conditions are true, the onboarding process is a
 bit different), and if flat or nested subdomains are used.</p>
+<p>There are 2 routes for the same endpoint, as Bitwarden has moved from the first
+to the second, and we want to ensure a smooth migration for clients.</p>
 <h4 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/bitwarden/api/accounts/prelogin</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/bitwarden/identity/accounts/prelogin</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </pre></div>

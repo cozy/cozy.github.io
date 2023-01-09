@@ -2940,6 +2940,117 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#possible-error-types" title="Possible error types" class="md-nav__link">
+    Possible error types
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#invalid_rules" title="invalid_rules" class="md-nav__link">
+    invalid_rules
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sharing_in_sharing" title="sharing_in_sharing" class="md-nav__link">
+    sharing_in_sharing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#missing_matching_docs_for_owner" title="missing_matching_docs_for_owner" class="md-nav__link">
+    missing_matching_docs_for_owner
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#missing_sharing_for_member" title="missing_sharing_for_member" class="md-nav__link">
+    missing_sharing_for_member
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#missing_files_rule_for_member" title="missing_files_rule_for_member" class="md-nav__link">
+    missing_files_rule_for_member
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#missing_matching_docs_for_member" title="missing_matching_docs_for_member" class="md-nav__link">
+    missing_matching_docs_for_member
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disk_quota_exceeded" title="disk_quota_exceeded" class="md-nav__link">
+    disk_quota_exceeded
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#read_only_member" title="read_only_member" class="md-nav__link">
+    read_only_member
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#invalid_doc_rev" title="invalid_doc_rev" class="md-nav__link">
+    invalid_doc_rev
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#invalid_doc_name" title="invalid_doc_name" class="md-nav__link">
+    invalid_doc_name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#invalid_doc_checksum" title="invalid_doc_checksum" class="md-nav__link">
+    invalid_doc_checksum
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#invalid_doc_parent" title="invalid_doc_parent" class="md-nav__link">
+    invalid_doc_parent
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#missing_matching_doc_for_owner" title="missing_matching_doc_for_owner" class="md-nav__link">
+    missing_matching_doc_for_owner
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#missing_matching_doc_for_member" title="missing_matching_doc_for_member" class="md-nav__link">
+    missing_matching_doc_for_member
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#request_12" title="Request" class="md-nav__link">
     Request
   </a>
@@ -3719,6 +3830,117 @@ revision tree (no generation smaller for a children than its parent).</p>
 
 
 <h3 id="post-instancesdomaincheckssharings">POST /instances/:domain/checks/sharings<a class="headerlink" href="#post-instancesdomaincheckssharings" title="Permanent link">&para;</a></h3>
+<p>This endpoint can be used to check the setup of sharings owned by a given
+instance and the consistency of the shared files and folders with their
+counterparts on the Cozy they&rsquo;re shared with. It accepts one parameter in the
+query-string:</p>
+<ul>
+<li><code>Fast</code> to skip the files and folders consistency check as it can be quite long</li>
+</ul>
+<p>It will return a <code>200 OK</code>, except if the instance is not found where the code
+will be <code>404 Not Found</code> (a <code>5xx</code> can also happen in case of server errors like
+CouchDB not available). The format of the response will be a JSON array of
+objects, each object representing an error.</p>
+<h4 id="possible-error-types">Possible error types<a class="headerlink" href="#possible-error-types" title="Permanent link">&para;</a></h4>
+<h5 id="invalid_rules">invalid_rules<a class="headerlink" href="#invalid_rules" title="Permanent link">&para;</a></h5>
+<p>This will be raised when the owner&rsquo;s sharing rules are invalid.
+The validation result will be returned in the <code>error</code> attribute.</p>
+<h5 id="sharing_in_sharing">sharing_in_sharing<a class="headerlink" href="#sharing_in_sharing" title="Permanent link">&para;</a></h5>
+<p>This will be raised when the root of the sharing being checked is part of
+another sharing (i.e. one of its parent folders is shared). The parent
+sharing can be found either on the owner&rsquo;s instance or on one of its members&rsquo;
+instance.
+The <code>parent_sharing</code> attribute will contain the parent sharing ID.</p>
+<h5 id="missing_matching_docs_for_owner">missing_matching_docs_for_owner<a class="headerlink" href="#missing_matching_docs_for_owner" title="Permanent link">&para;</a></h5>
+<p>This will be raised if the shared files and folders associated with the sharing
+could not be fetched on the owner&rsquo;s instance.
+The request error will be returned in the <code>error</code> attribute.
+No further consistency checks will be run on this sharing.</p>
+<h5 id="missing_sharing_for_member">missing_sharing_for_member<a class="headerlink" href="#missing_sharing_for_member" title="Permanent link">&para;</a></h5>
+<p>This will be raised when the associated <code>io.cozy.sharing</code> document cannot be
+found on a sharing member&rsquo;s instance.
+The request error will be returned in the <code>error</code> attribute.
+No further consistency checks will be run for this member.</p>
+<h5 id="missing_files_rule_for_member">missing_files_rule_for_member<a class="headerlink" href="#missing_files_rule_for_member" title="Permanent link">&para;</a></h5>
+<p>This will be raised if a member&rsquo;s sharing doesn&rsquo;t have any sharing rule for
+<code>io.cozy.files</code> documents (while the owner&rsquo;s sharing has been determined to be
+of this type).
+The member&rsquo;s domain will be available in the <code>member</code> attribute.
+No further consistency checks will be run for this member.</p>
+<h5 id="missing_matching_docs_for_member">missing_matching_docs_for_member<a class="headerlink" href="#missing_matching_docs_for_member" title="Permanent link">&para;</a></h5>
+<p>This will be raised if the shared files and folders associated with the sharing
+could not be fetched on a member&rsquo;s instance.
+The request error will be returned in the <code>error</code> attribute and the member&rsquo;s
+domain in the <code>member</code> attribute. No further consistency checks will be run for
+this member.</p>
+<h5 id="disk_quota_exceeded">disk_quota_exceeded<a class="headerlink" href="#disk_quota_exceeded" title="Permanent link">&para;</a></h5>
+<p>This will be raised if a file is outdated or missing on an instance and its size
+is larger than the available space on this instance. If the file was created or
+modified in the last 5 minutes, the check is skipped as we expect the
+synchronization to happen later.
+The instance&rsquo;s domain will be available in the <code>instance</code> attribute.</p>
+<h5 id="read_only_member">read_only_member<a class="headerlink" href="#read_only_member" title="Permanent link">&para;</a></h5>
+<p>This will be raised if a file or folder is outdated or missing on the owner&rsquo;s
+instance and the member being checked has only read-only access to the sharing.
+This is not really an error as this behavior is expected but since it can be
+confusing for users we log it for debugging purposes.
+The member&rsquo;s domain will be available in the <code>member</code> attribute.</p>
+<h5 id="invalid_doc_rev">invalid_doc_rev<a class="headerlink" href="#invalid_doc_rev" title="Permanent link">&para;</a></h5>
+<p>This will be raised if a file or folder&rsquo;s revisions don&rsquo;t match on the owner&rsquo;s
+and member&rsquo;s instances while the member has write access to the sharing and the
+file size is not greater than the outdated instance&rsquo;s available disk space. The
+revisions generations can be the same too. If the document was modified in the
+last 5 minutes, the check is skipped as we expect the synchronization to happen
+later.
+The member&rsquo;s domain will be available in the <code>member</code> attribute, as well as the
+revision of the member document in <code>memberRev</code> and the complete owner document
+in <code>ownerDoc</code>.</p>
+<h5 id="invalid_doc_name">invalid_doc_name<a class="headerlink" href="#invalid_doc_name" title="Permanent link">&para;</a></h5>
+<p>This will be raised if a file or folder&rsquo;s revisions match on the owner&rsquo;s and
+member&rsquo;s instances but their names don&rsquo;t.
+The member&rsquo;s domain will be available in the <code>member</code> attribute, as well as the
+name of the member document in <code>memberName</code> and the complete owner document
+in <code>ownerDoc</code>.</p>
+<h5 id="invalid_doc_checksum">invalid_doc_checksum<a class="headerlink" href="#invalid_doc_checksum" title="Permanent link">&para;</a></h5>
+<p>This will be raised if a file&rsquo;s revisions match on the owner&rsquo;s and member&rsquo;s
+instances but their checksums don&rsquo;t.
+The member&rsquo;s domain will be available in the <code>member</code> attribute, as well as the
+checksum of the member file in <code>memberChecksum</code> and the complete owner document
+in <code>ownerDoc</code>.</p>
+<h5 id="invalid_doc_parent">invalid_doc_parent<a class="headerlink" href="#invalid_doc_parent" title="Permanent link">&para;</a></h5>
+<p>This will be raised if a file or folder&rsquo;s parent directories don&rsquo;t match on the
+owner&rsquo;s and member&rsquo;s instances but their names don&rsquo;t. Since it is expected for
+the sharing root to not have different parents on each instance, the check does
+not apply to this document.
+The member&rsquo;s domain will be available in the <code>member</code> attribute, as well as the
+id of the member&rsquo;s parent directory in <code>memberParent</code> and the complete owner
+document in <code>ownerDoc</code>.</p>
+<h5 id="missing_matching_doc_for_owner">missing_matching_doc_for_owner<a class="headerlink" href="#missing_matching_doc_for_owner" title="Permanent link">&para;</a></h5>
+<p>This will be raised if a file or directory is missing on the owner&rsquo;s instance
+while the member being check has write access to the sharing and the file size
+is not greater than the instance&rsquo;s available disk space. If the missing document
+was created or modified in the last 5 minutes, the check is skipped as we expect
+the synchronization to happen later.
+The member&rsquo;s domain will be available in the <code>member</code> attribute and the complete
+missing member document in <code>memberDoc</code>.</p>
+<h5 id="missing_matching_doc_for_member">missing_matching_doc_for_member<a class="headerlink" href="#missing_matching_doc_for_member" title="Permanent link">&para;</a></h5>
+<p>This will be raised if a file or directory is missing on a member&rsquo;s instance
+while the file size is not greater than the instance&rsquo;s available disk space. If
+the missing document was created or modified in the last 5 minutes, the check is
+skipped as we expect the synchronization to happen later.
+The member&rsquo;s domain will be available in the <code>member</code> attribute and the complete
+missing owner document in <code>ownerDoc</code>.</p>
+<p>===</p>
+<p>Other error types include <code>missing_trigger_on_active_sharing</code>,
+<code>trigger_on_inactive_sharing</code>, <code>not_enough_members</code>, <code>invalid_member_status</code>,
+<code>invalid_instance_for_member</code>, <code>missing_instance_for_member</code>,
+<code>missing_oauth_client</code>, <code>missing_access_token</code>, <code>invalid_number_of_credentials</code>
+and <code>missing_inbound_client_id</code>.</p>
+<p>When checking for files and folders inconsistencies, sharings will be skipped
+when inactive, not initialized, read-only or not about <code>io.cozy.files</code>
+documents.
+Also, for each instance, only the sharings owned by said instance will be
+checked. Other sharings will be checked via their owner instance.</p>
 <h4 id="request_12">Request<a class="headerlink" href="#request_12" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/instances/alice.cozy.localhost/checks/sharings</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 </pre></div>
