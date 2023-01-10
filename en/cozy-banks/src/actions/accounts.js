@@ -7,8 +7,7 @@ import {
   GROUP_DOCTYPE,
   ACCOUNT_DOCTYPE,
   TRANSACTION_DOCTYPE,
-  RECURRENCE_DOCTYPE,
-  BANK_ACCOUNT_STATS_DOCTYPE
+  RECURRENCE_DOCTYPE
 } from 'doctypes'
 import { destroyRecurrenceIfEmpty } from 'ducks/recurrence/api'
 import { disableOutdatedNotifications } from 'ducks/settings/helpers'
@@ -52,18 +51,6 @@ const removeAccountFromGroups = async (client, account) => {
   await client.saveAll(ugroups)
 }
 
-export const removeStats = async (client, account) => {
-  const statsResponse = await client.query(
-    Q(BANK_ACCOUNT_STATS_DOCTYPE).where({
-      'relationships.account.data._id': account._id
-    })
-  )
-
-  for (const accountStats of statsResponse.data) {
-    await client.destroy(accountStats)
-  }
-}
-
 export const updateRecurrences = async (client, account, deletedOps) => {
   const impactedRecurrenceIds = uniq(
     deletedOps.map(op => get(op, 'relationships.recurrence.data._id'))
@@ -83,7 +70,6 @@ export const onAccountDelete = async (client, account) => {
   })
   const deletedOps = await deleteOrphanOperations(client, account)
   await removeAccountFromGroups(client, account)
-  await removeStats(client, account)
   await updateRecurrences(client, account, deletedOps)
   await disableOutdatedNotifications(client)
   Alerter.removeNotification(notif)
@@ -92,7 +78,6 @@ export const onAccountDelete = async (client, account) => {
 
 export const onGroupDelete = async (client, account) => {
   await deleteOrphanOperations(client, account)
-  await removeStats(client, account)
   await disableOutdatedNotifications(client)
 }
 

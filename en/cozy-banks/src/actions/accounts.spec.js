@@ -1,8 +1,4 @@
-import {
-  removeStats,
-  deleteOrphanOperations,
-  onAccountDelete
-} from './accounts'
+import { deleteOrphanOperations, onAccountDelete } from './accounts'
 import CozyClient from 'cozy-client'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 
@@ -48,35 +44,6 @@ describe('remove orphan transactions', () => {
     await deleteOrphanOperations(client, account)
     expect(collection.destroyAll).toHaveBeenCalledWith(orphans1)
     expect(collection.destroyAll).toHaveBeenCalledWith(orphans2)
-  })
-})
-
-describe('remove orphan transactions', () => {
-  it('should remove the stats doc corresponding to the account if it exists', async () => {
-    const { client } = setup()
-    const account = { _id: 'account' }
-    const stats = { _id: 'stats' }
-    client.query.mockResolvedValueOnce({ data: [stats] })
-
-    await removeStats(client, account)
-    expect(client.query).toHaveBeenCalledWith(
-      expect.objectContaining({
-        selector: {
-          'relationships.account.data._id': 'account'
-        }
-      })
-    )
-    expect(client.destroy).toHaveBeenCalledWith(stats)
-  })
-
-  it('should do nothing if no stats doc corresponding to the account exist', async () => {
-    const { client } = setup()
-    const account = { _id: 'account' }
-    client.query.mockResolvedValueOnce({ data: [] })
-
-    await removeStats(client, account)
-
-    expect(client.destroy).not.toHaveBeenCalled()
   })
 })
 

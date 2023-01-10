@@ -75,12 +75,6 @@
       "file": "categorization.js",
       "comment": "This service must be called programmatically from konnectors. See https://github.com/cozy/cozy-banks/blob/master/docs/services.md for more information."
     },
-    "stats": {
-      "type": "node",
-      "file": "stats.js",
-      "trigger": "@event io.cozy.bank.operations:CREATED,UPDATED",
-      "debounce": "1m"
-    },
     "recurrence": {
       "type": "node",
       "file": "recurrence.js",
@@ -186,11 +180,6 @@
     "bank.accounts": {
       "description": "Used to list your bank accounts",
       "type": "io.cozy.bank.accounts",
-      "verbs": ["GET", "POST", "PUT", "DELETE"]
-    },
-    "bank.accounts.stats": {
-      "description": "Used to aggregate stats about bank accounts",
-      "type": "io.cozy.bank.accounts.stats",
       "verbs": ["GET", "POST", "PUT", "DELETE"]
     },
     "bank.operations": {

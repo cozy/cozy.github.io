@@ -23,7 +23,6 @@ export const APP_DOCTYPE = 'io.cozy.apps'
 export const KONNECTOR_DOCTYPE = 'io.cozy.konnectors'
 export const COZY_ACCOUNT_DOCTYPE = 'io.cozy.accounts'
 export const PERMISSION_DOCTYPE = 'io.cozy.permissions'
-export const BANK_ACCOUNT_STATS_DOCTYPE = 'io.cozy.bank.accounts.stats'
 export const CONTACT_DOCTYPE = 'io.cozy.contacts'
 export const RECURRENCE_DOCTYPE = 'io.cozy.bank.recurrence'
 export const IDENTITIES_DOCTYPE = 'io.cozy.identities'
@@ -235,16 +234,6 @@ export const schema = {
     doctype: KONNECTOR_DOCTYPE,
     attributes: {},
     relationships: {}
-  },
-  stats: {
-    doctype: BANK_ACCOUNT_STATS_DOCTYPE,
-    attributes: {},
-    relationships: {
-      account: {
-        type: 'has-one',
-        doctype: ACCOUNT_DOCTYPE
-      }
-    }
   },
   tags: {
     doctype: TAGS_DOCTYPE,
