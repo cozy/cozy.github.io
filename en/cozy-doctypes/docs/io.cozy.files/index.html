@@ -1221,6 +1221,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#trash" title="Trash" class="md-nav__link">
+    Trash
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#references" title="References" class="md-nav__link">
     References
   </a>
@@ -2737,6 +2744,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#trash" title="Trash" class="md-nav__link">
+    Trash
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#references" title="References" class="md-nav__link">
     References
   </a>
@@ -2861,7 +2875,7 @@
 <li><code>md5sum</code>: {string} the checksum of its content, computed with the MD5 algorithm</li>
 <li><code>created_at</code>: {date} the date of the creation of this file given by the client</li>
 <li><code>updated_at</code>: {date} the date of the last update of this file given by the client</li>
-<li><code>tags</code>: {array of strings} a list of tags</li>
+<li><code>tags</code>: {array of strings} a list of tags. It is currently used to know if a file was uploaded through the mobile photo sync, with the value <code>library</code>. </li>
 <li><code>size</code>: {number} the size of its content, in bytes</li>
 <li><code>executable</code>: {bool} true is the file has the executable bit on UNIX (<code>chmod +x</code>)</li>
 <li><code>class</code>: {string} a class in the list: <code>['image', 'document', 'audio', 'video', 'text', 'binary', 'pdf', 'files', 'code', 'slide', 'spreadsheet', 'text', 'zip', 'shortcut']</code></li>
@@ -2897,6 +2911,19 @@ to be added to a document.</p>
 <p>It also has a relationship with its <code>parent</code> in the JSON-API representation.</p>
 <p>For an <code>image</code>, there are 3 links to thumbnails: <code>small</code>, <code>medium</code>, and <code>large</code>.
 These thumbnail links are valid for 10 minutes. After that, links will return a 400 Bad Request response code.</p>
+<h3 id="trash">Trash<a class="headerlink" href="#trash" title="Permanent link">&para;</a></h3>
+<p>When a file or a directory is put in the trash bin, some attributes are updated:
+- <code>trashed</code> is set to true, but only for files: directories never have this attribute.
+- The <code>restore_path</code> is set, for both files and directories.
+  - ⚠️ The <code>restore_path</code> is not set on children. For instance, if a directory <code>foo</code> is trashed, it will have a <code>restore_path</code> but not the children. 
+- The <code>path</code> is updated only for directories, starting with <code>.cozy_trash</code></p>
+<p>Here is how one could query files and directories <strong>not</strong> in the trash, through a mango query:</p>
+<div class="codehilite"><pre><span></span>_id: { $ne: &#39;io.cozy.files.trash-dir&#39; },
+path: { $or: [{ $exists: false }, { $regex: &#39;^(?!/.cozy_trash)&#39; }] },
+trashed: { $or: [{ $exists: false }, { $eq: false }] }
+</pre></div>
+
+
 <h3 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h3>
 <p>It&rsquo;s possible to link a file or a folder to another document.
 It&rsquo;s called <a href="https://docs.cozy.io/en/cozy-stack/references-docs-in-vfs/">a reference</a>.
