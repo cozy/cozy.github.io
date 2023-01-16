@@ -130,9 +130,8 @@ describe('Interactions', () => {
     })
     client.save.mockImplementation(doc => ({ data: doc }))
     useBreakpoints.mockReturnValue({ isDesktop })
-    const router = { location: 'fakeLocation' }
     const root = render(
-      <AppLike client={client} router={router}>
+      <AppLike client={client}>
         <TransactionsDumb
           breakpoints={{ isDesktop: false }}
           transactions={transactions}

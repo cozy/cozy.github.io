@@ -9,7 +9,7 @@ import fixtures from 'test/fixtures'
 
 import { accountsConn, recipientsConn, myselfConn } from 'doctypes'
 import { TransferErrorDialog } from 'ducks/transfers/steps/TransferState'
-import TransferPage, { TransferPage as DumbTransferPage } from './TransferPage'
+import TransferPage, { DumbTransferPage } from './TransferPage'
 
 import * as transfers from './transfers'
 

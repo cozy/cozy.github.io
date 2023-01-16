@@ -1,5 +1,6 @@
 /* global __TARGET__, __APP_VERSION__ */
 import React from 'react'
+import { Outlet } from 'react-router-dom'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
 import AppVersion from 'ducks/settings/AppVersion'
@@ -10,7 +11,7 @@ import LegalMention from 'ducks/legal/LegalMention'
 import TabsHeader from 'ducks/settings/TabsHeader'
 import Delayed from 'components/Delayed'
 
-const Settings = ({ children, delayContent }) => {
+const Settings = ({ delayContent }) => {
   const { isMobile } = useBreakpoints()
 
   return (
@@ -21,7 +22,7 @@ const Settings = ({ children, delayContent }) => {
       <Delayed delay={delayContent}>
         <Padded className={styles.Settings__Content}>
           <LegalMention className={isMobile ? 'u-mb-half ' : 'u-mt-1'} />
-          {children}
+          <Outlet />
         </Padded>
       </Delayed>
       {__TARGET__ === 'mobile' && (

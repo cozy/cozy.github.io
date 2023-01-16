@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import Chip from 'cozy-ui/transpiled/react/Chips'
 import Icon from 'cozy-ui/transpiled/react/Icon'
@@ -6,7 +7,6 @@ import TagIcon from 'cozy-ui/transpiled/react/Icons/Tag'
 
 import { TAGS_DOCTYPE } from 'doctypes'
 import useDocument from 'components/useDocument'
-import { useHistory } from 'components/RouterContext'
 import { removeTagRelationshipFromTransaction } from 'ducks/transactions/helpers'
 import { trackEvent } from 'ducks/tracking/browser'
 
@@ -19,7 +19,7 @@ const TagChip = ({
   withIcon
 }) => {
   const tagFromDoctype = useDocument(TAGS_DOCTYPE, tag._id)
-  const history = useHistory()
+  const navigate = useNavigate()
 
   const handleDelete = deletable
     ? () => {
@@ -31,7 +31,7 @@ const TagChip = ({
   const handleClick = ev => {
     ev?.preventDefault() // works only on desktop, hammer is used to prevent click on mobile
     if (clickable) {
-      history.push(`tag/${tag._id}`)
+      navigate(`/tag/${tag._id}`)
     }
   }
 

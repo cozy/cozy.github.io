@@ -27,14 +27,11 @@ const getMainNode = isMobile => {
  * Decorates a components so that it scrolls to the top of the main
  * scrolling container when mounted.
  */
-const scrollToTopOnMount =
-  Component =>
-  // eslint-disable-next-line react/display-name
-  ({ ...props }) => {
-    const breakpoints = useBreakpoints()
-    const node = getMainNode(breakpoints.isMobile)
-    useScrollToOnMount(node, 0)
-    return <Component {...props} />
-  }
+const ScrollToTopOnMountWrapper = ({ children }) => {
+  const breakpoints = useBreakpoints()
+  const node = getMainNode(breakpoints.isMobile)
+  useScrollToOnMount(node, 0)
+  return <>{children}</>
+}
 
-export default scrollToTopOnMount
+export default ScrollToTopOnMountWrapper

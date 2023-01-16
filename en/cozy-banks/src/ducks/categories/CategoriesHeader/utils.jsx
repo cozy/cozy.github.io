@@ -1,14 +1,14 @@
-export const makeBreadcrumbs = (router, categoryName, subcategoryName, t) => {
+export const makeBreadcrumbs = (navigate, categoryName, subcategoryName, t) => {
   const breadcrumbs = [
     {
       name: t('Categories.title.general'),
-      onClick: () => router.push('/analysis/categories')
+      onClick: () => navigate('/analysis/categories')
     }
   ]
   if (categoryName) {
     breadcrumbs.push({
       name: t(`Data.categories.${categoryName}`),
-      onClick: () => router.push(`/analysis/categories/${categoryName}`)
+      onClick: () => navigate(`/analysis/categories/${categoryName}`)
     })
   }
   if (subcategoryName) {

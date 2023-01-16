@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
 import cx from 'classnames'
 
 import Typography from 'cozy-ui/transpiled/react/Typography'
@@ -7,7 +8,6 @@ import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 
 import Padded from 'components/Padded'
-import { useRouter } from 'components/RouterContext'
 import Header from 'components/Header'
 import BackButton from 'components/BackButton'
 import BarTheme from 'ducks/bar/BarTheme'
@@ -19,12 +19,12 @@ import styles from './styles.styl'
 
 const PlannedTransactionsPageHeader = () => {
   const { isMobile } = useBreakpoints()
-  const router = useRouter()
+  const navigate = useNavigate()
   const { t } = useI18n()
 
   const handleBack = useCallback(() => {
-    router.push('/balances/details')
-  }, [router])
+    navigate('/balances/details')
+  }, [navigate])
 
   return (
     <Header theme="inverted" fixed className={styles.Header}>

@@ -63,14 +63,11 @@ describe('transaction modal', () => {
     tracker.trackPage.mockReset()
   })
 
-  const setup = ({ router: routerOption, transactionId } = {}) => {
-    const router = routerOption || {
-      params: {}
-    }
+  const setup = ({ initialEntries: initialEntries, transactionId } = {}) => {
     const tracker = getTracker()
     const root = render(
       <TrackerProvider value={tracker}>
-        <AppLike client={client} router={router}>
+        <AppLike client={client} initialEntries={initialEntries}>
           <TransactionModal
             transactionId={transactionId || data[TRANSACTION_DOCTYPE][1]._id}
             showCategoryChoice={() => {}}
@@ -110,14 +107,8 @@ describe('transaction modal', () => {
 
   it('should send correct tracking events (balance page)', () => {
     trackPage('mon_compte:compte')
-    const router = {
-      location: {
-        pathname: '/balances/details'
-      },
-      params: {}
-    }
     const { root, tracker } = setup({
-      router
+      initialEntries: ['/balances/details']
     })
     expect(tracker.trackPage).toHaveBeenCalledWith('mon_compte:depense')
     tracker.trackPage.mockReset()
@@ -127,14 +118,8 @@ describe('transaction modal', () => {
 
   it('should send correct tracking events (categories page)', () => {
     trackPage('categories:homeImprovements:details')
-    const router = {
-      location: {
-        pathname: '/analysis/categories'
-      },
-      params: {}
-    }
     const { root, tracker } = setup({
-      router
+      initialEntries: ['/analysis/categories']
     })
     expect(tracker.trackPage).toHaveBeenCalledWith(
       'categories:homeImprovements:depense'

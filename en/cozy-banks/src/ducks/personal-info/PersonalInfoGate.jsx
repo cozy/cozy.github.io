@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
 import flag from 'cozy-flags'
 import { useQuery, hasQueryBeenLoaded, useClient } from 'cozy-client'
 
-import { useRouter } from 'components/RouterContext'
 import { older30s } from 'doctypes'
 import Loading from 'components/Loading'
 
@@ -26,10 +26,10 @@ const PersonalInfoGate = ({ children }) => {
     fetchPolicy: state => !state.lastError || older30s(state)
   })
 
-  const router = useRouter()
+  const navigate = useNavigate()
   const handleClose = useCallback(() => {
-    router.push('/balances')
-  }, [router])
+    navigate('/balances')
+  }, [navigate])
 
   if (!hasQueryBeenLoaded(identityCol) && !hasQueryErrored(identityCol)) {
     return <Loading />

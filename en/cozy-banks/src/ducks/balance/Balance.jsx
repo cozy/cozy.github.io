@@ -8,7 +8,7 @@ import isEqual from 'lodash/isEqual'
 
 import React, { PureComponent, Fragment } from 'react'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router'
+import { useNavigate } from 'react-router-dom'
 import { createStructuredSelector } from 'reselect'
 import cx from 'classnames'
 
@@ -140,9 +140,9 @@ class Balance extends PureComponent {
   }
 
   handleClickBalance() {
-    const { router, filterByAccounts } = this.props
+    const { navigate, filterByAccounts } = this.props
     filterByAccounts(this.getCheckedAccounts())
-    router.push('/balances/details')
+    navigate('/balances/details')
   }
 
   savePanelState() {
@@ -294,6 +294,15 @@ Balance.defaultProps = {
 
 export const DumbBalance = Balance
 
+const BalanceWrapper = ({ children, ...props }) => {
+  const navigate = useNavigate()
+  return (
+    <Balance navigate={navigate} {...props}>
+      {children}
+    </Balance>
+  )
+}
+
 const actionCreators = {
   filterByAccounts
 }
@@ -311,7 +320,6 @@ const addTransactions = Component => {
 }
 
 export default compose(
-  withRouter,
   connect(null, actionCreators),
   queryConnect({
     accounts: accountsConn,
@@ -326,4 +334,4 @@ export default compose(
   ),
   withClient,
   addTransactions
-)(Balance)
+)(BalanceWrapper)

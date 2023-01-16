@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react'
+import { useLocation } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import Figure from 'cozy-ui/transpiled/react/Figure'
@@ -12,7 +13,6 @@ import {
   replaceLastPart
 } from 'ducks/tracking/browser'
 import useDocument from 'components/useDocument'
-import { useLocation } from 'components/RouterContext'
 import RawContentDialog from 'components/RawContentDialog'
 import TransactionModalInfoContent from 'ducks/transactions/TransactionModal/TransactionModalInfoContent'
 

@@ -1,4 +1,5 @@
 import React from 'react'
+import { MemoryRouter } from 'react-router-dom'
 import I18n from 'cozy-ui/transpiled/react/I18n'
 import { CozyProvider } from 'cozy-client'
 import { Provider } from 'react-redux'
@@ -6,7 +7,6 @@ import langEn from 'locales/en.json'
 import store from 'test/store'
 import getClient from 'test/client'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
-import RouterContext from 'components/RouterContext'
 import { TrackerProvider } from 'ducks/tracking/browser'
 import { JobsContext } from 'ducks/context/JobsContext'
 import { BanksContext } from 'ducks/context/BanksContext'
@@ -21,12 +21,18 @@ export const TestI18n = ({ children }) => {
   )
 }
 
-const AppLike = ({ children, store, client, router, jobsInProgress }) => {
+const AppLike = ({
+  children,
+  store,
+  initialEntries,
+  client,
+  jobsInProgress
+}) => {
   client = client || getClient()
   return (
     <WebviewIntentProvider>
       <TrackerProvider>
-        <RouterContext.Provider value={router}>
+        <MemoryRouter initialEntries={initialEntries}>
           <BreakpointsProvider>
             <Provider store={(client && client.store) || store}>
               <CozyProvider client={client}>
@@ -48,7 +54,7 @@ const AppLike = ({ children, store, client, router, jobsInProgress }) => {
               </CozyProvider>
             </Provider>
           </BreakpointsProvider>
-        </RouterContext.Provider>
+        </MemoryRouter>
       </TrackerProvider>
     </WebviewIntentProvider>
   )

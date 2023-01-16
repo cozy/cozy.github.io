@@ -1,4 +1,6 @@
 import React from 'react'
+import { Route, Routes } from 'react-router-dom'
+
 import SearchPage from './SearchPage'
 import { render, act } from '@testing-library/react'
 import AppLike from 'test/AppLike'
@@ -25,11 +27,7 @@ jest.mock('selectors/getClient', () => jest.fn())
 console.warn = jest.fn()
 
 describe('SearchPage', () => {
-  const setup = ({ router: routerOption } = {}) => {
-    const defaultRouter = {
-      params: {}
-    }
-    const router = routerOption || defaultRouter
+  const setup = ({ initialEntries } = {}) => {
     const client = createMockClient({
       queries: {
         'transactions-searchPage': {
@@ -41,7 +39,10 @@ describe('SearchPage', () => {
 
     getClient.mockReturnValue(client)
     const root = render(
-      <AppLike client={client} router={router}>
+      <AppLike client={client} initialEntries={initialEntries}>
+        <Routes>
+          <Route path="search/:search" element={<SearchPage />} />
+        </Routes>
         <SearchPage />
       </AppLike>
     )
@@ -60,26 +61,14 @@ describe('SearchPage', () => {
   })
 
   it('should perform a search when there is a search param', () => {
-    const { root } = setup({
-      router: {
-        params: {
-          search: 'Martin'
-        }
-      }
-    })
+    const { root } = setup({ initialEntries: ['/search/Martin'] })
 
     expect(root.getByText('3 results')).toBeTruthy()
     expect(root.getByText('Docteur Martoni')).toBeTruthy()
   })
 
   it('should update search results when a transaction is updated', () => {
-    const { root, client } = setup({
-      router: {
-        params: {
-          search: 'Martin'
-        }
-      }
-    })
+    const { root, client } = setup({ initialEntries: ['/search/Martin'] })
 
     const originalTransaction = fixtures[TRANSACTION_DOCTYPE].find(
       x => x._id === 'paiement_docteur_martoni'

@@ -5,7 +5,7 @@ import React, {
   useContext,
   useMemo
 } from 'react'
-import { useLocation } from 'components/RouterContext'
+import { useLocation } from 'react-router-dom'
 
 export const SelectedTagsContext = createContext()
 

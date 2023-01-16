@@ -1,11 +1,7 @@
 import React from 'react'
+import { useLocation } from 'react-router-dom'
 import { logException } from 'lib/sentry'
 import Error from 'components/ErrorBoundary/Error'
-import get from 'lodash/get'
-
-const getPathname = children => {
-  return get(children, 'props.location.pathname')
-}
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -22,8 +18,8 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const prevPathname = getPathname(prevProps.children)
-    const pathname = getPathname(this.props.children)
+    const prevPathname = prevProps.location.pathname
+    const pathname = this.props.location.pathname
     if (this.state.hasError && prevPathname !== pathname) {
       this.setState({ hasError: false })
     }
@@ -38,4 +34,13 @@ class ErrorBoundary extends React.Component {
   }
 }
 
-export default ErrorBoundary
+const ErrorBoundaryWrapper = ({ children, ...props }) => {
+  const location = useLocation()
+  return (
+    <ErrorBoundary location={location} {...props}>
+      {children}
+    </ErrorBoundary>
+  )
+}
+
+export default ErrorBoundaryWrapper

@@ -23,11 +23,11 @@ const getBalanceHistory = (accounts, transactions, to, from) => {
 }
 
 const propSelector = propName => (state, props) => props[propName]
-const getRouter = propSelector('router')
+const getParams = propSelector('params')
 
 const getCurrentCategory = createSelector(
-  [getRouter],
-  router => router.params.subcategoryName
+  [getParams],
+  params => params.subcategoryName
 )
 
 const getFilteredTransactionsForChart = createSelector(

@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react'
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router-dom'
 import orderBy from 'lodash/orderBy'
 import groupBy from 'lodash/groupBy'
 
@@ -23,7 +23,6 @@ import Header from 'components/Header'
 import BackButton from 'components/BackButton'
 import PageTitle from 'components/Title/PageTitle'
 import withError from 'components/withError'
-import { useHistory } from 'components/RouterContext'
 
 import { useTrackPage } from 'ducks/tracking/browser'
 import LegalMention from 'ducks/legal/LegalMention'
@@ -62,7 +61,7 @@ const DeprecatedNotice = withStyles(theme => ({
 }))(ListSubheader)
 
 export const RecurrencesPage = ({ emptyIcon, showTitle }) => {
-  const history = useHistory()
+  const navigate = useNavigate()
   const { isMobile } = useBreakpoints()
   const [areDeprecatedBundleShown, setAreDeprecatedBundleShown] =
     useState(false)
@@ -91,7 +90,7 @@ export const RecurrencesPage = ({ emptyIcon, showTitle }) => {
                 items={[
                   {
                     name: t('Recurrence.title'),
-                    onClick: () => history.push('/analysis/recurrence')
+                    onClick: () => navigate('/analysis/recurrence')
                   }
                 ]}
                 theme="primary"

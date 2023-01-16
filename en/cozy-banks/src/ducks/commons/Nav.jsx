@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import cx from 'classnames'
 import UINav, {
@@ -7,7 +8,6 @@ import UINav, {
   NavText,
   NavLink as UINavLink
 } from 'cozy-ui/transpiled/react/Nav'
-import { withRouter } from 'react-router'
 import { items } from './helpers'
 
 /**
@@ -23,15 +23,15 @@ export const navLinkMatch = (rx, to, pathname) => {
  * to have a faster change of active (not waiting for the route to completely
  * change).
  */
-export const NavLink = withRouter(props => {
+export const NavLink = props => {
   const {
     children,
     to,
     rx,
-    location,
     clickState: [lastClicked, setLastClicked]
   } = props
 
+  const location = useLocation()
   const pathname = lastClicked ? lastClicked : location.pathname
   const isActive = navLinkMatch(rx, to, pathname)
   return (
@@ -47,7 +47,7 @@ export const NavLink = withRouter(props => {
       {children}
     </a>
   )
-})
+}
 
 const NavItems = ({ items }) => {
   const clickState = useState(null)

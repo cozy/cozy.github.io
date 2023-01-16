@@ -1,6 +1,6 @@
 import React, { Component, useState, useCallback, useMemo } from 'react'
 import ReactDOM from 'react-dom'
-import { withRouter } from 'react-router'
+import { useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
 import cx from 'classnames'
 import debounce from 'lodash/debounce'
@@ -106,8 +106,8 @@ class TransactionsPage extends Component {
   }
 
   trackPage() {
-    const { router } = this.props
-    const { categoryName, subcategoryName } = router.params
+    const { params } = this.props
+    const { categoryName, subcategoryName } = params
     if (categoryName && subcategoryName) {
       trackPage(
         `analyse:${categoryName ? categoryName : 'home'}${
@@ -302,14 +302,22 @@ const addTransactions = Component => {
 }
 
 export const DumbTransactionsPage = TransactionsPage
+
+const TransactionsPageWrapper = ({ children, ...props }) => {
+  const params = useParams()
+  return (
+    <TransactionsPage params={params} {...props}>
+      {children}
+    </TransactionsPage>
+  )
+}
+
 export const UnpluggedTransactionsPage = compose(
-  withRouter,
   translate(),
   withBreakpoints()
-)(TransactionsPage)
+)(TransactionsPageWrapper)
 
 const ConnectedTransactionsPage = compose(
-  withRouter,
   queryConnect({
     accounts: accountsConn,
     groups: groupsConn,

@@ -1,5 +1,5 @@
 import React from 'react'
-import { IndexRoute, Route, Redirect } from 'react-router'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import App from 'components/App'
 import { isWebApp } from 'cozy-device-helper'
 
@@ -23,88 +23,192 @@ import { TransferPage } from 'ducks/transfers'
 import { SearchPage } from 'ducks/search'
 import { AnalysisPage } from 'ducks/analysis'
 import UserActionRequired from 'components/UserActionRequired'
-import scrollToTopOnMount from 'components/scrollToTopOnMount'
+import ScrollToTopOnMountWrapper from 'components/scrollToTopOnMount'
 import PlannedTransactionsPage from 'ducks/future/PlannedTransactionsPage'
 import SetFilterAndRedirect from 'ducks/balance/SetFilterAndRedirect'
 import TagPage from 'ducks/tags/TagPage'
 
 // Use a function to delay instantation and have access to AppRoute.renderExtraRoutes
 const AppRoute = () => (
-  <Route component={UserActionRequired}>
-    <Route component={App}>
-      {isWebApp() && <Redirect from="/" to="balances" />}
-      <Route path="balances">
-        <IndexRoute component={scrollToTopOnMount(Balance)} />
-        <Route
-          path="details"
-          component={scrollToTopOnMount(BalanceDetailsPage)}
-        />
-        <Route
-          path="future"
-          component={scrollToTopOnMount(PlannedTransactionsPage)}
-        />
-        <Route
-          path=":accountOrGroupId/:page"
-          component={SetFilterAndRedirect}
-        />
-      </Route>
-      <Route path="categories">
-        <Redirect from="*" to="analysis/categories" />
-      </Route>
-      <Route path="recurrence">
-        <Redirect from="*" to="analysis/recurrence" />
-      </Route>
-      <Route path="analysis" component={scrollToTopOnMount(AnalysisPage)}>
-        <Route path="categories">
-          <IndexRoute component={scrollToTopOnMount(CategoriesPage)} />
+  <Routes>
+    <Route element={<UserActionRequired />}>
+      <Route path="/" element={<App />}>
+        {isWebApp() && (
+          <Route index element={<Navigate to="balances" replace />} />
+        )}
+        <Route path="balances">
           <Route
-            path=":categoryName/:subcategoryName"
-            component={scrollToTopOnMount(CategoriesPage)}
+            index
+            element={
+              <ScrollToTopOnMountWrapper>
+                <Balance />
+              </ScrollToTopOnMountWrapper>
+            }
           />
           <Route
-            path=":categoryName"
-            component={scrollToTopOnMount(CategoriesPage)}
+            path="details"
+            element={
+              <ScrollToTopOnMountWrapper>
+                <BalanceDetailsPage />
+              </ScrollToTopOnMountWrapper>
+            }
           />
-        </Route>
-        <Route path="recurrence">
-          <IndexRoute component={scrollToTopOnMount(RecurrencesPage)} />
           <Route
-            path=":bundleId"
-            component={scrollToTopOnMount(RecurrencePage)}
+            path="future"
+            element={
+              <ScrollToTopOnMountWrapper>
+                <PlannedTransactionsPage />
+              </ScrollToTopOnMountWrapper>
+            }
+          />
+          <Route
+            path=":accountOrGroupId/:page"
+            element={<SetFilterAndRedirect />}
           />
         </Route>
-      </Route>
-      <Route path="settings">
         <Route
-          path="groups/new"
-          component={scrollToTopOnMount(NewGroupSettings)}
-        />
+          path="categories/*"
+          element={<Navigate to="../analysis/categories" replace />}
+        ></Route>
         <Route
-          path="groups/:groupId"
-          component={scrollToTopOnMount(ExistingGroupSettings)}
-        />
-
-        <Redirect from="accounts/:accountId" to="accounts" />
-        <Route component={scrollToTopOnMount(Settings)}>
-          <IndexRoute component={Configuration} />
-          <Route path="accounts" component={AccountsSettings} />
-          <Route path="groups" component={GroupsSettings} />
-          <Route path="tags" component={TagsSettings} />
-          <Route path="configuration" component={Configuration} />
+          path="recurrence/*"
+          element={<Navigate to="../analysis/recurrence" replace />}
+        ></Route>
+        <Route
+          path="analysis"
+          element={
+            <ScrollToTopOnMountWrapper>
+              <AnalysisPage />
+            </ScrollToTopOnMountWrapper>
+          }
+        >
+          <Route path="categories">
+            <Route
+              index
+              element={
+                <ScrollToTopOnMountWrapper>
+                  <CategoriesPage />
+                </ScrollToTopOnMountWrapper>
+              }
+            />
+            <Route
+              path=":categoryName"
+              element={
+                <ScrollToTopOnMountWrapper>
+                  <CategoriesPage />
+                </ScrollToTopOnMountWrapper>
+              }
+            />
+            <Route
+              path=":categoryName/:subcategoryName"
+              element={
+                <ScrollToTopOnMountWrapper>
+                  <CategoriesPage />
+                </ScrollToTopOnMountWrapper>
+              }
+            />
+          </Route>
+          <Route path="recurrence">
+            <Route
+              index
+              element={
+                <ScrollToTopOnMountWrapper>
+                  <RecurrencesPage />
+                </ScrollToTopOnMountWrapper>
+              }
+            />
+            <Route
+              path=":bundleId"
+              element={
+                <ScrollToTopOnMountWrapper>
+                  <RecurrencePage />
+                </ScrollToTopOnMountWrapper>
+              }
+            />
+          </Route>
         </Route>
+        <Route path="settings">
+          <Route
+            element={
+              <ScrollToTopOnMountWrapper>
+                <Settings />
+              </ScrollToTopOnMountWrapper>
+            }
+          >
+            <Route index element={<Configuration />} />
+            <Route path="accounts" element={<AccountsSettings />} />
+            <Route path="groups" element={<GroupsSettings />} />
+            <Route path="tags" element={<TagsSettings />} />
+            <Route path="configuration" element={<Configuration />} />
+          </Route>
+          <Route
+            path="groups/new"
+            element={
+              <ScrollToTopOnMountWrapper>
+                <NewGroupSettings />
+              </ScrollToTopOnMountWrapper>
+            }
+          />
+          <Route
+            path="groups/:groupId"
+            element={
+              <ScrollToTopOnMountWrapper>
+                <ExistingGroupSettings />
+              </ScrollToTopOnMountWrapper>
+            }
+          />
+          <Route
+            path="accounts/:accountId"
+            element={<Navigate to="../accounts" replace />}
+          />
+        </Route>
+        <Route
+          path="tag/:tagId"
+          element={
+            <ScrollToTopOnMountWrapper>
+              <TagPage />
+            </ScrollToTopOnMountWrapper>
+          }
+        />
+        <Route
+          path="transfers"
+          element={
+            <ScrollToTopOnMountWrapper>
+              <TransferPage />
+            </ScrollToTopOnMountWrapper>
+          }
+        />
+        <Route
+          path="search"
+          element={
+            <ScrollToTopOnMountWrapper>
+              <SearchPage />
+            </ScrollToTopOnMountWrapper>
+          }
+        />
+        <Route
+          path="search/:search"
+          element={
+            <ScrollToTopOnMountWrapper>
+              <SearchPage />
+            </ScrollToTopOnMountWrapper>
+          }
+        />
+        <Route
+          path="recurrencedebug"
+          element={
+            <ScrollToTopOnMountWrapper>
+              <DebugRecurrencePage />
+            </ScrollToTopOnMountWrapper>
+          }
+        />
+        {AppRoute.renderExtraRoutes()}
+        {isWebApp() && (
+          <Route path="*" element={<Navigate to="balances" replace />} />
+        )}
       </Route>
-      <Route path="tag/:tagId" component={scrollToTopOnMount(TagPage)} />
-      <Route path="transfers" component={scrollToTopOnMount(TransferPage)} />
-      <Route path="search" component={scrollToTopOnMount(SearchPage)} />
-      <Route path="search/:search" component={scrollToTopOnMount(SearchPage)} />
-      <Route
-        path="recurrencedebug"
-        component={scrollToTopOnMount(DebugRecurrencePage)}
-      />
-      {AppRoute.renderExtraRoutes()}
-      {isWebApp() && <Redirect from="*" to="balances" />}
     </Route>
-  </Route>
+  </Routes>
 )
 
 // Ability to overrides easily

@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
@@ -11,7 +12,6 @@ import Icon from 'cozy-ui/transpiled/react/Icon'
 import RightIcon from 'cozy-ui/transpiled/react/Icons/Right'
 import TagIcon from 'cozy-ui/transpiled/react/Icons/Tag'
 
-import { useHistory } from 'components/RouterContext'
 import { countTransactions } from 'components/Tag/helpers'
 
 const useStyles = makeStyles({
@@ -25,10 +25,10 @@ const TagListItem = ({ tag }) => {
   const { isMobile } = useBreakpoints()
   const styles = useStyles()
   const { t } = useI18n()
-  const history = useHistory()
+  const navigate = useNavigate()
 
   const handleListItemClick = () => {
-    history.push(`tag/${tag._id}`)
+    navigate(`/tag/${tag._id}`)
   }
 
   return (

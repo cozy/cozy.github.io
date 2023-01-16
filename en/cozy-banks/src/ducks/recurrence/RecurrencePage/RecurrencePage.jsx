@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useQuery, isQueryLoading, hasQueryBeenLoaded } from 'cozy-client'
 import { recurrenceConn, RECURRENCE_DOCTYPE } from 'doctypes'
 
 import Loading from 'components/Loading'
-import { useHistory, useParams } from 'components/RouterContext'
 import useDocument from 'components/useDocument'
 import BarTheme from 'ducks/bar/BarTheme'
 import { useTrackPage } from 'ducks/tracking/browser'
@@ -12,7 +12,7 @@ import BundleInfo from 'ducks/recurrence/RecurrencePage/BundleInfo'
 
 const RecurrencePage = () => {
   const params = useParams()
-  const history = useHistory()
+  const navigate = useNavigate()
   const recurrenceCol = useQuery(recurrenceConn.query, recurrenceConn)
 
   const bundleId = params.bundleId
@@ -26,9 +26,9 @@ const RecurrencePage = () => {
     // If the recurrence gets deleted, there is no bundle anymore and
     // we redirect to the recurrence list
     if (!shouldShowLoading && !bundle) {
-      history.push('/analysis/recurrence')
+      navigate('/analysis/recurrence')
     }
-  }, [shouldShowLoading, bundle, history])
+  }, [shouldShowLoading, bundle, navigate])
 
   if (shouldShowLoading) {
     return <Loading />

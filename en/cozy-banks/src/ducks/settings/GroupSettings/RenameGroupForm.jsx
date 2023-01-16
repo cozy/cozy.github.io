@@ -1,4 +1,5 @@
 import React, { useState, useRef, useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { useClient } from 'cozy-client'
 import { Media, Img } from 'cozy-ui/transpiled/react/Media'
@@ -7,7 +8,6 @@ import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Button from 'cozy-ui/transpiled/react/Button'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 
-import { useRouter } from 'components/RouterContext'
 import { getGroupLabel, renamedGroup } from 'ducks/groups/helpers'
 import { trackEvent } from 'ducks/tracking/browser'
 
@@ -17,7 +17,7 @@ const RenameGroupForm = props => {
   const [modifying, setModifying] = useState(false)
   const [saving, setSaving] = useState(false)
   const client = useClient()
-  const router = useRouter()
+  const navigate = useNavigate()
   const inputRef = useRef()
   const { t } = useI18n()
 
@@ -31,7 +31,7 @@ const RenameGroupForm = props => {
       const res = await client.save(updatedGroup)
       const doc = res?.data
       if (doc && !updatedGroup.id) {
-        router.push(`/settings/groups/${doc.id}`)
+        navigate(`/settings/groups/${doc.id}`)
       }
     } finally {
       setSaving(false)
@@ -40,7 +40,7 @@ const RenameGroupForm = props => {
         name: 'renommer'
       })
     }
-  }, [client, group, router])
+  }, [client, group, navigate])
 
   const handleModifyName = useCallback(() => {
     setModifying(true)

@@ -1,5 +1,4 @@
 import React from 'react'
-import { hashHistory } from 'react-router'
 
 import { withClient } from 'cozy-client'
 import { MobileRouter as AuthMobileRouter } from 'cozy-authentication'
@@ -19,7 +18,7 @@ import {
 } from 'ducks/client/linksHelpers'
 import appIcon from 'targets/favicons/icon-banks.jpg'
 
-export class MobileRouter extends React.Component {
+class MobileRouter extends React.Component {
   state = {
     shouldDisplayMigrateDialog: false
   }
@@ -56,7 +55,7 @@ export class MobileRouter extends React.Component {
   }
 
   render() {
-    const { routes, client } = this.props
+    const { children, client } = this.props
     const { shouldDisplayMigrateDialog } = this.state
 
     return (
@@ -68,18 +67,17 @@ export class MobileRouter extends React.Component {
         )}
         <AuthMobileRouter
           protocol={protocol}
-          history={hashHistory}
           appIcon={appIcon}
           appTitle={appTitle}
           appSlug={manifest.slug}
           universalLinkDomain={getUniversalLinkDomain()}
-          onAuthenticated={async () => {
-            hashHistory.replace('/balances')
+          onAuthenticated={async ({ history }) => {
+            history.replace('/balances')
             await initBar(client)
           }}
           LogoutComponent={LogoutModal}
         >
-          {routes}
+          {children}
         </AuthMobileRouter>
       </>
     )

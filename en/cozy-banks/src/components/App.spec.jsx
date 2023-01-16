@@ -1,4 +1,5 @@
 import React from 'react'
+import { Route, Routes } from 'react-router-dom'
 import { render, fireEvent, wait } from '@testing-library/react'
 
 import App from 'components/App'
@@ -39,16 +40,13 @@ describe('App', () => {
   const setup = () => {
     const client = new CozyClient({ links: [link] })
     jest.spyOn(client, 'queryAll').mockResolvedValue([])
-    const router = {
-      location: {
-        pathname: '/'
-      }
-    }
     const root = render(
       <AppLike client={client}>
-        <App router={router}>
-          <DumbComponent client={client} />
-        </App>
+        <Routes>
+          <Route path="/" element={<App />}>
+            <Route index element={<DumbComponent client={client} />} />
+          </Route>
+        </Routes>
       </AppLike>
     )
 

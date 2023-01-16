@@ -1,9 +1,9 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 
 import { Q, useQuery, isQueryLoading } from 'cozy-client'
 
 import { GROUP_DOCTYPE } from 'doctypes'
-import { useParams } from 'components/RouterContext'
 import Loading from 'components/Loading'
 import BarTheme from 'ducks/bar/BarTheme'
 import GroupSettings from 'ducks/settings/GroupSettings'

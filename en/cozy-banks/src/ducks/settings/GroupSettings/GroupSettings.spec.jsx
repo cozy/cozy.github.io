@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { render, fireEvent, act } from '@testing-library/react'
 import omit from 'lodash/omit'
 import cloneDeep from 'lodash/cloneDeep'
@@ -12,6 +13,11 @@ import GroupSettings from './GroupSettings'
 import AccountsList from './AccountsList'
 
 const fixtureGroup = fixtures[GROUP_DOCTYPE][0]
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: jest.fn()
+}))
 
 jest.mock('components/BackButton', () => () => null)
 
@@ -27,33 +33,22 @@ const createClient = () => {
 }
 
 const setup = ({ group, client: clientOption }) => {
+  const navigate = jest.fn()
+  useNavigate.mockReturnValue(navigate)
   const client = clientOption || createClient()
   const account = fixtures['io.cozy.bank.accounts'][0]
-  const router = {
-    push: jest.fn(),
-    replace: jest.fn(),
-    go: jest.fn(),
-    goBack: jest.fn(),
-    goForward: jest.fn(),
-    setRouteLeaveHook: jest.fn(),
-    isActive: jest.fn(),
-    params: {
-      groupId: '1234'
-    }
-  }
 
   const root = render(
-    <AppLike router={router} client={client}>
+    <AppLike client={client} initialEntries={['/settings/groups/1234']}>
       <GroupSettings
         account={account}
         group={group}
-        router={router}
         client={client}
         breakpoints={{ isMobile: false }}
       />
     </AppLike>
   )
-  return { router, client, root }
+  return { navigate, client, root }
 }
 
 describe('GroupSettings', () => {
@@ -70,13 +65,13 @@ describe('GroupSettings', () => {
 
   it('should rename new group', async () => {
     const group = omit(fixtures[GROUP_DOCTYPE][0], ['_id', 'id'])
-    const { router, client, root } = setup({ group })
+    const { navigate, client, root } = setup({ group })
     await rename(root, 'Renamed group')
     expect(client.save).toHaveBeenCalledWith({
       accounts: ['compteisa1', 'comptelou1', 'comptecla1', 'comptegene1'],
       label: 'Renamed group'
     })
-    expect(router.push).toHaveBeenCalledWith('/settings/groups/1234')
+    expect(navigate).toHaveBeenCalledWith('/settings/groups/1234')
   })
 
   it('should rename autogroup', async () => {
@@ -84,7 +79,7 @@ describe('GroupSettings', () => {
       ...fixtures[GROUP_DOCTYPE][0],
       accountType: 'Checkings'
     }
-    const { router, client, root } = setup({ group })
+    const { navigate, client, root } = setup({ group })
     await rename(root, 'Renamed group')
     expect(client.save).toHaveBeenCalledWith({
       _id: 'familleelargie',
@@ -93,7 +88,7 @@ describe('GroupSettings', () => {
       id: 'familleelargie',
       label: 'Renamed group'
     })
-    expect(router.push).not.toHaveBeenCalled()
+    expect(navigate).not.toHaveBeenCalled()
   })
 
   const setupAccountList = ({ accounts, group, client }) => {

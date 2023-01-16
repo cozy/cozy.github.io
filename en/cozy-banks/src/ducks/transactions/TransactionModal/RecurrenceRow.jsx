@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router'
+import { Link, useLocation } from 'react-router-dom'
 
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
@@ -11,7 +11,6 @@ import Chip from 'cozy-ui/transpiled/react/Chip'
 
 import ListItemArrow from 'components/ListItemArrow'
 import iconRecurrence from 'components/IconRecurrence'
-import { useLocation } from 'components/RouterContext'
 import { getFrequencyText } from 'ducks/recurrence/utils'
 import { stopPropagation } from 'ducks/transactions/TransactionModal/helpers'
 

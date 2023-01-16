@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useClient } from 'cozy-client'
 
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
@@ -20,7 +21,6 @@ import Header from 'components/Header'
 import useToggle from 'components/useToggle'
 import BackButton from 'components/BackButton'
 import ActionMenuHelper from 'components/ActionMenuHelper'
-import { useHistory } from 'components/RouterContext'
 import { getLabel } from 'ducks/recurrence/utils'
 import { BarTitle } from 'components/Title/PageTitle'
 import { BarRight } from 'components/Bar'
@@ -40,7 +40,7 @@ import RenameBundleDialog from 'ducks/recurrence/RecurrencePage/RenameBundleDial
 const imgLineHeightStyle = { lineHeight: 1 }
 
 const BundleInfo = ({ bundle }) => {
-  const history = useHistory()
+  const navigate = useNavigate()
   const { t } = useI18n()
   const client = useClient()
   const { isMobile } = useBreakpoints()
@@ -50,8 +50,8 @@ const BundleInfo = ({ bundle }) => {
   const [showingRename, showRename, hideRename] = useToggle(false)
 
   const goToRecurrenceRoot = useCallback(
-    () => history.push('/analysis/recurrence'),
-    [history]
+    () => navigate('/analysis/recurrence'),
+    [navigate]
   )
 
   const handleOpenRename = useCallback(() => {

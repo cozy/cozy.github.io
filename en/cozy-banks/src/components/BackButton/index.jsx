@@ -1,7 +1,8 @@
 import React from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import styles from 'components/BackButton/style.styl'
-import withBackSwipe from 'utils/backSwipe'
+import BackSwipe from 'utils/backSwipe'
 import IconButton from 'cozy-ui/transpiled/react/IconButton'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import Icon from 'cozy-ui/transpiled/react/Icon'
@@ -9,7 +10,6 @@ import { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
 import arrowLeft from 'assets/icons/icon-arrow-left.svg'
 import cx from 'classnames'
 import { BarLeft } from 'components/Bar'
-import { useRouter } from 'components/RouterContext'
 
 export const BackIcon = () => {
   const theme = useCozyTheme()
@@ -56,15 +56,15 @@ export const BarBackButton = ({ onClick }) => {
  * ```
  */
 const MobileAwareBackButton = ({ onClick, to, arrow = false }) => {
-  const router = useRouter()
   const { isMobile } = useBreakpoints()
-  const location = router.getCurrentLocation()
+  const location = useLocation()
+  const navigate = useNavigate()
   let toToUse = to
   if (!onClick && !toToUse) {
     toToUse = location.pathname.split('/').slice(0, -1).join('/')
   }
 
-  const handleClick = onClick ? onClick : () => toToUse && router.push(toToUse)
+  const handleClick = onClick ? onClick : () => toToUse && navigate(toToUse)
   return isMobile ? (
     <BarBackButton onClick={handleClick} />
   ) : (
@@ -73,14 +73,18 @@ const MobileAwareBackButton = ({ onClick, to, arrow = false }) => {
 }
 
 MobileAwareBackButton.propTypes = {
-  /** Location to go when clicking on the button. Uses react-router. */
+  /** Location to go when clicking on the button. Uses react-router-dom. */
   to: PropTypes.string,
   /** onClick handler. Mutually exclusive with `to` */
-  onClick: PropTypes.func,
-  /** Provided by `withRouter` in `withBackSwipe` */
-  router: PropTypes.object
+  onClick: PropTypes.func
 }
 
-export default withBackSwipe({ getLocation: ownProps => ownProps.to })(
-  MobileAwareBackButton
-)
+const MobileAwareBackButtonWrapper = ({ to, onClick }) => {
+  return (
+    <BackSwipe getLocation={ownProps => ownProps.to}>
+      <MobileAwareBackButton to={to} onClick={onClick} />
+    </BackSwipe>
+  )
+}
+
+export default MobileAwareBackButtonWrapper

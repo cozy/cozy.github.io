@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
@@ -12,7 +13,6 @@ import { getCurrencySymbol } from 'utils/currencySymbol'
 
 import Skeleton from 'components/Skeleton'
 import Elevated from 'components/Elevated'
-import { useRouter } from 'components/RouterContext'
 import useEstimatedBudget from './useEstimatedBudget'
 
 const FutureBalanceCard = () => {
@@ -21,10 +21,10 @@ const FutureBalanceCard = () => {
   const { isLoading, estimatedBalance, currency, transactions } =
     useEstimatedBudget()
 
-  const router = useRouter()
+  const navigate = useNavigate()
   const handleClick = useCallback(() => {
-    router.push('/balances/future')
-  }, [router])
+    navigate('/balances/future')
+  }, [navigate])
 
   return (
     <Elevated

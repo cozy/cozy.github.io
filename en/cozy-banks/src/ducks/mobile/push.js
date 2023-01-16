@@ -1,6 +1,5 @@
 /* global __DEVELOPMENT__ */
 
-import { hashHistory } from 'react-router'
 import flag from 'cozy-flags'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import { isIOS } from 'cozy-device-helper'
@@ -27,7 +26,7 @@ const handleNotification = notification => {
     !notification.additionalData.foreground &&
     notification.additionalData.route
   ) {
-    hashHistory.push(notification.additionalData.route)
+    window.location.hash = `#${notification.additionalData.route}`
   }
 }
 

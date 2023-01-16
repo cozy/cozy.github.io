@@ -22,12 +22,8 @@ describe('category alert settings pane', () => {
         }
       }
     })
-
-    const fakeRouter = {
-      getCurrentLocation: jest.fn()
-    }
     const root = render(
-      <AppLike client={client} router={fakeRouter}>
+      <AppLike client={client}>
         <CategoryAlertSettingsPane />
       </AppLike>
     )

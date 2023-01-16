@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
 import get from 'lodash/get'
 import sortBy from 'lodash/sortBy'
 
@@ -13,14 +14,13 @@ import { queryConnect, isQueryLoading, hasQueryBeenLoaded } from 'cozy-client'
 import Table, { Cell, Row } from 'components/Table'
 import Loading from 'components/Loading'
 import styles from 'ducks/settings/GroupsSettings.styl'
-import { useRouter } from 'components/RouterContext'
 import { getGroupLabel } from 'ducks/groups/helpers'
 import { useTrackPage } from 'ducks/tracking/browser'
 import LegalMention from 'ducks/legal/LegalMention'
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 
 const GroupList = ({ groups }) => {
-  const router = useRouter()
+  const navigate = useNavigate()
   const { t } = useI18n()
   return groups.length ? (
     <Table className={styles.GrpsStg__table}>
@@ -36,7 +36,7 @@ const GroupList = ({ groups }) => {
           <Row
             nav
             key={group._id}
-            onClick={() => router.push(`/settings/groups/${group._id}`)}
+            onClick={() => navigate(`/settings/groups/${group._id}`)}
           >
             <Cell main className={styles.GrpsStg__label}>
               {getGroupLabel(group, t)}
@@ -60,7 +60,7 @@ const GroupList = ({ groups }) => {
 
 const Groups = props => {
   const { t } = useI18n()
-  const router = useRouter()
+  const navigate = useNavigate()
   const { isMobile } = useBreakpoints()
   useTrackPage('parametres:groupes')
 
@@ -88,7 +88,7 @@ const Groups = props => {
         <Button
           color="primary"
           theme="text"
-          onClick={() => router.push('/settings/groups/new')}
+          onClick={() => navigate('/settings/groups/new')}
         >
           <Icon icon={PlusIcon} className="u-mr-half" /> {t('Groups.create')}
         </Button>

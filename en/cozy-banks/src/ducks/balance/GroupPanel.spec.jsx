@@ -16,7 +16,6 @@ import {
 import AppLike from 'test/AppLike'
 import getClient from 'selectors/getClient'
 import MockDate from 'mockdate'
-import mockRouter from 'test/mockRouter'
 
 import GroupPanel, { getGroupPanelSummaryClasses } from './GroupPanel'
 
@@ -65,7 +64,6 @@ describe('GroupPanel', () => {
           switches={switches}
           onSwitchChange={() => {}}
           onChange={onChange}
-          router={mockRouter}
         />
       </AppLike>
     )

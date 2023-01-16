@@ -2,6 +2,7 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useState, useCallback } from 'react'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 import AccordionSummary from 'cozy-ui/transpiled/react/MuiCozyTheme/AccordionSummary'
 import AccordionDetails from 'cozy-ui/transpiled/react/MuiCozyTheme/AccordionDetails'
@@ -20,7 +21,6 @@ import AccountsList from 'ducks/balance/AccountsList'
 import { useFilters } from 'components/withFilters'
 import Stack from 'cozy-ui/transpiled/react/Stack'
 
-import { useRouter } from 'components/RouterContext'
 import {
   getGroupBalance,
   isReimbursementsVirtualGroup
@@ -102,7 +102,7 @@ const GroupPanel = props => {
     className,
     initialVisibleAccounts
   } = props
-  const router = useRouter()
+  const navigate = useNavigate()
   const client = useClient()
   const [deleting, setDeleting] = useState(false)
   const [optimisticExpanded, setOptimisticExpanded] = useState(expandedProp)
@@ -114,8 +114,8 @@ const GroupPanel = props => {
   )
   const goToGroupDetails = useCallback(() => {
     filterByDoc(group)
-    router.push('/balances/details')
-  }, [group, filterByDoc, router])
+    navigate('/balances/details')
+  }, [group, filterByDoc, navigate])
 
   const handleSummaryContentClick = useCallback(
     ev => {

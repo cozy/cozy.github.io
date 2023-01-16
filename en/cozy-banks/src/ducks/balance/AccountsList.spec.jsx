@@ -24,13 +24,11 @@ const setup = ({ group, accounts }) => {
       }
     }
   })
-  const router = { push: jest.fn() }
   const filterByDoc = jest.fn()
   client.ensureStore()
   const root = render(
     <AppLike client={client} store={client.store}>
       <AccountsList
-        router={router}
         filterByDoc={filterByDoc}
         group={group}
         switches={{

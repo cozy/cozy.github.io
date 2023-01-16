@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { useQuery, hasQueryBeenLoaded } from 'cozy-client'
-import { useRouter, useParams } from 'components/RouterContext'
 import Loading from 'components/Loading'
 import {
   accountsConn,
@@ -17,7 +17,7 @@ import { filterByDoc } from 'ducks/filters'
  * - Redirects to the right page
  */
 const SetFilterAndRedirect = () => {
-  const router = useRouter()
+  const navigate = useNavigate()
   const params = useParams()
   const dispatch = useDispatch()
   const accounts = useQuery(accountsConn.query, accountsConn)
@@ -34,18 +34,18 @@ const SetFilterAndRedirect = () => {
       const account = accounts.data && accounts.data.find(x => x._id === docId)
       if (account) {
         dispatch(filterByDoc({ _type: ACCOUNT_DOCTYPE, _id: account._id }))
-        router.push(`/balances/${params.page}`)
+        navigate(`/balances/${params.page}`)
         return
       }
 
       const group = groups.data && groups.data.find(x => x._id === docId)
       if (group) {
         dispatch(filterByDoc({ _type: GROUP_DOCTYPE, _id: group._id }))
-        router.push(`/balances/${params.page}`)
+        navigate(`/balances/${params.page}`)
         return
       }
 
-      router.push(`/balances`)
+      navigate(`/balances`)
     }
   }, [accountsLoaded, groupsLoaded]) // eslint-disable-line react-hooks/exhaustive-deps
 

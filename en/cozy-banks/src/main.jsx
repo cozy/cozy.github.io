@@ -25,7 +25,6 @@ import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import flag from 'cozy-flags'
 import { handleOAuthResponse } from 'cozy-harvest-lib'
 
-import { setupHistory } from 'utils/history'
 import {
   getClient,
   CleanupStoreClientPlugin,
@@ -46,7 +45,7 @@ if (__TARGET__ === 'mobile') {
   require('styles/mobile.styl')
 }
 
-let store, client, history, lang, root
+let store, client, lang, root
 
 const initRender = () => {
   if (handleOAuthResponse()) {
@@ -58,12 +57,7 @@ const initRender = () => {
   }
   const AppContainer = require('./AppContainer').default
   root = render(
-    <AppContainer
-      store={store}
-      client={client}
-      lang={lang}
-      history={history}
-    />,
+    <AppContainer store={store} client={client} lang={lang} />,
     document.querySelector('[role=application]', root)
   )
 }
@@ -73,8 +67,6 @@ const setupApp = async persistedState => {
   lang = getLanguageFromDOM(root)
 
   setupD3Locale(lang)
-
-  history = setupHistory()
 
   client = await getClient(persistedState)
   store = configureStore(client, persistedState)

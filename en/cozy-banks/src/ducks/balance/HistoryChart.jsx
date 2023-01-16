@@ -1,6 +1,6 @@
 import React, { useRef, useCallback, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router'
+import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import * as d3 from 'utils/d3'
 import compose from 'lodash/flowRight'
@@ -80,11 +80,21 @@ const HistoryChart = props => {
 
 const EnhancedHistoryChart = HistoryChart
 
-export const ConnectedHistoryChart = compose(
-  withRouter,
+const ConnectedHistoryChart = compose(
   connect((state, ownProps) => ({
     data: getChartData(state, ownProps)
   }))
 )(HistoryChart)
+
+const ConnectedHistoryChartWrapper = ({ children, ...props }) => {
+  const params = useParams()
+  return (
+    <ConnectedHistoryChart params={params} {...props}>
+      {children}
+    </ConnectedHistoryChart>
+  )
+}
+
+export { ConnectedHistoryChartWrapper as ConnectedHistoryChart }
 
 export default EnhancedHistoryChart

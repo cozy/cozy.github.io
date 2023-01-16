@@ -27,18 +27,9 @@ describe('reimbursements page', () => {
       queries: {}
     })
     getClient.mockReturnValue(client)
-    const location = {
-      pathname: '/'
-    }
-    const router = {
-      getCurrentLocation: () => {
-        return location
-      },
-      location
-    }
     jest.spyOn(client.store, 'dispatch')
     const root = render(
-      <AppLike client={client} router={router}>
+      <AppLike client={client}>
         <ReimbursementsPage />
       </AppLike>
     )

@@ -1,3 +1,4 @@
+import React from 'react'
 import { mount, shallow } from 'enzyme'
 import AppLike from 'test/AppLike'
 import { useQuery } from 'cozy-client'
@@ -8,7 +9,6 @@ import AccountsImporting from './AccountsImporting'
 import fixtures from 'test/fixtures'
 import { useBanksContext } from 'ducks/context/BanksContext'
 
-const React = require('react')
 const { DumbBalance } = require('./Balance')
 const debounce = require('lodash/debounce')
 
@@ -30,9 +30,7 @@ const fakeCollection = (doctype, data, fetchStatus) => ({
   fetchStatus: fetchStatus || 'loaded'
 })
 
-const router = {
-  push: jest.fn()
-}
+const navigate = jest.fn()
 
 describe('Balance page', () => {
   const setup = ({ accountsData } = {}) => {
@@ -50,14 +48,14 @@ describe('Balance page', () => {
         triggers={fakeCollection('io.cozy.triggers')}
         transactions={fakeCollection('io.cozy.bank.operations')}
         filterByAccounts={filterByAccounts}
-        router={router}
+        navigate={navigate}
         client={client}
         isBankTrigger={() => true}
       />
     )
     const instance = root.instance()
 
-    return { root, client, instance, router, filterByAccounts }
+    return { root, client, instance, navigate, filterByAccounts }
   }
 
   afterEach(() => {
@@ -65,13 +63,13 @@ describe('Balance page', () => {
   })
 
   it('should call filterByAccounts prop with getCheckAccounts', () => {
-    const { root, instance, router, filterByAccounts } = setup()
+    const { root, instance, navigate, filterByAccounts } = setup()
     let accounts = []
     instance.getCheckedAccounts = () => {
       return accounts
     }
     root.instance().handleClickBalance()
-    expect(router.push).toHaveBeenCalledWith('/balances/details')
+    expect(navigate).toHaveBeenCalledWith('/balances/details')
     expect(filterByAccounts).toHaveBeenCalledWith(accounts)
   })
 
@@ -99,7 +97,7 @@ describe('Balance page', () => {
           triggers={mockProps('io.cozy.bank.triggers')}
           transactions={mockProps('io.cozy.bank.operations')}
           filterByAccounts={jest.fn()}
-          router={router}
+          navigate={navigate}
           client={getClient()}
           isBankTrigger={() => true}
         />
@@ -180,7 +178,7 @@ describe('Balance page', () => {
       virtualAccounts: [],
       virtualGroups: [],
       filterByAccounts: jest.fn(),
-      router: router,
+      navigate: navigate,
       client: getClient(),
       isBankTrigger: () => true
     }

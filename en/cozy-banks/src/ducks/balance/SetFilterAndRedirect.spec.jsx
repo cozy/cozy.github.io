@@ -1,10 +1,10 @@
 import React from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { createMockClient } from 'cozy-client/dist/mock'
 import { render } from '@testing-library/react'
 
 import AppLike from 'test/AppLike'
-import { useParams, useRouter } from 'components/RouterContext'
 import SetFilterAndRedirect from './SetFilterAndRedirect'
 
 jest.mock('react-redux', () => ({
@@ -12,25 +12,25 @@ jest.mock('react-redux', () => ({
   useDispatch: jest.fn()
 }))
 
-jest.mock('components/RouterContext', () => ({
+jest.mock('react-router-dom', () => ({
   __esModule: true,
-  ...jest.requireActual('components/RouterContext'),
+  ...jest.requireActual('react-router-dom'),
   useParams: jest.fn(),
-  useRouter: jest.fn()
+  useNavigate: jest.fn()
 }))
 
 beforeEach(() => {
   useDispatch.mockReset()
   useParams.mockReset()
-  useRouter.mockReset()
+  useNavigate.mockReset()
 })
 
 describe('SetFilterAndRedirect', () => {
   const setup = ({ params }) => {
-    const router = { push: jest.fn() }
     const dispatch = jest.fn()
+    const navigate = jest.fn()
     useDispatch.mockReturnValue(dispatch)
-    useRouter.mockReturnValue(router)
+    useNavigate.mockReturnValue(navigate)
     useParams.mockReturnValue(params)
     const client = createMockClient({
       queries: {
@@ -49,17 +49,17 @@ describe('SetFilterAndRedirect', () => {
         <SetFilterAndRedirect />
       </AppLike>
     )
-    return { root, router, dispatch }
+    return { root, navigate, dispatch }
   }
 
   it('should redirect to an existing account and set the filter', () => {
-    const { router, dispatch } = setup({
+    const { navigate, dispatch } = setup({
       params: {
         accountOrGroupId: 'account-1',
         page: 'details'
       }
     })
-    expect(router.push).toHaveBeenCalledWith(`/balances/details`)
+    expect(navigate).toHaveBeenCalledWith(`/balances/details`)
     expect(dispatch).toHaveBeenCalledWith({
       doc: {
         _id: 'account-1',
@@ -70,13 +70,13 @@ describe('SetFilterAndRedirect', () => {
   })
 
   it('should redirect to an existing group and set the filter', () => {
-    const { router, dispatch } = setup({
+    const { navigate, dispatch } = setup({
       params: {
         accountOrGroupId: 'group-1',
         page: 'details'
       }
     })
-    expect(router.push).toHaveBeenCalledWith(`/balances/details`)
+    expect(navigate).toHaveBeenCalledWith(`/balances/details`)
     expect(dispatch).toHaveBeenCalledWith({
       doc: {
         _id: 'group-1',
@@ -87,21 +87,21 @@ describe('SetFilterAndRedirect', () => {
   })
 
   it('should redirect to balances if account/group does not exist', () => {
-    const { router, dispatch } = setup({
+    const { navigate, dispatch } = setup({
       params: {
         accountOrGroupId: 'unexisting-group-id',
         page: 'details'
       }
     })
-    expect(router.push).toHaveBeenCalledWith(`/balances`)
+    expect(navigate).toHaveBeenCalledWith(`/balances`)
     expect(dispatch).not.toHaveBeenCalled()
   })
 
   it('should wait until accounts and groups have been loaded', () => {
-    const router = { push: jest.fn() }
     const dispatch = jest.fn()
+    const navigate = jest.fn()
     useDispatch.mockReturnValue(dispatch)
-    useRouter.mockReturnValue(router)
+    useNavigate.mockReturnValue(navigate)
     useParams.mockReturnValue({
       accountOrGroupId: 'group-1',
       page: 'details'
@@ -119,6 +119,6 @@ describe('SetFilterAndRedirect', () => {
         <SetFilterAndRedirect />
       </AppLike>
     )
-    expect(router.push).not.toHaveBeenCalled()
+    expect(navigate).not.toHaveBeenCalled()
   })
 })

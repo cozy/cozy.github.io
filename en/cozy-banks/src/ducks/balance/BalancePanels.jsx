@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import GroupPanel from 'ducks/balance/GroupPanel'
 
@@ -10,7 +11,6 @@ import AddAccountLink from 'ducks/settings/AddAccountLink'
 import { translateAndSortGroups } from 'ducks/groups/helpers'
 import styles from 'ducks/balance/BalancePanels.styl'
 import Delayed from 'components/Delayed'
-import { useRouter } from 'components/RouterContext'
 
 const GROUP_PANEL_RENDER_DELAY = 150
 
@@ -19,11 +19,11 @@ const BalancePanels = props => {
     props
 
   const { t } = useI18n()
-  const router = useRouter()
+  const navigate = useNavigate()
 
   const goToGroupsSettings = useCallback(() => {
-    router.push('/settings/groups')
-  }, [router])
+    navigate('/settings/groups')
+  }, [navigate])
 
   const groupsSorted = translateAndSortGroups(groups, t)
   const groupPanelDelay = flag('balance.no-delay-groups')

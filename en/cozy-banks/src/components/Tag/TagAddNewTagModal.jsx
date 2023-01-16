@@ -1,4 +1,5 @@
 import React, { useState, useReducer } from 'react'
+import { useLocation } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import { useClient } from 'cozy-client'
@@ -9,7 +10,6 @@ import Button from 'cozy-ui/transpiled/react/Buttons'
 
 import { TAGS_DOCTYPE } from 'doctypes'
 import { trackPage, useTrackPage } from 'ducks/tracking/browser'
-import { useLocation } from 'components/RouterContext'
 
 const labelMaxLength = 30
 

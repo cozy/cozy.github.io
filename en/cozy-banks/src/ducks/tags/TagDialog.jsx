@@ -1,16 +1,16 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { Dialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 
-import { useHistory } from 'components/RouterContext'
 import TagDialogTitle from 'ducks/tags/TagDialogTitle'
 import TagDialogContent from 'ducks/tags/TagDialogContent'
 
 const TagDialog = ({ tag }) => {
   const { isMobile } = useBreakpoints()
-  const history = useHistory()
+  const navigate = useNavigate()
   const [isRenameModalOpened, setIsRenameModalOpened] = useState(false)
   const [isDeleteModalOpened, setIsDeleteModalOpened] = useState(false)
 
@@ -20,7 +20,7 @@ const TagDialog = ({ tag }) => {
   const currency = 'EUR'
 
   const handleDialogClose = () => {
-    history.goBack()
+    navigate(-1) // TODO: find a way to use paths instead
   }
 
   const title = (

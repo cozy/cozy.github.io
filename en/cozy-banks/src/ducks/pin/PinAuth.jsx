@@ -5,7 +5,6 @@ import debounce from 'lodash/debounce'
 import cx from 'classnames'
 
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router'
 import { withClient, queryConnect } from 'cozy-client'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import { translate } from 'cozy-ui/transpiled/react//I18n'
@@ -288,8 +287,7 @@ export const DumbPinAuth = compose(
   }),
   withClient,
   connect(),
-  translate(),
-  withRouter
+  translate()
 )(PinAuth)
 
 export default queryConnect({

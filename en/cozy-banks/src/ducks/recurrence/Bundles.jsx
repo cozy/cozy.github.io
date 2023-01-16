@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
 import cx from 'classnames'
 import distanceInWords from 'date-fns/distance_in_words'
 import CompositeRow from 'cozy-ui/transpiled/react/CompositeRow'
@@ -8,7 +9,6 @@ import { Bd, Img, Media } from 'cozy-ui/transpiled/react/Media'
 import Figure from 'cozy-ui/transpiled/react/Figure'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import Table, { TdSecondary } from 'components/Table'
-import { useHistory } from 'components/RouterContext'
 
 import frLocale from 'date-fns/locale/fr'
 import enLocale from 'date-fns/locale/en'
@@ -48,11 +48,11 @@ const BundleDistance = ({ bundle }) => {
 }
 
 const BundleMobileRow = ({ bundle }) => {
-  const history = useHistory()
+  const navigate = useNavigate()
   const catId = getCategories(bundle)[0]
   return (
     <CompositeRow
-      onClick={() => history.push(`/analysis/recurrence/${bundle._id}`)}
+      onClick={() => navigate(`/analysis/recurrence/${bundle._id}`)}
       image={<CategoryIcon categoryId={catId} />}
       className={cx('u-pv-half u-ph-1 u-c-pointer', styles.BundleRow)}
       key={bundle._id}
@@ -75,12 +75,12 @@ const BundleAmount = ({ bundle }) => {
 }
 
 const BundleDesktopRow = ({ bundle }) => {
-  const history = useHistory()
+  const navigate = useNavigate()
   const catId = getCategories(bundle)[0]
   return (
     <tr
       className="u-c-pointer"
-      onClick={() => history.push(`analysis/recurrence/${bundle._id}`)}
+      onClick={() => navigate(`/analysis/recurrence/${bundle._id}`)}
     >
       <td className={styles.ColumnSizeLabel}>
         <Media>

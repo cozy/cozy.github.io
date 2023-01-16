@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route } from 'react-router'
+import { Route } from 'react-router-dom'
 
 import AppRoute from './AppRoute'
 
@@ -26,7 +26,7 @@ describe('App route', () => {
   it('should have renderExtraRoutes', () => {
     jest
       .spyOn(AppRoute, 'renderExtraRoutes')
-      .mockReturnValue(<Route component={NewComponent} path="extra-route" />)
+      .mockReturnValue(<Route element={<NewComponent />} path="extra-route" />)
     const route = AppRoute()
     expect(route).toMatchSnapshot()
   })

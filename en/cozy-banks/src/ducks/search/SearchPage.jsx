@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect, useCallback } from 'react'
+import { useParams } from 'react-router-dom'
 import minBy from 'lodash/minBy'
 import debounce from 'lodash/debounce'
 import keyBy from 'lodash/keyBy'
@@ -20,7 +21,6 @@ import {
 import BarTheme from 'ducks/bar/BarTheme'
 import HeaderLoadingProgress from 'components/HeaderLoadingProgress'
 import Padded from 'components/Padded'
-import { useParams } from 'components/RouterContext'
 import { DESKTOP_SCROLLING_ELEMENT_CLASSNAME } from 'ducks/transactions/scroll/getScrollingElement'
 import {
   getTransactionDate,

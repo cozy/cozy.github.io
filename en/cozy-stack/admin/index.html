@@ -42,7 +42,7 @@
     
     
       
-        <title>Admin - Cozy Developer Documentation</title>
+        <title>Using the admin API - Cozy Developer Documentation</title>
       
     
     
@@ -126,7 +126,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Admin
+                Using the admin API
               
             </span>
           
@@ -194,14 +194,16 @@
       
         
 
-<nav class="md-tabs" data-md-component="tabs">
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
   <div class="md-tabs__inner md-grid">
     <ul class="md-tabs__list">
       
         
   <li class="md-tabs__item">
     
-      <a href="../.." title="Home" class="md-tabs__link md-tabs__link--active">
+      <a href="../.." title="Home" class="md-tabs__link">
         Home
       </a>
     
@@ -805,10 +807,12 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
     
     <label class="md-nav__link" for="nav-4">
       Libraries
@@ -1772,10 +1776,12 @@
           
           
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-6" type="checkbox" id="nav-4-6">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-6" type="checkbox" id="nav-4-6" checked>
     
     <label class="md-nav__link" for="nav-4-6">
       Advanced
@@ -1791,10 +1797,12 @@
           
           
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-6-1" type="checkbox" id="nav-4-6-1">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-6-1" type="checkbox" id="nav-4-6-1" checked>
     
     <label class="md-nav__link" for="nav-4-6-1">
       Stack server
@@ -1822,10 +1830,12 @@
           
           
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-6-1-2" type="checkbox" id="nav-4-6-1-2">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4-6-1-2" type="checkbox" id="nav-4-6-1-2" checked>
     
     <label class="md-nav__link" for="nav-4-6-1-2">
       Usage
@@ -1893,6 +1903,884 @@
   <li class="md-nav__item">
     <a href="../cli/cozy-stack/" title="Manpages of the command-line tool" class="md-nav__link">
       Manpages of the command-line tool
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Using the admin API
+      </label>
+    
+    <a href="./" title="Using the admin API" class="md-nav__link md-nav__link--active">
+      Using the admin API
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" title="Introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instance" title="Instance" class="md-nav__link">
+    Instance
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-instances" title="GET /instances" class="md-nav__link">
+    GET /instances
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#patch-instancesdomain" title="PATCH /instances/:domain" class="md-nav__link">
+    PATCH /instances/:domain
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_1" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_1" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-instanceswith-app-versionslugversion" title="GET /instances/with-app-version/:slug/:version" class="md-nav__link">
+    GET /instances/with-app-version/:slug/:version
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_2" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_2" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-instancesdomainsession_code" title="POST /instances/:domain/session_code" class="md-nav__link">
+    POST /instances/:domain/session_code
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_3" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_3" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-instancesdomainsessions" title="DELETE /instances/:domain/sessions" class="md-nav__link">
+    DELETE /instances/:domain/sessions
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_4" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_4" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-instancesdomainfixerscontent-mismatch" title="POST /instances/:domain/fixers/content-mismatch" class="md-nav__link">
+    POST /instances/:domain/fixers/content-mismatch
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_5" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_5" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-instancesdomainfixersorphan-account" title="POST /instances/:domain/fixers/orphan-account" class="md-nav__link">
+    POST /instances/:domain/fixers/orphan-account
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_6" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contexts" title="Contexts" class="md-nav__link">
+    Contexts
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-instancescontexts" title="GET /instances/contexts" class="md-nav__link">
+    GET /instances/contexts
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_7" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_6" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-instancescontextsname" title="GET /instances/contexts/:name" class="md-nav__link">
+    GET /instances/contexts/:name
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_8" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_7" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checkers" title="Checkers" class="md-nav__link">
+    Checkers
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-instancesdomainfsck" title="GET /instances/:domain/fsck" class="md-nav__link">
+    GET /instances/:domain/fsck
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_9" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_8" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-instancesdomaincheckstriggers" title="POST /instances/:domain/checks/triggers" class="md-nav__link">
+    POST /instances/:domain/checks/triggers
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_10" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_9" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-instancesdomainchecksshared" title="POST /instances/:domain/checks/shared" class="md-nav__link">
+    POST /instances/:domain/checks/shared
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_11" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_10" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-instancesdomaincheckssharings" title="POST /instances/:domain/checks/sharings" class="md-nav__link">
+    POST /instances/:domain/checks/sharings
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#possible-error-types" title="Possible error types" class="md-nav__link">
+    Possible error types
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#invalid_rules" title="invalid_rules" class="md-nav__link">
+    invalid_rules
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sharing_in_sharing" title="sharing_in_sharing" class="md-nav__link">
+    sharing_in_sharing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#missing_matching_docs_for_owner" title="missing_matching_docs_for_owner" class="md-nav__link">
+    missing_matching_docs_for_owner
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#missing_sharing_for_member" title="missing_sharing_for_member" class="md-nav__link">
+    missing_sharing_for_member
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#missing_files_rule_for_member" title="missing_files_rule_for_member" class="md-nav__link">
+    missing_files_rule_for_member
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#missing_matching_docs_for_member" title="missing_matching_docs_for_member" class="md-nav__link">
+    missing_matching_docs_for_member
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#disk_quota_exceeded" title="disk_quota_exceeded" class="md-nav__link">
+    disk_quota_exceeded
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#read_only_member" title="read_only_member" class="md-nav__link">
+    read_only_member
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#invalid_doc_rev" title="invalid_doc_rev" class="md-nav__link">
+    invalid_doc_rev
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#invalid_doc_name" title="invalid_doc_name" class="md-nav__link">
+    invalid_doc_name
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#invalid_doc_checksum" title="invalid_doc_checksum" class="md-nav__link">
+    invalid_doc_checksum
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#invalid_doc_parent" title="invalid_doc_parent" class="md-nav__link">
+    invalid_doc_parent
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#missing_matching_doc_for_owner" title="missing_matching_doc_for_owner" class="md-nav__link">
+    missing_matching_doc_for_owner
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#missing_matching_doc_for_member" title="missing_matching_doc_for_member" class="md-nav__link">
+    missing_matching_doc_for_member
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request_12" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_11" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#konnectors" title="Konnectors" class="md-nav__link">
+    Konnectors
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-konnectorsmaintenance" title="GET /konnectors/maintenance" class="md-nav__link">
+    GET /konnectors/maintenance
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_13" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_12" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#put-konnectorsmaintenanceslug" title="PUT /konnectors/maintenance/:slug" class="md-nav__link">
+    PUT /konnectors/maintenance/:slug
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_14" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_13" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-konnectorsmaintenanceslug" title="DELETE /konnectors/maintenance/:slug" class="md-nav__link">
+    DELETE /konnectors/maintenance/:slug
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_15" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_14" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oauth-clients" title="OAuth clients" class="md-nav__link">
+    OAuth clients
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#delete-oauthdomainclients" title="DELETE /oauth/:domain/clients" class="md-nav__link">
+    DELETE /oauth/:domain/clients
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_16" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_15" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#swift" title="Swift" class="md-nav__link">
+    Swift
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-swiftlayouts" title="GET /swift/layouts" class="md-nav__link">
+    GET /swift/layouts
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_17" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_16" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request_18" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_17" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-swiftvfsobject" title="GET /swift/vfs/:object" class="md-nav__link">
+    GET /swift/vfs/:object
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_19" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_18" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#put-swiftvfsobject" title="PUT /swift/vfs/:object" class="md-nav__link">
+    PUT /swift/vfs/:object
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_20" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#delete-swiftvfsobject" title="DELETE /swift/vfs/:object" class="md-nav__link">
+    DELETE /swift/vfs/:object
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_21" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-swiftvfs" title="GET /swift/vfs" class="md-nav__link">
+    GET /swift/vfs
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_22" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_19" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tools" title="Tools" class="md-nav__link">
+    Tools
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-toolspprofheap" title="GET /tools/pprof/heap" class="md-nav__link">
+    GET /tools/pprof/heap
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_23" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_20" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../important-changes/" title="Important changes" class="md-nav__link">
+      Important changes
     </a>
   </li>
 
@@ -4254,6 +5142,41 @@ have been deleted.</p>
       
         
 <footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../cli/cozy-stack/" title="Manpages of the command-line tool" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Manpages of the command-line tool
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../important-changes/" title="Important changes" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Important changes
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">

@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
 import { APPLICATION_DATE } from 'ducks/transactions/constants'
 import { useSelectedTags } from 'ducks/context/SelectedTagsContext'
@@ -16,7 +17,6 @@ import {
 } from 'ducks/transactions/queries'
 import { accountsConn, settingsConn, groupsConn } from 'doctypes'
 import { getFilteringDoc, getPeriod } from 'ducks/filters'
-import { useParams } from 'components/RouterContext'
 import { useClient, isQueryLoading, useQuery } from 'cozy-client'
 
 const autoUpdateOptions = {

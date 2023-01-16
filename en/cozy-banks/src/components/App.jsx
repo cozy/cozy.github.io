@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect } from 'react'
-import { withRouter } from 'react-router'
+import { Outlet } from 'react-router-dom'
 import compose from 'lodash/flowRight'
 import throttle from 'lodash/throttle'
 
@@ -20,7 +20,6 @@ import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import { pinGuarded } from 'ducks/pin'
 import ErrorBoundary from 'components/ErrorBoundary'
 import ReactHint from 'components/ReactHint'
-import RouterContext from 'components/RouterContext'
 import AppSearchBar from 'components/AppSearchBar'
 import useKeyboardState from 'components/useKeyboardState'
 import { isActivatePouch } from 'ducks/client/links'
@@ -81,31 +80,31 @@ const App = props => {
   }, [settings.community.localModelOverride.enabled])
 
   return (
-    <RouterContext.Provider value={props.router}>
-      <SelectedTagsProvider>
-        <AppSearchBar />
-        <Layout>
-          {showBottomNav && (
-            <KeyboardAwareSidebar>
-              <Nav />
-            </KeyboardAwareSidebar>
-          )}
+    <SelectedTagsProvider>
+      <AppSearchBar />
+      <Layout>
+        {showBottomNav && (
+          <KeyboardAwareSidebar>
+            <Nav />
+          </KeyboardAwareSidebar>
+        )}
 
-          <Main>
-            <Content className={styles.Main}>
-              <ErrorBoundary>{props.children}</ErrorBoundary>
-            </Content>
-          </Main>
+        <Main>
+          <Content className={styles.Main}>
+            <ErrorBoundary>
+              <Outlet />
+            </ErrorBoundary>
+          </Content>
+        </Main>
 
-          {/* Outside every other component to bypass overflow:hidden */}
-          <ReactHint />
+        {/* Outside every other component to bypass overflow:hidden */}
+        <ReactHint />
 
-          <Warnings />
-          <Alerter />
-        </Layout>
-        {flag('debug') ? <CozyDevTools panels={banksPanels} /> : null}
-      </SelectedTagsProvider>
-    </RouterContext.Provider>
+        <Warnings />
+        <Alerter />
+      </Layout>
+      {flag('debug') ? <CozyDevTools panels={banksPanels} /> : null}
+    </SelectedTagsProvider>
   )
 }
 
@@ -118,6 +117,5 @@ export default compose(
     timeout: flag('pin.debug') ? 10 * 1000 : undefined,
     showTimeout: flag('pin.debug')
   }),
-  queryConnect({ settingsCollection: settingsConn }),
-  withRouter
+  queryConnect({ settingsCollection: settingsConn })
 )(App)

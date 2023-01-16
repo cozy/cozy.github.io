@@ -1,4 +1,5 @@
 import React, { useMemo, useCallback, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
@@ -8,7 +9,6 @@ import SadCozyIcon from 'cozy-ui/transpiled/react/Icons/SadCozy'
 
 import { useSelector, useDispatch } from 'react-redux'
 
-import { useRouter, useParams } from 'components/RouterContext'
 import TransactionSelectDates from 'ducks/transactions/TransactionSelectDates'
 import { getPeriod, addFilterByPeriod } from 'ducks/filters'
 
@@ -60,10 +60,10 @@ const CategoriesHeader = props => {
   const params = useParams()
   const isSubcategory = onSubcategory(params)
 
-  const router = useRouter()
+  const navigate = useNavigate()
   const breadcrumbItems = useMemo(() => {
-    return makeBreadcrumbs(router, categoryName, subcategoryName, t)
-  }, [router, categoryName, subcategoryName, t])
+    return makeBreadcrumbs(navigate, categoryName, subcategoryName, t)
+  }, [navigate, categoryName, subcategoryName, t])
 
   const dispatch = useDispatch()
   const period = useSelector(getPeriod)

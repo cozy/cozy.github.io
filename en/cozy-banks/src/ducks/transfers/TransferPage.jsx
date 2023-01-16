@@ -1,6 +1,6 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import compose from 'lodash/flowRight'
-import { withRouter } from 'react-router'
 
 import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import Stack from 'cozy-ui/transpiled/react/Stack'
@@ -218,8 +218,8 @@ class TransferPage extends React.Component {
   }
 
   checkToUpdateSlideBasedOnRoute(prevProps) {
-    if (!this.props.router) {
-      // In tests when TransferPage is not wrapped in withRouter
+    if (!this.props.navigate) {
+      // In tests when TransferPage does not have this prop
       return
     }
     const { routeParams: prevRouteParams } = prevProps
@@ -380,7 +380,7 @@ class TransferPage extends React.Component {
       this.selectSlideByName('password')
       this.setState({ password: '', transferState: null })
     } else {
-      this.props.router.push('/')
+      this.props.navigate('/')
     }
   }
 
@@ -522,7 +522,6 @@ const removeFalsyProperties = pickBy
 const enhance = compose(
   barTheme('primary'),
   withClient,
-  withRouter,
   withBreakpoints(),
   queryConnect(
     removeFalsyProperties({
@@ -533,6 +532,15 @@ const enhance = compose(
   translate()
 )
 
-export { TransferPage }
+export const DumbTransferPage = TransferPage
 
-export default enhance(TransferPage)
+const TransferPageWrapper = ({ children, ...props }) => {
+  const navigate = useNavigate()
+  return (
+    <TransferPage navigate={navigate} {...props}>
+      {children}
+    </TransferPage>
+  )
+}
+
+export default enhance(TransferPageWrapper)

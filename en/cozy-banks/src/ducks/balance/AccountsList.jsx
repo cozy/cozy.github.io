@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import sortBy from 'lodash/sortBy'
 
@@ -12,7 +13,6 @@ import AccountRow from 'ducks/balance/AccountRow'
 import { getAccountBalance } from 'ducks/account/helpers'
 import AccountRowLoading from 'ducks/balance/AccountRowLoading'
 import { isReimbursementsVirtualGroup } from 'ducks/groups/helpers'
-import { useRouter } from 'components/RouterContext'
 
 const getSortedAccounts = (group, accounts) => {
   const realAccounts = accounts.filter(Boolean)
@@ -27,7 +27,7 @@ const getSortedAccounts = (group, accounts) => {
 const AccountsList = props => {
   const { group, switches, onSwitchChange, initialVisibleAccounts } = props
   const client = useClient()
-  const router = useRouter()
+  const navigate = useNavigate()
   const { filterByDoc } = useFilters()
 
   const groupAccounts = useMemo(() => {
@@ -37,9 +37,9 @@ const AccountsList = props => {
   const goToAccountsDetails = useCallback(
     (ev, account) => {
       filterByDoc(account)
-      router.push('/balances/details')
+      navigate('/balances/details')
     },
-    [filterByDoc, router]
+    [filterByDoc, navigate]
   )
 
   const sortedAndFilteredAccounts = useMemo(

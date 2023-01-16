@@ -20,6 +20,7 @@ import { TrackerProvider } from 'ducks/tracking/browser'
 import JobsProvider from 'ducks/context/JobsContext'
 import BanksProvider from 'ducks/context/BanksContext'
 import SelectionProvider from 'ducks/context/SelectionContext'
+import AppRoute from 'components/AppRoute'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import cozyBar from 'utils/cozyBar'
 import {
@@ -54,12 +55,11 @@ const generateClassName = createGenerateClassName({
   productionPrefix: 'c'
 })
 
-const AppContainer = ({ store, lang, history, client }) => {
-  const AppRoute = require('components/AppRoute').default
+const AppContainer = ({ store, lang, client }) => {
   const Router =
     __TARGET__ === 'mobile' || flag('authentication')
       ? require('ducks/mobile/MobileRouter').default
-      : require('react-router').Router
+      : require('react-router-dom').HashRouter
 
   const dictRequire = lang => require(`locales/${lang}`)
   const { t } = useMemo(() => {
@@ -91,7 +91,9 @@ const AppContainer = ({ store, lang, history, client }) => {
                               <RealTimeQueries doctype={COZY_ACCOUNT_DOCTYPE} />
                               <RealTimeQueries doctype={TRANSACTION_DOCTYPE} />
                               <RealTimeQueries doctype={GROUP_DOCTYPE} />
-                              <Router history={history} routes={AppRoute()} />
+                              <Router>
+                                <AppRoute />
+                              </Router>
                             </CozyConfirmDialogProvider>
                           </MuiCozyTheme>
                         </StoreURLProvider>

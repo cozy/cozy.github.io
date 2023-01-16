@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
 import sortBy from 'lodash/sortBy'
 
 import { useClient, useQuery } from 'cozy-client'
@@ -8,7 +9,6 @@ import Typography from 'cozy-ui/transpiled/react/Typography'
 
 import { groupsConn } from 'doctypes'
 import Table from 'components/Table'
-import { useRouter } from 'components/RouterContext'
 import { getGroupAccountIds } from 'ducks/groups/helpers'
 import { trackEvent } from 'ducks/tracking/browser'
 import multiKeyBy from 'utils/multiKeyBy'
@@ -20,7 +20,7 @@ const AccountsList = props => {
   const { t } = useI18n()
   const { accounts, group } = props
   const client = useClient()
-  const router = useRouter()
+  const navigate = useNavigate()
   const { isMobile } = useBreakpoints()
 
   const toggleAccount = useCallback(
@@ -34,13 +34,13 @@ const AccountsList = props => {
       const res = await client.save(group)
       const doc = res?.data
       if (doc && !group.id) {
-        router.push(`/settings/groups/${doc.id}`)
+        navigate(`/settings/groups/${doc.id}`)
       }
       trackEvent({
         name: `compte-${enabled ? 'activer' : 'desactiver'}`
       })
     },
-    [client, router]
+    [client, navigate]
   )
 
   const { data: groups } = useQuery(groupsConn.query, groupsConn)

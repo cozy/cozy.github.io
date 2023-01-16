@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react'
+import { useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 import { useClient } from 'cozy-client'
@@ -6,7 +7,6 @@ import { useClient } from 'cozy-client'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Button from 'cozy-ui/transpiled/react/Buttons'
 import { ConfirmDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
-import { useHistory } from 'components/RouterContext'
 
 import { countTransactions } from 'components/Tag/helpers'
 import { removeTag } from 'ducks/transactions/helpers'
@@ -15,7 +15,7 @@ import { trackPage, useTrackPage } from 'ducks/tracking/browser'
 const TagDeleteTagModal = ({ tag, transactions, onClose }) => {
   const client = useClient()
   const { t } = useI18n()
-  const history = useHistory()
+  const navigate = useNavigate()
   const [isBusy, toggleBusy] = useReducer(prev => !prev, false)
 
   useTrackPage('parametres:labels:supprimer-label-popin')
@@ -24,7 +24,7 @@ const TagDeleteTagModal = ({ tag, transactions, onClose }) => {
     trackPage('parametres:labels:supprimer-label-confirmation')
     toggleBusy()
     await removeTag(client, tag, transactions)
-    history.goBack()
+    navigate(-1) // TODO: find a way to use paths instead
     onClose()
   }
 

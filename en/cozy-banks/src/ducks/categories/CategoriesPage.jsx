@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import includes from 'lodash/includes'
 import maxBy from 'lodash/maxBy'
 import some from 'lodash/some'
@@ -24,13 +25,13 @@ const isCategoryDataEmpty = categoryData => {
   return categoryData[0] && isNaN(categoryData[0].percentage)
 }
 
-const goToCategory = (router, selectedCategory, subcategory) => {
+const goToCategory = (navigate, selectedCategory, subcategory) => {
   if (subcategory) {
-    router.push(`/analysis/categories/${selectedCategory}/${subcategory}`)
+    navigate(`/analysis/categories/${selectedCategory}/${subcategory}`)
   } else if (selectedCategory) {
-    router.push(`/analysis/categories/${selectedCategory}`)
+    navigate(`/analysis/categories/${selectedCategory}`)
   } else {
-    router.push('/analysis/categories')
+    navigate('/analysis/categories')
   }
 }
 
@@ -106,7 +107,8 @@ export class CategoriesPage extends Component {
       categories: categoriesProps,
       transactions,
       transactionsByApplicationDate,
-      router,
+      navigate,
+      params,
       accounts,
       settings,
       isFetching: isFetchingNewData,
@@ -124,8 +126,8 @@ export class CategoriesPage extends Component {
       ? categoriesProps
       : categoriesProps.filter(category => category.name !== 'incomeCat')
 
-    const categoryName = router.params.categoryName
-    const subcategoryName = router.params.subcategoryName
+    const categoryName = params.categoryName
+    const subcategoryName = params.subcategoryName
 
     const selectedCategory = categories.find(
       category => category.name === categoryName
@@ -136,7 +138,7 @@ export class CategoriesPage extends Component {
     ).reverse()
     const hasAccount = Boolean(accounts.data && accounts.data.length > 0)
 
-    const isSubcategory = onSubcategory(router.params)
+    const isSubcategory = onSubcategory(params)
 
     return (
       <>
@@ -167,14 +169,14 @@ export class CategoriesPage extends Component {
                 selectedCategory={selectedCategory}
                 selectedCategoryName={categoryName}
                 selectCategory={(selectedCategory, subcategory) =>
-                  goToCategory(router, selectedCategory, subcategory)
+                  goToCategory(navigate, selectedCategory, subcategory)
                 }
                 withIncome={showIncomeCategory}
                 filterWithInCome={this.filterWithInCome}
               />
             ) : (
               <CategoryTransactions
-                subcategoryName={router.params.subcategoryName}
+                subcategoryName={params.subcategoryName}
                 transactions={filteredTransactionsByAccount}
               />
             ))}
@@ -188,4 +190,14 @@ CategoriesPage.defaultProps = {
   delayContent: 0
 }
 
-export default enhanceCategoriesPage(CategoriesPage)
+const CategoriesPageWrapper = ({ children, ...props }) => {
+  const navigate = useNavigate()
+  const params = useParams()
+  return (
+    <CategoriesPage navigate={navigate} params={params} {...props}>
+      {children}
+    </CategoriesPage>
+  )
+}
+
+export default enhanceCategoriesPage(CategoriesPageWrapper)

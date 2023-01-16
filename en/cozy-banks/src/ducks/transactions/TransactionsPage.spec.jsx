@@ -7,7 +7,6 @@ import fixtures from 'test/fixtures'
 import PropTypes from 'prop-types'
 import AppLike from 'test/AppLike'
 import getClient from 'src/selectors/getClient'
-import mockRouter from 'test/mockRouter'
 
 import { GROUP_DOCTYPE, ACCOUNT_DOCTYPE, schema } from 'doctypes'
 
@@ -55,8 +54,8 @@ const mkCollection = (data, options) => ({
 
 // Necessary wrapper to be able to use setProps since `setProps` is
 // only callable on the Enzyme root
-const Wrapper = ({ filteringDoc, filteredTransactions, router, client }) => (
-  <AppLike client={client} router={router}>
+const Wrapper = ({ filteringDoc, filteredTransactions, client }) => (
+  <AppLike client={client}>
     <UnpluggedTransactionsPage
       transactions={mkCollection(allTransactions, { fetchStatus: 'loaded' })}
       accounts={mkCollection(allAccounts, { fetchStatus: 'loaded' })}
@@ -69,7 +68,7 @@ const Wrapper = ({ filteringDoc, filteredTransactions, router, client }) => (
 )
 
 describe('TransactionsPage', () => {
-  let root, categoryName, subcategoryName, restoreWindowWidth
+  let root, restoreWindowWidth
   beforeEach(() => {
     restoreWindowWidth = saveWindowWidth()
     jest
@@ -83,19 +82,6 @@ describe('TransactionsPage', () => {
   })
 
   const setup = () => {
-    const router = {
-      ...mockRouter,
-      getCurrentLocation: () => ({
-        pathname: '/'
-      }),
-      params: {
-        subcategoryName,
-        categoryName
-      }
-    }
-    const context = {
-      router
-    }
     const childContextTypes = {
       router: PropTypes.object
     }
@@ -115,8 +101,7 @@ describe('TransactionsPage', () => {
       }
     })
     getClient.mockReturnValue(client)
-    root = mount(<Wrapper client={client} router={router} />, {
-      context,
+    root = mount(<Wrapper client={client} />, {
       childContextTypes
     })
   }
