@@ -11,6 +11,9 @@ We provide packages for [64 bits](https://nuts.cozycloud.cc/download/channel/sta
 
 _[List of known to work distributions](https://cozy-labs.github.io/cozy-desktop/doc/usage/linux#supported-distributions)_
 
+!!! warning ""
+    If you are using a recent version of Ubuntu, you may need to install the `libfuse2` library. This library used to be available by default on Ubuntu, but has been removed in the `22.04` release. To install this library, use your favorite package manager or `sudo apt install libfuse2`. This may also apply to other Ubuntu based distributions. 
+
 ## Detailed instructions on Gnome
 
 Click on this link to download [Cozy Drive for GNU/Linux 64 bits](https://nuts.cozycloud.cc/download/channel/stable/64).
