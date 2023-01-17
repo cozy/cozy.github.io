@@ -2701,15 +2701,15 @@ Banks application.</p>
 </ul>
 <h2 id="developing">Developing<a class="headerlink" href="#developing" title="Permanent link">&para;</a></h2>
 <p>You can manually create an app token and launch the built service.</p>
-<div class="codehilite"><pre><span></span># Watch services
+<div class="codehilite"><pre><span></span><span class="c1"># Watch services</span>
 $ yarn watch:services:prod
-# If you want to watch only 1 service, you can use the WEBPACK_ENTRYPOINT
-# env variable with the name of the name of the entrypoint. If this var
-# is set, only the corresponding entrypoint will be used.
-# env WEBPACK_ENTRYPOINT=recurrence yarn watch:services
-# In another terminal
-$ export COZY_URL=&#39;http://cozy.tools:8080&#39;
-$ export COZY_CREDENTIALS=$(cozy-stack instances token-app cozy.tools:8080 banks)
+<span class="c1"># If you want to watch only 1 service, you can use the WEBPACK_ENTRYPOINT</span>
+<span class="c1"># env variable with the name of the name of the entrypoint. If this var</span>
+<span class="c1"># is set, only the corresponding entrypoint will be used.</span>
+<span class="c1"># env WEBPACK_ENTRYPOINT=recurrence yarn watch:services</span>
+<span class="c1"># In another terminal</span>
+$ <span class="nb">export</span> <span class="nv">COZY_URL</span><span class="o">=</span><span class="s1">&#39;http://cozy.tools:8080&#39;</span>
+$ <span class="nb">export</span> <span class="nv">COZY_CREDENTIALS</span><span class="o">=</span><span class="k">$(</span>cozy-stack instances token-app cozy.tools:8080 banks<span class="k">)</span>
 $ node build/budgetAlerts.js
 </pre></div>
 

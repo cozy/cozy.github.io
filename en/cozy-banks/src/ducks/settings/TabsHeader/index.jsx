@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
@@ -21,8 +21,6 @@ const TabsHeader = () => {
 
   if (tabNames.indexOf(defaultTab) === -1) defaultTab = 'configuration'
 
-  const goTo = useCallback(url => () => navigate(url), [navigate])
-
   return (
     <>
       <Padded className={isMobile ? 'u-p-0' : 'u-pb-half'}>
@@ -36,7 +34,7 @@ const TabsHeader = () => {
               classes={{ root: i === 0 && !isMobile ? 'u-ml-2' : 0 }}
               key={tabName}
               name={tabName}
-              onClick={goTo(`/settings/${tabName}`)}
+              onClick={() => navigate(`/settings/${tabName}`)}
               label={t(`Settings.${tabName}`)}
             />
           ))}

@@ -4,11 +4,6 @@ import { Tab, Tabs } from 'cozy-ui/transpiled/react/MuiTabs'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Header from 'components/Header'
 
-export const tabRoutes = {
-  categories: 'analysis/categories',
-  recurrence: 'analysis/recurrence'
-}
-
 export const activeTab = location =>
   location.pathname.includes('categories') ? 'categories' : 'recurrence'
 export const tabNames = ['categories', 'recurrence']
@@ -26,7 +21,7 @@ const AnalysisTabs = () => {
             label={t(`Nav.${tabName}`)}
             key={tabName}
             name={tabName}
-            onClick={() => navigate(tabRoutes[tabName])}
+            onClick={() => navigate(`/analysis/${tabName}`)}
           />
         ))}
       </Tabs>
