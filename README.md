@@ -15,7 +15,11 @@ Learn how to [use Cozy](https://docs.cozy.io/en/use), [host your own server](htt
 
 This documentation is built with [MkDocs](http://www.mkdocs.org).
 
-To edit the documentation, just edit the files inside `src`.
+All sources are in the `dev` branch and the `master` branch contains the "live" built site. The CI builds the site from the `dev` branch and automatically publish the built result in the `master` branch.
+
+/!\ PLEASE DO NOT DIRECTLY EDIT THE `master` BRANCH
+
+To edit the documentation, just edit the files inside `src` on the `dev` branch.
 
 If you want to see your updates, install mkdocs:
 
@@ -55,23 +59,21 @@ this natively).
 
 ## When are the docs deployed ?
 
-The documentation is built automatically by Travis
+The documentation build is triggerd automatically and built by Travis
 
-- when the `dev` is pushed
+- when a commit is pushed on the `dev` branch
 - every day (since we cannot detect changes in external documentations)
 
 After the build, it is available on <https://docs.cozy.io/>.
 
-You can trigger a manual build on <https://travis-ci.org/cozy/cozy.github.io> > `More options` > `Trigger build`.
+You can trigger a manual build on <https://travis-ci.com/cozy/cozy.github.io> > `More options` > `Trigger build`.
 
 ## Testing the statically built site
 
 To test the whole site:
 
 ```shell
-rm -rf docs/*
-cp index.html docs/
-mkdocs build -f mkdocs.yml
+./build.sh
 cd site/
 python -m SimpleHTTPServer
 ```
