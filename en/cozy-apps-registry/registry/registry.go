@@ -549,13 +549,13 @@ func tarReader(reader io.ReadSeeker, contentType string) (*tar.Reader, error) {
 		"application/x-gzip",
 		"application/x-tgz",
 		"application/tar+gzip":
-		r, err = gzip.NewReader(reader)
-		if err != nil {
+		if r, err = gzip.NewReader(reader); err != nil {
 			return nil, err
 		}
 	case "application/octet-stream":
 		if r, err = gzip.NewReader(reader); err != nil {
 			_, _ = reader.Seek(0, io.SeekStart)
+			r = reader
 		}
 	}
 	return tar.NewReader(r), nil
