@@ -1,20 +1,17 @@
 import React, { memo } from 'react'
-
 import groupBy from 'lodash/groupBy'
 import sortBy from 'lodash/sortBy'
 
+import { hasQueryBeenLoaded, isQueryLoading, useQuery } from 'cozy-client'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import Button from 'cozy-ui/transpiled/react/MuiCozyTheme/Buttons'
+import Button from 'cozy-ui/transpiled/react/Buttons'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import PlusIcon from 'cozy-ui/transpiled/react/Icons/Plus'
-import { hasQueryBeenLoaded, isQueryLoading, useQuery } from 'cozy-client'
-
-import Loading from 'components/Loading'
-
-import AddAccountLink from 'ducks/settings/AddAccountLink'
-import { useTrackPage } from 'ducks/tracking/browser'
 
 import { accountsConn } from 'doctypes'
+import Loading from 'components/Loading'
+import { useTrackPage } from 'ducks/tracking/browser'
+import AddAccountLink from 'ducks/settings/AddAccountLink'
 import { useBanksContext } from 'ducks/context/BanksContext'
 import AccountsListSettings from 'ducks/settings/AccountsListSettings'
 
@@ -54,10 +51,11 @@ const AccountsSettings = () => {
         <p>{t('Accounts.no-accounts')}</p>
       )}
       <AddAccountLink>
-        <Button color="primary">
-          <Icon icon={PlusIcon} className="u-mr-half" />{' '}
-          {t('Accounts.add-bank')}
-        </Button>
+        <Button
+          variant="text"
+          startIcon={<Icon icon={PlusIcon} />}
+          label={t('Accounts.add-bank')}
+        />
       </AddAccountLink>
     </>
   )

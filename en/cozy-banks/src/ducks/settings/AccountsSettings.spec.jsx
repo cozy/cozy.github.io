@@ -19,7 +19,8 @@ jest.mock('hooks/useRedirectionURL', () => {
 
 jest.mock('cozy-client', () => ({
   ...jest.requireActual('cozy-client'),
-  useAppsInMaintenance: jest.fn().mockReturnValue([{ slug: 'banking-slug' }])
+  useAppsInMaintenance: jest.fn().mockReturnValue([{ slug: 'banking-slug' }]),
+  generateWebLink: jest.fn().mockReturnValue('http://')
 }))
 
 const BreakContext = () => {

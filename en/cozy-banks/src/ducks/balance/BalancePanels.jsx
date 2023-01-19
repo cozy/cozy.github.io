@@ -1,16 +1,16 @@
 import React, { useCallback } from 'react'
-import { useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import GroupPanel from 'ducks/balance/GroupPanel'
+import { useNavigate } from 'react-router-dom'
 
+import flag from 'cozy-flags'
 import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Button from 'cozy-ui/transpiled/react/Button'
-import flag from 'cozy-flags'
 
+import Delayed from 'components/Delayed'
 import AddAccountLink from 'ducks/settings/AddAccountLink'
+import GroupPanel from 'ducks/balance/GroupPanel'
 import { translateAndSortGroups } from 'ducks/groups/helpers'
 import styles from 'ducks/balance/BalancePanels.styl'
-import Delayed from 'components/Delayed'
 
 const GROUP_PANEL_RENDER_DELAY = 150
 

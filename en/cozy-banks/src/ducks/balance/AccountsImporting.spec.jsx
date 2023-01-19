@@ -17,6 +17,12 @@ jest.mock('cozy-flags', () => flagName => {
   return flagName === 'balance.no-delay-groups'
 })
 
+jest.mock('cozy-client', () => ({
+  __esModule: true,
+  ...jest.requireActual('cozy-client'),
+  generateWebLink: jest.fn().mockReturnValue('http://')
+}))
+
 const konnectorInfos = [
   {
     konnector: 'konnector',

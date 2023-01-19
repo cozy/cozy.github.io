@@ -37,18 +37,18 @@ export const doBillsMatching = async (client, setting, options = {}) => {
     setting.billsMatching.billsLastSeq = billsChanges.newLastSeq
 
     if (billsChanges.documents.length === 0) {
-      log('info', '[matching service] No new bills since last execution')
+      log('info', '[Bills matching service] No new bills since last execution')
     } else {
       log(
         'info',
-        `[matching service] ${billsChanges.documents.length} new bills since last execution. Trying to find transactions for them`
+        `[Bills matching service] ${billsChanges.documents.length} new bills since last execution. Trying to find transactions for them`
       )
 
       const result = await matchFromBills(billsChanges.documents)
       logResult(result)
     }
   } catch (e) {
-    log('error', `❗ [matching service] ${e}`)
+    log('error', `❗ [Bills matching service] ${e}`)
   }
 }
 
@@ -73,18 +73,21 @@ export const doTransactionsMatching = async (client, setting, options = {}) => {
     )
 
     if (transactionsChanges.documents.length === 0) {
-      log('info', '[matching service] No new operations since last execution')
+      log(
+        'info',
+        '[Transactions matching service] No new operations since last execution'
+      )
     } else {
       log(
         'info',
-        `[matching service] ${transactionsChanges.documents.length} new transactions since last execution. Trying to find bills for them`
+        `[Transactions matching service] ${transactionsChanges.documents.length} new transactions since last execution. Trying to find bills for them`
       )
 
       const result = await matchFromTransactions(transactionsChanges.documents)
       logResult(result)
     }
   } catch (e) {
-    log('error', `❗ [matching service] ${e}`)
+    log('error', `❗ [Transactions matching service] ${e}`)
   }
 }
 
