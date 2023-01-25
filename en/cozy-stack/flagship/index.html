@@ -2137,6 +2137,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#notifications" title="Notifications" class="md-nav__link">
+    Notifications
+  </a>
+  
+</li>
+      
       
       
       
@@ -2722,6 +2729,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#notifications" title="Notifications" class="md-nav__link">
+    Notifications
+  </a>
+  
+</li>
+      
       
       
       
@@ -2831,6 +2845,15 @@ inAppBrowser, like:</p>
 <li>starting the OAuth danse of a konnector (<code>/accounts/:slug/start</code>)</li>
 <li>starting the reconnect BI flow (<code>/accounts/:slug/reconnect</code>).</li>
 </ul>
+<h2 id="notifications">Notifications<a class="headerlink" href="#notifications" title="Permanent link">&para;</a></h2>
+<p>When a notification is sent via the push channel, the stack will first try to
+send it to the dedicated mobile app. If there are no dedicated apps with a push
+token, the stack will then try to send the notification to the flagship apps.
+If it fails again, the stack then fallbacks on email.</p>
+<p>If the notification is sent to the flagship app, the title is modified to
+preprend the application name. The name is taken from the <code>appName</code> field of
+the additional parameters (<code>data</code>). It allows the user to have more context
+when reading the notification on their mobile.</p>
                 
                   
                 

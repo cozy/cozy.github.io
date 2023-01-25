@@ -4362,8 +4362,10 @@ corresponding session when opening the webapp.</p>
 
 <h2 id="send-application-logs-to-cozy-stack">Send application logs to cozy-stack<a class="headerlink" href="#send-application-logs-to-cozy-stack" title="Permanent link">&para;</a></h2>
 <h3 id="post-appssluglogs">POST /apps/:slug/logs<a class="headerlink" href="#post-appssluglogs" title="Permanent link">&para;</a></h3>
-<p>Send client-side logs to cozy-stack so they can be stored in the server&rsquo;s 
+<p>Send client-side logs to cozy-stack so they can be stored in the server&rsquo;s
 logging system.</p>
+<p>The job identifier must be sent in the <code>job_id</code> parameter of the query string.
+The version of the application can be sent in the <code>version</code> parameter.</p>
 <h4 id="status-codes_2">Status codes<a class="headerlink" href="#status-codes_2" title="Permanent link">&para;</a></h4>
 <ul>
 <li>204 No Content, when all the log lines have been processed.</li>
@@ -4373,7 +4375,7 @@ logging system.</p>
     slug is invalid or log level does not exist)</li>
 </ul>
 <h4 id="request_9">Request<a class="headerlink" href="#request_9" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/apps/emails/logs</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/apps/emails/logs?job_id=1c6ff5a07eb7013bf7e0-18c04daba326</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </pre></div>
 
