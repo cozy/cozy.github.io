@@ -145,7 +145,10 @@ class TransactionGreater extends NotificationView {
     const { accounts, transactions, matchingRules } = await this.fetchData()
 
     if (transactions.length === 0) {
-      log('info', 'TransactionGreater: no matched transactions')
+      log(
+        'info',
+        '[🔔 notifications] TransactionGreater: no matched transactions'
+      )
       return
     }
 

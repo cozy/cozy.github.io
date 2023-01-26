@@ -72,7 +72,10 @@ class LateHealthReimbursement extends NotificationView {
     const lt = formatDate(subDays(today, this.interval), DATE_FORMAT)
     const gt = formatDate(subMonths(lt, 6), DATE_FORMAT)
 
-    log('info', `Fetching transactions between ${gt} and ${lt}`)
+    log(
+      'info',
+      `[🔔 notifications] LateHealthReimbursement: Fetching transactions between ${gt} and ${lt}`
+    )
     const transactionsInDateRange = await BankTransaction.queryAll({
       date: {
         $gt: gt,
@@ -81,12 +84,15 @@ class LateHealthReimbursement extends NotificationView {
     })
     log(
       'info',
-      `${transactionsInDateRange.length} fetched transactions between ${gt} and ${lt}`
+      `[🔔 notifications] LateHealthReimbursement: ${transactionsInDateRange.length} fetched transactions between ${gt} and ${lt}`
     )
 
     const healthExpenses = transactionsInDateRange.filter(isHealthExpense)
 
-    log('info', `${healthExpenses.length} are health expenses`)
+    log(
+      'info',
+      `[🔔 notifications] LateHealthReimbursement: ${healthExpenses.length} are health expenses`
+    )
 
     const billIds = getReimbursementBillIds(healthExpenses)
     const bills = await Bill.getAll(billIds)
@@ -134,22 +140,30 @@ class LateHealthReimbursement extends NotificationView {
     const transactions = await this.fetchTransactions()
 
     if (transactions.length === 0) {
-      log('info', 'No late health reimbursement')
-      return
+      log(
+        'info',
+        '[🔔 notifications] LateHealthReimbursement: No late health reimbursement'
+      )
+      return { transactions, accounts: [] }
     }
 
     log(
       'info',
-      `${transactions.length} late health reimbursements never notified`
+      `[🔔 notifications] LateHealthReimbursement: ${transactions.length} late health reimbursements never notified`
     )
 
     this.toNotify = transactions
 
-    log('info', 'Fetching accounts for late health reimbursements')
-    const accounts = await this.fetchAccounts(transactions)
     log(
       'info',
-      `${accounts.length} accounts fetched for late health reimbursements`
+      '[🔔 notifications] LateHealthReimbursement: Fetching accounts for late health reimbursements'
+    )
+
+    const accounts = await this.fetchAccounts(transactions)
+
+    log(
+      'info',
+      `[🔔 notifications] LateHealthReimbursement: ${accounts.length} accounts fetched for late health reimbursements`
     )
 
     return { transactions, accounts }
@@ -157,6 +171,11 @@ class LateHealthReimbursement extends NotificationView {
 
   async buildData() {
     const { transactions, accounts } = await this.fetchData()
+
+    if (transactions.length === 0) {
+      return
+    }
+
     const accountsById = keyBy(accounts, '_id')
     const transactionsByAccounts = prepareTransactions(transactions)
 
@@ -191,14 +210,20 @@ class LateHealthReimbursement extends NotificationView {
    * See `Notification::sendNotification`
    */
   async onSuccess() {
-    log('info', 'LateHealthReimbursement notification successfuly sent')
+    log(
+      'info',
+      '[🔔 notifications] LateHealthReimbursement: notification successfuly sent'
+    )
+
     this.toNotify.forEach(transaction => {
       setAlreadyNotified(transaction, LateHealthReimbursement)
     })
+
     log(
       'info',
-      `Marking ${this.toNotify.length} transactions as already notified:`
+      `[🔔 notifications] LateHealthReimbursement: Marking ${this.toNotify.length} transactions as already notified`
     )
+
     await this.client.saveAll(this.toNotify)
   }
 }

@@ -33,9 +33,9 @@ export const fetchChangesOrAll = async (client, doctype, lastSeq) => {
       limit: 1
     })
 
-    const documents = await collection.all({ limit: null })
+    const { data } = await collection.all({ limit: null })
 
-    return { documents, newLastSeq: lastChanges.newLastSeq }
+    return { documents: data, newLastSeq: lastChanges.newLastSeq }
   } else {
     return collection.fetchChanges({
       since: lastSeq,

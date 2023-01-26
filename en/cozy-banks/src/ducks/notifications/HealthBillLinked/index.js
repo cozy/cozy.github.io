@@ -76,7 +76,10 @@ class HealthBillLinked extends NotificationView {
     const { accounts, transactions, bills } = await this.fetchData()
 
     if (transactions.length === 0) {
-      log('info', 'HealthBillLinked: no transactions with reimbursements')
+      log(
+        'info',
+        '[🔔 notifications] HealthBillLinked: no transactions with reimbursements'
+      )
       return
     }
 

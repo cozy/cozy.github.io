@@ -106,10 +106,10 @@ describe('fetchChangesOrAll', () => {
   beforeEach(() => {
     jest
       .spyOn(DocumentCollection.prototype, 'fetchChanges')
-      .mockResolvedValue({ newLastSeq: '1234' })
+      .mockResolvedValue({ documents: [], newLastSeq: '1234' })
     jest
       .spyOn(DocumentCollection.prototype, 'all')
-      .mockResolvedValue({ newLastSeq: '1234' })
+      .mockResolvedValue({ data: [], newLastSeq: '1234' })
   })
 
   afterEach(() => {
@@ -118,7 +118,7 @@ describe('fetchChangesOrAll', () => {
   })
 
   it('should return all documents if lastSeq is "0"', async () => {
-    await fetchChangesOrAll(client, 'io.cozy.todos', '0')
+    const res = await fetchChangesOrAll(client, 'io.cozy.todos', '0')
 
     expect(DocumentCollection.prototype.fetchChanges).toHaveBeenCalledWith({
       since: '',
@@ -129,15 +129,18 @@ describe('fetchChangesOrAll', () => {
     expect(DocumentCollection.prototype.all).toHaveBeenCalledWith({
       limit: null
     })
+
+    expect(res).toStrictEqual({ documents: [], newLastSeq: '1234' })
   })
 
   it('should return changes if lastSeq is not "0"', async () => {
-    await fetchChangesOrAll(client, 'io.cozy.todos', 'abcd')
+    const res = await fetchChangesOrAll(client, 'io.cozy.todos', 'abcd')
 
     expect(DocumentCollection.prototype.fetchChanges).toHaveBeenCalledWith({
       since: 'abcd',
       include_docs: true
     })
     expect(DocumentCollection.prototype.all).not.toHaveBeenCalled()
+    expect(res).toStrictEqual({ documents: [], newLastSeq: '1234' })
   })
 })

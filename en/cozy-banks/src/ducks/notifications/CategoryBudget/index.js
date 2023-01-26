@@ -84,7 +84,10 @@ class CategoryBudget extends NotificationView {
   shouldSend(templateData) {
     const willSend = !!templateData.budgetAlerts
     if (!willSend) {
-      log('info', 'Nothing to send, bailing out')
+      log(
+        'info',
+        '[🔔 notifications] CategoryBudget: Nothing to send, bailing out'
+      )
     }
     return willSend
   }

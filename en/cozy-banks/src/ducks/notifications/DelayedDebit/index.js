@@ -130,7 +130,10 @@ class DelayedDebit extends NotificationView {
       }
     })
 
-    log('info', `${creditCardsToNotify.length} accounts to notify`)
+    log(
+      'info',
+      `[🔔 notifications] DelayedDebit: ${creditCardsToNotify.length} accounts to notify`
+    )
     return {
       institutions: groupAccountsByInstitution(creditCardsToNotify),
       date: getCurrentDate(),
