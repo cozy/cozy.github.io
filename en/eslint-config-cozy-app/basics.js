@@ -13,7 +13,7 @@ module.exports = {
     'plugin:promise/recommended'
   ],
   parser: '@babel/eslint-parser',
-  plugins: ['prettier', 'promise'],
+  plugins: ['prettier', 'promise', 'jest'],
   rules: {
     'no-console': 'error',
     'no-param-reassign': 'warn',
@@ -27,6 +27,8 @@ module.exports = {
         trailingComma: 'none'
       }
     ],
-    'spaced-comment': ['error', 'always', { block: { exceptions: ['*'] } }]
+    'spaced-comment': ['error', 'always', { block: { exceptions: ['*'] } }],
+    'jest/no-focused-tests': 'error',
+    'jest/no-disabled-tests': 'warn'
   }
 }
