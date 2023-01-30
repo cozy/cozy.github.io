@@ -3603,9 +3603,10 @@ are not related to OAuth. The document still need to be injected manually in
 </pre></div>
 
 
-<p><strong>Note</strong>: <code>grant_mode</code> must be <code>secret</code> (or <code>bi_webauth+secret</code> or <code>bi_webview+secret</code>), <code>slug</code> must
-be the slug of the konnector,  but <code>secret</code> can be a map instead of a simple
-string if several secrets are needed for this service.</p>
+<p><strong>Note</strong>: <code>grant_mode</code> must be <code>secret</code> (or <code>bi_webauth+secret</code>, or
+<code>bi_webview+secret</code>, or <code>authorization_code+secret</code>), <code>slug</code> must be the slug
+of the konnector,  but <code>secret</code> can be a map instead of a simple string if
+several secrets are needed for this service.</p>
 <p>The secret is given to the konnector in the <code>COZY_PARAMETERS</code> env variable.</p>
 <h3 id="overloading-an-account-type-for-a-given-context">Overloading an account type for a given context<a class="headerlink" href="#overloading-an-account-type-for-a-given-context" title="Permanent link">&para;</a></h3>
 <p>It is possible to use a different account type for a given context, by creating
