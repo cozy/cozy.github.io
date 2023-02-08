@@ -988,6 +988,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#specific-case-of-iocozyfiles" title="Specific case of io.cozy.files" class="md-nav__link">
+    Specific case of io.cozy.files
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2679,6 +2686,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#specific-case-of-iocozyfiles" title="Specific case of io.cozy.files" class="md-nav__link">
+    Specific case of io.cozy.files
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2746,12 +2760,12 @@
 
 <p>When you provide this information, cozy-client will automatically update metadata when it saves a document.</p>
 <h3 id="for-new-documents">For new documents<a class="headerlink" href="#for-new-documents" title="Permanent link">&para;</a></h3>
-<p>Cozy-Client will set: </p>
+<p>Cozy-Client will set:</p>
 <ul>
 <li><code>metadataVersion</code> <string>: to the last version known to Cozy-Client. It&rsquo;s the version of the schema for the metadata block itself.</li>
 <li><code>doctypeVersion</code> <string>: if it&rsquo;s provided in the <code>schema</code> at Cozy-Client initialization</li>
 <li><code>slug</code> <string>: Slug of the app</li>
-<li><code>sourceAccount</code>: </li>
+<li><code>sourceAccount</code>: <string>: if it&rsquo;s provided in the <code>appMetadata</code> at initialization. Note it won&rsquo;t work for files (see below).</li>
 <li>creation date, app and version</li>
 <li>updated date, app and version</li>
 </ul>
@@ -2777,6 +2791,20 @@
 <li>Add your app and version in the <code>updatedByApps</code> list</li>
 </ul>
 <p>⚠️ These values will override any values that your document may already have.</p>
+<h3 id="specific-case-of-iocozyfiles">Specific case of io.cozy.files<a class="headerlink" href="#specific-case-of-iocozyfiles" title="Permanent link">&para;</a></h3>
+<p>The io.cozy.files doctype is protected by cozy-stack, that restricts the attributes that can be saved by the client, including the cozyMetadata.</p>
+<p>This is the case for :
+* <code>cozyMetadata.sourceAccount</code>
+* <code>cozyMetadata.sourceAccountIdentifier</code></p>
+<p>To save those attributes, you can pass them directly to the save method, like this:</p>
+<div class="codehilite"><pre><span></span>const client = new client()
+client.save({
+  _type: &#39;io.cozy.files&#39;,
+  sourceAcount: &#39;12ab3c&#39;,
+  sourceAccountIdentifier: &#39;john@example.org&#39;,
+  ...
+})
+</pre></div>
                 
                   
                 

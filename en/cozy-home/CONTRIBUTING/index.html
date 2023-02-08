@@ -2749,7 +2749,7 @@
 <li>You may add documentation in the <code>/docs</code> directory to explain your choices if needed</li>
 <li>We recommend to use [task lists][checkbox] to explain steps / features in your Pull-Request description</li>
 <li>you do <em>not</em> need to build app to submit a PR</li>
-<li>you should update the Transifex source locale file if you modify it for your feature needs (see <a href="https://github.com/cozy/cozy-home/blob/master/README.md#localization">Localization section in README</a>)</li>
+<li>you should update the Transifex source locale file if you modify it for your feature needs (see <a href="https://github.com/cozy/cozy-home/blob/master/CONTRIBUTING.md#translations">Localization section in README</a>)</li>
 </ul>
 <h3 id="workflow">Workflow<a class="headerlink" href="#workflow" title="Permanent link">&para;</a></h3>
 <p>Pull requests are the primary mechanism we use to change Cozy. GitHub itself has some <a href="https://help.github.com/categories/collaborating-with-issues-and-pull-requests/">great documentation</a> on using the Pull Request feature. We use the <em>fork and pull</em> model described there.</p>
@@ -2800,7 +2800,9 @@ $ git rebase origin/master my-branch
 <h2 id="writing-documentation">Writing documentation<a class="headerlink" href="#writing-documentation" title="Permanent link">&para;</a></h2>
 <p>Documentation improvements are very welcome. We try to keep a good documentation in the <code>/docs</code> folder. But, you know, we are developers, we can forget to document important stuff that look obvious to us. And documentation can always be improved.</p>
 <h2 id="translations">Translations<a class="headerlink" href="#translations" title="Permanent link">&para;</a></h2>
-<p>The Cozy Drive is translated on a platform called <a href="https://www.transifex.com/cozy/">Transifex</a>. <a href="http://docs.transifex.com/getting-started/translators/">This tutorial</a> can help you to learn how to make your first steps here. If you have any question, don&rsquo;t hesitate to ask us!</p>
+<p>Localization and translations are handled by <a href="https://www.transifex.com/cozy/">Transifex</a>, which is used by all Cozy&rsquo;s apps.</p>
+<p>As a <em>translator</em>, you can login to <a href="https://www.transifex.com/signin/">Transifex</a> (using your Github account) and claim an access to the <a href="https://www.transifex.com/cozy/cozy-home/dashboard/">app repository</a>. Transifex will then create pull request on the repository, and the locales are merged after validating the pull request. <a href="https://help.transifex.com/en/articles/6248698-getting-started-as-a-translator">This tutorial</a> can help you to learn how to make your first steps here. If you have any question, don&rsquo;t hesitate to ask us!</p>
+<p>As a <em>developer</em>, you just have to modify json in <code>/src/locales</code>. New locales will be automatically added to Transifex. If you need to pull or push manually locales, you can use <a href="tx-cli">Transifex CLI</a>. If you were using a <a href="tx-client">transifex-client</a>, you must move to <a href="tx-cli">Transifex CLI</a> to be compatible with the v3 API.</p>
 <h2 id="community">Community<a class="headerlink" href="#community" title="Permanent link">&para;</a></h2>
 <p>You can help us by making our community even more vibrant. For example, you can write a blog post, take some videos, answer the questions on <a href="https://forum.cozy.io/">the forum</a>, organize new meetups, and speak about what you like in Cozy!</p>
                 
