@@ -2598,32 +2598,33 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#type-aliases" title="Type aliases" class="md-nav__link">
-    Type aliases
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#cozyaccount" title="CozyAccount" class="md-nav__link">
-    CozyAccount
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#functions" title="Functions" class="md-nav__link">
     Functions
   </a>
   
     <nav class="md-nav">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#buildaccount" title="buildAccount" class="md-nav__link">
+    buildAccount
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getaccountlogin" title="getAccountLogin" class="md-nav__link">
+    getAccountLogin
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getaccountname" title="getAccountName" class="md-nav__link">
+    getAccountName
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#getcontractsyncstatusfromaccount" title="getContractSyncStatusFromAccount" class="md-nav__link">
@@ -2680,14 +2681,96 @@
                 <p><a href="../../">cozy-client</a> / <a href="../models/">models</a> / account</p>
 <h1 id="namespace-account">Namespace: account<a class="headerlink" href="#namespace-account" title="Permanent link">&para;</a></h1>
 <p><a href="../models/">models</a>.account</p>
-<h2 id="type-aliases">Type aliases<a class="headerlink" href="#type-aliases" title="Permanent link">&para;</a></h2>
-<h3 id="cozyaccount">CozyAccount<a class="headerlink" href="#cozyaccount" title="Permanent link">&para;</a></h3>
-<p>Ƭ <strong>CozyAccount</strong>&lt;&gt;: <code>object</code></p>
-<p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/account.js#L7">packages/cozy-client/src/models/account.js:7</a></p>
 <h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
+<h3 id="buildaccount">buildAccount<a class="headerlink" href="#buildaccount" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>buildAccount</strong>(<code>konnector</code>, <code>authData</code>): <code>IOCozyAccount</code></p>
+<p>Transforms account auth data to io.cozy.accounts document</p>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>konnector</code></td>
+<td align="left"><code>IOCozyKonnector</code></td>
+<td align="left">Konnector related to account</td>
+</tr>
+<tr>
+<td align="left"><code>authData</code></td>
+<td align="left"><code>any</code></td>
+<td align="left">Authentication data</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>IOCozyAccount</code></p>
+<p>io.cozy.accounts attributes</p>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/account.js#L109">packages/cozy-client/src/models/account.js:109</a></p>
+<hr />
+<h3 id="getaccountlogin">getAccountLogin<a class="headerlink" href="#getaccountlogin" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>getAccountLogin</strong>(<code>account</code>): <code>string</code></p>
+<p>Get the account login field value from a given account</p>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>account</code></td>
+<td align="left"><code>IOCozyAccount</code></td>
+<td align="left">the given cozy account</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>string</code></p>
+<ul>
+<li>Account login</li>
+</ul>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/account.js#L78">packages/cozy-client/src/models/account.js:78</a></p>
+<hr />
+<h3 id="getaccountname">getAccountName<a class="headerlink" href="#getaccountname" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>getAccountName</strong>(<code>account</code>): <code>string</code></p>
+<p>Get the account name from a given account</p>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>account</code></td>
+<td align="left"><code>IOCozyAccount</code></td>
+<td align="left">the given cozy account</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>string</code></p>
+<ul>
+<li>Account name</li>
+</ul>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/account.js#L93">packages/cozy-client/src/models/account.js:93</a></p>
+<hr />
 <h3 id="getcontractsyncstatusfromaccount">getContractSyncStatusFromAccount<a class="headerlink" href="#getcontractsyncstatusfromaccount" title="Permanent link">&para;</a></h3>
-<p>▸ <strong>getContractSyncStatusFromAccount</strong>(<code>account</code>, <code>contractId</code>): <code>any</code></p>
+<p>▸ <strong>getContractSyncStatusFromAccount</strong>(<code>account</code>, <code>contractId</code>): <code>boolean</code></p>
 <p>Returns whether a contract is synced from account relationship</p>
 <p><em>Parameters</em></p>
 <table>
@@ -2701,20 +2784,21 @@
 <tbody>
 <tr>
 <td align="left"><code>account</code></td>
-<td align="left"><code>any</code></td>
+<td align="left"><code>IOCozyAccount</code></td>
 <td align="left">Cozy account</td>
 </tr>
 <tr>
 <td align="left"><code>contractId</code></td>
-<td align="left"><code>any</code></td>
-<td align="left">-</td>
+<td align="left"><code>string</code></td>
+<td align="left">contract identifier</td>
 </tr>
 </tbody>
 </table>
 <p><em>Returns</em></p>
-<p><code>any</code></p>
+<p><code>boolean</code></p>
+<p>synchronisation status</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/account.js#L44">packages/cozy-client/src/models/account.js:44</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/account.js#L43">packages/cozy-client/src/models/account.js:43</a></p>
 <hr />
 <h3 id="getmutederrors">getMutedErrors<a class="headerlink" href="#getmutederrors" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>getMutedErrors</strong>(<code>account</code>): <code>any</code>[]</p>
@@ -2731,7 +2815,7 @@
 <tbody>
 <tr>
 <td align="left"><code>account</code></td>
-<td align="left"><code>any</code></td>
+<td align="left"><code>IOCozyAccount</code></td>
 <td align="left">io.cozy.accounts</td>
 </tr>
 </tbody>
@@ -2740,10 +2824,10 @@
 <p><code>any</code>[]</p>
 <p>An array of errors with a <code>type</code> and <code>mutedAt</code> field</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/account.js#L17">packages/cozy-client/src/models/account.js:17</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/account.js#L14">packages/cozy-client/src/models/account.js:14</a></p>
 <hr />
 <h3 id="muteerror">muteError<a class="headerlink" href="#muteerror" title="Permanent link">&para;</a></h3>
-<p>▸ <strong>muteError</strong>(<code>account</code>, <code>errorType</code>): <code>any</code></p>
+<p>▸ <strong>muteError</strong>(<code>account</code>, <code>errorType</code>): <code>IOCozyAccount</code></p>
 <p>muteError - Adds an error to the list of muted errors for the given account</p>
 <p><em>Parameters</em></p>
 <table>
@@ -2757,7 +2841,7 @@
 <tbody>
 <tr>
 <td align="left"><code>account</code></td>
-<td align="left"><code>any</code></td>
+<td align="left"><code>IOCozyAccount</code></td>
 <td align="left">io.cozy.accounts</td>
 </tr>
 <tr>
@@ -2768,13 +2852,13 @@
 </tbody>
 </table>
 <p><em>Returns</em></p>
-<p><code>any</code></p>
+<p><code>IOCozyAccount</code></p>
 <p>An updated io.cozy.accounts</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/account.js#L27">packages/cozy-client/src/models/account.js:27</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/account.js#L24">packages/cozy-client/src/models/account.js:24</a></p>
 <hr />
 <h3 id="setcontractsyncstatusinaccount">setContractSyncStatusInAccount<a class="headerlink" href="#setcontractsyncstatusinaccount" title="Permanent link">&para;</a></h3>
-<p>▸ <strong>setContractSyncStatusInAccount</strong>(<code>account</code>, <code>contractId</code>, <code>syncStatus</code>): <code>any</code></p>
+<p>▸ <strong>setContractSyncStatusInAccount</strong>(<code>account</code>, <code>contractId</code>, <code>syncStatus</code>): <code>IOCozyAccount</code></p>
 <p>Sets contract sync status into account relationship</p>
 <p><em>Parameters</em></p>
 <table>
@@ -2788,25 +2872,25 @@
 <tbody>
 <tr>
 <td align="left"><code>account</code></td>
-<td align="left"><code>any</code></td>
+<td align="left"><code>IOCozyAccount</code></td>
 <td align="left">Cozy account</td>
 </tr>
 <tr>
 <td align="left"><code>contractId</code></td>
-<td align="left"><code>any</code></td>
-<td align="left">-</td>
+<td align="left"><code>string</code></td>
+<td align="left">contract identifier</td>
 </tr>
 <tr>
 <td align="left"><code>syncStatus</code></td>
-<td align="left"><code>any</code></td>
-<td align="left">-</td>
+<td align="left"><code>string</code></td>
+<td align="left">synchronisation status</td>
 </tr>
 </tbody>
 </table>
 <p><em>Returns</em></p>
-<p><code>any</code></p>
+<p><code>IOCozyAccount</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/account.js#L57">packages/cozy-client/src/models/account.js:57</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/account.js#L59">packages/cozy-client/src/models/account.js:59</a></p>
                 
                   
                 

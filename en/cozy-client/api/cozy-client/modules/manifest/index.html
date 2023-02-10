@@ -2598,6 +2598,33 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#variables" title="Variables" class="md-nav__link">
+    Variables
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#role_identifier" title="ROLE_IDENTIFIER" class="md-nav__link">
+    ROLE_IDENTIFIER
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#legacyloginfields" title="legacyLoginFields" class="md-nav__link">
+    legacyLoginFields
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#functions" title="Functions" class="md-nav__link">
     Functions
   </a>
@@ -2608,6 +2635,13 @@
           <li class="md-nav__item">
   <a href="#aretermsvalid" title="areTermsValid" class="md-nav__link">
     areTermsValid
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getidentifier" title="getIdentifier" class="md-nav__link">
+    getIdentifier
   </a>
   
 </li>
@@ -2629,6 +2663,13 @@
           <li class="md-nav__item">
   <a href="#sanitizecategories" title="sanitizeCategories" class="md-nav__link">
     sanitizeCategories
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sanitizeidentifier" title="sanitizeIdentifier" class="md-nav__link">
+    sanitizeIdentifier
   </a>
   
 </li>
@@ -2659,6 +2700,17 @@
                 
                 <p><a href="../../">cozy-client</a> / manifest</p>
 <h1 id="namespace-manifest">Namespace: manifest<a class="headerlink" href="#namespace-manifest" title="Permanent link">&para;</a></h1>
+<h2 id="variables">Variables<a class="headerlink" href="#variables" title="Permanent link">&para;</a></h2>
+<h3 id="role_identifier">ROLE_IDENTIFIER<a class="headerlink" href="#role_identifier" title="Permanent link">&para;</a></h3>
+<p>• <code>Const</code> <strong>ROLE_IDENTIFIER</strong>: <code>"identifier"</code></p>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/manifest.js#L6">packages/cozy-client/src/models/manifest.js:6</a></p>
+<hr />
+<h3 id="legacyloginfields">legacyLoginFields<a class="headerlink" href="#legacyloginfields" title="Permanent link">&para;</a></h3>
+<p>• <code>Const</code> <strong>legacyLoginFields</strong>: <code>string</code>[]</p>
+<p>Legacy login fields declared by some konnectors</p>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/manifest.js#L11">packages/cozy-client/src/models/manifest.js:11</a></p>
 <h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
 <h3 id="aretermsvalid">areTermsValid<a class="headerlink" href="#aretermsvalid" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>areTermsValid</strong>(<code>terms</code>): <code>boolean</code></p>
@@ -2680,7 +2732,33 @@
 <p><em>Returns</em></p>
 <p><code>boolean</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/manifest.js#L33">packages/cozy-client/src/manifest.js:33</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/manifest.js#L63">packages/cozy-client/src/models/manifest.js:63</a></p>
+<hr />
+<h3 id="getidentifier">getIdentifier<a class="headerlink" href="#getidentifier" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>getIdentifier</strong>(<code>fields?</code>): <code>string</code></p>
+<p>Returns the key for the field having the role=identifier attribute</p>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>fields</code></td>
+<td align="left"><code>ManifestFields</code></td>
+<td align="left">Konnector fields</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>string</code></p>
+<p>The key for the identifier field, example &lsquo;login&rsquo;</p>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/manifest.js#L161">packages/cozy-client/src/models/manifest.js:161</a></p>
 <hr />
 <h3 id="ispartnershipvalid">isPartnershipValid<a class="headerlink" href="#ispartnershipvalid" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>isPartnershipValid</strong>(<code>partnership</code>): <code>boolean</code></p>
@@ -2702,7 +2780,7 @@
 <p><em>Returns</em></p>
 <p><code>boolean</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/manifest.js#L37">packages/cozy-client/src/manifest.js:37</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/manifest.js#L67">packages/cozy-client/src/models/manifest.js:67</a></p>
 <hr />
 <h3 id="sanitize">sanitize<a class="headerlink" href="#sanitize" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>sanitize</strong>(<code>manifest</code>): <code>any</code></p>
@@ -2727,10 +2805,10 @@
 <p><em>Returns</em></p>
 <p><code>any</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/manifest.js#L47">packages/cozy-client/src/manifest.js:47</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/manifest.js#L77">packages/cozy-client/src/models/manifest.js:77</a></p>
 <hr />
 <h3 id="sanitizecategories">sanitizeCategories<a class="headerlink" href="#sanitizecategories" title="Permanent link">&para;</a></h3>
-<p>▸ <strong>sanitizeCategories</strong>(<code>categories</code>): <code>any</code></p>
+<p>▸ <strong>sanitizeCategories</strong>(<code>categories</code>): <code>any</code>[]</p>
 <p>Filters unauthorized categories. Defaults to [&lsquo;others&rsquo;] if no suitable category.</p>
 <p><em>Parameters</em></p>
 <table>
@@ -2738,19 +2816,50 @@
 <tr>
 <th align="left">Name</th>
 <th align="left">Type</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left"><code>categories</code></td>
-<td align="left"><code>any</code></td>
+<td align="left"><code>any</code>[]</td>
+<td align="left">Array of categories</td>
 </tr>
 </tbody>
 </table>
 <p><em>Returns</em></p>
-<p><code>any</code></p>
+<p><code>any</code>[]</p>
+<p>sanitized categories</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/manifest.js#L26">packages/cozy-client/src/manifest.js:26</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/manifest.js#L56">packages/cozy-client/src/models/manifest.js:56</a></p>
+<hr />
+<h3 id="sanitizeidentifier">sanitizeIdentifier<a class="headerlink" href="#sanitizeidentifier" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>sanitizeIdentifier</strong>(<code>fields</code>): <code>ManifestFields</code></p>
+<p>Ensures that fields has at least one field with the role &lsquo;identifier&rsquo;</p>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>fields</code></td>
+<td align="left"><code>ManifestFields</code></td>
+<td align="left">Manifest fields</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>ManifestFields</code></p>
+<ul>
+<li>Sanitized manifest fields</li>
+</ul>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/manifest.js#L130">packages/cozy-client/src/models/manifest.js:130</a></p>
                 
                   
                 
