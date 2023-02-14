@@ -1179,6 +1179,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#translated-manifest-fields" title="Translated manifest fields" class="md-nav__link">
+    Translated manifest fields
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#available-manifests-features-list" title="Available manifest’s features list :" class="md-nav__link">
     Available manifest’s features list :
   </a>
@@ -2700,6 +2707,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#translated-manifest-fields" title="Translated manifest fields" class="md-nav__link">
+    Translated manifest fields
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#available-manifests-features-list" title="Available manifest’s features list :" class="md-nav__link">
     Available manifest’s features list :
   </a>
@@ -2773,6 +2787,10 @@
 <tr>
 <td><code>categories</code></td>
 <td>array of categories for your apps (see authorized categories), it will be <code>['others']</code> by default if empty</td>
+</tr>
+<tr>
+<td><code>clientSide</code></td>
+<td>Boolean to specify if the konnector should be run on the client or not</td>
 </tr>
 <tr>
 <td><code>data_types</code></td>
@@ -2912,6 +2930,45 @@
 </tr>
 </tbody>
 </table>
+<h4 id="translated-manifest-fields">Translated manifest fields<a class="headerlink" href="#translated-manifest-fields" title="Permanent link">&para;</a></h4>
+<p>Here are the properties that you can override using <code>locales</code> (we recommand to automatically build these properties according to your locales files if you&rsquo;re using a translating tool like <code>transifex</code>):</p>
+<ul>
+<li><code>name</code>, the app&rsquo;s name</li>
+<li><code>short_description</code>, short description of what the app do</li>
+<li><code>long_description</code>, longer and more complete description of the app behaviour</li>
+<li><code>changes</code>, description of your new version of the konnector or all changes since the last version</li>
+<li><code>fields</code>, An object containing translations for fields.</li>
+<li><code>screenshots</code></li>
+<li><code>folders</code></li>
+</ul>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;email&quot;</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;locales&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;en&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;short_description&quot;</span><span class="p">:</span> <span class="s2">&quot;Collect your Orange&#39;s bills&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Identifier (your email)&quot;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;fr&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;short_description&quot;</span><span class="p">:</span> <span class="s2">&quot;Récupère vos factures Orange&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;fields&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;Identifiant (votre adresse mail)&quot;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
 <h4 id="available-manifests-features-list">Available manifest’s features list :<a class="headerlink" href="#available-manifests-features-list" title="Permanent link">&para;</a></h4>
 <ul>
 <li>
@@ -2960,7 +3017,7 @@
 </li>
 <li>
 <p><strong>LOGIN_OK</strong></p>
-<p>The konnector deactivate the auto-notification </p>
+<p>The konnector deactivate the auto-notification</p>
 </li>
 <li>
 <p><strong>METADATA_DEDUP</strong></p>

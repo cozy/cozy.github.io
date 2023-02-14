@@ -4649,7 +4649,8 @@ logged in, the register token can be used to read the informations.</p>
             <span class="nt">&quot;auto_update&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
             <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;alice@example.com&quot;</span><span class="p">,</span>
             <span class="nt">&quot;public_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice Martin&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;auth_mode&quot;</span><span class="p">:</span> <span class="s2">&quot;basic&quot;</span>
+            <span class="nt">&quot;auth_mode&quot;</span><span class="p">:</span> <span class="s2">&quot;basic&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;default_redirection&quot;</span><span class="p">:</span> <span class="s2">&quot;drive/#/folder&quot;</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -4717,13 +4718,16 @@ this modal again the next time they will open the Home again).</p>
             <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;alice@example.com&quot;</span><span class="p">,</span>
             <span class="nt">&quot;public_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice Martin&quot;</span><span class="p">,</span>
             <span class="nt">&quot;timezone&quot;</span><span class="p">:</span> <span class="s2">&quot;Europe/Berlin&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;auth_mode&quot;</span><span class="p">:</span> <span class="s2">&quot;two_factor_mail&quot;</span>
+            <span class="nt">&quot;auth_mode&quot;</span><span class="p">:</span> <span class="s2">&quot;two_factor_mail&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;default_redirection&quot;</span><span class="p">:</span> <span class="s2">&quot;drive/#/folder&quot;</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
 
+<p>Note: the format for <code>default_redirection</code> is the application slug, followed by
+a slash, and then the route for the app (path + fragment).</p>
 <h4 id="response_14">Response<a class="headerlink" href="#response_14" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span>HTTP/1.1 200 OK
 Content-Type: application/json
@@ -4742,7 +4746,8 @@ Content-Type: application/json
             <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;alice@example.com&quot;</span><span class="p">,</span>
             <span class="nt">&quot;public_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Alice Martin&quot;</span><span class="p">,</span>
             <span class="nt">&quot;timezone&quot;</span><span class="p">:</span> <span class="s2">&quot;Europe/Berlin&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;auth_mode&quot;</span><span class="p">:</span> <span class="s2">&quot;two_factor_mail&quot;</span>
+            <span class="nt">&quot;auth_mode&quot;</span><span class="p">:</span> <span class="s2">&quot;two_factor_mail&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;default_redirection&quot;</span><span class="p">:</span> <span class="s2">&quot;drive/#/folder&quot;</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -4944,9 +4949,9 @@ stack.</p>
         <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.settings&quot;</span><span class="p">,</span>
         <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.settings.context&quot;</span><span class="p">,</span>
         <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&quot;default_redirection&quot;</span><span class="p">:</span> <span class="s2">&quot;drive/#/files&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;default_redirection&quot;</span><span class="p">:</span> <span class="s2">&quot;drive/#/folder&quot;</span><span class="p">,</span>
             <span class="nt">&quot;help_link&quot;</span><span class="p">:</span> <span class="s2">&quot;https://forum.cozy.io/&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;onboarded_redirection&quot;</span><span class="p">:</span> <span class="s2">&quot;collect/#/discovery/?intro&quot;</span>
+            <span class="nt">&quot;onboarded_redirection&quot;</span><span class="p">:</span> <span class="s2">&quot;home/#/discovery/?intro&quot;</span>
         <span class="p">},</span>
         <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/settings/context&quot;</span>
@@ -5068,7 +5073,7 @@ details of how the flags were computed.</p>
         <span class="nt">&quot;has_feature2&quot;</span><span class="p">:</span> <span class="p">[{</span> <span class="nt">&quot;ratio&quot;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span> <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="kc">true</span> <span class="p">}],</span>
         <span class="nt">&quot;bar_config&quot;</span><span class="p">:</span> <span class="p">[</span>
           <span class="p">{</span> <span class="nt">&quot;ratio&quot;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span> <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;qux&quot;</span><span class="p">:</span> <span class="s2">&quot;quux&quot;</span> <span class="p">}</span> <span class="p">},</span>
-          <span class="p">{</span> <span class="nt">&quot;ratio&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">,</span> <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;qux&quot;</span><span class="p">:</span> <span class="s2">&quot;baz&quot;</span> <span class="p">}</span> <span class="p">},</span>
+          <span class="p">{</span> <span class="nt">&quot;ratio&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">,</span> <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;qux&quot;</span><span class="p">:</span> <span class="s2">&quot;baz&quot;</span> <span class="p">}</span> <span class="p">}</span>
         <span class="p">]</span>
       <span class="p">}</span>
     <span class="p">},</span>

@@ -2732,15 +2732,15 @@
 </tbody>
 </table>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/registry.js#L39">packages/cozy-client/src/registry.js:39</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/registry.js#L40">packages/cozy-client/src/registry.js:40</a></p>
 <h2 id="properties">Properties<a class="headerlink" href="#properties" title="Permanent link">&para;</a></h2>
 <h3 id="client">client<a class="headerlink" href="#client" title="Permanent link">&para;</a></h3>
 <p>• <strong>client</strong>: <code>any</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/registry.js#L43">packages/cozy-client/src/registry.js:43</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/registry.js#L44">packages/cozy-client/src/registry.js:44</a></p>
 <h2 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h2>
 <h3 id="fetchapp">fetchApp<a class="headerlink" href="#fetchapp" title="Permanent link">&para;</a></h3>
-<p>▸ <strong>fetchApp</strong>(<code>slug</code>): <code>RegistryApp</code></p>
+<p>▸ <strong>fetchApp</strong>(<code>slug</code>): <code>Promise</code>&lt;<code>RegistryApp</code>&gt;</p>
 <p>Fetch the status of a single app on the registry</p>
 <p><em>Parameters</em></p>
 <table>
@@ -2760,12 +2760,12 @@
 </tbody>
 </table>
 <p><em>Returns</em></p>
-<p><code>RegistryApp</code></p>
+<p><code>Promise</code>&lt;<code>RegistryApp</code>&gt;</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/registry.js#L128">packages/cozy-client/src/registry.js:128</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/registry.js#L132">packages/cozy-client/src/registry.js:132</a></p>
 <hr />
 <h3 id="fetchappversion">fetchAppVersion<a class="headerlink" href="#fetchappversion" title="Permanent link">&para;</a></h3>
-<p>▸ <strong>fetchAppVersion</strong>(<code>params</code>): <code>RegistryApp</code></p>
+<p>▸ <strong>fetchAppVersion</strong>(<code>params</code>): <code>Promise</code>&lt;<code>RegistryApp</code>&gt;</p>
 <p>Fetch the latest version of an app for the given channel and slug</p>
 <p><em>Parameters</em></p>
 <table>
@@ -2800,9 +2800,9 @@
 </tbody>
 </table>
 <p><em>Returns</em></p>
-<p><code>RegistryApp</code></p>
+<p><code>Promise</code>&lt;<code>RegistryApp</code>&gt;</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/registry.js#L142">packages/cozy-client/src/registry.js:142</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/registry.js#L146">packages/cozy-client/src/registry.js:146</a></p>
 <hr />
 <h3 id="fetchapps">fetchApps<a class="headerlink" href="#fetchapps" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>fetchApps</strong>(<code>params</code>): <code>Promise</code>&lt;<code>RegistryApp</code>[]&gt;</p>
@@ -2842,15 +2842,15 @@
 <p><em>Returns</em></p>
 <p><code>Promise</code>&lt;<code>RegistryApp</code>[]&gt;</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/registry.js#L92">packages/cozy-client/src/registry.js:92</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/registry.js#L96">packages/cozy-client/src/registry.js:96</a></p>
 <hr />
 <h3 id="fetchappsinmaintenance">fetchAppsInMaintenance<a class="headerlink" href="#fetchappsinmaintenance" title="Permanent link">&para;</a></h3>
-<p>▸ <strong>fetchAppsInMaintenance</strong>(): <code>RegistryApp</code>[]</p>
+<p>▸ <strong>fetchAppsInMaintenance</strong>(): <code>Promise</code>&lt;<code>RegistryApp</code>[]&gt;</p>
 <p>Fetch the list of apps that are in maintenance mode</p>
 <p><em>Returns</em></p>
-<p><code>RegistryApp</code>[]</p>
+<p><code>Promise</code>&lt;<code>RegistryApp</code>[]&gt;</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/registry.js#L117">packages/cozy-client/src/registry.js:117</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/registry.js#L121">packages/cozy-client/src/registry.js:121</a></p>
 <hr />
 <h3 id="installapp">installApp<a class="headerlink" href="#installapp" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>installApp</strong>(<code>app</code>, <code>source</code>): <code>Promise</code>&lt;<code>any</code>&gt;</p>
@@ -2881,7 +2881,7 @@
 <p><em>Returns</em></p>
 <p><code>Promise</code>&lt;<code>any</code>&gt;</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/registry.js#L55">packages/cozy-client/src/registry.js:55</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/registry.js#L56">packages/cozy-client/src/registry.js:56</a></p>
 <hr />
 <h3 id="uninstallapp">uninstallApp<a class="headerlink" href="#uninstallapp" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>uninstallApp</strong>(<code>app</code>): <code>Promise</code>&lt;<code>any</code>&gt;</p>
@@ -2892,19 +2892,21 @@
 <tr>
 <th align="left">Name</th>
 <th align="left">Type</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left"><code>app</code></td>
-<td align="left"><code>any</code></td>
+<td align="left"><code>RegistryApp</code></td>
+<td align="left">App to be installed</td>
 </tr>
 </tbody>
 </table>
 <p><em>Returns</em></p>
 <p><code>Promise</code>&lt;<code>any</code>&gt;</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/registry.js#L76">packages/cozy-client/src/registry.js:76</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/registry.js#L80">packages/cozy-client/src/registry.js:80</a></p>
                 
                   
                 
