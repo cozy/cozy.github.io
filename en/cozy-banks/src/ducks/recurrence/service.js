@@ -106,10 +106,12 @@ export const logRecurrencesLabelAndTransactionsNumber = ({
 
 /**
  * Fetches
- *   - transactions in the last 100 days
+ *   - transactions from the last 100 days with no recurrences
  *   - current recurrences
- * and update recurrences and operations according to recurrence matching algorithm.
- * The date taken into account to create recurrences is `transaction.date` and not `transaction.realizationDate`.
+ * and updates recurrences and transactions according to the recurrence matching
+ * algorithm.
+ * The date taken into account to create recurrences is `transaction.date` and
+ * not `transaction.realizationDate`.
  *
  * Called inside service.
  */
@@ -129,15 +131,23 @@ const main = async ({ client }) => {
     )
     const transactions = await client.queryAll(transactionQuery)
 
+    // Filter out transactions already associated with a recurrence as we don't
+    // want to change it.
+    const newTransactions = transactions.filter(
+      transaction =>
+        transaction.relationships == null ||
+        transaction.relationships.recurrence == null
+    )
+
     if (recurrences.length > 0) {
       log(
         'info',
-        `Loaded transactions from ${NB_DAYS_LOOKBACK} days back, ${transactions.length} transactions to consider`
+        `Loaded transactions from ${NB_DAYS_LOOKBACK} days back, ${newTransactions.length} transactions to consider`
       )
     } else {
       log(
         'info',
-        `Loaded all transactions (since there were no recurrences yet), ${transactions.length} transactions to consider`
+        `Loaded all transactions (since there were no recurrences yet), ${newTransactions.length} transactions to consider`
       )
     }
 
@@ -146,7 +156,7 @@ const main = async ({ client }) => {
 
     const updatedRecurrences = findAndUpdateRecurrences(
       recurrencesAmountsCatIdsUpdated.map(r => ({ ...r })),
-      transactions
+      newTransactions
     ).map(x => omit(x, '_type'))
 
     const { true: emptyRecurrences = [], false: nonEmptyRecurrences = [] } =

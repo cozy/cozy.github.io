@@ -1166,7 +1166,7 @@ describe('recurrence bundles (with existing recurrences)', () => {
     ]
 
     const transactions = fixtures[TRANSACTION_DOCTYPE]
-    const spyUpdate = jest.spyOn(utils, 'addTransactionToBundles')
+    const spyUpdate = jest.spyOn(utils, 'addTransactionsToBundles')
 
     findAndUpdateRecurrences(recurrences, transactions)
     expect(spyUpdate).toHaveBeenCalled()

@@ -12,7 +12,7 @@ import {
   getRulesFromConfig,
   groupBundles
 } from 'ducks/recurrence/rules'
-import { addTransactionToBundles } from 'ducks/recurrence/utils'
+import { addTransactionsToBundles } from 'ducks/recurrence/utils'
 import { logRecurrencesLabelAndTransactionsNumber } from 'ducks/recurrence/service'
 import { log } from './logger'
 
@@ -108,7 +108,7 @@ export const updateRecurrences = (bundles, newTransactions, rules) => {
   let updatedBundles = []
 
   const { updatedBundles: newUpdatedBundles, transactionsForUpdatedBundles } =
-    addTransactionToBundles(bundles, newTransactions)
+    addTransactionsToBundles(bundles, newTransactions)
 
   updatedBundles = newUpdatedBundles
   const remainingTransactions = differenceBy(

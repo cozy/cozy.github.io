@@ -139,26 +139,26 @@ export const isDeprecatedBundle = recurrence => {
 }
 
 /**
- * Allows to add transactions to bundles which match with these conditions:
+ * Adds new transactions to bundles which match with these conditions:
  * - Amount (with +/- percentage)
  * - CategoryId
  * - Account
  *
  * @param {Array<Recurrence>} bundles
- * @param {Array<Transaction>} transactions
+ * @param {Array<Transaction>} newTransactions
  *
  * @returns {{transactionsForUpdatedBundles: Array<Transaction>, updatedBundles: Array<Recurrence>}}
  */
-export const addTransactionToBundles = (bundles, transactions) => {
+export const addTransactionsToBundles = (bundles, newTransactions) => {
   let transactionsForUpdatedBundles = []
 
   const updatedBundles = [...bundles].map(b => {
-    const bundle = { ...b }
+    const bundle = { ...b } // WARNING: this only creates a shallow copy of `b`
 
     const minAmount = getMinAmount(bundle)
     const maxAmount = getMaxAmount(bundle)
 
-    const transactionFounds = transactions.filter(transaction => {
+    const transactionsFound = newTransactions.filter(transaction => {
       const hasSomeSameCategoryId = bundle.categoryIds.some(
         catId => getCategoryId(transaction) === catId
       )
@@ -178,10 +178,10 @@ export const addTransactionToBundles = (bundles, transactions) => {
       )
     })
 
-    if (transactionFounds?.length > 0) {
-      bundle.ops = uniqBy([...bundle.ops, ...transactionFounds], o => o._id)
+    if (transactionsFound?.length > 0) {
+      bundle.ops = uniqBy([...bundle.ops, ...transactionsFound], o => o._id)
       transactionsForUpdatedBundles =
-        transactionsForUpdatedBundles.concat(transactionFounds)
+        transactionsForUpdatedBundles.concat(transactionsFound)
     }
 
     return bundle
