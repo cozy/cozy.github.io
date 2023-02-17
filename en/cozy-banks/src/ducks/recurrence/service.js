@@ -19,20 +19,34 @@ export const NB_DAYS_LOOKBACK = 100
 
 /**
  * Fetch transactions from 3 months back if there is already recurrences,
- * otherwise all transactions
+ * otherwise all transactions.
+ * We filter out transactions already associated with a recurrence as we don't
+ * want to change it.
+ *
  * @param {array} recurrences - Hydrated bundle of recurrences
  * @returns transactions
  */
 const makeQueryForTransactions = recurrences => {
   if (recurrences.length === 0) {
+    // We still filter out transactions that were explicitely marked as not
+    // recurrent.
     return Q(TRANSACTION_DOCTYPE)
+      .partialIndex({
+        'relationships.recurrence': { $exists: false }
+      })
+      .limitBy(1000)
   } else {
     const lookbackDateLimit = addDays(new Date(), -NB_DAYS_LOOKBACK)
-    const query = Q(TRANSACTION_DOCTYPE).where({
-      date: {
-        $gt: lookbackDateLimit.toISOString().slice(0, 10)
-      }
-    })
+    const query = Q(TRANSACTION_DOCTYPE)
+      .where({
+        date: {
+          $gt: lookbackDateLimit.toISOString().slice(0, 10)
+        }
+      })
+      .partialIndex({
+        'relationships.recurrence': { $exists: false }
+      })
+      .limitBy(1000)
 
     return query
   }
@@ -131,23 +145,15 @@ const main = async ({ client }) => {
     )
     const transactions = await client.queryAll(transactionQuery)
 
-    // Filter out transactions already associated with a recurrence as we don't
-    // want to change it.
-    const newTransactions = transactions.filter(
-      transaction =>
-        transaction.relationships == null ||
-        transaction.relationships.recurrence == null
-    )
-
     if (recurrences.length > 0) {
       log(
         'info',
-        `Loaded transactions from ${NB_DAYS_LOOKBACK} days back, ${newTransactions.length} transactions to consider`
+        `Loaded transactions from ${NB_DAYS_LOOKBACK} days back, ${transactions.length} transactions to consider`
       )
     } else {
       log(
         'info',
-        `Loaded all transactions (since there were no recurrences yet), ${newTransactions.length} transactions to consider`
+        `Loaded all transactions (since there were no recurrences yet), ${transactions.length} transactions to consider`
       )
     }
 
@@ -156,7 +162,7 @@ const main = async ({ client }) => {
 
     const updatedRecurrences = findAndUpdateRecurrences(
       recurrencesAmountsCatIdsUpdated.map(r => ({ ...r })),
-      newTransactions
+      transactions
     ).map(x => omit(x, '_type'))
 
     const { true: emptyRecurrences = [], false: nonEmptyRecurrences = [] } =
