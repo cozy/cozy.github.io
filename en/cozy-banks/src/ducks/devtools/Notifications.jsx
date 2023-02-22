@@ -46,7 +46,10 @@ const sendNotification = async (
           content: 'This is a test notification text content',
           content_html: 'This is a test notification HTML content',
           data: {
-            route: notificationRoute
+            route: notificationRoute,
+            url: notificationRoute,
+            appName: 'banks',
+            pathname: '/'
           }
         }
       }
