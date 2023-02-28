@@ -232,6 +232,29 @@ export class Configuration extends React.Component {
               name="localModelOverride"
             />
           </SubSection>
+          {/* Next line can be removed once the import/export features have been completed */}
+          {flag('banks.feature.export-csv.enabled') &&
+            // Next line can be deleted once we no longer need to manage "override"
+            !flag('banks.export-csv.disabled') && (
+              <SubSection
+                title={t('AdvancedFeaturesSettings.my-data.title')}
+                className="u-flex u-flex-column u-flex-items-start"
+                description={t('AdvancedFeaturesSettings.my-data.description')}
+              >
+                <Button
+                  label={t('AdvancedFeaturesSettings.my-data.export-csv')}
+                  className="u-mt-half"
+                  variant="secondary"
+                  onClick={undefined}
+                />
+                <Button
+                  label={t('AdvancedFeaturesSettings.my-data.import-csv')}
+                  className="u-mt-half"
+                  variant="secondary"
+                  onClick={undefined}
+                />
+              </SubSection>
+            )}
         </Section>
 
         {flag('banks.transfers.need-personal-information') ? (
