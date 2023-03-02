@@ -243,6 +243,7 @@ module.exports = {
         '../react/LinearProgress/index.js',
         '../react/Link/index.js',
         '../react/ListItemAvatar/index.js',
+        '../react/MuiCozyTheme/Menu/index.js',
         '../react/MenuItem/index.js',
         '../react/MenuList/index.js',
         '../react/MobileStepper/index.js',

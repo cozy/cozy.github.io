@@ -13,7 +13,7 @@ module.exports = {
     'plugin:promise/recommended'
   ],
   parser: '@babel/eslint-parser',
-  plugins: ['prettier', 'promise', 'jest'],
+  plugins: ['prettier', 'promise', 'jest', 'import'],
   rules: {
     'no-console': 'error',
     'no-param-reassign': 'warn',
@@ -29,6 +29,32 @@ module.exports = {
     ],
     'spaced-comment': ['error', 'always', { block: { exceptions: ['*'] } }],
     'jest/no-focused-tests': 'error',
-    'jest/no-disabled-tests': 'warn'
+    'jest/no-disabled-tests': 'warn',
+    'import/order': [
+      'warn',
+      {
+        alphabetize: { order: 'asc' },
+        groups: [
+          'builtin',
+          'external',
+          'internal',
+          ['parent', 'sibling', 'index']
+        ],
+        pathGroups: [
+          {
+            pattern: '{cozy-*,cozy-*/**}',
+            group: 'external',
+            position: 'after'
+          }
+        ],
+        distinctGroup: true,
+        pathGroupsExcludedImportTypes: ['{cozy-*,cozy-*/**}'],
+        'newlines-between': 'always',
+        warnOnUnassignedImports: true
+      }
+    ],
+    'import/no-extraneous-dependencies': ['warn'],
+    'promise/prefer-await-to-then': 'warn',
+    'promise/prefer-await-to-callbacks': 'warn'
   }
 }
