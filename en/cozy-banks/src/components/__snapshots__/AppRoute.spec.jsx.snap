@@ -132,6 +132,19 @@ exports[`App route should be a function returning a route 1`] = `
       >
         <Route
           element={
+            <Navigate
+              replace={true}
+              to="../export"
+            />
+          }
+          path="configuration/export"
+        />
+        <Route
+          element={<Export />}
+          path="export"
+        />
+        <Route
+          element={
             <ScrollToTopOnMountWrapper>
               <Settings
                 delayContent={0}
@@ -370,6 +383,19 @@ exports[`App route should have renderExtraRoutes 1`] = `
       <Route
         path="settings"
       >
+        <Route
+          element={
+            <Navigate
+              replace={true}
+              to="../export"
+            />
+          }
+          path="configuration/export"
+        />
+        <Route
+          element={<Export />}
+          path="export"
+        />
         <Route
           element={
             <ScrollToTopOnMountWrapper>

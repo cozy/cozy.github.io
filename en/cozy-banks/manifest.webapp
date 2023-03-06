@@ -103,6 +103,12 @@
       "file": "konnectorAlerts.js",
       "trigger": "@event io.cozy.jobs:UPDATED:konnector:worker",
       "debounce": "60s"
+    },
+    "export": {
+      "type": "node",
+      "file": "export.js",
+      "comment": "This service must be called programmatically from Banks.",
+      "debounce": "5m"
     }
   },
   "notifications": {
@@ -272,6 +278,11 @@
       "description": "Used to link tags to bank operations",
       "type": "io.cozy.tags",
       "verbs": ["GET", "POST", "PUT", "DELETE"]
+    },
+    "files": {
+      "description": "Used by the export feature to store the exported data",
+      "type": "io.cozy.files",
+      "verbs": ["POST", "PUT", "GET"]
     }
   }
 }

@@ -3010,7 +3010,8 @@
 <p>First <code>nvm use</code> (to set node version as defined in .nvmrc) then <code>yarn install</code></p>
 <h3 id="develop-inside-the-styleguidist">Develop inside the styleguidist<a class="headerlink" href="#develop-inside-the-styleguidist" title="Permanent link">&para;</a></h3>
 <p>It is convenient when modifying a component to use the styleguide site.</p>
-<div class="codehilite"><pre><span></span>yarn start <span class="c1"># Transpile the files in watch mode</span>
+<div class="codehilite"><pre><span></span>yarn makeSpriteAndPalette <span class="c1"># Create sprite and palette</span>
+yarn start <span class="c1"># Transpile the files in watch mode</span>
 yarn build:css:all <span class="c1"># Build CSS files needed by the documentation</span>
 yarn start:doc <span class="c1"># Run the styleguide in watch mode</span>
 </pre></div>
@@ -3022,7 +3023,7 @@ yarn start:doc <span class="c1"># Run the styleguide in watch mode</span>
 <li>Add the new component in <code>/react</code> folder with its <code>README.md</code> file</li>
 <li>Expose it in the API by adding it in <code>react/index.js</code></li>
 <li>Add it in the documentation by modifying <code>docs/styleguide.config.js</code></li>
-<li>If necessary you can add snapshots for it by modifying <code>react/examples.spec.jsx</code> and updating them <code>yarn build &amp;&amp; yarn test -u</code></li>
+<li>If necessary you can add snapshots for it by modifying <code>react/examples.spec.jsx</code> and updating them <code>yarn makeSpriteAndPalette &amp;&amp; yarn build &amp;&amp; yarn test -u</code></li>
 <li>Remember to propagate the possible <code>ref</code> with <code>React.forwardRef</code>. <a href="https://en.reactjs.org/docs/forwarding-refs.html">See forwardRef documentation</a></li>
 <li>Try to think of ARIA attributes if you are coding new components</li>
 </ul>
@@ -3044,16 +3045,16 @@ yarn start:doc <span class="c1"># Run the styleguide in watch mode</span>
 <li>Generate the react component by running <code>yarn makeSvgr assets/icons/[ui || illus]/[new icon file name]</code></li>
 <li>Update the documentation by adding the new file in react/Icon/Readme.md. If it&rsquo;s an icon, add it in SVGr icons and Available UI icons sections, or in SVGr illustrations and Available illustrations sections if it&rsquo;s an illustration</li>
 <li>Don&rsquo;t forget to check the icon&rsquo;s color on different theme (inverted, etc.)</li>
-<li>Update the tests by running <code>yarn sprite &amp;&amp; yarn build &amp;&amp; yarn test -u</code></li>
+<li>Update the tests by running <code>yarn makeSpriteAndPalette &amp;&amp; yarn build &amp;&amp; yarn test -u</code></li>
 </ul>
 <h3 id="develop-inside-an-app">Develop inside an app<a class="headerlink" href="#develop-inside-an-app" title="Permanent link">&para;</a></h3>
 <p>Sometimes, you want to develop on a component, from the context of an app.
 Then you need to link cozy-ui with <code>yarn link</code>. Since <code>cozy-ui</code> is transpiled, when linking you must first <code>yarn release</code>. If you change the icons, or the palette, you must run <code>yarn release</code> again.</p>
 <div class="codehilite"><pre><span></span><span class="nb">cd</span> cozy-ui
-yarn release <span class="c1"># if first time</span>
+yarn makeSpriteAndPalette <span class="c1"># if first time</span>
 yarn link
 yarn start <span class="c1"># Launch transpilation</span>
-yarn release <span class="c1"># if you change icons or palette</span>
+yarn makeSpriteAndPalette <span class="c1"># if you change icons or palette</span>
 </pre></div>
 
 
@@ -3072,7 +3073,8 @@ yarn start
 <p>When sending a PR, if your changes have graphic impacts, it is useful for the reviewers if
 you have deployed a version of the styleguidist containing your changes to your fork&rsquo;s repository.
 Don&rsquo;t forget to change <code>USERNAME</code> by yours.</p>
-<div class="codehilite"><pre><span></span>yarn build
+<div class="codehilite"><pre><span></span>yarn makeSpriteAndPalette
+yarn build
 yarn build:css:all
 yarn build:doc
 yarn deploy:doc --repo git@github.com:USERNAME/cozy-ui.git
@@ -3082,7 +3084,7 @@ yarn deploy:doc --repo git@github.com:USERNAME/cozy-ui.git
 <p>⚠️ If the <code>deploy:doc</code> failed, you need to checkout your dev branch by doing <code>git checkout -</code></p>
 <h3 id="unit-testing">Unit testing<a class="headerlink" href="#unit-testing" title="Permanent link">&para;</a></h3>
 <p>Be aware that snapshots in unit tests use the transpiled version of cozy-ui. Therefore if you make changes and need to update the snapshots, you need to transpile first.</p>
-<div class="codehilite"><pre><span></span>yarn build <span class="o">&amp;&amp;</span> yarn <span class="nb">test</span> -u
+<div class="codehilite"><pre><span></span>yarn makeSpriteAndPalette <span class="o">&amp;&amp;</span> yarn build <span class="o">&amp;&amp;</span> yarn <span class="nb">test</span> -u
 </pre></div>
 
 
@@ -3110,6 +3112,7 @@ regression (thanks <a href="https://github.com/argos-ci/argos">Argos</a> !).</p>
 <p>If your app uses <a href="https://react-styleguidist.js.org/">React Styleguidist</a>, <code>cozy-ui</code> provides <code>rsg-screenshots</code>, a CLI tool to take
 screenshots of your components (uses Puppeteer under the hood).</p>
 <div class="codehilite"><pre><span></span>yarn add cozy-ui <span class="c1"># The rsg-screenshots binary is now installed</span>
+yarn makeSpriteAndPalette
 yarn build:doc:react <span class="c1"># Build our styleguide, the output directory is docs/react</span>
 rsg-screenshots --screenshot-dir screenshots/ --styleguide-dir docs/react <span class="c1"># Each component in the styleguide will be screenshotted and saved inside the screenshots/ directory</span>
 </pre></div>

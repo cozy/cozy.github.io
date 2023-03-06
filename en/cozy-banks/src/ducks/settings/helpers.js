@@ -1,24 +1,27 @@
+import { connect } from 'react-redux'
 import maxBy from 'lodash/maxBy'
 import flatMap from 'lodash/flatMap'
 import groupBy from 'lodash/groupBy'
 import get from 'lodash/get'
 import merge from 'lodash/merge'
 import mapValues from 'lodash/mapValues'
-import { DOCTYPE, DEFAULTS_SETTINGS } from 'ducks/settings/constants'
+import compose from 'lodash/flowRight'
+
 import logger from 'cozy-logger'
-import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
 import { Q } from 'cozy-client'
-import { connect } from 'react-redux'
 import { getDocumentFromState } from 'cozy-client/dist/store'
+import { translate } from 'cozy-ui/transpiled/react/I18n'
+
+import { FILES_DOCTYPE } from 'src/doctypes'
+import { DOCTYPE, DEFAULTS_SETTINGS } from 'ducks/settings/constants'
+import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
 import { getAccountLabel } from 'ducks/account/helpers'
 import { getGroupLabel, getGroupAccountIds } from 'ducks/groups/helpers'
-import { translate } from 'cozy-ui/transpiled/react/I18n'
-import compose from 'lodash/flowRight'
 import {
   getRuleValue,
   getRuleAccountOrGroupDoctype,
   getRuleAccountOrGroupId
-} from './ruleUtils'
+} from 'ducks/settings/ruleUtils'
 
 const log = logger.namespace('settings.helpers')
 
@@ -229,4 +232,11 @@ export const disableOutdatedNotifications = async client => {
   )
   await client.save(updatedSettings)
   return updates
+}
+
+export const downloadFile = async (client, file) => {
+  if (!file) return
+
+  const fileColl = client.collection(FILES_DOCTYPE)
+  await fileColl.download(file)
 }

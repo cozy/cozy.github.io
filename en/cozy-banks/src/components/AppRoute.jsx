@@ -27,11 +27,13 @@ import ScrollToTopOnMountWrapper from 'components/scrollToTopOnMount'
 import PlannedTransactionsPage from 'ducks/future/PlannedTransactionsPage'
 import SetFilterAndRedirect from 'ducks/balance/SetFilterAndRedirect'
 import TagPage from 'ducks/tags/TagPage'
+import Export from 'ducks/settings/Export'
 
 // Use a function to delay instantation and have access to AppRoute.renderExtraRoutes
 const AppRoute = () => (
   <Routes>
     <Route element={<UserActionRequired />}>
+      {AppRoute.renderExtraRoutesWithoutLayout()}
       <Route path="/" element={<App />}>
         {isWebApp() && (
           <Route index element={<Navigate to="balances" replace />} />
@@ -129,6 +131,11 @@ const AppRoute = () => (
         </Route>
         <Route path="settings">
           <Route
+            path="configuration/export"
+            element={<Navigate to="../export" replace />}
+          />
+          <Route path="export" element={<Export />} />
+          <Route
             element={
               <ScrollToTopOnMountWrapper>
                 <Settings />
@@ -213,5 +220,6 @@ const AppRoute = () => (
 
 // Ability to overrides easily
 AppRoute.renderExtraRoutes = () => null
+AppRoute.renderExtraRoutesWithoutLayout = () => null
 
 export default AppRoute

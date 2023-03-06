@@ -1,22 +1,22 @@
 /* global __TARGET__ */
 
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import set from 'lodash/set'
+import compose from 'lodash/flowRight'
+
 import { translate } from 'cozy-ui/transpiled/react/I18n'
 import Button from 'cozy-ui/transpiled/react/Buttons'
-
 import {
   queryConnect,
   withClient,
   isQueryLoading,
   hasQueryBeenLoaded
 } from 'cozy-client'
-import { settingsConn } from 'doctypes'
-import set from 'lodash/set'
-import compose from 'lodash/flowRight'
-import Loading from 'components/Loading'
-
 import flag from 'cozy-flags'
 
+import { settingsConn } from 'doctypes'
+import Loading from 'components/Loading'
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 import PinSettings from 'ducks/settings/PinSettings'
 import { Section, SubSection } from 'ducks/settings/Sections'
@@ -33,6 +33,7 @@ import TransactionGreaterRules from './TransactionGreaterRules'
 import { PersonalInfoDialog } from 'ducks/personal-info'
 import { lateHealthReimbursement } from './specs'
 import { trackPage, trackEvent } from 'ducks/tracking/browser'
+import { launchExportJob } from 'ducks/export/helpers'
 
 const toggleToTrackEvents = {
   'community.localModelOverride': 'categorie_automatique'
@@ -48,6 +49,7 @@ export class Configuration extends React.Component {
       showPersonalInfoDialog: false
     }
     this.handleToggleAmountBlur = this.handleToggleAmountBlur.bind(this)
+    this.handleClickExport = this.handleClickExport.bind(this)
     this.onToggleAmountCensoringInNotifications = this.onToggle(
       'notifications.amountCensoring'
     )
@@ -116,6 +118,11 @@ export class Configuration extends React.Component {
     trackEvent({
       name: `masquer_elements-${checked ? 'on' : 'off'}`
     })
+  }
+
+  handleClickExport() {
+    launchExportJob(this.props.client)
+    this.props.navigate('export')
   }
 
   render() {
@@ -245,7 +252,7 @@ export class Configuration extends React.Component {
                   label={t('AdvancedFeaturesSettings.my-data.export-csv')}
                   className="u-mt-half"
                   variant="secondary"
-                  onClick={undefined}
+                  onClick={this.handleClickExport}
                 />
                 <Button
                   label={t('AdvancedFeaturesSettings.my-data.import-csv')}
@@ -281,7 +288,7 @@ export class Configuration extends React.Component {
   }
 }
 
-export default compose(
+const ConfigurationWrapped = compose(
   withClient,
   queryConnect({
     settingsCollection: settingsConn
@@ -290,3 +297,11 @@ export default compose(
   flag.connect,
   translate()
 )(Configuration)
+
+const ConfigurationFunctional = props => {
+  const navigate = useNavigate()
+
+  return <ConfigurationWrapped {...props} navigate={navigate} />
+}
+
+export default ConfigurationFunctional

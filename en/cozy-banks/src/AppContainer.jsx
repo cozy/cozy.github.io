@@ -28,7 +28,8 @@ import {
   ACCOUNT_DOCTYPE,
   COZY_ACCOUNT_DOCTYPE,
   TRANSACTION_DOCTYPE,
-  GROUP_DOCTYPE
+  GROUP_DOCTYPE,
+  FILES_DOCTYPE
 } from 'doctypes'
 import { StoreURLProvider } from 'ducks/store/StoreContext'
 const jobsProviderOptions = t => ({
@@ -91,6 +92,7 @@ const AppContainer = ({ store, lang, client }) => {
                               <RealTimeQueries doctype={COZY_ACCOUNT_DOCTYPE} />
                               <RealTimeQueries doctype={TRANSACTION_DOCTYPE} />
                               <RealTimeQueries doctype={GROUP_DOCTYPE} />
+                              <RealTimeQueries doctype={FILES_DOCTYPE} />
                               <Router>
                                 <AppRoute />
                               </Router>

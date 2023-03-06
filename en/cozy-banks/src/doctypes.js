@@ -27,6 +27,7 @@ export const CONTACT_DOCTYPE = 'io.cozy.contacts'
 export const RECURRENCE_DOCTYPE = 'io.cozy.bank.recurrence'
 export const IDENTITIES_DOCTYPE = 'io.cozy.identities'
 export const TAGS_DOCTYPE = 'io.cozy.tags'
+export const FILES_DOCTYPE = 'io.cozy.files'
 
 export const offlineDoctypes = [
   ACCOUNT_DOCTYPE,

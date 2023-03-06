@@ -45,6 +45,11 @@ module.exports = {
             pattern: '{cozy-*,cozy-*/**}',
             group: 'external',
             position: 'after'
+          },
+          {
+            pattern: '**/*.styles',
+            group: 'index',
+            position: 'after'
           }
         ],
         distinctGroup: true,
@@ -53,8 +58,6 @@ module.exports = {
         warnOnUnassignedImports: true
       }
     ],
-    'import/no-extraneous-dependencies': ['warn'],
-    'promise/prefer-await-to-then': 'warn',
-    'promise/prefer-await-to-callbacks': 'warn'
+    'import/no-extraneous-dependencies': ['warn']
   }
 }

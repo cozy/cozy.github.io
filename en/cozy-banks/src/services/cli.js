@@ -5,6 +5,8 @@ import path from 'path'
 /* eslint-disable no-console */
 import { ArgumentParser } from 'argparse'
 import { createClientInteractive } from 'cozy-client/dist/cli'
+import { schema } from 'doctypes'
+import runExportService from '../targets/services/export'
 import runRecurrenceService from '../ducks/recurrence/service'
 import runKonnectorAlertsService from '../targets/services/konnectorAlerts'
 
@@ -12,6 +14,7 @@ global.__POUCH__ = false
 global.__DEV__ = false
 
 const serviceEntrypoints = {
+  export: runExportService,
   recurrence: runRecurrenceService,
   konnectorAlerts: runKonnectorAlertsService
 }
@@ -42,6 +45,7 @@ const main = async () => {
   const client = await createClientInteractive({
     uri: args.url,
     scope: getScope(manifest),
+    schema,
     oauth: {
       softwareID: 'banks.service-cli'
     }

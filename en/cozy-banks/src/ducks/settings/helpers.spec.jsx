@@ -11,7 +11,8 @@ import {
   withAccountOrGroupLabeller,
   getWarningLimitsPerAccount,
   reverseIndex,
-  disableOutdatedNotifications
+  disableOutdatedNotifications,
+  downloadFile
 } from './helpers'
 
 describe('defaulted settings', () => {
@@ -219,5 +220,41 @@ describe('remove account from notifications', () => {
         value: 1000
       }
     ])
+  })
+})
+
+describe('downloadFile', () => {
+  const setup = ({
+    mockQueued = jest.fn(),
+    mockCreate = jest.fn(),
+    mockDownload = jest.fn()
+  } = {}) => {
+    const client = {
+      collection: jest.fn(() => ({
+        queued: mockQueued,
+        create: mockCreate,
+        download: mockDownload
+      }))
+    }
+    return client
+  }
+  it('should early return if file is falsy', async () => {
+    const mockDownload = jest.fn(() => 'download_link')
+    setup({ mockDownload })
+
+    await downloadFile(undefined)
+
+    expect(mockDownload).toBeCalledTimes(0)
+  })
+
+  it('should call "download" with correct arguments ', async () => {
+    const mockFile = { id: '00', name: 'mockFileName' }
+    const mockDownload = jest.fn(() => 'download_link')
+    const client = setup({ mockDownload })
+
+    await downloadFile(client, mockFile)
+
+    expect(mockDownload).toBeCalledTimes(1)
+    expect(mockDownload).toBeCalledWith(mockFile)
   })
 })
