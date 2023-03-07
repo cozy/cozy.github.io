@@ -8,9 +8,28 @@ const setup = () => {
       id: '19e2519131deafeb36dad340765635ac',
       _id: '19e2519131deafeb36dad340765635ac',
       institutionLabel: 'Société Générale',
-      label: 'Compte Courant',
+      label: 'Isabelle Durand Compte Courant',
+      shortLabel: 'Compte Courant',
       number: '00031738274',
-      type: 'Checkings'
+      originalNumber: '0974200031738274',
+      type: 'Checkings',
+      balance: 123.4,
+      comingBalance: 123.4,
+      iban: 'FR65023382980003173827423',
+      vendorId: '12345'
+    },
+    loan: {
+      id: '29e2519131deafeb36dad340765635ac',
+      _id: '29e2519131deafeb36dad340765635ac',
+      institutionLabel: 'Société Générale',
+      label: 'Isabelle Durand PRET IMMO',
+      shortLabel: 'Pret Immobilier',
+      number: 'T00031733728',
+      originalNumber: 'T00031733728',
+      type: 'Loan',
+      balance: -128037.32,
+      comingBalance: -128037.32,
+      vendorId: '12346'
     }
   }
 
@@ -42,7 +61,8 @@ const setup = () => {
       categoryIds: ['401080'],
       latestAmount: -63,
       latestDate: '2021-09-10T12:00:00.000Z',
-      manualLabel: 'Abonnement Gaz'
+      manualLabel: 'Abonnement Gaz',
+      stats: { deltas: { median: 58.5 } }
     }
   }
 
@@ -55,6 +75,7 @@ const setup = () => {
       },
       amount: -63,
       cozyCategoryId: '401080',
+      cozyCategoryProba: 1,
       currency: 'EUR',
       date: '2021-09-10T12:00:00.000Z',
       label: 'GAZ',
@@ -64,7 +85,8 @@ const setup = () => {
       recurrence: {
         data: recurrences.gaz
       },
-      tags: {}
+      tags: {},
+      vendorId: '23456'
     },
     {
       _id: '0008d7b9134d67cb079d10acc530902f',
@@ -74,6 +96,7 @@ const setup = () => {
       },
       amount: 78.3,
       cozyCategoryId: '400840',
+      cozyCategoryProba: 1,
       currency: 'EUR',
       date: '2021-11-12T12:00:00.000Z',
       label: 'REMBOURSEMENT FACTURE 0001',
@@ -84,7 +107,8 @@ const setup = () => {
       recurrence: {},
       tags: {
         data: [tags.melun, tags.vacances, tags.remboursements]
-      }
+      },
+      vendorId: '23457'
     },
     {
       _id: '0008d7b9134d67cb079d10acc530902f',
@@ -94,6 +118,7 @@ const setup = () => {
       },
       amount: -78.3,
       cozyCategoryId: '400840',
+      cozyCategoryProba: 1,
       currency: 'EUR',
       date: '2021-10-23T12:00:00.000Z',
       label: 'TRAVEL AGENCY FACTURE 0001',
@@ -104,19 +129,23 @@ const setup = () => {
       recurrence: {},
       tags: {
         data: [tags.melun, tags.vacances]
-      }
+      },
+      vendorId: '23458'
     },
     {
       _id: '000dcebc4d23ebd5bd68a16c38d5fe63',
       id: '000dcebc4d23ebd5bd68a16c38d5fe63',
       amount: 1.5,
-      cozyCategoryId: '400110',
+      automaticCategoryId: '400110',
       currency: 'EUR',
       date: '2021-12-24T12:00:00.000Z',
       label: 'BOULANGERIE AU BON PAIN',
       originalBankLabel: 'BOULANGERIE AU BON PAIN Card.***4',
       realisationDate: '2021-12-24T12:00:00.000Z',
-      type: 'credit card'
+      isComing: true,
+      valueDate: '2021-12-31T12:00:00.000Z',
+      type: 'credit card',
+      vendorId: '23459'
     }
   ]
 
@@ -141,17 +170,29 @@ describe('createFormatStream', () => {
       -63,
       'EUR',
       undefined,
+      'no',
+      undefined,
       undefined,
       'Société Générale',
+      'Isabelle Durand Compte Courant',
       'Compte Courant',
       '00031738274',
+      '0974200031738274',
       'Checkings',
+      123.4,
+      123.4,
+      'FR65023382980003173827423',
+      undefined,
+      'yes',
       'Abonnement Gaz',
       undefined,
+      58.5,
       undefined,
       undefined,
       undefined,
-      undefined
+      undefined,
+      undefined,
+      '23456'
     ]
 
     const stream = createFormatStream()
@@ -167,8 +208,8 @@ describe('createFormatStream', () => {
     expect(String(output)).toEqual(
       [
         // XXX: The header line is included in the output
-        '"Date";"Realisation date";"Assigned date";"Label";"Original bank label";"Category name";"Amount";"Currency";"Type";"Reimbursement status";"Bank name";"Account name";"Account number";"Account type";"Recurrence name";"Tag 1";"Tag 2";"Tag 3";"Tag 4";"Tag 5"',
-        '"2021-09-10";"2021-09-10";"";"GAZ";"PRLV SEPA GAZ";"power";"-63";"EUR";"";"";"Société Générale";"Compte Courant";"00031738274";"Checkings";"Abonnement Gaz";"";"";"";"";""'
+        '"Date";"Realisation date";"Assigned date";"Label";"Original bank label";"Category name";"Amount";"Currency";"Type";"Expected?";"Expected debit date";"Reimbursement status";"Bank name";"Account name";"Custom account name";"Account number";"Account originalNumber";"Account type";"Account balance";"Account coming balance";"Account IBAN";"Account vendorDeleted";"Recurrent?";"Recurrence name";"Recurrence status";"Recurrence frequency";"Tag 1";"Tag 2";"Tag 3";"Tag 4";"Tag 5";"Unique ID"',
+        '"2021-09-10";"2021-09-10";"";"GAZ";"PRLV SEPA GAZ";"power";"-63";"EUR";"";"no";"";"";"Société Générale";"Isabelle Durand Compte Courant";"Compte Courant";"00031738274";"0974200031738274";"Checkings";"123.4";"123.4";"FR65023382980003173827423";"";"yes";"Abonnement Gaz";"";"58.5";"";"";"";"";"";"23456"'
       ].join('\n')
     )
   })
@@ -189,24 +230,36 @@ describe('transactionsToCSV', () => {
     expect(generator.next().value).toEqual([
       '2021-09-10',
       '2021-09-10',
-      '2021-09-10',
+      undefined,
       'GAZ',
       'PRLV SEPA GAZ',
       'power',
       -63,
       'EUR',
       undefined,
+      'no',
+      undefined,
       undefined,
       'Société Générale',
+      'Isabelle Durand Compte Courant',
       'Compte Courant',
       '00031738274',
+      '0974200031738274',
       'Checkings',
+      123.4,
+      123.4,
+      'FR65023382980003173827423',
+      undefined,
+      'yes',
       'Abonnement Gaz',
       undefined,
+      58.5,
       undefined,
       undefined,
       undefined,
-      undefined
+      undefined,
+      undefined,
+      '23456'
     ])
 
     expect(generator.next().value).toEqual([
@@ -219,17 +272,29 @@ describe('transactionsToCSV', () => {
       78.3,
       'EUR',
       'transfer',
+      'no',
+      undefined,
       undefined,
       'Société Générale',
+      'Isabelle Durand Compte Courant',
       'Compte Courant',
       '00031738274',
+      '0974200031738274',
       'Checkings',
+      123.4,
+      123.4,
+      'FR65023382980003173827423',
+      undefined,
+      undefined,
+      undefined,
+      undefined,
       undefined,
       'Vacances à Melun',
       'Vacances',
       'Remboursements',
       undefined,
-      undefined
+      undefined,
+      '23457'
     ])
 
     expect(generator.next().value).toEqual([
@@ -242,17 +307,29 @@ describe('transactionsToCSV', () => {
       -78.3,
       'EUR',
       'credit card',
+      'no',
+      undefined,
       'reimbursed',
       'Société Générale',
+      'Isabelle Durand Compte Courant',
       'Compte Courant',
       '00031738274',
+      '0974200031738274',
       'Checkings',
+      123.4,
+      123.4,
+      'FR65023382980003173827423',
+      undefined,
+      undefined,
+      undefined,
+      undefined,
       undefined,
       'Vacances à Melun',
       'Vacances',
       undefined,
       undefined,
-      undefined
+      undefined,
+      '23458'
     ])
 
     expect(generator.next().value).toEqual([
@@ -261,10 +338,12 @@ describe('transactionsToCSV', () => {
       undefined,
       'BOULANGERIE AU BON PAIN',
       'BOULANGERIE AU BON PAIN Card.***4',
-      'supermarket',
+      'awaiting',
       1.5,
       'EUR',
       'credit card',
+      'yes',
+      '2021-12-31T12:00:00.000Z',
       undefined,
       undefined,
       undefined,
@@ -275,7 +354,17 @@ describe('transactionsToCSV', () => {
       undefined,
       undefined,
       undefined,
-      undefined
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      '23459'
     ])
   })
 })

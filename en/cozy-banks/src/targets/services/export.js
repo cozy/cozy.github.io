@@ -1,18 +1,17 @@
 import stream from 'stream'
-import util from 'util'
 import flag from 'cozy-flags'
 import { uploadFileWithConflictStrategy } from 'cozy-client/dist/models/file'
 
 import {
+  accountsWitoutTransactionsToCSV,
   createFormatStream,
+  fetchAccountsToExport,
   fetchTransactionsToExport,
   transactionsToCSV
 } from 'ducks/export/services'
 import logger from 'ducks/export/logger'
 import { DATA_EXPORT_DIR_ID, DATA_EXPORT_NAME } from 'ducks/export/constants'
 import { runService } from './service'
-
-const pipeline = util.promisify(stream.pipeline)
 
 const main = async ({ client }) => {
   if (require.main !== module && process.env.NODE_ENV !== 'production') {
@@ -31,20 +30,34 @@ const main = async ({ client }) => {
   const transactions = await fetchTransactionsToExport(client)
   logger('info', `Fetched ${transactions.length} transactions`)
 
-  if (transactions.length === 0) {
-    logger('info', 'No transactions to export')
+  logger('info', 'Fetching accounts without transactions...')
+  const accounts = await fetchAccountsToExport(client, { transactions })
+  logger('info', `Fetched ${accounts.length} accounts`)
+
+  if (transactions.length === 0 && accounts.length === 0) {
+    logger('info', 'No data to export')
     return
   }
 
-  // Transform the transactions into a CSV file
-  logger('info', `Creating transformation stream...`)
-  const data = createFormatStream()
-  logger('info', `Transforming data to CSV...`)
-  pipeline(transactionsToCSV(transactions), data)
+  logger('info', `Creating streams...`)
+  const csv = createFormatStream()
+  const accountsStream = stream.Readable.from(
+    accountsWitoutTransactionsToCSV(accounts)
+  )
+  const transactionsStream = stream.Readable.from(
+    transactionsToCSV(transactions)
+  )
 
-  // Upload the CSV file to the Cozy
-  logger('info', `Uploading CSV file to Cozy...`)
-  await uploadFileWithConflictStrategy(client, data, {
+  accountsStream.on('end', () => {
+    logger('info', `Transforming transactions to CSV...`)
+    transactionsStream.pipe(csv)
+  })
+
+  logger('info', `Transforming accounts to CSV...`)
+  accountsStream.pipe(csv, { end: false })
+
+  logger('info', `Starting CSV file upload to Cozy...`)
+  await uploadFileWithConflictStrategy(client, csv, {
     name: DATA_EXPORT_NAME,
     dirId: DATA_EXPORT_DIR_ID,
     conflictStrategy: 'erase'

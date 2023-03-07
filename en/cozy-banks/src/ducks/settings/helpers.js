@@ -12,9 +12,13 @@ import { Q } from 'cozy-client'
 import { getDocumentFromState } from 'cozy-client/dist/store'
 import { translate } from 'cozy-ui/transpiled/react/I18n'
 
-import { FILES_DOCTYPE } from 'src/doctypes'
 import { DOCTYPE, DEFAULTS_SETTINGS } from 'ducks/settings/constants'
-import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
+import {
+  ACCOUNT_DOCTYPE,
+  FILES_DOCTYPE,
+  GROUP_DOCTYPE,
+  SETTINGS_DOCTYPE
+} from 'doctypes'
 import { getAccountLabel } from 'ducks/account/helpers'
 import { getGroupLabel, getGroupAccountIds } from 'ducks/groups/helpers'
 import {

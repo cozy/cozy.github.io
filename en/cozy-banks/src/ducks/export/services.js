@@ -2,8 +2,9 @@ import { Q } from 'cozy-client'
 import { format } from '@fast-csv/format'
 import formatDate from 'date-fns/format'
 
-import { TRANSACTION_DOCTYPE } from 'doctypes'
-import categories from 'ducks/categories/tree'
+import { ACCOUNT_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
+import { getCategoryId, getApplicationDate } from 'ducks/transactions/helpers'
+import { getCategoryName } from 'ducks/categories/categoriesMap'
 import { DATE_FORMAT } from './constants'
 
 const dateStr = date =>
@@ -26,6 +27,27 @@ export const fetchTransactionsToExport = async client => {
 }
 
 /**
+ * Fetch all accounts and keep only those not associated with the given
+ * transactions.
+ *
+ * @param {CozyClient} client A CozyClient instance
+ * @param {object} options
+ * @param {Array<BankTransaction>} options.transactions Transactions used to filter accounts
+ *
+ * @return {Promise<Array<BankAccount>>} Promise that resolves with an array of io.cozy.bank.operations documents
+ */
+export const fetchAccountsToExport = async (client, { transactions }) => {
+  const accounts = await client.queryAll(Q(ACCOUNT_DOCTYPE).limitBy(1000))
+
+  return accounts.filter(
+    account =>
+      !transactions.some(
+        transaction => transaction.account?.data?._id === account._id
+      )
+  )
+}
+
+/**
  * Create a Transform Stream to transform input data into CSV lines.
  *
  * @return {TransformStream} The generated Transform Stream
@@ -44,17 +66,29 @@ export const createFormatStream = () => {
       'Amount',
       'Currency',
       'Type',
+      'Expected?',
+      'Expected debit date',
       'Reimbursement status',
       'Bank name',
       'Account name',
+      'Custom account name',
       'Account number',
+      'Account originalNumber',
       'Account type',
+      'Account balance',
+      'Account coming balance',
+      'Account IBAN',
+      'Account vendorDeleted',
+      'Recurrent?',
       'Recurrence name',
+      'Recurrence status',
+      'Recurrence frequency',
       'Tag 1',
       'Tag 2',
       'Tag 3',
       'Tag 4',
-      'Tag 5'
+      'Tag 5',
+      'Unique ID'
     ]
   })
 }
@@ -71,17 +105,20 @@ export const transactionsToCSV = function* (transactions) {
     const account = transaction.account?.data
     const recurrence = transaction.recurrence?.data
     const tags = transaction.tags?.data
+    const categoryId = getCategoryId(transaction)
 
     const data = [
       dateStr(transaction.date),
       dateStr(transaction.realisationDate),
-      dateStr(transaction.applicationDate),
+      dateStr(getApplicationDate(transaction)),
       transaction.label,
       transaction.originalBankLabel,
-      categories[transaction.cozyCategoryId],
+      getCategoryName(categoryId),
       transaction.amount,
       transaction.currency,
       transaction.type,
+      transaction.isComing ? 'yes' : 'no',
+      transaction.valueDate,
       transaction.reimbursementStatus
     ]
 
@@ -89,12 +126,27 @@ export const transactionsToCSV = function* (transactions) {
     data.push(
       account?.institutionLabel,
       account?.label,
+      account?.shortLabel,
       account?.number,
-      account?.type
+      account?.originalNumber,
+      account?.type,
+      account?.balance,
+      account?.comingBalance,
+      account?.iban,
+      account?.vendorDeleted
     )
 
     // Transaction's recurrence information
-    data.push(recurrence?.manualLabel || recurrence?.automaticLabel)
+    data.push(
+      recurrence != null
+        ? 'yes'
+        : transaction.relationships?.recurrence?.data?._id === 'not-recurrent'
+        ? 'no'
+        : undefined,
+      recurrence?.manualLabel || recurrence?.automaticLabel,
+      recurrence?.status,
+      recurrence?.stats?.deltas?.median
+    )
 
     // Transaction's tags information
     for (let i = 0; i < 5; i++) {
@@ -104,6 +156,61 @@ export const transactionsToCSV = function* (transactions) {
         data.push(undefined)
       }
     }
+
+    // Unique identifier
+    data.push(transaction.vendorId || transaction.linxoId)
+
+    yield data
+  }
+}
+
+/**
+ * Generator that transforms the given accounts into our own CSV format and yields the result line by line.
+ *
+ * @param {Array<BankAccount>} accounts The list of accounts to transform
+ *
+ * @return {IterableIterator<Array<string|undefined>>}
+ */
+export const accountsWitoutTransactionsToCSV = function* (accounts) {
+  for (const account of accounts) {
+    // Transaction information
+    const data = [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    ]
+
+    // Account information
+    data.push(
+      account.institutionLabel,
+      account.label,
+      account.shortLabel,
+      account.number,
+      account.originalNumber,
+      account.type,
+      account.balance,
+      account.comingBalance,
+      account.iban,
+      account.vendorDeleted
+    )
+
+    // Recurrence information
+    data.push(undefined, undefined, undefined, undefined)
+
+    // Tags information
+    data.push(undefined, undefined, undefined, undefined, undefined)
+
+    // Unique identifier
+    data.push(account.vendorId || account.linxoId)
 
     yield data
   }
