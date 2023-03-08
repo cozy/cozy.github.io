@@ -1,3 +1,7 @@
+import { createMockClient } from 'cozy-client/dist/mock'
+
+import { JOBS_DOCTYPE } from 'doctypes'
+
 import { launchExportJob, isExportJobInProgress } from './helpers'
 
 describe('Export Job', () => {
@@ -16,29 +20,29 @@ describe('Export Job', () => {
   }
 
   const setup = ({
-    mockQueued = jest.fn(),
+    jobs = [],
     mockCreate = jest.fn(),
     mockDownload = jest.fn()
   } = {}) => {
-    const client = {
-      collection: jest.fn(() => ({
-        queued: mockQueued,
-        create: mockCreate,
-        download: mockDownload
-      }))
-    }
+    const client = createMockClient({
+      remote: {
+        [JOBS_DOCTYPE]: jobs
+      }
+    })
+
+    client.collection = jest.fn(() => ({
+      create: mockCreate,
+      download: mockDownload
+    }))
+
     return client
   }
 
   describe('launchExportJob', () => {
     it('should not create a new job if it already exists', async () => {
-      const expected = [
-        makeJob({ name: 'export', slug: 'banks' }),
-        makeJob({ name: 'otherName', slug: 'otherSlug' })
-      ]
-      const mockQueued = jest.fn(() => ({ data: expected }))
-      const mockCreate = jest.fn(() => ({ data: expected }))
-      const client = setup({ mockQueued, mockCreate })
+      const jobs = [makeJob({ name: 'export', slug: 'banks', state: 'queued' })]
+      const mockCreate = jest.fn()
+      const client = setup({ jobs, mockCreate })
 
       await launchExportJob(client)
 
@@ -46,13 +50,8 @@ describe('Export Job', () => {
     })
 
     it("should create a new job if it doesn't already exist with the correct arguments", async () => {
-      const expected = [
-        makeJob({ name: 'na', slug: 'na' }),
-        makeJob({ name: 'otherName', slug: 'otherSlug' })
-      ]
-      const mockQueued = jest.fn(() => ({ data: expected }))
-      const mockCreate = jest.fn(() => ({ data: expected }))
-      const client = setup({ mockQueued, mockCreate })
+      const mockCreate = jest.fn()
+      const client = setup({ jobs: [], mockCreate })
 
       await launchExportJob(client)
 
@@ -68,12 +67,7 @@ describe('Export Job', () => {
 
   describe('isExportJobInProgress', () => {
     it('should return "false" if export job is not running or queued', async () => {
-      const expected = [
-        makeJob({ name: 'na', slug: 'na' }),
-        makeJob({ name: 'otherName', slug: 'otherSlug' })
-      ]
-      const mockQueued = jest.fn(() => ({ data: expected }))
-      const client = setup({ mockQueued })
+      const client = setup({ jobs: [] })
 
       const res = await isExportJobInProgress(client)
 
@@ -81,12 +75,8 @@ describe('Export Job', () => {
     })
 
     it('should return "true" if export job is running or queued', async () => {
-      const expected = [
-        makeJob({ name: 'export', slug: 'banks' }),
-        makeJob({ name: 'otherName', slug: 'otherSlug' })
-      ]
-      const mockQueued = jest.fn(() => ({ data: expected }))
-      const client = setup({ mockQueued })
+      const jobs = [makeJob({ name: 'export', slug: 'banks', state: 'queued' })]
+      const client = setup({ jobs })
 
       const res = await isExportJobInProgress(client)
 

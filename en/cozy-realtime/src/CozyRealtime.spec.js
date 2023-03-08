@@ -1,12 +1,12 @@
-import { Server } from 'mock-socket'
 import MicroEE from 'microee'
+import { Server } from 'mock-socket'
 
 import CozyRealtime from './CozyRealtime'
-import logger from './logger'
 import {
   allowDoubleSubscriptions,
   requireDoubleUnsubscriptions
 } from './config'
+import logger from './logger'
 
 const testLogger = logger.minilog('test/cozy-realtime')
 
@@ -21,7 +21,7 @@ const doctype = 'io.cozy.files'
 const type = doctype
 const id = 'my-document-id'
 const message = { message: 'hello' }
-const doc = message
+const doc = { ...message, _type: type }
 const event = 'UPDATED'
 const payload = { type, doc, id }
 

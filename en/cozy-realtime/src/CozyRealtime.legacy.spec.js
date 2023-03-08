@@ -3,11 +3,11 @@
 // be deleted in a near future. All usefull tests below should
 // have counterpart in CozyRealtime.spec.js
 
-import CozyRealtime from './CozyRealtime'
-import { Server } from 'mock-socket'
-import MicroEE from 'microee'
-
 import Minilog from '@cozy/minilog'
+import MicroEE from 'microee'
+import { Server } from 'mock-socket'
+
+import CozyRealtime from './CozyRealtime'
 Minilog.disable()
 
 const COZY_URL = 'http://cozy.tools:8888'
@@ -64,7 +64,7 @@ describe('CozyRealtime', () => {
 
   const type = 'io.cozy.bank.accounts'
   const id = 'doc_id'
-  const fakeDoc = { _id: id, title: 'title1' }
+  const fakeDoc = { _id: id, title: 'title1', _type: type }
 
   describe('subscribe', () => {
     it('should launch handler when document is created', async done => {

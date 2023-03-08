@@ -30,4 +30,22 @@ describe('App route', () => {
     const route = AppRoute()
     expect(route).toMatchSnapshot()
   })
+
+  it('should have renderExtraRoutesOnly if condition is true', () => {
+    jest.spyOn(AppRoute, 'renderExtraRoutesOnly').mockReturnValue({
+      routes: <Route element={<NewComponent />} path="extra-route-only" />,
+      condition: true
+    })
+    const route = AppRoute()
+    expect(route).toMatchSnapshot()
+  })
+
+  it('should not have renderExtraRoutesOnly if condition is false', () => {
+    jest.spyOn(AppRoute, 'renderExtraRoutesOnly').mockReturnValue({
+      routes: <Route element={<NewComponent />} path="extra-route-only" />,
+      condition: false
+    })
+    const route = AppRoute()
+    expect(route).toMatchSnapshot()
+  })
 })

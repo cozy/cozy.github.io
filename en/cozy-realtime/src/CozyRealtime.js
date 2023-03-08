@@ -1,9 +1,16 @@
 import MicroEE from 'microee'
+
 import { hasNetworkInformationPlugin, isCordova } from 'cozy-device-helper'
 
-import logger from './logger'
-import SubscriptionList from './SubscriptionList'
 import RetryManager from './RetryManager'
+import SubscriptionList from './SubscriptionList'
+import {
+  raiseErrorAfterAttempts,
+  timeBeforeSuccessful,
+  baseWaitAfterFirstFailure,
+  maxWaitBetweenRetries
+} from './config'
+import logger from './logger'
 import {
   getUrl,
   getToken,
@@ -12,12 +19,6 @@ import {
   getCozyClientFromOptions,
   isOnline
 } from './utils'
-import {
-  raiseErrorAfterAttempts,
-  timeBeforeSuccessful,
-  baseWaitAfterFirstFailure,
-  maxWaitBetweenRetries
-} from './config'
 
 /**
  * Manage the realtime interactions with a cozy stack
@@ -455,7 +456,7 @@ class CozyRealtime {
     )
     for (const handler of handlers) {
       try {
-        handler(payload.doc)
+        handler({ ...payload.doc, _type: payload.type })
       } catch (e) {
         logger.error(
           `handler did throw for ${event}, ${payload.type}, ${payload.id}`

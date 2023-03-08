@@ -1,22 +1,29 @@
-import { JOBS_DOCTYPE } from 'src/doctypes'
+import { Q } from 'cozy-client'
+
+import { JOBS_DOCTYPE } from 'doctypes'
 
 /**
- * Find export job in progress
+ * Check if an export job is in progress
  *
  * @param {CozyClient} client
  */
 export const isExportJobInProgress = async client => {
-  const jobColl = client.collection(JOBS_DOCTYPE)
-  // This method return all jobs queued or running state
-  const { data: allJobsServiceQueuedOrRunning } = await jobColl.queued(
-    'service'
+  const { data } = await client.query(
+    Q(JOBS_DOCTYPE)
+      .where({
+        worker: 'service',
+        message: {
+          slug: 'banks',
+          name: 'export'
+        }
+      })
+      .partialIndex({
+        $or: [{ state: 'queued' }, { state: 'running' }]
+      })
+      .limitBy(1)
   )
 
-  return allJobsServiceQueuedOrRunning.some(
-    job =>
-      job.attributes.message.slug === 'banks' &&
-      job.attributes.message.name === 'export'
-  )
+  return data.length > 0
 }
 
 /**
