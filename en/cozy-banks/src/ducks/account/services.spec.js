@@ -1,5 +1,5 @@
+import { createMockClient } from 'cozy-client'
 import { linkMyselfToAccounts, unlinkMyselfFromAccounts } from './services'
-import { createClientWithData } from 'test/client'
 import { ACCOUNT_DOCTYPE, CONTACT_DOCTYPE } from 'doctypes'
 import { fetchSettings } from 'ducks/settings/helpers'
 import get from 'lodash/get'
@@ -34,8 +34,8 @@ describe('linkMyselfToAccounts', () => {
         }
       ]
 
-      const client = createClientWithData({
-        data: {
+      const client = createMockClient({
+        remote: {
           [ACCOUNT_DOCTYPE]: accounts
         }
       })
@@ -62,8 +62,8 @@ describe('linkMyselfToAccounts', () => {
         }
       ]
 
-      const client = createClientWithData({
-        data: {
+      const client = createMockClient({
+        remote: {
           [ACCOUNT_DOCTYPE]: accounts
         }
       })
@@ -100,8 +100,8 @@ describe('unlinkMyselfToAccounts', () => {
       }
     ]
 
-    const client = createClientWithData({
-      data: {
+    const client = createMockClient({
+      remote: {
         [ACCOUNT_DOCTYPE]: accounts
       }
     })
@@ -136,8 +136,8 @@ describe('unlinkMyselfToAccounts', () => {
         }
       ]
 
-      const client = createClientWithData({
-        data: {
+      const client = createMockClient({
+        remote: {
           [ACCOUNT_DOCTYPE]: accounts
         }
       })

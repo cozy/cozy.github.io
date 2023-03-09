@@ -1,14 +1,14 @@
 import { createAutoGroups, removeDuplicateAccountsFromGroups } from './services'
-import { createClientWithData } from 'test/client'
+import { createMockClient } from 'cozy-client'
 import { GROUP_DOCTYPE, ACCOUNT_DOCTYPE, schema } from 'doctypes'
 import { fetchSettings } from 'ducks/settings/helpers'
 
 jest.mock('ducks/settings/helpers')
 
 describe('createAutoGroups', () => {
-  const setup = ({ data, processedAccounts }) => {
-    const client = createClientWithData({
-      data,
+  const setup = ({ remote, processedAccounts }) => {
+    const client = createMockClient({
+      remote,
       clientOptions: { schema }
     })
 
@@ -27,7 +27,7 @@ describe('createAutoGroups', () => {
   describe('when the automatic group does not exist', () => {
     it('should create a new automatic group', async () => {
       const { client, settings } = setup({
-        data: {
+        remote: {
           [ACCOUNT_DOCTYPE]: [{ _id: 'a1', type: 'Checkings' }]
         },
         processedAccounts: []
@@ -51,7 +51,7 @@ describe('createAutoGroups', () => {
   describe('when the automatic group already exists', () => {
     it('should add accounts to the existing group', async () => {
       const { client, settings } = setup({
-        data: {
+        remote: {
           [GROUP_DOCTYPE]: [
             {
               _id: 'checkings_auto',
@@ -85,7 +85,7 @@ describe('createAutoGroups', () => {
   describe('duplicate accounts removal', () => {
     it('should remove duplicate accounts from an existing group', async () => {
       const { client } = setup({
-        data: {
+        remote: {
           [GROUP_DOCTYPE]: [
             {
               _id: 'checkings_auto',

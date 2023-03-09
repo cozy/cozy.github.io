@@ -1,5 +1,5 @@
-import CozyClient from 'cozy-client'
-import { createClientWithData } from 'test/client'
+import CozyClient, { createMockClient } from 'cozy-client'
+import { TRANSACTION_DOCTYPE } from 'doctypes'
 import fixture from 'test/fixtures/unit-tests.json'
 import { runCategoryBudgetService } from './service'
 import {
@@ -42,9 +42,9 @@ beforeEach(() => {
 describe('service', () => {
   const setup = ({ budgetAlerts, expenses }) => {
     fetchCategoryAlerts.mockReturnValue(budgetAlerts)
-    const client = createClientWithData({
-      data: {
-        'io.cozy.bank.operations': expenses
+    const client = createMockClient({
+      remote: {
+        [TRANSACTION_DOCTYPE]: expenses
       },
       clientOptions: {
         uri: 'https://test.mycozy.cloud'

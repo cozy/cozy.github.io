@@ -1,5 +1,4 @@
-import CozyStackClient from 'cozy-stack-client'
-import DocumentCollection from 'cozy-stack-client/dist/DocumentCollection'
+import CozyClient from 'cozy-client'
 import { getOptions, fetchChangesOrAll } from './helpers'
 
 describe('getOptions', () => {
@@ -101,32 +100,34 @@ describe('getOptions', () => {
 })
 
 describe('fetchChangesOrAll', () => {
-  const client = new CozyStackClient()
+  const client = new CozyClient()
+  const documentCollection = jest.fn()
 
   beforeEach(() => {
-    jest
-      .spyOn(DocumentCollection.prototype, 'fetchChanges')
+    documentCollection.fetchChanges = jest
+      .fn()
       .mockResolvedValue({ documents: [], newLastSeq: '1234' })
-    jest
-      .spyOn(DocumentCollection.prototype, 'all')
+    documentCollection.all = jest
+      .fn()
       .mockResolvedValue({ data: [], newLastSeq: '1234' })
+    jest.spyOn(client, 'collection').mockReturnValue(documentCollection)
   })
 
   afterEach(() => {
-    DocumentCollection.prototype.fetchChanges.mockClear()
-    DocumentCollection.prototype.all.mockClear()
+    documentCollection.fetchChanges.mockClear()
+    documentCollection.all.mockClear()
   })
 
   it('should return all documents if lastSeq is "0"', async () => {
     const res = await fetchChangesOrAll(client, 'io.cozy.todos', '0')
 
-    expect(DocumentCollection.prototype.fetchChanges).toHaveBeenCalledWith({
+    expect(documentCollection.fetchChanges).toHaveBeenCalledWith({
       since: '',
       descending: true,
       limit: 1
     })
 
-    expect(DocumentCollection.prototype.all).toHaveBeenCalledWith({
+    expect(documentCollection.all).toHaveBeenCalledWith({
       limit: null
     })
 
@@ -136,11 +137,11 @@ describe('fetchChangesOrAll', () => {
   it('should return changes if lastSeq is not "0"', async () => {
     const res = await fetchChangesOrAll(client, 'io.cozy.todos', 'abcd')
 
-    expect(DocumentCollection.prototype.fetchChanges).toHaveBeenCalledWith({
+    expect(documentCollection.fetchChanges).toHaveBeenCalledWith({
       since: 'abcd',
       include_docs: true
     })
-    expect(DocumentCollection.prototype.all).not.toHaveBeenCalled()
+    expect(documentCollection.all).not.toHaveBeenCalled()
     expect(res).toStrictEqual({ documents: [], newLastSeq: '1234' })
   })
 })

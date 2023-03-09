@@ -1,7 +1,7 @@
 import { mount } from 'enzyme'
 import React from 'react'
+import { createMockClient } from 'cozy-client'
 import AppLike from 'test/AppLike'
-import { createClientWithData } from 'test/client'
 import CategoryAlertCard from './CategoryAlertCard'
 import getClient from 'selectors/getClient'
 import { GROUP_DOCTYPE } from 'doctypes'
@@ -18,7 +18,7 @@ describe('category alert card', () => {
         _id: 'group1337'
       }
     }
-    const client = createClientWithData({
+    const client = createMockClient({
       queries: {
         groups: {
           doctype: GROUP_DOCTYPE,

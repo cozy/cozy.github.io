@@ -206,7 +206,7 @@ describe('filter selectors', () => {
     getTransactions.mockReturnValue(docStore['io.cozy.bank.operations'])
     getAccounts.mockReturnValue(docStore[ACCOUNT_DOCTYPE])
     getAllGroups.mockReturnValue(docStore['io.cozy.bank.groups'])
-    // TODO use createClientWithData instead of mocked selectors
+    // TODO use createMockClient instead of mocked selectors
     getGroupsById.mockReturnValue(keyBy(docStore['io.cozy.bank.groups'], '_id'))
     getAccountsById.mockReturnValue(
       keyBy(docStore['io.cozy.bank.accounts'], '_id')

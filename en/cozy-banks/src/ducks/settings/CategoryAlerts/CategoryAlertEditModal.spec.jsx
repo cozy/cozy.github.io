@@ -1,10 +1,10 @@
 import { mount } from 'enzyme'
 import React from 'react'
+import { createMockClient } from 'cozy-client'
 import CategoryAlertEditModal from './CategoryAlertEditModal'
 import AccountIcon from 'components/AccountIcon'
 import fixtures from 'test/fixtures/unit-tests.json'
 import getClient from 'selectors/getClient'
-import { createClientWithData } from 'test/client'
 import Input from 'cozy-ui/transpiled/react/Input'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 import AppLike from 'test/AppLike'
@@ -16,7 +16,7 @@ jest.mock('components/AccountIcon', () => () => null)
 describe('category alert edition modal', () => {
   let client
   beforeEach(() => {
-    client = createClientWithData({
+    client = createMockClient({
       queries: {
         accounts: {
           data: fixtures[ACCOUNT_DOCTYPE],

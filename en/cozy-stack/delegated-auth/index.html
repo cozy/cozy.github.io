@@ -2259,6 +2259,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#franceconnect" title="FranceConnect" class="md-nav__link">
+    FranceConnect
+  </a>
+  
+</li>
+      
       
       
       
@@ -2774,6 +2781,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#franceconnect" title="FranceConnect" class="md-nav__link">
+    FranceConnect
+  </a>
+  
+</li>
+      
       
       
       
@@ -2826,15 +2840,15 @@ Cozy instance belongs to one context.</p>
       <span class="l l-Scalar l-Scalar-Plain">scope</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">openid profile</span>
       <span class="l l-Scalar l-Scalar-Plain">login_domain</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">login.mycozy.cloud</span>
       <span class="l l-Scalar l-Scalar-Plain">redirect_uri</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://oauthcallback.mycozy.cloud/oidc/redirect</span>
-      <span class="l l-Scalar l-Scalar-Plain">authorize_url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://identity-prodiver/path/to/authorize</span>
-      <span class="l l-Scalar l-Scalar-Plain">token_url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://identity-prodiver/path/to/token</span>
-      <span class="l l-Scalar l-Scalar-Plain">userinfo_url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://identity-prodiver/path/to/userinfo</span>
+      <span class="l l-Scalar l-Scalar-Plain">authorize_url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://identity-provider/path/to/authorize</span>
+      <span class="l l-Scalar l-Scalar-Plain">token_url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://identity-provider/path/to/token</span>
+      <span class="l l-Scalar l-Scalar-Plain">userinfo_url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://identity-provider/path/to/userinfo</span>
       <span class="l l-Scalar l-Scalar-Plain">userinfo_instance_field</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">cozy_number</span>
       <span class="l l-Scalar l-Scalar-Plain">userinfo_instance_prefix</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">name</span>
       <span class="l l-Scalar l-Scalar-Plain">userinfo_instance_suffix</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">.mycozy.cloud</span>
       <span class="l l-Scalar l-Scalar-Plain">allow_custom_instance</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
       <span class="l l-Scalar l-Scalar-Plain">allow_oauth_token</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
-      <span class="l l-Scalar l-Scalar-Plain">id_token_jwk_url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://identity-prodiver/path/to/jwk</span>
+      <span class="l l-Scalar l-Scalar-Plain">id_token_jwk_url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://identity-provider/path/to/jwk</span>
 </pre></div>
 
 
@@ -2892,7 +2906,7 @@ authentication is disabled.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">303</span> <span class="ne">See Other</span>
-<span class="na">Location</span><span class="o">:</span> <span class="l">https://identity-prodiver/path/to/authorize?response_type=code&amp;state=9f6873dfce7d&amp;scope=openid+profile&amp;client_id=aClientID&amp;nonce=94246498&amp;redirect_uri=https://oauthcallback.mycozy.cloud/oidc/redirect</span>
+<span class="na">Location</span><span class="o">:</span> <span class="l">https://identity-provider/path/to/authorize?response_type=code&amp;state=9f6873dfce7d&amp;scope=openid+profile&amp;client_id=aClientID&amp;nonce=94246498&amp;redirect_uri=https://oauthcallback.mycozy.cloud/oidc/redirect</span>
 </pre></div>
 
 
@@ -2986,6 +3000,25 @@ valid on the OpenID Connect Identity Provider.</p>
 
 <p>If <code>id_token_jwk_url</code> option is set, the client can send an <code>id_token</code> instead
 of an <code>oidc_token</code> in the payload.</p>
+<h2 id="franceconnect">FranceConnect<a class="headerlink" href="#franceconnect" title="Permanent link">&para;</a></h2>
+<p>It is pretty much the same thing as OIDC. It&rsquo;s logical as FranceConnect is an
+OIDC provider. But we have made a special case for the login page. The
+differences are that the flow is started with <code>GET /oidc/franceconnect</code>
+(instead of <code>GET /oidc/start</code>) and the configuration looks like this:</p>
+<div class="codehilite"><pre><span></span><span class="l l-Scalar l-Scalar-Plain">authentication</span><span class="p p-Indicator">:</span>
+  <span class="l l-Scalar l-Scalar-Plain">the-context-name</span><span class="p p-Indicator">:</span>
+    <span class="l l-Scalar l-Scalar-Plain">franceconnect</span><span class="p p-Indicator">:</span>
+      <span class="l l-Scalar l-Scalar-Plain">client_id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">aClientID</span>
+      <span class="l l-Scalar l-Scalar-Plain">client_secret</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">s3cret3</span>
+      <span class="l l-Scalar l-Scalar-Plain">scope</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">openid profile</span>
+      <span class="l l-Scalar l-Scalar-Plain">redirect_uri</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://oauthcallback.mycozy.cloud/oidc/redirect</span>
+      <span class="l l-Scalar l-Scalar-Plain">authorize_url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://identity-provider/path/to/authorize</span>
+      <span class="l l-Scalar l-Scalar-Plain">token_url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://identity-provider/path/to/token</span>
+      <span class="l l-Scalar l-Scalar-Plain">userinfo_url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://identity-provider/path/to/userinfo</span>
+</pre></div>
+
+
+<p>The last 3 URL can be omited for production.</p>
                 
                   
                 

@@ -21,10 +21,9 @@ import {
   schema
 } from 'doctypes'
 import MockDate from 'mockdate'
-import CozyClient from 'cozy-client'
+import CozyClient, { createMockClient } from 'cozy-client'
 import logger from 'cozy-client/dist/logger'
 
-import { createClientWithData } from 'test/client'
 import { getCategoryIdFromName } from 'ducks/categories/helpers'
 
 // eslint-disable-next-line no-console
@@ -55,7 +54,7 @@ describe('reimbursements', () => {
     transaction.reimbursements.data[0].bill
 
   beforeEach(() => {
-    client = createClientWithData({
+    client = createMockClient({
       queries: {
         bills: {
           doctype: BILLS_DOCTYPE,

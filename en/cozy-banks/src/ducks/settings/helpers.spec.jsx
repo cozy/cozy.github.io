@@ -3,8 +3,7 @@ import { mount } from 'enzyme'
 import fixtures from 'test/fixtures/unit-tests.json'
 import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE, SETTINGS_DOCTYPE } from 'doctypes'
 import AppLike from 'test/AppLike'
-import CozyClient from 'cozy-client'
-import { createClientWithData } from 'test/client'
+import CozyClient, { createMockClient } from 'cozy-client'
 
 import {
   fetchSettings,
@@ -44,7 +43,7 @@ describe('defaulted settings', () => {
 
 describe('withAccountOrGroupLabeller', () => {
   const setup = ({ accountOrGroup }) => {
-    const client = createClientWithData({
+    const client = createMockClient({
       queries: {
         groups: {
           doctype: GROUP_DOCTYPE,

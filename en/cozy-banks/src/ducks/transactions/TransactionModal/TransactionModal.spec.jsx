@@ -2,9 +2,9 @@ import React from 'react'
 import { render, fireEvent, within } from '@testing-library/react'
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import { format } from 'date-fns'
+import { createMockClient } from 'cozy-client'
 
 import AppLike from 'test/AppLike'
-import { createClientWithData } from 'test/client'
 import { ACCOUNT_DOCTYPE, TRANSACTION_DOCTYPE } from 'doctypes'
 import { TrackerProvider, trackPage } from 'ducks/tracking/browser'
 import { getTracker } from 'ducks/tracking/tracker'
@@ -44,7 +44,7 @@ jest.mock('ducks/transactions/helpers', () => ({
 describe('transaction modal', () => {
   let client
   beforeEach(() => {
-    client = createClientWithData({
+    client = createMockClient({
       queries: {
         transactions: {
           doctype: TRANSACTION_DOCTYPE,
