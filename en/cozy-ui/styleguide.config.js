@@ -155,6 +155,7 @@ module.exports = {
         '../react/PopupOpener/index.jsx',
         '../react/PushClientButton/index.jsx',
         '../react/QuotaAlert/index.jsx',
+        '../react/Paywall',
         '../react/Viewer/index.jsx'
       ]
     },
