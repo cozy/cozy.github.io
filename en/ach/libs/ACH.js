@@ -4,7 +4,7 @@ const deleteDocuments = require('./deleteDocuments')
 const dropCollections = require('./dropCollections')
 const importFolderContent = require('./importFolderContent')
 const createFiles = require('./createFiles')
-const exportData = require('./exportData')
+const { exportDocs, exportSingleDoc } = require('./exportData')
 const getClient = require('./getClient')
 const cozyFetch = require('./cozyFetch')
 const log = require('./log')
@@ -124,7 +124,11 @@ const methods = {
     oldClient: true
   },
   export: {
-    method: exportData,
+    method: exportDocs,
+    oldClient: false
+  },
+  exportSingle: {
+    method: exportSingleDoc,
     oldClient: false
   },
   fetch: {

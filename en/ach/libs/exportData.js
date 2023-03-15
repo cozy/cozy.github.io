@@ -54,7 +54,35 @@ const fetchRecent = async (cozyClient, doctype, last) => {
   }
 }
 
-module.exports = (cozyClient, doctypes, filename, last) => {
+const fetchSingleDoc = async (cozyClient, doctype, id) => {
+  try {
+    const query = Q(doctype).getById(id)
+    const result = await cozyClient.query(query)
+    return result.data
+  } catch (e) {
+    console.error(e)
+    throw e
+  }
+}
+
+const exportToFile = async (data, filename) => {
+  const json = JSON.stringify(data, null, 2)
+  if (filename === '-' || !filename) {
+    console.log(json)
+  } else {
+    fs.mkdirSync(path.dirname(filename), { recursive: true })
+    return fs.promises.writeFile(filename, json)
+  }
+}
+
+const exportSingleDoc = async (cozyClient, doctype, id, filename) => {
+  log.debug('Exporting single doc...')
+
+  const doc = await fetchSingleDoc(cozyClient, doctype, id)
+  return exportToFile(doc, filename)
+}
+
+const exportDocs = async (cozyClient, doctypes, filename, last) => {
   log.debug('Exporting data...')
 
   const allExports = doctypes.map(async doctype => {
@@ -78,12 +106,11 @@ module.exports = (cozyClient, doctypes, filename, last) => {
         .value()
     })
     .then(data => {
-      const json = JSON.stringify(data, null, 2)
-      if (filename === '-' || !filename) {
-        console.log(json)
-      } else {
-        fs.mkdirSync(path.dirname(filename), { recursive: true })
-        return fs.promises.writeFile(filename, json)
-      }
+      return exportToFile(data, filename)
     })
+}
+
+module.exports = {
+  exportDocs,
+  exportSingleDoc
 }

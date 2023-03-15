@@ -125,6 +125,14 @@ const handleExportCommand = async args => {
   await ach.export(doctypes, filename, last)
 }
 
+const handleExportSingleCommand = async args => {
+  let { doctype, id, filename, url, token } = args
+  token = token || autotoken(url, [doctype])
+  const ach = new ACH(token, url, [doctype])
+  await ach.connect()
+  await ach.exportSingle(doctype, id, filename)
+}
+
 const handleUpdateSettingsCommand = async args => {
   const { url, token } = args
   let { settings } = args
@@ -357,6 +365,22 @@ program
         url: program.url,
         token: program.token,
         doctypes,
+        filename,
+        ...options
+      })
+    })
+  )
+
+program
+  .command('exportSingle <doctype> <id> [filename]')
+  .description('Exports single document to filename')
+  .action(
+    handleErrors(async function(doctype, id, filename, options) {
+      await handleExportSingleCommand({
+        url: program.url,
+        token: program.token,
+        doctype,
+        id,
         filename,
         ...options
       })
