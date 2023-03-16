@@ -3244,6 +3244,7 @@
 <li><a href="classes/HasOneInPlace/">HasOneInPlace</a></li>
 <li><a href="classes/InvalidCozyUrlError/">InvalidCozyUrlError</a></li>
 <li><a href="classes/InvalidProtocolError/">InvalidProtocolError</a></li>
+<li><a href="classes/InvalidRedirectLinkError/">InvalidRedirectLinkError</a></li>
 <li><a href="classes/Query/">Query</a></li>
 <li><a href="classes/QueryDefinition/">QueryDefinition</a></li>
 <li><a href="classes/Registry/">Registry</a></li>
@@ -3532,7 +3533,8 @@ query definitions.</p>
 <hr />
 <h3 id="deconstructredirectlink">deconstructRedirectLink<a class="headerlink" href="#deconstructredirectlink" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>deconstructRedirectLink</strong>(<code>redirectLink</code>): <code>RedirectLinkData</code></p>
-<p>Deconstruct the given redirect link in order to retrieve slug and hash</p>
+<p>Deconstruct the given redirect link in order to retrieve slug, pathname and hash</p>
+<p><strong><code>throws</code></strong> {InvalidRedirectLinkError} Thrown when redirect link is invalid</p>
 <p><em>Parameters</em></p>
 <table>
 <thead>
@@ -3546,7 +3548,7 @@ query definitions.</p>
 <tr>
 <td align="left"><code>redirectLink</code></td>
 <td align="left"><code>string</code></td>
-<td align="left">redirect link to deconstruct (i.e. &lsquo;slug/#/path&rsquo;)</td>
+<td align="left">redirect link to deconstruct (i.e. &lsquo;drive/public/#/folder/SOME_ID&rsquo;)</td>
 </tr>
 </tbody>
 </table>
@@ -3554,7 +3556,7 @@ query definitions.</p>
 <p><code>RedirectLinkData</code></p>
 <p>Deconstructed link</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/helpers/urlHelper.js#L105">packages/cozy-client/src/helpers/urlHelper.js:105</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/helpers/urlHelper.js#L108">packages/cozy-client/src/helpers/urlHelper.js:108</a></p>
 <hr />
 <h3 id="dehydrate">dehydrate<a class="headerlink" href="#dehydrate" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>dehydrate</strong>(<code>document</code>): <code>Object</code></p>
@@ -4004,7 +4006,7 @@ const rootCozyUrl = await rootCozyUrl(new URL(userInput))
 <p><code>Promise</code>&lt;<code>URL</code>&gt;</p>
 <p>The root Cozy URL</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/helpers/urlHelper.js#L236">packages/cozy-client/src/helpers/urlHelper.js:236</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/helpers/urlHelper.js#L251">packages/cozy-client/src/helpers/urlHelper.js:251</a></p>
 <hr />
 <h3 id="useapplinkwithstorefallback">useAppLinkWithStoreFallback<a class="headerlink" href="#useapplinkwithstorefallback" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>useAppLinkWithStoreFallback</strong>(<code>slug</code>, <code>client</code>, <code>path?</code>): <code>Object</code></p>
