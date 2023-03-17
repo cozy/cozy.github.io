@@ -10,16 +10,16 @@ import { JOBS_DOCTYPE } from 'doctypes'
 export const isExportJobInProgress = async client => {
   const { data } = await client.query(
     Q(JOBS_DOCTYPE)
-      .where({
+      .partialIndex({
         worker: 'service',
         message: {
           slug: 'banks',
           name: 'export'
-        }
-      })
-      .partialIndex({
+        },
         $or: [{ state: 'queued' }, { state: 'running' }]
       })
+      .indexFields(['worker'])
+      .sortBy([{ worker: 'asc' }]) // XXX: forces CouchDB to require an index for the query
       .limitBy(1)
   )
 

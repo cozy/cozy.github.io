@@ -1,6 +1,10 @@
 import { Buffer } from 'buffer'
 import { Stream } from 'stream'
-import { createFormatStream, transactionsToCSV } from './services'
+import {
+  accountsWitoutTransactionsToCSV,
+  createFormatStream,
+  transactionsToCSV
+} from './services'
 
 const setup = () => {
   const accounts = {
@@ -29,6 +33,14 @@ const setup = () => {
       type: 'Loan',
       balance: -128037.32,
       comingBalance: -128037.32,
+      loan: {
+        totalAmount: 207200,
+        rate: 2.07,
+        nextPaymentDate: '2022-01-05T00:00:00.000Z',
+        nextPaymentAmount: 1408.75,
+        subscriptionDate: '2012-02-11T00:00:00.000Z',
+        maturityDate: '2032-03-05T00:00:00.000Z'
+      },
       vendorId: '12346'
     }
   }
@@ -149,7 +161,7 @@ const setup = () => {
     }
   ]
 
-  return { transactions }
+  return { accounts, recurrences, tags, transactions }
 }
 
 describe('createFormatStream', () => {
@@ -208,8 +220,8 @@ describe('createFormatStream', () => {
     expect(String(output)).toEqual(
       [
         // XXX: The header line is included in the output
-        '"Date";"Realisation date";"Assigned date";"Label";"Original bank label";"Category name";"Amount";"Currency";"Type";"Expected?";"Expected debit date";"Reimbursement status";"Bank name";"Account name";"Custom account name";"Account number";"Account originalNumber";"Account type";"Account balance";"Account coming balance";"Account IBAN";"Account vendorDeleted";"Recurrent?";"Recurrence name";"Recurrence status";"Recurrence frequency";"Tag 1";"Tag 2";"Tag 3";"Tag 4";"Tag 5";"Unique ID"',
-        '"2021-09-10";"2021-09-10";"";"GAZ";"PRLV SEPA GAZ";"power";"-63";"EUR";"";"no";"";"";"Société Générale";"Isabelle Durand Compte Courant";"Compte Courant";"00031738274";"0974200031738274";"Checkings";"123.4";"123.4";"FR65023382980003173827423";"";"yes";"Abonnement Gaz";"";"58.5";"";"";"";"";"";"23456"'
+        '"Date";"Realisation date";"Assigned date";"Label";"Original bank label";"Category name";"Amount";"Currency";"Type";"Expected?";"Expected debit date";"Reimbursement status";"Bank name";"Account name";"Custom account name";"Account number";"Account originalNumber";"Account type";"Account balance";"Account coming balance";"Account IBAN";"Account vendorDeleted";"Recurrent?";"Recurrence name";"Recurrence status";"Recurrence frequency";"Tag 1";"Tag 2";"Tag 3";"Tag 4";"Tag 5";"Unique ID";"Unique account ID";"Loan amount";"Interest rate";"Next payment date";"Next payment amount";"Subscription date";"Repayment date"',
+        '"2021-09-10";"2021-09-10";"";"GAZ";"PRLV SEPA GAZ";"power";"-63";"EUR";"";"no";"";"";"Société Générale";"Isabelle Durand Compte Courant";"Compte Courant";"00031738274";"0974200031738274";"Checkings";"123.4";"123.4";"FR65023382980003173827423";"";"yes";"Abonnement Gaz";"";"58.5";"";"";"";"";"";"23456";"";"";"";"";"";"";""'
       ].join('\n')
     )
   })
@@ -259,7 +271,14 @@ describe('transactionsToCSV', () => {
       undefined,
       undefined,
       undefined,
-      '23456'
+      '23456',
+      '12345',
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined
     ])
 
     expect(generator.next().value).toEqual([
@@ -294,7 +313,14 @@ describe('transactionsToCSV', () => {
       'Remboursements',
       undefined,
       undefined,
-      '23457'
+      '23457',
+      '12345',
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined
     ])
 
     expect(generator.next().value).toEqual([
@@ -329,7 +355,14 @@ describe('transactionsToCSV', () => {
       undefined,
       undefined,
       undefined,
-      '23458'
+      '23458',
+      '12345',
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined
     ])
 
     expect(generator.next().value).toEqual([
@@ -343,7 +376,7 @@ describe('transactionsToCSV', () => {
       'EUR',
       'credit card',
       'yes',
-      '2021-12-31T12:00:00.000Z',
+      '2021-12-31',
       undefined,
       undefined,
       undefined,
@@ -364,7 +397,70 @@ describe('transactionsToCSV', () => {
       undefined,
       undefined,
       undefined,
-      '23459'
+      '23459',
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    ])
+  })
+})
+
+describe('accountsWitoutTransactionsToCSV', () => {
+  it('returns a generator', () => {
+    const generator = accountsWitoutTransactionsToCSV([])
+    expect(generator.__proto__.toString()).toEqual('[object Generator]')
+    expect(typeof generator.next).toEqual('function')
+  })
+
+  it('transforms the given io.cozy.bank.accounts into arrays of data per our CSV schema', () => {
+    const { accounts } = setup()
+
+    const generator = accountsWitoutTransactionsToCSV([accounts.loan])
+
+    expect(generator.next().value).toEqual([
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      'Société Générale',
+      'Isabelle Durand PRET IMMO',
+      'Pret Immobilier',
+      'T00031733728',
+      'T00031733728',
+      'Loan',
+      -128037.32,
+      -128037.32,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      '12346',
+      207200,
+      2.07,
+      '2022-01-05',
+      1408.75,
+      '2012-02-11',
+      '2032-03-05'
     ])
   })
 })

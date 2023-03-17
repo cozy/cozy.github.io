@@ -88,7 +88,14 @@ export const createFormatStream = () => {
       'Tag 3',
       'Tag 4',
       'Tag 5',
-      'Unique ID'
+      'Unique ID',
+      'Unique account ID',
+      'Loan amount',
+      'Interest rate',
+      'Next payment date',
+      'Next payment amount',
+      'Subscription date',
+      'Repayment date'
     ]
   })
 }
@@ -118,7 +125,7 @@ export const transactionsToCSV = function* (transactions) {
       transaction.currency,
       transaction.type,
       transaction.isComing ? 'yes' : 'no',
-      transaction.valueDate,
+      dateStr(transaction.valueDate),
       transaction.reimbursementStatus
     ]
 
@@ -157,8 +164,14 @@ export const transactionsToCSV = function* (transactions) {
       }
     }
 
-    // Unique identifier
-    data.push(transaction.vendorId || transaction.linxoId)
+    // Unique identifiers
+    data.push(
+      transaction.vendorId || transaction.linxoId,
+      account?.vendorId || account?.linxoId
+    )
+
+    // Loan data
+    data.push(undefined, undefined, undefined, undefined, undefined, undefined)
 
     yield data
   }
@@ -209,8 +222,18 @@ export const accountsWitoutTransactionsToCSV = function* (accounts) {
     // Tags information
     data.push(undefined, undefined, undefined, undefined, undefined)
 
-    // Unique identifier
-    data.push(account.vendorId || account.linxoId)
+    // Unique identifiers
+    data.push(undefined, account.vendorId || account.linxoId)
+
+    // Loan data
+    data.push(
+      account.loan?.totalAmount,
+      account.loan?.rate,
+      dateStr(account.loan?.nextPaymentDate),
+      account.loan?.nextPaymentAmount,
+      dateStr(account.loan?.subscriptionDate),
+      dateStr(account.loan?.maturityDate)
+    )
 
     yield data
   }
