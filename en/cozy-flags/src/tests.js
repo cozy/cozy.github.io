@@ -1,5 +1,6 @@
-import CozyClient from 'cozy-client'
 import util from 'util'
+
+import CozyClient from 'cozy-client'
 
 export default function testFlagAPI(flag) {
   afterEach(() => {
@@ -30,6 +31,45 @@ export default function testFlagAPI(flag) {
         })
       })
     }
+
+    describe('part of the parameter is embedded in a json content', () => {
+      beforeEach(() => {
+        flag('test.obj1', {
+          obj2: true,
+          obj3: {
+            obj4: {
+              obj5: {
+                obj6: {
+                  test: true
+                },
+                obj7: {
+                  test: null
+                }
+              }
+            }
+          }
+        })
+      })
+
+      it('should return the requested value when a part of the parameter is embedded', () => {
+        expect(flag('test.obj1.obj2')).toBe(true)
+      })
+
+      it('should return the requested value when multiple part of the parameter is embedded', () => {
+        expect(flag('test.obj1.obj3.obj4.obj5')).toStrictEqual({
+          obj6: {
+            test: true
+          },
+          obj7: {
+            test: null
+          }
+        })
+      })
+
+      it('should return null when parameter not found', () => {
+        expect(flag('test.obj2.obj3')).toBe(null)
+      })
+    })
   })
 
   describe('listFlags', () => {

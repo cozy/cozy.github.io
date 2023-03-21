@@ -1829,8 +1829,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#settingscollectiongetpath-object" title="settingsCollection.get(path) ⇒ object" class="md-nav__link">
-    settingsCollection.get(path) ⇒ object
+  <a href="#settingscollectiongetid-object" title="settingsCollection.get(id) ⇒ object" class="md-nav__link">
+    settingsCollection.get(id) ⇒ object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settingscollectionupdatedocument" title="settingsCollection.update(document)" class="md-nav__link">
+    settingsCollection.update(document)
   </a>
   
 </li>
@@ -4933,8 +4940,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#settingscollectiongetpath-object" title="settingsCollection.get(path) ⇒ object" class="md-nav__link">
-    settingsCollection.get(path) ⇒ object
+  <a href="#settingscollectiongetid-object" title="settingsCollection.get(id) ⇒ object" class="md-nav__link">
+    settingsCollection.get(id) ⇒ object
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#settingscollectionupdatedocument" title="settingsCollection.update(document)" class="md-nav__link">
+    settingsCollection.update(document)
   </a>
   
 </li>
@@ -8313,9 +8327,16 @@ It can also associates one or more codes to it, via the codes parameter</p>
 <p><a name="SettingsCollection"></a></p>
 <h2 id="settingscollection">SettingsCollection<a class="headerlink" href="#settingscollection" title="Permanent link">&para;</a></h2>
 <p>Implements <code>DocumentCollection</code> API to interact with the /settings endpoint of the stack</p>
-<p><strong>Kind</strong>: global class<br />
-<a name="SettingsCollection+get"></a></p>
-<h3 id="settingscollectiongetpath-object">settingsCollection.get(path) ⇒ <code>object</code><a class="headerlink" href="#settingscollectiongetpath-object" title="Permanent link">&para;</a></h3>
+<p><strong>Kind</strong>: global class  </p>
+<ul>
+<li><a href="#SettingsCollection">SettingsCollection</a><ul>
+<li><a href="#SettingsCollection+get">.get(id)</a> ⇒ <code>object</code></li>
+<li><a href="#SettingsCollection+update">.update(document)</a></li>
+</ul>
+</li>
+</ul>
+<p><a name="SettingsCollection+get"></a></p>
+<h3 id="settingscollectiongetid-object">settingsCollection.get(id) ⇒ <code>object</code><a class="headerlink" href="#settingscollectiongetid-object" title="Permanent link">&para;</a></h3>
 <p>async get - Calls a route on the /settings API</p>
 <p><strong>Kind</strong>: instance method of <a href="#SettingsCollection"><code>SettingsCollection</code></a><br />
 <strong>Returns</strong>: <code>object</code> - The response from the route  </p>
@@ -8329,9 +8350,29 @@ It can also associates one or more codes to it, via the codes parameter</p>
 </thead>
 <tbody>
 <tr>
-<td>path</td>
+<td>id</td>
 <td><code>string</code></td>
-<td>The setting route to call, eg <code>instance</code> or <code>context</code></td>
+<td>The setting id to call, eg <code>io.cozy.settings.instance</code> for <code>instance</code> route or <code>io.cozy.settings.context</code> for <code>context</code>route</td>
+</tr>
+</tbody>
+</table>
+<p><a name="SettingsCollection+update"></a></p>
+<h3 id="settingscollectionupdatedocument">settingsCollection.update(document)<a class="headerlink" href="#settingscollectionupdatedocument" title="Permanent link">&para;</a></h3>
+<p>Updates a settings document</p>
+<p><strong>Kind</strong>: instance method of <a href="#SettingsCollection"><code>SettingsCollection</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>document</td>
+<td><code>object</code></td>
+<td>Document to update. Do not forget the _id attribute</td>
 </tr>
 </tbody>
 </table>

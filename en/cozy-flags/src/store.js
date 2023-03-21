@@ -1,4 +1,5 @@
 import MicroEE from 'microee'
+
 import lsAdapter from './ls-adapter'
 
 /**
@@ -34,10 +35,30 @@ class FlagStore {
 
   get(name) {
     // eslint-disable-next-line no-prototype-builtins
-    if (!this.store.hasOwnProperty(name)) {
-      this.store[name] = null
+    if (this.store.hasOwnProperty(name)) {
+      return this.store[name]
     }
-    return this.store[name]
+
+    if (typeof name === 'string') {
+      const nameElements = name.split('.')
+      const size = nameElements.length
+      for (let idx = size - 1; idx > 0; idx--) {
+        const currentKey = nameElements.slice(0, idx).join('.')
+        // eslint-disable-next-line no-prototype-builtins
+        if (this.store.hasOwnProperty(currentKey)) {
+          return nameElements
+            .slice(idx, size)
+            .reduce((previousValue, currentValue) => {
+              // eslint-disable-next-line no-prototype-builtins
+              return previousValue && previousValue.hasOwnProperty(currentValue)
+                ? previousValue[currentValue]
+                : null
+            }, this.store[currentKey])
+        }
+      }
+    }
+
+    return null
   }
 
   set(name, value) {
