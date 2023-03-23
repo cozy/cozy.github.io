@@ -1,15 +1,29 @@
 import React from 'react'
 
-import CozyClient, { CozyProvider } from 'cozy-client'
+import { CozyProvider } from 'cozy-client'
 
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
 import { I18nContext } from 'cozy-ui/transpiled/react/I18n'
 
-const defaultClient = new CozyClient()
+const defaultClient = {
+  plugins: {
+    realtime: {
+      subscribe: () => {},
+      unsubscribe: () => {},
+      unsubscribeAll: () => {}
+    }
+  },
+  getStackClient: () => ({
+    uri: 'https://cozy.io/'
+  }),
+  getInstanceOptions: () => ({
+    subdomain: ''
+  })
+}
 
-const DemoProvider = ({ mockClient, children }) => {
+const DemoProvider = ({ client, children }) => {
   return (
-    <CozyProvider client={mockClient || defaultClient}>
+    <CozyProvider client={client || defaultClient}>
       <BreakpointsProvider>
         <I18nContext.Provider
           value={{ t: x => x, f: () => '01 Jan. 2022', lang: 'en' }}
