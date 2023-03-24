@@ -7,6 +7,7 @@ import { ArgumentParser } from 'argparse'
 import { createClientInteractive } from 'cozy-client/dist/cli'
 import { schema } from 'doctypes'
 import runExportService from '../targets/services/export'
+import runImportService from '../targets/services/import'
 import runRecurrenceService from '../ducks/recurrence/service'
 import runKonnectorAlertsService from '../targets/services/konnectorAlerts'
 
@@ -15,6 +16,7 @@ global.__DEV__ = false
 
 const serviceEntrypoints = {
   export: runExportService,
+  import: runImportService,
   recurrence: runRecurrenceService,
   konnectorAlerts: runKonnectorAlertsService
 }

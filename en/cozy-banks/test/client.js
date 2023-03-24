@@ -28,6 +28,10 @@ export const getClient = ({ uri, token, fetchJSONReturn } = defaultOptions) => {
     }
   }
   client.chain = mkFakeChain()
+  client.plugins.realtime = {
+    subscribe: jest.fn(),
+    unsubscribe: jest.fn()
+  }
   return client
 }
 

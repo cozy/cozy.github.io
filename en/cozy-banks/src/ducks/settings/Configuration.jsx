@@ -258,7 +258,7 @@ export class Configuration extends React.Component {
                   label={t('AdvancedFeaturesSettings.my-data.import-csv')}
                   className="u-mt-half"
                   variant="secondary"
-                  onClick={undefined}
+                  onClick={() => this.props.navigate('import')}
                 />
               </SubSection>
             )}

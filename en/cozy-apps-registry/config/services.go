@@ -311,13 +311,22 @@ func newClient(addr, user, pass string) (*kivik.Client, error) {
 	return client, nil
 }
 
-// PrepareSpaces makes sure that the CouchDB databases and Swift containers for
-// the spaces exist and have their index/views.
-func PrepareSpaces() error {
+func GetSpaces() []string {
 	spaceNames := viper.GetStringSlice("spaces")
 	if len(spaceNames) == 0 {
 		spaceNames = []string{""}
 	}
+	return spaceNames
+}
+
+func GetVirtualSpaces() []string {
+	return getVspaceKeys(viper.GetStringMap("virtual_spaces"))
+}
+
+// PrepareSpaces makes sure that the CouchDB databases and Swift containers for
+// the spaces exist and have their index/views.
+func PrepareSpaces() error {
+	spaceNames := GetSpaces()
 	space.Spaces = make(map[string]*space.Space)
 
 	if ok, name := checkSpaceVspaceOverlap(spaceNames, viper.GetStringMap("virtual_spaces")); ok {

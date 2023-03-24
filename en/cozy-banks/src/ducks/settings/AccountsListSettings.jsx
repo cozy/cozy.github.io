@@ -14,6 +14,7 @@ import LegalMention from 'ducks/legal/LegalMention'
 import UnlinkIcon from 'cozy-ui/transpiled/react/Icons/Unlink'
 import { cronKonnectorTriggersConn } from 'doctypes'
 import AccountListItem from 'ducks/settings/AccountListItem'
+import { getAccountInstitutionLabel } from 'ducks/account/helpers'
 import { transformJobsToFakeAccounts } from './helpers/jobs'
 
 const { utils } = models
@@ -33,7 +34,7 @@ const { utils } = models
 const getConnectionIdFromAccount = account => {
   return account.connection && account.connection.raw
     ? account.connection.raw._id
-    : utils.getCreatedByApp(account)
+    : utils.getCreatedByApp(account) || getAccountInstitutionLabel(account)
 }
 
 const AccountsListSettings = ({

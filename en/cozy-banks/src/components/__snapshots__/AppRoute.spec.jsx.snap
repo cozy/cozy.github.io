@@ -134,6 +134,15 @@ exports[`App route should be a function returning a route 1`] = `
           element={
             <Navigate
               replace={true}
+              to="../configuration/import"
+            />
+          }
+          path="import"
+        />
+        <Route
+          element={
+            <Navigate
+              replace={true}
               to="../export"
             />
           }
@@ -169,9 +178,18 @@ exports[`App route should be a function returning a route 1`] = `
             path="tags"
           />
           <Route
-            element={<Unknown />}
+            element={
+              <OutletWrapper
+                Component={[Function]}
+              />
+            }
             path="configuration"
-          />
+          >
+            <Route
+              element={<Import />}
+              path="import"
+            />
+          </Route>
         </Route>
         <Route
           element={
@@ -387,6 +405,15 @@ exports[`App route should have renderExtraRoutes 1`] = `
           element={
             <Navigate
               replace={true}
+              to="../configuration/import"
+            />
+          }
+          path="import"
+        />
+        <Route
+          element={
+            <Navigate
+              replace={true}
               to="../export"
             />
           }
@@ -422,9 +449,18 @@ exports[`App route should have renderExtraRoutes 1`] = `
             path="tags"
           />
           <Route
-            element={<Unknown />}
+            element={
+              <OutletWrapper
+                Component={[Function]}
+              />
+            }
             path="configuration"
-          />
+          >
+            <Route
+              element={<Import />}
+              path="import"
+            />
+          </Route>
         </Route>
         <Route
           element={
@@ -657,6 +693,15 @@ exports[`App route should not have renderExtraRoutesOnly if condition is false 1
           element={
             <Navigate
               replace={true}
+              to="../configuration/import"
+            />
+          }
+          path="import"
+        />
+        <Route
+          element={
+            <Navigate
+              replace={true}
               to="../export"
             />
           }
@@ -692,9 +737,18 @@ exports[`App route should not have renderExtraRoutesOnly if condition is false 1
             path="tags"
           />
           <Route
-            element={<Unknown />}
+            element={
+              <OutletWrapper
+                Component={[Function]}
+              />
+            }
             path="configuration"
-          />
+          >
+            <Route
+              element={<Import />}
+              path="import"
+            />
+          </Route>
         </Route>
         <Route
           element={

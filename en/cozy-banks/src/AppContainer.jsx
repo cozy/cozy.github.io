@@ -32,6 +32,7 @@ import {
   FILES_DOCTYPE
 } from 'doctypes'
 import { StoreURLProvider } from 'ducks/store/StoreContext'
+import { JOBS_DOCTYPE } from './doctypes'
 const jobsProviderOptions = t => ({
   onSuccess: () => Alerter.success(t('JobsContext.alerter-success')),
   onError: () => Alerter.error(t('JobsContext.alerter-errored'))
@@ -93,6 +94,7 @@ const AppContainer = ({ store, lang, client }) => {
                               <RealTimeQueries doctype={TRANSACTION_DOCTYPE} />
                               <RealTimeQueries doctype={GROUP_DOCTYPE} />
                               <RealTimeQueries doctype={FILES_DOCTYPE} />
+                              <RealTimeQueries doctype={JOBS_DOCTYPE} />
                               <Router>
                                 <AppRoute />
                               </Router>

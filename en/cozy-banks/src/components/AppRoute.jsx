@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Navigate, Outlet, Route, Routes } from 'react-router-dom'
 import App from 'components/App'
 import { isWebApp } from 'cozy-device-helper'
 
@@ -28,6 +28,14 @@ import PlannedTransactionsPage from 'ducks/future/PlannedTransactionsPage'
 import SetFilterAndRedirect from 'ducks/balance/SetFilterAndRedirect'
 import TagPage from 'ducks/tags/TagPage'
 import Export from 'ducks/settings/Export'
+import Import from 'ducks/settings/Import/Import'
+
+const OutletWrapper = ({ Component }) => (
+  <>
+    <Component />
+    <Outlet />
+  </>
+)
 
 // Use a function to delay instantation and have access to AppRoute methods
 const AppRoute = () => {
@@ -140,6 +148,10 @@ const AppRoute = () => {
           </Route>
           <Route path="settings">
             <Route
+              path="import"
+              element={<Navigate to="../configuration/import" replace />}
+            />
+            <Route
               path="configuration/export"
               element={<Navigate to="../export" replace />}
             />
@@ -155,7 +167,12 @@ const AppRoute = () => {
               <Route path="accounts" element={<AccountsSettings />} />
               <Route path="groups" element={<GroupsSettings />} />
               <Route path="tags" element={<TagsSettings />} />
-              <Route path="configuration" element={<Configuration />} />
+              <Route
+                path="configuration"
+                element={<OutletWrapper Component={Configuration} />}
+              >
+                <Route path="import" element={<Import />} />
+              </Route>
             </Route>
             <Route
               path="groups/new"

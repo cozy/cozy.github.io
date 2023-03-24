@@ -36,6 +36,8 @@ var appDUCByFlag string
 var minorFlag int
 var majorFlag int
 var durationFlag int
+var physicalFlag bool
+var virtualFlag bool
 var forceFlag bool
 var noDryRunFlag bool
 var editorAutoPublicationFlag bool
@@ -100,6 +102,7 @@ func Root() *cobra.Command {
 	rootCmd.AddCommand(overwriteAppIconCmd)
 	rootCmd.AddCommand(maintenanceCmd)
 	rootCmd.AddCommand(rmAppVersionCmd)
+	rootCmd.AddCommand(lsSpaceCmd)
 	rootCmd.AddCommand(rmSpaceCmd)
 	maintenanceCmd.AddCommand(maintenanceActivateAppCmd)
 	maintenanceCmd.AddCommand(maintenanceDeactivateAppCmd)
@@ -147,6 +150,8 @@ func Root() *cobra.Command {
 	modifyAppCmd.Flags().StringVar(&appDUCFlag, "data-usage-commitment", "", "Specify the data usage commitment: user_ciphered, user_reserved or none")
 	modifyAppCmd.Flags().StringVar(&appDUCByFlag, "data-usage-commitment-by", "", "Specify the usage commitment author: cozy, editor or none")
 
+	lsSpaceCmd.Flags().BoolVar(&physicalFlag, "physical", false, "show physical spaces")
+	lsSpaceCmd.Flags().BoolVar(&virtualFlag, "virtual", false, "show virtual spaces")
 	rmSpaceCmd.Flags().BoolVar(&forceFlag, "force", false, "skip confirmation prompt")
 	maintenanceActivateAppCmd.Flags().BoolVar(&infraMaintenanceFlag, "infra", false, "specify a maintenance specific to our infra")
 	maintenanceActivateAppCmd.Flags().BoolVar(&shortMaintenanceFlag, "short", false, "specify a short maintenance")

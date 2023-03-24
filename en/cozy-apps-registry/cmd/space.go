@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"log"
+	"strings"
 
 	"github.com/cozy/cozy-apps-registry/config"
 	"github.com/cozy/cozy-apps-registry/registry"
@@ -45,5 +46,26 @@ var rmSpaceCmd = &cobra.Command{
 
 		// Removing the space
 		return registry.RemoveSpace(s)
+	},
+}
+
+var lsSpaceCmd = &cobra.Command{
+	Use:     "ls-spaces",
+	Short:   `List spaces`,
+	Long:    `List all configured spaces`,
+	PreRunE: compose(prepareRegistry, prepareSpaces),
+	RunE: func(cmd *cobra.Command, args []string) error {
+		var spaceList []string
+
+		if physicalFlag || !virtualFlag {
+			spaceList = config.GetSpaces()
+		}
+
+		if virtualFlag || !physicalFlag {
+			spaceList = append(spaceList, config.GetVirtualSpaces()...)
+		}
+
+		fmt.Println(strings.Join(spaceList, "\n"))
+		return nil
 	},
 }
