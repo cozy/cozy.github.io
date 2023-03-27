@@ -55,17 +55,27 @@ var lsSpaceCmd = &cobra.Command{
 	Long:    `List all configured spaces`,
 	PreRunE: compose(prepareRegistry, prepareSpaces),
 	RunE: func(cmd *cobra.Command, args []string) error {
-		var spaceList []string
+		var physicalSpaceList []string
+		var virtualSpaceList []string
 
 		if physicalFlag || !virtualFlag {
-			spaceList = config.GetSpaces()
+			physicalSpaceList = config.GetSpaces()
 		}
-
 		if virtualFlag || !physicalFlag {
-			spaceList = append(spaceList, config.GetVirtualSpaces()...)
+			virtualSpaceList = config.GetVirtualSpaces()
 		}
 
-		fmt.Println(strings.Join(spaceList, "\n"))
+		if !withSpaceTypeFlag {
+			fmt.Println(strings.Join(append(physicalSpaceList, virtualSpaceList...), "\n"))
+		} else {
+			for _, sp := range physicalSpaceList {
+				fmt.Println("physical", sp)
+			}
+			for _, sp := range virtualSpaceList {
+				fmt.Println("virtual", sp)
+			}
+		}
+
 		return nil
 	},
 }

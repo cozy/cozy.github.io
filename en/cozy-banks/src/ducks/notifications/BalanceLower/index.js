@@ -135,7 +135,8 @@ class BalanceLower extends NotificationView {
   getExtraAttributes() {
     return merge(super.getExtraAttributes(), {
       data: {
-        route: '/balances'
+        route: '/balances',
+        redirectLink: 'banks/#/balances'
       },
       at: makeAtAttributes('BalanceLower')
     })

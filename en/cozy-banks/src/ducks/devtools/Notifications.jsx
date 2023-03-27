@@ -46,10 +46,9 @@ const sendNotification = async (
           content: 'This is a test notification text content',
           content_html: 'This is a test notification HTML content',
           data: {
+            appName: 'Banks',
             route: notificationRoute,
-            url: notificationRoute,
-            appName: 'banks',
-            pathname: '/'
+            redirectLink: `banks/#${notificationRoute}`
           }
         }
       }

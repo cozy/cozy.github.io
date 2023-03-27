@@ -166,7 +166,8 @@ class CategoryBudget extends NotificationView {
   getExtraAttributes() {
     return merge(super.getExtraAttributes(), {
       data: {
-        route: '/analysis/categories'
+        route: '/analysis/categories',
+        redirectLink: 'banks/#/analysis/categories'
       },
       at: makeAtAttributes('CategoryBudget')
     })

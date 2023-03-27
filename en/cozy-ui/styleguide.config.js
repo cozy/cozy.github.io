@@ -129,6 +129,7 @@ module.exports = {
         '../react/MuiCozyTheme/Menus',
         '../react/AppLinker/index.jsx',
         '../react/Breadcrumbs/index.jsx',
+        '../react/MuiCozyTheme/MuiBreadcrumbs',
         '../react/Tabs',
         '../react/Tab',
         '../react/NavigationList/index.jsx'

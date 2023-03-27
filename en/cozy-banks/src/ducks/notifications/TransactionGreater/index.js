@@ -173,12 +173,15 @@ class TransactionGreater extends NotificationView {
     const attributes = super.getExtraAttributes()
     const accountIds = Object.keys(groupBy(this.toNotify, x => x.account))
 
+    const route =
+      accountIds.length == 1
+        ? `/balances/${accountIds[0]}/details`
+        : `/balances/details`
+
     return merge(attributes, {
       data: {
-        route:
-          accountIds.length == 1
-            ? `/balances/${accountIds[0]}/details`
-            : `/balances/details`
+        route,
+        redirectLink: `banks/#${route}`
       },
       at: makeAtAttributes('TransactionGreater')
     })

@@ -103,7 +103,8 @@ class HealthBillLinked extends NotificationView {
   getExtraAttributes() {
     return merge(super.getExtraAttributes(), {
       data: {
-        route: '/transactions'
+        route: '/transactions',
+        redirectLink: 'banks/#/transactions'
       },
       at: makeAtAttributes('HealthBillLinked')
     })

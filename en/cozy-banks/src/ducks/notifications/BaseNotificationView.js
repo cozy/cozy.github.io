@@ -52,7 +52,8 @@ class BaseNotificationView extends NotificationView {
   getExtraAttributes() {
     return {
       data: {
-        source: get(this.client, 'appMetadata.slug')
+        source: get(this.client, 'appMetadata.slug'),
+        appName: 'Banks'
       }
     }
   }

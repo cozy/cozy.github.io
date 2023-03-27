@@ -138,7 +138,8 @@ class KonnectorAlertNotification extends NotificationView {
 
     return merge(attributes, {
       data: {
-        route: '/settings/accounts'
+        route: '/settings/accounts',
+        redirectLink: 'banks/#/settings/accounts'
       }
     })
   }

@@ -43,18 +43,18 @@ var lsAppsCmd = &cobra.Command{
 		}
 
 		var app map[string]interface{}
-		var editors []string
+		var editorApps []string
 
 		for res.Next() {
 			if err := res.ScanDoc(&app); err != nil {
 				return err
 			}
-			editors = append(editors, app["slug"].(string))
+			editorApps = append(editorApps, app["slug"].(string))
 		}
-		if len(editors) == 0 {
+		if len(editorApps) == 0 {
 			return fmt.Errorf("no apps found for editor %s", editor.Name())
 		}
-		fmt.Println(strings.Join(editors, ", "))
+		fmt.Println(strings.Join(editorApps, "\n"))
 		return nil
 	},
 }
