@@ -101,16 +101,17 @@ func Root() *cobra.Command {
 	rootCmd.AddCommand(rmAppCmd)
 	rootCmd.AddCommand(overwriteAppNameCmd)
 	rootCmd.AddCommand(overwriteAppIconCmd)
-	rootCmd.AddCommand(maintenanceCmd)
 	rootCmd.AddCommand(rmAppVersionCmd)
 	rootCmd.AddCommand(lsSpaceCmd)
 	rootCmd.AddCommand(rmSpaceCmd)
-	maintenanceCmd.AddCommand(maintenanceActivateAppCmd)
-	maintenanceCmd.AddCommand(maintenanceDeactivateAppCmd)
 	rootCmd.AddCommand(exportCmd)
 	rootCmd.AddCommand(importCmd)
 	rootCmd.AddCommand(oldVersionsCmd)
 	rootCmd.AddCommand(completionCmd)
+
+	rootCmd.AddCommand(maintenanceCmd)
+	maintenanceCmd.AddCommand(maintenanceActivateAppCmd)
+	maintenanceCmd.AddCommand(maintenanceDeactivateAppCmd)
 
 	passphraseFlag = genSessionSecret.Flags().Bool("passphrase", false, "enforce or dismiss the session secret encryption")
 
@@ -179,7 +180,12 @@ var rootCmd = &cobra.Command{
 		if err := config.ReadFile(cfgFileFlag, "cozy-registry"); err != nil {
 			return err
 		}
-		return config.Validate()
+		if err := config.Validate(); err != nil {
+			return err
+		}
+
+		config.SetupLogger(config.LoggerOptions{Syslog: viper.GetBool("syslog")})
+		return nil
 
 	},
 	RunE: func(cmd *cobra.Command, args []string) error {
@@ -192,7 +198,6 @@ var serveCmd = &cobra.Command{
 	Short:   `Start the registry HTTP server`,
 	PreRunE: compose(loadSessionSecret, prepareRegistry, prepareSpaces),
 	RunE: func(cmd *cobra.Command, args []string) (err error) {
-		config.SetupLogger(config.LoggerOptions{Syslog: viper.GetBool("syslog")})
 		address := fmt.Sprintf("%s:%d", viper.GetString("host"), viper.GetInt("port"))
 		fmt.Printf("Listening on %s...\n", address)
 		errc := make(chan error)
