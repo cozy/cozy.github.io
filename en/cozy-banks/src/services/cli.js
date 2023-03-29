@@ -6,6 +6,7 @@ import path from 'path'
 import { ArgumentParser } from 'argparse'
 import { createClientInteractive } from 'cozy-client/dist/cli'
 import { schema } from 'doctypes'
+import appMetadata from 'ducks/client/appMetadata'
 import runExportService from '../targets/services/export'
 import runImportService from '../targets/services/import'
 import runRecurrenceService from '../ducks/recurrence/service'
@@ -48,6 +49,7 @@ const main = async () => {
     uri: args.url,
     scope: getScope(manifest),
     schema,
+    appMetadata,
     oauth: {
       softwareID: 'banks.service-cli'
     }

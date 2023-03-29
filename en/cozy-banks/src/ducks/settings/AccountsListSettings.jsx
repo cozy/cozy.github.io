@@ -19,6 +19,9 @@ import { transformJobsToFakeAccounts } from './helpers/jobs'
 
 const { utils } = models
 
+const wasImportedByBanks = account =>
+  account?.metadata?.dateImport != null && account?.metadata?.vendor === 'cozy'
+
 /**
  * Returns the connection id of an account
  *
@@ -34,7 +37,9 @@ const { utils } = models
 const getConnectionIdFromAccount = account => {
   return account.connection && account.connection.raw
     ? account.connection.raw._id
-    : utils.getCreatedByApp(account) || getAccountInstitutionLabel(account)
+    : wasImportedByBanks(account)
+    ? getAccountInstitutionLabel(account)
+    : utils.getCreatedByApp(account)
 }
 
 const AccountsListSettings = ({
