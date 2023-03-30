@@ -223,7 +223,11 @@ func prepareRegistry(cmd *cobra.Command, args []string) error {
 }
 
 func prepareSpaces(cmd *cobra.Command, args []string) error {
-	return config.PrepareSpaces()
+	return config.PrepareSpaces(true)
+}
+
+func prepareSpacesWithoutStorage(cmd *cobra.Command, args []string) error {
+	return config.PrepareSpaces(false)
 }
 
 func loadSessionSecret(cmd *cobra.Command, args []string) error {

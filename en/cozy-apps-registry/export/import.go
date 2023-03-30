@@ -79,7 +79,7 @@ func cleanCouch() error {
 		}
 	}
 
-	if err := config.PrepareSpaces(); err != nil {
+	if err := config.PrepareSpaces(true); err != nil {
 		return err
 	}
 

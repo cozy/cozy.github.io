@@ -2630,6 +2630,26 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#oidc" title="OIDC" class="md-nav__link">
+    OIDC
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post-oidccontextprovidercode" title="POST /oidc/:context/:provider/code" class="md-nav__link">
+    POST /oidc/:context/:provider/code
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#oauth-clients" title="OAuth clients" class="md-nav__link">
     OAuth clients
   </a>
@@ -4247,6 +4267,26 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#oidc" title="OIDC" class="md-nav__link">
+    OIDC
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#post-oidccontextprovidercode" title="POST /oidc/:context/:provider/code" class="md-nav__link">
+    POST /oidc/:context/:provider/code
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#oauth-clients" title="OAuth clients" class="md-nav__link">
     OAuth clients
   </a>
@@ -5243,6 +5283,33 @@ endpoint.</p>
 
 <h4 id="response_17">Response<a class="headerlink" href="#response_17" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
+</pre></div>
+
+
+<h2 id="oidc">OIDC<a class="headerlink" href="#oidc" title="Permanent link">&para;</a></h2>
+<h3 id="post-oidccontextprovidercode">POST /oidc/:context/:provider/code<a class="headerlink" href="#post-oidccontextprovidercode" title="Permanent link">&para;</a></h3>
+<p>This endpoint is used by the cloudery to create a delegated code, which will be
+then used by the flagship app to obtain its access_token and refresh_token. The
+<code>:provider</code> parameter can be <code>generic</code> or <code>franceconnect</code>.</p>
+<p>The cloudery sends its access_token for the OIDC provider, the stack can use it
+to make a request to the userinfo endpoint of the OIDC provider. With the
+response, the stack can create a delegated code associated to the sub.</p>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/oidc/dev/franceconnect/code</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer ZmE2ZTFmN</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;delegated_code&quot;</span><span class="p">:</span> <span class="s2">&quot;wMTNiLTNmZWItMThY&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;sub&quot;</span><span class="p">:</span> <span class="s2">&quot;DIzYWE2MjA&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;email&quot;</span><span class="p">:</span> <span class="s2">&quot;jerome@example.org&quot;</span>
+<span class="p">}</span>
 </pre></div>
 
 

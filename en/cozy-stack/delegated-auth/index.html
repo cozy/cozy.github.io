@@ -2247,6 +2247,19 @@
     POST /oidc/access_token
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#special-case-of-2fa" title="Special case of 2FA" class="md-nav__link">
+    Special case of 2FA
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -2769,6 +2782,19 @@
     POST /oidc/access_token
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#special-case-of-2fa" title="Special case of 2FA" class="md-nav__link">
+    Special case of 2FA
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -3000,6 +3026,52 @@ valid on the OpenID Connect Identity Provider.</p>
 
 <p>If <code>id_token_jwk_url</code> option is set, the client can send an <code>id_token</code> instead
 of an <code>oidc_token</code> in the payload.</p>
+<p>If the flagship makes the request, it also can use a delegated code obtained
+from the cloudery, by using <code>code</code> instead of <code>oidc_token</code>.</p>
+<p><strong>Note:</strong> if the OAuth client asks for a <code>*</code> scope and has not been certified
+as the flagship app, this request will return:</p>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">202</span> <span class="ne">Accepted</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;session_code&quot;</span><span class="p">:</span> <span class="s2">&quot;ZmY4ODI3NGMtOTY1Yy0xMWVjLThkMDgtMmI5M2&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>The <code>session_code</code> can be put in the query string while opening the OAuth
+authorize page. It will be used to open the session, and let the user type the
+6-digits code they have received by mail to confirm that they want to use this
+app as the flagship app.</p>
+<h5 id="special-case-of-2fa">Special case of 2FA<a class="headerlink" href="#special-case-of-2fa" title="Permanent link">&para;</a></h5>
+<p>When 2FA is enabled on the instance, the stack will first respond with:</p>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">403</span> <span class="ne">Forbidden</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;two factor needed&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;two_factor_token&quot;</span><span class="p">:</span> <span class="s2">&quot;123123123123&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>and the client must ask the user to type its 6-digits code, and then make again
+the request:</p>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;access_token&quot;</span><span class="p">:</span> <span class="s2">&quot;ooch1Yei&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;token_type&quot;</span><span class="p">:</span> <span class="s2">&quot;bearer&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;refresh_token&quot;</span><span class="p">:</span> <span class="s2">&quot;ui0Ohch8&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;scope&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files io.cozy.photos.albums&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;two_factor_token&quot;</span><span class="p">:</span> <span class="s2">&quot;123123123123&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;two_factor_passcode&quot;</span><span class="p">:</span> <span class="s2">&quot;678678&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
 <h2 id="franceconnect">FranceConnect<a class="headerlink" href="#franceconnect" title="Permanent link">&para;</a></h2>
 <p>It is pretty much the same thing as OIDC. It&rsquo;s logical as FranceConnect is an
 OIDC provider. But we have made a special case for the login page. The
@@ -3010,7 +3082,7 @@ differences are that the flow is started with <code>GET /oidc/franceconnect</cod
     <span class="l l-Scalar l-Scalar-Plain">franceconnect</span><span class="p p-Indicator">:</span>
       <span class="l l-Scalar l-Scalar-Plain">client_id</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">aClientID</span>
       <span class="l l-Scalar l-Scalar-Plain">client_secret</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">s3cret3</span>
-      <span class="l l-Scalar l-Scalar-Plain">scope</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">openid profile</span>
+      <span class="l l-Scalar l-Scalar-Plain">scope</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">openid email</span>
       <span class="l l-Scalar l-Scalar-Plain">redirect_uri</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://oauthcallback.mycozy.cloud/oidc/redirect</span>
       <span class="l l-Scalar l-Scalar-Plain">authorize_url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://identity-provider/path/to/authorize</span>
       <span class="l l-Scalar l-Scalar-Plain">token_url</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">https://identity-provider/path/to/token</span>

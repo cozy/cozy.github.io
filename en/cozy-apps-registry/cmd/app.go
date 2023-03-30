@@ -16,7 +16,7 @@ import (
 var lsAppsCmd = &cobra.Command{
 	Use:     "ls-apps [editor]",
 	Short:   `List all apps from an editor`,
-	PreRunE: compose(prepareRegistry, prepareSpaces),
+	PreRunE: compose(prepareRegistry, prepareSpacesWithoutStorage),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		c, ok := space.GetSpace(appSpaceFlag)
 		if !ok {

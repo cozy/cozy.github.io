@@ -325,7 +325,7 @@ func GetVirtualSpaces() []string {
 
 // PrepareSpaces makes sure that the CouchDB databases and Swift containers for
 // the spaces exist and have their index/views.
-func PrepareSpaces() error {
+func PrepareSpaces(initStorage bool) error {
 	spaceNames := GetSpaces()
 	space.Spaces = make(map[string]*space.Space)
 
@@ -345,9 +345,11 @@ func PrepareSpaces() error {
 			return fmt.Errorf("Cannot register space %q: %w", spaceName, err)
 		}
 
-		// Prepare the storage.
-		if err := base.Storage.EnsureExists(prefix); err != nil {
-			return fmt.Errorf("Cannot create storage container %q: %w", prefix, err)
+		if initStorage {
+			// Prepare the storage.
+			if err := base.Storage.EnsureExists(prefix); err != nil {
+				return fmt.Errorf("Cannot create storage container %q: %w", prefix, err)
+			}
 		}
 	}
 

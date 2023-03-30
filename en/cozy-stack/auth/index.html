@@ -2539,6 +2539,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#response-2fa-needed" title="Response (2FA needed)" class="md-nav__link">
+    Response (2FA needed)
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3542,6 +3549,13 @@
           <li class="md-nav__item">
   <a href="#response_1" title="Response" class="md-nav__link">
     Response
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response-2fa-needed" title="Response (2FA needed)" class="md-nav__link">
+    Response (2FA needed)
   </a>
   
 </li>
@@ -4656,13 +4670,27 @@ passphrase (and 2FA if needed) to create a session for the authorize page.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="p">{</span>
-    <span class="nt">&quot;session_code&quot;</span><span class="p">:</span> <span class="s2">&quot;HzEFM3JREpIB6532fQc1FP2t4YJKt3gI&quot;</span>
+  <span class="nt">&quot;session_code&quot;</span><span class="p">:</span> <span class="s2">&quot;HzEFM3JREpIB6532fQc1FP2t4YJKt3gI&quot;</span>
 <span class="p">}</span>
 </pre></div>
 
 
 <p>The flagship will then be able to open a webview for
 <code>https://cozy-home.example.org/?session_code=HzEFM3JREpIB6532fQc1FP2t4YJKt3gI</code>.</p>
+<h4 id="response-2fa-needed">Response (2FA needed)<a class="headerlink" href="#response-2fa-needed" title="Permanent link">&para;</a></h4>
+<p>In case of error where 2FA is needed, the response will be:</p>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">403</span> <span class="ne">Forbidden</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;two factor needed&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;two_factor_token&quot;</span><span class="p">:</span> <span class="s2">&quot;123123123123&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
 <h3 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h3>
 <blockquote>
 <p>What format is used for tokens?</p>

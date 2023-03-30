@@ -53,7 +53,7 @@ var lsSpaceCmd = &cobra.Command{
 	Use:     "ls-spaces",
 	Short:   `List spaces`,
 	Long:    `List all configured spaces`,
-	PreRunE: compose(prepareRegistry, prepareSpaces),
+	PreRunE: prepareRegistry,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		var physicalSpaceList []string
 		var virtualSpaceList []string

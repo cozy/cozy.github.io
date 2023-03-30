@@ -548,7 +548,7 @@ func TestMain(m *testing.M) {
 		os.Exit(1)
 	}
 
-	if err := config.PrepareSpaces(); err != nil {
+	if err := config.PrepareSpaces(true); err != nil {
 		fmt.Println("Cannot prepare the spaces:", err)
 		os.Exit(1)
 	}
