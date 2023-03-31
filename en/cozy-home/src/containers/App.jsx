@@ -5,6 +5,7 @@ import flag, { enable as enableFlags } from 'cozy-flags'
 import minilog from '@cozy/minilog'
 import { Q, useClient } from 'cozy-client'
 import { useWebviewIntent } from 'cozy-intent'
+import { isFlagshipApp } from 'cozy-device-helper'
 
 import Alerter from 'cozy-ui/transpiled/react/Alerter'
 import IconSprite from 'cozy-ui/transpiled/react/Icon/Sprite'
@@ -26,6 +27,7 @@ import { FLAG_FAB_BUTTON_ENABLED } from 'components/AddButton/helpers'
 import { MainView } from 'components/MainView'
 import { toFlagNames } from './toFlagNames'
 import { Konnector } from 'components/Konnector'
+import DefaultRedirectionSnackbar from 'components/DefaultRedirectionSnackbar/DefaultRedirectionSnackbar'
 
 const IDLE = 'idle'
 const FETCHING_CONTEXT = 'FETCHING_CONTEXT'
@@ -76,7 +78,7 @@ const App = ({ accounts, konnectors, triggers }) => {
 
     const fetchContext = async () => {
       const context = await client.query(
-        Q('io.cozy.settings').getById('context')
+        Q('io.cozy.settings').getById('io.cozy.settings.context')
       )
       if (context && context.attributes && context.attributes.features) {
         const flags = toFlagNames(context.attributes.features)
@@ -146,6 +148,7 @@ const App = ({ accounts, konnectors, triggers }) => {
           <IconSprite />
         </div>
       </MainView>
+      {isFlagshipApp() && <DefaultRedirectionSnackbar />}
       {flag(FLAG_FAB_BUTTON_ENABLED) && isMobile && <AddButton />}
     </>
   )
