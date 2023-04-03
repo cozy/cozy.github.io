@@ -22,11 +22,16 @@ const defaultClient = {
 }
 
 const DemoProvider = ({ client, children }) => {
+  const lang = localStorage.getItem('lang') || 'en'
   return (
     <CozyProvider client={client || defaultClient}>
       <BreakpointsProvider>
         <I18nContext.Provider
-          value={{ t: x => x, f: () => '01 Jan. 2022', lang: 'en' }}
+          value={{
+            t: x => x,
+            f: () => '01 Jan. 2022',
+            lang
+          }}
         >
           {children}
         </I18nContext.Provider>

@@ -2643,8 +2643,24 @@
 <h2 id="tech">🔧 Tech<a class="headerlink" href="#tech" title="Permanent link">&para;</a></h2>
 <h1 id="1530">1.53.0<a class="headerlink" href="#1530" title="Permanent link">&para;</a></h1>
 <h2 id="features_1">✨ Features<a class="headerlink" href="#features_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Export your bank&rsquo;s data in <code>csv</code> format via the <code>Settings</code> page</li>
+<li>Import bank data from Cozy bank export file (<code>csv</code> format) via the <code>Settings</code> page</li>
+<li>Rework <code>renderExtraRoutesWithoutLayout</code> AppRoute method</li>
+<li>Allow grouping bank accounts by institution labels in Settings</li>
+</ul>
 <h2 id="bug-fixes_1">🐛 Bug Fixes<a class="headerlink" href="#bug-fixes_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The service <code>onOperationOrBillCreate</code> was failing with a <code>CozyStackClient.collection() called without a doctype</code> error.</li>
+<li>Bank accounts imported via the import service are grouped by their institution label in the <code>Settings &gt; Accounts</code> tab</li>
+</ul>
 <h2 id="tech_1">🔧 Tech<a class="headerlink" href="#tech_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Remove direct dependency to <code>cozy-stack-client</code></li>
+<li>Bump <code>cozy-stack-client</code> from 35.3.1 to 35.6.0</li>
+<li>Bump <code>cozy-pouch-link</code> from 35.3.1 to 35.6.0</li>
+<li>Services launched via the CLI use a <code>CozyClient</code> instance with <code>appMetadata</code></li>
+</ul>
 <h1 id="1520">1.52.0<a class="headerlink" href="#1520" title="Permanent link">&para;</a></h1>
 <h3 id="features_2">✨ Features<a class="headerlink" href="#features_2" title="Permanent link">&para;</a></h3>
 <ul>

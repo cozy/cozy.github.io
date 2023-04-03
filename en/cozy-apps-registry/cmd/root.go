@@ -104,6 +104,7 @@ func Root() *cobra.Command {
 	rootCmd.AddCommand(rmAppVersionCmd)
 	rootCmd.AddCommand(lsSpaceCmd)
 	rootCmd.AddCommand(rmSpaceCmd)
+	rootCmd.AddCommand(showVirtualSpaceCmd)
 	rootCmd.AddCommand(exportCmd)
 	rootCmd.AddCommand(importCmd)
 	rootCmd.AddCommand(oldVersionsCmd)

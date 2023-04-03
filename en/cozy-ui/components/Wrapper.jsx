@@ -17,6 +17,13 @@ const styles = {
     marginRight: 0,
     zIndex: 10
   },
+  buttonLang: {
+    position: 'absolute',
+    top: '0.75rem',
+    right: '6.75rem',
+    marginRight: 0,
+    zIndex: 10
+  },
   paper: {
     position: 'relative',
     padding: '1rem'
@@ -44,11 +51,23 @@ export default ({ children }) => {
     setTheme(theme === themes.normal ? themes.inverted : themes.normal)
   }
   const otherThemes = Object.keys(themes).filter(v => v !== theme)
-
+  const [lang, setLang] = useState(localStorage.getItem('lang') || 'en')
+  const handleLangClick = () => {
+    const newLang = lang === 'fr' ? 'en' : 'fr'
+    setLang(newLang)
+    localStorage.setItem('lang', newLang)
+  }
   return (
     <CozyTheme>
       <CozyTheme variant={theme}>
         <Paper elevation={0} square style={paperStyle(theme)}>
+          <Button
+            size="tiny"
+            theme="secondary"
+            label={lang}
+            style={styles.buttonLang}
+            onClick={handleLangClick}
+          />
           {isTesting() || isUsingDevStyleguidist() ? null : (
             <Button
               size="tiny"

@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"strings"
@@ -76,6 +77,31 @@ var lsSpaceCmd = &cobra.Command{
 			}
 		}
 
+		return nil
+	},
+}
+
+var showVirtualSpaceCmd = &cobra.Command{
+	Use:     "show-virtual-space <space>",
+	Short:   `Show virtual space config`,
+	Long:    `Show configuration details for a virtual space`,
+	PreRunE: prepareRegistry,
+	RunE: func(cmd *cobra.Command, args []string) error {
+		if len(args) != 1 {
+			return cmd.Usage()
+		}
+		spaceName := args[0]
+
+		vSpace, err := config.GetVirtualSpace(spaceName)
+		if err != nil {
+			return err
+		}
+
+		b, err := json.MarshalIndent(vSpace, "", "  ")
+		if err != nil {
+			return err
+		}
+		fmt.Println(string(b))
 		return nil
 	},
 }

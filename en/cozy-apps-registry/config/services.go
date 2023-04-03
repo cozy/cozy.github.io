@@ -323,6 +323,21 @@ func GetVirtualSpaces() []string {
 	return getVspaceKeys(viper.GetStringMap("virtual_spaces"))
 }
 
+func GetVirtualSpace(spaceName string) (*base.VirtualSpace, error) {
+	if !IsVirtualSpace(spaceName) {
+		return nil, fmt.Errorf("%q is not a configured virtual space.", spaceName)
+	}
+
+	virtuals, err := getVirtualSpaces()
+	if err != nil {
+		return nil, err
+	}
+
+	sp := virtuals[spaceName]
+
+	return &sp, nil
+}
+
 // PrepareSpaces makes sure that the CouchDB databases and Swift containers for
 // the spaces exist and have their index/views.
 func PrepareSpaces(initStorage bool) error {
