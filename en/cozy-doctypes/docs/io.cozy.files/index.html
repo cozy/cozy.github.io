@@ -3078,7 +3078,8 @@ format</a>.</p>
 <li><code>target.mime</code> is the mime-type of the destination of the link (when it is a
   file)</li>
 <li><code>target.app</code> is the slug of the destination app (internal links only).</li>
-<li><code>icon</code> {string?} contains the svg icon.   </li>
+<li><code>icon</code> {string?} contains the base64 encoded image or svg binary if mimetype is not present.</li>
+<li><code>iconMimeType</code> {string?} contains the mime-type of the icon.</li>
 </ul>
 <h4 id="example-json-format">Example (JSON format)<a class="headerlink" href="#example-json-format" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
@@ -3102,7 +3103,9 @@ format</a>.</p>
       <span class="p">},</span>
       <span class="nt">&quot;_type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
       <span class="nt">&quot;mime&quot;</span><span class="p">:</span> <span class="s2">&quot;image/jpg&quot;</span>
-    <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;icon&quot;</span><span class="p">:</span> <span class="s2">&quot;[encoded base64 string of the content of the icon or svg binary]&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;iconMimeType&quot;</span><span class="p">:</span><span class="s2">&quot;image/svg+xml&quot;</span>
   <span class="p">},</span>
   <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">62</span><span class="p">,</span>
   <span class="nt">&quot;executable&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
