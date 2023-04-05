@@ -1203,6 +1203,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.home.settings/" title="Home settings" class="md-nav__link">
+      Home settings
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../cozy-doctypes/docs/io.cozy.identities/" title="Identities" class="md-nav__link">
       Identities
     </a>
@@ -3095,7 +3107,33 @@ EOF
 
 
 <p>Activer la fonctionnalité :</p>
-<div class="codehilite"><pre><span></span>cozy-stack features defaults &#39;{&quot;drive.onlyoffice.enabled&quot;: true}&#39;
+<div class="codehilite"><pre><span></span>cozy-stack features defaults &#39;{&quot;drive.office&quot;: {&quot;enabled&quot;: true, &quot;write&quot;: true}}&#39;
+</pre></div>
+
+
+<p>Vous pouvez désormais télécharger un document bureautique dans cozy-drive et commencer à l&rsquo;éditer en ligne en cliquant dessus ou en démarrant un nouveau document vide à l&rsquo;aide du menu &ldquo;Nouveau document&rdquo;.</p>
+<p>Le feature flag <code>drive.office</code> comporte d&rsquo;autres options pour personnaliser l&rsquo;expérience avec OnlyOffice :
+- <code>enabled</code>: Active OnlyOffice (OO)
+- <code>write</code>: Donne le droit d&rsquo;édition. Sinon OO s&rsquo;ouvre en lecture et une modale s&rsquo;affiche sur les actions d&rsquo;édition pour prévenir que la fonctionnalité est bloquée
+- <code>defaultMode</code>: Par défaut, le mode d&rsquo;ouverture d&rsquo;OO est en lecture (<code>view</code>). On peut le passer en édition avec le paramètre <code>edit</code>
+- <code>touchScreen</code>: Correspond aux applications mobile de Cozy ou un navigateur avec une largeur d’écran inférieur ou égal à 1023px ou bien un user-agent situé sur un système d&rsquo;explotation iOS ou Android
+  * <code>enabled</code>: Active OnlyOffice (OO)
+  * <code>readOnly</code>: Désactive le mode édition. On ne peut plus créer de nouveau document seulement, ouvrir les existants en lecture sans bouton d&rsquo;édition
+- <code>mobile</code>: Correspond au navigateur avec une largeur d’écran inférieur ou égal à 768px
+  * <code>defaultMode</code>: Par défaut, le mode d&rsquo;ouverture est le même que <code>defaultMode</code> principal. On peut le changer pour que le mobile soit en lecture <code>view</code> ou édition <code>edit</code></p>
+<p>Exemple :</p>
+<div class="codehilite"><pre><span></span>{
+    &quot;enabled&quot;: true,
+    &quot;write&quot;: true,
+    &quot;defaultMode&quot;: &quot;view&quot;
+    &quot;touchScreen&quot;: {
+        &quot;enabled&quot;: true
+        &quot;readOnly&quot;: false
+    },
+    &quot;mobile&quot;: {
+        &quot;defaultMode&quot;: &quot;view&quot;
+    }
+}
 </pre></div>
 
 

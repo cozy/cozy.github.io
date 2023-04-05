@@ -45,9 +45,11 @@ const buildAccount = (
     vendorAccountId
   }
 ) => {
+  const number = BankAccount.normalizeAccountNumber(accountNumber, accountIban)
+
   const id = accountId({
     institutionLabel,
-    number: accountNumber,
+    number,
     label: accountName,
     type: accountType
   })
@@ -58,7 +60,7 @@ const buildAccount = (
       institutionLabel,
       label: accountName,
       shortLabel: accountCustomName,
-      number: accountNumber,
+      number,
       originalNumber: accountOriginalNumber,
       type: accountType,
       currency,

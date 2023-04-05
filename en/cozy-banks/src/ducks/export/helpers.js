@@ -18,8 +18,8 @@ export const isExportJobInProgress = async client => {
         },
         $or: [{ state: 'queued' }, { state: 'running' }]
       })
-      .indexFields(['worker'])
-      .sortBy([{ worker: 'asc' }]) // XXX: forces CouchDB to require an index for the query
+      .indexFields(['worker', 'message.slug'])
+      .sortBy([{ worker: 'asc' }, { 'message.slug': 'asc' }]) // XXX: forces CouchDB to require an index for the query
       .limitBy(1)
   )
 

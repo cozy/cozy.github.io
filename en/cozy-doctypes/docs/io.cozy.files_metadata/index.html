@@ -1324,8 +1324,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#diplomas-and-driving-licenses" title="Diplomas and Driving licenses" class="md-nav__link">
-    Diplomas and Driving licenses
+  <a href="#diplomas" title="Diplomas" class="md-nav__link">
+    Diplomas
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#driving-licenses" title="Driving licenses" class="md-nav__link">
+    Driving licenses
   </a>
   
 </li>
@@ -1431,6 +1438,18 @@
   
 </nav>
     
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../io.cozy.home.settings/" title="Home settings" class="md-nav__link">
+      Home settings
+    </a>
   </li>
 
         
@@ -2963,8 +2982,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#diplomas-and-driving-licenses" title="Diplomas and Driving licenses" class="md-nav__link">
-    Diplomas and Driving licenses
+  <a href="#diplomas" title="Diplomas" class="md-nav__link">
+    Diplomas
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#driving-licenses" title="Driving licenses" class="md-nav__link">
+    Driving licenses
   </a>
   
 </li>
@@ -3103,12 +3129,12 @@
 <li><code>y</code>: {float}: y coordinate in the photo where the person is</li>
 </ul>
 <h2 id="cozy-note-files">Cozy Note files<a class="headerlink" href="#cozy-note-files" title="Permanent link">&para;</a></h2>
-<p>For a Cozy Note, here is the list: </p>
+<p>For a Cozy Note, here is the list:</p>
 <ul>
 <li><code>content</code>: {object} - The Note&rsquo;s content. See https://prosemirror.net/docs/ref/#model for more informations</li>
 <li><code>schema</code>: {object} - The Note&rsquo;s schema. See https://prosemirror.net/docs/guide/#schema for more informations</li>
 <li><code>title</code>: {string} - The Note&rsquo;s title</li>
-<li><code>version</code>: {int} - The Note&rsquo;s version </li>
+<li><code>version</code>: {int} - The Note&rsquo;s version</li>
 </ul>
 <h2 id="document-qualification">Document qualification<a class="headerlink" href="#document-qualification" title="Permanent link">&para;</a></h2>
 <p>It is possible to add semantics to documents in order to qualify them.</p>
@@ -3194,6 +3220,10 @@ expected in every cases.</p>
 <li><code>startDate</code> : {date} first day of a period, e.g. for a contract.</li>
 <li><code>endDate</code> : {date} last day of a period, e.g. for a contract.</li>
 <li><code>expirationDate</code> : {date} last day of validity, e.g. for an identity document.</li>
+<li><code>[A|B|C|D]ObtentionDate</code> : {date} date of obtaining the driving license [A|B|C|D].</li>
+<li><code>noticePeriod</code> : {string} number of days before expiration alert.</li>
+<li><code>contractType</code> : {string} type of employment contract.</li>
+<li><code>refTaxIncome</code> : {string} reference tax income.</li>
 <li><code>invoiceNumber</code> : {string} invoice number.</li>
 <li><code>contractReference</code> : {string} reference of the related contract.</li>
 <li><code>isSubscription</code> : {bool} true if the invoice is related to a subscription
@@ -3235,6 +3265,7 @@ to be added to a document.</p>
 <li><code>datetimeLabel</code> : {string} <code>'issueDate'</code></li>
 <li><code>contentAuthor</code> : {string}</li>
 <li><code>issueDate</code> : {date} Issue date of the document</li>
+<li><code>refTaxIncom</code> : {string} reference tax income.</li>
 </ul>
 <h4 id="tax-returns">Tax Returns<a class="headerlink" href="#tax-returns" title="Permanent link">&para;</a></h4>
 <ul>
@@ -3250,6 +3281,7 @@ to be added to a document.</p>
 <li><code>datetimeLabel</code> : {string} <code>'startDate'</code></li>
 <li><code>contentAuthor</code> : {string}</li>
 <li><code>contractReference</code> : {string} Reference of the contract</li>
+<li><code>contractType</code> : {string} type of employment contract.</li>
 <li><code>issueDate</code> : {date} Issue date of the document</li>
 <li><code>startDate</code> : {date} First day of the validity period</li>
 <li><code>endDate</code> : {date} Last day of the validity period</li>
@@ -3263,7 +3295,7 @@ to be added to a document.</p>
 <li><code>startDate</code> : {date} First day of the validity period</li>
 <li><code>endDate</code> : {date} Last day of the validity period</li>
 </ul>
-<h4 id="diplomas-and-driving-licenses">Diplomas and Driving licenses<a class="headerlink" href="#diplomas-and-driving-licenses" title="Permanent link">&para;</a></h4>
+<h4 id="diplomas">Diplomas<a class="headerlink" href="#diplomas" title="Permanent link">&para;</a></h4>
 <ul>
 <li><code>datetime</code> : {date} Equals to <code>startDate</code></li>
 <li><code>datetimeLabel</code> : {string} <code>'startDate'</code></li>
@@ -3272,6 +3304,14 @@ to be added to a document.</p>
 <li><code>label</code> : {string} Short description of the diploma</li>
 <li><code>school</code> : {string} School name</li>
 <li><code>country</code> : {string} Country name</li>
+</ul>
+<h4 id="driving-licenses">Driving licenses<a class="headerlink" href="#driving-licenses" title="Permanent link">&para;</a></h4>
+<ul>
+<li><code>datetime</code> : {date} Equals to <code>startDate</code></li>
+<li><code>datetimeLabel</code> : {string} <code>'startDate'</code></li>
+<li><code>number</code> : {string} Document number</li>
+<li><code>country</code> : {string} Country name</li>
+<li><code>[A|B|C|D]ObtentionDate</code> : {date} date of obtaining the driving license [A|B|C|D].</li>
 </ul>
 <h4 id="identity-documents">Identity documents<a class="headerlink" href="#identity-documents" title="Permanent link">&para;</a></h4>
 <ul>
@@ -3283,6 +3323,7 @@ to be added to a document.</p>
 <li><code>number</code> : {string} Document number</li>
 <li><code>school</code> : {string} School name</li>
 <li><code>country</code> : {string} Country name</li>
+<li><code>noticePeriod</code> : {string} number of days before expiration alert.</li>
 </ul>
 <h4 id="bank-statements">Bank Statements<a class="headerlink" href="#bank-statements" title="Permanent link">&para;</a></h4>
 <ul>
@@ -3570,13 +3611,13 @@ to be added to a document.</p>
           </a>
         
         
-          <a href="../io.cozy.identities/" title="Identities" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../io.cozy.home.settings/" title="Home settings" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Identities
+                Home settings
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

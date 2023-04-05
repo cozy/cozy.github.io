@@ -1203,6 +1203,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../cozy-doctypes/docs/io.cozy.home.settings/" title="Home settings" class="md-nav__link">
+      Home settings
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../cozy-doctypes/docs/io.cozy.identities/" title="Identities" class="md-nav__link">
       Identities
     </a>
@@ -3095,11 +3107,36 @@ EOF
 
 
 <p>Activate functionality:</p>
-<div class="codehilite"><pre><span></span>cozy-stack features defaults &#39;{&quot;drive.onlyoffice.enabled&quot;: true}&#39;
+<div class="codehilite"><pre><span></span>cozy-stack features defaults &#39;{&quot;drive.office&quot;: {&quot;enabled&quot;: true, &quot;write&quot;: true}}&#39;
 </pre></div>
 
 
 <p>You can now upload an office document in cozy-drive and start editing it online by clicking on it or start a new empty document for the &ldquo;New document&rdquo; menu.</p>
+<p>The <code>drive.office</code> feature flag has other options for customising the experience with OnlyOffice:
+- <code>enabled</code>: Enables OnlyOffice (OO)
+- <code>write</code>: Gives the right to edit. Otherwise OO opens in read mode and a modal is displayed on editing actions to warn that the functionality is blocked
+- <code>defaultMode</code>: By default, OO opens in read mode (<code>view</code>). It can be switched to edit with the <code>edit</code> parameter.
+- <code>touchScreen</code>: Corresponds to Cozy mobile applications or a browser with a screen width of 1023px or less or a user-agent on an iOS or Android operating system
+  * <code>enabled</code>: Enable OnlyOffice (OO)
+  * <code>readOnly</code>: Disables edit mode. You can no longer create new documents, only open existing ones in read mode without an edit button
+- <code>mobile</code>: Corresponds to the browser with a screen width of 768px or less
+  * <code>defaultMode</code>: By default, the opening mode is the same as the main <code>defaultMode</code>. It can be changed to either <code>view</code> reading or <code>edit</code> editing</p>
+<p>Example :</p>
+<div class="codehilite"><pre><span></span>{
+    &quot;enabled&quot;: true,
+    &quot;write&quot;: true,
+    &quot;defaultMode&quot;: &quot;view&quot;
+    &quot;touchScreen&quot;: {
+        &quot;enabled&quot;: true
+        &quot;readOnly&quot;: false
+    },
+    &quot;mobile&quot;: {
+        &quot;defaultMode&quot;: &quot;view&quot;
+    }
+}
+</pre></div>
+
+
 <h1 id="update-cozy-stack">Update cozy-stack<a class="headerlink" href="#update-cozy-stack" title="Permanent link">&para;</a></h1>
 <p>Applications inside your Cozy are automatically updated, however, cozy-stack application running on your server must be updated from time to time (once every 3 month is a good compromise between too much and too few).
 Here is how to upgrade cozy-stack:</p>
