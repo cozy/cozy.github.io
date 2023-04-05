@@ -222,7 +222,7 @@ export default function testFlagAPI(flag) {
       expect(flag('number_of_foos')).toBe(10)
       expect(client.query).toHaveBeenCalledWith({
         doctype: 'io.cozy.settings',
-        id: 'flags'
+        id: 'io.cozy.settings.flags'
       })
       expect(flag('bar_config')).toEqual({ qux: 'quux' })
     })
