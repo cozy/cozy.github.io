@@ -477,10 +477,35 @@ Restart cozy-stack:
 
 Activate functionality:
 
-    cozy-stack features defaults '{"drive.onlyoffice.enabled": true}'
+    cozy-stack features defaults '{"drive.office": {"enabled": true, "write": true}}'
 
 You can now upload an office document in cozy-drive and start editing it online by clicking on it or start a new empty document for the "New document" menu.
 
+The `drive.office` feature flag has other options for customising the experience with OnlyOffice:
+- `enabled`: Enables OnlyOffice (OO)
+- `write`: Gives the right to edit. Otherwise OO opens in read mode and a modal is displayed on editing actions to warn that the functionality is blocked
+- `defaultMode`: By default, OO opens in read mode (`view`). It can be switched to edit with the `edit` parameter.
+- `touchScreen`: Corresponds to Cozy mobile applications or a browser with a screen width of 1023px or less or a user-agent on an iOS or Android operating system
+  * `enabled`: Enable OnlyOffice (OO)
+  * `readOnly`: Disables edit mode. You can no longer create new documents, only open existing ones in read mode without an edit button
+- `mobile`: Corresponds to the browser with a screen width of 768px or less
+  * `defaultMode`: By default, the opening mode is the same as the main `defaultMode`. It can be changed to either `view` reading or `edit` editing
+
+Example :
+```
+{
+    "enabled": true,
+    "write": true,
+    "defaultMode": "view"
+    "touchScreen": {
+        "enabled": true
+        "readOnly": false
+    },
+    "mobile": {
+        "defaultMode": "view"
+    }
+}
+```
 
 # Update cozy-stack
 
