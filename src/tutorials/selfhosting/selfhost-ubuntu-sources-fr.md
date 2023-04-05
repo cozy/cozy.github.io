@@ -475,8 +475,35 @@ Redémarrer cozy-stack :
 
 Activer la fonctionnalité :
 
-    cozy-stack features defaults '{"drive.onlyoffice.enabled": true}'
+    cozy-stack features defaults '{"drive.office": {"enabled": true, "write": true}}'
 
+Vous pouvez désormais télécharger un document bureautique dans cozy-drive et commencer à l'éditer en ligne en cliquant dessus ou en démarrant un nouveau document vide à l'aide du menu "Nouveau document".
+
+Le feature flag `drive.office` comporte d'autres options pour personnaliser l'expérience avec OnlyOffice :
+- `enabled`: Active OnlyOffice (OO)
+- `write`: Donne le droit d'édition. Sinon OO s'ouvre en lecture et une modale s'affiche sur les actions d'édition pour prévenir que la fonctionnalité est bloquée
+- `defaultMode`: Par défaut, le mode d'ouverture d'OO est en lecture (`view`). On peut le passer en édition avec le paramètre `edit`
+- `touchScreen`: Correspond aux applications mobile de Cozy ou un navigateur avec une largeur d’écran inférieur ou égal à 1023px ou bien un user-agent situé sur un système d'explotation iOS ou Android
+  * `enabled`: Active OnlyOffice (OO)
+  * `readOnly`: Désactive le mode édition. On ne peut plus créer de nouveau document seulement, ouvrir les existants en lecture sans bouton d'édition
+- `mobile`: Correspond au navigateur avec une largeur d’écran inférieur ou égal à 768px
+  * `defaultMode`: Par défaut, le mode d'ouverture est le même que `defaultMode` principal. On peut le changer pour que le mobile soit en lecture `view` ou édition `edit`
+
+Exemple :
+```
+{
+    "enabled": true,
+    "write": true,
+    "defaultMode": "view"
+    "touchScreen": {
+        "enabled": true
+        "readOnly": false
+    },
+    "mobile": {
+        "defaultMode": "view"
+    }
+}
+```
 
 # Mettre à jour cozy-stack
 
