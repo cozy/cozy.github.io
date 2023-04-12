@@ -2276,6 +2276,54 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#post-authmagic_link" title="POST /auth/magic_link" class="md-nav__link">
+    POST /auth/magic_link
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-authmagic_linkcode" title="GET /auth/magic_link?code=..." class="md-nav__link">
+    GET /auth/magic_link?code=...
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-authmagic_linktwofactor" title="POST /auth/magic_link/twofactor" class="md-nav__link">
+    POST /auth/magic_link/twofactor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-authmagic_linkflagship" title="POST /auth/magic_link/flagship" class="md-nav__link">
+    POST /auth/magic_link/flagship
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_1" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_1" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#get-authpassphrase_reset" title="GET /auth/passphrase_reset" class="md-nav__link">
     GET /auth/passphrase_reset
   </a>
@@ -2545,7 +2593,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#response_1" title="Response" class="md-nav__link">
+  <a href="#response_2" title="Response" class="md-nav__link">
     Response
   </a>
   
@@ -2579,14 +2627,14 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#request_1" title="Request" class="md-nav__link">
+  <a href="#request_2" title="Request" class="md-nav__link">
     Request
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#response_2" title="Response" class="md-nav__link">
+  <a href="#response_3" title="Response" class="md-nav__link">
     Response
   </a>
   
@@ -3290,6 +3338,54 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#post-authmagic_link" title="POST /auth/magic_link" class="md-nav__link">
+    POST /auth/magic_link
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-authmagic_linkcode" title="GET /auth/magic_link?code=..." class="md-nav__link">
+    GET /auth/magic_link?code=...
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-authmagic_linktwofactor" title="POST /auth/magic_link/twofactor" class="md-nav__link">
+    POST /auth/magic_link/twofactor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-authmagic_linkflagship" title="POST /auth/magic_link/flagship" class="md-nav__link">
+    POST /auth/magic_link/flagship
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_1" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_1" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#get-authpassphrase_reset" title="GET /auth/passphrase_reset" class="md-nav__link">
     GET /auth/passphrase_reset
   </a>
@@ -3559,7 +3655,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#response_1" title="Response" class="md-nav__link">
+  <a href="#response_2" title="Response" class="md-nav__link">
     Response
   </a>
   
@@ -3593,14 +3689,14 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#request_1" title="Request" class="md-nav__link">
+  <a href="#request_2" title="Request" class="md-nav__link">
     Request
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#response_2" title="Response" class="md-nav__link">
+  <a href="#response_3" title="Response" class="md-nav__link">
     Response
   </a>
   
@@ -4027,6 +4123,90 @@ session fixation).</p>
 </pre></div>
 
 
+<h3 id="post-authmagic_link">POST /auth/magic_link<a class="headerlink" href="#post-authmagic_link" title="Permanent link">&para;</a></h3>
+<p>If the authentication via magic link is enabled on this instance, this endpoint
+will send an email to the user with a magic link. If the user clicks on this
+link, they will be authenticated on the Cozy.</p>
+<h3 id="get-authmagic_linkcode">GET /auth/magic_link?code=&hellip;<a class="headerlink" href="#get-authmagic_linkcode" title="Permanent link">&para;</a></h3>
+<p>When the user has received an email with a magic link, the link goes to the
+endpoint, where the user will be allowed to enter the Cozy.</p>
+<h3 id="post-authmagic_linktwofactor">POST /auth/magic_link/twofactor<a class="headerlink" href="#post-authmagic_linktwofactor" title="Permanent link">&para;</a></h3>
+<p>When two-factor authentication is enabled on a Cozy, this endpoint can be used
+to create a session.</p>
+<h3 id="post-authmagic_linkflagship">POST /auth/magic_link/flagship<a class="headerlink" href="#post-authmagic_linkflagship" title="Permanent link">&para;</a></h3>
+<p>This endpoint allows the flagship app to also obtain OAuth access and register
+tokens without having to make the OAuth dance (which can be awkward for the
+user). It requires a code sent by email to the user.</p>
+<h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/auth/magic_link/flagship</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;magic_code&quot;</span><span class="p">:</span> <span class="s2">&quot;ODFhNzkxYTAtYjZiYi0wMTNiLTE1YzQtMThjMDRkYWJhMzI2&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;client_id&quot;</span><span class="p">:</span> <span class="s2">&quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;client_secret&quot;</span><span class="p">:</span> <span class="s2">&quot;eyJpc3Mi[...omitted for brevity...]&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h4 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;access_token&quot;</span><span class="p">:</span> <span class="s2">&quot;OWY0MjNjMGEtOTNmNi0xMWVjLWIyZGItN2I5YjgwNmRjYzBiCg&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;token_type&quot;</span><span class="p">:</span> <span class="s2">&quot;bearer&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;refresh_token&quot;</span><span class="p">:</span> <span class="s2">&quot;YTUwMjcyYjgtOTNmNi0xMWVjLWE4YTQtZWJhMzlmMTAwMWJiCg&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;scope&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p><strong>Note:</strong> if two-factor authentication is enabled on the Cozy, an email
+will be sent to the user with a code, and this request will return:</p>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">401</span> <span class="ne">Unauthorized</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;passphrase is required as second authentication factor&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Then, the client can retry by sending the two-factor token and code:</p>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;magic_code&quot;</span><span class="p">:</span> <span class="s2">&quot;ODFhNzkxYTAtYjZiYi0wMTNiLTE1YzQtMThjMDRkYWJhMzI2&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;client_id&quot;</span><span class="p">:</span> <span class="s2">&quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;client_secret&quot;</span><span class="p">:</span> <span class="s2">&quot;eyJpc3Mi[...omitted for brevity...]&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;passphrase&quot;</span><span class="p">:</span> <span class="s2">&quot;4f58133ea0f415424d0a856e0d3d2e0cd28e4358fce7e333cb524729796b2791&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p><strong>Note:</strong> if the OAuth client has not been certified as the flagship app,
+this request will return:</p>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">202</span> <span class="ne">Accepted</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;session_code&quot;</span><span class="p">:</span> <span class="s2">&quot;ZmY4ODI3NGMtOTY1Yy0xMWVjLThkMDgtMmI5M2&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>The <code>session_code</code> can be put in the query string while opening the OAuth
+authorize page. It will be used to open the session, and let the user type the
+6-digits code they have received by mail to confirm that they want to use this
+app as the flagship app.</p>
 <h3 id="get-authpassphrase_reset">GET /auth/passphrase_reset<a class="headerlink" href="#get-authpassphrase_reset" title="Permanent link">&para;</a></h3>
 <p>Display a form for the user to reset its password, in case he has forgotten it
 for example. If the user is connected, he won&rsquo;t be shown this form and he will
@@ -4651,6 +4831,10 @@ query string, as <code>session_code</code>) to create a session. The flagship ca
 this code with its access token, and then use it in a webview to avoid the
 reauthentication of the user. It can also create the code with the hashed
 passphrase (and 2FA if needed) to create a session for the authorize page.</p>
+<p>Note that the difference between a <code>session_code</code> and a <code>magic_code</code> (code in a
+magic link sent by email) is the behavior when two-factor authentication is
+enabled. The <code>session_code</code> will open the session while the <code>magic_code</code> will
+require the password for that.</p>
 <h4 id="request-access-token-variant">Request (access token variant)<a class="headerlink" href="#request-access-token-variant" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/auth/session_code</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
@@ -4675,7 +4859,7 @@ passphrase (and 2FA if needed) to create a session for the authorize page.</p>
 </pre></div>
 
 
-<h4 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h4>
+<h4 id="response_2">Response<a class="headerlink" href="#response_2" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">201</span> <span class="ne">Created</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </pre></div>
@@ -4783,7 +4967,7 @@ token for the konnector with the given slug. This token can then be used by the
 client-side konnector to make requests to cozy-stack.
 The flagship app will need to use its own access token to request the konnector 
 token.</p>
-<h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
+<h4 id="request_2">Request<a class="headerlink" href="#request_2" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/auth/tokens/konnectors/impots</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
@@ -4791,7 +4975,7 @@ token.</p>
 </pre></div>
 
 
-<h4 id="response_2">Response<a class="headerlink" href="#response_2" title="Permanent link">&para;</a></h4>
+<h4 id="response_3">Response<a class="headerlink" href="#response_3" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">201</span> <span class="ne">Created</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </pre></div>
