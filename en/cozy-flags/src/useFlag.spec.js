@@ -1,7 +1,7 @@
 import { renderHook, act } from '@testing-library/react-hooks'
 
-import useFlag from './useFlag'
 import flag from './'
+import useFlag from './useFlag'
 
 describe('useFlag', () => {
   it('returns the flag value', () => {

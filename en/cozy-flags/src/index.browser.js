@@ -1,8 +1,8 @@
 /* global __ENABLED_FLAGS__ */
 
-import flag from './flag'
-import connect from './connect'
 import FlagSwitcher from './FlagSwitcher'
+import connect from './connect'
+import flag from './flag'
 import useFlag from './useFlag'
 
 flag.connect = connect

@@ -1,6 +1,7 @@
 import React from 'react'
-import flag from './flag'
+
 import connect from './connect'
+import flag from './flag'
 
 const FlagInput = ({ name, onChange }) => {
   return (
