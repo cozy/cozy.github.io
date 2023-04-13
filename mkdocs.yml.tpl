@@ -4,7 +4,7 @@ site_url: https://docs.cozy.io/
 site_dir: docs/en
 site_favicon: img/favicon.png
 repo_url: https://github.com/cozy/
-edit_uri: edit/dev/src/
+edit_uri: cozy.github.io/edit/dev/src
 site_description: Cozy documentation
 site_author: CozyCloud - https://cozy.io
 extra_css:
