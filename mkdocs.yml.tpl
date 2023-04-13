@@ -3,7 +3,7 @@ docs_dir: src
 site_url: https://docs.cozy.io/
 site_dir: docs/en
 site_favicon: img/favicon.png
-repo_url: https://github.com/cozy/cozy.github.io/
+repo_url: https://github.com/cozy/
 edit_uri: edit/dev/src/
 site_description: Cozy documentation
 site_author: CozyCloud - https://cozy.io
