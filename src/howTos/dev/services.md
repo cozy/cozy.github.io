@@ -100,7 +100,7 @@ Edit your `~/.cozy/konnector-node-run.sh` by adding a tee output.
 
 ```bash
 set -o pipefail
-node "${arg}" | tee -a ~/.cozy/services.log
+node "${arg}" 2>&1 | tee -a ~/.cozy/services.log
 ```
 
 Now you can `tail -f ~/.cozy/services.log` to watch logs in real time.
