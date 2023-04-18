@@ -111,7 +111,12 @@ func getPendingVersions(c echo.Context) (err error) {
 	}
 
 	editorName := c.QueryParam("editor")
-	_, err = checkPermissions(c, editorName, "", true /* = master */)
+
+	tokenEditor := editorName
+	if tokenEditor == "" {
+		tokenEditor = "cozy"
+	}
+	_, err = checkPermissions(c, tokenEditor, "", true /* = master */)
 	if err != nil {
 		return errshttp.NewError(http.StatusUnauthorized, err.Error())
 	}
