@@ -99,6 +99,7 @@ Be sure to have `node` in your `/usr/bin` or `/usr/local/bin` folder. If not, yo
 Edit your `~/.cozy/konnector-node-run.sh` by adding a tee output.
 
 ```bash
+set -o pipefail
 node "${arg}" | tee -a ~/.cozy/services.log
 ```
 
