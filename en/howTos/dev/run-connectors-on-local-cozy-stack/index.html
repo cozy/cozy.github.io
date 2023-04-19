@@ -2783,7 +2783,8 @@
 <p>Be sure to have <code>node</code> in your <code>/usr/bin</code> or <code>/usr/local/bin</code> folder. If not, you can add a symlink to <code>node</code> in one of those folder, for example by typing <code>ln -s $(which node) /usr/local/bin/node</code></p>
 <h3 id="get-your-service-logs-in-a-isolated-file">Get your service logs in a isolated file<a class="headerlink" href="#get-your-service-logs-in-a-isolated-file" title="Permanent link">&para;</a></h3>
 <p>Edit your <code>~/.cozy/konnector-node-run.sh</code> by adding a tee output.</p>
-<div class="codehilite"><pre><span></span>node <span class="s2">&quot;</span><span class="si">${</span><span class="nv">arg</span><span class="si">}</span><span class="s2">&quot;</span> <span class="p">|</span> tee -a ~/.cozy/services.log
+<div class="codehilite"><pre><span></span><span class="nb">set</span> -o pipefail
+node <span class="s2">&quot;</span><span class="si">${</span><span class="nv">arg</span><span class="si">}</span><span class="s2">&quot;</span> <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> tee -a ~/.cozy/services.log
 </pre></div>
 
 
