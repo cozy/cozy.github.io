@@ -2935,7 +2935,7 @@
 <h3 id="get-your-service-logs-in-a-isolated-file">Get your service logs in a isolated file<a class="headerlink" href="#get-your-service-logs-in-a-isolated-file" title="Permanent link">&para;</a></h3>
 <p>Edit your <code>~/.cozy/konnector-node-run.sh</code> by adding a tee output.</p>
 <div class="codehilite"><pre><span></span><span class="nb">set</span> -o pipefail
-node <span class="s2">&quot;</span><span class="si">${</span><span class="nv">arg</span><span class="si">}</span><span class="s2">&quot;</span> <span class="p">|</span> tee -a ~/.cozy/services.log
+node <span class="s2">&quot;</span><span class="si">${</span><span class="nv">arg</span><span class="si">}</span><span class="s2">&quot;</span> <span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> tee -a ~/.cozy/services.log
 </pre></div>
 
 
