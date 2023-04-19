@@ -38,7 +38,8 @@ Be sure to have `node` in your `/usr/bin` or `/usr/local/bin` folder. If not, yo
 Edit your `~/.cozy/konnector-node-run.sh` by adding a tee output.
 
 ```bash
-node "${arg}" | tee -a ~/.cozy/services.log
+set -o pipefail
+node "${arg}" 2>&1 | tee -a ~/.cozy/services.log
 ```
 
 Now you can `tail -f ~/.cozy/services.log` to watch logs in real time.
