@@ -5,8 +5,10 @@ import {
   FILES_DOCTYPE,
   RECURRENCE_DOCTYPE,
   TAGS_DOCTYPE,
-  TRANSACTION_DOCTYPE
+  TRANSACTION_DOCTYPE,
+  settingsConn
 } from 'doctypes'
+import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
 
 export const fetchContentToImport = async (client, fileId) => {
   return client.collection(FILES_DOCTYPE).fetchFileContentById(fileId)
@@ -46,4 +48,17 @@ export const saveAll = async (client, docs) => {
     return data
   }
   return []
+}
+
+export const saveSuccessData = async (client, { savedTransactions }) => {
+  const { query, ...options } = settingsConn
+  const settingsCollection = await client.query(query(), options)
+  const settings = getDefaultedSettingsFromCollection(settingsCollection)
+
+  await client.save({
+    ...settings,
+    lastImportSuccess: {
+      savedTransactionsCount: savedTransactions.length
+    }
+  })
 }

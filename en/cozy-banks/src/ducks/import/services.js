@@ -414,10 +414,13 @@ export const saveMissingTransactions = async (
   // XXX: BankTransaction.reconciliate() does not return unchanged transactions
   // so we need to merge them with the updated ones to have a map of all
   // transactions.
-  return merge(
-    keyBy(existingTransactions, transactionId),
-    keyBy(savedTransactions, transactionId)
-  )
+  return {
+    existingTransactionsById: merge(
+      keyBy(existingTransactions, transactionId),
+      keyBy(savedTransactions, transactionId)
+    ),
+    savedTransactions
+  }
 }
 
 export const updateTagsRelationships = async (

@@ -7,7 +7,8 @@ import {
   fetchExistingAccounts,
   fetchExistingRecurrences,
   fetchExistingTags,
-  fetchExistingTransactions
+  fetchExistingTransactions,
+  saveSuccessData
 } from 'ducks/import/queries'
 import {
   createParseStream,
@@ -85,15 +86,12 @@ const main = async ({ client }) => {
 
   logger('info', `Importing transactions...`)
   const existingTransactions = await fetchExistingTransactions(client)
-  const existingTransactionsById = await saveMissingTransactions(
-    client,
-    transactionsById,
-    {
+  const { existingTransactionsById, savedTransactions } =
+    await saveMissingTransactions(client, transactionsById, {
       existingAccountsById,
       existingRecurrencesById,
       existingTransactions
-    }
-  )
+    })
 
   logger('info', `Creating transactions-tags relationships...`)
   await updateTagsRelationships(client, transactionsById, {
@@ -101,7 +99,13 @@ const main = async ({ client }) => {
     existingTransactionsById
   })
 
-  logger('info', `Import success`)
+  logger('info', `Saving import success data`)
+  await saveSuccessData(client, { savedTransactions })
+
+  logger(
+    'info',
+    `Successfully imported ${savedTransactions.length} transactions`
+  )
 }
 
 if (require.main === module || process.env.NODE_ENV === 'production') {
