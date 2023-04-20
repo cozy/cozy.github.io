@@ -640,6 +640,24 @@ func GetPendingVersions(c *space.Space) ([]*Version, error) {
 	return versions, nil
 }
 
+func GetAppPengindVersions(c *space.Space, appSlug string) ([]*Version, error) {
+	versions := make([]*Version, 0)
+	pendingVersions, err := GetPendingVersions(c)
+	if err != nil {
+		return nil, err
+	}
+
+	// Filter by appslug
+	// We could have requested CouchDB with a filter but as we have no index on that table and pending versions number
+	// should be kept low, there souldn't be a performance problem.
+	for _, v := range pendingVersions {
+		if v.Slug == appSlug {
+			versions = append(versions, v)
+		}
+	}
+	return versions, nil
+}
+
 // GetAppChannelVersions returns the versions list of an app channel
 func GetAppChannelVersions(c *space.Space, appSlug string, channel Channel) ([]*Version, error) {
 	var versions []string

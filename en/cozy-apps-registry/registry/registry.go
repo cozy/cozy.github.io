@@ -464,6 +464,21 @@ func ApprovePendingVersion(c *space.Space, pending *Version, app *App) (*Version
 	return release, nil
 }
 
+func DeletePendingVersion(c *space.Space, version *Version) error {
+	fmt.Printf("Removing pending version %s/%s\n", version.Slug, version.Version)
+	// Delete attachments (swift or couchdb)
+	err := version.RemoveAllAttachments(c)
+	if err != nil {
+		return err
+	}
+
+	// Removing the CouchDB document
+	db := c.PendingVersDB()
+	_, err = db.Delete(context.Background(), version.ID, version.Rev)
+
+	return err
+}
+
 func downloadRequest(rawURL string, shasum string) (reader *bytes.Reader, contentType string, err error) {
 	url, err := url.Parse(rawURL)
 	if err != nil {
@@ -1128,7 +1143,23 @@ func RemoveAppFromSpace(s *space.Space, appSlug string) error {
 		return err
 	}
 
-	app.Versions, err = FindAppVersionsCacheMiss(s, appSlug, Dev, Concatenated)
+	// First remove all pending versions for that app
+	pendingVersions, err := GetAppPengindVersions(s, appSlug)
+	if err != nil {
+		return err
+	}
+
+	for _, v := range pendingVersions {
+		if err = DeletePendingVersion(s, v); err != nil {
+			fmt.Printf("Unable to delete pending version %s/%s: %s\n", v.Slug, v.Version, err)
+			continue
+		}
+	}
+
+	// Then remove all live versions
+	// NotConcatenated here to avoid trying to delete a stable version 3 times
+	// (one for stable, one for beta and one for dev channel)
+	app.Versions, err = FindAppVersionsCacheMiss(s, appSlug, Dev, NotConcatenated)
 	if err != nil {
 		return err
 	}
@@ -1137,6 +1168,7 @@ func RemoveAppFromSpace(s *space.Space, appSlug string) error {
 		return err
 	}
 
+	// And finally remove the app
 	db := s.AppsDB()
 	_, err = db.Delete(context.Background(), app.ID, app.Rev)
 	return err
