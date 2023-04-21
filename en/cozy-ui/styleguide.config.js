@@ -167,7 +167,8 @@ module.exports = {
         '../react/hooks/useConfirmExit/index.jsx',
         '../react/hooks/useCycle.jsx',
         '../react/hooks/useEventListener.js',
-        '../react/hooks/usePeriodicRender.js'
+        '../react/hooks/usePeriodicRender.js',
+        '../react/hooks/useScroll.jsx'
       ]
     },
     {
