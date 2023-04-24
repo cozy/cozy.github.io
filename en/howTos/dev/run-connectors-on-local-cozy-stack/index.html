@@ -777,6 +777,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#avoid-automatic-relaunch-when-errored" title="Avoid automatic relaunch when errored" class="md-nav__link">
+    Avoid automatic relaunch when errored
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#install-your-konnector" title="Install your konnector" class="md-nav__link">
     Install your konnector
   </a>
@@ -2725,6 +2732,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#avoid-automatic-relaunch-when-errored" title="Avoid automatic relaunch when errored" class="md-nav__link">
+    Avoid automatic relaunch when errored
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#install-your-konnector" title="Install your konnector" class="md-nav__link">
     Install your konnector
   </a>
@@ -2789,6 +2803,17 @@ node <span class="s2">&quot;</span><span class="si">${</span><span class="nv">ar
 
 
 <p>Now you can <code>tail -f ~/.cozy/services.log</code> to watch logs in real time.</p>
+<h3 id="avoid-automatic-relaunch-when-errored">Avoid automatic relaunch when errored<a class="headerlink" href="#avoid-automatic-relaunch-when-errored" title="Permanent link">&para;</a></h3>
+<p>Edit your ~/.cozy/cozy.yaml to avoid a second launch in case of error.
+(Already disable for LOGIN_FAILED and USER_ACTION_NEEDED)</p>
+<p>Find this option, uncomment and set to 1.</p>
+<div class="codehilite"><pre><span></span><span class="n">jobs</span><span class="o">:</span>
+  <span class="n">workers</span><span class="o">:</span>
+    <span class="n">konnectors</span><span class="o">:</span>
+      <span class="n">max_exec_count</span><span class="o">:</span> <span class="mi">1</span>
+</pre></div>
+
+
 <h2 id="install-your-konnector">Install your konnector<a class="headerlink" href="#install-your-konnector" title="Permanent link">&para;</a></h2>
 <p>To install the konnector containing the service on your local stack, you must give the path of your build:</p>
 <div class="codehilite"><pre><span></span>cozy-stack konnector install &lt;konnector_name&gt; file://&lt;build_path&gt;
