@@ -44,6 +44,20 @@ node "${arg}" 2>&1 | tee -a ~/.cozy/services.log
 
 Now you can `tail -f ~/.cozy/services.log` to watch logs in real time.
 
+### Avoid automatic relaunch when errored
+
+Edit your ~/.cozy/cozy.yaml to avoid a second launch in case of error.
+(Already disable for LOGIN_FAILED and USER_ACTION_NEEDED)
+
+Find this option, uncomment and set to 1.
+
+```
+jobs:
+  workers:
+    konnectors:
+      max_exec_count: 1
+```
+
 ## Install your konnector
 
 To install the konnector containing the service on your local stack, you must give the path of your build:
