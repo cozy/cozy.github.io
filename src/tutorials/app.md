@@ -58,6 +58,9 @@ The script will download some dependencies (may take a while) and ask you a few 
   <img src="../../img/dev/cca-create.gif" />
 </div>
 
+!!! warning ""
+    If the `yarn create cozy-app` command fails with the `There should only be one folder in a package cache [...]` error, then run `yarn cache clean` and try again
+
 You'll also need a running `cozy-stack` server as a backend server. You can use the docker image you downloaded earlier. 
 
 Note: We disable CSP since we're using a wepback-dev-server by defaut to get HMR that runs on `localhost` and not on `cozy.localhost`. This should not be used in production ! Please check the behavior of your application once you built it on production mode and have enabled CSP back.  
