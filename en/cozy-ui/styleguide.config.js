@@ -118,6 +118,8 @@ module.exports = {
       name: 'List',
       components: () => [
         '../react/MuiCozyTheme/List',
+        '../react/MuiCozyTheme/ListSubheader',
+        '../react/MuiCozyTheme/ListItem',
         '../react/ListItemText/index.jsx',
         '../react/OrderedList/index.jsx'
       ]
