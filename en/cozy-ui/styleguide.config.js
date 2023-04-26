@@ -127,7 +127,7 @@ module.exports = {
     {
       name: 'Navigation',
       components: () => [
-        '../react/ActionMenu/index.jsx',
+        '../react/ActionsMenu',
         '../react/MuiCozyTheme/Menus',
         '../react/AppLinker/index.jsx',
         '../react/Breadcrumbs/index.jsx',
@@ -196,11 +196,11 @@ module.exports = {
     {
       name: 'Deprecated',
       components: () => [
+        '../react/ActionMenu/index.jsx',
         '../react/CompositeRow/index.jsx',
         '../react/InlineCard/index.jsx',
         '../react/IntentModal/IntentModal.jsx',
         '../react/IntentOpener/IntentOpener.jsx',
-        '../react/Menu/index.jsx',
         '../react/Modal/index.jsx',
         '../react/MuiCozyTheme/RaisedList',
         '../react/PercentageLine/index.jsx',

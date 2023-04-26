@@ -2666,6 +2666,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#import" title="Import" class="md-nav__link">
+    Import
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2789,6 +2796,12 @@ Here are the rules for those notifications:</p>
 </ul>
 <p>The service also determines if a delayed notification schedule at D+3 and D+7 is necessary. When a notification is scheduled, if there are no future reminders, the service will create them.</p>
 <p>ℹ️  This service can be run via CLI via <code>yarn service konnectorAlerts</code></p>
+<h3 id="import">Import<a class="headerlink" href="#import" title="Permanent link">&para;</a></h3>
+<p>slug: <code>import</code></p>
+<p>Allows you to import bank data into Cozy, from the Cozy bank export file (.csv format)
+This service is launched manually once the import of the file has been successful on the cozy.
+It also saves the number of imported transactions in the doctype <code>io.cozy.bank.settings</code> (<code>lastImportSuccess.savedTransactionsCount</code>)</p>
+<p>ℹ️  This service can be run via CLI via <code>yarn service import</code></p>
 <h2 id="i-am-writing-a-banking-konnector-what-should-i-do">I am writing a banking konnector, what should I do?<a class="headerlink" href="#i-am-writing-a-banking-konnector-what-should-i-do" title="Permanent link">&para;</a></h2>
 <p>If you want to benefit from all the features of these services, the most
 straightforward is to add <code>toCategorize: true</code> to the <code>io.cozy.bank.operations</code>
