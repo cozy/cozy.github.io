@@ -6,21 +6,22 @@ import { useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 
 import successIllu from 'assets/icons/success-illu.svg'
-import { buildAppSettingsQuery } from 'ducks/settings/queries'
+import { buildAppSettingsConfigurationQuery } from 'ducks/settings/queries'
 
 const ImportContentSuccess = () => {
   const { t } = useI18n()
-  const appSettingsQuery = buildAppSettingsQuery()
-  const { data: appSettings, ...appSettingsQueryResult } = useQuery(
-    appSettingsQuery.definition,
-    appSettingsQuery.options
-  )
+  const appSettingsConfigurationQuery = buildAppSettingsConfigurationQuery()
+  const { data: appSettingsConfiguration, ...appSettingsQueryResult } =
+    useQuery(
+      appSettingsConfigurationQuery.definition,
+      appSettingsConfigurationQuery.options
+    )
   const isLoadingAppSettings =
     isQueryLoading(appSettingsQueryResult) || appSettingsQueryResult.hasMore
 
   const savedTransactionsCount =
     !isLoadingAppSettings &&
-    appSettings?.[0]?.lastImportSuccess?.savedTransactionsCount
+    appSettingsConfiguration?.lastImportSuccess?.savedTransactionsCount
 
   const text = savedTransactionsCount ? (
     <Typography component="span" className="u-mb-1 u-db u-spacellipsis">

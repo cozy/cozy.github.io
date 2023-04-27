@@ -20,9 +20,10 @@ export const buildFilesQueryByNameAndDirId = (name, dirId) => ({
   }
 })
 
-export const buildAppSettingsQuery = () => ({
-  definition: () => Q(SETTINGS_DOCTYPE),
+export const buildAppSettingsConfigurationQuery = () => ({
+  definition: () => Q(SETTINGS_DOCTYPE).getById('configuration'),
   options: {
+    singleDocData: true,
     as: `${SETTINGS_DOCTYPE}`,
     fetchPolicy: defaultFetchPolicy
   }
