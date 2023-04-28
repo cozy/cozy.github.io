@@ -138,9 +138,9 @@ func getPendingVersions(c echo.Context) (err error) {
 	return c.JSON(http.StatusOK, filteredVersions)
 }
 
-func approvePendingVersion(c echo.Context) (err error) {
+func lookForPendingVersion(c echo.Context) (app *registry.App, version *registry.Version, err error) {
 	if err = checkAuthorized(c); err != nil {
-		return err
+		return nil, nil, err
 	}
 
 	// Only allow approving versions from editor cozy
@@ -149,23 +149,32 @@ func approvePendingVersion(c echo.Context) (err error) {
 	editorName := "cozy"
 	_, err = checkPermissions(c, editorName, "", true /* = master */)
 	if err != nil {
-		return errshttp.NewError(http.StatusUnauthorized, err.Error())
+		return nil, nil, errshttp.NewError(http.StatusUnauthorized, err.Error())
 	}
 
 	appSlug := c.Param("app")
 	if appSlug == "" {
-		return errshttp.NewError(http.StatusNotFound, "App is missing in the URL")
+		return nil, nil, errshttp.NewError(http.StatusNotFound, "App is missing in the URL")
 	}
-	app, err := registry.FindApp(nil, getSpace(c), appSlug, registry.Stable)
+	app, err = registry.FindApp(nil, getSpace(c), appSlug, registry.Stable)
 	if err != nil {
-		return err
+		return nil, nil, err
 	}
 
 	ver := stripVersion(c.Param("version"))
 	if ver == "" {
-		return errshttp.NewError(http.StatusNotFound, "Version is missing in the URL")
+		return nil, nil, errshttp.NewError(http.StatusNotFound, "Version is missing in the URL")
 	}
-	version, err := registry.FindPendingVersion(getSpace(c), appSlug, ver)
+	version, err = registry.FindPendingVersion(getSpace(c), appSlug, ver)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return app, version, nil
+}
+
+func approvePendingVersion(c echo.Context) (err error) {
+	app, version, err := lookForPendingVersion(c)
 	if err != nil {
 		return err
 	}
@@ -177,6 +186,17 @@ func approvePendingVersion(c echo.Context) (err error) {
 	cleanVersion(version)
 
 	return c.JSON(http.StatusCreated, version)
+}
+
+func getPendingVersion(c echo.Context) (err error) {
+	_, version, err := lookForPendingVersion(c)
+	if err != nil {
+		return err
+	}
+
+	cleanVersion(version)
+
+	return c.JSON(http.StatusOK, version)
 }
 
 func deletePendingVersion(c echo.Context) (err error) {

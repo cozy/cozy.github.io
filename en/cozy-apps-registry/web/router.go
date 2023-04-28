@@ -379,6 +379,7 @@ func Router() *echo.Echo {
 		g.HEAD("/pending", getPendingVersions, jsonEndpoint, middleware.Gzip())
 		g.GET("/pending", getPendingVersions, jsonEndpoint, middleware.Gzip())
 		g.PUT("/pending/:app/:version/approval", approvePendingVersion, middleware.Gzip())
+		g.GET("/pending/:app/:version", getPendingVersion, jsonEndpoint, middleware.Gzip())
 		g.DELETE("/pending/:app/:version", deletePendingVersion, middleware.Gzip())
 
 		g.GET("/maintenance", getMaintenanceApps, jsonEndpoint, middleware.Gzip())

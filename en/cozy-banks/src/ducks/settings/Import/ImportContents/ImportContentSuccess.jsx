@@ -23,13 +23,14 @@ const ImportContentSuccess = () => {
     !isLoadingAppSettings &&
     appSettingsConfiguration?.lastImportSuccess?.savedTransactionsCount
 
-  const text = savedTransactionsCount ? (
-    <Typography component="span" className="u-mb-1 u-db u-spacellipsis">
-      {t('Settings.import.description.success', {
-        smart_count: savedTransactionsCount
-      })}
-    </Typography>
-  ) : null
+  const text =
+    savedTransactionsCount != null ? (
+      <Typography component="span" className="u-mb-1 u-db u-spacellipsis">
+        {t('Settings.import.description.success', {
+          smart_count: savedTransactionsCount
+        })}
+      </Typography>
+    ) : null
 
   return (
     <Empty
