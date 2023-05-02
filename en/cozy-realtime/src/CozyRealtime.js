@@ -135,7 +135,12 @@ class CozyRealtime {
     if (this.hasWebSocket()) {
       logger.info('trashing the previous websocket…')
       this.websocket.onmessage = null
-      this.websocket.onerror = null
+      this.websocket.onerror = err => {
+        // XXX: discard errors
+        logger.error(
+          `Error while trying to close the websocket: ${err.message}`
+        )
+      }
       this.websocket.onopen = null
       this.websocket.onclose = null
       try {
