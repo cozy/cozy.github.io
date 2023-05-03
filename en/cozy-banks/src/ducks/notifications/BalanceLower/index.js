@@ -18,6 +18,7 @@ import {
 } from 'ducks/notifications/helpers'
 import template from './template.hbs'
 import { ruleAccountFilter } from 'ducks/settings/ruleUtils'
+import { fetchSettings } from 'ducks/settings/helpers'
 
 const addCurrency = o => ({ ...o, currency: '€' })
 
@@ -69,8 +70,16 @@ class BalanceLower extends NotificationView {
     )
   }
 
-  filterForRule(rule, account) {
-    const isBalanceUnder = getAccountBalance(account) < rule.value
+  filterForRule(rule, account, balancesNotifications) {
+    const lastAccountBalance =
+      balancesNotifications[account._id] != null
+        ? balancesNotifications[account._id]
+        : null
+    const isLastBalanceOver =
+      lastAccountBalance !== null ? lastAccountBalance >= rule.value : true
+    const isBalanceUnder =
+      isLastBalanceOver && getAccountBalance(account) < rule.value
+
     const accountFilter = ruleAccountFilter(rule, this.data.groups)
     const correspondsAccountToGroup = accountFilter(account)
     const isNotCreditCard = account.type !== 'CreditCard'
@@ -82,20 +91,22 @@ class BalanceLower extends NotificationView {
    * For each rule, returns a list of matching accounts
    * Rules that do not match any accounts are discarded
    */
-  findMatchingRules() {
+  findMatchingRules(balancesNotifications) {
     return this.rules
       .filter(rule => rule.enabled)
       .map(rule => ({
         rule,
         accounts: this.data.accounts.filter(acc =>
-          this.filterForRule(rule, acc)
+          this.filterForRule(rule, acc, balancesNotifications)
         )
       }))
       .filter(({ accounts }) => accounts.length > 0)
   }
 
-  fetchData() {
-    const matchingRules = this.findMatchingRules()
+  async fetchData() {
+    const { balancesNotifications } = await fetchSettings(this.client)
+
+    const matchingRules = this.findMatchingRules(balancesNotifications)
     const accountsFiltered = uniqBy(
       flatten(matchingRules.map(x => x.accounts)),
       x => x._id

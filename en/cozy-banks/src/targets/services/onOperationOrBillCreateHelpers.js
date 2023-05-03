@@ -6,7 +6,10 @@ import set from 'lodash/set'
 import logger from 'cozy-logger'
 import flag from 'cozy-flags'
 
-import { sendNotifications } from 'ducks/notifications/services'
+import {
+  fetchTransactionAccounts,
+  sendNotifications
+} from 'ducks/notifications/services'
 import matchFromBills from 'ducks/billsMatching/matchFromBills'
 import matchFromTransactions from 'ducks/billsMatching/matchFromTransactions'
 import { logResult } from 'ducks/billsMatching/utils'
@@ -96,7 +99,11 @@ export const doSendNotifications = async (setting, notifChanges) => {
   log('info', '⌛ Do send notifications...')
   try {
     const transactionsToNotify = notifChanges.documents
+    const accounts = await fetchTransactionAccounts(transactionsToNotify)
     await sendNotifications(setting, transactionsToNotify)
+    for (const account of accounts) {
+      set(setting, `balancesNotifications.${account._id}`, account.balance)
+    }
     set(
       setting,
       'notifications.lastSeq',

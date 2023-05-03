@@ -9,12 +9,19 @@ import BalanceGreater from './index'
 import fixtures from 'test/fixtures/unit-tests.json'
 import enLocale from 'locales/en.json'
 
+import { fetchSettings } from 'ducks/settings/helpers'
+
 const unique = arr => Array.from(new Set(arr))
 
 const minValueBy = (arr, fn) => fn(minBy(arr, fn))
 const maxValueBy = (arr, fn) => fn(maxBy(arr, fn))
 const getIDFromAccount = account => account._id
 const getAccountBalance = account => account.balance
+
+jest.mock('../../settings/helpers', () => ({
+  ...jest.requireActual('../../settings/helpers'),
+  fetchSettings: jest.fn()
+}))
 
 describe('BalanceGreater', () => {
   beforeEach(() => {
@@ -27,11 +34,19 @@ describe('BalanceGreater', () => {
     jest.restoreAllMocks()
   })
 
-  const setup = ({ value, accountOrGroup, rules } = {}) => {
+  const setup = ({
+    ruleValue,
+    accountOrGroup,
+    rules,
+    balancesNotifications = {}
+  } = {}) => {
     const cozyUrl = 'http://cozy.tools:8080'
     const client = new CozyClient({
       uri: cozyUrl
     })
+    client.query = jest.fn()
+    fetchSettings.mockResolvedValue({ balancesNotifications })
+
     const locales = {
       en: enLocale
     }
@@ -43,7 +58,7 @@ describe('BalanceGreater', () => {
     const config = {
       rules: rules || [
         {
-          value: value || 1000,
+          value: ruleValue || 1000,
           accountOrGroup: accountOrGroup || null,
           enabled: true
         }
@@ -68,14 +83,41 @@ describe('BalanceGreater', () => {
 
   describe('without accountOrGroup', () => {
     it('should compute relevant accounts', async () => {
-      const { notification } = setup({ value: 1000 })
+      const { notification } = setup({ ruleValue: 1000 })
       const { accounts } = await notification.buildData()
       expect(accounts).toHaveLength(5)
       expect(maxValueBy(accounts, getAccountBalance)).toBeGreaterThan(1000)
     })
 
+    it('should return only accounts where their previous balances were not already positive to the rule', async () => {
+      // Original balances: "compteisa4": 1421.20, "compteisa1": 3974.20
+      const { notification } = setup({
+        ruleValue: 1000,
+        balancesNotifications: { compteisa4: 2000, compteisa1: 999 }
+      })
+      const { accounts } = await notification.buildData()
+
+      expect(accounts).toHaveLength(4)
+      expect(maxValueBy(accounts, getAccountBalance)).toBeGreaterThan(1000)
+    })
+
+    it('should not return accounts if previous balances were already positive to the rule', async () => {
+      // Original balances: "compteisa4": 1421.20, "compteisa1": 3974.20
+      const { notification } = setup({
+        ruleValue: 1000,
+        balancesNotifications: {
+          compteisa4: 100,
+          compteisa1: 1000
+        }
+      })
+      const { accounts } = await notification.buildData()
+
+      expect(accounts).toHaveLength(5)
+      expect(maxValueBy(accounts, getAccountBalance)).toBeGreaterThan(1000)
+    })
+
     it('should compute relevant accounts for a different value', async () => {
-      const { notification } = setup({ value: 2000 })
+      const { notification } = setup({ ruleValue: 2000 })
       const { accounts } = await notification.buildData()
       expect(accounts).toHaveLength(4)
       expect(maxValueBy(accounts, getAccountBalance)).toBeGreaterThan(2000)
@@ -105,7 +147,7 @@ describe('BalanceGreater', () => {
 
     it('should compute relevant accounts for a different value', async () => {
       const { notification } = setup({
-        value: 4000,
+        ruleValue: 4000,
         accountOrGroup: compteisa1
       })
       const data = await notification.buildData()
@@ -122,7 +164,7 @@ describe('BalanceGreater', () => {
     it('should compute relevant accounts', async () => {
       const { notification } = setup({
         accountOrGroup: isabelleGroup,
-        value: 4000
+        ruleValue: 4000
       })
       const { accounts } = await notification.buildData()
       expect(accounts).toHaveLength(1)
@@ -133,7 +175,7 @@ describe('BalanceGreater', () => {
 
     it('should compute relevant accounts for a different value', async () => {
       const { notification } = setup({
-        value: 900,
+        ruleValue: 900,
         accountOrGroup: isabelleGroup
       })
       const { accounts } = await notification.buildData()

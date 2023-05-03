@@ -5,6 +5,7 @@ export const DEFAULTS_SETTINGS = {
   _type: 'io.cozy.bank.settings',
   _id: 'configuration',
   id: 'configuration',
+  balancesNotifications: {},
   autogroups: {
     processedAccounts: []
   },
