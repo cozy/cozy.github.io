@@ -2059,6 +2059,26 @@
     /dev route
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#emails" title="Emails" class="md-nav__link">
+    Emails
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#html-pages" title="HTML pages" class="md-nav__link">
+    HTML pages
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2697,6 +2717,26 @@
     /dev route
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#emails" title="Emails" class="md-nav__link">
+    Emails
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#html-pages" title="HTML pages" class="md-nav__link">
+    HTML pages
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2768,11 +2808,56 @@ $ ln -s path/to/cozy-ui/dist/cozy-ui.min.css debug/assets/css/cozy-ui.min.css
 <h2 id="dev-route"><code>/dev</code> route<a class="headerlink" href="#dev-route" title="Permanent link">&para;</a></h2>
 <p>In development mode, a <code>/dev</code> route is available to render a template or a mail
 with given parameter. For example:</p>
-<div class="codehilite"><pre><span></span>http://cozy.localhost:8080/dev/templates/error.html?Error=oops
-http://cozy.localhost:8080/dev/mails/two_factor?TwoFactorPasscode=123456
-</pre></div>
-
-
+<h3 id="emails">Emails<a class="headerlink" href="#emails" title="Permanent link">&para;</a></h3>
+<ul>
+<li>http://cozy.localhost:8080/dev/mails/alert_account</li>
+<li>http://cozy.localhost:8080/dev/mails/archiver</li>
+<li>http://cozy.localhost:8080/dev/mails/confirm_flagship</li>
+<li>http://cozy.localhost:8080/dev/mails/export_error</li>
+<li>http://cozy.localhost:8080/dev/mails/import_error</li>
+<li>http://cozy.localhost:8080/dev/mails/import_success</li>
+<li>http://cozy.localhost:8080/dev/mails/magic_link</li>
+<li>http://cozy.localhost:8080/dev/mails/move_confirm</li>
+<li>http://cozy.localhost:8080/dev/mails/move_error</li>
+<li>http://cozy.localhost:8080/dev/mails/move_success</li>
+<li>http://cozy.localhost:8080/dev/mails/new_connection</li>
+<li>http://cozy.localhost:8080/dev/mails/new_registration</li>
+<li>http://cozy.localhost:8080/dev/mails/notification_diskquota</li>
+<li>http://cozy.localhost:8080/dev/mails/notification_sharing</li>
+<li>http://cozy.localhost:8080/dev/mails/passphrase_hint</li>
+<li>http://cozy.localhost:8080/dev/mails/passphrase_reset</li>
+<li>http://cozy.localhost:8080/dev/mails/sharing_request</li>
+<li>http://cozy.localhost:8080/dev/mails/sharing_to_confirm</li>
+<li>http://cozy.localhost:8080/dev/mails/support_request</li>
+<li>http://cozy.localhost:8080/dev/mails/two_factor?TwoFactorPasscode=123456</li>
+<li>http://cozy.localhost:8080/dev/mails/two_factor_mail_confirmation</li>
+</ul>
+<h3 id="html-pages">HTML pages<a class="headerlink" href="#html-pages" title="Permanent link">&para;</a></h3>
+<ul>
+<li>http://cozy.localhost:8080/dev/templates/authorize.html</li>
+<li>http://cozy.localhost:8080/dev/templates/authorize_move.html</li>
+<li>http://cozy.localhost:8080/dev/templates/authorize_sharing.html</li>
+<li>http://cozy.localhost:8080/dev/templates/compat.html</li>
+<li>http://cozy.localhost:8080/dev/templates/confirm_auth.html</li>
+<li>http://cozy.localhost:8080/dev/templates/confirm_flagship.html?Email=jane@example.com</li>
+<li>http://cozy.localhost:8080/dev/templates/error.html?Error=oops&amp;Button=Click%20me&amp;ButtonURL=https://cozy.io/</li>
+<li>http://cozy.localhost:8080/dev/templates/import.html</li>
+<li>http://cozy.localhost:8080/dev/templates/instance_blocked.html?Reason=test</li>
+<li>http://cozy.localhost:8080/dev/templates/login.html</li>
+<li>http://cozy.localhost:8080/dev/templates/magic_link_twofactor.html</li>
+<li>http://cozy.localhost:8080/dev/templates/move_confirm.html?Email=jane@example.com</li>
+<li>http://cozy.localhost:8080/dev/templates/move_delegated_auth.html</li>
+<li>http://cozy.localhost:8080/dev/templates/move_in_progress.html</li>
+<li>http://cozy.localhost:8080/dev/templates/move_link.html?Link=https://jane.mycozy.cloud/&amp;Illustration=no</li>
+<li>http://cozy.localhost:8080/dev/templates/move_vault.html</li>
+<li>http://cozy.localhost:8080/dev/templates/need_onboarding.html</li>
+<li>http://cozy.localhost:8080/dev/templates/oidc_login.html</li>
+<li>http://cozy.localhost:8080/dev/templates/oidc_twofactor.html</li>
+<li>http://cozy.localhost:8080/dev/templates/passphrase_choose.html</li>
+<li>http://cozy.localhost:8080/dev/templates/passphrase_reset.html?ShowBackButton=true&amp;HasCiphers=true&amp;HasHint=true</li>
+<li>http://cozy.localhost:8080/dev/templates/sharing_discovery.html?PublicName=Jane&amp;RecipientDomain=mycozy.cloud&amp;NotEmailError=true</li>
+<li>http://cozy.localhost:8080/dev/templates/twofactor.html?TrustedDeviceCheckBox=true</li>
+</ul>
 <h2 id="in-production">In production<a class="headerlink" href="#in-production" title="Permanent link">&para;</a></h2>
 <p>The script <code>scripts/build.sh assets</code> download the externals assets, and
 transform all the assets (local and externals) to go code. This command is used
