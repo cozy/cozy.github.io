@@ -63,6 +63,10 @@ const BillChip = props => {
   )
   const vendorName = brand && brand.name
 
+  if (flag('hide.healthTheme.enabled') && brand.health) {
+    return null
+  }
+
   return (
     <Wrapper fileId={invoiceId} key={invoiceId} transaction={transaction}>
       <Chip component="button" size="small" variant="outlined">

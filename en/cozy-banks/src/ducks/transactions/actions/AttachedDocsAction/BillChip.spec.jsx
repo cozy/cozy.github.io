@@ -1,7 +1,11 @@
 import React from 'react'
 import { render } from '@testing-library/react'
+import flag from 'cozy-flags'
+
 import AppLike from 'test/AppLike'
 import BillChip from './BillChip'
+
+jest.mock('cozy-flags')
 
 jest.mock(
   'ducks/transactions/FileOpener',
@@ -19,6 +23,11 @@ describe('BillChip', () => {
     )
     return { root }
   }
+
+  afterEach(() => {
+    flag.mockReset()
+  })
+
   describe('when the bill has no invoice', () => {
     beforeEach(() => {
       jest.spyOn(console, 'warn').mockImplementation(() => {})
@@ -46,6 +55,30 @@ describe('BillChip', () => {
     }
     const { root } = setup({ bill })
     expect(root.getByText('Invoice')).toBeTruthy()
+  })
+
+  it('should not render a Chip for health category if flag activated', () => {
+    flag.mockReturnValue(true)
+
+    const bill = {
+      _id: 'fakebill',
+      invoice: 'io.cozy.files:deadbeef',
+      vendor: 'alan'
+    }
+    const { root } = setup({ bill })
+    expect(root.queryByText('Alan invoice')).toBeNull()
+  })
+
+  it('should render a Chip for health category if flag not activated', () => {
+    flag.mockReturnValue(false)
+
+    const bill = {
+      _id: 'fakebill',
+      invoice: 'io.cozy.files:deadbeef',
+      vendor: 'alan'
+    }
+    const { root } = setup({ bill })
+    expect(root.queryByText('Alan invoice')).not.toBeNull()
   })
 
   it('should render a Chip for refunds', () => {

@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import compose from 'lodash/flowRight'
 
+import flag from 'cozy-flags'
 import { translate } from 'cozy-ui/transpiled/react/I18n'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import IconPlus from 'cozy-ui/transpiled/react/Icons/Plus'
@@ -83,7 +84,7 @@ class Component extends React.Component {
   }
 
   renderTransactionRow(label, brand) {
-    return (
+    return flag('hide.healthTheme.enabled') && brand.health ? null : (
       <KonnectorChip
         onClick={this.showInformativeDialog}
         konnectorType={brand.health ? 'health' : 'generic'}
