@@ -1,6 +1,11 @@
 import CozyRealtime from './CozyRealtime'
 
 /**
+ * A cozy-client instance.
+ * @typedef {import("cozy-client/dist/index").CozyClient} CozyClient
+ */
+
+/**
  * Realtime plugin for cozy-client
  *
  * - Handles login/logout
@@ -14,9 +19,12 @@ class RealtimePlugin {
    *
    * @constructor
    * @param {CozyClient} client A cozy-client instance
+   * @param {object} options
+   * @param {Function} options.createWebSocket The function used to create WebSocket instances
    */
-  constructor(client) {
+  constructor(client, options = {}) {
     this.client = client
+    this.createWebSocket = options.createWebSocket
     this.realtime = null
     this.handleLogin = this.handleLogin.bind(this)
     this.handleLogout = this.handleLogout.bind(this)
@@ -28,7 +36,8 @@ class RealtimePlugin {
 
   handleLogin() {
     this.realtime = new CozyRealtime({
-      client: this.client
+      client: this.client,
+      createWebSocket: this.createWebSocket
     })
     this.client.emit('plugin:realtime:login')
   }

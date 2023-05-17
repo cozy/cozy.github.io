@@ -12,6 +12,7 @@ import {
 } from './config'
 import logger from './logger'
 import {
+  createWebSocket,
   getUrl,
   getToken,
   doctype,
@@ -21,16 +22,23 @@ import {
 } from './utils'
 
 /**
+ * A cozy-client instance.
+ * @typedef {import("cozy-client/dist/index").CozyClient} CozyClient
+ */
+
+/**
  * Manage the realtime interactions with a cozy stack
  */
 class CozyRealtime {
   /**
    * @constructor
    * @param {object} options
-   * @param {CozyClient}  options.client
+   * @param {CozyClient}  options.client A cozy-client instance
+   * @param {Function} options.createWebSocket The function used to create WebSocket instances
    */
   constructor(options) {
     this.client = getCozyClientFromOptions(options)
+    this.createWebSocket = options.createWebSocket || createWebSocket
     this.subscriptions = new SubscriptionList()
     this.retryManager = new RetryManager({
       raiseErrorAfterAttempts,
@@ -83,7 +91,7 @@ class CozyRealtime {
     logger.info('creating a new websocket…')
     const url = getUrl(this.client)
     try {
-      this.websocket = new WebSocket(url, doctype)
+      this.websocket = this.createWebSocket(url, doctype)
       this.websocket.authenticated = false
       this.websocket.onmessage = this.onWebSocketMessage
       this.websocket.onerror = this.onWebSocketError

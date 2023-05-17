@@ -92,3 +92,7 @@ export function getCozyClientFromOptions({ cozyClient, client }) {
   }
   return client || cozyClient
 }
+
+export function createWebSocket(url, doctype) {
+  return new WebSocket(url, doctype)
+}

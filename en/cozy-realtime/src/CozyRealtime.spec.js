@@ -7,6 +7,7 @@ import {
   requireDoubleUnsubscriptions
 } from './config'
 import logger from './logger'
+import { doctype } from './utils'
 
 const testLogger = logger.minilog('test/cozy-realtime')
 
@@ -17,8 +18,7 @@ logger.minilog.suggest
 
 logger.minilog.disable()
 
-const doctype = 'io.cozy.files'
-const type = doctype
+const type = 'io.cozy.files'
 const id = 'my-document-id'
 const message = { message: 'hello' }
 const doc = { ...message, _type: type }
@@ -72,8 +72,11 @@ function createCozyClient({ uri, token } = {}) {
 }
 
 function createRealtime(options = {}) {
-  const client = options.client || createCozyClient(options)
-  const realtime = new CozyRealtime({ client })
+  const { client, uri, token, ...opts } = options
+  const realtime = new CozyRealtime({
+    client: client || createCozyClient({ uri, token }),
+    ...opts
+  })
   cleaner.registerFirst(() => realtime.unsubscribeAll())
   return realtime
 }
@@ -154,13 +157,28 @@ describe('CozyRealtime', () => {
       const client = createCozyClient()
       const fetchJSON = client.getStackClient().fetchJSON
       const realtime = createRealtime({ client })
-      await realtime.sendNotification(doctype, id, message)
-      const route = `/realtime/${doctype}/${id}`
+      await realtime.sendNotification(type, id, message)
+      const route = `/realtime/${type}/${id}`
       expect(fetchJSON).toHaveBeenCalledWith('POST', route, { data: message })
     })
   })
 
   describe('subscribe', () => {
+    it('creates a WebSocket using the given createWebSocket function', async () => {
+      const createWebSocket = jest.fn()
+
+      createSocketServer()
+      const realtime = createRealtime({ createWebSocket })
+
+      const handler = jest.fn()
+      realtime.subscribe(event, type, handler)
+
+      // Give some time for createWebSocket to be called
+      await sleep(10)
+
+      expect(createWebSocket).toHaveBeenCalledWith(defaultWebsocketURI, doctype)
+    })
+
     it('receives a subscription on the server', done => {
       const server = createSocketServer()
       const realtime = createRealtime()

@@ -1,5 +1,6 @@
-import RealtimePlugin from './RealtimePlugin'
 import CozyClient from 'cozy-client'
+
+import RealtimePlugin from './RealtimePlugin'
 
 let client
 
@@ -44,6 +45,20 @@ it('should login/logout correctly', async () => {
   expect(client.plugins.realtime.realtime).toBeNull()
   expect(onLogin).toHaveBeenCalledTimes(1)
   expect(onLogout).toHaveBeenCalledTimes(1)
+})
+
+it('should pass the given createWebSocket function on login', async () => {
+  const createWebSocket = jest.fn()
+
+  client = new CozyClient({})
+  client.registerPlugin(RealtimePlugin, { createWebSocket })
+
+  await client.login({
+    uri: 'http://cozy.tools:8080',
+    token: 'fake-token'
+  })
+  expect(client.plugins.realtime.realtime).not.toBeNull()
+  expect(client.plugins.realtime.createWebSocket).toBe(createWebSocket)
 })
 
 it('throws user friendly errors when trying to use the realtime while logged out', async () => {
