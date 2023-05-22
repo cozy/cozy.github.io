@@ -15,10 +15,10 @@ require (
 	github.com/onsi/ginkgo v1.15.0 // indirect
 	github.com/onsi/gomega v1.10.5 // indirect
 	github.com/pkg/xattr v0.4.9
-	github.com/sirupsen/logrus v1.9.0
+	github.com/sirupsen/logrus v1.9.2
 	github.com/spf13/cobra v1.7.0
 	github.com/spf13/viper v1.14.0
-	github.com/stretchr/testify v1.8.2
-	golang.org/x/crypto v0.8.0
-	golang.org/x/sync v0.1.0
+	github.com/stretchr/testify v1.8.3
+	golang.org/x/crypto v0.9.0
+	golang.org/x/sync v0.2.0
 )
