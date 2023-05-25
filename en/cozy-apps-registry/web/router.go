@@ -375,6 +375,7 @@ func Router() *echo.Echo {
 		g.POST("/:app", createVersion, jsonEndpoint, middleware.Gzip())
 
 		g.GET("", getAppsList, jsonEndpoint, middleware.Gzip())
+		g.GET("/slugs", getSlugsList, jsonEndpoint, middleware.Gzip())
 
 		g.HEAD("/pending", getPendingVersions, jsonEndpoint, middleware.Gzip())
 		g.GET("/pending", getPendingVersions, jsonEndpoint, middleware.Gzip())
@@ -425,6 +426,8 @@ func Router() *echo.Echo {
 
 		virtualGetAppsList := applyVirtualSpace(getAppsList, v, name)
 		g.GET("", virtualGetAppsList, jsonEndpoint, middleware.Gzip())
+		filteredGetSlugs := filterGetSlugs(v)
+		g.GET("/slugs", filteredGetSlugs, jsonEndpoint, middleware.Gzip())
 
 		filteredGetMaintenanceApps := filterGetMaintenanceApps(v)
 		g.GET("/maintenance", filteredGetMaintenanceApps, jsonEndpoint, middleware.Gzip())

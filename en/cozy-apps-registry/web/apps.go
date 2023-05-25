@@ -372,3 +372,33 @@ func getAppsList(c echo.Context) error {
 
 	return writeJSON(c, j)
 }
+
+func getSlugsList(c echo.Context) error {
+	slugs, err := registry.GetSlugs(getSpace(c))
+	if err != nil {
+		return err
+	}
+	return writeJSON(c, slugs)
+}
+
+func filterGetSlugs(virtual base.VirtualSpace) echo.HandlerFunc {
+	if virtual.Filter == "select" {
+		return func(c echo.Context) error {
+			return writeJSON(c, virtual.Slugs)
+		}
+	}
+
+	return func(c echo.Context) error {
+		slugs, err := registry.GetSlugs(getSpace(c))
+		if err != nil {
+			return err
+		}
+		filtered := slugs[:0]
+		for _, slug := range slugs {
+			if virtual.AcceptApp(slug) {
+				filtered = append(filtered, slug)
+			}
+		}
+		return writeJSON(c, filtered)
+	}
+}

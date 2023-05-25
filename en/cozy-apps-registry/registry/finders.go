@@ -830,6 +830,34 @@ func GetAppsList(v *base.VirtualSpace, c *space.Space, opts *AppsListOptions) (i
 	return cursor, res, nil
 }
 
+func GetSlugs(c *space.Space) ([]string, error) {
+	db := c.AppsDB()
+	rows, err := db.AllDocs(context.Background(), map[string]interface{}{
+		"include_docs": true,
+		"limit":        10000,
+	})
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	slugs := make([]string, 0)
+	for rows.Next() {
+		if strings.HasPrefix(rows.ID(), "_design") {
+			continue
+		}
+
+		var app *App
+		if err := rows.ScanDoc(&app); err != nil {
+			return nil, err
+		}
+		slugs = append(slugs, app.Slug)
+	}
+
+	sort.Strings(slugs)
+	return slugs, nil
+}
+
 type appVersionEntry struct {
 	app            *App
 	cachedVersions *AppVersions
