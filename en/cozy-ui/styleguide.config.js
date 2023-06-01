@@ -35,7 +35,8 @@ module.exports = {
         '../react/Progress',
         '../react/ProgressionBanner',
         '../react/Spinner',
-        '../react/Stack'
+        '../react/Stack',
+        '../react/Thumbnail'
       ]
     },
     {
