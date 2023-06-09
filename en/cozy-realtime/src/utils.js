@@ -1,6 +1,6 @@
 import has from 'lodash/has'
 
-import logger from './logger'
+import defaultLogger from './logger'
 
 /**
  * If the current context is a browser context
@@ -80,7 +80,11 @@ export function getToken(client) {
  * @param {CozyClient} cozyClient - deprecated, a cozy client instance
  * @returns {CozyClient}
  */
-export function getCozyClientFromOptions({ cozyClient, client }) {
+export function getCozyClientFromOptions({
+  cozyClient,
+  client,
+  logger = defaultLogger
+}) {
   if (cozyClient) {
     logger.warn(
       'Passing a `cozyClient` parameter is deprecated, please use `client` instead'

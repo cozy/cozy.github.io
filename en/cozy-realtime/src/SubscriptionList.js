@@ -1,8 +1,8 @@
 import isEqual from 'lodash/isEqual'
-import uniqWith from 'lodash/uniqWith'
 import pick from 'lodash/pick'
-import remove from 'lodash/remove'
 import pullAt from 'lodash/pullAt'
+import remove from 'lodash/remove'
+import uniqWith from 'lodash/uniqWith'
 
 import {
   allowDoubleSubscriptions,
@@ -10,7 +10,7 @@ import {
   onDoubleSubscriptions,
   eventNames
 } from './config'
-import logger from './logger'
+import defaultLogger from './logger'
 
 /**
  * @typedef {object} SubscriptionRequest
@@ -29,8 +29,9 @@ import logger from './logger'
  * Manage event subscriptions
  */
 export default class SubscriptionList {
-  constructor() {
+  constructor(options = {}) {
     this.subscriptions = []
+    this.logger = options.logger || defaultLogger
   }
 
   /**
@@ -43,7 +44,8 @@ export default class SubscriptionList {
     const subscription = this.normalize(request)
     const found = this.subscriptions.find(s => isEqual(s, subscription))
     if (found) {
-      onDoubleSubscriptions && onDoubleSubscriptions(subscription)
+      onDoubleSubscriptions &&
+        onDoubleSubscriptions(subscription, { logger: this.logger })
       if (!allowDoubleSubscriptions) return
     }
     this.subscriptions.push(subscription)
@@ -68,7 +70,7 @@ export default class SubscriptionList {
       const removed = remove(this.subscriptions, s => isEqual(s, subscription))
       if (removed && removed.length > 0) return
     }
-    logger.warn(
+    this.logger.warn(
       'Trying to unsubscribe to an unknown subscription',
       subscription
     )
@@ -155,7 +157,7 @@ export default class SubscriptionList {
    */
   normalize(sub) {
     function error(msg) {
-      logger.error(msg)
+      this.logger.error(msg)
       throw new Error(msg)
     }
 

@@ -1,13 +1,12 @@
 import MicroEE from 'microee'
 
-import logger from './logger'
-
 import {
   maxWaitBetweenRetries as defaultMaxWaitBetweenRetries,
   baseWaitAfterFirstFailure as defaultBaseWaitAfterFirstFailure,
   timeBeforeSuccessful as defaultTimeBeforeSuccessful,
   raiseErrorAfterAttempts as defaultRaiseErrorAfterAttempts
 } from './config'
+import defaultLogger from './logger'
 
 /**
  * This class creates an helper for processes that need
@@ -21,13 +20,16 @@ class RetryManager {
    * @param {number} baseWaitAfterFirstFailure - how much time in ms should we wait after the first failure?
    * @param {number} timeBeforeSuccessful - how much time should  we wait without error to acknowledge a success?
    * @param {number} raiseErrorAfterAttempts - after how many failed attempts should we raise an error?
+   * @param {object} logger A custom logger
    */
   constructor({
     maxWaitBetweenRetries = defaultMaxWaitBetweenRetries,
     baseWaitAfterFirstFailure = defaultBaseWaitAfterFirstFailure,
     timeBeforeSuccessful = defaultTimeBeforeSuccessful,
-    raiseErrorAfterAttempts = defaultRaiseErrorAfterAttempts
+    raiseErrorAfterAttempts = defaultRaiseErrorAfterAttempts,
+    logger = defaultLogger
   } = {}) {
+    this.logger = logger
     this.reset()
     this.onSuccess = this.onSuccess.bind(this)
     this.onFailure = this.onFailure.bind(this)
@@ -111,7 +113,9 @@ class RetryManager {
    * @param {object} error
    */
   onFailure(error) {
-    logger.debug('failure, increase the failure counter of the retry manager')
+    this.logger.debug(
+      'failure, increase the failure counter of the retry manager'
+    )
     this.clearSuccessTimer()
     this.increaseFailureCounter()
     this.emit('failure', error)
@@ -131,7 +135,7 @@ class RetryManager {
    * Reset failures counters (do not wait before trying to connect next time)
    */
   reset() {
-    logger.debug('reset the retry manager')
+    this.logger.debug('reset the retry manager')
     this.clearSuccessTimer()
     this.retries = 0
     this.wait = 0
@@ -159,7 +163,7 @@ class RetryManager {
    * Wait an amount of time before the next attempt (if needed)
    */
   async waitBeforeNextAttempt() {
-    logger.debug('waitBeforeNextAttempt', this.wait)
+    this.logger.debug('waitBeforeNextAttempt', this.wait)
     if (this.wait) {
       if (!this.waiting) {
         let stop

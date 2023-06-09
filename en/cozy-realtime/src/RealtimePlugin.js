@@ -20,11 +20,13 @@ class RealtimePlugin {
    * @constructor
    * @param {CozyClient} client A cozy-client instance
    * @param {object} options
-   * @param {Function} options.createWebSocket The function used to create WebSocket instances
+   * @param {Function} [options.createWebSocket] The function used to create WebSocket instances
+   * @param {object} [options.logger] A custom logger for CozyRealtime
    */
   constructor(client, options = {}) {
     this.client = client
     this.createWebSocket = options.createWebSocket
+    this.logger = options.logger
     this.realtime = null
     this.handleLogin = this.handleLogin.bind(this)
     this.handleLogout = this.handleLogout.bind(this)
@@ -37,7 +39,8 @@ class RealtimePlugin {
   handleLogin() {
     this.realtime = new CozyRealtime({
       client: this.client,
-      createWebSocket: this.createWebSocket
+      createWebSocket: this.createWebSocket,
+      logger: this.logger
     })
     this.client.emit('plugin:realtime:login')
   }

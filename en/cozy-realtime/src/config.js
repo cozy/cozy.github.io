@@ -1,4 +1,4 @@
-import logger from './logger'
+import defaultLogger from './logger'
 
 const ms = 1
 const sec = 1000
@@ -79,7 +79,10 @@ export const requireDoubleUnsubscriptions = true
  * @type {Function}
  * @private
  */
-export const onDoubleSubscriptions = subscription => {
+export const onDoubleSubscriptions = (
+  subscription,
+  { logger = defaultLogger } = {}
+) => {
   logger.warn('Double subscription for ', subscription)
   if (allowDoubleSubscriptions) {
     logger.info('The handler may be called twice for the same event!')

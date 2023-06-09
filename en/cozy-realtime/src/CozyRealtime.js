@@ -10,7 +10,7 @@ import {
   baseWaitAfterFirstFailure,
   maxWaitBetweenRetries
 } from './config'
-import logger from './logger'
+import defaultLogger from './logger'
 import {
   createWebSocket,
   getUrl,
@@ -34,22 +34,26 @@ class CozyRealtime {
    * @constructor
    * @param {object} options
    * @param {CozyClient}  options.client A cozy-client instance
-   * @param {Function} options.createWebSocket The function used to create WebSocket instances
+   * @param {Function} [options.createWebSocket] The function used to create WebSocket instances
+   * @param {object} [options.logger] A custom logger
    */
   constructor(options) {
     this.client = getCozyClientFromOptions(options)
     this.createWebSocket = options.createWebSocket || createWebSocket
-    this.subscriptions = new SubscriptionList()
+    this.logger = options.logger || defaultLogger
+
+    this.subscriptions = new SubscriptionList({ logger: options.logger })
     this.retryManager = new RetryManager({
       raiseErrorAfterAttempts,
       timeBeforeSuccessful,
       baseWaitAfterFirstFailure,
-      maxWaitBetweenRetries
+      maxWaitBetweenRetries,
+      logger: options.logger
     })
     this.retryManager.on('error', err => this.emit('error', err))
     this.bindEventHandlers()
     if (isCordova() && !hasNetworkInformationPlugin()) {
-      logger.warn(
+      this.logger.warn(
         `This seems a Cordova app and cordova-plugin-network-information doesn't seem to be installed. Please install it from https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-network-information/ to support online and offline events.`
       )
     }
@@ -64,7 +68,7 @@ class CozyRealtime {
    */
   start() {
     if (!this.isStarted) {
-      logger.info('started')
+      this.logger.info('started')
       this.isStarted = true
       this.retryManager.reset()
       this.subscribeGlobalEvents()
@@ -83,12 +87,12 @@ class CozyRealtime {
    */
   createSocket() {
     if (this.websocket) {
-      logger.error(
+      this.logger.error(
         'Unexpected replacement of an existing socket, this should not happen. A `revokeWebSocket()` should have been called first inside CozyRealtime'
       )
       this.revokeWebSocket()
     }
-    logger.info('creating a new websocket…')
+    this.logger.info('creating a new websocket…')
     const url = getUrl(this.client)
     try {
       this.websocket = this.createWebSocket(url, doctype)
@@ -108,13 +112,13 @@ class CozyRealtime {
    * @private
    */
   async connect({ immediate = false } = {}) {
-    logger.info('connecting…')
+    this.logger.info('connecting…')
     // avoid multiple concurrent calls to connect, keeps the first one
     if (this.waitingForConnect) {
-      logger.debug('Pending reconnection, skipping reconnect')
+      this.logger.debug('Pending reconnection, skipping reconnect')
       if (immediate) this.retryManager.stopCurrentAttemptWaitingTime()
     } else {
-      logger.debug('No pending reconnection, will reconnect')
+      this.logger.debug('No pending reconnection, will reconnect')
       try {
         this.waitingForConnect = true
         if (!immediate) await this.retryManager.waitBeforeNextAttempt()
@@ -141,11 +145,11 @@ class CozyRealtime {
   revokeWebSocket() {
     this.emit('disconnected')
     if (this.hasWebSocket()) {
-      logger.info('trashing the previous websocket…')
+      this.logger.info('trashing the previous websocket…')
       this.websocket.onmessage = null
       this.websocket.onerror = err => {
         // XXX: discard errors
-        logger.error(
+        this.logger.error(
           `Error while trying to close the websocket: ${err.message}`
         )
       }
@@ -159,7 +163,7 @@ class CozyRealtime {
         this.websocket = null
       }
     } else {
-      logger.error(
+      this.logger.error(
         'Trying to revoke a websocket that is not attached. This should not happen'
       )
     }
@@ -171,7 +175,7 @@ class CozyRealtime {
    */
   stop() {
     if (this.isStarted) {
-      logger.info('stopped')
+      this.logger.info('stopped')
       this.unsubscribeCordovaEvents()
       this.unsubscribeGlobalEvents()
       this.unsubscribeClientEvents()
@@ -193,11 +197,11 @@ class CozyRealtime {
   authenticate() {
     if (this.isWebSocketOpen()) {
       const token = getToken(this.client)
-      logger.debug('authenticate with', token)
+      this.logger.debug('authenticate with', token)
       this.sendWebSocketMessage('AUTH', token)
       this.websocket.authenticated = true
     } else {
-      logger.error(
+      this.logger.error(
         'Trying to authenticate to a non-opened websocket. This should not happen.',
         this.websocket,
         this.websocket && this.websocket.readyState
@@ -234,7 +238,7 @@ class CozyRealtime {
   send(...args) {
     if (!this.sendDeprecationNoticeSent) {
       this.sendDeprecationNoticeSent = true
-      logger.warn(
+      this.logger.warn(
         'Deprecation notice: CozyRealtime.send() is deprecated, please use CozyRealtime.sendNotification() from now on'
       )
     }
@@ -363,10 +367,10 @@ class CozyRealtime {
   sendSubscription(type, id) {
     if (this.isWebSocketOpen()) {
       const payload = id ? { type, id } : { type }
-      logger.debug('send subscription to', payload.type, payload.id)
+      this.logger.debug('send subscription to', payload.type, payload.id)
       this.sendWebSocketMessage('SUBSCRIBE', payload)
     } else {
-      logger.error(
+      this.logger.error(
         'Trying to subscribe on a non-ready socket. This should not happen. Type and id:',
         type,
         id
@@ -384,10 +388,10 @@ class CozyRealtime {
   sendUnsubscription(type, id) {
     if (this.isWebSocketOpen()) {
       const payload = id ? { type, id } : { type }
-      logger.debug('send unsubscription to', payload.type, payload.id)
+      this.logger.debug('send unsubscription to', payload.type, payload.id)
       this.sendWebSocketMessage('UNSUBSCRIBE', payload)
     } else {
-      logger.error(
+      this.logger.error(
         'Trying to subscribe on a non-ready socket. This should not happen. Type and id:',
         type,
         id
@@ -461,7 +465,7 @@ class CozyRealtime {
    */
   onWebSocketMessage(message) {
     const { event, payload } = JSON.parse(message.data)
-    logger.info('receive message from server', { event, payload })
+    this.logger.info('receive message from server', { event, payload })
     const handlers = this.subscriptions.getAllHandlersForEvent(
       event,
       payload.type,
@@ -471,13 +475,13 @@ class CozyRealtime {
       try {
         handler({ ...payload.doc, _type: payload.type })
       } catch (e) {
-        logger.error(
+        this.logger.error(
           `handler did throw for ${event}, ${payload.type}, ${payload.id}`
         )
       }
     }
     if (event === 'error') {
-      logger.warn('Stack returned an error', payload)
+      this.logger.warn('Stack returned an error', payload)
     }
   }
 
@@ -486,7 +490,7 @@ class CozyRealtime {
    * @private
    */
   onWebSocketError(error) {
-    logger.info('An error was raised on the websocket', error)
+    this.logger.info('An error was raised on the websocket', error)
     this.retryManager.onFailure(error)
     this.reconnect()
   }
@@ -507,7 +511,7 @@ class CozyRealtime {
    * @private
    */
   onWebSocketClose(event) {
-    logger.info('The current websocket was closed by a third party', event)
+    this.logger.info('The current websocket was closed by a third party', event)
     this.retryManager.onFailure(event)
     this.reconnect()
   }
@@ -541,7 +545,7 @@ class CozyRealtime {
    * @private
    */
   onClientLogin() {
-    logger.info('Received login from cozy-client')
+    this.logger.info('Received login from cozy-client')
     if (this.isWebSocketOpen()) {
       this.authenticate()
       // send subscriptions again, permissions may have changed
@@ -654,7 +658,7 @@ class CozyRealtime {
    * @private
    */
   onOnline() {
-    logger.info('reconnect because receiving an online event')
+    this.logger.info('reconnect because receiving an online event')
     this.reconnect({ immediate: true })
   }
 
