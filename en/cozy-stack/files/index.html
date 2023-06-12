@@ -4434,6 +4434,10 @@ the directory is created at the root of the virtual file system.</p>
 <td>CreatedAt</td>
 <td>the creation date</td>
 </tr>
+<tr>
+<td>MetadataID</td>
+<td>the identifier of a metadata object</td>
+</tr>
 </tbody>
 </table>
 <h4 id="http-headers">HTTP headers<a class="headerlink" href="#http-headers" title="Permanent link">&para;</a></h4>
@@ -5212,8 +5216,8 @@ Hello world!
 <p><strong>Note</strong>: see <a href="../references-docs-in-vfs/">references of documents in VFS</a> for
 more informations about the references field.</p>
 <h3 id="post-filesuploadmetadata">POST /files/upload/metadata<a class="headerlink" href="#post-filesuploadmetadata" title="Permanent link">&para;</a></h3>
-<p>Send a metadata object that can be associated to a file uploaded after that,
-via the <code>MetadataID</code> query parameter.</p>
+<p>Send a metadata object that can be associated to a file (or directory) uploaded
+after that, via the <code>MetadataID</code> query parameter.</p>
 <p><strong>Note:</strong> a special permission on <code>io.cozy.certified.carbon_copy</code> is required
 to send a request with <code>carbonCopy</code> as key in the <code>attributes</code> map. Same for
 <code>electronicSafe</code>.</p>
