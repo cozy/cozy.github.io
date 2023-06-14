@@ -86,7 +86,6 @@ The Cozy bar needs some information to be initialized and its initialization mus
 ```js
 cozy.bar.init({
   appName: "App Name",
-  appEditor: "Editor Name",
   iconPath: require("./assets/app-icon.svg"),
   lang: "en-US",
   replaceTitleOnMobile: true
