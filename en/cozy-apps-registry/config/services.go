@@ -136,9 +136,10 @@ func configureParameters() error {
 			NbMinor:  viper.GetInt("conservation.minor"),
 			NbMonths: viper.GetInt("conservation.month"),
 		},
-		VirtualSpaces:  virtuals,
-		DomainSpaces:   viper.GetStringMapString("domain_space"),
-		TrustedDomains: viper.GetStringMapStringSlice("trusted_domains"),
+		VirtualSpaces:    virtuals,
+		DomainSpaces:     viper.GetStringMapString("domain_space"),
+		TrustedDomains:   viper.GetStringMapStringSlice("trusted_domains"),
+		TrustedProtocols: viper.GetStringMapStringSlice("trusted_protocols"),
 	}
 
 	return nil

@@ -76,13 +76,8 @@ func universalLinkRedirect(c echo.Context) error {
 		return err
 	}
 
-	spaceTrustedDomains := base.Config.TrustedDomains
-	if domains, ok := spaceTrustedDomains[spacePrefix.String()]; ok {
-		for _, domain := range domains {
-			if strings.Contains(parsedRedirect.Host, domain) {
-				return c.Redirect(http.StatusSeeOther, fallback)
-			}
-		}
+	if checkRedirectIsTrusted(parsedRedirect, spacePrefix.String(), base.Config) {
+		return c.Redirect(http.StatusSeeOther, fallback)
 	}
 	return echo.NewHTTPError(http.StatusBadRequest, "This domain is not allowed to be redirected")
 }
@@ -114,13 +109,37 @@ func webAuthRedirect(c echo.Context) error {
 	}
 	parsedRedirect.RawQuery = query.Encode()
 
-	spaceTrustedDomains := base.Config.TrustedDomains
-	if domains, ok := spaceTrustedDomains[spacePrefix.String()]; ok {
-		for _, domain := range domains {
-			if strings.Contains(parsedRedirect.Host, domain) {
-				return c.Redirect(http.StatusSeeOther, parsedRedirect.String())
+	if checkRedirectIsTrusted(parsedRedirect, spacePrefix.String(), base.Config) {
+		return c.Redirect(http.StatusSeeOther, fallback)
+	}
+	return echo.NewHTTPError(http.StatusBadRequest, "This domain is not allowed to be redirected")
+}
+
+func checkRedirectIsTrusted(parsedRedirect *url.URL, spacePrefix string, cfg base.ConfigParameters) bool {
+	if parsedRedirect.Scheme == "http" || parsedRedirect.Scheme == "https" {
+		if domains, ok := cfg.TrustedDomains[spacePrefix]; ok {
+			if isHostInTheTrustedDomains(parsedRedirect.Host, domains) {
+				return true
 			}
 		}
 	}
-	return echo.NewHTTPError(http.StatusBadRequest, "This domain is not allowed to be redirected")
+
+	if protocols, ok := cfg.TrustedProtocols[spacePrefix]; ok {
+		for _, protocol := range protocols {
+			if parsedRedirect.Scheme == protocol {
+				return true
+			}
+		}
+	}
+
+	return false
+}
+
+func isHostInTheTrustedDomains(host string, domains []string) bool {
+	for _, domain := range domains {
+		if host == domain || strings.HasSuffix(host, "."+domain) {
+			return true
+		}
+	}
+	return false
 }

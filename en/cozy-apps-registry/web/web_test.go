@@ -6,17 +6,20 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
+	"net/url"
 	"os"
 	"testing"
 
 	"github.com/go-kivik/kivik/v3"
 
 	"github.com/cozy/cozy-apps-registry/auth"
+	"github.com/cozy/cozy-apps-registry/base"
 	"github.com/cozy/cozy-apps-registry/config"
 	"github.com/cozy/cozy-apps-registry/registry"
 	"github.com/cozy/cozy-apps-registry/space"
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 const (
@@ -291,4 +294,41 @@ func createApps() error {
 	}
 
 	return registry.DeactivateMaintenanceVirtualSpace(myKonnectorsSpace, quuxKonn)
+}
+
+func TestCheckRedirectIsTrusted(t *testing.T) {
+	cfg := base.ConfigParameters{
+		TrustedDomains: map[string][]string{
+			"__default__": {"mycozy.cloud", "manager.cozycloud.cc"},
+		},
+		TrustedProtocols: map[string][]string{
+			"__default__": {"cozy"},
+		},
+	}
+
+	u, err := url.Parse("https://example.mycozy.cloud/")
+	require.NoError(t, err)
+	assert.True(t, checkRedirectIsTrusted(u, "__default__", cfg))
+	assert.False(t, checkRedirectIsTrusted(u, "foobar", cfg))
+
+	u, err = url.Parse("cozy://flagship")
+	require.NoError(t, err)
+	assert.True(t, checkRedirectIsTrusted(u, "__default__", cfg))
+	assert.False(t, checkRedirectIsTrusted(u, "foobar", cfg))
+
+	u, err = url.Parse("evil://")
+	require.NoError(t, err)
+	assert.False(t, checkRedirectIsTrusted(u, "__default__", cfg))
+
+	u, err = url.Parse("evil://manager.cozycloud.cc/")
+	require.NoError(t, err)
+	assert.False(t, checkRedirectIsTrusted(u, "__default__", cfg))
+}
+
+func TestIsHostInTheTrustedDomains(t *testing.T) {
+	assert.True(t, isHostInTheTrustedDomains("example.mycozy.cloud", []string{"mycozy.cloud"}))
+	assert.True(t, isHostInTheTrustedDomains("manager.cozycloud.cc", []string{"manager.cozycloud.cc"}))
+
+	assert.False(t, isHostInTheTrustedDomains("cozycloud.cc", []string{"cozycloud.cc.evil.com"}))
+	assert.False(t, isHostInTheTrustedDomains("cozycloud.cc", []string{"evilcozycloud.cc"}))
 }
