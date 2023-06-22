@@ -2943,6 +2943,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#note-about-password_defined" title="Note about password_defined" class="md-nav__link">
+    Note about password_defined
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3919,6 +3926,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#note-about-password_defined" title="Note about password_defined" class="md-nav__link">
+    Note about password_defined
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -4796,6 +4810,13 @@ logged in, the register token can be used to read the informations.</p>
 <h4 id="permissions_1">Permissions<a class="headerlink" href="#permissions_1" title="Permanent link">&para;</a></h4>
 <p>To use this endpoint, an application needs a permission on the type
 <code>io.cozy.settings</code> for the verb <code>GET</code>.</p>
+<h4 id="note-about-password_defined">Note about <code>password_defined</code><a class="headerlink" href="#note-about-password_defined" title="Permanent link">&para;</a></h4>
+<p>There are a few fields that are persisted on the instance its-self, not on its
+settings document. When they are updated, it won&rsquo;t be reflected in the realtime
+when listening on the <code>io.cozy.settings.instance</code> document.</p>
+<p>For <code>password_defined</code>, it is possible to be notified when the password is
+defined by watching a synthetic document with the doctype <code>io.cozy.settings</code>,
+and the id <code>io.cozy.settings.passphrase</code>.</p>
 <h3 id="post-settingsinstancedeletion">POST /settings/instance/deletion<a class="headerlink" href="#post-settingsinstancedeletion" title="Permanent link">&para;</a></h3>
 <p>The settings application can use this route if the user wants to delete their
 Cozy instance.</p>
