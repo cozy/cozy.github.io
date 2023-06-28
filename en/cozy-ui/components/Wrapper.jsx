@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import CozyTheme from '../../react/CozyTheme'
 import Paper from '../../react/Paper'
-import Button from '../../react/Button'
+import Button from '../../react/deprecated/Button'
 import isTesting from '../../react/helpers/isTesting'
 import themes from '../../theme/themes'
 import palette from '../../theme/palette.json'
 import Typography from '../../react/Typography'
-import Divider from '../../react/MuiCozyTheme/Divider'
+import Divider from '../../react/Divider'
 import { isUsingDevStyleguidist } from '../../scripts/build-utils'
 
 const styles = {
