@@ -22,23 +22,26 @@ const TransactionOpener = ({
   children
 }) => {
   const rowRef = useRef()
-  const canEditTransaction = transaction._id
+  const canEditTransaction = !!transaction._id
 
-  const handleClick = useCallback(ev => ev.preventDefault(), [])
+  const handleClick = useCallback(
+    ev => {
+      ev.preventDefault()
 
-  const handleTap = useCallback(() => {
-    if (isSelectionModeActive) {
-      toggleSelection(transaction)
-    } else {
-      canEditTransaction && showTransactionModal()
-    }
-  }, [
-    canEditTransaction,
-    isSelectionModeActive,
-    showTransactionModal,
-    toggleSelection,
-    transaction
-  ])
+      if (isSelectionModeActive) {
+        toggleSelection(transaction)
+      } else {
+        canEditTransaction && showTransactionModal()
+      }
+    },
+    [
+      isSelectionModeActive,
+      showTransactionModal,
+      toggleSelection,
+      transaction,
+      canEditTransaction
+    ]
+  )
 
   const handlePress = useCallback(() => {
     canEditTransaction && toggleSelection(transaction)
@@ -49,15 +52,6 @@ const TransactionOpener = ({
 
     const hammer = new Hammer(rowRef.current)
 
-    hammer.on('tap', ev => {
-      if (isTouchEventsCatched(ev)) {
-        // setTimeout needed to trigger onClick event first, and so make preventDefault() work
-        setTimeout(() => {
-          handleTap()
-        }, 10)
-      }
-    })
-
     hammer.on('press', ev => {
       if (isTouchEventsCatched(ev)) {
         handlePress()
@@ -67,14 +61,7 @@ const TransactionOpener = ({
     return () => {
       hammer && hammer.destroy()
     }
-  }, [
-    handlePress,
-    handleTap,
-    showTransactionModal,
-    toggleSelection,
-    transaction,
-    transaction._id
-  ])
+  }, [handlePress])
 
   return (
     <span ref={rowRef} onClick={handleClick}>

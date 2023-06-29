@@ -6,6 +6,10 @@ module.exports = {
   pagePerSection: true,
   sections: [
     {
+      name: 'Cozy-ui documentation',
+      components: () => ['../docs/components/Readme']
+    },
+    {
       name: 'Core',
       components: () => [
         '../react/Accordion',
