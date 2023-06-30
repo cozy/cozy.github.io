@@ -2935,6 +2935,9 @@
   <img src="../../img/dev/cca-create.gif" />
 </div>
 
+<div class="admonition warning">
+<p>If the <code>yarn create cozy-app</code> command fails with the <code>There should only be one folder in a package cache [...]</code> error, then run <code>yarn cache clean</code> and try again</p>
+</div>
 <p>You&rsquo;ll also need a running <code>cozy-stack</code> server as a backend server. You can use the docker image you downloaded earlier. </p>
 <p>Note: We disable CSP since we&rsquo;re using a wepback-dev-server by defaut to get HMR that runs on <code>localhost</code> and not on <code>cozy.localhost</code>. This should not be used in production ! Please check the behavior of your application once you built it on production mode and have enabled CSP back.  </p>
 <div class="codehilite"><pre><span></span>touch ~/cozy.yaml <span class="c1"># You can edit this file to configure the stack</span>
