@@ -2713,8 +2713,8 @@ sudo ln -s /usr/bin/node /usr/bin/nodejs
 
 <h1 id="go">Go<a class="headerlink" href="#go" title="Permanent link">&para;</a></h1>
 <p>Le serveur Cozy est développé en Go, nous aurons donc besoin d’installer le compilateur du langage Go pour pouvoir compiler depuis les sources :</p>
-<div class="codehilite"><pre><span></span>wget -O /tmp/go1.17.3.linux-amd64.tar.gz https://go.dev/dl/go1.17.3.linux-amd64.tar.gz
-sudo rm -rf /usr/local/go &amp;&amp; sudo tar -C /usr/local -xzvf /tmp/go1.17.3.linux-amd64.tar.gz
+<div class="codehilite"><pre><span></span>wget -O /tmp/go1.20.5.linux-amd64.tar.gz https://go.dev/dl/go1.20.5.linux-amd64.tar.gz
+sudo rm -rf /usr/local/go &amp;&amp; sudo tar -C /usr/local -xzvf /tmp/go1.20.5.linux-amd64.tar.gz
 echo &quot;export PATH=\&quot;\$PATH:/usr/local/go/bin\&quot;&quot; | sudo tee /etc/profile.d/golang.sh &gt; /dev/null
 source /etc/profile.d/golang.sh
 </pre></div>
@@ -2722,7 +2722,7 @@ source /etc/profile.d/golang.sh
 
 <p>Tester que l’installation s’est bien déroulée avec :</p>
 <div class="codehilite"><pre><span></span>go version
-go version go1.17.3 linux/amd64
+go version go1.20.5 linux/amd64
 </pre></div>
 
 
@@ -2843,7 +2843,7 @@ sudo systemctl start cozy-stack
 
 <p>Vous pouvez valider que tout s’est bien passé et que cozy-stack fonctionne bien de la façon suivante :</p>
 <div class="codehilite"><pre><span></span>curl http://localhost:8080/version
-{&quot;build_mode&quot;:&quot;production&quot;,&quot;build_time&quot;:&quot;2021-12-01T13:12:36Z&quot;,&quot;runtime_version&quot;:&quot;go1.17.3&quot;,&quot;version&quot;:&quot;1.5.0-5-gcbdf012d&quot;}
+{&quot;build_mode&quot;:&quot;production&quot;,&quot;build_time&quot;:&quot;2021-12-01T13:12:36Z&quot;,&quot;runtime_version&quot;:&quot;go1.20.5&quot;,&quot;version&quot;:&quot;1.5.0-5-gcbdf012d&quot;}
 </pre></div>
 
 
