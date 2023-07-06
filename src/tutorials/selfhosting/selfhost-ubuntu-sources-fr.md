@@ -72,15 +72,15 @@ Puis installez NodeJS :
 
 Le serveur Cozy est développé en Go, nous aurons donc besoin d’installer le compilateur du langage Go pour pouvoir compiler depuis les sources :
 
-    wget -O /tmp/go1.17.3.linux-amd64.tar.gz https://go.dev/dl/go1.17.3.linux-amd64.tar.gz
-    sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzvf /tmp/go1.17.3.linux-amd64.tar.gz
+    wget -O /tmp/go1.20.5.linux-amd64.tar.gz https://go.dev/dl/go1.20.5.linux-amd64.tar.gz
+    sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzvf /tmp/go1.20.5.linux-amd64.tar.gz
     echo "export PATH=\"\$PATH:/usr/local/go/bin\"" | sudo tee /etc/profile.d/golang.sh > /dev/null
     source /etc/profile.d/golang.sh
 
 Tester que l’installation s’est bien déroulée avec :
 
     go version
-    go version go1.17.3 linux/amd64
+    go version go1.20.5 linux/amd64
 
 # Cozy-stack
 
@@ -195,7 +195,7 @@ Enfin, configurez le service systemd pour le démarrage automatique :
 Vous pouvez valider que tout s’est bien passé et que cozy-stack fonctionne bien de la façon suivante :
 
     curl http://localhost:8080/version
-    {"build_mode":"production","build_time":"2021-12-01T13:12:36Z","runtime_version":"go1.17.3","version":"1.5.0-5-gcbdf012d"}
+    {"build_mode":"production","build_time":"2021-12-01T13:12:36Z","runtime_version":"go1.20.5","version":"1.5.0-5-gcbdf012d"}
 
 # Nginx
 
