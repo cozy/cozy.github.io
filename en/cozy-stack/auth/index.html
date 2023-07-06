@@ -4226,8 +4226,12 @@ be directly redirected to his cozy.</p>
 <p>This endpoint accepts a <code>hideBackButton</code> parameter. If this parameter is present
 and set to <code>true</code> then the passphrase reset page won&rsquo;t display any button to go
 back to the login page.
-This is useful when this page is opened in a different context from the one in 
+This is useful when this page is opened in a different context from the one in
 which the login page was opened (e.g. a browser vs a mobile native application).</p>
+<p>It is also possible to use <code>from=settings</code> parameter in the query-string, to go
+back to the settings app after the password has been reset. It is useful when
+the user wants to change their email address, as the process for changing this
+address requires the password.</p>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/auth/passphrase_reset?hideBackButton=true</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">text/html</span>
