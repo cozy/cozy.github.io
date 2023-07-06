@@ -72,15 +72,15 @@ Install NodeJS:
 
 cozy-stack is developped in Go language so we need to install the Go compiler to be able to compile cozy-stack sources:
 
-    wget -O /tmp/go1.17.3.linux-amd64.tar.gz https://go.dev/dl/go1.17.3.linux-amd64.tar.gz
-    sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzvf /tmp/go1.17.3.linux-amd64.tar.gz
+    wget -O /tmp/go1.20.5.linux-amd64.tar.gz https://go.dev/dl/go1.20.5.linux-amd64.tar.gz
+    sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzvf /tmp/go1.20.5.linux-amd64.tar.gz
     echo "export PATH=\"\$PATH:/usr/local/go/bin\"" | sudo tee /etc/profile.d/golang.sh > /dev/null
     source /etc/profile.d/golang.sh
 
 Test Go installation is fine with:
 
     go version
-    go version go1.17.3 linux/amd64
+    go version go1.20.5 linux/amd64
 
 # Cozy-stack
 
@@ -195,7 +195,7 @@ Finally, configure systemd to automatically launch cozy-stack on boot:
 You can validate everything went well and cozy-stack is running thiw way:
 
     curl http://localhost:8080/version
-    {"build_mode":"production","build_time":"2021-12-01T13:12:36Z","runtime_version":"go1.17.3","version":"1.5.0-5-gcbdf012d"}
+    {"build_mode":"production","build_time":"2021-12-01T13:12:36Z","runtime_version":"go1.20.5","version":"1.5.0-5-gcbdf012d"}
 
 # Nginx
 
