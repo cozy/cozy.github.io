@@ -29,6 +29,7 @@ module.exports = {
         '../react/Box',
         '../react/Breadcrumbs',
         '../react/Button',
+        '../react/ButtonBase',
         '../react/Buttons',
         '../react/CardActions',
         '../react/CardActionArea',
@@ -154,6 +155,8 @@ module.exports = {
         '../react/Paywall',
         '../react/Sidebar',
         '../react/SquareAppIcon',
+        '../react/QualificationGrid',
+        '../react/QualificationItem',
         '../react/UploadQueue',
         '../react/Viewer'
       ]
