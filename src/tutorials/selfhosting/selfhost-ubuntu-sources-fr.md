@@ -37,7 +37,7 @@ Installer Couchdb :
     sudo apt update
     sudo apt install -y couchdb
 
-Lors de l’installation de couchdb, choisir le mode `Standalone` et définir le mot de passe administrateur.
+Lors de l’installation de couchdb, choisir le mode `Standalone`, définissez un cookie erlang aléatoire et définir le mot de passe administrateur.
 
 Valider le bon fonctionnement de couchdb :
 
@@ -47,9 +47,8 @@ Valider le bon fonctionnement de couchdb :
 Enfin, créer un utilisateur et un mot de passe pour cozy-stack :
 
     read -p "Couchdb password for cozy user: " -r -s COUCH_PASS
-    curl -fsX PUT -u "admin:adminpwd" "http://localhost:5984/_node/couchdb@127.0.0.1/_config/admins/cozy" --data "\"${COUCH_PASS}\""
-
-Dans cette ligne de commande, `adminpwd` doit être remplacé par le mot de passe administrateur de couchdb que vous avez défini à son installation.
+    COUCH_ADMIN_PWD=$(sudo debconf-get-selections  | grep '^couchdb\scouchdb/adminpass\s' | awk '{ print $3 }')
+    curl -fsX PUT -u "admin:${COUCH_ADMIN_PWD}" "http://localhost:5984/_node/couchdb@127.0.0.1/_config/admins/cozy" --data "\"${COUCH_PASS}\""
 
 # NodeJS
 
@@ -91,7 +90,12 @@ Tout d’abord, Installez les dépendances :
 Récupérez le code source :
 
     sudo apt install -y git
-    sudo git clone https://github.com/cozy/cozy-stack.git /opt/cozy-stack
+    sudo mkdir -p /opt/cozy-stack
+    sudo chown ${USER}: /opt/cozy-stack
+    git -C /opt/cozy-stack init
+    git -C /opt/cozy-stack remote add origin https://github.com/cozy/cozy-stack.git
+    git -C /opt/cozy-stack fetch
+    git -C /opt/cozy-stack pull origin master
 
 Puis compilez le programme :
 
@@ -130,6 +134,11 @@ Puis l’installer :
 Et créer la configuration grâce à ces commandes :
 
     read -p "Cozy stack admin password: " -r -s COZY_PASS
+    sudo sh -c "COZY_ADMIN_PASSPHRASE=\"${COZY_PASS}\" cozy-stack config passwd /etc/cozy/cozy-admin-passphrase"
+    sudo chown cozy-stack:cozy /etc/cozy/cozy-admin-passphrase
+    sudo cozy-stack config gen-keys /etc/cozy/vault
+    sudo chown cozy-stack:cozy /etc/cozy/vault.enc /etc/cozy/vault.dec
+    sudo chmod 0600 /etc/cozy/vault.enc /etc/cozy/vault.dec
     cat <<EOF | sudo tee /etc/cozy/cozy.yml >/dev/null
     host: 127.0.0.1
     port: 8080
@@ -163,11 +172,6 @@ Et créer la configuration grâce à ces commandes :
     EOF
     sudo chown cozy-stack:cozy /etc/cozy/cozy.yml
     sudo chmod 0644 /etc/cozy/cozy.yml
-    sudo sh -c "COZY_ADMIN_PASSPHRASE=\"${COZY_PASS}\" cozy-stack config passwd /etc/cozy/cozy-admin-passphrase"
-    sudo chown cozy-stack:cozy /etc/cozy/cozy-admin-passphrase
-    sudo cozy-stack config gen-keys /etc/cozy/vault
-    sudo chown cozy-stack:cozy /etc/cozy/vault.enc /etc/cozy/vault.dec
-    sudo chmod 0600 /etc/cozy/vault.enc /etc/cozy/vault.dec
 
 Enfin, configurez le service systemd pour le démarrage automatique :
 
@@ -200,7 +204,6 @@ Vous pouvez valider que tout s’est bien passé et que cozy-stack fonctionne bi
 # Nginx
 
 Commencez par créer une entrée DNS dans votre domaine pour `cozy.domain.example` et `*.cozy.domain.example` qui pointe vers votre serveur. Par exemple :
-
 
     cozy     1h     IN         A     <IP_de_votre_serveur>
     *.cozy   1h     IN     CNAME     cozy
@@ -513,7 +516,7 @@ Voici la marche à suivre pour y parvenir :
 Mettez à jour le code source :
 
     cd /opt/cozy-stack
-    sudo git pull
+    git pull
 
 Relancer la compilation :
 
@@ -528,7 +531,7 @@ Vous pouvez tester la bonne compilation de la façon suivante :
 Installer le nouveau binaire généré :
 
     sudo install -o root -g root -m 0755 -T \
-                 $(go env GOPATH)/bin/cozy-stack /usr/bin/cozy-stack             
+                 $(go env GOPATH)/bin/cozy-stack /usr/bin/cozy-stack
 
 Relancer cozy-stack :
 
