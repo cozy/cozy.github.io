@@ -2680,7 +2680,7 @@ sudo apt install -y couchdb
 </pre></div>
 
 
-<p>Lors de l’installation de couchdb, choisir le mode <code>Standalone</code> et définir le mot de passe administrateur.</p>
+<p>Lors de l’installation de couchdb, choisir le mode <code>Standalone</code>, définissez un cookie erlang aléatoire et définir le mot de passe administrateur.</p>
 <p>Valider le bon fonctionnement de couchdb :</p>
 <div class="codehilite"><pre><span></span>curl http://localhost:5984/
 {&quot;couchdb&quot;:&quot;Welcome&quot;,&quot;version&quot;:&quot;3.2.1&quot;,&quot;git_sha&quot;:&quot;244d428af&quot;,&quot;uuid&quot;:&quot;f7b83554fa2eb43778963d18a1f92211&quot;,&quot;features&quot;:[&quot;access-ready&quot;,&quot;partitioned&quot;,&quot;pluggable-storage-engines&quot;,&quot;reshard&quot;,&quot;scheduler&quot;],&quot;vendor&quot;:{&quot;name&quot;:&quot;The Apache Software Foundation&quot;}}
@@ -2689,11 +2689,11 @@ sudo apt install -y couchdb
 
 <p>Enfin, créer un utilisateur et un mot de passe pour cozy-stack :</p>
 <div class="codehilite"><pre><span></span><span class="n">read</span> <span class="o">-</span><span class="n">p</span> <span class="s">&quot;Couchdb password for cozy user: &quot;</span> <span class="o">-</span><span class="n">r</span> <span class="o">-</span><span class="n">s</span> <span class="n">COUCH_PASS</span>
-<span class="n">curl</span> <span class="o">-</span><span class="n">fsX</span> <span class="n">PUT</span> <span class="o">-</span><span class="n">u</span> <span class="s">&quot;admin:adminpwd&quot;</span> <span class="s">&quot;http://localhost:5984/_node/couchdb@127.0.0.1/_config/admins/cozy&quot;</span> <span class="o">--</span><span class="n">data</span> <span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">${COUCH_PASS}</span><span class="se">\&quot;</span><span class="s">&quot;</span>
+<span class="n">COUCH_ADMIN_PWD</span><span class="o">=</span><span class="err">$</span><span class="p">(</span><span class="n">sudo</span> <span class="n">debconf</span><span class="o">-</span><span class="n">get</span><span class="o">-</span><span class="n">selections</span>  <span class="o">|</span> <span class="n">grep</span> <span class="err">&#39;</span><span class="o">^</span><span class="n">couchdb</span><span class="err">\</span><span class="n">scouchdb</span><span class="o">/</span><span class="n">adminpass</span><span class="err">\</span><span class="n">s</span><span class="err">&#39;</span> <span class="o">|</span> <span class="n">awk</span> <span class="err">&#39;</span><span class="p">{</span> <span class="n">print</span> <span class="err">$</span><span class="mi">3</span> <span class="p">}</span><span class="err">&#39;</span><span class="p">)</span>
+<span class="n">curl</span> <span class="o">-</span><span class="n">fsX</span> <span class="n">PUT</span> <span class="o">-</span><span class="n">u</span> <span class="s">&quot;admin:${COUCH_ADMIN_PWD}&quot;</span> <span class="s">&quot;http://localhost:5984/_node/couchdb@127.0.0.1/_config/admins/cozy&quot;</span> <span class="o">--</span><span class="n">data</span> <span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">${COUCH_PASS}</span><span class="se">\&quot;</span><span class="s">&quot;</span>
 </pre></div>
 
 
-<p>Dans cette ligne de commande, <code>adminpwd</code> doit être remplacé par le mot de passe administrateur de couchdb que vous avez défini à son installation.</p>
 <h1 id="nodejs">NodeJS<a class="headerlink" href="#nodejs" title="Permanent link">&para;</a></h1>
 <p>Afin de pouvoir exécuter les connecteurs et qu’ils récupèrent vos données, cozy-stack a besoin de NodeJS version 12 ou 16. Le présent document détaille les informations pour NodeJS 16.</p>
 <p>Configurez l’entrepôt de paquets NodeJS :</p>
@@ -2734,7 +2734,12 @@ go version go1.20.5 linux/amd64
 
 <p>Récupérez le code source :</p>
 <div class="codehilite"><pre><span></span>sudo apt install -y git
-sudo git clone https://github.com/cozy/cozy-stack.git /opt/cozy-stack
+sudo mkdir -p /opt/cozy-stack
+sudo chown <span class="cp">${</span><span class="n">USER</span><span class="cp">}</span>: /opt/cozy-stack
+git -C /opt/cozy-stack init
+git -C /opt/cozy-stack remote add origin https://github.com/cozy/cozy-stack.git
+git -C /opt/cozy-stack fetch
+git -C /opt/cozy-stack pull origin master
 </pre></div>
 
 
@@ -2776,6 +2781,11 @@ sudo install -o cozy-stack -g cozy -m 750 -d /var/lib/cozy
 
 <p>Et créer la configuration grâce à ces commandes :</p>
 <div class="codehilite"><pre><span></span><span class="n">read</span> <span class="o">-</span><span class="n">p</span> <span class="s">&quot;Cozy stack admin password: &quot;</span> <span class="o">-</span><span class="n">r</span> <span class="o">-</span><span class="n">s</span> <span class="n">COZY_PASS</span>
+<span class="n">sudo</span> <span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="s">&quot;COZY_ADMIN_PASSPHRASE=</span><span class="se">\&quot;</span><span class="s">${COZY_PASS}</span><span class="se">\&quot;</span><span class="s"> cozy-stack config passwd /etc/cozy/cozy-admin-passphrase&quot;</span>
+<span class="n">sudo</span> <span class="n">chown</span> <span class="n">cozy</span><span class="o">-</span><span class="nl">stack</span><span class="p">:</span><span class="n">cozy</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">cozy</span><span class="o">/</span><span class="n">cozy</span><span class="o">-</span><span class="n">admin</span><span class="o">-</span><span class="n">passphrase</span>
+<span class="n">sudo</span> <span class="n">cozy</span><span class="o">-</span><span class="n">stack</span> <span class="n">config</span> <span class="n">gen</span><span class="o">-</span><span class="n">keys</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">cozy</span><span class="o">/</span><span class="n">vault</span>
+<span class="n">sudo</span> <span class="n">chown</span> <span class="n">cozy</span><span class="o">-</span><span class="nl">stack</span><span class="p">:</span><span class="n">cozy</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">cozy</span><span class="o">/</span><span class="n">vault</span><span class="p">.</span><span class="n">enc</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">cozy</span><span class="o">/</span><span class="n">vault</span><span class="p">.</span><span class="n">dec</span>
+<span class="n">sudo</span> <span class="n">chmod</span> <span class="mo">0600</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">cozy</span><span class="o">/</span><span class="n">vault</span><span class="p">.</span><span class="n">enc</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">cozy</span><span class="o">/</span><span class="n">vault</span><span class="p">.</span><span class="n">dec</span>
 <span class="n">cat</span> <span class="o">&lt;&lt;</span><span class="n">EOF</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">tee</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">cozy</span><span class="o">/</span><span class="n">cozy</span><span class="p">.</span><span class="n">yml</span> <span class="o">&gt;/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>
 <span class="nl">host</span><span class="p">:</span> <span class="mf">127.0.0.1</span>
 <span class="nl">port</span><span class="p">:</span> <span class="mi">8080</span>
@@ -2809,11 +2819,6 @@ sudo install -o cozy-stack -g cozy -m 750 -d /var/lib/cozy
 <span class="n">EOF</span>
 <span class="n">sudo</span> <span class="n">chown</span> <span class="n">cozy</span><span class="o">-</span><span class="nl">stack</span><span class="p">:</span><span class="n">cozy</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">cozy</span><span class="o">/</span><span class="n">cozy</span><span class="p">.</span><span class="n">yml</span>
 <span class="n">sudo</span> <span class="n">chmod</span> <span class="mo">0644</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">cozy</span><span class="o">/</span><span class="n">cozy</span><span class="p">.</span><span class="n">yml</span>
-<span class="n">sudo</span> <span class="n">sh</span> <span class="o">-</span><span class="n">c</span> <span class="s">&quot;COZY_ADMIN_PASSPHRASE=</span><span class="se">\&quot;</span><span class="s">${COZY_PASS}</span><span class="se">\&quot;</span><span class="s"> cozy-stack config passwd /etc/cozy/cozy-admin-passphrase&quot;</span>
-<span class="n">sudo</span> <span class="n">chown</span> <span class="n">cozy</span><span class="o">-</span><span class="nl">stack</span><span class="p">:</span><span class="n">cozy</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">cozy</span><span class="o">/</span><span class="n">cozy</span><span class="o">-</span><span class="n">admin</span><span class="o">-</span><span class="n">passphrase</span>
-<span class="n">sudo</span> <span class="n">cozy</span><span class="o">-</span><span class="n">stack</span> <span class="n">config</span> <span class="n">gen</span><span class="o">-</span><span class="n">keys</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">cozy</span><span class="o">/</span><span class="n">vault</span>
-<span class="n">sudo</span> <span class="n">chown</span> <span class="n">cozy</span><span class="o">-</span><span class="nl">stack</span><span class="p">:</span><span class="n">cozy</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">cozy</span><span class="o">/</span><span class="n">vault</span><span class="p">.</span><span class="n">enc</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">cozy</span><span class="o">/</span><span class="n">vault</span><span class="p">.</span><span class="n">dec</span>
-<span class="n">sudo</span> <span class="n">chmod</span> <span class="mo">0600</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">cozy</span><span class="o">/</span><span class="n">vault</span><span class="p">.</span><span class="n">enc</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">cozy</span><span class="o">/</span><span class="n">vault</span><span class="p">.</span><span class="n">dec</span>
 </pre></div>
 
 
@@ -3154,7 +3159,7 @@ EOF
 Voici la marche à suivre pour y parvenir :</p>
 <p>Mettez à jour le code source :</p>
 <div class="codehilite"><pre><span></span>cd /opt/cozy-stack
-sudo git pull
+git pull
 </pre></div>
 
 
