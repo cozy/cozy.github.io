@@ -5061,7 +5061,8 @@ Hello world!
 <li>412 Precondition Failed, when the md5sum is <code>Content-MD5</code> is not equal to
   the md5sum computed by the server</li>
 <li>413 Payload Too Large, when there is not enough available space on the cozy
-  to upload the file</li>
+  to upload the file or the file is larger than the server&rsquo;s filesystem maximum
+  file size</li>
 <li>422 Unprocessable Entity, when the sent data is invalid (for example, the
   parent doesn&rsquo;t exist, <code>Type</code> or <code>Name</code> parameter is missing or invalid,
   etc.)</li>
@@ -5313,6 +5314,8 @@ Hello world!
 <li>the <code>Date</code> HTTP header</li>
 <li>the current time from the server.</li>
 </ul>
+<p>/!\ If the <code>updated_at</code> field is older than the <code>created_at</code> one, then the
+<code>updated_at</code> will be set with the value of the <code>created_at</code>.</p>
 <h4 id="query-string_2">Query-String<a class="headerlink" href="#query-string_2" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
@@ -5322,6 +5325,10 @@ Hello world!
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>Size</td>
+<td>the file size (when <code>Content-Length</code> can&rsquo;t be used)</td>
+</tr>
 <tr>
 <td>Tags</td>
 <td>an array of tags</td>
@@ -5341,6 +5348,14 @@ Hello world!
 <tr>
 <td>UpdatedAt</td>
 <td>the modification date of the file</td>
+</tr>
+<tr>
+<td>SourceAccount</td>
+<td>the id of the source account used by a konnector</td>
+</tr>
+<tr>
+<td>SourceAccountIdentifier</td>
+<td>the unique identifier of the account targeted by the connector</td>
 </tr>
 </tbody>
 </table>
@@ -5365,6 +5380,9 @@ HELLO WORLD!
 <li>404 Not Found, when the file wasn&rsquo;t existing</li>
 <li>412 Precondition Failed, when the <code>If-Match</code> header is set and doesn&rsquo;t match
   the last revision of the file</li>
+<li>413 Payload Too Large, when there is not enough available space on the cozy
+  to upload the file or the file is larger than the server&rsquo;s filesystem maximum
+  file size</li>
 </ul>
 <h4 id="response_8">Response<a class="headerlink" href="#response_8" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>

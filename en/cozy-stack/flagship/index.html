@@ -2911,9 +2911,12 @@ send it to the dedicated mobile app. If there are no dedicated apps with a push
 token, the stack will then try to send the notification to the flagship apps.
 If it fails again, the stack then fallbacks on email.</p>
 <p>If the notification is sent to the flagship app, the title is modified to
-preprend the application name. The name is taken from the <code>appName</code> field of
-the additional parameters (<code>data</code>). It allows the user to have more context
-when reading the notification on their mobile.</p>
+preprend the application name. By default, the notification <code>slug</code> is used but,
+if present, the name is taken from the <code>appName</code> field of the additional
+parameters (<code>data</code>). It allows the user to have more context when reading the
+notification on their mobile. The <code>data.appName</code> field can also be used to
+completely remove the application name from the notification title if set to an
+empty string.</p>
                 
                   
                 
