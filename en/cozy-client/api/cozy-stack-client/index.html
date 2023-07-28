@@ -1289,13 +1289,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#documentcollectionremoveinconsistentindexindexes" title="documentCollection.removeInconsistentIndex(indexes)" class="md-nav__link">
-    documentCollection.removeInconsistentIndex(indexes)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#documentcollectionfetchchangesrawcouchoptions" title="documentCollection.fetchChangesRaw(couchOptions)" class="md-nav__link">
     documentCollection.fetchChangesRaw(couchOptions)
   </a>
@@ -2078,13 +2071,6 @@
         <li class="md-nav__item">
   <a href="#getindexfields-array" title="getIndexFields ⇒ Array" class="md-nav__link">
     getIndexFields ⇒ Array
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#isinconsistentindex-boolean" title="isInconsistentIndex ⇒ boolean" class="md-nav__link">
-    isInconsistentIndex ⇒ boolean
   </a>
   
 </li>
@@ -4465,13 +4451,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#documentcollectionremoveinconsistentindexindexes" title="documentCollection.removeInconsistentIndex(indexes)" class="md-nav__link">
-    documentCollection.removeInconsistentIndex(indexes)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#documentcollectionfetchchangesrawcouchoptions" title="documentCollection.fetchChangesRaw(couchOptions)" class="md-nav__link">
     documentCollection.fetchChangesRaw(couchOptions)
   </a>
@@ -5259,13 +5238,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#isinconsistentindex-boolean" title="isInconsistentIndex ⇒ boolean" class="md-nav__link">
-    isInconsistentIndex ⇒ boolean
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#ismatchingindex-boolean" title="isMatchingIndex ⇒ boolean" class="md-nav__link">
     isMatchingIndex ⇒ boolean
   </a>
@@ -5887,13 +5859,6 @@ Serves to dedupe equal queries requested at the same time</p>
 <dd><p>Compute fields that should be indexed for a mango
 query to work</p>
 </dd>
-<dt><a href="#isInconsistentIndex">isInconsistentIndex</a> ⇒ <code>boolean</code></dt>
-<dd><p>Check if an index is in an inconsistent state, i.e. it evaluates one of these:</p>
-<ul>
-<li>its name contains the indexed attributes which are not in correct order</li>
-<li>it contains a partial filter, but the fields are not in the name</li>
-</ul>
-</dd>
 <dt><a href="#isMatchingIndex">isMatchingIndex</a> ⇒ <code>boolean</code></dt>
 <dd><p>Check if an index is matching the given fields</p>
 </dd>
@@ -6292,7 +6257,6 @@ document as data attribute  </p>
 <li><a href="#DocumentCollection+fetchAllMangoIndexes">.fetchAllMangoIndexes()</a> ⇒ <code>Promise.&lt;Array.&lt;DesignDoc&gt;&gt;</code></li>
 <li><a href="#DocumentCollection+destroyIndex">.destroyIndex(index)</a> ⇒ <code>Promise.&lt;object&gt;</code></li>
 <li><a href="#DocumentCollection+copyIndex">.copyIndex(existingIndex, newIndexName)</a> ⇒ <a href="#DesignDoc"><code>Promise.&lt;DesignDoc&gt;</code></a></li>
-<li><a href="#DocumentCollection+removeInconsistentIndex">.removeInconsistentIndex(indexes)</a></li>
 <li><a href="#DocumentCollection+fetchChangesRaw">.fetchChangesRaw(couchOptions)</a></li>
 </ul>
 </li>
@@ -6723,25 +6687,6 @@ having to recompute the existing index.</p>
 <td>newIndexName</td>
 <td><code>string</code></td>
 <td>The name of the copy</td>
-</tr>
-</tbody>
-</table>
-<p><a name="DocumentCollection+removeInconsistentIndex"></a></p>
-<h3 id="documentcollectionremoveinconsistentindexindexes">documentCollection.removeInconsistentIndex(indexes)<a class="headerlink" href="#documentcollectionremoveinconsistentindexindexes" title="Permanent link">&para;</a></h3>
-<p><strong>Kind</strong>: instance method of <a href="#DocumentCollection"><code>DocumentCollection</code></a>  </p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>indexes</td>
-<td><a href="#DesignDoc"><code>Array.&lt;DesignDoc&gt;</code></a></td>
-<td>Index to remove</td>
 </tr>
 </tbody>
 </table>
@@ -9233,30 +9178,7 @@ found&rdquo; error.  </p>
 query to work</p>
 <p><strong>Kind</strong>: global constant<br />
 <strong>Returns</strong>: <code>Array</code> - - Fields to index<br />
-<a name="isInconsistentIndex"></a></p>
-<h2 id="isinconsistentindex-boolean">isInconsistentIndex ⇒ <code>boolean</code><a class="headerlink" href="#isinconsistentindex-boolean" title="Permanent link">&para;</a></h2>
-<p>Check if an index is in an inconsistent state, i.e. it evaluates one of these:
-- its name contains the indexed attributes which are not in correct order
-- it contains a partial filter, but the fields are not in the name</p>
-<p><strong>Kind</strong>: global constant<br />
-<strong>Returns</strong>: <code>boolean</code> - True if the index is inconsistent  </p>
-<table>
-<thead>
-<tr>
-<th>Param</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>index</td>
-<td><a href="#DesignDoc"><code>DesignDoc</code></a></td>
-<td>The index to check</td>
-</tr>
-</tbody>
-</table>
-<p><a name="isMatchingIndex"></a></p>
+<a name="isMatchingIndex"></a></p>
 <h2 id="ismatchingindex-boolean">isMatchingIndex ⇒ <code>boolean</code><a class="headerlink" href="#ismatchingindex-boolean" title="Permanent link">&para;</a></h2>
 <p>Check if an index is matching the given fields</p>
 <p><strong>Kind</strong>: global constant<br />
