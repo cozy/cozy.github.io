@@ -4467,8 +4467,8 @@ the directory is created at the root of the virtual file system.</p>
 <li>201 Created, when the directory has been successfully created</li>
 <li>404 Not Found, when the parent directory does not exist</li>
 <li>409 Conflict, when a directory with the same name already exists</li>
-<li>422 Unprocessable Entity, when the <code>Type</code> or <code>Name</code> parameter is missing or
-  invalid</li>
+<li>422 Unprocessable Entity, when the <code>Type</code>, <code>Name</code>, or <code>MetadataID</code> parameter
+  is missing or invalid</li>
 </ul>
 <h4 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">201</span> <span class="ne">Created</span>
@@ -5064,8 +5064,8 @@ Hello world!
   to upload the file or the file is larger than the server&rsquo;s filesystem maximum
   file size</li>
 <li>422 Unprocessable Entity, when the sent data is invalid (for example, the
-  parent doesn&rsquo;t exist, <code>Type</code> or <code>Name</code> parameter is missing or invalid,
-  etc.)</li>
+  parent doesn&rsquo;t exist, <code>Type</code>, <code>Name</code>, or <code>MetadataID</code> parameter is missing or
+  invalid, etc.)</li>
 </ul>
 <h4 id="response_5">Response<a class="headerlink" href="#response_5" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">201</span> <span class="ne">Created</span>
@@ -5218,7 +5218,8 @@ Hello world!
 more informations about the references field.</p>
 <h3 id="post-filesuploadmetadata">POST /files/upload/metadata<a class="headerlink" href="#post-filesuploadmetadata" title="Permanent link">&para;</a></h3>
 <p>Send a metadata object that can be associated to a file (or directory) uploaded
-after that, via the <code>MetadataID</code> query parameter.</p>
+after that, via the <code>MetadataID</code> query parameter. The <code>MetadataID</code> parameter is
+only valid for 10 minutes, and will expire after that.</p>
 <p><strong>Note:</strong> a special permission on <code>io.cozy.certified.carbon_copy</code> is required
 to send a request with <code>carbonCopy</code> as key in the <code>attributes</code> map. Same for
 <code>electronicSafe</code>.</p>
@@ -5383,6 +5384,8 @@ HELLO WORLD!
 <li>413 Payload Too Large, when there is not enough available space on the cozy
   to upload the file or the file is larger than the server&rsquo;s filesystem maximum
   file size</li>
+<li>422 Unprocessable Entity, when the sent data is invalid (for example, the
+  <code>MetadataID</code> parameter has expired)</li>
 </ul>
 <h4 id="response_8">Response<a class="headerlink" href="#response_8" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
