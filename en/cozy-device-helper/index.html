@@ -2754,17 +2754,18 @@
 </blockquote>
 <h2 id="api">API<a class="headerlink" href="#api" title="Permanent link">&para;</a></h2>
 <h3 id="platforms">Platforms<a class="headerlink" href="#platforms" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="p">{</span> <span class="n">getPlatform</span><span class="p">,</span> <span class="n">isWebApp</span><span class="p">,</span> <span class="n">isMobileApp</span><span class="p">,</span> <span class="n">isIOSApp</span><span class="p">,</span> <span class="n">isAndroidApp</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;cozy-device-helper&#39;</span>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="p">{</span> <span class="n">getPlatform</span><span class="p">,</span> <span class="n">isWebApp</span><span class="p">,</span> <span class="n">isMobileApp</span><span class="p">,</span> <span class="n">isIOSApp</span><span class="p">,</span> <span class="n">isAndroidApp</span><span class="p">,</span> <span class="n">isFlagshipApp</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;cozy-device-helper&#39;</span>
 </pre></div>
 
 
 <p>To know the platform:</p>
 <ul>
+<li><code>isFlagshipApp()</code>: return <code>boolean</code> if inside the flagship app.</li>
 <li><code>getPlatform()</code>: return <code>ios</code>, <code>android</code> or <code>web</code></li>
 <li><code>isWebApp()</code>: return <code>boolean</code></li>
-<li><code>isMobileApp()</code>: return <code>boolean</code></li>
-<li><code>isIOSApp()</code>: return <code>boolean</code></li>
-<li><code>isAndroidApp()</code>: return <code>boolean</code></li>
+<li><code>isMobileApp()</code>: return <code>boolean</code>. True if its a cordova App. False for others.</li>
+<li><code>isIOSApp()</code>: return <code>boolean</code>. True if its a cordova App on iOS.</li>
+<li><code>isAndroidApp()</code>: return <code>boolean</code>. True if its a cordova App on Android.</li>
 <li><code>isAndroid()</code>: return <code>boolean</code> (check if the user is on an android smartphone (native &amp; browser))</li>
 <li><code>isOS()</code>: return <code>boolean</code> (check if the user is on an iOS smartphone (native &amp; browser))</li>
 <li><code>isMobile()</code>: return <code>boolean</code> (check if the user is on an android or iOS smartphone (native &amp; browser))</li>
