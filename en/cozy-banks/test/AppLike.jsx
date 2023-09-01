@@ -12,6 +12,7 @@ import { JobsContext } from 'ducks/context/JobsContext'
 import { BanksContext } from 'ducks/context/BanksContext'
 import SelectionProvider from 'ducks/context/SelectionContext'
 import { WebviewIntentProvider } from 'cozy-intent'
+import { DisableEnforceFocusModalProvider } from 'ducks/context/DisableEnforceFocusModalContext'
 
 export const TestI18n = ({ children }) => {
   return (
@@ -25,10 +26,10 @@ const AppLike = ({
   children,
   store,
   initialEntries,
-  client,
+  client: clientProps,
   jobsInProgress
 }) => {
-  client = client || getClient()
+  const client = clientProps || getClient()
   return (
     <WebviewIntentProvider>
       <TrackerProvider>
@@ -36,21 +37,23 @@ const AppLike = ({
           <BreakpointsProvider>
             <Provider store={(client && client.store) || store}>
               <CozyProvider client={client}>
-                <JobsContext.Provider value={{ jobsInProgress }}>
-                  <BanksContext.Provider
-                    value={{
-                      client,
-                      jobsInProgress,
-                      hasJobsInProgress: jobsInProgress
-                        ? jobsInProgress.length > 0
-                        : false
-                    }}
-                  >
-                    <SelectionProvider>
-                      <TestI18n>{children}</TestI18n>
-                    </SelectionProvider>
-                  </BanksContext.Provider>
-                </JobsContext.Provider>
+                <DisableEnforceFocusModalProvider>
+                  <JobsContext.Provider value={{ jobsInProgress }}>
+                    <BanksContext.Provider
+                      value={{
+                        client,
+                        jobsInProgress,
+                        hasJobsInProgress: jobsInProgress
+                          ? jobsInProgress.length > 0
+                          : false
+                      }}
+                    >
+                      <SelectionProvider>
+                        <TestI18n>{children}</TestI18n>
+                      </SelectionProvider>
+                    </BanksContext.Provider>
+                  </JobsContext.Provider>
+                </DisableEnforceFocusModalProvider>
               </CozyProvider>
             </Provider>
           </BreakpointsProvider>

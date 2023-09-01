@@ -33,6 +33,7 @@ import {
 } from 'doctypes'
 import { StoreURLProvider } from 'ducks/store/StoreContext'
 import { JOBS_DOCTYPE } from './doctypes'
+import { DisableEnforceFocusModalProvider } from 'ducks/context/DisableEnforceFocusModalContext'
 const jobsProviderOptions = t => ({
   onSuccess: () => Alerter.success(t('JobsContext.alerter-success')),
   onError: () => Alerter.error(t('JobsContext.alerter-errored'))
@@ -79,31 +80,37 @@ const AppContainer = ({ store, lang, client }) => {
                   lang={lang}
                   dictRequire={lang => require(`locales/${lang}`)}
                 >
-                  <JobsProvider
-                    client={client}
-                    options={jobsProviderOptions(t)}
-                  >
-                    <BanksProvider client={client}>
-                      <SelectionProvider>
-                        <StoreURLProvider>
-                          <MuiCozyTheme>
-                            <CozyConfirmDialogProvider>
-                              <RealTimeQueries doctype={TRIGGER_DOCTYPE} />
-                              <RealTimeQueries doctype={ACCOUNT_DOCTYPE} />
-                              <RealTimeQueries doctype={COZY_ACCOUNT_DOCTYPE} />
-                              <RealTimeQueries doctype={TRANSACTION_DOCTYPE} />
-                              <RealTimeQueries doctype={GROUP_DOCTYPE} />
-                              <RealTimeQueries doctype={FILES_DOCTYPE} />
-                              <RealTimeQueries doctype={JOBS_DOCTYPE} />
-                              <Router>
-                                <AppRoute />
-                              </Router>
-                            </CozyConfirmDialogProvider>
-                          </MuiCozyTheme>
-                        </StoreURLProvider>
-                      </SelectionProvider>
-                    </BanksProvider>
-                  </JobsProvider>
+                  <DisableEnforceFocusModalProvider>
+                    <JobsProvider
+                      client={client}
+                      options={jobsProviderOptions(t)}
+                    >
+                      <BanksProvider client={client}>
+                        <SelectionProvider>
+                          <StoreURLProvider>
+                            <MuiCozyTheme>
+                              <CozyConfirmDialogProvider>
+                                <RealTimeQueries doctype={TRIGGER_DOCTYPE} />
+                                <RealTimeQueries doctype={ACCOUNT_DOCTYPE} />
+                                <RealTimeQueries
+                                  doctype={COZY_ACCOUNT_DOCTYPE}
+                                />
+                                <RealTimeQueries
+                                  doctype={TRANSACTION_DOCTYPE}
+                                />
+                                <RealTimeQueries doctype={GROUP_DOCTYPE} />
+                                <RealTimeQueries doctype={FILES_DOCTYPE} />
+                                <RealTimeQueries doctype={JOBS_DOCTYPE} />
+                                <Router>
+                                  <AppRoute />
+                                </Router>
+                              </CozyConfirmDialogProvider>
+                            </MuiCozyTheme>
+                          </StoreURLProvider>
+                        </SelectionProvider>
+                      </BanksProvider>
+                    </JobsProvider>
+                  </DisableEnforceFocusModalProvider>
                 </I18n>
               </CozyProvider>
             </StylesProvider>

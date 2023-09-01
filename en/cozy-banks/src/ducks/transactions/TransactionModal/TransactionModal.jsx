@@ -15,10 +15,12 @@ import {
 import useDocument from 'components/useDocument'
 import RawContentDialog from 'components/RawContentDialog'
 import TransactionModalInfoContent from 'ducks/transactions/TransactionModal/TransactionModalInfoContent'
+import { useDisableEnforceFocusModal } from 'ducks/context/DisableEnforceFocusModalContext'
 
 const TransactionModal = ({ requestClose, transactionId, ...props }) => {
   const transaction = useDocument(TRANSACTION_DOCTYPE, transactionId)
   const location = useLocation()
+  const { disableEnforceFocus } = useDisableEnforceFocusModal()
 
   useTrackPage(lastTracked => {
     // We cannot simply add ":depense" to the last tracked page because
@@ -57,6 +59,7 @@ const TransactionModal = ({ requestClose, transactionId, ...props }) => {
       size="medium"
       open
       onClose={handleClose}
+      disableEnforceFocus={disableEnforceFocus}
       title={
         <div className="u-ta-center">
           <Figure

@@ -6,10 +6,14 @@ import {
 } from 'cozy-ui/transpiled/react/CozyDialogs'
 
 const RawContentDialog = props => {
-  const { title, content, onClose } = props
+  const { title, content, onClose, disableEnforceFocus } = props
   const { dialogProps, dialogTitleProps } = useCozyDialog(props)
   return (
-    <Dialog {...dialogProps} onClose={onClose}>
+    <Dialog
+      {...dialogProps}
+      onClose={onClose}
+      disableEnforceFocus={disableEnforceFocus}
+    >
       <DialogCloseButton onClick={onClose} />
       <DialogTitle {...dialogTitleProps}>{title}</DialogTitle>
       {content}

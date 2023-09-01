@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import compose from 'lodash/flowRight'
 
 import flag from 'cozy-flags'
-import { translate } from 'cozy-ui/transpiled/react/I18n'
+import { translate, useI18n } from 'cozy-ui/transpiled/react/I18n'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import IconPlus from 'cozy-ui/transpiled/react/Icons/Plus'
 import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
@@ -19,121 +19,110 @@ import match from 'ducks/transactions/actions/KonnectorAction/match'
 import { KonnectorChip } from 'components/KonnectorChip'
 import { findMatchingBrandWithoutTrigger } from 'ducks/brandDictionary/selectors'
 import { connect } from 'react-redux'
+import { useDisableEnforceFocusModal } from 'ducks/context/DisableEnforceFocusModalContext'
 
 const name = 'konnector'
-
 const transactionDialogListItemStyle = { color: palette.dodgerBlue }
-class Component extends React.Component {
-  state = {
-    showInformativeDialog: false,
-    showIntentModal: false
+
+const ModalItem = ({ label, onClick }) => {
+  return (
+    <ListItem
+      divider
+      button
+      style={transactionDialogListItemStyle}
+      onClick={onClick}
+    >
+      <ListItemIcon>
+        <Icon icon={IconPlus} />
+      </ListItemIcon>
+      <ListItemText>{label}</ListItemText>
+    </ListItem>
+  )
+}
+
+const TransactionRow = ({ brand, onClick }) => {
+  return flag('hide.healthTheme.enabled') && brand.health ? null : (
+    <KonnectorChip
+      onClick={onClick}
+      konnectorType={brand.health ? 'health' : 'generic'}
+    />
+  )
+}
+
+const Component = ({ fetchTriggers, isModalItem, brand }) => {
+  const { t } = useI18n()
+  const { setDisableEnforceFocus } = useDisableEnforceFocusModal()
+
+  const [showInformativeDialogState, setShowInformativeDialogState] =
+    useState(false)
+  const [showIntentModalState, setShowIntentModalState] = useState(false)
+
+  const showInformativeDialog = ev => {
+    ev?.preventDefault()
+    setShowInformativeDialogState(true)
+  }
+  const hideInformativeDialog = ev => {
+    ev?.preventDefault()
+    setShowInformativeDialogState(false)
+  }
+  const showIntentModal = ev => {
+    ev?.preventDefault()
+    setShowIntentModalState(true)
+  }
+  const hideIntentModal = ev => {
+    ev?.preventDefault()
+    setDisableEnforceFocus?.(false)
+    setShowIntentModalState(false)
+  }
+  const onInformativeDialogConfirm = () => {
+    setDisableEnforceFocus?.(true)
+    hideInformativeDialog()
+    showIntentModal()
+  }
+  const onIntentComplete = () => {
+    fetchTriggers()
+    hideIntentModal()
   }
 
-  showInformativeDialog = ev => {
-    ev && ev.preventDefault()
-    this.setState({
-      showInformativeDialog: true
-    })
-  }
+  if (!brand) return null
 
-  hideInformativeDialog = ev => {
-    ev && ev.preventDefault()
-    this.setState({
-      showInformativeDialog: false
-    })
-  }
+  const healthOrGeneric = brand.health ? 'health' : 'generic'
+  const label = t(`Transactions.actions.konnector.${healthOrGeneric}`)
 
-  showIntentModal = ev => {
-    ev && ev.preventDefault()
-    this.setState({
-      showIntentModal: true
-    })
-  }
-
-  hideIntentModal = ev => {
-    ev && ev.preventDefault()
-    this.setState({
-      showIntentModal: false
-    })
-  }
-
-  onInformativeDialogConfirm = async () => {
-    this.hideInformativeDialog()
-    this.showIntentModal()
-  }
-
-  onIntentComplete = () => {
-    this.props.fetchTriggers()
-    this.hideIntentModal()
-  }
-
-  renderModalItem(label) {
-    return (
-      <ListItem
-        divider
-        button
-        style={transactionDialogListItemStyle}
-        onClick={this.showInformativeDialog}
-      >
-        <ListItemIcon>
-          <Icon icon={IconPlus} />
-        </ListItemIcon>
-        <ListItemText>{label}</ListItemText>
-      </ListItem>
-    )
-  }
-
-  renderTransactionRow(label, brand) {
-    return flag('hide.healthTheme.enabled') && brand.health ? null : (
-      <KonnectorChip
-        onClick={this.showInformativeDialog}
-        konnectorType={brand.health ? 'health' : 'generic'}
-      />
-    )
-  }
-
-  render() {
-    const { t, isModalItem } = this.props
-
-    const brand = this.props.brand
-    if (!brand) return
-
-    const healthOrGeneric = brand.health ? 'health' : 'generic'
-    const label = t(`Transactions.actions.konnector.${healthOrGeneric}`)
-
-    return (
-      <>
-        {isModalItem
-          ? this.renderModalItem(label)
-          : this.renderTransactionRow(label, brand)}
-        {this.state.showInformativeDialog && (
-          <InformativeDialog
-            onCancel={this.hideInformativeDialog}
-            onConfirm={this.onInformativeDialogConfirm}
-            title={t(
-              `Transactions.actions.informativeModal.${healthOrGeneric}.title`
-            )}
-            description={t(
-              `Transactions.actions.informativeModal.${healthOrGeneric}.description`,
-              {
-                brandName: brand.name
-              }
-            )}
-            caption={t('Transactions.actions.informativeModal.caption')}
-            cancelText={t('Transactions.actions.informativeModal.cancel')}
-            confirmText={t('Transactions.actions.informativeModal.confirm')}
-          />
-        )}
-        {this.state.showIntentModal && (
-          <ConfigurationModal
-            dismissAction={this.hideIntentModal}
-            onComplete={this.onIntentComplete}
-            slug={brand.konnectorSlug}
-          />
-        )}
-      </>
-    )
-  }
+  return (
+    <>
+      {isModalItem ? (
+        <ModalItem label={label} onClick={showInformativeDialog} />
+      ) : (
+        <TransactionRow brand={brand} onClick={showInformativeDialog} />
+      )}
+      {showInformativeDialogState && (
+        <InformativeDialog
+          onCancel={hideInformativeDialog}
+          onConfirm={onInformativeDialogConfirm}
+          title={t(
+            `Transactions.actions.informativeModal.${healthOrGeneric}.title`
+          )}
+          description={t(
+            `Transactions.actions.informativeModal.${healthOrGeneric}.description`,
+            {
+              brandName: brand.name
+            }
+          )}
+          caption={t('Transactions.actions.informativeModal.caption')}
+          cancelText={t('Transactions.actions.informativeModal.cancel')}
+          confirmText={t('Transactions.actions.informativeModal.confirm')}
+        />
+      )}
+      {showIntentModalState && (
+        <ConfigurationModal
+          dismissAction={hideIntentModal}
+          onComplete={onIntentComplete}
+          slug={brand.konnectorSlug}
+        />
+      )}
+    </>
+  )
 }
 
 Component.propTypes = {
