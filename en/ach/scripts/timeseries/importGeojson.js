@@ -1,8 +1,17 @@
 const { isEqual, uniqWith, cloneDeep } = require('lodash')
 
-const GEODOC01 = require('../../data/timeseries/geojson-01.json')
-const GEODOC02 = require('../../data/timeseries/geojson-02.json')
-const GEODOC03 = require('../../data/timeseries/geojson-03.json')
+const {
+  getGeojson01,
+  geoJson01Dates
+} = require('../../data/timeseries/geojson-01.js')
+const {
+  getGeojson02,
+  geoJson02Dates
+} = require('../../data/timeseries/geojson-02.js')
+const {
+  getGeojson03,
+  geoJson03Dates
+} = require('../../data/timeseries/geojson-03.js')
 const STREETS = require('../../data/timeseries/streetsOfLyon.json')
 const {
   'io.cozy.accounts': ACCOUNTS
@@ -11,7 +20,25 @@ const {
 const DOCTYPE_GEOJSON_AGGREGATE = 'io.cozy.timeseries.geojson.aggregate'
 const DOCTYPE_GEOJSON = 'io.cozy.timeseries.geojson'
 
-const GEODOCS = [GEODOC01, GEODOC02, GEODOC03]
+// Change the year of a date to use current year
+const changeDateYear = date => {
+  const currentYear = new Date().getFullYear()
+  const dateToChange = new Date(date)
+  return new Date(dateToChange.setFullYear(currentYear)).toISOString()
+}
+
+// Change every dates of geojson dates object to use current year
+const makeDates = dates =>
+  Object.fromEntries(
+    Object.entries(dates).map(([key, value]) => [key, changeDateYear(value)])
+  )
+
+const GEODOCS = [
+  getGeojson01(makeDates(geoJson01Dates)),
+  getGeojson02(makeDates(geoJson02Dates)),
+  getGeojson03(makeDates(geoJson03Dates))
+]
+
 const N_DOCS = 75
 
 const allModes = [

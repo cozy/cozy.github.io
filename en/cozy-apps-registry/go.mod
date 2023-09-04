@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/Masterminds/semver v1.5.0
-	github.com/go-kivik/couchdb/v3 v3.4.0
+	github.com/go-kivik/couchdb/v3 v3.4.1
 	github.com/go-kivik/kivik/v3 v3.2.4
 	github.com/go-redis/redis/v7 v7.4.1
 	github.com/h2non/filetype v1.1.3
