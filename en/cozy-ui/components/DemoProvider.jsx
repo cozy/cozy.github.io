@@ -1,43 +1,14 @@
 import React from 'react'
 
-import { CozyProvider } from 'cozy-client'
+import TranspiledDemoProvider from 'cozy-ui/transpiled/react/providers/DemoProvider'
+import { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
 
-import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
-import { I18nContext } from 'cozy-ui/transpiled/react/I18n'
+// Provider used in readme.md files, because we must
+// use transpiled files inside readme.
+const DemoProvider = props => {
+  const theme = useCozyTheme()
 
-const defaultClient = {
-  plugins: {
-    realtime: {
-      subscribe: () => {},
-      unsubscribe: () => {},
-      unsubscribeAll: () => {}
-    }
-  },
-  getStackClient: () => ({
-    uri: 'https://cozy.io/'
-  }),
-  getInstanceOptions: () => ({
-    subdomain: ''
-  })
-}
-
-const DemoProvider = ({ client, children }) => {
-  const lang = localStorage.getItem('lang') || 'en'
-  return (
-    <CozyProvider client={client || defaultClient}>
-      <BreakpointsProvider>
-        <I18nContext.Provider
-          value={{
-            t: x => x,
-            f: () => '01 Jan. 2022',
-            lang
-          }}
-        >
-          {children}
-        </I18nContext.Provider>
-      </BreakpointsProvider>
-    </CozyProvider>
-  )
+  return <TranspiledDemoProvider theme={theme} {...props} />
 }
 
 export default DemoProvider
