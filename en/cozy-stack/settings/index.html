@@ -3286,6 +3286,33 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#get-settingsclientslimit-exceeded" title="GET /settings/clients/limit-exceeded" class="md-nav__link">
+    GET /settings/clients/limit-exceeded
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#query-string" title="Query-String" class="md-nav__link">
+    Query-String
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request_22" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#post-settingssynchronized" title="POST /settings/synchronized" class="md-nav__link">
     POST /settings/synchronized
   </a>
@@ -3294,7 +3321,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#request_22" title="Request" class="md-nav__link">
+  <a href="#request_23" title="Request" class="md-nav__link">
     Request
   </a>
   
@@ -3341,7 +3368,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#request_23" title="Request" class="md-nav__link">
+  <a href="#request_24" title="Request" class="md-nav__link">
     Request
   </a>
   
@@ -3388,7 +3415,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#request_24" title="Request" class="md-nav__link">
+  <a href="#request_25" title="Request" class="md-nav__link">
     Request
   </a>
   
@@ -3402,7 +3429,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#request_25" title="Request" class="md-nav__link">
+  <a href="#request_26" title="Request" class="md-nav__link">
     Request
   </a>
   
@@ -4350,6 +4377,33 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#get-settingsclientslimit-exceeded" title="GET /settings/clients/limit-exceeded" class="md-nav__link">
+    GET /settings/clients/limit-exceeded
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#query-string" title="Query-String" class="md-nav__link">
+    Query-String
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request_22" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#post-settingssynchronized" title="POST /settings/synchronized" class="md-nav__link">
     POST /settings/synchronized
   </a>
@@ -4358,7 +4412,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#request_22" title="Request" class="md-nav__link">
+  <a href="#request_23" title="Request" class="md-nav__link">
     Request
   </a>
   
@@ -4405,7 +4459,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#request_23" title="Request" class="md-nav__link">
+  <a href="#request_24" title="Request" class="md-nav__link">
     Request
   </a>
   
@@ -4452,7 +4506,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#request_24" title="Request" class="md-nav__link">
+  <a href="#request_25" title="Request" class="md-nav__link">
     Request
   </a>
   
@@ -4466,7 +4520,7 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#request_25" title="Request" class="md-nav__link">
+  <a href="#request_26" title="Request" class="md-nav__link">
     Request
   </a>
   
@@ -5282,11 +5336,42 @@ authentication.</p>
 <h4 id="permissions_6">Permissions<a class="headerlink" href="#permissions_6" title="Permanent link">&para;</a></h4>
 <p>To use this endpoint, an application needs a permission on the type
 <code>io.cozy.oauth.clients</code> for the verb <code>DELETE</code> (only client-side apps).</p>
+<h3 id="get-settingsclientslimit-exceeded">GET /settings/clients/limit-exceeded<a class="headerlink" href="#get-settingsclientslimit-exceeded" title="Permanent link">&para;</a></h3>
+<p>Get an OAuth clients limit exceeded page if the instance has more connected
+OAuth clients than its limit allows or redirect the request to the <code>redirect</code>
+parameter&rsquo;s value.
+The <code>redirect</code> parameter is optional. By default, its value
+is the instance&rsquo;s default redirection.</p>
+<p>The page will auto-refresh every 20 seconds or when an OAuth client deletion is
+detected.</p>
+<h4 id="query-string">Query-String<a class="headerlink" href="#query-string" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>redirect</td>
+<td>URL where to redirect when the limit is not exceeded</td>
+</tr>
+</tbody>
+</table>
+<h4 id="request_22">Request<a class="headerlink" href="#request_22" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/settings/clients/limit-exceeded?redirect=https%3A%2F%2Falice-home.example.com%2F</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+<span class="na">Cookie</span><span class="o">:</span> <span class="l">sessionid=xxxx</span>
+</pre></div>
+
+
 <h3 id="post-settingssynchronized">POST /settings/synchronized<a class="headerlink" href="#post-settingssynchronized" title="Permanent link">&para;</a></h3>
 <p>Any OAuth2 client can make a request to this endpoint with its token, no
 permission is needed. It will update the date of last synchronization for this
 device.</p>
-<h4 id="request_22">Request<a class="headerlink" href="#request_22" title="Permanent link">&para;</a></h4>
+<h4 id="request_23">Request<a class="headerlink" href="#request_23" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/settings/synchronized</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
 <span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer oauth2-access-token</span>
@@ -5305,7 +5390,7 @@ selected according to the context of the instance and the configuration of the
 stack.</p>
 <h3 id="get-settingscontext">GET /settings/context<a class="headerlink" href="#get-settingscontext" title="Permanent link">&para;</a></h3>
 <p>It gives the keys/values from the config for the context of the instance.</p>
-<h4 id="request_23">Request<a class="headerlink" href="#request_23" title="Permanent link">&para;</a></h4>
+<h4 id="request_24">Request<a class="headerlink" href="#request_24" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/settings/context</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
@@ -5354,7 +5439,7 @@ priority, and does not look at the other sources (no merge).</p>
 <p>This endpoint returns the computed list of feature flags for the given
 instance. It accepts an <code>include</code> parameter in the query string to see the
 details of how the flags were computed.</p>
-<h4 id="request_24">Request<a class="headerlink" href="#request_24" title="Permanent link">&para;</a></h4>
+<h4 id="request_25">Request<a class="headerlink" href="#request_25" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/settings/flags</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
@@ -5385,7 +5470,7 @@ details of how the flags were computed.</p>
 </pre></div>
 
 
-<h4 id="request_25">Request<a class="headerlink" href="#request_25" title="Permanent link">&para;</a></h4>
+<h4 id="request_26">Request<a class="headerlink" href="#request_26" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/settings/flags?include=source</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.com</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
