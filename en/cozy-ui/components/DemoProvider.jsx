@@ -1,7 +1,7 @@
 import React from 'react'
 
 import TranspiledDemoProvider from 'cozy-ui/transpiled/react/providers/DemoProvider'
-import { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
+import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 // Provider used in readme.md files, because we must
 // use transpiled files inside readme.

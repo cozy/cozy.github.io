@@ -149,7 +149,6 @@ module.exports = {
         '../react/ContactPicker',
         '../react/CozyDialogs',
         '../react/CozyDialogs/SpecificDialogs',
-        '../react/CozyTheme',
         '../react/FileImageLoader',
         '../react/FilePicker',
         '../react/HistoryRow',
@@ -169,9 +168,15 @@ module.exports = {
       ]
     },
     {
+      name: 'Providers',
+      components: () => [
+        '../react/providers/Breakpoints',
+        '../react/providers/CozyTheme'
+      ]
+    },
+    {
       name: 'Hooks',
       components: () => [
-        '../react/hooks/useBreakpoints/index.jsx',
         '../react/hooks/useBrowserOffline.jsx',
         '../react/hooks/useConfirmExit/index.jsx',
         '../react/hooks/useCycle.jsx',

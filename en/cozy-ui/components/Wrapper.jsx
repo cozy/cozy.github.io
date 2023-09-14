@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import CozyTheme from '../../react/CozyTheme'
+import CozyTheme from '../../react/providers/CozyTheme'
 import Paper from '../../react/Paper'
 import Button from '../../react/deprecated/Button'
 import isTesting from '../../react/helpers/isTesting'
