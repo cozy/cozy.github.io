@@ -485,6 +485,7 @@ Activate functionality:
 You can now upload an office document in cozy-drive and start editing it online by clicking on it or start a new empty document for the "New document" menu.
 
 The `drive.office` feature flag has other options for customising the experience with OnlyOffice:
+
 - `enabled`: Enables OnlyOffice (OO)
 - `write`: Gives the right to edit. Otherwise OO opens in read mode and a modal is displayed on editing actions to warn that the functionality is blocked
 - `defaultMode`: By default, OO opens in read mode (`view`). It can be switched to edit with the `edit` parameter.
@@ -495,6 +496,7 @@ The `drive.office` feature flag has other options for customising the experience
   * `defaultMode`: By default, the opening mode is the same as the main `defaultMode`. It can be changed to either `view` reading or `edit` editing
 
 Example :
+
 ```
 {
     "enabled": true,
@@ -542,6 +544,7 @@ Restart cozy-stack:
 Et voilà, you just upgraded cozy-stack to the latest version. pretty easy.
 
 # References
+
 - CouchDB installation: [https://docs.couchdb.org/en/stable/install/unix.html](https://docs.couchdb.org/en/stable/install/unix.html)
 - Go installation: [https://go.dev/doc/install](https://go.dev/doc/install)
 - NodeJS installation: [https://github.com/nodesource/distributions/blob/master/README.md#manual-installation](https://github.com/nodesource/distributions/blob/master/README.md#manual-installation)

@@ -483,6 +483,7 @@ Activer la fonctionnalité :
 Vous pouvez désormais télécharger un document bureautique dans cozy-drive et commencer à l'éditer en ligne en cliquant dessus ou en démarrant un nouveau document vide à l'aide du menu "Nouveau document".
 
 Le feature flag `drive.office` comporte d'autres options pour personnaliser l'expérience avec OnlyOffice :
+
 - `enabled`: Active OnlyOffice (OO)
 - `write`: Donne le droit d'édition. Sinon OO s'ouvre en lecture et une modale s'affiche sur les actions d'édition pour prévenir que la fonctionnalité est bloquée
 - `defaultMode`: Par défaut, le mode d'ouverture d'OO est en lecture (`view`). On peut le passer en édition avec le paramètre `edit`
@@ -493,6 +494,7 @@ Le feature flag `drive.office` comporte d'autres options pour personnaliser l'ex
   * `defaultMode`: Par défaut, le mode d'ouverture est le même que `defaultMode` principal. On peut le changer pour que le mobile soit en lecture `view` ou édition `edit`
 
 Exemple :
+
 ```
 {
     "enabled": true,
@@ -540,6 +542,7 @@ Relancer cozy-stack :
 Et voilà, vous avez mis à jour cozy-stack. c’est aussi simple que cela.
 
 # Références
+
 - Installation de Couchdb : [https://docs.couchdb.org/en/stable/install/unix.html](https://docs.couchdb.org/en/stable/install/unix.html)
 - Installation de Go : [https://go.dev/doc/install](https://go.dev/doc/install)
 - Installation de NodeJS : [https://github.com/nodesource/distributions/blob/master/README.md#manual-installation](https://github.com/nodesource/distributions/blob/master/README.md#manual-installation)
