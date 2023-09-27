@@ -179,7 +179,7 @@ const queryDef = client
 
 It is possible to express the order of the documents returned by a query, by using the `sort` array.
 
-The sort is always done on a document field, by ascending (`asc`) or descending (`desc`) order, ascending being the default. It is possible to specify several fields to sort, by following this structure for each field:
+The sort is always done on a document field, by ascending (`asc`) or descending (`desc`) order. It is possible to specify several fields to sort, by following this structure for each field:
 
 `{"fieldName": "asc"|"desc"}`
 
