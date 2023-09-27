@@ -1021,6 +1021,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#3a-mutating-data-with-usemutation" title="3.a Mutating data with useMutation" class="md-nav__link">
+    3.a Mutating data with useMutation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3b-mutating-data-with-query" title="3.b Mutating data with Query" class="md-nav__link">
+    3.b Mutating data with Query
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#4-testing" title="4. Testing" class="md-nav__link">
     4. Testing
   </a>
@@ -2847,6 +2861,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#3a-mutating-data-with-usemutation" title="3.a Mutating data with useMutation" class="md-nav__link">
+    3.a Mutating data with useMutation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3b-mutating-data-with-query" title="3.b Mutating data with Query" class="md-nav__link">
+    3.b Mutating data with Query
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#4-testing" title="4. Testing" class="md-nav__link">
     4. Testing
   </a>
@@ -2891,11 +2919,13 @@
 </ul>
 </li>
 <li><a href="#2-usage">2. Usage</a></li>
-<li><a href="#2a-requesting-data-with-">2.a Requesting data with ``</a></li>
+<li><a href="#2a-requesting-data-with-">2.a Requesting data with <code>useQuery</code></a></li>
 <li><a href="#2b-requesting-data-with-the-queryconnect-hoc">2.b Requesting data with the <code>queryConnect</code> HOC</a></li>
 <li><a href="#2c-using-a-fetch-policy-to-decrease-network-requests">2.c Using a fetch policy to decrease network requests</a></li>
 <li><a href="#2d-keeping-data-up-to-date-in-real-time">2.d Keeping data up to date in real time</a></li>
 <li><a href="#3-mutating-data">3. Mutating data</a></li>
+<li><a href="#3a-mutating-data-with-usemutation">3.a Mutating data with <code>useMutation</code></a></li>
+<li><a href="#3a-mutating-data-with-query">3.b Mutating data with <code>Query</code></a></li>
 <li><a href="#4-testing">4. Testing</a></li>
 </ul>
 <!-- /MarkdownTOC -->
@@ -3163,13 +3193,13 @@ for the API documentation.</p>
 
 <p>You subscribe to changes for an entire doctype using <code>RealTimeQueries</code>, and as long as that component is rendered all documents from the given doctype in your queries will automatically stay up to date.</p>
 <h3 id="3-mutating-data">3. Mutating data<a class="headerlink" href="#3-mutating-data" title="Permanent link">&para;</a></h3>
-<p>The simplest way is to use the <code>withClient</code> high order component. It will inject a <code>client</code> in your props with the CozyClient instance you gave to the <code>&lt;CozyProvider /&gt;</code> upper.</p>
-<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">withClient</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
+<p>The simplest way is to use the hook <code>useClient</code> to get the CozyClient instance you gave to the <code>&lt;CozyProvider /&gt;</code> upper.</p>
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">useClient</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 
 <span class="kd">function</span> <span class="nx">TodoList</span><span class="p">(</span><span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
-  <span class="kr">const</span> <span class="p">{</span> <span class="nx">client</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">props</span>
+  <span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="nx">useClient</span><span class="p">()</span>
   <span class="kr">const</span> <span class="nx">createNewTodo</span> <span class="o">=</span> <span class="nx">e</span> <span class="p">=&gt;</span> <span class="nx">client</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span>
-    <span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">,</span> 
+    <span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">,</span>
     <span class="p">{</span> <span class="nx">label</span><span class="o">:</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">elements</span><span class="p">[</span><span class="s1">&#39;new-todo&#39;</span><span class="p">],</span> <span class="nx">checked</span><span class="o">:</span> <span class="kc">false</span> <span class="p">}</span>
   <span class="p">)</span>
   <span class="k">return</span> <span class="p">(</span>
@@ -3185,11 +3215,47 @@ for the API documentation.</p>
     <span class="o">&lt;</span><span class="err">/&gt;</span>
   <span class="p">)</span>
 <span class="p">}</span>
-
-<span class="kr">const</span> <span class="nx">ConnectedTodoList</span> <span class="o">=</span> <span class="nx">withClient</span><span class="p">(</span><span class="nx">TodoList</span><span class="p">)</span>
 </pre></div>
 
 
+<h3 id="3a-mutating-data-with-usemutation">3.a Mutating data with <code>useMutation</code><a class="headerlink" href="#3a-mutating-data-with-usemutation" title="Permanent link">&para;</a></h3>
+<p>We also provides a hook to manage <code>client.save</code> mutation state called <code>useMutation</code>.</p>
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">useMutation</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
+
+<span class="kd">function</span> <span class="nx">TodoLabelInlineEdit</span><span class="p">({</span> <span class="nx">todo</span> <span class="p">})</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="p">[</span><span class="nx">label</span><span class="p">,</span> <span class="nx">setLabel</span><span class="p">]</span> <span class="o">=</span> <span class="nx">useState</span><span class="p">(</span><span class="nx">todo</span><span class="p">.</span><span class="nx">label</span><span class="p">)</span>
+  <span class="kr">const</span> <span class="p">{</span> <span class="nx">mutate</span><span class="p">,</span> <span class="nx">mutationStatus</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useMutation</span><span class="p">()</span>
+
+  <span class="kr">const</span> <span class="nx">handleChange</span> <span class="o">=</span> <span class="nx">event</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">setLabel</span><span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="kr">const</span> <span class="nx">handleBlur</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="nx">mutate</span><span class="p">({</span>
+      <span class="p">...</span><span class="nx">todo</span><span class="p">,</span>
+      <span class="nx">label</span>
+    <span class="p">})</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="p">(</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">style</span><span class="o">=</span><span class="p">{{</span> <span class="nx">display</span><span class="o">:</span> <span class="s1">&#39;flex&#39;</span> <span class="p">}}&gt;</span>
+      <span class="p">&lt;</span><span class="nt">input</span>
+        <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span>
+        <span class="na">aria</span><span class="err">-</span><span class="na">label</span><span class="o">=</span><span class="s">&quot;Label&quot;</span>
+        <span class="na">style</span><span class="o">=</span><span class="p">{{</span> <span class="nx">marginRight</span><span class="o">:</span> <span class="s1">&#39;1rem&#39;</span> <span class="p">}}</span>
+        <span class="na">value</span><span class="o">=</span><span class="p">{</span><span class="nx">label</span><span class="p">}</span>
+        <span class="na">onChange</span><span class="o">=</span><span class="p">{</span><span class="nx">handleChange</span><span class="p">}</span>
+        <span class="na">onBlur</span><span class="o">=</span><span class="p">{</span><span class="nx">handleBlur</span><span class="p">}</span>
+      <span class="p">/&gt;</span>
+      <span class="p">{</span><span class="nx">mutationStatus</span> <span class="o">===</span> <span class="s1">&#39;loaded&#39;</span> <span class="o">?</span> <span class="s1">&#39;✓&#39;</span> <span class="o">:</span> <span class="kc">null</span><span class="p">}</span>
+      <span class="p">{</span><span class="nx">mutationStatus</span> <span class="o">===</span> <span class="s1">&#39;failed&#39;</span> <span class="o">?</span> <span class="s1">&#39;✗&#39;</span> <span class="o">:</span> <span class="kc">null</span><span class="p">}</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="3b-mutating-data-with-query">3.b Mutating data with <code>Query</code><a class="headerlink" href="#3b-mutating-data-with-query" title="Permanent link">&para;</a></h3>
 <p><code>&lt;Query /&gt;</code> also takes a <code>mutations</code> optional props. It should have a function that will receive the CozyClient instance, the query requested and the rest of props given to the component, and should return a keyed object which will be added to the props of your wrapped component.</p>
 <div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">Query</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 
