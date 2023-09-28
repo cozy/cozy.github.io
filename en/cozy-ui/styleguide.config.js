@@ -170,6 +170,7 @@ module.exports = {
     {
       name: 'Providers',
       components: () => [
+        '../react/providers/Alert',
         '../react/providers/Breakpoints',
         '../react/providers/CozyTheme'
       ]
