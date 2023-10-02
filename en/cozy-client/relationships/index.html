@@ -962,6 +962,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#metadata" title="Metadata" class="md-nav__link">
+    Metadata
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2812,6 +2819,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#metadata" title="Metadata" class="md-nav__link">
+    Metadata
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2931,7 +2945,7 @@
 <li><code>'has-many'</code>: the relation can have several references.</li>
 </ul>
 <h4 id="files-relations">Files relations<a class="headerlink" href="#files-relations" title="Permanent link">&para;</a></h4>
-<p>The files implements a special type of relation: <code>'io.cozy.files:has-many'</code>. This relation name is <code>referenced_by</code>, which is an array of references, just like the <code>'has-many'</code> relation. </p>
+<p>The files implements a special type of relation: <code>'io.cozy.files:has-many'</code>. This relation name is <code>referenced_by</code>, which is an array of references, just like the <code>'has-many'</code> relation.</p>
 <p>The stack implements routes to handle this kind of relation on the <code>/files</code> endpoint. See the <a href="https://docs.cozy.io/en/cozy-stack/references-docs-in-vfs/">stack documentation</a>.</p>
 <p>Note specific <a href="https://docs.cozy.io/en/tutorials/data/queries/#usage-example-references">view index</a> are defined on <code>referenced_by</code> relationships, allowing fast queries on it.</p>
 <h4 id="customize-relations">Customize relations<a class="headerlink" href="#customize-relations" title="Permanent link">&para;</a></h4>
@@ -2967,6 +2981,24 @@
 </pre></div>
 
 
+<h3 id="metadata">Metadata<a class="headerlink" href="#metadata" title="Permanent link">&para;</a></h3>
+<p>It is possible to assign metadatas to relationships. You need to modify the content of the document relationships somehow and save the modified document.</p>
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">doc</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">_id</span><span class="o">:</span> <span class="s2">&quot;mobydick&quot;</span><span class="p">,</span>
+  <span class="nx">relationships</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">authors</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">data</span><span class="o">:</span> <span class="p">[{</span>
+        <span class="nx">_id</span><span class="o">:</span> <span class="s2">&quot;hermanmelville&quot;</span><span class="p">,</span>
+        <span class="nx">_type</span><span class="o">:</span> <span class="s2">&quot;io.cozy.contacts&quot;</span>
+      <span class="p">}]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nx">doc</span><span class="p">.</span><span class="nx">relationships</span><span class="p">.</span><span class="nx">authors</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">metadata</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">addressId</span><span class="o">:</span> <span class="s2">&quot;123&quot;</span> <span class="p">}</span>
+<span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">save</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span>
+</pre></div>
+
+
 <h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
 <h3 id="include-relations-in-your-query">Include relations in your query<a class="headerlink" href="#include-relations-in-your-query" title="Permanent link">&para;</a></h3>
 <p>Relations are not loaded eagerly by default. If you want your query to load your relations for you, you will have to name them in an <code>include()</code> request.</p>
@@ -2976,7 +3008,7 @@
 </pre></div>
 
 
-<p>You will then find your relations under the <code>data</code> attribute: </p>
+<p>You will then find your relations under the <code>data</code> attribute:</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">response</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">query</span><span class="p">)</span>
 <span class="kr">const</span> <span class="nx">docs</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">data</span>
 <span class="kr">const</span> <span class="nx">firstDoc</span> <span class="o">=</span> <span class="nx">docs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
