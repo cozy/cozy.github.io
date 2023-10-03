@@ -90,6 +90,7 @@ module.exports = {
         '../react/MenuItem',
         '../react/MenuList',
         '../react/MobileStepper',
+        '../react/Modal',
         '../react/NativeSelect',
         '../react/NoSsr',
         '../react/OutlinedInput',
