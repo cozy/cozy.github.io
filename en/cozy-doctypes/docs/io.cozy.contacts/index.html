@@ -2743,6 +2743,7 @@
 <li><code>type?</code>: {string} A user-provided localized type of phone number (example: <code>"Work"</code>, <code>"Home"</code>, <code>"Other"</code>)</li>
 <li><code>primary?</code>: {boolean} Indicates a preferred-use address</li>
 <li><code>address?</code>: {array} An array of postal addresses objects with the following attributes:</li>
+<li><code>id?</code>: {string} id of the address</li>
 <li><code>street?</code>: {string} Street name</li>
 <li><code>pobox?</code>: {string} P.O Box number</li>
 <li><code>city?</code>: {string} City name</li>
@@ -2762,6 +2763,11 @@
 </ul>
 </li>
 <li><code>formattedAddress?</code>: {string} Unstructured version of the address</li>
+<li><code>geo?</code>: {object}<ul>
+<li><code>geo?</code>: {array} Coordinates of the address, must be <code>[long, lat]</code></li>
+<li><code>cozyCategory?</code>: {&ldquo;home|work&rdquo;} The category of the address type</li>
+</ul>
+</li>
 <li><code>phone?</code>: {array} An array of phone number objects with the following attributes:</li>
 <li><code>number</code>: {string}</li>
 <li><code>type?</code>: {string} A user-provided localized type of phone number (example: <code>"Work"</code>, <code>"Home"</code>, <code>"Other"</code>)</li>

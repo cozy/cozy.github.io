@@ -13,7 +13,7 @@
         <meta name="description" content="Cozy documentation">
       
       
-        <link rel="canonical" href="https://docs.cozy.io/cozy-client/api/cozy-client/modules/models/">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-client/api/cozy-client/modules/models.konnectorFolder/">
       
       
         <meta name="author" content="CozyCloud - https://cozy.io">
@@ -42,7 +42,7 @@
     
     
       
-        <title>Models - Cozy Developer Documentation</title>
+        <title>models.konnectorFolder - Cozy Developer Documentation</title>
       
     
     
@@ -100,7 +100,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#namespace-models" tabindex="1" class="md-skip">
+      <a href="#namespace-konnectorfolder" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -126,7 +126,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Models
+                models.konnectorFolder
               
             </span>
           
@@ -2622,30 +2622,44 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#namespaces" title="Namespaces" class="md-nav__link">
-    Namespaces
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#variables" title="Variables" class="md-nav__link">
-    Variables
+  <a href="#functions" title="Functions" class="md-nav__link">
+    Functions
   </a>
   
     <nav class="md-nav">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#accounts" title="accounts" class="md-nav__link">
-    accounts
+  <a href="#buildfolderpath" title="buildFolderPath" class="md-nav__link">
+    buildFolderPath
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#triggers" title="triggers" class="md-nav__link">
-    triggers
+  <a href="#buildfolderpermission" title="buildFolderPermission" class="md-nav__link">
+    buildFolderPermission
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#createdirectorybypath" title="createDirectoryByPath" class="md-nav__link">
+    createDirectoryByPath
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ensurekonnectorfolder" title="ensureKonnectorFolder" class="md-nav__link">
+    ensureKonnectorFolder
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statdirectorybypath" title="statDirectoryByPath" class="md-nav__link">
+    statDirectoryByPath
   </a>
   
 </li>
@@ -2671,41 +2685,198 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-client/api/cozy-client/modules/models.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-client/api/cozy-client/modules/models.konnectorFolder.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <p><a href="../../">cozy-client</a> / models</p>
-<h1 id="namespace-models">Namespace: models<a class="headerlink" href="#namespace-models" title="Permanent link">&para;</a></h1>
-<h2 id="namespaces">Namespaces<a class="headerlink" href="#namespaces" title="Permanent link">&para;</a></h2>
+                <p><a href="../../">cozy-client</a> / <a href="../models/">models</a> / konnectorFolder</p>
+<h1 id="namespace-konnectorfolder">Namespace: konnectorFolder<a class="headerlink" href="#namespace-konnectorfolder" title="Permanent link">&para;</a></h1>
+<p><a href="../models/">models</a>.konnectorFolder</p>
+<h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
+<h3 id="buildfolderpath">buildFolderPath<a class="headerlink" href="#buildfolderpath" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>buildFolderPath</strong>(<code>konnector</code>, <code>account</code>, <code>magicFolders?</code>): <code>string</code></p>
+<p>Build folder path for a given konnector and a given account.</p>
+<p>If konnector.folders[0].defaultDir exists, it is used as default directory.</p>
+<p>Occurrences of following strings in base directory are replaced by:</p>
 <ul>
-<li><a href="../models.account/">account</a></li>
-<li><a href="../models.applications/">applications</a></li>
-<li><a href="../models.contact/">contact</a></li>
-<li><a href="../models.dacc/">dacc</a></li>
-<li><a href="../models.document/">document</a></li>
-<li><a href="../models.file/">file</a></li>
-<li><a href="../models.folder/">folder</a></li>
-<li><a href="../models.instance/">instance</a></li>
-<li><a href="../models.konnectorFolder/">konnectorFolder</a></li>
-<li><a href="../models.note/">note</a></li>
-<li><a href="../models.paper/">paper</a></li>
-<li><a href="../models.permission/">permission</a></li>
-<li><a href="../models.sharing/">sharing</a></li>
-<li><a href="../models.timeseries/">timeseries</a></li>
-<li><a href="../models.trigger/">trigger</a></li>
-<li><a href="../models.user/">user</a></li>
-<li><a href="../models.utils/">utils</a></li>
+<li><code>$administrative</code>: Administrative folder</li>
+<li><code>$photos</code>: Photos folder</li>
 </ul>
-<h2 id="variables">Variables<a class="headerlink" href="#variables" title="Permanent link">&para;</a></h2>
-<h3 id="accounts">accounts<a class="headerlink" href="#accounts" title="Permanent link">&para;</a></h3>
-<p>• <code>Const</code> <strong>accounts</strong>: <a href="../models.account/"><code>account</code></a> = <code>account</code></p>
+<p>Occurrences of following strings in path are replaced by:</p>
+<ul>
+<li><code>$account: Account label (id or name)</code></li>
+<li><code>$konnector</code>: Konnector name</li>
+</ul>
+<p>If no konnectors.folders[0].defaultDir is set, the default dir used is</p>
+<ul>
+<li><code>$administrative/$konnector/$account</code></li>
+</ul>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>konnector</code></td>
+<td align="left"><code>IOCozyKonnector</code></td>
+<td align="left">Konnector document</td>
+</tr>
+<tr>
+<td align="left"><code>account</code></td>
+<td align="left"><code>IOCozyAccount</code></td>
+<td align="left">Account document</td>
+</tr>
+<tr>
+<td align="left"><code>magicFolders</code></td>
+<td align="left"><code>Object</code></td>
+<td align="left">Object containing a mapping from folder identifiers (ex: $administrative) to their localized values (ex: Administratif).</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>string</code></p>
+<p>The result path</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/index.js#L21">packages/cozy-client/src/models/index.js:21</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/konnectorFolder.js#L115">packages/cozy-client/src/models/konnectorFolder.js:115</a></p>
 <hr />
-<h3 id="triggers">triggers<a class="headerlink" href="#triggers" title="Permanent link">&para;</a></h3>
-<p>• <code>Const</code> <strong>triggers</strong>: <a href="../models.trigger/"><code>trigger</code></a> = <code>trigger</code></p>
+<h3 id="buildfolderpermission">buildFolderPermission<a class="headerlink" href="#buildfolderpermission" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>buildFolderPermission</strong>(<code>folder</code>): <code>any</code></p>
+<p>Returns a permission ready to be passed to
+client.collection(&lsquo;io.cozy.permissions&rsquo;).add().</p>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>folder</code></td>
+<td align="left"><code>IOCozyFolder</code></td>
+<td align="left">The folder which the konnector should have access</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>any</code></p>
+<p>Permission object</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/index.js#L20">packages/cozy-client/src/models/index.js:20</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/konnectorFolder.js#L227">packages/cozy-client/src/models/konnectorFolder.js:227</a></p>
+<hr />
+<h3 id="createdirectorybypath">createDirectoryByPath<a class="headerlink" href="#createdirectorybypath" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>createDirectoryByPath</strong>(<code>client</code>, <code>path</code>): <code>Promise</code>&lt;<code>IOCozyFolder</code>&gt;</p>
+<p>Creates a directory from a given path</p>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>client</code></td>
+<td align="left"><a href="../../classes/CozyClient/"><code>CozyClient</code></a></td>
+<td align="left">CozyClient</td>
+</tr>
+<tr>
+<td align="left"><code>path</code></td>
+<td align="left"><code>string</code></td>
+<td align="left">Directory path</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>Promise</code>&lt;<code>IOCozyFolder</code>&gt;</p>
+<p>Directory attributes</p>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/konnectorFolder.js#L63">packages/cozy-client/src/models/konnectorFolder.js:63</a></p>
+<hr />
+<h3 id="ensurekonnectorfolder">ensureKonnectorFolder<a class="headerlink" href="#ensurekonnectorfolder" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>ensureKonnectorFolder</strong>(<code>client</code>, <code>options</code>): <code>Promise</code>&lt;<code>IOCozyFolder</code>&gt;</p>
+<p>Ensures the destination folder of a konnector exists and is initiated with proper permissions and references</p>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>client</code></td>
+<td align="left"><a href="../../classes/CozyClient/"><code>CozyClient</code></a></td>
+<td align="left">CozyClient instance</td>
+</tr>
+<tr>
+<td align="left"><code>options</code></td>
+<td align="left"><code>Object</code></td>
+<td align="left">options object</td>
+</tr>
+<tr>
+<td align="left"><code>options.account</code></td>
+<td align="left"><code>IOCozyAccount</code></td>
+<td align="left">io.cozy.accounts document</td>
+</tr>
+<tr>
+<td align="left"><code>options.konnector</code></td>
+<td align="left"><code>IOCozyKonnector</code></td>
+<td align="left">io.cozy.konnectors document</td>
+</tr>
+<tr>
+<td align="left"><code>options.lang</code></td>
+<td align="left"><code>string</code></td>
+<td align="left">instance current language. ex: &lsquo;fr&rsquo;</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>Promise</code>&lt;<code>IOCozyFolder</code>&gt;</p>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/konnectorFolder.js#L25">packages/cozy-client/src/models/konnectorFolder.js:25</a></p>
+<hr />
+<h3 id="statdirectorybypath">statDirectoryByPath<a class="headerlink" href="#statdirectorybypath" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>statDirectoryByPath</strong>(<code>client</code>, <code>path</code>): <code>Promise</code>&lt;<code>IOCozyFolder</code>&gt;</p>
+<p>Retrieves a directory from its path</p>
+<p><strong><code>throws</code></strong> will throw an error on any error without status === 404</p>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>client</code></td>
+<td align="left"><a href="../../classes/CozyClient/"><code>CozyClient</code></a></td>
+<td align="left">CozyClient</td>
+</tr>
+<tr>
+<td align="left"><code>path</code></td>
+<td align="left"><code>string</code></td>
+<td align="left">Directory path</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>Promise</code>&lt;<code>IOCozyFolder</code>&gt;</p>
+<p>Created io.cozy.files document</p>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/konnectorFolder.js#L78">packages/cozy-client/src/models/konnectorFolder.js:78</a></p>
                 
                   
                 
