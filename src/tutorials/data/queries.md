@@ -203,9 +203,9 @@ const queryDef = client
   .where({
     category: "sport",
   })
-  .indexFields(["category", "created_at"]).sortBy[
+  .indexFields(["category", "created_at"]).sortBy([
   ({ category: "asc" }, { created_at: "asc" })
-];
+]);
 ```
 
 ⚠️ If the fields involved in the `sortBy` are not indexed, this will force CouchDB to make the sort in memory: this can be acceptable if the query returns few documents, but it is not efficient for large queries.
