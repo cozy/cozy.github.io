@@ -13,7 +13,7 @@
         <meta name="description" content="Cozy documentation">
       
       
-        <link rel="canonical" href="https://docs.cozy.io/cozy-client/api/cozy-client/modules/models/">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-client/api/cozy-client/modules/models.geo/">
       
       
         <meta name="author" content="CozyCloud - https://cozy.io">
@@ -42,7 +42,7 @@
     
     
       
-        <title>Models - Cozy Developer Documentation</title>
+        <title>Models.geo - Cozy Developer Documentation</title>
       
     
     
@@ -100,7 +100,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#namespace-models" tabindex="1" class="md-skip">
+      <a href="#namespace-geo" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -126,7 +126,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Models
+                Models.geo
               
             </span>
           
@@ -2622,30 +2622,44 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#namespaces" title="Namespaces" class="md-nav__link">
-    Namespaces
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#variables" title="Variables" class="md-nav__link">
-    Variables
+  <a href="#functions" title="Functions" class="md-nav__link">
+    Functions
   </a>
   
     <nav class="md-nav">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#accounts" title="accounts" class="md-nav__link">
-    accounts
+  <a href="#computespeed" title="computeSpeed" class="md-nav__link">
+    computeSpeed
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#triggers" title="triggers" class="md-nav__link">
-    triggers
+  <a href="#computesphericalcenter" title="computeSphericalCenter" class="md-nav__link">
+    computeSphericalCenter
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deltalatitude" title="deltaLatitude" class="md-nav__link">
+    deltaLatitude
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deltalongitude" title="deltaLongitude" class="md-nav__link">
+    deltaLongitude
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#geodesicdistance" title="geodesicDistance" class="md-nav__link">
+    geodesicDistance
   </a>
   
 </li>
@@ -2671,42 +2685,176 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-client/api/cozy-client/modules/models.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-client/api/cozy-client/modules/models.geo.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                <p><a href="../../">cozy-client</a> / models</p>
-<h1 id="namespace-models">Namespace: models<a class="headerlink" href="#namespace-models" title="Permanent link">&para;</a></h1>
-<h2 id="namespaces">Namespaces<a class="headerlink" href="#namespaces" title="Permanent link">&para;</a></h2>
+                <p><a href="../../">cozy-client</a> / <a href="../models/">models</a> / geo</p>
+<h1 id="namespace-geo">Namespace: geo<a class="headerlink" href="#namespace-geo" title="Permanent link">&para;</a></h1>
+<p><a href="../models/">models</a>.geo</p>
+<h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
+<h3 id="computespeed">computeSpeed<a class="headerlink" href="#computespeed" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>computeSpeed</strong>(<code>distance</code>, <code>duration</code>): <code>number</code></p>
+<p>Compute the speed from distance and duration</p>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>distance</code></td>
+<td align="left"><code>number</code></td>
+<td align="left">The distance in meters</td>
+</tr>
+<tr>
+<td align="left"><code>duration</code></td>
+<td align="left"><code>number</code></td>
+<td align="left">The duration in seconds</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>number</code></p>
 <ul>
-<li><a href="../models.account/">account</a></li>
-<li><a href="../models.applications/">applications</a></li>
-<li><a href="../models.contact/">contact</a></li>
-<li><a href="../models.dacc/">dacc</a></li>
-<li><a href="../models.document/">document</a></li>
-<li><a href="../models.file/">file</a></li>
-<li><a href="../models.folder/">folder</a></li>
-<li><a href="../models.geo/">geo</a></li>
-<li><a href="../models.instance/">instance</a></li>
-<li><a href="../models.konnectorFolder/">konnectorFolder</a></li>
-<li><a href="../models.note/">note</a></li>
-<li><a href="../models.paper/">paper</a></li>
-<li><a href="../models.permission/">permission</a></li>
-<li><a href="../models.sharing/">sharing</a></li>
-<li><a href="../models.timeseries/">timeseries</a></li>
-<li><a href="../models.trigger/">trigger</a></li>
-<li><a href="../models.user/">user</a></li>
-<li><a href="../models.utils/">utils</a></li>
+<li>The speed, in m/s, rounded to 2 decimals</li>
 </ul>
-<h2 id="variables">Variables<a class="headerlink" href="#variables" title="Permanent link">&para;</a></h2>
-<h3 id="accounts">accounts<a class="headerlink" href="#accounts" title="Permanent link">&para;</a></h3>
-<p>• <code>Const</code> <strong>accounts</strong>: <a href="../models.account/"><code>account</code></a> = <code>account</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/index.js#L22">packages/cozy-client/src/models/index.js:22</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/geo.js#L12">packages/cozy-client/src/models/geo.js:12</a></p>
 <hr />
-<h3 id="triggers">triggers<a class="headerlink" href="#triggers" title="Permanent link">&para;</a></h3>
-<p>• <code>Const</code> <strong>triggers</strong>: <a href="../models.trigger/"><code>trigger</code></a> = <code>trigger</code></p>
+<h3 id="computesphericalcenter">computeSphericalCenter<a class="headerlink" href="#computesphericalcenter" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>computeSphericalCenter</strong>(<code>coordinates</code>): <code>Coordinates</code></p>
+<p>Compute the geographical center of the given points</p>
+<p>This consists of finding the centroid of a set of points
+in a sphere.
+Note this assumes the Earth is a perfect sphere, which is not,
+but the approximation should be good enough.</p>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>coordinates</code></td>
+<td align="left"><code>Coordinates</code>[]</td>
+<td align="left">The geo points</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>Coordinates</code></p>
+<p>The center point</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/index.js#L21">packages/cozy-client/src/models/index.js:21</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/geo.js#L104">packages/cozy-client/src/models/geo.js:104</a></p>
+<hr />
+<h3 id="deltalatitude">deltaLatitude<a class="headerlink" href="#deltalatitude" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>deltaLatitude</strong>(<code>distance</code>): <code>number</code></p>
+<p>Compute the latitude delta from a distance, in meters.</p>
+<p>The reasoning is rather simple: there are 360° of latitudes of same distance.
+Then, it consists of computing 1 degree distance, and divide the
+given distance by this value.</p>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>distance</code></td>
+<td align="left"><code>number</code></td>
+<td align="left">The distance in meters</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>number</code></p>
+<p>The delta latitude degrees</p>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/geo.js#L172">packages/cozy-client/src/models/geo.js:172</a></p>
+<hr />
+<h3 id="deltalongitude">deltaLongitude<a class="headerlink" href="#deltalongitude" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>deltaLongitude</strong>(<code>latitude</code>, <code>distance</code>): <code>number</code></p>
+<p>Compute the longitude delta from a distance, in meters.</p>
+<p>This requires the latitude: we want to compute the horizontal delta
+on the Earth surface. As it is a sphere (kind of), this delta won&rsquo;t be
+the same depending on whether it is on the equator (min variation)
+or on the poles (max variation), for instance.</p>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>latitude</code></td>
+<td align="left"><code>number</code></td>
+<td align="left">The latitude</td>
+</tr>
+<tr>
+<td align="left"><code>distance</code></td>
+<td align="left"><code>number</code></td>
+<td align="left">The distance in meters</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>number</code></p>
+<p>the longitude delta degrees</p>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/geo.js#L155">packages/cozy-client/src/models/geo.js:155</a></p>
+<hr />
+<h3 id="geodesicdistance">geodesicDistance<a class="headerlink" href="#geodesicdistance" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>geodesicDistance</strong>(<code>point1</code>, <code>point2</code>): <code>number</code></p>
+<p>Compute the distance between 2 geographic points, in meters.</p>
+<p>This is an implementation of the Haversine formula, that
+supposes a perfect sphere. We know this is not exactly the case
+for Earth, especially at the poles, but this approximation is good enough.
+More complex methods do exist, such as Vincenty formula, but we prefer
+simplicity over precision here.
+See https://en.wikipedia.org/wiki/Geodesics_on_an_ellipsoid</p>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>point1</code></td>
+<td align="left"><code>Coordinates</code></td>
+<td align="left">The first point coordinates, in decimal degrees</td>
+</tr>
+<tr>
+<td align="left"><code>point2</code></td>
+<td align="left"><code>Coordinates</code></td>
+<td align="left">The second point coordinates, in decimal degrees</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>number</code></p>
+<p>The distance between the points, in meters, rounded to 2 decimals</p>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/geo.js#L65">packages/cozy-client/src/models/geo.js:65</a></p>
                 
                   
                 
