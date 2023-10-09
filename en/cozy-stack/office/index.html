@@ -2525,8 +2525,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#post-officecallback" title="POST /office/callback" class="md-nav__link">
-    POST /office/callback
+  <a href="#post-officekeyskey" title="POST /office/keys/:key" class="md-nav__link">
+    POST /office/keys/:key
   </a>
   
     <nav class="md-nav">
@@ -2541,6 +2541,33 @@
         
           <li class="md-nav__item">
   <a href="#response" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-officecallback" title="POST /office/callback" class="md-nav__link">
+    POST /office/callback
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_2" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_1" title="Response" class="md-nav__link">
     Response
   </a>
   
@@ -2833,8 +2860,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#post-officecallback" title="POST /office/callback" class="md-nav__link">
-    POST /office/callback
+  <a href="#post-officekeyskey" title="POST /office/keys/:key" class="md-nav__link">
+    POST /office/keys/:key
   </a>
   
     <nav class="md-nav">
@@ -2849,6 +2876,33 @@
         
           <li class="md-nav__item">
   <a href="#response" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-officecallback" title="POST /office/callback" class="md-nav__link">
+    POST /office/callback
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_2" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_1" title="Response" class="md-nav__link">
     Response
   </a>
   
@@ -2994,11 +3048,67 @@ server configured, the response will be a <code>404 Page not found</code>.</p>
 </pre></div>
 
 
+<h3 id="post-officekeyskey">POST /office/keys/:key<a class="headerlink" href="#post-officekeyskey" title="Permanent link">&para;</a></h3>
+<p>If a document is being edited while a new version is uploaded (via the desktop
+for example), the OO webapp should call this endpoint if the user chooses to
+continue editing the version on which they were working. A conflict file is
+created, so that no work is lost.</p>
+<h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/office/keys/7c7ccc2e7137ba774b7e44de</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">bob.cozy.example</span>
+</pre></div>
+
+
+<h4 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;32e07d806f9b0139c541543d7eb8149c&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;3-18c04daba326&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;slideshow (2).pptx&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;trashed&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="nt">&quot;md5sum&quot;</span><span class="p">:</span> <span class="s2">&quot;ODZmYjI2OWQxOTBkMmM4NQo=&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2023-09-30T21:42:05Z&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2023-09-30T22:38:04Z&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">[],</span>
+      <span class="nt">&quot;metadata&quot;</span><span class="p">:</span> <span class="p">{},</span>
+      <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">12345</span><span class="p">,</span>
+      <span class="nt">&quot;executable&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+      <span class="nt">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;slide&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;mime&quot;</span><span class="p">:</span> <span class="s2">&quot;application/vnd.ms-powerpoint&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;cozyMetadata&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;doctypeVersion&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;metadataVersion&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nt">&quot;createdAt&quot;</span><span class="p">:</span> <span class="s2">&quot;2023-09-30T21:42:05Z&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;createdByApp&quot;</span><span class="p">:</span> <span class="s2">&quot;drive&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;createdOn&quot;</span><span class="p">:</span> <span class="s2">&quot;https://bob.cozy.example/&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;updatedAt&quot;</span><span class="p">:</span> <span class="s2">&quot;2023-09-30T22:38:04Z&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;uploadedAt&quot;</span><span class="p">:</span> <span class="s2">&quot;2023-09-30T22:38:04Z&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;uploadedOn&quot;</span><span class="p">:</span> <span class="s2">&quot;https://bob.cozy.example/&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;uploadedBy&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;onlyoffice-server&quot;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
 <h3 id="post-officecallback">POST /office/callback<a class="headerlink" href="#post-officecallback" title="Permanent link">&para;</a></h3>
 <p>This is the callback handler for OnlyOffice. It is called when the document
 server wants to save the file.</p>
 <p>See https://api.onlyoffice.com/editors/callback</p>
-<h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
+<h4 id="request_2">Request<a class="headerlink" href="#request_2" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/office/callback</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">bob.cozy.example</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
@@ -3016,7 +3126,7 @@ server wants to save the file.</p>
 </pre></div>
 
 
-<h4 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h4>
+<h4 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </pre></div>
