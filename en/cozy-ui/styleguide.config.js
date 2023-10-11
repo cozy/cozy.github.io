@@ -107,6 +107,7 @@ module.exports = {
         '../react/SelectionBar',
         '../react/ScopedCssBaseline',
         '../react/Skeleton',
+        '../react/Skeletons',
         '../react/Slide',
         '../react/Slider',
         '../react/Snackbar',
