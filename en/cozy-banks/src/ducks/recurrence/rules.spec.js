@@ -102,7 +102,7 @@ describe('brand split', () => {
     const bundle = {
       ops: [
         {
-          label: 'Spotify 1',
+          label: 'Unibet 1',
           amount: 15,
           categoryIds: ['400100']
         },
@@ -117,12 +117,12 @@ describe('brand split', () => {
           categoryIds: ['400100']
         },
         {
-          label: 'Spotify 2',
+          label: 'Unibet 2',
           amount: 15,
           categoryIds: ['400100']
         },
         {
-          label: 'Spotify 3',
+          label: 'Unibet 3',
           amount: 15,
           categoryIds: ['400100']
         }
@@ -131,7 +131,7 @@ describe('brand split', () => {
     const bundles = brandSplit()(bundle)
     expect(bundles.length).toBe(2)
     expect(bundles[0].ops.length).toBe(3)
-    expect(bundles[0].brand).toBe('Spotify')
+    expect(bundles[0].brand).toBe('Unibet')
     expect(bundles[1].ops.length).toBe(2)
     expect(bundles[1].brand).toBe('Amazon')
   })

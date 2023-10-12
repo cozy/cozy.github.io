@@ -4,9 +4,10 @@ import flag from 'cozy-flags'
 
 import AppLike from 'test/AppLike'
 import BillChip from './BillChip'
+import brands from 'ducks/brandDictionary/brands'
 
+jest.spyOn(JSON, 'parse').mockImplementation(() => brands)
 jest.mock('cozy-flags')
-
 jest.mock(
   'ducks/transactions/FileOpener',
   () =>

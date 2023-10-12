@@ -3,6 +3,13 @@ jest.mock('cozy-konnector-libs')
 import Linker from './Linker'
 import { cozyClient } from 'cozy-konnector-libs'
 import { Document } from 'cozy-doctypes'
+import brands from 'ducks/brandDictionary/brands'
+import { getBrands } from 'ducks/brandDictionary'
+
+jest.mock('ducks/brandDictionary', () => ({
+  ...jest.requireActual('ducks/brandDictionary'),
+  getBrands: jest.fn()
+}))
 
 let linker
 
@@ -320,7 +327,11 @@ describe('linker', () => {
   })
 
   describe('linkBillsToOperations', () => {
+    const getBrandsMock = filterFct => {
+      return filterFct ? brands.filter(filterFct) : brands
+    }
     beforeEach(() => {
+      getBrands.mockImplementation(getBrandsMock)
       linker.isBillAmountOverflowingOperationAmount = jest
         .fn()
         .mockReturnValue(false)

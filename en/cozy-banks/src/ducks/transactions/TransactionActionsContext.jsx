@@ -1,16 +1,18 @@
-import React from 'react'
+import React, { createContext } from 'react'
 import omit from 'lodash/omit'
+import { getBrands } from 'ducks/brandDictionary'
 
-export const TransactionActionsContext = React.createContext()
+export const TransactionActionsContext = createContext()
 
-export class DumbTransactionActionsProvider extends React.Component {
-  render() {
-    const value = omit(this.props, 'children')
+export const DumbTransactionActionsProvider = props => {
+  const propsWithoutChildren = omit(props, 'children')
+  const brands = getBrands()
 
-    return (
-      <TransactionActionsContext.Provider value={value}>
-        {this.props.children}
-      </TransactionActionsContext.Provider>
-    )
-  }
+  const value = Object.assign({}, propsWithoutChildren, { brands })
+
+  return (
+    <TransactionActionsContext.Provider value={value}>
+      {props.children}
+    </TransactionActionsContext.Provider>
+  )
 }

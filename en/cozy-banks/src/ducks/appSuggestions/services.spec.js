@@ -4,11 +4,14 @@ import {
   findAppSuggestions
 } from './services'
 import { TRANSACTION_DOCTYPE } from '../../doctypes'
-import { getBrands } from '../brandDictionary'
+import { getBrands } from 'ducks/brandDictionary'
 import { Document } from 'cozy-doctypes'
 import CozyClient from 'cozy-client'
 import fetch from 'node-fetch'
+import brands from 'ducks/brandDictionary/brands'
+
 global.fetch = fetch
+jest.spyOn(JSON, 'parse').mockImplementation(() => brands)
 
 const client = new CozyClient({
   uri: 'http://localhost:8080'

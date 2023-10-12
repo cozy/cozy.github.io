@@ -6,6 +6,9 @@ import {
   filterByReimbursements,
   operationsFilters
 } from './operationsFilters'
+import brands from 'ducks/brandDictionary/brands'
+
+jest.spyOn(JSON, 'parse').mockImplementation(() => brands)
 
 describe('operations filters', () => {
   describe('filtering by brand', () => {

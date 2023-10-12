@@ -1,6 +1,6 @@
 /* global __TARGET__ */
 
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { Provider } from 'react-redux'
 
 import { WebviewIntentProvider } from 'cozy-intent'
@@ -29,11 +29,13 @@ import {
   COZY_ACCOUNT_DOCTYPE,
   TRANSACTION_DOCTYPE,
   GROUP_DOCTYPE,
-  FILES_DOCTYPE
+  FILES_DOCTYPE,
+  JOBS_DOCTYPE
 } from 'doctypes'
 import { StoreURLProvider } from 'ducks/store/StoreContext'
-import { JOBS_DOCTYPE } from './doctypes'
 import { DisableEnforceFocusModalProvider } from 'ducks/context/DisableEnforceFocusModalContext'
+import { makeBrands } from 'ducks/brandDictionary'
+
 const jobsProviderOptions = t => ({
   onSuccess: () => Alerter.success(t('JobsContext.alerter-success')),
   onError: () => Alerter.error(t('JobsContext.alerter-errored'))
@@ -68,6 +70,10 @@ const AppContainer = ({ store, lang, client }) => {
   const { t } = useMemo(() => {
     return initT(lang, dictRequire)
   }, [lang])
+
+  useEffect(() => {
+    makeBrands(client)
+  }, [client])
 
   return (
     <WebviewIntentProvider setBarContext={cozyBar.setWebviewContext}>

@@ -15,12 +15,12 @@ import { Section, SectionTitle } from 'components/Section'
 import { useFilters } from 'components/withFilters'
 import { getYear } from 'date-fns'
 import TransactionActionsProvider from 'ducks/transactions/TransactionActionsProvider'
-import { useBrands } from 'ducks/brandDictionary/withBrands'
 import { getGroupedFilteredExpenses } from './selectors'
 import { getPeriod, parsePeriod, getFilteringDoc } from 'ducks/filters'
 import { DESKTOP_SCROLLING_ELEMENT_CLASSNAME } from 'ducks/transactions/scroll/getScrollingElement'
 import NoPendingReimbursements from 'ducks/reimbursements/NoPendingReimbursements'
 import NoReimbursedExpenses from 'ducks/reimbursements/NoReimbursedExpenses'
+import { getBrands } from 'ducks/brandDictionary'
 
 export const DumbReimbursements = ({
   triggers,
@@ -121,7 +121,7 @@ const Reimbursements = props => {
   const currentPeriod = useSelector(getPeriod)
   const filteringDoc = useSelector(getFilteringDoc)
   const transactions = useQuery(transactionsConn.query, transactionsConn)
-  const { brands } = useBrands({ queryName: 'reimbursementsPageTriggers' }) // We need to have a different query name otherwise we end with an infinite loading
+  const brands = getBrands()
 
   return (
     <DumbReimbursements

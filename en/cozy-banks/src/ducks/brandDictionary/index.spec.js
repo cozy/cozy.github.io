@@ -1,3 +1,5 @@
+import CozyClient from 'cozy-client'
+import { Registry } from 'cozy-client'
 import {
   getBrands,
   matchBrands,
@@ -5,9 +7,21 @@ import {
   isMatchingBrand,
   getBrandsWithInstallationInfo,
   getInstalledBrands,
-  getNotInstalledBrands
+  getNotInstalledBrands,
+  makeBrands
 } from '.'
 import brands from './brands'
+import { act } from '@testing-library/react'
+
+jest.mock('cozy-client', () => ({
+  ...jest.requireActual('cozy-client'),
+  __esModule: true,
+  Registry: jest.fn().mockReturnValue({
+    fetchApps: jest.fn()
+  })
+}))
+
+jest.spyOn(JSON, 'parse').mockImplementation(() => brands)
 
 const getFilteredBrands = () => getBrands(brand => brand.name === 'Filtered')
 
@@ -84,6 +98,54 @@ describe('brandDictionary', () => {
   describe('getInstalledBrands', () => {
     it('Should return the not installed brands', () => {
       expect(getNotInstalledBrands(installedSlugs)).toMatchSnapshot()
+    })
+  })
+
+  describe('makeBrands', () => {
+    it('Should make brands with just necessary informations', async () => {
+      const localStorageMock = {
+        setItem: jest.fn()
+      }
+      global.localStorage = localStorageMock
+      const mockRegistry = new Registry()
+      mockRegistry.fetchApps.mockResolvedValue([
+        {
+          slug: 'alan',
+          latest_version: {
+            manifest: {
+              name: 'Alan',
+              banksTransactionRegExp: '\\balan\\b'
+            }
+          }
+        },
+        {
+          slug: 'ameli',
+          maintenance_activated: true,
+          latest_version: {
+            manifest: {
+              name: 'Ameli',
+              banksTransactionRegExp: '\\bameli\\b'
+            }
+          }
+        }
+      ])
+      const mockClient = new CozyClient({
+        stackClient: {
+          collection: jest
+            .fn()
+            .mockReturnValue({ find: jest.fn().mockReturnValue({ data: [] }) }),
+          on: jest.fn(),
+          fetchJSON: jest.fn()
+        }
+      })
+      await makeBrands(mockClient)
+
+      act(() => {
+        expect(localStorage.setItem).toBeCalledWith(
+          'brands',
+          '[{"name":"Alan","konnectorSlug":"alan","regexp":"\\\\balan\\\\b","health":true,"contact":[{"type":"web","href":"https://alan.eu/login","action":"sendCareSheet"},{"type":"app","platform":"android","href":"https://alan.eu/open-or-download-mobile-app?origin=alanweb_landing_footer&os=android"},{"type":"app","platform":"ios","href":"https://alan.eu/open-or-download-mobile-app?origin=alanweb_landing_footer&os=ios"}],"maintenance":false,"hasTrigger":false},{"name":"Ameli","konnectorSlug":"ameli","regexp":"\\\\bameli\\\\b","health":true,"contact":[{"type":"phone","number":"36 46","price":"0,06 €/min"},{"type":"web","href":"https://www.ameli.fr/assure/adresses-et-contacts","action":"sendCareSheet"}],"maintenance":true,"hasTrigger":false}]'
+        )
+      })
     })
   })
 })

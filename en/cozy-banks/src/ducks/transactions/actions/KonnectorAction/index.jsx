@@ -20,6 +20,7 @@ import { KonnectorChip } from 'components/KonnectorChip'
 import { findMatchingBrandWithoutTrigger } from 'ducks/brandDictionary/selectors'
 import { connect } from 'react-redux'
 import { useDisableEnforceFocusModal } from 'ducks/context/DisableEnforceFocusModalContext'
+import { getBrands } from 'ducks/brandDictionary'
 
 const name = 'konnector'
 const transactionDialogListItemStyle = { color: palette.dodgerBlue }
@@ -49,9 +50,11 @@ const TransactionRow = ({ brand, onClick }) => {
   )
 }
 
-const Component = ({ fetchTriggers, isModalItem, brand }) => {
+const Component = ({ fetchTriggers, isModalItem, transaction }) => {
   const { t } = useI18n()
   const { setDisableEnforceFocus } = useDisableEnforceFocusModal()
+  const brands = getBrands()
+  const brand = findMatchingBrandWithoutTrigger(transaction.label, brands)
 
   const [showInformativeDialogState, setShowInformativeDialogState] =
     useState(false)
@@ -89,13 +92,13 @@ const Component = ({ fetchTriggers, isModalItem, brand }) => {
   const healthOrGeneric = brand.health ? 'health' : 'generic'
   const label = t(`Transactions.actions.konnector.${healthOrGeneric}`)
 
+  const Item = isModalItem
+    ? () => <ModalItem label={label} onClick={showInformativeDialog} />
+    : () => <TransactionRow brand={brand} onClick={showInformativeDialog} />
+
   return (
     <>
-      {isModalItem ? (
-        <ModalItem label={label} onClick={showInformativeDialog} />
-      ) : (
-        <TransactionRow brand={brand} onClick={showInformativeDialog} />
-      )}
+      {!brand.maintenance ? <Item /> : null}
       {showInformativeDialogState && (
         <InformativeDialog
           onCancel={hideInformativeDialog}
@@ -156,12 +159,7 @@ const action = {
   Component: compose(
     translate(),
     addFetchTriggers,
-    connect((state, { actionProps, transaction }) => ({
-      brand: findMatchingBrandWithoutTrigger(
-        transaction.label,
-        actionProps.brands
-      )
-    }))
+    connect((_, { transaction }) => ({ transaction }))
   )(Component)
 }
 

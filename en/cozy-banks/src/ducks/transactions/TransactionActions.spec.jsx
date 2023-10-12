@@ -8,11 +8,18 @@ import { SyncTransactionActions } from './TransactionActions'
 import { findMatchingActions } from 'ducks/transactions/actions'
 
 import Chip from 'cozy-ui/transpiled/react/Chip'
-import brands from 'ducks/brandDictionary/brands'
 import AppLike from 'test/AppLike'
 import data from 'test/fixtures'
 import store, { normalizeData } from 'test/store'
 import getClient from 'test/client'
+import { getBrands } from 'ducks/brandDictionary'
+
+jest.mock('ducks/brandDictionary', () => ({
+  ...jest.requireActual('ducks/brandDictionary'),
+  getBrands: jest.fn(() => require('ducks/brandDictionary/brands'))
+}))
+
+const brands = getBrands()
 
 const brandInMaintenance = {
   name: 'Maintenance',
@@ -52,7 +59,9 @@ const tests = [
     brands: brands.filter(x => x.name === 'Bouygues Telecom').map(b => ({ ...b, hasTrigger: true }))
   }],
   ['salaireisa1', null, 'Accéder à votre paie', 'SvgOpenwith', 'url'],
-  ['fnac', null, 'Accéder au site Fnac', 'SvgOpenwith', 'url'],
+  ['fnac', null, 'Accéder au site Fnac', 'SvgOpenwith', 'url', {
+    brands: brands.filter(x => x.name === 'FNAC TERNES').map(b => ({ ...b, hasTrigger: true }))
+  }],
   ['edf', null, 'EDF', null, 'app'],
   ['remboursementcomplementaire', null, 'Invoice', null, 'AttachedDocs', {
     brands: brands.filter(x => x.name == 'Malakoff Mederic')
