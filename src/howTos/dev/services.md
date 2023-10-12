@@ -46,7 +46,7 @@ Here is an explanation of the fields:
 - `type`: describe the code type (only `node` for now).
 - `file`: the single (packaged) file containing the code to execute as a service. It must be the **relative** path to the built service's file, not the source one. Expl: `/services/name-of-service/built-file.js`. Look at your `build` folder or build/watch console output to find it.
 - `trigger`: what triggers the service. It must follow the available triggers described in the [jobs documentation](https://docs.cozy.io/en/cozy-stack/jobs/). In this example, the trigger is a bank operation creation.
-- `debounce` (optionnal): force a minimal delay between two runs of the service. `m` is for minutes and `s` for seconds. if this parameter is omitted, the service will be executed as soon as it can.
+- `debounce` (optionnal): The debounce parameter can be used to limit the number of jobs created in a burst. It delays the creation of the job on the first input by the given time argument, and if the trigger has its condition matched again during this period, it won’t create another job. Its syntax is the one understood by go’s [time.ParseDuration](https://golang.org/pkg/time/#ParseDuration). If this parameter is omitted, the service will be executed as soon as it can.
 
 ## Build
 
