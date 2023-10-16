@@ -2726,7 +2726,7 @@
 </tr>
 <tr>
 <td><code>debounce</code></td>
-<td>Amount of time until the job cannot be run again. This attribute is used to limite the amount of jobs in a burst.</td>
+<td>The debounce parameter can be used to limit the number of jobs created in a burst. It delays the creation of the job on the first input by the given time argument, and if the trigger has its condition matched again during this period, it won’t create another job. Its syntax is the one understood by go’s <a href="https://golang.org/pkg/time/#ParseDuration">time.ParseDuration</a></td>
 </tr>
 <tr>
 <td><code>message</code></td>
