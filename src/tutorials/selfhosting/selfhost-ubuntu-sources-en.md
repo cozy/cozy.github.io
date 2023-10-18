@@ -167,6 +167,7 @@ And create configuration:
     registries:
       default:
       - https://apps-registry.cozycloud.cc/selfhosted
+      - https://apps-registry.cozycloud.cc/mespapiers
       - https://apps-registry.cozycloud.cc/banks
       - https://apps-registry.cozycloud.cc/
     EOF
@@ -216,7 +217,7 @@ Generate SSL certificate with certbot:
 
     DOMAIN=domain.example
     EMAIL="<your email address>"
-    sudo certbot certonly --email "${EMAIL}" --non-interactive --agree-tos --webroot -w /var/www/html -d cozy.${DOMAIN} $(printf -- " -d %s.cozy.${DOMAIN}" home banks contacts drive notes passwords photos settings store)
+    sudo certbot certonly --email "${EMAIL}" --non-interactive --agree-tos --webroot -w /var/www/html -d cozy.${DOMAIN} $(printf -- " -d %s.cozy.${DOMAIN}" home banks contacts drive notes passwords photos settings store mespapiers)
 
 Create nginx reload script for your certificate to be reloaded each time it is automatically refreshed, every 3 months:
 
