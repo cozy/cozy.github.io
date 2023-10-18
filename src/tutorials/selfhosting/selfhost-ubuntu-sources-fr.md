@@ -167,6 +167,7 @@ Et créer la configuration grâce à ces commandes :
     registries:
       default:
       - https://apps-registry.cozycloud.cc/selfhosted
+      - https://apps-registry.cozycloud.cc/mespapiers
       - https://apps-registry.cozycloud.cc/banks
       - https://apps-registry.cozycloud.cc/
     EOF
@@ -216,7 +217,7 @@ Générez le certificat SSL à l’aide de certbot :
 
     DOMAIN=domain.example
     EMAIL="<votre email>"
-    sudo certbot certonly --email "${EMAIL}" --non-interactive --agree-tos --webroot -w /var/www/html -d cozy.${DOMAIN} $(printf -- " -d %s.cozy.${DOMAIN}" home banks contacts drive notes passwords photos settings store)
+    sudo certbot certonly --email "${EMAIL}" --non-interactive --agree-tos --webroot -w /var/www/html -d cozy.${DOMAIN} $(printf -- " -d %s.cozy.${DOMAIN}" home banks contacts drive notes passwords photos settings store mespapiers)
 
 Pour que le nouveau certificat soit pris en compte automatiquement lors des renouvellements tous les 3 mois, créez le script de rechargement :
 
