@@ -279,6 +279,17 @@ export const cronKonnectorTriggersConn = {
   singleDocData: false
 }
 
+export const buildTriggerWithoutCurrentStateQuery = () => ({
+  definition: Q(TRIGGER_DOCTYPE)
+    .where({ _id: { $gt: null } })
+    .partialIndex({ worker: 'konnector' })
+    .indexFields(['_id']),
+  options: {
+    as: TRIGGER_DOCTYPE,
+    fetchPolicy: neverReload
+  }
+})
+
 export const transactionsConn = {
   query: () =>
     Q(TRANSACTION_DOCTYPE)

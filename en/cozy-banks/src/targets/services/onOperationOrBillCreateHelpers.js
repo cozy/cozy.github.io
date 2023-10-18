@@ -116,11 +116,11 @@ export const doSendNotifications = async (setting, notifChanges) => {
   }
 }
 
-export const doAppSuggestions = async setting => {
+export const doAppSuggestions = async (setting, brands) => {
   assert(setting, 'No setting passed')
   log('info', '⌛ Do apps suggestions...')
   try {
-    await findAppSuggestions(setting)
+    await findAppSuggestions(setting, brands)
   } catch (e) {
     log('warn', '❗ Error while finding app suggestions: ' + e)
   }

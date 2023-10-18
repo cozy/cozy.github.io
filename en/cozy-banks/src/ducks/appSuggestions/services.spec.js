@@ -8,10 +8,11 @@ import { getBrands } from 'ducks/brandDictionary'
 import { Document } from 'cozy-doctypes'
 import CozyClient from 'cozy-client'
 import fetch from 'node-fetch'
-import brands from 'ducks/brandDictionary/brands'
+import brandsJSON from 'ducks/brandDictionary/brands'
+import getClient from 'selectors/getClient'
 
+jest.mock('selectors/getClient', () => jest.fn())
 global.fetch = fetch
-jest.spyOn(JSON, 'parse').mockImplementation(() => brands)
 
 const client = new CozyClient({
   uri: 'http://localhost:8080'
@@ -19,6 +20,11 @@ const client = new CozyClient({
 Document.registerClient(client)
 
 describe('findSuggestionForTransaction', () => {
+  getClient.mockReturnValue({
+    store: {
+      getState: () => ({ brands: brandsJSON })
+    }
+  })
   const brands = getBrands()
   const transaction = { _id: 'o1', label: 'boulanger' }
 
@@ -117,6 +123,6 @@ describe('findAppSuggestions', () => {
   it('should work with empty data', async () => {
     Document.fetchAll = jest.fn().mockResolvedValue([])
     Document.fetchChanges = jest.fn().mockResolvedValue({ documents: [] })
-    await findAppSuggestions({})
+    await findAppSuggestions({}, brandsJSON)
   })
 })

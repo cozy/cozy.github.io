@@ -7,6 +7,10 @@ import { createMockClient } from 'cozy-client'
 import { render } from '@testing-library/react'
 import { getCategoryIdFromName } from 'ducks/categories/helpers'
 import { getT, enLocaleOption } from 'utils/lang'
+import brands from 'ducks/brandDictionary/brands'
+import getClient from 'selectors/getClient'
+
+jest.mock('selectors/getClient', () => jest.fn())
 
 // Mock useVisible so that it considers all element as visible in the
 // viewport (IntersectionObserver not available during tests)
@@ -19,6 +23,11 @@ jest.mock('hooks/useRedirectionURL', () => {
 })
 
 describe('Reimbursements', () => {
+  getClient.mockReturnValue({
+    store: {
+      getState: () => ({ brands })
+    }
+  })
   const baseProps = {
     fetchStatus: 'loaded',
     t: getT(enLocaleOption),

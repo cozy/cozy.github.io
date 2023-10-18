@@ -78,7 +78,7 @@ export const normalizeSuggestions = suggestions => {
   return normalizedSuggestions
 }
 
-export const findAppSuggestions = async setting => {
+export const findAppSuggestions = async (setting, brands) => {
   log('info', 'Fetch transactions changes, triggers and apps suggestions')
   const [transactionsToCheck, triggers, suggestions] = await Promise.all([
     BankTransaction.fetchChanges(get(setting, 'appSuggestions.lastSeq')),
@@ -94,13 +94,13 @@ export const findAppSuggestions = async setting => {
 
   log('info', 'Get not installed brands')
   const installedSlugs = triggers.map(getKonnector)
-  const brands = getNotInstalledBrands(installedSlugs)
+  const notInstalledBrands = getNotInstalledBrands(installedSlugs, brands)
 
-  log('info', `${brands.length} not installed brands`)
+  log('info', `${notInstalledBrands.length} not installed brands`)
 
   log('info', 'Find suggestions')
   const suggestionsFound = transactionsToCheck.documents.map(t =>
-    findSuggestionForTransaction(t, brands, suggestions)
+    findSuggestionForTransaction(t, notInstalledBrands, suggestions)
   )
 
   const normalizedSuggestions = normalizeSuggestions(suggestionsFound)

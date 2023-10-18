@@ -9,6 +9,10 @@ import {
 import keyBy from 'lodash/keyBy'
 import fixtures4 from './fixtures/fixtures4.json'
 import { TRANSACTION_DOCTYPE } from '../../doctypes'
+import brands from 'ducks/brandDictionary/brands'
+import getClient from 'selectors/getClient'
+
+jest.mock('selectors/getClient', () => jest.fn())
 
 const ops1 = [
   { _id: 't1', date: '2020-08-01', manualCategoryId: '400140' },
@@ -25,6 +29,11 @@ const ops2 = [
 ]
 
 describe('merge hydrated bundles', () => {
+  getClient.mockReturnValue({
+    store: {
+      getState: () => ({ brands })
+    }
+  })
   it('should not duplicate ops', () => {
     const bundles = [
       {

@@ -5,8 +5,9 @@ import flag from 'cozy-flags'
 import AppLike from 'test/AppLike'
 import BillChip from './BillChip'
 import brands from 'ducks/brandDictionary/brands'
+import getClient from 'selectors/getClient'
 
-jest.spyOn(JSON, 'parse').mockImplementation(() => brands)
+jest.mock('selectors/getClient', () => jest.fn())
 jest.mock('cozy-flags')
 jest.mock(
   'ducks/transactions/FileOpener',
@@ -16,6 +17,11 @@ jest.mock(
 )
 
 describe('BillChip', () => {
+  getClient.mockReturnValue({
+    store: {
+      getState: () => ({ brands })
+    }
+  })
   const setup = ({ bill }) => {
     const root = render(
       <AppLike>

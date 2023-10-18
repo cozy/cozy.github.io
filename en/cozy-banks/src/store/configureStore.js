@@ -12,6 +12,7 @@ import {
 import { isSentryEnabled, getSentryMiddleware } from 'lib/sentry'
 
 import filters from 'ducks/filters'
+import brands from 'ducks/brandDictionary/brandsReducer'
 
 const configureStore = (cozyClient, persistedState) => {
   // Enable Redux dev tools
@@ -34,6 +35,7 @@ const configureStore = (cozyClient, persistedState) => {
 
   const store = createStore(
     combineReducers({
+      brands,
       filters,
       cozy: cozyClient.reducer()
     }),

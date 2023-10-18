@@ -13,8 +13,17 @@ import * as utils from './utils'
 const { getFrequencyText } = utils
 import fixtures from './fixtures/fixtures.json'
 import { assertValidRecurrence, formatRecurrence } from './search-utils'
+import brands from 'ducks/brandDictionary/brands'
+import getClient from 'selectors/getClient'
+
+jest.mock('selectors/getClient', () => jest.fn())
 
 describe('recurrence bundles (with existing recurrences)', () => {
+  getClient.mockReturnValue({
+    store: {
+      getState: () => ({ brands })
+    }
+  })
   describe('amount', () => {
     const transactionsByKey = keyBy(fixtures4[TRANSACTION_DOCTYPE], '_id')
     const transactions = [

@@ -19,6 +19,7 @@ import {
   doAppSuggestions,
   launchBudgetAlertService
 } from './onOperationOrBillCreateHelpers'
+import { makeBrands } from 'ducks/brandDictionary/brandsReducer'
 
 const onOperationOrBillCreate = async (client, options) => {
   log('info', '⌛ Fetching settings...')
@@ -63,7 +64,8 @@ const onOperationOrBillCreate = async (client, options) => {
   await doSendNotifications(setting, notifChanges)
   setting = await updateSettings(client, setting)
 
-  await doAppSuggestions(setting)
+  const brands = await makeBrands(client, undefined, true)
+  await doAppSuggestions(setting, brands)
   setting = await updateSettings(client, setting)
 
   await launchBudgetAlertService(client)

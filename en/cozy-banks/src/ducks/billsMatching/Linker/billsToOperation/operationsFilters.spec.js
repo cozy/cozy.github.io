@@ -7,10 +7,16 @@ import {
   operationsFilters
 } from './operationsFilters'
 import brands from 'ducks/brandDictionary/brands'
+import getClient from 'selectors/getClient'
 
-jest.spyOn(JSON, 'parse').mockImplementation(() => brands)
+jest.mock('selectors/getClient', () => jest.fn())
 
 describe('operations filters', () => {
+  getClient.mockReturnValue({
+    store: {
+      getState: () => ({ brands })
+    }
+  })
   describe('filtering by brand', () => {
     it('should use the regexp from the dictionnary if the brand exists in it', () => {
       const bill = { vendor: 'Trainline' }

@@ -7,8 +7,17 @@ import fixtures from './fixtures/fixtures.json'
 import fixtures2 from './fixtures/fixtures2.json'
 import fixtures3 from './fixtures/fixtures3.json'
 import { assertValidRecurrence, formatRecurrence } from './search-utils'
+import brands from 'ducks/brandDictionary/brands'
+import getClient from 'selectors/getClient'
+
+jest.mock('selectors/getClient', () => jest.fn())
 
 describe('recurrence bundles (without existing recurrence)', () => {
+  getClient.mockReturnValue({
+    store: {
+      getState: () => ({ brands })
+    }
+  })
   it('should find new bundles (fixtures1)', () => {
     const transactions = fixtures[TRANSACTION_DOCTYPE]
     const recurrences = []

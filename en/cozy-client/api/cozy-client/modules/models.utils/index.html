@@ -2637,6 +2637,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#getflagshipdownloadlink" title="getFlagshipDownloadLink" class="md-nav__link">
+    getFlagshipDownloadLink
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#hasbeenupdatedbyapp" title="hasBeenUpdatedByApp" class="md-nav__link">
     hasBeenUpdatedByApp
   </a>
@@ -2672,52 +2679,93 @@
 <p><a href="../models/">models</a>.utils</p>
 <h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
 <h3 id="getcreatedbyapp">getCreatedByApp<a class="headerlink" href="#getcreatedbyapp" title="Permanent link">&para;</a></h3>
-<p>▸ <strong>getCreatedByApp</strong>(<code>doc</code>): <code>any</code></p>
+<p>▸ <strong>getCreatedByApp</strong>(<code>doc</code>): <code>string</code></p>
+<p>Gets the app that created a document</p>
 <p><em>Parameters</em></p>
 <table>
 <thead>
 <tr>
 <th align="left">Name</th>
 <th align="left">Type</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left"><code>doc</code></td>
 <td align="left"><code>any</code></td>
+<td align="left">The document to check</td>
 </tr>
 </tbody>
 </table>
 <p><em>Returns</em></p>
-<p><code>any</code></p>
+<p><code>string</code></p>
+<ul>
+<li>The slug of the app that created the document</li>
+</ul>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/utils.js#L8">packages/cozy-client/src/models/utils.js:8</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/utils.js#L23">packages/cozy-client/src/models/utils.js:23</a></p>
 <hr />
-<h3 id="hasbeenupdatedbyapp">hasBeenUpdatedByApp<a class="headerlink" href="#hasbeenupdatedbyapp" title="Permanent link">&para;</a></h3>
-<p>▸ <strong>hasBeenUpdatedByApp</strong>(<code>doc</code>, <code>appSlug</code>): <code>boolean</code></p>
+<h3 id="getflagshipdownloadlink">getFlagshipDownloadLink<a class="headerlink" href="#getflagshipdownloadlink" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>getFlagshipDownloadLink</strong>(<code>lang</code>): <code>string</code></p>
+<p>Gets the download link for the Cozy Flagship app and his white-labels versions</p>
 <p><em>Parameters</em></p>
 <table>
 <thead>
 <tr>
 <th align="left">Name</th>
 <th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>lang</code></td>
+<td align="left"><code>string</code></td>
+<td align="left">The language code for the download page</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>string</code></p>
+<ul>
+<li>The URL of the download page</li>
+</ul>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/utils.js#L31">packages/cozy-client/src/models/utils.js:31</a></p>
+<hr />
+<h3 id="hasbeenupdatedbyapp">hasBeenUpdatedByApp<a class="headerlink" href="#hasbeenupdatedbyapp" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>hasBeenUpdatedByApp</strong>(<code>doc</code>, <code>appSlug</code>): <code>boolean</code></p>
+<p>Checks if a document has been updated by a specific app</p>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left"><code>doc</code></td>
 <td align="left"><code>any</code></td>
+<td align="left">The document to check</td>
 </tr>
 <tr>
 <td align="left"><code>appSlug</code></td>
-<td align="left"><code>any</code></td>
+<td align="left"><code>string</code></td>
+<td align="left">The slug of the app to check</td>
 </tr>
 </tbody>
 </table>
 <p><em>Returns</em></p>
 <p><code>boolean</code></p>
+<ul>
+<li>True if the document has been updated by the app, false otherwise</li>
+</ul>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/utils.js#L3">packages/cozy-client/src/models/utils.js:3</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/utils.js#L12">packages/cozy-client/src/models/utils.js:12</a></p>
                 
                   
                 

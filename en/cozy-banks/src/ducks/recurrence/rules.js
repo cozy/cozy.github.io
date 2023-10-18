@@ -12,8 +12,7 @@ import uniq from 'lodash/uniq'
 import uniqBy from 'lodash/uniqBy'
 import getCategoryId from 'ducks/transactions/getCategoryId'
 import { getLabel } from './utils'
-import brands from 'ducks/brandDictionary/brands'
-import { findMatchingBrand } from 'ducks/brandDictionary'
+import { findMatchingBrand, getBrands } from 'ducks/brandDictionary'
 import { ONE_DAY } from 'ducks/recurrence/constants'
 
 const mean = iterable => sum(iterable) / iterable.length
@@ -163,6 +162,7 @@ export const addStats = bundle => ({
 })
 
 export const brandSplit = () => bundle => {
+  const brands = getBrands()
   const brandGroups = groupBy(bundle.ops, op => {
     const brand = findMatchingBrand(brands, op.label)
     return brand ? brand.name : null

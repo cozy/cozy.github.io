@@ -34,7 +34,7 @@ import {
 } from 'doctypes'
 import { StoreURLProvider } from 'ducks/store/StoreContext'
 import { DisableEnforceFocusModalProvider } from 'ducks/context/DisableEnforceFocusModalContext'
-import { makeBrands } from 'ducks/brandDictionary'
+import { makeBrands } from 'ducks/brandDictionary/brandsReducer'
 
 const jobsProviderOptions = t => ({
   onSuccess: () => Alerter.success(t('JobsContext.alerter-success')),
@@ -72,8 +72,8 @@ const AppContainer = ({ store, lang, client }) => {
   }, [lang])
 
   useEffect(() => {
-    makeBrands(client)
-  }, [client])
+    store.dispatch(dispatch => makeBrands(client, dispatch))
+  }, [store, client])
 
   return (
     <WebviewIntentProvider setBarContext={cozyBar.setWebviewContext}>

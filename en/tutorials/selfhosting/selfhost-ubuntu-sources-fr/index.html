@@ -2814,6 +2814,7 @@ sudo install -o cozy-stack -g cozy -m 750 -d /var/lib/cozy
 <span class="nl">registries</span><span class="p">:</span>
   <span class="k">default</span><span class="o">:</span>
   <span class="o">-</span> <span class="nl">https</span><span class="p">:</span><span class="c1">//apps-registry.cozycloud.cc/selfhosted</span>
+  <span class="o">-</span> <span class="nl">https</span><span class="p">:</span><span class="c1">//apps-registry.cozycloud.cc/mespapiers</span>
   <span class="o">-</span> <span class="nl">https</span><span class="p">:</span><span class="c1">//apps-registry.cozycloud.cc/banks</span>
   <span class="o">-</span> <span class="nl">https</span><span class="p">:</span><span class="c1">//apps-registry.cozycloud.cc/</span>
 <span class="n">EOF</span>
@@ -2867,7 +2868,7 @@ sudo systemctl start cozy-stack
 <p>Générez le certificat SSL à l’aide de certbot :</p>
 <div class="codehilite"><pre><span></span>DOMAIN=domain.example
 EMAIL=&quot;<span class="nt">&lt;votre</span> <span class="err">email</span><span class="nt">&gt;</span>&quot;
-sudo certbot certonly --email &quot;<span class="cp">${</span><span class="n">EMAIL</span><span class="cp">}</span>&quot; --non-interactive --agree-tos --webroot -w /var/www/html -d cozy.<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span> $(printf -- &quot; -d %s.cozy.<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span>&quot; home banks contacts drive notes passwords photos settings store)
+sudo certbot certonly --email &quot;<span class="cp">${</span><span class="n">EMAIL</span><span class="cp">}</span>&quot; --non-interactive --agree-tos --webroot -w /var/www/html -d cozy.<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span> $(printf -- &quot; -d %s.cozy.<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span>&quot; home banks contacts drive notes passwords photos settings store mespapiers)
 </pre></div>
 
 
