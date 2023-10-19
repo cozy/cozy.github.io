@@ -29,9 +29,23 @@ nav:
     - Qualification: tutorials/data/qualification.md
     - Advanced: tutorials/data/advanced.md
   - Self-Hosting:
-    - on Debian with packages: tutorials/selfhosting/selfhost-debian-pkg.md
-    - on Ubuntu from sources (en): tutorials/selfhosting/selfhost-ubuntu-sources-en.md
-    - on Ubuntu from sources (fr): tutorials/selfhosting/selfhost-ubuntu-sources-fr.md
+    - Introduction: tutorials/selfhosting/index.md
+    - Requirements:
+      - What you need: tutorials/selfhosting/requirements/index.md
+      - Installing CouchDB: tutorials/selfhosting/requirements/couchdb.md
+      - Installing NodeJS: tutorials/selfhosting/requirements/nodejs.md
+    - Installing cozy-stack:
+      - Introduction: tutorials/selfhosting/install/index.md
+      - From precompiled package: tutorials/selfhosting/install/package.md
+      - From sources: tutorials/selfhosting/install/sources.md
+    - Finalize installation:
+      - Nginx and certificates: tutorials/selfhosting/finalize/nginx.md
+      - Create first instance: tutorials/selfhosting/finalize/create_instance.md
+    - Administration:
+      - Index: tutorials/selfhosting/administration/index.md
+      - Create more instances: tutorials/selfhosting/administration/more_instances.md
+      - Upgrade cozy-stack: tutorials/selfhosting/administration/upgrade.md
+      - Online edition of office documents: tutorials/selfhosting/administration/office.md
 - How-to:
   - Dev:
     - Run an App in a Cozy using Docker: howTos/dev/runCozyDocker.md
