@@ -65,7 +65,7 @@ Supported repositories are:
   - deb <https://apt.cozy.io/raspbian/> buster testing
 
 ```bash
-echo "deb https://apt.cozy.io/debian/ buster testing" > /etc/apt/sources.list.d/cozy.list
+echo "deb [signed-by=/usr/share/keyrings/cozy-keyring.gpg] https://apt.cozy.io/debian/ buster testing" > /etc/apt/sources.list.d/cozy.list
 apt update
 ```
 
