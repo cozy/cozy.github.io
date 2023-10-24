@@ -2937,7 +2937,8 @@ dpkg -i /tmp/cozy-keyring.deb
 
 
 <p>Finally, setup your repository.</p>
-<div class="codehilite"><pre><span></span>. /etc/lsb-release
+<div class="codehilite"><pre><span></span><span class="nv">DISTRIB_ID</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>lsb_release -is<span class="k">)</span><span class="s2">&quot;</span>
+<span class="nv">DISTRIB_CODENAME</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>lsb_release -cs<span class="k">)</span><span class="s2">&quot;</span>
 <span class="nb">echo</span> <span class="s2">&quot;deb [signed-by=/usr/share/keyrings/cozy-keyring.gpg] https://apt.cozy.io/</span><span class="si">${</span><span class="nv">DISTRIB_ID</span><span class="p">,,</span><span class="si">}</span><span class="s2">/ </span><span class="si">${</span><span class="nv">DISTRIB_CODENAME</span><span class="si">}</span><span class="s2"> stable&quot;</span> <span class="p">|</span> sudo tee /etc/apt/sources.list.d/cozy.list &gt; /dev/null
 sudo apt update
 </pre></div>
