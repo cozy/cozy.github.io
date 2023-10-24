@@ -2869,7 +2869,7 @@
 <p>You can refer to <a href="https://github.com/nodesource/distributions/blob/master/README.md#manual-installation">NodeJS installation documentation</a> or simply follow the instructions below.</p>
 <p>Configure NodeJS 16 package repository:</p>
 <div class="codehilite"><pre><span></span>KEYRING=/usr/share/keyrings/nodesource.gpg
-curl -fsSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dearmor | sudo tee &quot;$KEYRING&quot; &gt;/dev/null
+curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o &quot;$KEYRING&quot;
 echo &quot;deb [signed-by=$KEYRING] https://deb.nodesource.com/node_16.x nodistro main&quot; | sudo tee /etc/apt/sources.list.d/nodesource.list &gt;/dev/null
 echo &quot;deb-src [signed-by=$KEYRING] https://deb.nodesource.com/node_16.x nodistro main&quot; | sudo tee -a /etc/apt/sources.list.d/nodesource.list &gt;/dev/null
 </pre></div>
