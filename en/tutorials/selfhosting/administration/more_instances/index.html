@@ -2894,6 +2894,8 @@ server {
 
     root /var/www/html;
     server_name *.<span class="cp">${</span><span class="n">NEWSLUG</span><span class="cp">}</span>.<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span> <span class="cp">${</span><span class="n">NEWSLUG</span><span class="cp">}</span>.<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span>;
+    access_log /var/log/nginx/<span class="cp">${</span><span class="n">NEWSLUG</span><span class="cp">}</span>.<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span>.access.log with_host;
+    error_log /var/log/nginx/<span class="cp">${</span><span class="n">NEWSLUG</span><span class="cp">}</span>.<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span>.error.log;
 
     location /.well-known {
         alias /var/www/html/.well-known;
@@ -2924,7 +2926,7 @@ server {
     ssl_certificate_key /etc/letsencrypt/live/<span class="cp">${</span><span class="n">NEWSLUG</span><span class="cp">}</span>.<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span>/privkey.pem;
 
     server_name *.<span class="cp">${</span><span class="n">NEWSLUG</span><span class="cp">}</span>.<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span> <span class="cp">${</span><span class="n">NEWSLUG</span><span class="cp">}</span>.<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span>;
-    access_log /var/log/nginx/<span class="cp">${</span><span class="n">NEWSLUG</span><span class="cp">}</span>.<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span>.access.log;
+    access_log /var/log/nginx/<span class="cp">${</span><span class="n">NEWSLUG</span><span class="cp">}</span>.<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span>.access.log with_host;
     error_log /var/log/nginx/<span class="cp">${</span><span class="n">NEWSLUG</span><span class="cp">}</span>.<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span>.error.log;
 
     add_header Strict-Transport-Security &quot;max-age=31536000; includeSubDomains;&quot;;
