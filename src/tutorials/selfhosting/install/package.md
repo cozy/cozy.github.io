@@ -49,7 +49,7 @@ At this point, you must have a working Cozy stack, depending on the branch you'v
 
 ```bash
 curl http://localhost:8080/version
-{"build_mode":"production","build_time":"2023-10-18T05:57:06Z","runtime_version":"go1.21.3","version":"2:1.6.10"}
+{"build_mode":"production","build_time":"2023-10-18T05:57:06Z","runtime_version":"go1.21.3","version":"2:1.6.13"}
 ```
 
 <div style="text-align: right">

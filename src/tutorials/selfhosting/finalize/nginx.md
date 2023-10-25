@@ -37,14 +37,17 @@ Create nginx reload script for your certificate to be reloaded each time it is a
     EOF
     chmod 0755 /etc/letsencrypt/renewal-hooks/deploy/reload-nginx.sh
 
-Configure nginx:
+Configure nginx (adjust the DOMAIN variable on the first line to your real domain name):
 
     DOMAIN=domain.example
-    cat <<EOF | sudo tee /etc/nginx/sites-available/cozy.${DOMAIN} > /dev/null
-    log_format with_host '$remote_addr $host $remote_user [$time_local] "$request" '
-                         '$status $body_bytes_sent "$http_referer" '
-                         '"$request_body"' ;
 
+    cat <<EOF > /etc/nginx/conf.d/logformat_with_host.conf
+    log_format with_host '\$remote_addr \$host \$remote_user [\$time_local] "\$request" '
+                        '\$status \$body_bytes_sent "\$http_referer" '
+                        '"\$request_body"' ;
+    EOF
+
+    cat <<EOF | sudo tee /etc/nginx/sites-available/cozy.${DOMAIN} > /dev/null
     server {
         listen 80;
         listen [::]:80;

@@ -15,7 +15,6 @@ Install NodeJS:
 
     sudo apt update
     sudo apt install -y nodejs
-    sudo ln -s /usr/bin/node /usr/bin/nodejs
 
 <div style="text-align: right">
   <a href="../../install/">Next --&gt;</a>

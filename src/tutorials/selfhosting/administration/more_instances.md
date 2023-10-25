@@ -30,6 +30,8 @@ Create Nginx base configuration for this Cozy instance:
 
         root /var/www/html;
         server_name *.${NEWSLUG}.${DOMAIN} ${NEWSLUG}.${DOMAIN};
+        access_log /var/log/nginx/${NEWSLUG}.${DOMAIN}.access.log with_host;
+        error_log /var/log/nginx/${NEWSLUG}.${DOMAIN}.error.log;
 
         location /.well-known {
             alias /var/www/html/.well-known;
@@ -58,7 +60,7 @@ Finalize Nginx configuration:
         ssl_certificate_key /etc/letsencrypt/live/${NEWSLUG}.${DOMAIN}/privkey.pem;
 
         server_name *.${NEWSLUG}.${DOMAIN} ${NEWSLUG}.${DOMAIN};
-        access_log /var/log/nginx/${NEWSLUG}.${DOMAIN}.access.log;
+        access_log /var/log/nginx/${NEWSLUG}.${DOMAIN}.access.log with_host;
         error_log /var/log/nginx/${NEWSLUG}.${DOMAIN}.error.log;
 
         add_header Strict-Transport-Security "max-age=31536000; includeSubDomains;";
