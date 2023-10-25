@@ -2897,18 +2897,18 @@ sudo certbot certonly --email &quot;<span class="cp">${</span><span class="n">EM
 
 
 <p>Create nginx reload script for your certificate to be reloaded each time it is automatically refreshed, every 3 months:</p>
-<div class="codehilite"><pre><span></span>cat &lt;&lt;EOF | sudo tee /etc/letsencrypt/renewal-hooks/deploy/reload-nginx.sh
+<div class="codehilite"><pre><span></span>cat &lt;&lt;EOF | sudo tee /etc/letsencrypt/renewal-hooks/deploy/reload-nginx.sh &gt; /dev/null
 #!/bin/bash
 nginx -t -q &amp;&amp; nginx -s reload
 EOF
-chmod 0755 /etc/letsencrypt/renewal-hooks/deploy/reload-nginx.sh
+sudo chmod 0755 /etc/letsencrypt/renewal-hooks/deploy/reload-nginx.sh
 </pre></div>
 
 
 <p>Configure nginx (adjust the DOMAIN variable on the first line to your real domain name):</p>
 <div class="codehilite"><pre><span></span>DOMAIN=domain.example
 
-cat <span class="err">&lt;</span><span class="nt">&lt;EOF</span> <span class="nt">&gt;</span> /etc/nginx/conf.d/logformat_with_host.conf
+cat <span class="err">&lt;</span><span class="nt">&lt;EOF</span> <span class="err">|</span> <span class="err">sudo</span> <span class="err">tee</span> <span class="err">/etc/nginx/conf.d/logformat_with_host.conf</span> <span class="nt">&gt;</span> /dev/null
 log_format with_host &#39;\<span class="nv">$remote_addr</span> \<span class="nv">$host</span> \<span class="nv">$remote_user</span> [\<span class="nv">$time_local</span>] &quot;\<span class="nv">$request</span>&quot; &#39;
                     &#39;\<span class="nv">$status</span> \<span class="nv">$body_bytes_sent</span> &quot;\<span class="nv">$http_referer</span>&quot; &#39;
                     &#39;&quot;\<span class="nv">$request_body</span>&quot;&#39; ;

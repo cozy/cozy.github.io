@@ -36,11 +36,11 @@ class Backup:
         local = path + ".local"
         if os.path.isfile(local):
             with open(local, "r") as file:
-                tmp = yaml.load(file)
+                tmp = yaml.safe_load(file)
             config = merge(tmp, config)
         if os.path.isfile(path):
             with open(path, "r") as file:
-                tmp = yaml.load(file)
+                tmp = yaml.safe_load(file)
             config = merge(tmp, config)
         return config
 

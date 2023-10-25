@@ -2188,13 +2188,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#hooks" title="Hooks" class="md-nav__link">
-    Hooks
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#onlyoffice" title="OnlyOffice" class="md-nav__link">
     OnlyOffice
   </a>
@@ -3056,13 +3049,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#hooks" title="Hooks" class="md-nav__link">
-    Hooks
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#onlyoffice" title="OnlyOffice" class="md-nav__link">
     OnlyOffice
   </a>
@@ -3287,64 +3273,6 @@ use the second cluster for instance creations instead of the first:</p>
 <p>each instance document will keep the list index of the CouchDB cluster used
    for its databases, so don&rsquo;t remove a cluster in the middle of the list!</p>
 </li>
-</ol>
-<h2 id="hooks">Hooks<a class="headerlink" href="#hooks" title="Permanent link">&para;</a></h2>
-<p>Cozy-stack can run scripts on some events to customize it. The scripts must be
-in the hooks directory defined in the config, have a predefined name, and be
-executable. Then, they should be fired automatically. Let&rsquo;s the available hooks.</p>
-<p>The <code>pre-add-instance</code> hook is run just before creating an instance. It can
-prevent the command from running by exiting with non-zero status. It can be used
-to check the domain for example. It is called with the following parameter:</p>
-<ol>
-<li>the domain of the instance that will be created.</li>
-</ol>
-<p>The <code>post-add-instance</code> hook is run just after an instance has been created.
-installed. It can be used to setup DNS for this instance for example. It is
-called with the following parameter:</p>
-<ol>
-<li>the domain of the instance that has been created.</li>
-</ol>
-<p>The <code>pre-remove-instance</code> hook is run just before destroying an instance. It can
-prevent the command from running by exiting with non-zero status. It can be used
-to make a backup of the instance before destroying it. It is called with the
-following parameter:</p>
-<ol>
-<li>the domain of the instance that will be destroyed.</li>
-</ol>
-<p>The <code>post-remove-instance</code> hook is run just after an instance has been
-destroyed. It can be used to do some cleanup. It is called with the following
-parameter:</p>
-<ol>
-<li>the domain of the instance that has been destroyed.</li>
-</ol>
-<p>The <code>pre-install-app</code> hook is run just before installing an application, and can
-prevent the command from running by exiting with non-zero status. It is called
-with the following parameters:</p>
-<ol>
-<li>the instance on which the application will be installed</li>
-<li>the application name that will be installed.</li>
-</ol>
-<p>The <code>post-install-app</code> hook is run just after an application has been installed.
-It can be used for logging, notification, statistics, etc. It&rsquo;s also a good
-place to add a vhost for an application in the reverse-proxy configuration, with
-a TLS certificate. It is called with the following parameters:</p>
-<ol>
-<li>the instance on which the application has been installed</li>
-<li>the application name that has been installed.</li>
-</ol>
-<p>The <code>pre-uninstall-app</code> hook is run just before uninstalling an application, and
-can prevent the command from running by exiting with non-zero status. It is
-called with the following parameters:</p>
-<ol>
-<li>the instance on which the application will be uninstalled</li>
-<li>the application name that will be uninstalled.</li>
-</ol>
-<p>The <code>post-uninstall-app</code> hook is run just after an application has been
-uninstalled. It can be used for cleaning the configuration of the reverse- proxy
-for example. It is called with the following parameters:</p>
-<ol>
-<li>the instance on which the application has been uninstalled</li>
-<li>the application name that has been uninstalled.</li>
 </ol>
 <h2 id="onlyoffice">OnlyOffice<a class="headerlink" href="#onlyoffice" title="Permanent link">&para;</a></h2>
 <p>An integration between Cozy and OnlyOffice has been made. It allows the

@@ -2872,6 +2872,11 @@
 curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o &quot;$KEYRING&quot;
 echo &quot;deb [signed-by=$KEYRING] https://deb.nodesource.com/node_16.x nodistro main&quot; | sudo tee /etc/apt/sources.list.d/nodesource.list &gt;/dev/null
 echo &quot;deb-src [signed-by=$KEYRING] https://deb.nodesource.com/node_16.x nodistro main&quot; | sudo tee -a /etc/apt/sources.list.d/nodesource.list &gt;/dev/null
+cat &lt;&lt;EOF | sudo tee /etc/apt/preferences.d/nodejs.pref
+Package: *
+Pin: origin deb.nodesource.com
+Pin-Priority: 700
+EOF
 </pre></div>
 
 

@@ -7,10 +7,12 @@ import acme.client
 import acme.messages
 import josepy as jose
 import requests
+from cryptography import __version__ as cryptoversion
 from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.asymmetric import ec
 from cryptography.hazmat.primitives.serialization import Encoding, \
     PrivateFormat, NoEncryption
+from packaging import version
 from pyasn1.codec.der import decoder
 from pyasn1_modules.rfc2459 import SubjectAltName
 
@@ -80,8 +82,13 @@ class ACME:
         with open(file, "rb") as file:
             pem = file.read()
         if format == "acme":
-            key = ACME.DEFAULT_BACKEND.load_pem_private_key(data=pem,
-                                                            password=None)
+            # Starting from python-cryptography 39.0.0 load_pem_private_key has an extra unsafe_skip_rsa_key_validation parameter
+            if version.parse(cryptoversion) < version.parse("39.0.0"):
+                key = ACME.DEFAULT_BACKEND.load_pem_private_key(data=pem, password=None)
+            else:
+                key = ACME.DEFAULT_BACKEND.load_pem_private_key(
+                    data=pem, password=None, unsafe_skip_rsa_key_validation=False
+                )
         else:
             key = OpenSSL.crypto.load_privatekey(
                 type=OpenSSL.crypto.FILETYPE_PEM, buffer=pem, passphrase=None)
