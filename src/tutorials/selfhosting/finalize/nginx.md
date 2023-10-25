@@ -41,12 +41,18 @@ Configure nginx:
 
     DOMAIN=domain.example
     cat <<EOF | sudo tee /etc/nginx/sites-available/cozy.${DOMAIN} > /dev/null
+    log_format with_host '$remote_addr $host $remote_user [$time_local] "$request" '
+                         '$status $body_bytes_sent "$http_referer" '
+                         '"$request_body"' ;
+
     server {
         listen 80;
         listen [::]:80;
 
         root /var/www/html;
         server_name *.cozy.${DOMAIN} cozy.${DOMAIN};
+        access_log /var/log/nginx/cozy.${DOMAIN}.access.log with_host;
+        error_log /var/log/nginx/cozy.${DOMAIN}.error.log;
 
         location /.well-known {
             alias /var/www/html/.well-known;
@@ -64,7 +70,7 @@ Configure nginx:
         ssl_certificate_key /etc/letsencrypt/live/cozy.${DOMAIN}/privkey.pem;
 
         server_name *.cozy.${DOMAIN} cozy.${DOMAIN};
-        access_log /var/log/nginx/cozy.${DOMAIN}.access.log;
+        access_log /var/log/nginx/cozy.${DOMAIN}.access.log with_host;
         error_log /var/log/nginx/cozy.${DOMAIN}.error.log;
 
         add_header Strict-Transport-Security "max-age=31536000; includeSubDomains;";
