@@ -2983,6 +2983,13 @@ sudo snap start couchdb
 </pre></div>
 
 
+<p>Create system databases. These databases are created automatically when installing couchdb from debian package but should be created manually when installing using snap.
+Replace StrongAdminPassw0rd with the password you chose previously.</p>
+<div class="codehilite"><pre><span></span>curl -u &quot;admin:StrongAdminPassw0rd&quot; -X PUT http://localhost:5984/_users
+curl -u &quot;admin:StrongAdminPassw0rd&quot; -X PUT http://localhost:5984/_replicator
+</pre></div>
+
+
 <div style="text-align: right">
   <a href="../nodejs/">Next --&gt;</a>
 </div>
