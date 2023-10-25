@@ -31,17 +31,17 @@ Generate SSL certificate with certbot:
 
 Create nginx reload script for your certificate to be reloaded each time it is automatically refreshed, every 3 months:
 
-    cat <<EOF | sudo tee /etc/letsencrypt/renewal-hooks/deploy/reload-nginx.sh
+    cat <<EOF | sudo tee /etc/letsencrypt/renewal-hooks/deploy/reload-nginx.sh > /dev/null
     #!/bin/bash
     nginx -t -q && nginx -s reload
     EOF
-    chmod 0755 /etc/letsencrypt/renewal-hooks/deploy/reload-nginx.sh
+    sudo chmod 0755 /etc/letsencrypt/renewal-hooks/deploy/reload-nginx.sh
 
 Configure nginx (adjust the DOMAIN variable on the first line to your real domain name):
 
     DOMAIN=domain.example
 
-    cat <<EOF > /etc/nginx/conf.d/logformat_with_host.conf
+    cat <<EOF | sudo tee /etc/nginx/conf.d/logformat_with_host.conf > /dev/null
     log_format with_host '\$remote_addr \$host \$remote_user [\$time_local] "\$request" '
                         '\$status \$body_bytes_sent "\$http_referer" '
                         '"\$request_body"' ;

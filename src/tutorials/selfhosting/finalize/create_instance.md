@@ -5,7 +5,7 @@
     DOMAIN=domain.example
     EMAIL=<your email address>
     [[ -z "${COZY_PASS}" ]] && read -p "Cozy stack admin password: " -r -s COZY_PASS
-    COZY_ADMIN_PASSWORD="${COZY_PASS}" cozy-stack instances add --apps home,banks,contacts,drive,notes,passwords,photos,settings,store --email "${EMAIL}" --locale fr --tz "Europe/Paris" cozy.${DOMAIN}
+    sudo COZY_ADMIN_PASSWORD="${COZY_PASS}" cozy-stack instances add --apps home,banks,contacts,drive,notes,passwords,photos,settings,store --email "${EMAIL}" --locale fr --tz "Europe/Paris" cozy.${DOMAIN}
 
 You can of course adapt your language (`locale`) to choose english (`en`) or spanish (`es`) and choose another timezone (`tz`).
 

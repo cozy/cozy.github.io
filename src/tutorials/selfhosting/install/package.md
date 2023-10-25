@@ -12,7 +12,7 @@ Then, fetch the GPG Cozy signing key:
 
 ```bash
 wget https://apt.cozy.io/cozy-keyring.deb -O /tmp/cozy-keyring.deb
-dpkg -i /tmp/cozy-keyring.deb
+sudo dpkg -i /tmp/cozy-keyring.deb
 ```
 
 Finally, setup your repository.

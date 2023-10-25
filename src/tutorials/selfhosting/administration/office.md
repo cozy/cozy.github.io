@@ -84,7 +84,7 @@ You can now test onlyoffice is accessible from your browser at `https://onlyoffi
 Update configuration file:
 
     DOMAIN=domain.example
-    cat <<EOF | sudo tee -a /etc/cozy/cozy.yml > /dev/null
+    cat <<EOF | sudo tee -a /etc/cozy/cozy.yml.local > /dev/null
     office:
       default:
         onlyoffice_url: https://onlyoffice.${DOMAIN}/
