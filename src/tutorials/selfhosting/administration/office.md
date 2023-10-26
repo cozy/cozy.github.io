@@ -76,6 +76,8 @@ Edit file `/etc/onlyoffice/documentserver/nginx/ds.conf` and
 
 Be careful each line end with semicolons (`;`).
 
+### Configure OnlyOffice for cozy-stack
+
 Then configure onlyoffice to work with cozy-stack
 
     sudo cat /etc/onlyoffice/documentserver/local.json | jq '. | .services.CoAuthoring.token.enable.browser=false | del(.storage) | .services.CoAuthoring."request-filtering-agent".allowPrivateIPAddress=true | .services.CoAuthoring."request-filtering-agent".allowMetaIPAddress=true' > /tmp/oolocal.json
