@@ -874,6 +874,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#configure-onlyoffice-for-cozy-stack" title="Configure OnlyOffice for cozy-stack" class="md-nav__link">
+    Configure OnlyOffice for cozy-stack
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2960,6 +2967,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#configure-onlyoffice-for-cozy-stack" title="Configure OnlyOffice for cozy-stack" class="md-nav__link">
+    Configure OnlyOffice for cozy-stack
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3063,6 +3077,7 @@ sudo bash /usr/bin/documentserver-letsencrypt.sh &quot;<span class="cp">${</span
 <li>replace <code>{{SSL_KEY_PATH}}</code> with <code>/etc/letsencrypt/live/onlyoffice.domain.example/privkey.pem</code></li>
 </ul>
 <p>Be careful each line end with semicolons (<code>;</code>).</p>
+<h3 id="configure-onlyoffice-for-cozy-stack">Configure OnlyOffice for cozy-stack<a class="headerlink" href="#configure-onlyoffice-for-cozy-stack" title="Permanent link">&para;</a></h3>
 <p>Then configure onlyoffice to work with cozy-stack</p>
 <div class="codehilite"><pre><span></span>sudo cat /etc/onlyoffice/documentserver/local.json | jq &#39;. | .services.CoAuthoring.token.enable.browser=false | del(.storage) | .services.CoAuthoring.&quot;request-filtering-agent&quot;.allowPrivateIPAddress=true | .services.CoAuthoring.&quot;request-filtering-agent&quot;.allowMetaIPAddress=true&#39; &gt; /tmp/oolocal.json
 cat /tmp/oolocal.json | sudo tee /etc/onlyoffice/documentserver/local.json &gt; /dev/null
