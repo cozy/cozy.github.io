@@ -11,7 +11,7 @@ If neither method is available for your particular system and architecture, refe
 Configure CouchDB package repository:
 
     sudo apt update && sudo apt install -y curl apt-transport-https gnupg
-    curl https://couchdb.apache.org/repo/keys.asc | gpg --dearmor | sudo tee /usr/share/keyrings/couchdb-archive-keyring.gpg >/dev/null 2>&1
+    curl -fsSL https://couchdb.apache.org/repo/keys.asc | gpg --dearmor | sudo tee /usr/share/keyrings/couchdb-archive-keyring.gpg >/dev/null 2>&1
     echo "deb [signed-by=/usr/share/keyrings/couchdb-archive-keyring.gpg] https://apache.jfrog.io/artifactory/couchdb-deb/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/couchdb.list >/dev/null
 
 Install Couchdb:
@@ -27,6 +27,8 @@ Validate CouchDB is working:
     {"couchdb":"Welcome","version":"3.2.1","git_sha":"244d428af","uuid":"f7b83554fa2eb43778963d18a1f92211","features":["access-ready","partitioned","pluggable-storage-engines","reshard","scheduler"],"vendor":{"name":"The Apache Software Foundation"}}
 
 ## Installing from snap package
+
+Only install snap package if you can't install the precompiled package for your system.
 
 Install snapd
 

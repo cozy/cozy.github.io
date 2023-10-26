@@ -81,7 +81,7 @@ Finalize Nginx configuration:
 Create Cozy instance:
 
     [[ -z "${COZY_PASS}" ]] && read -p "Cozy stack admin password: " -r -s COZY_PASS
-    COZY_ADMIN_PASSWORD="${COZY_PASS}" cozy-stack instances add --apps home,banks,contacts,drive,notes,passwords,photos,settings,store --email "${NEWEMAIL}" --locale fr --tz "Europe/Paris" ${NEWSLUG}.${DOMAIN}
+    sudo COZY_ADMIN_PASSWORD="${COZY_PASS}" cozy-stack instances add --apps home,banks,contacts,drive,notes,passwords,photos,settings,store --email "${NEWEMAIL}" --locale fr --tz "Europe/Paris" ${NEWSLUG}.${DOMAIN}
 
 Note the “Registration token” the last command gives you and send Mary the following url: `https://mary.domain.example?registerToken=<registration_token>`, substituting `domain.example` with your own domain name, `mary` with the slug you chose for this new instance and  `<registration_token>` with the “Registration token” returned by the last command.
 By visiting this address with her browser, Mary will be able to define its password and start using her Cozy.

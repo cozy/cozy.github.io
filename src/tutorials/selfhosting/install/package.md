@@ -27,7 +27,7 @@ sudo apt update
 ## Install cozy-stack
 
 ```bash
-sudo apt install cozy-stack
+sudo apt install -y cozy-stack
 ```
 
 The package installation needs to connect to CouchDB as an administrator to create a CouchDB user for cozy-stack. Fill those mandatory parameters to allow this creation:
