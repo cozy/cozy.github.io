@@ -13,23 +13,28 @@ Onlyoffice requires PostgreSQL and RabbitMQ so we will start by installing them.
 
 
     sudo apt update
+    sudo apt install -y postgresql
     sudo -i -u postgres psql -c "CREATE DATABASE onlyoffice;"
     sudo -i -u postgres psql -c "CREATE USER onlyoffice WITH password 'onlyoffice';"
-    sudo -i -u postgres psql -c "GRANT ALL privileges ON DATABASE onlyoffice TO onlyoffice;
+    sudo -i -u postgres psql -c "GRANT ALL privileges ON DATABASE onlyoffice TO onlyoffice;"
 
-The second command create a database user names `onlyoffice` with password `onlyoffice`. We advise you to choose a more secure password in real life.
+The second command create a database user named `onlyoffice` with password `onlyoffice`. We advise you to choose a more secure password in real life.
 
 
 ### Install RabbitMQ
 
+If you are installing onlyoffice on the same server as couchdb, stop couchdb before installing rabbitmq to avoid any interaction between CouchDB and rabbitMQ's installation scripts. Once rabbitMQ is installed, you can restart CouchDB without any problem.
+
+    sudo systemctl stop couchdb.service || sudo snap stop couchdb
     sudo apt install -y rabbitmq-server
+    sudo systemctl start couchdb.service || sudo snap start couchdb
 
 ### Install Onlyoffice Documentserver
 
 Configure package repository
 
-    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CB2DE8E5
-    echo "deb https://download.onlyoffice.com/repo/debian squeeze main" | sudo tee /etc/apt/sources.list.d/onlyoffice.list
+    curl -fsSL https://download.onlyoffice.com/GPG-KEY-ONLYOFFICE | sudo gpg --dearmor -o /usr/share/keyrings/onlyoffice.gpg
+    echo "deb [signed-by=/usr/share/keyrings/onlyoffice.gpg] https://download.onlyoffice.com/repo/debian squeeze main" | sudo tee /etc/apt/sources.list.d/onlyoffice.list
     sudo apt update
 
 Install microsoft fonts
@@ -40,7 +45,7 @@ When asked, accept EULA
 
 Install OnlyOffice Documentserver
 
-    sudo apt install -y onlyoffice-documentserver
+    sudo apt install -y onlyoffice-documentserver jq
 
 When asked, enter database password we created when installing postgreSQL and created database.
 
@@ -71,10 +76,15 @@ Edit file `/etc/onlyoffice/documentserver/nginx/ds.conf` and
 
 Be careful each line end with semicolons (`;`).
 
+Then configure onlyoffice to work with cozy-stack
+
+    sudo cat /etc/onlyoffice/documentserver/local.json | jq '. | .services.CoAuthoring.token.enable.browser=false | del(.storage) | .services.CoAuthoring."request-filtering-agent".allowPrivateIPAddress=true | .services.CoAuthoring."request-filtering-agent".allowMetaIPAddress=true' > /tmp/oolocal.json
+    cat /tmp/oolocal.json | sudo tee /etc/onlyoffice/documentserver/local.json > /dev/null
+    rm /tmp/oolocal.json
+
 Restart OnlyOffice and Nginx:
 
-    sudo supervisorctl restart all
-    sudo systemctl restart nginx
+    sudo systemctl restart ds-converter.service ds-docservice.service ds-metrics.service nginx.service
 
 
 You can now test onlyoffice is accessible from your browser at `https://onlyoffice.domain.example`.
@@ -89,6 +99,11 @@ Update configuration file:
       default:
         onlyoffice_url: https://onlyoffice.${DOMAIN}/
     EOF
+    INBOX_SECRET="$(sudo cat /etc/onlyoffice/documentserver/local.json | jq -r .services.CoAuthoring.secret.inbox.string)"
+    if [ "${INBOX_SECRET}" != "null" ]; then echo "    onlyoffice_inbox_secret: \"${INBOX_SECRET}\"" | sudo tee -a /etc/cozy/cozy.yml.local > /dev/null; fi
+    OUTBOX_SECRET="$(sudo cat /etc/onlyoffice/documentserver/local.json | jq -r .services.CoAuthoring.secret.outbox.string)"
+    if [ "${OUTBOX_SECRET}" != "null" ]; then echo "    onlyoffice_outbox_secret: \"${OUTBOX_SECRET}\"" | sudo tee -a /etc/cozy/cozy.yml.local > /dev/null; fi
+
 
 Restart cozy-stack:
 
@@ -96,7 +111,8 @@ Restart cozy-stack:
 
 Activate functionality:
 
-    cozy-stack features defaults '{"drive.office": {"enabled": true, "write": true}}'
+    [[ -z "${COZY_PASS}" ]] && read -p "Cozy stack admin password: " -r -s COZY_PASS
+    sudo COZY_ADMIN_PASSWORD="${COZY_PASS}" cozy-stack features defaults '{"drive.office": {"enabled": true, "write": true}}'
 
 You can now upload an office document in cozy-drive and start editing it online by clicking on it or start a new empty document for the "New document" menu.
 
