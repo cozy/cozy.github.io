@@ -2930,7 +2930,7 @@
 <h2 id="installing-from-precompiled-packages">Installing from precompiled packages<a class="headerlink" href="#installing-from-precompiled-packages" title="Permanent link">&para;</a></h2>
 <p>Configure CouchDB package repository:</p>
 <div class="codehilite"><pre><span></span>sudo apt update &amp;&amp; sudo apt install -y curl apt-transport-https gnupg
-curl https://couchdb.apache.org/repo/keys.asc | gpg --dearmor | sudo tee /usr/share/keyrings/couchdb-archive-keyring.gpg &gt;/dev/null 2&gt;&amp;1
+curl -fsSL https://couchdb.apache.org/repo/keys.asc | gpg --dearmor | sudo tee /usr/share/keyrings/couchdb-archive-keyring.gpg &gt;/dev/null 2&gt;&amp;1
 echo &quot;deb [signed-by=/usr/share/keyrings/couchdb-archive-keyring.gpg] https://apache.jfrog.io/artifactory/couchdb-deb/ $(lsb_release -sc) main&quot; | sudo tee /etc/apt/sources.list.d/couchdb.list &gt;/dev/null
 </pre></div>
 
@@ -2949,6 +2949,7 @@ sudo apt install -y couchdb
 
 
 <h2 id="installing-from-snap-package">Installing from snap package<a class="headerlink" href="#installing-from-snap-package" title="Permanent link">&para;</a></h2>
+<p>Only install snap package if you can&rsquo;t install the precompiled package for your system.</p>
 <p>Install snapd</p>
 <div class="codehilite"><pre><span></span>sudo apt install snapd
 sudo systemctl enable --now snapd.socket

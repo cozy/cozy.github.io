@@ -2948,7 +2948,7 @@ sudo systemctl reload nginx
 
 <p>Create Cozy instance:</p>
 <div class="codehilite"><pre><span></span>[[ -z &quot;<span class="cp">${</span><span class="n">COZY_PASS</span><span class="cp">}</span>&quot; ]] <span class="err">&amp;&amp;</span> read -p &quot;Cozy stack admin password: &quot; -r -s COZY_PASS
-COZY_ADMIN_PASSWORD=&quot;<span class="cp">${</span><span class="n">COZY_PASS</span><span class="cp">}</span>&quot; cozy-stack instances add --apps home,banks,contacts,drive,notes,passwords,photos,settings,store --email &quot;<span class="cp">${</span><span class="n">NEWEMAIL</span><span class="cp">}</span>&quot; --locale fr --tz &quot;Europe/Paris&quot; <span class="cp">${</span><span class="n">NEWSLUG</span><span class="cp">}</span>.<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span>
+sudo COZY_ADMIN_PASSWORD=&quot;<span class="cp">${</span><span class="n">COZY_PASS</span><span class="cp">}</span>&quot; cozy-stack instances add --apps home,banks,contacts,drive,notes,passwords,photos,settings,store --email &quot;<span class="cp">${</span><span class="n">NEWEMAIL</span><span class="cp">}</span>&quot; --locale fr --tz &quot;Europe/Paris&quot; <span class="cp">${</span><span class="n">NEWSLUG</span><span class="cp">}</span>.<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span>
 </pre></div>
 
 

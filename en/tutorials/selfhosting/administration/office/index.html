@@ -2998,22 +2998,26 @@
 <p>Onlyoffice requires PostgreSQL and RabbitMQ so we will start by installing them.</p>
 <h3 id="install-postgresql-and-create-database">Install PostgreSQL and create database<a class="headerlink" href="#install-postgresql-and-create-database" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span>sudo apt update
+sudo apt install -y postgresql
 sudo -i -u postgres psql -c &quot;CREATE DATABASE onlyoffice;&quot;
 sudo -i -u postgres psql -c &quot;CREATE USER onlyoffice WITH password &#39;onlyoffice&#39;;&quot;
-sudo -i -u postgres psql -c &quot;GRANT ALL privileges ON DATABASE onlyoffice TO onlyoffice;
+sudo -i -u postgres psql -c &quot;GRANT ALL privileges ON DATABASE onlyoffice TO onlyoffice;&quot;
 </pre></div>
 
 
-<p>The second command create a database user names <code>onlyoffice</code> with password <code>onlyoffice</code>. We advise you to choose a more secure password in real life.</p>
+<p>The second command create a database user named <code>onlyoffice</code> with password <code>onlyoffice</code>. We advise you to choose a more secure password in real life.</p>
 <h3 id="install-rabbitmq">Install RabbitMQ<a class="headerlink" href="#install-rabbitmq" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span>sudo apt install -y rabbitmq-server
+<p>If you are installing onlyoffice on the same server as couchdb, stop couchdb before installing rabbitmq to avoid any interaction between CouchDB and rabbitMQ&rsquo;s installation scripts. Once rabbitMQ is installed, you can restart CouchDB without any problem.</p>
+<div class="codehilite"><pre><span></span>sudo systemctl stop couchdb.service || sudo snap stop couchdb
+sudo apt install -y rabbitmq-server
+sudo systemctl start couchdb.service || sudo snap start couchdb
 </pre></div>
 
 
 <h3 id="install-onlyoffice-documentserver">Install Onlyoffice Documentserver<a class="headerlink" href="#install-onlyoffice-documentserver" title="Permanent link">&para;</a></h3>
 <p>Configure package repository</p>
-<div class="codehilite"><pre><span></span>sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys CB2DE8E5
-echo &quot;deb https://download.onlyoffice.com/repo/debian squeeze main&quot; | sudo tee /etc/apt/sources.list.d/onlyoffice.list
+<div class="codehilite"><pre><span></span>curl -fsSL https://download.onlyoffice.com/GPG-KEY-ONLYOFFICE | sudo gpg --dearmor -o /usr/share/keyrings/onlyoffice.gpg
+echo &quot;deb [signed-by=/usr/share/keyrings/onlyoffice.gpg] https://download.onlyoffice.com/repo/debian squeeze main&quot; | sudo tee /etc/apt/sources.list.d/onlyoffice.list
 sudo apt update
 </pre></div>
 
@@ -3025,7 +3029,7 @@ sudo apt update
 
 <p>When asked, accept EULA</p>
 <p>Install OnlyOffice Documentserver</p>
-<div class="codehilite"><pre><span></span>sudo apt install -y onlyoffice-documentserver
+<div class="codehilite"><pre><span></span>sudo apt install -y onlyoffice-documentserver jq
 </pre></div>
 
 
@@ -3059,9 +3063,15 @@ sudo bash /usr/bin/documentserver-letsencrypt.sh &quot;<span class="cp">${</span
 <li>replace <code>{{SSL_KEY_PATH}}</code> with <code>/etc/letsencrypt/live/onlyoffice.domain.example/privkey.pem</code></li>
 </ul>
 <p>Be careful each line end with semicolons (<code>;</code>).</p>
+<p>Then configure onlyoffice to work with cozy-stack</p>
+<div class="codehilite"><pre><span></span>sudo cat /etc/onlyoffice/documentserver/local.json | jq &#39;. | .services.CoAuthoring.token.enable.browser=false | del(.storage) | .services.CoAuthoring.&quot;request-filtering-agent&quot;.allowPrivateIPAddress=true | .services.CoAuthoring.&quot;request-filtering-agent&quot;.allowMetaIPAddress=true&#39; &gt; /tmp/oolocal.json
+cat /tmp/oolocal.json | sudo tee /etc/onlyoffice/documentserver/local.json &gt; /dev/null
+rm /tmp/oolocal.json
+</pre></div>
+
+
 <p>Restart OnlyOffice and Nginx:</p>
-<div class="codehilite"><pre><span></span>sudo supervisorctl restart all
-sudo systemctl restart nginx
+<div class="codehilite"><pre><span></span>sudo systemctl restart ds-converter.service ds-docservice.service ds-metrics.service nginx.service
 </pre></div>
 
 
@@ -3074,6 +3084,10 @@ office:
   default:
     onlyoffice_url: https://onlyoffice.<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span>/
 EOF
+INBOX_SECRET=&quot;$(sudo cat /etc/onlyoffice/documentserver/local.json | jq -r .services.CoAuthoring.secret.inbox.string)&quot;
+if [ &quot;<span class="cp">${</span><span class="n">INBOX_SECRET</span><span class="cp">}</span>&quot; != &quot;null&quot; ]; then echo &quot;    onlyoffice_inbox_secret: \&quot;<span class="cp">${</span><span class="n">INBOX_SECRET</span><span class="cp">}</span>\&quot;&quot; | sudo tee -a /etc/cozy/cozy.yml.local &gt; /dev/null; fi
+OUTBOX_SECRET=&quot;$(sudo cat /etc/onlyoffice/documentserver/local.json | jq -r .services.CoAuthoring.secret.outbox.string)&quot;
+if [ &quot;<span class="cp">${</span><span class="n">OUTBOX_SECRET</span><span class="cp">}</span>&quot; != &quot;null&quot; ]; then echo &quot;    onlyoffice_outbox_secret: \&quot;<span class="cp">${</span><span class="n">OUTBOX_SECRET</span><span class="cp">}</span>\&quot;&quot; | sudo tee -a /etc/cozy/cozy.yml.local &gt; /dev/null; fi
 </pre></div>
 
 
@@ -3083,7 +3097,8 @@ EOF
 
 
 <p>Activate functionality:</p>
-<div class="codehilite"><pre><span></span>cozy-stack features defaults &#39;{&quot;drive.office&quot;: {&quot;enabled&quot;: true, &quot;write&quot;: true}}&#39;
+<div class="codehilite"><pre><span></span>[[ -z &quot;<span class="cp">${</span><span class="n">COZY_PASS</span><span class="cp">}</span>&quot; ]] <span class="err">&amp;&amp;</span> read -p &quot;Cozy stack admin password: &quot; -r -s COZY_PASS
+sudo COZY_ADMIN_PASSWORD=&quot;<span class="cp">${</span><span class="n">COZY_PASS</span><span class="cp">}</span>&quot; cozy-stack features defaults &#39;{&quot;drive.office&quot;: {&quot;enabled&quot;: true, &quot;write&quot;: true}}&#39;
 </pre></div>
 
 
