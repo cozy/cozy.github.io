@@ -2951,6 +2951,11 @@ go version go1.21.3 linux/amd64
 </pre></div>
 
 
+<p>Activate PDF thumbnail generation in ImageMagick</p>
+<div class="codehilite"><pre><span></span>sudo sed -ie &#39;s,^  \(&lt;policy domain=&quot;coder&quot; rights=&quot;none&quot; pattern=&quot;PDF&quot; /&gt;\)$,  &lt;!-- \1 --&gt;,g&#39; /etc/ImageMagick-6/policy.xml
+</pre></div>
+
+
 <p>Get the source code:</p>
 <div class="codehilite"><pre><span></span>sudo apt install -y git
 sudo mkdir -p /opt/cozy-stack
