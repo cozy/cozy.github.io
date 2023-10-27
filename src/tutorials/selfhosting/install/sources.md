@@ -25,6 +25,10 @@ Install requirements:
 
     sudo apt install -y imagemagick libprotobuf-c1 fonts-lato
 
+Activate PDF thumbnail generation in ImageMagick
+
+    sudo sed -ie 's,^  \(<policy domain="coder" rights="none" pattern="PDF" />\)$,  <!-- \1 -->,g' /etc/ImageMagick-6/policy.xml
+
 Get the source code:
 
     sudo apt install -y git
