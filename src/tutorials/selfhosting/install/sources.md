@@ -110,7 +110,7 @@ And create configuration:
       - https://apps-registry.cozycloud.cc/
     EOF
     sudo chown cozy-stack:cozy /etc/cozy/cozy.yml
-    sudo chmod 0644 /etc/cozy/cozy.yml
+    sudo chmod 0640 /etc/cozy/cozy.yml
 
 Finally, configure systemd to automatically launch cozy-stack on boot:
 
