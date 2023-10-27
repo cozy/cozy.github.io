@@ -64,8 +64,8 @@ And install it:
     sudo install -o root -g cozy -m 0750 -d /var/log/cozy
     sudo install -o cozy-stack -g cozy -m 750 -d /usr/share/cozy
     sudo install -o cozy-stack -g cozy -m 750 \
-                 /opt/cozy-stack/scripts/konnector-node16-run.sh \
-                 /usr/share/cozy/konnector-node16-run.sh
+                 /opt/cozy-stack/scripts/konnector-node-run.sh \
+                 /usr/share/cozy/konnector-node-run.sh
     sudo install -o cozy-stack -g cozy -m 750 -d /var/lib/cozy
 
 
@@ -96,7 +96,7 @@ And create configuration:
       credentials_decryptor_key: /etc/cozy/vault.dec
 
     konnectors:
-      cmd: /usr/share/cozy/konnector-node16-run.sh
+      cmd: /usr/share/cozy/konnector-node-run.sh
 
     log:
       level: info
