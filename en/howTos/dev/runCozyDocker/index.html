@@ -2966,7 +2966,8 @@
 
 
 <div class="admonition warning">
-<p>On GNU/Linux, according <a href="https://docs.docker.com/engine/installation/linux/linux-postinstall/">to the documentation</a>: « The docker daemon binds to a Unix socket instead of a TCP port. By default that Unix socket is owned by the user root and other users can only access it using sudo. If you don’t want to use sudo when you use the docker command, create a Unix group called docker and add users to it. Be warned that the docker group grants privileges equivalent to the root user. You should have a look at <a href="https://docs.docker.com/engine/security/security/">Docker’s documentation on security</a>.</p>
+<p>On GNU/Linux, according <a href="https://docs.docker.com/engine/installation/linux/linux-postinstall/">to the documentation</a>: « The docker daemon binds to a Unix socket instead of a TCP port. By default that Unix socket is owned by the user root and other users can only access it using sudo. If you don’t want to use sudo when you use the docker command, create a Unix group called docker and add users to it. When the Docker daemon starts, it creates a Unix socket accessible by members of the docker group. On some Linux distributions, the system automatically creates this group when installing Docker Engine using a package manager. In that case, there is no need for you to manually create the group.
+The docker group grants root-level privileges to the user. For details on how this impacts security in your system, see <a href="https://docs.docker.com/engine/security/#docker-daemon-attack-surface">Docker Daemon Attack Surface</a>.</p>
 </div>
 <p><strong>Notice:</strong> The default passphrase configured by <code>cozy-stack</code> in the Docker container is <code>cozy</code>.</p>
 <h2 id="ephemeral-instance">Ephemeral instance<a class="headerlink" href="#ephemeral-instance" title="Permanent link">&para;</a></h2>
@@ -2975,7 +2976,7 @@
     -p <span class="m">8080</span>:8080 <span class="se">\</span>
     -p <span class="m">8025</span>:8025 <span class="se">\</span>
     --name cozydev <span class="se">\</span>
-    -v ~/cozy/myapp:/data/cozy-app <span class="se">\</span>
+    -v <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/cozy/myapp&quot;</span>:/data/cozy-app <span class="se">\</span>
     cozy/cozy-app-dev
 </pre></div>
 
@@ -2986,21 +2987,21 @@
 <div class="codehilite"><pre><span></span>- `--rm` will delete the server when you stop it. This prevent Docker from keeping a lot of unused stopped images
 - `-it` allow to attach an interactive terminal, so you’ll be able to use the command line inside the server
 - `-p 8080:8080`: the server listens on port 8080 on the virtual machine. We forward this port to the same port on your local machine. To use another local port, for example 9090, use `-p 9090:8080`
-- `-p 8025:8025` : Cozy requires a mail server. In the development image, we don’t use a real email server, but a software that can display the sent messages. Just point your browser to `http://cozy.tools:8025/` to display the messages sent by the server
-- `--name cozydev` name the running virtual machine `cozydev`, so you can easily refer to it from other Docker commands. For example, if you want to connect to a shell inside the server, you can use `docker exec cozydev -it /bin/bash`
-- `-v ~/cozy/myapp:/data/cozy-app` this mount the current folder, where your application leaves, inside the server. This is what make the application available on the server
+- `-p 8025:8025`: Cozy requires a mail server. In the development image, we don’t use a real email server, but a software that can display the sent messages. Just point your browser to `http://localhost:8025/` to display the messages sent by the server
+- `--name cozydev`: name the running virtual machine `cozydev`, so you can easily refer to it from other Docker commands. For example, if you want to connect to a shell inside the server, you can use `docker exec cozydev -it /bin/bash`
+- `-v &quot;$HOME/cozy/myapp&quot;:/data/cozy-app`: this mount the local folder, where your application leaves, inside the container. This is what make the application available on the server
 </pre></div>
 
 
 <h2 id="with-data-persistence">With data persistence<a class="headerlink" href="#with-data-persistence" title="Permanent link">&para;</a></h2>
-<p>If you want to persist data, you have to mount two folders from the virtual server to local folders: <code>/usr/local/couchdb/data</code> (database) and <code>/data/cozy-storage</code> (the virtual filesystem). This can be achieved by adding two options to the command line starting with <code>-v</code> which will store the server’s data into <code>~/cozy/data/</code>.</p>
+<p>If you want to persist data, you have to mount two folders from the virtual server to local folders: <code>/var/lib/couchdb</code> (database) and <code>/data/cozy-storage</code> (the virtual filesystem). This can be achieved by adding two options to the command line starting with <code>-v</code> which will store the server’s data into <code>$HOME/cozy/data/</code>.</p>
 <div class="codehilite"><pre><span></span>$ docker run --rm -it <span class="se">\</span>
     -p <span class="m">8080</span>:8080 <span class="se">\</span>
     -p <span class="m">8025</span>:8025 <span class="se">\</span>
     --name cozydev <span class="se">\</span>
-    -v <span class="s2">&quot;~/cozy/myapp&quot;</span>:/data/cozy-app <span class="se">\</span>
-    -v <span class="s2">&quot;~/cozy/data/db&quot;</span>:/usr/local/couchdb/data <span class="se">\</span>
-    -v <span class="s2">&quot;~/cozy/data/storage&quot;</span>:/data/cozy-storage <span class="se">\</span>
+    -v <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/cozy/myapp&quot;</span>:/data/cozy-app <span class="se">\</span>
+    -v <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/cozy/data/db&quot;</span>:/var/lib/couchdb <span class="se">\</span>
+    -v <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/cozy/data/storage&quot;</span>:/data/cozy-storage <span class="se">\</span>
     cozy/cozy-app-dev
 </pre></div>
 
@@ -3011,8 +3012,8 @@
     -p <span class="m">8080</span>:8080 <span class="se">\</span>
     -p <span class="m">8025</span>:8025 <span class="se">\</span>
     --name cozydev <span class="se">\</span>
-    -v <span class="s2">&quot;~/cozy/myapp&quot;</span>:/data/cozy-app <span class="se">\</span>
-    -v <span class="s2">&quot;~/cozy/cozy.yaml&quot;</span>:/etc/cozy/cozy.yaml <span class="se">\</span>
+    -v <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/cozy/myapp&quot;</span>:/data/cozy-app <span class="se">\</span>
+    -v <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/cozy/cozy.yaml&quot;</span>:/etc/cozy/cozy.yaml <span class="se">\</span>
     cozy/cozy-app-dev
 </pre></div>
 
@@ -3024,20 +3025,20 @@
     -p <span class="m">8080</span>:8080 <span class="se">\</span>
     -p <span class="m">8025</span>:8025 <span class="se">\</span>
     --name cozydev <span class="se">\</span>
-    -v <span class="s2">&quot;~/cozy/appone&quot;</span>:/data/cozy-app/appone <span class="se">\</span>
-    -v <span class="s2">&quot;~/cozy/apptwo&quot;</span>:/data/cozy-app/apptwo <span class="se">\</span>
+    -v <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/cozy/appone&quot;</span>:/data/cozy-app/appone <span class="se">\</span>
+    -v <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/cozy/apptwo&quot;</span>:/data/cozy-app/apptwo <span class="se">\</span>
     cozy/cozy-app-dev
 </pre></div>
 
 
-<p>You’ll access the applications by connecting to <code>http://appone.cozy.tools:8080/</code> and <code>http://apptwo.cozy.tools:8080</code>.</p>
+<p>You’ll access the applications by connecting to <code>http://appone.cozy.localhost:8080/</code> and <code>http://apptwo.cozy.localhost:8080</code>.</p>
 <h2 id="mailhog-to-catch-e-mails-and-couchdb-access">Mailhog to catch e-mails and CouchDB access<a class="headerlink" href="#mailhog-to-catch-e-mails-and-couchdb-access" title="Permanent link">&para;</a></h2>
 <p>A <a href="https://github.com/mailhog/MailHog">MailHog</a> is running inside Docker to
 catch emails. You can view the emails sent by the stack in a web interface on
-<a href="http://cozy.tools:8025/">http://cozy.tools:8025/</a></p>
+<a href="http://localhost:8025/">http://localhost:8025/</a></p>
 <p>You can also expose the couchdb port (listening in the container on 5984) in
 order to access its admin page. For instance add <code>-p 5984:5984</code> to access to the
-admin interface on <code>http://cozy.tools:5984/_utils</code>.</p>
+admin interface on <code>http://localhost:5984/_utils</code>.</p>
                 
                   
                 
