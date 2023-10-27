@@ -9,7 +9,6 @@ Configure NodeJS 16 package repository:
     KEYRING=/usr/share/keyrings/nodesource.gpg
     curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o "$KEYRING"
     echo "deb [signed-by=$KEYRING] https://deb.nodesource.com/node_16.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list >/dev/null
-    echo "deb-src [signed-by=$KEYRING] https://deb.nodesource.com/node_16.x nodistro main" | sudo tee -a /etc/apt/sources.list.d/nodesource.list >/dev/null
     cat <<EOF | sudo tee /etc/apt/preferences.d/nodejs.pref > /dev/null
     Package: *
     Pin: origin deb.nodesource.com
