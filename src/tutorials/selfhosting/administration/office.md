@@ -11,15 +11,24 @@ Onlyoffice requires PostgreSQL and RabbitMQ so we will start by installing them.
 
 ### Install PostgreSQL and create database
 
+Install PostgreSQL database
 
     sudo apt update
     sudo apt install -y postgresql
+
+Create database and user for onlyoffice.
+
     sudo -i -u postgres psql -c "CREATE DATABASE onlyoffice;"
     sudo -i -u postgres psql -c "CREATE USER onlyoffice WITH password 'onlyoffice';"
     sudo -i -u postgres psql -c "GRANT ALL privileges ON DATABASE onlyoffice TO onlyoffice;"
 
-The second command create a database user named `onlyoffice` with password `onlyoffice`. We advise you to choose a more secure password in real life.
+!!! warning
 
+    The second command create a database user named `onlyoffice` with password `onlyoffice`. We advise you to choose a more secure password in real life.
+
+If you are using postgreSQL 15 or above (on Debian 12 for example), grant onlyoffice user the permission to create table in the `public` schema
+
+    sudo -u postgres psql -c "GRANT CREATE ON SCHEMA public TO onlyoffice;" onlyoffice
 
 ### Install RabbitMQ
 
@@ -29,6 +38,26 @@ If you are installing onlyoffice on the same server as couchdb, stop couchdb bef
     sudo apt install -y rabbitmq-server
     sudo systemctl start couchdb.service || sudo snap start couchdb
 
+### Install MS core fonts
+
+!!! note
+
+    If using debian 12 and you didn't activate contrib sources already, activate contib sources
+
+        cat <<EOF | sudo tee /etc/apt/sources.list.d/contrib.sources > /dev/null
+        Types: deb deb-src
+        URIs: mirror+file:///etc/apt/mirrors/debian.list
+        Suites: $(lsb_release -sc) $(lsb_release -sc)-updates $(lsb_release -sc)-backports
+        Components: contrib
+        EOF
+        sudo apt update
+
+On all distribution, install Microsoft fonts
+
+    sudo apt install -y ttf-mscorefonts-installer
+
+When asked, accept EULA
+
 ### Install Onlyoffice Documentserver
 
 Configure package repository
@@ -36,12 +65,6 @@ Configure package repository
     curl -fsSL https://download.onlyoffice.com/GPG-KEY-ONLYOFFICE | sudo gpg --dearmor -o /usr/share/keyrings/onlyoffice.gpg
     echo "deb [signed-by=/usr/share/keyrings/onlyoffice.gpg] https://download.onlyoffice.com/repo/debian squeeze main" | sudo tee /etc/apt/sources.list.d/onlyoffice.list
     sudo apt update
-
-Install microsoft fonts
-
-    sudo apt install -y ttf-mscorefonts-installer
-
-When asked, accept EULA
 
 Install OnlyOffice Documentserver
 

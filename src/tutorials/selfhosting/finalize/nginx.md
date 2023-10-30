@@ -18,15 +18,18 @@ First create a DNS entry in your domain for `cozy.domain.example` and `*.cozy.do
     cozy     1h     IN         A     <your_server_IP>
     *.cozy   1h     IN     CNAME     cozy
 
-Then install Nginx:
+Then install Nginx and Certbot:
 
     sudo apt install -y nginx certbot
 
-Like DNS, each application will use a different sub-domain and so request a certificate which include all needed domains.
-Generate SSL certificate with certbot:
+We will first define some variables that will make life easier when issuing our SSL certificate and configuring nginx (adjust the DOMAIN variable on the first line to your real domain name)
 
     DOMAIN=domain.example
     EMAIL="<your email address>"
+
+Each application in your Cozy will use a different sub-domain and so you need a certificate which include all needed domains.
+Generate SSL certificate with certbot:
+
     sudo certbot certonly --email "${EMAIL}" --non-interactive --agree-tos --webroot -w /var/www/html -d cozy.${DOMAIN} $(printf -- " -d %s.cozy.${DOMAIN}" home banks contacts drive notes passwords photos settings store mespapiers)
 
 Create nginx reload script for your certificate to be reloaded each time it is automatically refreshed, every 3 months:
@@ -37,9 +40,7 @@ Create nginx reload script for your certificate to be reloaded each time it is a
     EOF
     sudo chmod 0755 /etc/letsencrypt/renewal-hooks/deploy/reload-nginx.sh
 
-Configure nginx (adjust the DOMAIN variable on the first line to your real domain name):
-
-    DOMAIN=domain.example
+Configure nginx:
 
     cat <<EOF | sudo tee /etc/nginx/conf.d/logformat_with_host.conf > /dev/null
     log_format with_host '\$remote_addr \$host \$remote_user [\$time_local] "\$request" '
