@@ -2,7 +2,7 @@
 
 Cozy-stack uses couchdb to store structured data of your cozy.
 
-Preferred installation method is precompiled package but in case there is no package yet for your system (like on Debian 12 at the redaction of this document), you can also install couchdb using snap package.
+Preferred installation method is precompiled package but in case there is no package yet for your system (like on Debian 12 at the redaction of this document), you can also install couchdb using snap package (see instructions below).
 
 If neither method is available for your particular system and architecture, refer to [CouchDB official installation documentation](https://docs.couchdb.org/en/stable/install/unix.html) to build it from source.
 
@@ -19,7 +19,9 @@ Install Couchdb:
     sudo apt update
     sudo apt install -y couchdb
 
-During CouchDB installation, choose `Standalone` mode, define a random erlang cookie and define a couchdb admin password. Remember that password, you will need it later when installing cozy-stack.
+!!! warning
+
+    During CouchDB installation, choose `Standalone` mode, define a random erlang cookie and define a couchdb admin password. Remember that password, you will need it later when installing cozy-stack.
 
 Validate CouchDB is working:
 
@@ -28,7 +30,9 @@ Validate CouchDB is working:
 
 ## Installing from snap package
 
-Only install snap package if you can't install the precompiled package for your system.
+!!! warning
+
+    Only install snap package if you can't install the precompiled package for your system.
 
 Install snapd
 

@@ -4,7 +4,7 @@ To be able to run Cozy connectors and gather all your data, cozy-stack needs Nod
 
 You can refer to [NodeJS installation documentation](https://github.com/nodesource/distributions/blob/master/README.md#manual-installation) or simply follow the instructions below.
 
-Configure NodeJS 16 package repository:
+Add NodeJS 16 package repository to your system:
 
     KEYRING=/usr/share/keyrings/nodesource.gpg
     curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o "$KEYRING"
@@ -17,8 +17,12 @@ Configure NodeJS 16 package repository:
 
 Install NodeJS:
 
-    sudo apt update
-    sudo apt install -y nodejs
+    sudo apt update && sudo apt install -y nodejs
+
+Verify that NodeJS 16 is properly installed
+
+    nodejs --version
+    v16.20.2
 
 <div style="text-align: right">
   <a href="../../install/">Next --&gt;</a>
