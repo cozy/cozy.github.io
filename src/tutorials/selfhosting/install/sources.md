@@ -12,13 +12,16 @@ cozy-stack is developped in Go language so we need to install the Go compiler to
 Test Go installation is fine with:
 
     go version
+
+This command should respond with something like
+
     go version go1.21.3 linux/amd64
 
 ## Cozy-stack
 
 First, add a CouchDB user and password for cozy-stack (replace COUCH_ADMIN_PWD with your previously defined CouchdDB admin password)
 
-    read -p "Couchdb password for cozy user: " -r -s COUCH_PAS
+    read -p "Couchdb password for cozy user: " -r -s COUCH_PASS
     curl -X PUT -u "admin:COUCH_ADMIN_PWD" "http://localhost:5984/_node/couchdb@127.0.0.1/_config/admins/cozy" --data "\"${COUCH_PASS}\""
 
 Install requirements:
@@ -49,6 +52,9 @@ The compilation generate a binary file under `$GOPATH/bin/cozy-stack`
 You can test it with:
 
     $(go env GOPATH)/bin/cozy-stack version
+
+This command should respond with something like
+
     1.5.0-5-gcbdf012d
 
 You then have to create a user to run cozy-stack:
@@ -142,6 +148,9 @@ Finally, configure systemd to automatically launch cozy-stack on boot:
 You can validate everything went well and cozy-stack is running thiw way:
 
     curl http://localhost:8080/version
+
+This command should respond with something like
+
     {"build_mode":"production","build_time":"2021-12-01T13:12:36Z","runtime_version":"go1.20.5","version":"1.5.0-5-gcbdf012d"}
 
 <div style="text-align: right">

@@ -12,6 +12,15 @@ Then create the instance
     [[ -z "${COZY_PASS}" ]] && read -p "Cozy stack admin password: " -r -s COZY_PASS
     sudo COZY_ADMIN_PASSWORD="${COZY_PASS}" cozy-stack instances add --apps home,banks,contacts,drive,notes,passwords,photos,settings,store --email "${EMAIL}" --locale fr --tz "Europe/Paris" cozy.${DOMAIN}
 
+!!! warning
+
+    Instance creation can take up to 30 seconds without printing anything on screen.
+    Please wait during creation and avoid stopping it in the middle or your instance will miss some important bits.
+
+    In case something goes wrong, you can remove the instance with the following command before trying again
+
+        sudo COZY_ADMIN_PASSWORD="${COZY_PASS}" cozy-stack instances rm --force cozy.${DOMAIN}
+
 You can of course adapt your language (`locale`) to choose english (`en`) or spanish (`es`) and choose another timezone (`tz`).
 
 Note the “Registration token” this command returns and visit from your browser `https://cozy.domain.example?registerToken=<registration_token>` substituting `domain.example` with your real domain name and `<registration_token>` with the “Registration token” you got.

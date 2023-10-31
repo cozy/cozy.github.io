@@ -4,6 +4,14 @@ Online office document edition functionality based on OnlyOffice is optional. Yo
 
 To activate this functionality, you need to install OnlyOffice document server and configure cozy-stack to access it. OnlyOffice document server can be installed on the same server or on another server at your convenience. This documentation explain how to install it on the same server.
 
+## Convenience variables
+
+First, we define some convenience variables for all this page. Adjust values to your needs. the variable  `OO_DB_PASS` contains the password that will be set to the database user that will be created to be used by onlyoffice.
+
+    OO_DB_PASS=OnlyOfficeDBP@ssw0rd
+    DOMAIN=domain.example
+    EMAIL=<your email address>
+
 
 ## Onlyoffice
 
@@ -19,12 +27,8 @@ Install PostgreSQL database
 Create database and user for onlyoffice.
 
     sudo -i -u postgres psql -c "CREATE DATABASE onlyoffice;"
-    sudo -i -u postgres psql -c "CREATE USER onlyoffice WITH password 'onlyoffice';"
+    sudo -i -u postgres psql -c "CREATE USER onlyoffice WITH password '${OO_DB_PASS}';"
     sudo -i -u postgres psql -c "GRANT ALL privileges ON DATABASE onlyoffice TO onlyoffice;"
-
-!!! warning
-
-    The second command create a database user named `onlyoffice` with password `onlyoffice`. We advise you to choose a more secure password in real life.
 
 If you are using postgreSQL 15 or above (on Debian 12 for example), grant onlyoffice user the permission to create table in the `public` schema
 
@@ -84,20 +88,16 @@ Create a DNS entry for OnlyOffice targeting your server. For example:
 
 Generate SSL certificate:
 
-    EMAIL=<your email address>
-    DOMAIN=domain.example
     sudo bash /usr/bin/documentserver-letsencrypt.sh "${EMAIL}" "onlyoffice.${DOMAIN}"
 
 Configure onlyoffice:
 
     sudo cp -f /etc/onlyoffice/documentserver/nginx/ds-ssl.conf.tmpl /etc/onlyoffice/documentserver/nginx/ds.conf
 
-Edit file `/etc/onlyoffice/documentserver/nginx/ds.conf` and
+Add certificate path in file `/etc/onlyoffice/documentserver/nginx/ds.conf`
 
-- replace `{{SSL_CERTIFICATE_PATH}}` with `/etc/letsencrypt/live/onlyoffice.domain.example/fullchain.pem`
-- replace `{{SSL_KEY_PATH}}` with `/etc/letsencrypt/live/onlyoffice.domain.example/privkey.pem`
-
-Be careful each line end with semicolons (`;`).
+    sed -ie 's,{{SSL_CERTIFICATE_PATH}},/etc/letsencrypt/live/onlyoffice.'${DOMAIN}'/fullchain.pem,' /etc/onlyoffice/documentserver/nginx/ds.conf
+    sed -ie 's,{{SSL_KEY_PATH}},/etc/letsencrypt/live/onlyoffice.'${DOMAIN}'/privkey.pem,' /etc/onlyoffice/documentserver/nginx/ds.conf
 
 ### Configure OnlyOffice for cozy-stack
 
@@ -112,13 +112,12 @@ Restart OnlyOffice and Nginx:
     sudo systemctl restart ds-converter.service ds-docservice.service ds-metrics.service nginx.service
 
 
-You can now test onlyoffice is accessible from your browser at `https://onlyoffice.domain.example`.
+You can now test onlyoffice is accessible from your browser at `https://onlyoffice.domain.example` (replace `domain.example` with your domain name).
 
 ## Configure cozy-stack for OnlyOffice
 
 Update configuration file:
 
-    DOMAIN=domain.example
     cat <<EOF | sudo tee -a /etc/cozy/cozy.yml.local > /dev/null
     office:
       default:
