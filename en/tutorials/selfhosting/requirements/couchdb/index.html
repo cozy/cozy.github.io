@@ -2925,7 +2925,7 @@
                 
                 <h1 id="installing-couchdb">Installing CouchDB<a class="headerlink" href="#installing-couchdb" title="Permanent link">&para;</a></h1>
 <p>Cozy-stack uses couchdb to store structured data of your cozy.</p>
-<p>Preferred installation method is precompiled package but in case there is no package yet for your system (like on Debian 12 at the redaction of this document), you can also install couchdb using snap package.</p>
+<p>Preferred installation method is precompiled package but in case there is no package yet for your system (like on Debian 12 at the redaction of this document), you can also install couchdb using snap package (see instructions below).</p>
 <p>If neither method is available for your particular system and architecture, refer to <a href="https://docs.couchdb.org/en/stable/install/unix.html">CouchDB official installation documentation</a> to build it from source.</p>
 <h2 id="installing-from-precompiled-packages">Installing from precompiled packages<a class="headerlink" href="#installing-from-precompiled-packages" title="Permanent link">&para;</a></h2>
 <p>Configure CouchDB package repository:</p>
@@ -2941,7 +2941,10 @@ sudo apt install -y couchdb
 </pre></div>
 
 
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
 <p>During CouchDB installation, choose <code>Standalone</code> mode, define a random erlang cookie and define a couchdb admin password. Remember that password, you will need it later when installing cozy-stack.</p>
+</div>
 <p>Validate CouchDB is working:</p>
 <div class="codehilite"><pre><span></span>curl http://127.0.0.1:5984/
 {&quot;couchdb&quot;:&quot;Welcome&quot;,&quot;version&quot;:&quot;3.2.1&quot;,&quot;git_sha&quot;:&quot;244d428af&quot;,&quot;uuid&quot;:&quot;f7b83554fa2eb43778963d18a1f92211&quot;,&quot;features&quot;:[&quot;access-ready&quot;,&quot;partitioned&quot;,&quot;pluggable-storage-engines&quot;,&quot;reshard&quot;,&quot;scheduler&quot;],&quot;vendor&quot;:{&quot;name&quot;:&quot;The Apache Software Foundation&quot;}}
@@ -2949,7 +2952,10 @@ sudo apt install -y couchdb
 
 
 <h2 id="installing-from-snap-package">Installing from snap package<a class="headerlink" href="#installing-from-snap-package" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
 <p>Only install snap package if you can&rsquo;t install the precompiled package for your system.</p>
+</div>
 <p>Install snapd</p>
 <div class="codehilite"><pre><span></span>sudo apt install snapd
 sudo systemctl enable --now snapd.socket

@@ -861,6 +861,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#install-ms-core-fonts" title="Install MS core fonts" class="md-nav__link">
+    Install MS core fonts
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#install-onlyoffice-documentserver" title="Install Onlyoffice Documentserver" class="md-nav__link">
     Install Onlyoffice Documentserver
   </a>
@@ -2954,6 +2961,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#install-ms-core-fonts" title="Install MS core fonts" class="md-nav__link">
+    Install MS core fonts
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#install-onlyoffice-documentserver" title="Install Onlyoffice Documentserver" class="md-nav__link">
     Install Onlyoffice Documentserver
   </a>
@@ -3011,15 +3025,28 @@
 <h2 id="onlyoffice">Onlyoffice<a class="headerlink" href="#onlyoffice" title="Permanent link">&para;</a></h2>
 <p>Onlyoffice requires PostgreSQL and RabbitMQ so we will start by installing them.</p>
 <h3 id="install-postgresql-and-create-database">Install PostgreSQL and create database<a class="headerlink" href="#install-postgresql-and-create-database" title="Permanent link">&para;</a></h3>
+<p>Install PostgreSQL database</p>
 <div class="codehilite"><pre><span></span>sudo apt update
 sudo apt install -y postgresql
-sudo -i -u postgres psql -c &quot;CREATE DATABASE onlyoffice;&quot;
+</pre></div>
+
+
+<p>Create database and user for onlyoffice.</p>
+<div class="codehilite"><pre><span></span>sudo -i -u postgres psql -c &quot;CREATE DATABASE onlyoffice;&quot;
 sudo -i -u postgres psql -c &quot;CREATE USER onlyoffice WITH password &#39;onlyoffice&#39;;&quot;
 sudo -i -u postgres psql -c &quot;GRANT ALL privileges ON DATABASE onlyoffice TO onlyoffice;&quot;
 </pre></div>
 
 
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
 <p>The second command create a database user named <code>onlyoffice</code> with password <code>onlyoffice</code>. We advise you to choose a more secure password in real life.</p>
+</div>
+<p>If you are using postgreSQL 15 or above (on Debian 12 for example), grant onlyoffice user the permission to create table in the <code>public</code> schema</p>
+<div class="codehilite"><pre><span></span>sudo -u postgres psql -c &quot;GRANT CREATE ON SCHEMA public TO onlyoffice;&quot; onlyoffice
+</pre></div>
+
+
 <h3 id="install-rabbitmq">Install RabbitMQ<a class="headerlink" href="#install-rabbitmq" title="Permanent link">&para;</a></h3>
 <p>If you are installing onlyoffice on the same server as couchdb, stop couchdb before installing rabbitmq to avoid any interaction between CouchDB and rabbitMQ&rsquo;s installation scripts. Once rabbitMQ is installed, you can restart CouchDB without any problem.</p>
 <div class="codehilite"><pre><span></span>sudo systemctl stop couchdb.service || sudo snap stop couchdb
@@ -3028,6 +3055,27 @@ sudo systemctl start couchdb.service || sudo snap start couchdb
 </pre></div>
 
 
+<h3 id="install-ms-core-fonts">Install MS core fonts<a class="headerlink" href="#install-ms-core-fonts" title="Permanent link">&para;</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If using debian 12 and you didn&rsquo;t activate contrib sources already, activate contib sources</p>
+<div class="codehilite"><pre><span></span>cat &lt;&lt;EOF | sudo tee /etc/apt/sources.list.d/contrib.sources &gt; /dev/null
+Types: deb deb-src
+URIs: mirror+file:///etc/apt/mirrors/debian.list
+Suites: $(lsb_release -sc) $(lsb_release -sc)-updates $(lsb_release -sc)-backports
+Components: contrib
+EOF
+sudo apt update
+</pre></div>
+
+
+</div>
+<p>On all distribution, install Microsoft fonts</p>
+<div class="codehilite"><pre><span></span>sudo apt install -y ttf-mscorefonts-installer
+</pre></div>
+
+
+<p>When asked, accept EULA</p>
 <h3 id="install-onlyoffice-documentserver">Install Onlyoffice Documentserver<a class="headerlink" href="#install-onlyoffice-documentserver" title="Permanent link">&para;</a></h3>
 <p>Configure package repository</p>
 <div class="codehilite"><pre><span></span>curl -fsSL https://download.onlyoffice.com/GPG-KEY-ONLYOFFICE | sudo gpg --dearmor -o /usr/share/keyrings/onlyoffice.gpg
@@ -3036,12 +3084,6 @@ sudo apt update
 </pre></div>
 
 
-<p>Install microsoft fonts</p>
-<div class="codehilite"><pre><span></span>sudo apt install -y ttf-mscorefonts-installer
-</pre></div>
-
-
-<p>When asked, accept EULA</p>
 <p>Install OnlyOffice Documentserver</p>
 <div class="codehilite"><pre><span></span>sudo apt install -y onlyoffice-documentserver jq
 </pre></div>

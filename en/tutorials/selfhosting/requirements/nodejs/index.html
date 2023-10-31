@@ -2867,7 +2867,7 @@
                 <h1 id="installing-nodejs">Installing NodeJS<a class="headerlink" href="#installing-nodejs" title="Permanent link">&para;</a></h1>
 <p>To be able to run Cozy connectors and gather all your data, cozy-stack needs NodeJS version 16. This documents gives instructions to instal NodeJS 16.</p>
 <p>You can refer to <a href="https://github.com/nodesource/distributions/blob/master/README.md#manual-installation">NodeJS installation documentation</a> or simply follow the instructions below.</p>
-<p>Configure NodeJS 16 package repository:</p>
+<p>Add NodeJS 16 package repository to your system:</p>
 <div class="codehilite"><pre><span></span>KEYRING=/usr/share/keyrings/nodesource.gpg
 curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o &quot;$KEYRING&quot;
 echo &quot;deb [signed-by=$KEYRING] https://deb.nodesource.com/node_16.x nodistro main&quot; | sudo tee /etc/apt/sources.list.d/nodesource.list &gt;/dev/null
@@ -2880,8 +2880,13 @@ EOF
 
 
 <p>Install NodeJS:</p>
-<div class="codehilite"><pre><span></span>sudo apt update
-sudo apt install -y nodejs
+<div class="codehilite"><pre><span></span>sudo apt update &amp;&amp; sudo apt install -y nodejs
+</pre></div>
+
+
+<p>Verify that NodeJS 16 is properly installed</p>
+<div class="codehilite"><pre><span></span>nodejs --version
+v16.20.2
 </pre></div>
 
 
