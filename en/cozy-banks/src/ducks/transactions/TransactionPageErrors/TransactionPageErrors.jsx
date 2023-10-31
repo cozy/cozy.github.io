@@ -8,7 +8,7 @@ import { getFilteredAccounts } from 'ducks/filters'
 import CozyClient, { queryConnect } from 'cozy-client'
 
 import TriggerErrorCard from 'ducks/transactions/TriggerErrorCard'
-import { cronKonnectorTriggersConn } from 'doctypes'
+import { konnectorTriggersConn } from 'doctypes'
 import Carrousel from 'components/Carrousel'
 import flag from 'cozy-flags'
 import { getTransactionPageErrors } from 'ducks/transactions/TransactionPageErrors/errors'
@@ -70,7 +70,7 @@ export default compose(
   })),
   queryConnect({
     triggerCol: {
-      ...cronKonnectorTriggersConn,
+      ...konnectorTriggersConn,
       fetchPolicy: CozyClient.fetchPolicies.noFetch
     }
   }),

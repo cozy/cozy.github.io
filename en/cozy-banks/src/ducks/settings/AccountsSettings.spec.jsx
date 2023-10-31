@@ -4,7 +4,7 @@ import { act, fireEvent, render } from '@testing-library/react'
 import AccountsSettings from './AccountsSettings'
 import {
   ACCOUNT_DOCTYPE as BANK_ACCOUNT_DOCTYPE,
-  cronKonnectorTriggersConn,
+  konnectorTriggersConn,
   accountsConn,
   schema,
   TRIGGER_DOCTYPE
@@ -150,9 +150,9 @@ describe('AccountsSettings', () => {
           lastUpdate: new Date(),
           data: mockBankAccounts
         },
-        [cronKonnectorTriggersConn.as]: {
+        [konnectorTriggersConn.as]: {
           doctype: TRIGGER_DOCTYPE,
-          ...cronKonnectorTriggersConn,
+          ...konnectorTriggersConn,
           lastUpdate: new Date(),
           data: mockKonnectorTriggers
         }

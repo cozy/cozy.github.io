@@ -1,7 +1,6 @@
 import includes from 'lodash/includes'
 
 import { Registry } from 'cozy-client'
-import { triggers as triggerModel } from 'cozy-client/dist/models/trigger'
 
 import { buildTriggerWithoutCurrentStateQuery } from 'src/doctypes'
 import brands from 'ducks/brandDictionary/brands'
@@ -11,7 +10,7 @@ const FETCH_BRANDS = 'FETCH_BRANDS'
 const makeBrand = (
   registryKonnector,
   allJSONBrands,
-  installedKonnectorsSlugs
+  configuredKonnectorsSlugs
 ) => {
   const match = allJSONBrands.find(
     brand => brand.konnectorSlug === registryKonnector.slug
@@ -33,8 +32,15 @@ const makeBrand = (
     ...(match?.health && { health: match.health }),
     ...(match?.contact && { contact: match.contact }),
     maintenance: !!registryKonnector.maintenance_activated,
-    hasTrigger: includes(installedKonnectorsSlugs, registryKonnector.slug)
+    hasTrigger: includes(configuredKonnectorsSlugs, registryKonnector.slug)
   }
+}
+// !TODO remove when CozyClient getKonnector returns also worker === konnector & worker=== client
+export const getKonnectorSlug = trigger => {
+  if (trigger.message && trigger.message.konnector) {
+    return trigger.message.konnector
+  }
+  return false
 }
 
 export const makeBrands = async (client, dispatch, inService) => {
@@ -51,15 +57,14 @@ export const makeBrands = async (client, dispatch, inService) => {
     triggerWithoutCurrentStateQuery.options
   )
 
-  const { getKonnector, isKonnectorWorker } = triggerModel
-  const installedKonnectorsSlugs = triggers
-    ? triggers.filter(isKonnectorWorker).map(getKonnector).filter(Boolean)
+  const configuredKonnectorsSlugs = triggers
+    ? triggers.map(getKonnectorSlug).filter(Boolean)
     : []
 
   const allBrands = allRegistryKonnectors.reduce(
     (allBrands, data) => [
       ...allBrands,
-      makeBrand(data, brands, installedKonnectorsSlugs)
+      makeBrand(data, brands, configuredKonnectorsSlugs)
     ],
     []
   )

@@ -2,15 +2,15 @@ import React from 'react'
 import { useQuery } from 'cozy-client'
 import get from 'lodash/get'
 import flag from 'cozy-flags'
-import { cronKonnectorTriggersConn } from 'doctypes'
+import { konnectorTriggersConn } from 'doctypes'
 import NoAccount from 'ducks/balance/NoAccount'
 import AccountsImporting from 'ducks/balance/AccountsImporting'
 import { useBanksContext } from 'ducks/context/BanksContext'
 
 const EmptyAccount = () => {
   const triggersRequest = useQuery(
-    cronKonnectorTriggersConn.query,
-    cronKonnectorTriggersConn
+    konnectorTriggersConn.query,
+    konnectorTriggersConn
   )
 
   const { isBankTrigger, isFetchingBankSlugs } = useBanksContext()

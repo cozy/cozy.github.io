@@ -2935,13 +2935,17 @@ source /etc/profile.d/golang.sh
 
 <p>Test Go installation is fine with:</p>
 <div class="codehilite"><pre><span></span>go version
-go version go1.21.3 linux/amd64
+</pre></div>
+
+
+<p>This command should respond with something like</p>
+<div class="codehilite"><pre><span></span>go version go1.21.3 linux/amd64
 </pre></div>
 
 
 <h2 id="cozy-stack">Cozy-stack<a class="headerlink" href="#cozy-stack" title="Permanent link">&para;</a></h2>
 <p>First, add a CouchDB user and password for cozy-stack (replace COUCH_ADMIN_PWD with your previously defined CouchdDB admin password)</p>
-<div class="codehilite"><pre><span></span><span class="n">read</span> <span class="o">-</span><span class="n">p</span> <span class="s">&quot;Couchdb password for cozy user: &quot;</span> <span class="o">-</span><span class="n">r</span> <span class="o">-</span><span class="n">s</span> <span class="n">COUCH_PAS</span>
+<div class="codehilite"><pre><span></span><span class="n">read</span> <span class="o">-</span><span class="n">p</span> <span class="s">&quot;Couchdb password for cozy user: &quot;</span> <span class="o">-</span><span class="n">r</span> <span class="o">-</span><span class="n">s</span> <span class="n">COUCH_PASS</span>
 <span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">PUT</span> <span class="o">-</span><span class="n">u</span> <span class="s">&quot;admin:COUCH_ADMIN_PWD&quot;</span> <span class="s">&quot;http://localhost:5984/_node/couchdb@127.0.0.1/_config/admins/cozy&quot;</span> <span class="o">--</span><span class="n">data</span> <span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">${COUCH_PASS}</span><span class="se">\&quot;</span><span class="s">&quot;</span>
 </pre></div>
 
@@ -2976,7 +2980,11 @@ scripts/build.sh release $(go env GOPATH)/bin/cozy-stack
 <p>The compilation generate a binary file under <code>$GOPATH/bin/cozy-stack</code></p>
 <p>You can test it with:</p>
 <div class="codehilite"><pre><span></span>$(go env GOPATH)/bin/cozy-stack version
-1.5.0-5-gcbdf012d
+</pre></div>
+
+
+<p>This command should respond with something like</p>
+<div class="codehilite"><pre><span></span>1.5.0-5-gcbdf012d
 </pre></div>
 
 
@@ -3073,7 +3081,11 @@ sudo systemctl start cozy-stack
 
 <p>You can validate everything went well and cozy-stack is running thiw way:</p>
 <div class="codehilite"><pre><span></span>curl http://localhost:8080/version
-{&quot;build_mode&quot;:&quot;production&quot;,&quot;build_time&quot;:&quot;2021-12-01T13:12:36Z&quot;,&quot;runtime_version&quot;:&quot;go1.20.5&quot;,&quot;version&quot;:&quot;1.5.0-5-gcbdf012d&quot;}
+</pre></div>
+
+
+<p>This command should respond with something like</p>
+<div class="codehilite"><pre><span></span>{&quot;build_mode&quot;:&quot;production&quot;,&quot;build_time&quot;:&quot;2021-12-01T13:12:36Z&quot;,&quot;runtime_version&quot;:&quot;go1.20.5&quot;,&quot;version&quot;:&quot;1.5.0-5-gcbdf012d&quot;}
 </pre></div>
 
 

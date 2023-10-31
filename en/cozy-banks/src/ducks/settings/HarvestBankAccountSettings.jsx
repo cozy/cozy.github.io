@@ -20,7 +20,7 @@ import HarvestAccountModal from 'ducks/settings/HarvestAccountModal'
 import HarvestSwitch from 'ducks/settings/HarvestSwitch'
 import {
   COZY_ACCOUNT_DOCTYPE,
-  cronKonnectorTriggersConn,
+  konnectorTriggersConn,
   KONNECTOR_DOCTYPE
 } from 'doctypes'
 
@@ -88,9 +88,9 @@ const HarvestLoader = ({ connectionId, children }) => {
                 // Related issue : https://github.com/cozy/cozy-client/issues/767
                 return (
                   <Query
-                    query={cronKonnectorTriggersConn.query}
-                    as={cronKonnectorTriggersConn.as}
-                    fetchPolicy={cronKonnectorTriggersConn.fetchPolicy}
+                    query={konnectorTriggersConn.query}
+                    as={konnectorTriggersConn.as}
+                    fetchPolicy={konnectorTriggersConn.fetchPolicy}
                   >
                     {triggerCol => {
                       const {

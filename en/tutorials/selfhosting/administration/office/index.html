@@ -839,6 +839,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#convenience-variables" title="Convenience variables" class="md-nav__link">
+    Convenience variables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#onlyoffice" title="Onlyoffice" class="md-nav__link">
     Onlyoffice
   </a>
@@ -2939,6 +2946,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#convenience-variables" title="Convenience variables" class="md-nav__link">
+    Convenience variables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#onlyoffice" title="Onlyoffice" class="md-nav__link">
     Onlyoffice
   </a>
@@ -3022,6 +3036,14 @@
                 <h1 id="online-edition-of-office-documents">Online edition of office documents<a class="headerlink" href="#online-edition-of-office-documents" title="Permanent link">&para;</a></h1>
 <p>Online office document edition functionality based on OnlyOffice is optional. You can use your Cozy without activating it. It let you edit your office documents online directly in your browser, however it requires more resources on your server.</p>
 <p>To activate this functionality, you need to install OnlyOffice document server and configure cozy-stack to access it. OnlyOffice document server can be installed on the same server or on another server at your convenience. This documentation explain how to install it on the same server.</p>
+<h2 id="convenience-variables">Convenience variables<a class="headerlink" href="#convenience-variables" title="Permanent link">&para;</a></h2>
+<p>First, we define some convenience variables for all this page. Adjust values to your needs. the variable  <code>OO_DB_PASS</code> contains the password that will be set to the database user that will be created to be used by onlyoffice.</p>
+<div class="codehilite"><pre><span></span>OO_DB_PASS=OnlyOfficeDBP@ssw0rd
+DOMAIN=domain.example
+EMAIL=&lt;your email address&gt;
+</pre></div>
+
+
 <h2 id="onlyoffice">Onlyoffice<a class="headerlink" href="#onlyoffice" title="Permanent link">&para;</a></h2>
 <p>Onlyoffice requires PostgreSQL and RabbitMQ so we will start by installing them.</p>
 <h3 id="install-postgresql-and-create-database">Install PostgreSQL and create database<a class="headerlink" href="#install-postgresql-and-create-database" title="Permanent link">&para;</a></h3>
@@ -3033,15 +3055,11 @@ sudo apt install -y postgresql
 
 <p>Create database and user for onlyoffice.</p>
 <div class="codehilite"><pre><span></span>sudo -i -u postgres psql -c &quot;CREATE DATABASE onlyoffice;&quot;
-sudo -i -u postgres psql -c &quot;CREATE USER onlyoffice WITH password &#39;onlyoffice&#39;;&quot;
+sudo -i -u postgres psql -c &quot;CREATE USER onlyoffice WITH password &#39;<span class="cp">${</span><span class="n">OO_DB_PASS</span><span class="cp">}</span>&#39;;&quot;
 sudo -i -u postgres psql -c &quot;GRANT ALL privileges ON DATABASE onlyoffice TO onlyoffice;&quot;
 </pre></div>
 
 
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The second command create a database user named <code>onlyoffice</code> with password <code>onlyoffice</code>. We advise you to choose a more secure password in real life.</p>
-</div>
 <p>If you are using postgreSQL 15 or above (on Debian 12 for example), grant onlyoffice user the permission to create table in the <code>public</code> schema</p>
 <div class="codehilite"><pre><span></span>sudo -u postgres psql -c &quot;GRANT CREATE ON SCHEMA public TO onlyoffice;&quot; onlyoffice
 </pre></div>
@@ -3102,9 +3120,7 @@ sudo apt update
 
 
 <p>Generate SSL certificate:</p>
-<div class="codehilite"><pre><span></span>EMAIL=<span class="nt">&lt;your</span> <span class="err">email</span> <span class="err">address</span><span class="nt">&gt;</span>
-DOMAIN=domain.example
-sudo bash /usr/bin/documentserver-letsencrypt.sh &quot;<span class="cp">${</span><span class="n">EMAIL</span><span class="cp">}</span>&quot; &quot;onlyoffice.<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span>&quot;
+<div class="codehilite"><pre><span></span>sudo bash /usr/bin/documentserver-letsencrypt.sh &quot;<span class="cp">${</span><span class="n">EMAIL</span><span class="cp">}</span>&quot; &quot;onlyoffice.<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span>&quot;
 </pre></div>
 
 
@@ -3113,12 +3129,12 @@ sudo bash /usr/bin/documentserver-letsencrypt.sh &quot;<span class="cp">${</span
 </pre></div>
 
 
-<p>Edit file <code>/etc/onlyoffice/documentserver/nginx/ds.conf</code> and</p>
-<ul>
-<li>replace <code>{{SSL_CERTIFICATE_PATH}}</code> with <code>/etc/letsencrypt/live/onlyoffice.domain.example/fullchain.pem</code></li>
-<li>replace <code>{{SSL_KEY_PATH}}</code> with <code>/etc/letsencrypt/live/onlyoffice.domain.example/privkey.pem</code></li>
-</ul>
-<p>Be careful each line end with semicolons (<code>;</code>).</p>
+<p>Add certificate path in file <code>/etc/onlyoffice/documentserver/nginx/ds.conf</code></p>
+<div class="codehilite"><pre><span></span>sed -ie &#39;s,{{SSL_CERTIFICATE_PATH}},/etc/letsencrypt/live/onlyoffice.&#39;<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span>&#39;/fullchain.pem,&#39; /etc/onlyoffice/documentserver/nginx/ds.conf
+sed -ie &#39;s,{{SSL_KEY_PATH}},/etc/letsencrypt/live/onlyoffice.&#39;<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span>&#39;/privkey.pem,&#39; /etc/onlyoffice/documentserver/nginx/ds.conf
+</pre></div>
+
+
 <h3 id="configure-onlyoffice-for-cozy-stack">Configure OnlyOffice for cozy-stack<a class="headerlink" href="#configure-onlyoffice-for-cozy-stack" title="Permanent link">&para;</a></h3>
 <p>Then configure onlyoffice to work with cozy-stack</p>
 <div class="codehilite"><pre><span></span>sudo cat /etc/onlyoffice/documentserver/local.json | jq &#39;. | .services.CoAuthoring.token.enable.browser=false | del(.storage) | .services.CoAuthoring.&quot;request-filtering-agent&quot;.allowPrivateIPAddress=true | .services.CoAuthoring.&quot;request-filtering-agent&quot;.allowMetaIPAddress=true&#39; &gt; /tmp/oolocal.json
@@ -3132,11 +3148,10 @@ rm /tmp/oolocal.json
 </pre></div>
 
 
-<p>You can now test onlyoffice is accessible from your browser at <code>https://onlyoffice.domain.example</code>.</p>
+<p>You can now test onlyoffice is accessible from your browser at <code>https://onlyoffice.domain.example</code> (replace <code>domain.example</code> with your domain name).</p>
 <h2 id="configure-cozy-stack-for-onlyoffice">Configure cozy-stack for OnlyOffice<a class="headerlink" href="#configure-cozy-stack-for-onlyoffice" title="Permanent link">&para;</a></h2>
 <p>Update configuration file:</p>
-<div class="codehilite"><pre><span></span>DOMAIN=domain.example
-cat <span class="err">&lt;</span><span class="nt">&lt;EOF</span> <span class="err">|</span> <span class="err">sudo</span> <span class="err">tee</span> <span class="err">-a</span> <span class="err">/etc/cozy/cozy.yml.local</span> <span class="nt">&gt;</span> /dev/null
+<div class="codehilite"><pre><span></span>cat <span class="err">&lt;</span><span class="nt">&lt;EOF</span> <span class="err">|</span> <span class="err">sudo</span> <span class="err">tee</span> <span class="err">-a</span> <span class="err">/etc/cozy/cozy.yml.local</span> <span class="nt">&gt;</span> /dev/null
 office:
   default:
     onlyoffice_url: https://onlyoffice.<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span>/

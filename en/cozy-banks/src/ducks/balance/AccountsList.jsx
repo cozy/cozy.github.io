@@ -7,7 +7,7 @@ import { useClient, useQuery } from 'cozy-client'
 import List from 'cozy-ui/transpiled/react/MuiCozyTheme/List'
 import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
 
-import { ACCOUNT_DOCTYPE, cronKonnectorTriggersConn } from 'doctypes'
+import { ACCOUNT_DOCTYPE, konnectorTriggersConn } from 'doctypes'
 import { useFilters } from 'components/withFilters'
 import AccountRow from 'ducks/balance/AccountRow'
 import { getAccountBalance } from 'ducks/account/helpers'
@@ -48,8 +48,8 @@ const AccountsList = props => {
     [group, groupAccounts]
   )
   const { data: triggers } = useQuery(
-    cronKonnectorTriggersConn.query,
-    cronKonnectorTriggersConn
+    konnectorTriggersConn.query,
+    konnectorTriggersConn
   )
   return (
     <List>

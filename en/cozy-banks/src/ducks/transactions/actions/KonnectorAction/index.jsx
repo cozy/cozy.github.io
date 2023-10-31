@@ -12,7 +12,7 @@ import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 
 import icon from 'assets/icons/actions/icon-link-out.svg'
 import palette from 'cozy-ui/transpiled/react/palette'
-import { cronKonnectorTriggersConn } from 'doctypes'
+import { konnectorTriggersConn } from 'doctypes'
 import InformativeDialog from 'ducks/transactions/actions/KonnectorAction/InformativeDialog'
 import ConfigurationModal from 'ducks/transactions/actions/KonnectorAction/ConfigurationModal'
 import match from 'ducks/transactions/actions/KonnectorAction/match'
@@ -138,8 +138,8 @@ Component.propTypes = {
 }
 
 const mkFetchTriggers = client => () =>
-  client.query(cronKonnectorTriggersConn.query(client), {
-    as: cronKonnectorTriggersConn.as
+  client.query(konnectorTriggersConn.query(client), {
+    as: konnectorTriggersConn.as
   })
 const addFetchTriggers = Component => {
   const res = (props, context) => (

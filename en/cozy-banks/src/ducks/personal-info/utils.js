@@ -4,7 +4,7 @@ import merge from 'lodash/merge'
 import get from 'lodash/get'
 
 import {
-  cronKonnectorTriggersConn,
+  konnectorTriggersConn,
   KONNECTOR_DOCTYPE,
   IDENTITIES_DOCTYPE
 } from 'doctypes'
@@ -97,8 +97,8 @@ export const updateBIUserConfig = async ({
   isBankTrigger
 }) => {
   const { data: allTriggers } = await client.query(
-    cronKonnectorTriggersConn.query(),
-    cronKonnectorTriggersConn
+    konnectorTriggersConn.query(),
+    konnectorTriggersConn
   )
   // keep only successful bank triggers
   const triggers = sortBy(

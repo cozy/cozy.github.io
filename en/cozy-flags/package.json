@@ -1,6 +1,6 @@
 {
   "name": "cozy-flags",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "description": "Flag library used in Cozy",
   "main": "dist/index.js",
   "browser": "dist/index.browser.js",
@@ -18,7 +18,9 @@
     "cozy-flags": "./bin/cozy-flags"
   },
   "scripts": {
-    "build": "babel src -d dist --verbose",
+    "build": "yarn build:types && yarn build:js",
+    "build:js": "babel --extensions .js,.jsx,.ts,.tsx ./src -d ./dist --verbose",
+    "build:types": "tsc",
     "prepublishOnly": "yarn build",
     "test": "jest"
   },
@@ -44,5 +46,6 @@
   },
   "dependencies": {
     "microee": "^0.0.6"
-  }
+  },
+  "types": "dist/index.d.ts"
 }

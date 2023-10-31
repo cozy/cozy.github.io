@@ -22,7 +22,7 @@ import {
   ACCOUNT_DOCTYPE,
   accountsConn,
   groupsConn,
-  cronKonnectorTriggersConn
+  konnectorTriggersConn
 } from 'doctypes'
 import { getFilteringDoc } from 'ducks/filters'
 import Padded from 'components/Padded'
@@ -321,7 +321,7 @@ const ConnectedTransactionsPage = compose(
   queryConnect({
     accounts: accountsConn,
     groups: groupsConn,
-    triggers: cronKonnectorTriggersConn
+    triggers: konnectorTriggersConn
   }),
   addTransactions,
   connect(mapStateToProps)

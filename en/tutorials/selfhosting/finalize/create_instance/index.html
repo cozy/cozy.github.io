@@ -2937,6 +2937,16 @@ sudo COZY_ADMIN_PASSWORD=&quot;<span class="cp">${</span><span class="n">COZY_PA
 </pre></div>
 
 
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Instance creation can take up to 30 seconds without printing anything on screen.
+Please wait during creation and avoid stopping it in the middle or your instance will miss some important bits.</p>
+<p>In case something goes wrong, you can remove the instance with the following command before trying again</p>
+<div class="codehilite"><pre><span></span>sudo COZY_ADMIN_PASSWORD=&quot;<span class="cp">${</span><span class="n">COZY_PASS</span><span class="cp">}</span>&quot; cozy-stack instances rm --force cozy.<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span>
+</pre></div>
+
+
+</div>
 <p>You can of course adapt your language (<code>locale</code>) to choose english (<code>en</code>) or spanish (<code>es</code>) and choose another timezone (<code>tz</code>).</p>
 <p>Note the “Registration token” this command returns and visit from your browser <code>https://cozy.domain.example?registerToken=&lt;registration_token&gt;</code> substituting <code>domain.example</code> with your real domain name and <code>&lt;registration_token&gt;</code> with the “Registration token” you got.
 You will be prompted to define your Cozy password and you will be able to start using your self-hosted Cozy.</p>

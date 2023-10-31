@@ -12,7 +12,7 @@ import HarvestBankAccountSettings from 'ducks/settings/HarvestBankAccountSetting
 import { Unpadded } from 'components/Padded'
 import LegalMention from 'ducks/legal/LegalMention'
 import UnlinkIcon from 'cozy-ui/transpiled/react/Icons/Unlink'
-import { cronKonnectorTriggersConn } from 'doctypes'
+import { konnectorTriggersConn } from 'doctypes'
 import AccountListItem from 'ducks/settings/AccountListItem'
 import { getAccountInstitutionLabel } from 'ducks/account/helpers'
 import { transformJobsToFakeAccounts } from './helpers/jobs'
@@ -69,8 +69,8 @@ const AccountsListSettings = ({
   )
 
   const triggers = useQuery(
-    cronKonnectorTriggersConn.query,
-    cronKonnectorTriggersConn
+    konnectorTriggersConn.query,
+    konnectorTriggersConn
   )
 
   useEffect(() => {
