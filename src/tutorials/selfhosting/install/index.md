@@ -1,6 +1,6 @@
 # Cozy-stack installation
 
-Cozycloud provides precompiled packages for the last two versions of Debian and Ubuntu LTS on amd64 architecture. Currently, precompiled packages are provides for
+Cozycloud provides precompiled packages for the last two versions of Debian and Ubuntu LTS on amd64 architecture. Currently, precompiled packages are provided for
 
 - Debian 11 Bullseye
 - Debian 12 Bookworm
