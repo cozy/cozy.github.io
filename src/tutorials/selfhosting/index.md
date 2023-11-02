@@ -1,11 +1,11 @@
 # Self-Hosting
 
-Cozycloud offer an [hosted service](https://cozy.io/fr/pricing/) on a freemium model. You can discover it freely and upgrade your offer to suit your needs.
+Cozycloud offers an [hosted service](https://cozy.io/fr/pricing/) on a freemium model. You can discover it freely and upgrade your offer to suit your needs.
 
 We are commited to protect your data and respect your privacy and are convinced that "You Will Stay Because You Can Leave".
 The cozycloud source code is publicly available to be audited and you can decide to host it yourself or ask someone else you trust to host your cozy.
 
-This documentation explain how to self host your cozy instance on your own server.
+This documentation explains how to self host your cozy instance on your own server.
 
 Cozycloud provides precompiled packages for the last two major versions of Debian and Ubuntu LTS on the amd64 architecture, as well as installation instructions from source code for other architectures and operating systems.
 
