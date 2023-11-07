@@ -3130,8 +3130,8 @@ sudo apt update
 
 
 <p>Add certificate path in file <code>/etc/onlyoffice/documentserver/nginx/ds.conf</code></p>
-<div class="codehilite"><pre><span></span>sed -ie &#39;s,{{SSL_CERTIFICATE_PATH}},/etc/letsencrypt/live/onlyoffice.&#39;<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span>&#39;/fullchain.pem,&#39; /etc/onlyoffice/documentserver/nginx/ds.conf
-sed -ie &#39;s,{{SSL_KEY_PATH}},/etc/letsencrypt/live/onlyoffice.&#39;<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span>&#39;/privkey.pem,&#39; /etc/onlyoffice/documentserver/nginx/ds.conf
+<div class="codehilite"><pre><span></span>sudo sed -ie &#39;s,{{SSL_CERTIFICATE_PATH}},/etc/letsencrypt/live/onlyoffice.&#39;<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span>&#39;/fullchain.pem,&#39; /etc/onlyoffice/documentserver/nginx/ds.conf
+sudo sed -ie &#39;s,{{SSL_KEY_PATH}},/etc/letsencrypt/live/onlyoffice.&#39;<span class="cp">${</span><span class="n">DOMAIN</span><span class="cp">}</span>&#39;/privkey.pem,&#39; /etc/onlyoffice/documentserver/nginx/ds.conf
 </pre></div>
 
 
