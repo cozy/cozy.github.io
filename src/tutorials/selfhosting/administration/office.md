@@ -96,8 +96,8 @@ Configure onlyoffice:
 
 Add certificate path in file `/etc/onlyoffice/documentserver/nginx/ds.conf`
 
-    sed -ie 's,{{SSL_CERTIFICATE_PATH}},/etc/letsencrypt/live/onlyoffice.'${DOMAIN}'/fullchain.pem,' /etc/onlyoffice/documentserver/nginx/ds.conf
-    sed -ie 's,{{SSL_KEY_PATH}},/etc/letsencrypt/live/onlyoffice.'${DOMAIN}'/privkey.pem,' /etc/onlyoffice/documentserver/nginx/ds.conf
+    sudo sed -ie 's,{{SSL_CERTIFICATE_PATH}},/etc/letsencrypt/live/onlyoffice.'${DOMAIN}'/fullchain.pem,' /etc/onlyoffice/documentserver/nginx/ds.conf
+    sudo sed -ie 's,{{SSL_KEY_PATH}},/etc/letsencrypt/live/onlyoffice.'${DOMAIN}'/privkey.pem,' /etc/onlyoffice/documentserver/nginx/ds.conf
 
 ### Configure OnlyOffice for cozy-stack
 
