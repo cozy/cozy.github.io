@@ -3061,7 +3061,7 @@ sudo -i -u postgres psql -c &quot;GRANT ALL privileges ON DATABASE onlyoffice TO
 
 
 <p>If you are using postgreSQL 15 or above (on Debian 12 for example), grant onlyoffice user the permission to create table in the <code>public</code> schema</p>
-<div class="codehilite"><pre><span></span>sudo -u postgres psql -c &quot;GRANT CREATE ON SCHEMA public TO onlyoffice;&quot; onlyoffice
+<div class="codehilite"><pre><span></span>sudo -i -u postgres psql -c &quot;GRANT CREATE ON SCHEMA public TO onlyoffice;&quot; onlyoffice
 </pre></div>
 
 

@@ -33,9 +33,10 @@ export const assert = (pred, msg) => {
  *
  * @param  {array} operations
  * @param  {array} rules
+ * @param  {array} client
  * @return {array} recurrence groups
  */
-export const findRecurrences = (operations, rules) => {
+export const findRecurrences = (operations, rules, client) => {
   log('info', 'Creating new bundle...')
   const groups = groupBy(operations, x => getCategoryId(x))
 
@@ -87,7 +88,7 @@ export const findRecurrences = (operations, rules) => {
       if (rules.length > 1) {
         throw new Error('Cannot have multiple split rules in one stage')
       }
-      bundles = flatMap(bundles, rules[0])
+      bundles = flatMap(bundles, bundle => rules[0](bundle, client))
     }
   }
 
@@ -99,7 +100,7 @@ export const findRecurrences = (operations, rules) => {
   return bundles
 }
 
-export const updateRecurrences = (bundles, newTransactions, rules) => {
+export const updateRecurrences = (bundles, newTransactions, rules, client) => {
   if (!newTransactions.length) {
     return bundles
   }
@@ -122,7 +123,7 @@ export const updateRecurrences = (bundles, newTransactions, rules) => {
   )
 
   if (remainingTransactions.length > 0) {
-    newBundles = findRecurrences(remainingTransactions, rules)
+    newBundles = findRecurrences(remainingTransactions, rules, client)
   }
 
   const allBundles = [...updatedBundles, ...newBundles].map(addStats)
@@ -130,16 +131,20 @@ export const updateRecurrences = (bundles, newTransactions, rules) => {
   return allBundles
 }
 
-export const findAndUpdateRecurrences = (recurrences, operations) => {
+export const findAndUpdateRecurrences = (recurrences, operations, client) => {
   log('info', 'Find and update recurrences...')
-
   const rules = getRulesFromConfig(defaultRulesConfig)
 
   let updatedRecurrences
   if (recurrences.length === 0) {
-    updatedRecurrences = findRecurrences(operations, rules)
+    updatedRecurrences = findRecurrences(operations, rules, client)
   } else {
-    updatedRecurrences = updateRecurrences(recurrences, operations, rules)
+    updatedRecurrences = updateRecurrences(
+      recurrences,
+      operations,
+      rules,
+      client
+    )
   }
   return updatedRecurrences
 }

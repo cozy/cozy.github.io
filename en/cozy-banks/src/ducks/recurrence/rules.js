@@ -161,8 +161,8 @@ export const addStats = bundle => ({
   stats: makeStats(bundle.ops)
 })
 
-export const brandSplit = () => bundle => {
-  const brands = getBrands()
+export const brandSplit = () => (bundle, client) => {
+  const brands = getBrands(undefined, client)
   const brandGroups = groupBy(bundle.ops, op => {
     const brand = findMatchingBrand(brands, op.label)
     return brand ? brand.name : null

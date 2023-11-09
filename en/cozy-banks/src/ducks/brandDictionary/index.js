@@ -7,9 +7,9 @@ const getRegexp = brand => {
   return new RegExp(brand.regexp, 'i')
 }
 
-export const getBrands = filterFct => {
-  const client = getClient()
-  const allBrands = client.store.getState().brands
+export const getBrands = (filterFct, client) => {
+  const selfClient = client || getClient()
+  const allBrands = selfClient.store.getState().brands
   return filterFct ? allBrands.filter(filterFct) : allBrands
 }
 

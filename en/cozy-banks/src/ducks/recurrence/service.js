@@ -162,7 +162,8 @@ const main = async ({ client }) => {
 
     const updatedRecurrences = findAndUpdateRecurrences(
       recurrencesAmountsCatIdsUpdated.map(r => ({ ...r })),
-      transactions
+      transactions,
+      client
     ).map(x => omit(x, '_type'))
 
     const { true: emptyRecurrences = [], false: nonEmptyRecurrences = [] } =

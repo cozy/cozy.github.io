@@ -1,26 +1,36 @@
 import React, { useState } from 'react'
 
 import flag from 'cozy-flags'
-import { isFlagshipApp } from 'cozy-device-helper'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import AppHighlightAlert from 'components/AppHighlightAlert/AppHighlightAlert'
+import { buildExistingTimeseriesGeojsonQuery } from 'queries'
 
 const APP_START_COUNT_KEY =
   'GeolocationTrackingAppHighlightAlert__appStartCount'
 
 const DISABLED_COUNT_VALUE = -1
 
-const isAvailable = () => {
+const hasAtLeastOneTimeseriesGeojson = async client => {
+  const existingTimeseriesGeojsonQuery = buildExistingTimeseriesGeojsonQuery()
+  const { data: timeseries } = await client.fetchQueryAndGetFromState(
+    existingTimeseriesGeojsonQuery
+  )
+
+  return timeseries.length >= 1
+}
+
+const isAvailable = async client => {
   const bikegoalSettings = flag('coachco2.bikegoal.settings')
 
   return (
-    isFlagshipApp() &&
     flag('home.push.coachco2.opencount') &&
     flag('home.push.coachco2.opencount') >= 0 &&
     (!bikegoalSettings ||
-      bikegoalSettings.sourceId === null ||
-      (bikegoalSettings.sourceId !== null && flag('coachco2.bikegoal.enabled')))
+      bikegoalSettings.sourceOffer === null ||
+      (bikegoalSettings.sourceOffer !== null &&
+        flag('coachco2.bikegoal.enabled'))) &&
+    (await hasAtLeastOneTimeseriesGeojson(client))
   )
 }
 
@@ -31,11 +41,11 @@ const isDisplayable = () => {
   return appStartCount >= flag('home.push.coachco2.opencount') - 1
 }
 
-export const getGeolocationTrackingAppHighlightAlert = () => {
+export const getGeolocationTrackingAppHighlightAlert = async client => {
   return {
     name: 'GeolocationTrackingAppHighlightAlert',
     Component: GeolocationTrackingAppHighlightAlert,
-    available: isAvailable(),
+    available: await isAvailable(client),
     displayable: isDisplayable(),
     onNotDisplayed: onNotDisplayed,
     onDisplayed: onDisplayed
@@ -67,13 +77,13 @@ const onDisplayed = () => {
 const getAlertDescription = t => {
   const bikegoalSettings = flag('coachco2.bikegoal.settings')
 
-  if (bikegoalSettings?.sourceId) {
-    if (bikegoalSettings.sourceId === 'employer') {
+  if (bikegoalSettings?.sourceOffer) {
+    if (bikegoalSettings.sourceOffer === 'employer') {
       return t(
         'appHighlightAlert.geolocationTracking.bikegoalSourceEmployerDescription',
         {
           sourceType: bikegoalSettings.sourceType,
-          sourceIdentity: bikegoalSettings.sourceIdentity
+          sourceName: bikegoalSettings.sourceName
         }
       )
     } else {
@@ -81,7 +91,7 @@ const getAlertDescription = t => {
         'appHighlightAlert.geolocationTracking.bikegoalSourceDefaultDescription',
         {
           sourceType: bikegoalSettings.sourceType,
-          sourceIdentity: bikegoalSettings.sourceIdentity
+          sourceName: bikegoalSettings.sourceName
         }
       )
     }
