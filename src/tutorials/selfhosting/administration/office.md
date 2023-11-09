@@ -32,7 +32,7 @@ Create database and user for onlyoffice.
 
 If you are using postgreSQL 15 or above (on Debian 12 for example), grant onlyoffice user the permission to create table in the `public` schema
 
-    sudo -u postgres psql -c "GRANT CREATE ON SCHEMA public TO onlyoffice;" onlyoffice
+    sudo -i -u postgres psql -c "GRANT CREATE ON SCHEMA public TO onlyoffice;" onlyoffice
 
 ### Install RabbitMQ
 
