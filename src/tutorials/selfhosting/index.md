@@ -25,6 +25,7 @@ Cozycloud provides precompiled packages for the last two major versions of Debia
 - [Administration](./administration/index.md)
     - [Create more instances](./administration/more_instances.md)
     - [Upgrade cozy-stack](./administration/upgrade.md)
+    - [Configure mail sending](./administration/mail.md)
     - [Online edition of office documents](./administration/office.md)
 
 <!--lint enable list-item-bullet-indent-->
