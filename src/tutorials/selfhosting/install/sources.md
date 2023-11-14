@@ -26,7 +26,7 @@ First, add a CouchDB user and password for cozy-stack (replace COUCH_ADMIN_PWD w
 
 Install requirements:
 
-    sudo apt install -y imagemagick libprotobuf-c1 fonts-lato
+    sudo apt install -y imagemagick ghostscript librsvg2-bin libprotobuf-c1 fonts-lato
 
 Activate PDF thumbnail generation in ImageMagick
 
@@ -77,7 +77,6 @@ And install it:
                  /opt/cozy-stack/scripts/konnector-node-run.sh \
                  /usr/share/cozy/konnector-node-run.sh
     sudo install -o cozy-stack -g cozy -m 750 -d /var/lib/cozy
-
 
 And create configuration:
 
