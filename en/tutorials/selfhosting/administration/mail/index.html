@@ -42,7 +42,7 @@
     
     
       
-        <title>Configuring cozy-stack to send mail - Cozy Developer Documentation</title>
+        <title>Configure mail sending - Cozy Developer Documentation</title>
       
     
     
@@ -126,7 +126,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Configuring cozy-stack to send mail
+                Configure mail sending
               
             </span>
           
@@ -194,14 +194,16 @@
       
         
 
-<nav class="md-tabs" data-md-component="tabs">
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
   <div class="md-tabs__inner md-grid">
     <ul class="md-tabs__list">
       
         
   <li class="md-tabs__item">
     
-      <a href="../../../.." title="Home" class="md-tabs__link md-tabs__link--active">
+      <a href="../../../.." title="Home" class="md-tabs__link">
         Home
       </a>
     
@@ -213,7 +215,7 @@
   
     <li class="md-tabs__item">
       
-        <a href="../../../app/" title="Tutorials" class="md-tabs__link">
+        <a href="../../../app/" title="Tutorials" class="md-tabs__link md-tabs__link--active">
           Tutorials
         </a>
       
@@ -337,10 +339,12 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
     
     <label class="md-nav__link" for="nav-2">
       Tutorials
@@ -548,10 +552,12 @@
           
           
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-4" type="checkbox" id="nav-2-4">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-4" type="checkbox" id="nav-2-4" checked>
     
     <label class="md-nav__link" for="nav-2-4">
       Self-Hosting
@@ -747,10 +753,12 @@
           
           
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-4-5" type="checkbox" id="nav-2-4-5">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-4-5" type="checkbox" id="nav-2-4-5" checked>
     
     <label class="md-nav__link" for="nav-2-4-5">
       Administration
@@ -795,6 +803,110 @@
     <a href="../upgrade/" title="Upgrade cozy-stack" class="md-nav__link">
       Upgrade cozy-stack
     </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Configure mail sending
+      </label>
+    
+    <a href="./" title="Configure mail sending" class="md-nav__link md-nav__link--active">
+      Configure mail sending
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mail-transport-agent-mta" title="Mail transport agent (MTA)" class="md-nav__link">
+    Mail transport agent (MTA)
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installing-a-local-mta" title="Installing a local MTA" class="md-nav__link">
+    Installing a local MTA
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-cozy-stack" title="Configuring cozy-stack" class="md-nav__link">
+    Configuring cozy-stack
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#local-mta-on-port-25-smtp-no-encryption-no-authentication" title="Local MTA on port 25 (SMTP), no encryption, no authentication" class="md-nav__link">
+    Local MTA on port 25 (SMTP), no encryption, no authentication
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remote-mta-on-submission-port-using-starttls-and-authentication" title="Remote MTA on submission port using STARTTLS and authentication" class="md-nav__link">
+    Remote MTA on submission port using STARTTLS and authentication
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#remote-mta-on-submissions-port-using-native-tlsssl-and-authentication" title="Remote MTA on submissions port using native TLS/SSL and authentication" class="md-nav__link">
+    Remote MTA on submissions port using native TLS/SSL and authentication
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#restarting-cozy-stack-to-use-new-configuration" title="Restarting cozy-stack to use new configuration" class="md-nav__link">
+    Restarting cozy-stack to use new configuration
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -3044,6 +3156,41 @@ starting from cozy-stack version 1.6.15</p>
       
         
 <footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../upgrade/" title="Upgrade cozy-stack" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Upgrade cozy-stack
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../office/" title="Online edition of office documents" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Online edition of office documents
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
