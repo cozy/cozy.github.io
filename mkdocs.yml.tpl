@@ -45,6 +45,7 @@ nav:
       - Index: tutorials/selfhosting/administration/index.md
       - Create more instances: tutorials/selfhosting/administration/more_instances.md
       - Upgrade cozy-stack: tutorials/selfhosting/administration/upgrade.md
+      - Configure mail sending: tutorials/selfhosting//administration/mail.md
       - Online edition of office documents: tutorials/selfhosting/administration/office.md
 - How-to:
   - Dev:
