@@ -7,6 +7,7 @@ repo_url: https://github.com/cozy/
 edit_uri: cozy.github.io/edit/dev/src
 site_description: Cozy documentation
 site_author: CozyCloud - https://cozy.io
+copyright: '<a href="/en/privacy">privacy</a>'
 extra_css:
 - css/extra.css
 extra_javascript:
