@@ -53,9 +53,11 @@ You can test it with:
 
     $(go env GOPATH)/bin/cozy-stack version
 
-This command should respond with something like
-
-    1.5.0-5-gcbdf012d
+> This command should respond with the compiled cozy-stack version, like
+>
+> ```
+>     1.6.14-36-ge4577c7ff
+> ```
 
 You then have to create a user to run cozy-stack:
 
@@ -148,9 +150,11 @@ You can validate everything went well and cozy-stack is running thiw way:
 
     curl http://localhost:8080/version
 
-This command should respond with something like
-
-    {"build_mode":"production","build_time":"2021-12-01T13:12:36Z","runtime_version":"go1.20.5","version":"1.5.0-5-gcbdf012d"}
+> This command should give you cozy-stack installed version. For example:
+>
+> ```
+> {"build_mode":"production","build_time":"2023-11-15T15:57:06Z","runtime_version":"go1.21.3","version":"1.6.14-36-ge4577c7ff"}
+> ```
 
 <div style="text-align: right">
   <a href="../../finalize/nginx/">Next --&gt;</a>

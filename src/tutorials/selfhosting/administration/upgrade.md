@@ -24,7 +24,12 @@ compile source code:
 You can test compilation produced a valid binary with:
 
     $(go env GOPATH)/bin/cozy-stack version
-    1.5.0-9-g1eac6802
+
+> This command should respond with the compiled cozy-stack version, like
+>
+> ```
+>     1.6.14-36-ge4577c7ff
+> ```
 
 Install new generated binary:
 
@@ -42,4 +47,3 @@ Et voilà, you just upgraded cozy-stack to the latest version. pretty easy.
 <div style="text-align: right">
   <a href="../">Index ^</a>
 </div>
-
