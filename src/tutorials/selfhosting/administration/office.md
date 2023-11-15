@@ -4,14 +4,31 @@ Online office document edition functionality based on OnlyOffice is optional. Yo
 
 To activate this functionality, you need to install OnlyOffice document server and configure cozy-stack to access it. OnlyOffice document server can be installed on the same server or on another server at your convenience. This documentation explain how to install it on the same server.
 
+## Define a password for PostgreSQL database
+
+Onlyoffice Documentserver uses a PostgreSQL database.
+
+You first need to define a password for onlyoffice to connect to PostgreSQL server database.
+
 ## Convenience variables
 
-First, we define some convenience variables for all this page. Adjust values to your needs. the variable  `OO_DB_PASS` contains the password that will be set to the database user that will be created to be used by onlyoffice.
+We define here some convenience variables for all this page. They will be used below when installing and configuring Onlyoffice.
+
+First, we define a variable  `OO_DB_PASS` which contain the password we just defined in last step.
+This password will be used when creating a database user for Onlyoffice.
+**Replace OnlyOfficeDBP@ssw0rd below with the password you chose.**
 
     OO_DB_PASS=OnlyOfficeDBP@ssw0rd
-    DOMAIN=domain.example
-    EMAIL=<your email address>
 
+Then we define the same variables we used when creating a cozy instance:
+
+- The `DOMAIN` variable should contain your domain name, the one under which all cozy instances will be created
+- The `EMAIL` variable should contain your email address (it will be used when generating the https certificate)
+
+```
+DOMAIN=domain.example
+EMAIL="your.email@email.domain"
+```
 
 ## Onlyoffice
 
@@ -30,7 +47,12 @@ Create database and user for onlyoffice.
     sudo -i -u postgres psql -c "CREATE USER onlyoffice WITH password '${OO_DB_PASS}';"
     sudo -i -u postgres psql -c "GRANT ALL privileges ON DATABASE onlyoffice TO onlyoffice;"
 
-If you are using postgreSQL 15 or above (on Debian 12 for example), grant onlyoffice user the permission to create table in the `public` schema
+Check the version of PostgreSQL that is installed on your system.
+
+    psql --version
+
+If you are using **PostgreSQL 15 or above** (on Debian 12 for example), you need to grant
+onlyoffice user the permission to create tables in the `public` schema
 
     sudo -i -u postgres psql -c "GRANT CREATE ON SCHEMA public TO onlyoffice;" onlyoffice
 
@@ -74,7 +96,7 @@ Install OnlyOffice Documentserver
 
     sudo apt install -y onlyoffice-documentserver jq
 
-When asked, enter database password we created when installing postgreSQL and created database.
+When asked, enter the PostgreSQL database password we created in the first step of this page.
 
 Then restart Nginx
 
@@ -82,7 +104,8 @@ Then restart Nginx
 
 ### Configure HTTPS for OnlyOffice
 
-Create a DNS entry for OnlyOffice targeting your server. For example:
+Create a DNS entry for OnlyOffice targeting your server.
+This should be configured in the DNS server for your domain. For example:
 
     onlyoffice     1h     IN         A     <your_server_IP>
 
@@ -111,7 +134,6 @@ Restart OnlyOffice and Nginx:
 
     sudo systemctl restart ds-converter.service ds-docservice.service ds-metrics.service nginx.service
 
-
 You can now test onlyoffice is accessible from your browser at `https://onlyoffice.domain.example` (replace `domain.example` with your domain name).
 
 ## Configure cozy-stack for OnlyOffice
@@ -128,17 +150,18 @@ Update configuration file:
     OUTBOX_SECRET="$(sudo cat /etc/onlyoffice/documentserver/local.json | jq -r .services.CoAuthoring.secret.outbox.string)"
     if [ "${OUTBOX_SECRET}" != "null" ]; then echo "    onlyoffice_outbox_secret: \"${OUTBOX_SECRET}\"" | sudo tee -a /etc/cozy/cozy.yml.local > /dev/null; fi
 
-
 Restart cozy-stack:
 
     sudo systemctl restart cozy-stack
 
-Activate functionality:
+Activate functionality (give cozy-stack admin password when asked):
 
-    [[ -z "${COZY_PASS}" ]] && read -p "Cozy stack admin password: " -r -s COZY_PASS
+    read -p "Cozy stack admin password: " -r -s COZY_PASS
     sudo COZY_ADMIN_PASSWORD="${COZY_PASS}" cozy-stack features defaults '{"drive.office": {"enabled": true, "write": true}}'
 
-You can now upload an office document in cozy-drive and start editing it online by clicking on it or start a new empty document for the "New document" menu.
+You can now upload an office document in cozy-drive and start editing it online by clicking on it or start a new empty document from the "New document" menu.
+
+## Futher information
 
 The `drive.office` feature flag has other options for customising the experience with OnlyOffice:
 

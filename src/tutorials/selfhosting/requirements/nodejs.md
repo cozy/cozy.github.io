@@ -22,7 +22,12 @@ Install NodeJS:
 Verify that NodeJS 16 is properly installed
 
     nodejs --version
-    v16.20.2
+
+> This command should give you nodejs installed version. For example:
+>
+> ```
+>     v16.20.2
+> ```
 
 <div style="text-align: right">
   <a href="../../install/">Next --&gt;</a>
