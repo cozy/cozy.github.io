@@ -628,45 +628,9 @@
       
     
     
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        Installing CouchDB
-      </label>
-    
     <a href="./" title="Installing CouchDB" class="md-nav__link md-nav__link--active">
       Installing CouchDB
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#installing-from-precompiled-packages" title="Installing from precompiled packages" class="md-nav__link">
-    Installing from precompiled packages
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#installing-from-snap-package" title="Installing from snap package" class="md-nav__link">
-    Installing from snap package
-  </a>
-  
-</li>
-      
-      
-      
-      
-      
-    </ul>
-  
-</nav>
     
   </li>
 
@@ -2899,29 +2863,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">Table of contents</label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#installing-from-precompiled-packages" title="Installing from precompiled packages" class="md-nav__link">
-    Installing from precompiled packages
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#installing-from-snap-package" title="Installing from snap package" class="md-nav__link">
-    Installing from snap package
-  </a>
-  
-</li>
-      
-      
-      
-      
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -2937,81 +2878,12 @@
                 
                 <h1 id="installing-couchdb">Installing CouchDB<a class="headerlink" href="#installing-couchdb" title="Permanent link">&para;</a></h1>
 <p>Cozy-stack uses couchdb to store structured data of your cozy.</p>
-<p>Preferred installation method is precompiled package but in case there is no package yet for your system (like on Debian 12 at the redaction of this document), you can also install couchdb using snap package (see instructions below).</p>
+<p>Preferred installation method is precompiled package. In case there is no package yet for your system, you can also install couchdb using snap package (see instructions linked below).</p>
+<ul>
+<li><a href="../couchdb-pkg/">Install CouchDB from precompiled package</a> (Debian 10, 11 or 12 / Ubuntu 20.04, 22.04)</li>
+<li><a href="../couchdb-snap/">Install CouchDB from snap package</a></li>
+</ul>
 <p>If neither method is available for your particular system and architecture, refer to <a href="https://docs.couchdb.org/en/stable/install/unix.html">CouchDB official installation documentation</a> to build it from source.</p>
-<h2 id="installing-from-precompiled-packages">Installing from precompiled packages<a class="headerlink" href="#installing-from-precompiled-packages" title="Permanent link">&para;</a></h2>
-<p>Configure CouchDB package repository:</p>
-<div class="codehilite"><pre><span></span>sudo apt update &amp;&amp; sudo apt install -y curl apt-transport-https gnupg
-curl -fsSL https://couchdb.apache.org/repo/keys.asc | gpg --dearmor | sudo tee /usr/share/keyrings/couchdb-archive-keyring.gpg &gt;/dev/null 2&gt;&amp;1
-echo &quot;deb [signed-by=/usr/share/keyrings/couchdb-archive-keyring.gpg] https://apache.jfrog.io/artifactory/couchdb-deb/ $(lsb_release -sc) main&quot; | sudo tee /etc/apt/sources.list.d/couchdb.list &gt;/dev/null
-</pre></div>
-
-
-<p>Install Couchdb:</p>
-<div class="codehilite"><pre><span></span>sudo apt update
-sudo apt install -y couchdb
-</pre></div>
-
-
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>During CouchDB installation, choose <code>Standalone</code> mode, define a random erlang cookie and define a couchdb admin password. Remember that password, you will need it later when installing cozy-stack.</p>
-</div>
-<p>Validate CouchDB is working:</p>
-<div class="codehilite"><pre><span></span>curl http://127.0.0.1:5984/
-{&quot;couchdb&quot;:&quot;Welcome&quot;,&quot;version&quot;:&quot;3.2.1&quot;,&quot;git_sha&quot;:&quot;244d428af&quot;,&quot;uuid&quot;:&quot;f7b83554fa2eb43778963d18a1f92211&quot;,&quot;features&quot;:[&quot;access-ready&quot;,&quot;partitioned&quot;,&quot;pluggable-storage-engines&quot;,&quot;reshard&quot;,&quot;scheduler&quot;],&quot;vendor&quot;:{&quot;name&quot;:&quot;The Apache Software Foundation&quot;}}
-</pre></div>
-
-
-<h2 id="installing-from-snap-package">Installing from snap package<a class="headerlink" href="#installing-from-snap-package" title="Permanent link">&para;</a></h2>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Only install snap package if you can&rsquo;t install the precompiled package for your system.</p>
-</div>
-<p>Install snapd</p>
-<div class="codehilite"><pre><span></span>sudo apt install snapd
-sudo systemctl enable --now snapd.socket
-</pre></div>
-
-
-<p>Install Snap Core</p>
-<div class="codehilite"><pre><span></span>sudo snap install core
-</pre></div>
-
-
-<p>Install CouchDB snap package</p>
-<div class="codehilite"><pre><span></span>sudo snap install couchdb
-</pre></div>
-
-
-<p>Configure CouchDB admin password and start CouchDB. Be careful to replace StrongAdminPassw0rd with your chosen password</p>
-<div class="codehilite"><pre><span></span>sudo snap set couchdb admin=StrongAdminPassw0rd
-sudo snap start couchdb
-</pre></div>
-
-
-<p>Enable snap permissions</p>
-<div class="codehilite"><pre><span></span> sudo snap connect couchdb:mount-observe
- sudo snap connect couchdb:process-control
-</pre></div>
-
-
-<p>Test your CouchDB installation</p>
-<div class="codehilite"><pre><span></span>curl http://127.0.0.1:5984/
-{&quot;couchdb&quot;:&quot;Welcome&quot;,&quot;version&quot;:&quot;3.2.1&quot;,&quot;git_sha&quot;:&quot;244d428af&quot;,&quot;uuid&quot;:&quot;f7b83554fa2eb43778963d18a1f92211&quot;,&quot;features&quot;:[&quot;access-ready&quot;,&quot;partitioned&quot;,&quot;pluggable-storage-engines&quot;,&quot;reshard&quot;,&quot;scheduler&quot;],&quot;vendor&quot;:{&quot;name&quot;:&quot;The Apache Software Foundation&quot;}}
-</pre></div>
-
-
-<p>Create system databases. These databases are created automatically when installing couchdb from debian package but should be created manually when installing using snap.
-Replace StrongAdminPassw0rd with the password you chose previously.</p>
-<div class="codehilite"><pre><span></span>curl -u &quot;admin:StrongAdminPassw0rd&quot; -X PUT http://localhost:5984/_users
-curl -u &quot;admin:StrongAdminPassw0rd&quot; -X PUT http://localhost:5984/_replicator
-</pre></div>
-
-
-<div style="text-align: right">
-  <a href="../nodejs/">Next --&gt;</a>
-</div>
                 
                   
                 

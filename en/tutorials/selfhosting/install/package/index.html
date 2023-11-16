@@ -2957,29 +2957,40 @@ sudo apt update
 
 
 <h2 id="install-cozy-stack">Install cozy-stack<a class="headerlink" href="#install-cozy-stack" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span>sudo apt install -y cozy-stack
-</pre></div>
-
-
-<p>The package installation needs to connect to CouchDB as an administrator to create a CouchDB user for cozy-stack. Fill those mandatory parameters to allow this creation:</p>
+<p>The package installation needs to connect to CouchDB as an administrator to create a CouchDB user for cozy-stack.
+When installing the cozy-stack package, it will ask you a few questions, including passwords.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The passwords that you need to define are used in shell scripts so currently avoid to use one
+with simple or double quotes or others shell meaningfull symbols.
+We advise you to choose one with only alphanumeric characters to avoid trouble.</p>
+</div>
+<p>You will need to fill those mandatory parameters:</p>
 <ul>
-<li>CouchDB Address: by default, it&rsquo;s <code>localhost:5984</code></li>
+<li>CouchDB Address: by default, it&rsquo;s <code>127.0.0.1:5984</code></li>
 <li>CouchDB Node name: by default, it&rsquo;s <code>couchdb@127.0.0.1</code>. This is needed to create a cozy user</li>
 <li>CouchDB Admin user: by default, it&rsquo;s <code>admin</code></li>
 <li>CouchDB Admin password: put the one you choose during CouchDB setup</li>
 <li>CouchDB cozy user name: by default, it&rsquo;s <code>cozy</code>. This is the user that will get created in CouchDB and used by cozy-stack to access CouchDB</li>
 <li>CouchDB cozy user password: pick a password</li>
-<li>Cozy-stack admin passphrase: pick a password. This is the passphrase that will be needed to launch cozy-stack administrative commands</li>
+<li>Cozy-stack admin passphrase: pick a password. This is the passphrase that will be needed to launch cozy-stack administrative commands
+  For stack management (create instances, install applications&hellip;), <a href="https://docs.cozy.io/en/cozy-stack/config/#administration-secret">Cozy need an administrator password</a>. So pick a new one.
+  When invoking <code>cozy-stack</code>, you need to set the <code>COZY_ADMIN_PASSWORD</code> environment variable with this password. You can put it on your <code>.bashrc</code> for simplier life if you want. If you don&rsquo;t, cozy-stack will simply ask for it.</li>
 </ul>
-<p>(Those passwords are used by shell scripts, so currently avoid to use ones with simple or double quotes or others shell meaningfull symbols. We advice you to choose ones with only alphanumeric digits to avoid troubles.)</p>
-<p>For stack management (create instances, install applications&hellip;), <a href="https://docs.cozy.io/en/cozy-stack/config/#administration-secret">Cozy need an administrator password</a>. So pick a new one.
-When invoking <code>cozy-stack</code>, you need to set the <code>COZY_ADMIN_PASSWORD</code> environment variable with this password. You can put it on your <code>.bashrc</code> for simplier life if you want. If you don&rsquo;t, cozy-stack will simply ask for it.</p>
-<p>At this point, you must have a working Cozy stack, depending on the branch you&rsquo;ve chosen you can get a different version displayed.</p>
-<div class="codehilite"><pre><span></span>curl http://localhost:8080/version
-<span class="o">{</span><span class="s2">&quot;build_mode&quot;</span>:<span class="s2">&quot;production&quot;</span>,<span class="s2">&quot;build_time&quot;</span>:<span class="s2">&quot;2023-10-18T05:57:06Z&quot;</span>,<span class="s2">&quot;runtime_version&quot;</span>:<span class="s2">&quot;go1.21.3&quot;</span>,<span class="s2">&quot;version&quot;</span>:<span class="s2">&quot;2:1.6.13&quot;</span><span class="o">}</span>
+<p>Installing cozy-stack package is done with the following command:</p>
+<div class="codehilite"><pre><span></span>sudo apt install -y cozy-stack
 </pre></div>
 
 
+<p>At this point, you should have a working Cozy stack, depending on the branch you&rsquo;ve chosen you can get a different version displayed.</p>
+<div class="codehilite"><pre><span></span>curl http://localhost:8080/version
+</pre></div>
+
+
+<blockquote>
+<p>This command should give you cozy-stack installed version. For example:</p>
+<p><code>{"build_mode":"production","build_time":"2023-10-18T05:57:06Z","runtime_version":"go1.21.3","version":"2:1.6.13"}</code></p>
+</blockquote>
 <div style="text-align: right">
   <a href="../../finalize/nginx/">Next --&gt;</a>
 </div>

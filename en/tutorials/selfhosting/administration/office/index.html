@@ -851,6 +851,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#define-a-password-for-postgresql-database" title="Define a password for PostgreSQL database" class="md-nav__link">
+    Define a password for PostgreSQL database
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#convenience-variables" title="Convenience variables" class="md-nav__link">
     Convenience variables
   </a>
@@ -915,6 +922,13 @@
         <li class="md-nav__item">
   <a href="#configure-cozy-stack-for-onlyoffice" title="Configure cozy-stack for OnlyOffice" class="md-nav__link">
     Configure cozy-stack for OnlyOffice
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#futher-information" title="Futher information" class="md-nav__link">
+    Futher information
   </a>
   
 </li>
@@ -2958,6 +2972,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#define-a-password-for-postgresql-database" title="Define a password for PostgreSQL database" class="md-nav__link">
+    Define a password for PostgreSQL database
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#convenience-variables" title="Convenience variables" class="md-nav__link">
     Convenience variables
   </a>
@@ -3026,6 +3047,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#futher-information" title="Futher information" class="md-nav__link">
+    Futher information
+  </a>
+  
+</li>
+      
       
       
       
@@ -3048,11 +3076,25 @@
                 <h1 id="online-edition-of-office-documents">Online edition of office documents<a class="headerlink" href="#online-edition-of-office-documents" title="Permanent link">&para;</a></h1>
 <p>Online office document edition functionality based on OnlyOffice is optional. You can use your Cozy without activating it. It let you edit your office documents online directly in your browser, however it requires more resources on your server.</p>
 <p>To activate this functionality, you need to install OnlyOffice document server and configure cozy-stack to access it. OnlyOffice document server can be installed on the same server or on another server at your convenience. This documentation explain how to install it on the same server.</p>
+<h2 id="define-a-password-for-postgresql-database">Define a password for PostgreSQL database<a class="headerlink" href="#define-a-password-for-postgresql-database" title="Permanent link">&para;</a></h2>
+<p>Onlyoffice Documentserver uses a PostgreSQL database.</p>
+<p>You first need to define a password for onlyoffice to connect to PostgreSQL server database.</p>
 <h2 id="convenience-variables">Convenience variables<a class="headerlink" href="#convenience-variables" title="Permanent link">&para;</a></h2>
-<p>First, we define some convenience variables for all this page. Adjust values to your needs. the variable  <code>OO_DB_PASS</code> contains the password that will be set to the database user that will be created to be used by onlyoffice.</p>
+<p>We define here some convenience variables for all this page. They will be used below when installing and configuring Onlyoffice.</p>
+<p>First, we define a variable  <code>OO_DB_PASS</code> which contain the password we just defined in last step.
+This password will be used when creating a database user for Onlyoffice.
+<strong>Replace OnlyOfficeDBP@ssw0rd below with the password you chose.</strong></p>
 <div class="codehilite"><pre><span></span>OO_DB_PASS=OnlyOfficeDBP@ssw0rd
-DOMAIN=domain.example
-EMAIL=&lt;your email address&gt;
+</pre></div>
+
+
+<p>Then we define the same variables we used when creating a cozy instance:</p>
+<ul>
+<li>The <code>DOMAIN</code> variable should contain your domain name, the one under which all cozy instances will be created</li>
+<li>The <code>EMAIL</code> variable should contain your email address (it will be used when generating the https certificate)</li>
+</ul>
+<div class="codehilite"><pre><span></span>DOMAIN=domain.example
+EMAIL=&quot;your.email@email.domain&quot;
 </pre></div>
 
 
@@ -3072,7 +3114,13 @@ sudo -i -u postgres psql -c &quot;GRANT ALL privileges ON DATABASE onlyoffice TO
 </pre></div>
 
 
-<p>If you are using postgreSQL 15 or above (on Debian 12 for example), grant onlyoffice user the permission to create table in the <code>public</code> schema</p>
+<p>Check the version of PostgreSQL that is installed on your system.</p>
+<div class="codehilite"><pre><span></span>psql --version
+</pre></div>
+
+
+<p>If you are using <strong>PostgreSQL 15 or above</strong> (on Debian 12 for example), you need to grant
+onlyoffice user the permission to create tables in the <code>public</code> schema</p>
 <div class="codehilite"><pre><span></span>sudo -i -u postgres psql -c &quot;GRANT CREATE ON SCHEMA public TO onlyoffice;&quot; onlyoffice
 </pre></div>
 
@@ -3119,14 +3167,15 @@ sudo apt update
 </pre></div>
 
 
-<p>When asked, enter database password we created when installing postgreSQL and created database.</p>
+<p>When asked, enter the PostgreSQL database password we created in the first step of this page.</p>
 <p>Then restart Nginx</p>
 <div class="codehilite"><pre><span></span>sudo systemctl reload nginx
 </pre></div>
 
 
 <h3 id="configure-https-for-onlyoffice">Configure HTTPS for OnlyOffice<a class="headerlink" href="#configure-https-for-onlyoffice" title="Permanent link">&para;</a></h3>
-<p>Create a DNS entry for OnlyOffice targeting your server. For example:</p>
+<p>Create a DNS entry for OnlyOffice targeting your server.
+This should be configured in the DNS server for your domain. For example:</p>
 <div class="codehilite"><pre><span></span>onlyoffice     1h     IN         A     &lt;your_server_IP&gt;
 </pre></div>
 
@@ -3180,13 +3229,14 @@ if [ &quot;<span class="cp">${</span><span class="n">OUTBOX_SECRET</span><span c
 </pre></div>
 
 
-<p>Activate functionality:</p>
-<div class="codehilite"><pre><span></span>[[ -z &quot;<span class="cp">${</span><span class="n">COZY_PASS</span><span class="cp">}</span>&quot; ]] <span class="err">&amp;&amp;</span> read -p &quot;Cozy stack admin password: &quot; -r -s COZY_PASS
+<p>Activate functionality (give cozy-stack admin password when asked):</p>
+<div class="codehilite"><pre><span></span>read -p &quot;Cozy stack admin password: &quot; -r -s COZY_PASS
 sudo COZY_ADMIN_PASSWORD=&quot;<span class="cp">${</span><span class="n">COZY_PASS</span><span class="cp">}</span>&quot; cozy-stack features defaults &#39;{&quot;drive.office&quot;: {&quot;enabled&quot;: true, &quot;write&quot;: true}}&#39;
 </pre></div>
 
 
-<p>You can now upload an office document in cozy-drive and start editing it online by clicking on it or start a new empty document for the &ldquo;New document&rdquo; menu.</p>
+<p>You can now upload an office document in cozy-drive and start editing it online by clicking on it or start a new empty document from the &ldquo;New document&rdquo; menu.</p>
+<h2 id="futher-information">Futher information<a class="headerlink" href="#futher-information" title="Permanent link">&para;</a></h2>
 <p>The <code>drive.office</code> feature flag has other options for customising the experience with OnlyOffice:</p>
 <!--lint disable list-item-bullet-indent-->
 
