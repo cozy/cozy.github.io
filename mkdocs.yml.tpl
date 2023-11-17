@@ -81,6 +81,7 @@ nav:
     - Registry server: <cozy-apps-registry>
 - Projects:
   - Documentations: projects/index.md
+  - Cozy Desktop: <cozy-desktop>
 theme:
   custom_dir: cozy-theme
   name: material
