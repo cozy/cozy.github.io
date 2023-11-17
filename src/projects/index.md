@@ -16,7 +16,7 @@
     <p>Cozy Banks</p>
   </a>
   <a href="../cozy-flags">
-    <img src="../assets/images/home/icon-cozy.png" alt="Cozy Cozy"/>
+    <img src="../assets/images/home/icon-cozy.png" alt="Cozy Flags"/>
     <p>Cozy Flags</p>
   </a>
 
@@ -28,5 +28,10 @@
   <a href="../cozy-ui">
     <img src="../assets/images/home/icon-cozy.png" alt="Cozy UI" />
     <p>Cozy UI</p>
+  </a>
+
+  <a href="../cozy-desktop">
+    <img src="../assets/images/home/icon-cozy.png" alt="Cozy Desktop" />
+    <p>Cozy Desktop</p>
   </a>
 </div>

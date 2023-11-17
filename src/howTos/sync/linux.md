@@ -9,10 +9,10 @@ To ease the use of Cozy Drive on any distribution, we distribute the application
 
 We provide packages for [64 bits](https://nuts.cozycloud.cc/download/channel/stable/64) systems. All you have to do is download the file, move it to some dedicated folder, make it executable and run it.
 
-_[List of known to work distributions](https://cozy-labs.github.io/cozy-desktop/doc/usage/linux#supported-distributions)_
+_[List of known to work distributions](../../cozy-desktop/usage/linux.md#supported-distributions)_
 
 !!! warning ""
-    If you are using a recent version of Ubuntu, you may need to install the `libfuse2` library. This library used to be available by default on Ubuntu, but has been removed in the `22.04` release. To install this library, use your favorite package manager or `sudo apt install libfuse2`. This may also apply to other Ubuntu based distributions. 
+    If you are using a recent version of Ubuntu, you may need to install the `libfuse2` library. This library used to be available by default on Ubuntu, but has been removed in the `22.04` release. To install this library, use your favorite package manager or `sudo apt install libfuse2`. This may also apply to other Ubuntu based distributions.
 
 ## Detailed instructions on Gnome
 
@@ -46,6 +46,6 @@ That’s all. You can now double-click on the application to launch it and conne
 
 ## More
 
-[More in deep insights on the GNU/Linux client](https://cozy-labs.github.io/cozy-desktop/doc/usage/linux).
+[More in deep insights on the GNU/Linux client](../../cozy-desktop/usage/linux.md).
 
-If your distribution is not supported, you can try the [manual build guide](https://cozy-labs.github.io/cozy-desktop/doc/usage/build.html).
+If your distribution is not supported, you can try the [manual build guide](../../cozy-desktop/usage/build.md).
