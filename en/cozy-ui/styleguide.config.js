@@ -97,6 +97,7 @@ module.exports = {
         '../react/Paper',
         '../react/PasswordField',
         '../react/PieChart',
+        '../react/PointerAlert',
         '../react/Progress',
         '../react/ProgressionBanner',
         '../react/RadioGroup',
