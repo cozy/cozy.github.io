@@ -2886,6 +2886,33 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#post-authshare-by-linkpassword" title="POST /auth/share-by-link/password" class="md-nav__link">
+    POST /auth/share-by-link/password
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_3" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_4" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#faq_1" title="FAQ" class="md-nav__link">
     FAQ
   </a>
@@ -4236,6 +4263,33 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#post-authshare-by-linkpassword" title="POST /auth/share-by-link/password" class="md-nav__link">
+    POST /auth/share-by-link/password
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_3" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_4" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#faq_1" title="FAQ" class="md-nav__link">
     FAQ
   </a>
@@ -5520,6 +5574,32 @@ token.</p>
 
 
 <div class="codehilite"><pre><span></span><span class="s2">&quot;OWY0MjNjMGEtOTNmNi0xMWVjLWIyZGItN2I5YjgwNmRjYzBiCg&quot;</span>
+</pre></div>
+
+
+<h3 id="post-authshare-by-linkpassword">POST /auth/share-by-link/password<a class="headerlink" href="#post-authshare-by-linkpassword" title="Permanent link">&para;</a></h3>
+<p>This route is used when a share by link is protected by password. The password
+can be sent to this route to create a cookie that will allow to use the
+sharecode and access the shared page.</p>
+<h4 id="request_3">Request<a class="headerlink" href="#request_3" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/auth/clients/share-by-link/password</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/x-www-form-urlencoded</span>
+
+password=HelloWorld!&amp;perm_id=123456789
+</pre></div>
+
+
+<h4 id="response_4">Response<a class="headerlink" href="#response_4" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Set-Cookie</span><span class="o">:</span> <span class="l">pass123...</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;password&quot;</span><span class="p">:</span> <span class="s2">&quot;ok&quot;</span>
+<span class="p">}</span>
 </pre></div>
 
 
