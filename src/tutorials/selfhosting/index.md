@@ -8,6 +8,7 @@ We are commited to protect your data and respect your privacy and are convinced 
 The cozycloud source code is publicly available to be audited and you can decide to host it yourself or ask someone else you trust to host your cozy.
 
 This documentation explains how to self host your cozy instance on your own server.
+You can choose either a traditioinal install on your server or to host Cozy in a docker environment.
 
 Cozycloud provides precompiled packages for the last two major versions of Debian and Ubuntu LTS on the amd64 architecture, as well as installation instructions from source code for other architectures and operating systems.
 
@@ -25,22 +26,24 @@ documentation so that we can fix it.
 
 <!--lint disable list-item-bullet-indent-->
 
-- Requirements
-    - [What you need](./requirements/index.md)
-    - [CouchDB](./requirements/couchdb.md)
-    - [NodeJS](./requirements/nodejs.md)
-- Installing cozy-stack
-    - [Introduction](./install/index.md)
-    - [Installing from precompiled package](./install/package.md)
-    - [Installing from source](./install/sources.md)
-- Finalize installation
-    - [Nginx and certificates](./finalize/nginx.md)
-    - [Create your first instance](./finalize/create_instance.md)
-- [Administration](./administration/index.md)
-    - [Create more instances](./administration/more_instances.md)
-    - [Upgrade cozy-stack](./administration/upgrade.md)
-    - [Configure mail sending](./administration/mail.md)
-    - [Online edition of office documents](./administration/office.md)
+- [Self hosting with docker](./docker/index.md)
+- Traditional installation
+    - Requirements
+        - [What you need](./requirements/index.md)
+        - [CouchDB](./requirements/couchdb.md)
+        - [NodeJS](./requirements/nodejs.md)
+    - Installing cozy-stack
+        - [Introduction](./install/index.md)
+        - [Installing from precompiled package](./install/package.md)
+        - [Installing from source](./install/sources.md)
+    - Finalize installation
+        - [Nginx and certificates](./finalize/nginx.md)
+        - [Create your first instance](./finalize/create_instance.md)
+    - [Administration](./administration/index.md)
+        - [Create more instances](./administration/more_instances.md)
+        - [Upgrade cozy-stack](./administration/upgrade.md)
+        - [Configure mail sending](./administration/mail.md)
+        - [Online edition of office documents](./administration/office.md)
 
 <!--lint enable list-item-bullet-indent-->
 
