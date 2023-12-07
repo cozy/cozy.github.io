@@ -582,15 +582,46 @@
           
 
 
+  <li class="md-nav__item">
+    <a href="../../tutorials/selfhosting/docker/" title="Running inside Docker" class="md-nav__link">
+      Running inside Docker
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-4-2" type="checkbox" id="nav-2-4-2">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-4-3" type="checkbox" id="nav-2-4-3">
     
-    <label class="md-nav__link" for="nav-2-4-2">
-      Requirements
+    <label class="md-nav__link" for="nav-2-4-3">
+      Traditional installation
     </label>
     <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
-      <label class="md-nav__title" for="nav-2-4-2">
+      <label class="md-nav__title" for="nav-2-4-3">
+        Traditional installation
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-4-3-1" type="checkbox" id="nav-2-4-3-1">
+    
+    <label class="md-nav__link" for="nav-2-4-3-1">
+      Requirements
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="4">
+      <label class="md-nav__title" for="nav-2-4-3-1">
         Requirements
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -644,13 +675,13 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-4-3" type="checkbox" id="nav-2-4-3">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-4-3-2" type="checkbox" id="nav-2-4-3-2">
     
-    <label class="md-nav__link" for="nav-2-4-3">
+    <label class="md-nav__link" for="nav-2-4-3-2">
       Installing cozy-stack
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
-      <label class="md-nav__title" for="nav-2-4-3">
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="4">
+      <label class="md-nav__title" for="nav-2-4-3-2">
         Installing cozy-stack
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -704,13 +735,13 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-4-4" type="checkbox" id="nav-2-4-4">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-4-3-3" type="checkbox" id="nav-2-4-3-3">
     
-    <label class="md-nav__link" for="nav-2-4-4">
+    <label class="md-nav__link" for="nav-2-4-3-3">
       Finalize installation
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
-      <label class="md-nav__title" for="nav-2-4-4">
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="4">
+      <label class="md-nav__title" for="nav-2-4-3-3">
         Finalize installation
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -752,13 +783,13 @@
 
   <li class="md-nav__item md-nav__item--nested">
     
-      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-4-5" type="checkbox" id="nav-2-4-5">
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2-4-3-4" type="checkbox" id="nav-2-4-3-4">
     
-    <label class="md-nav__link" for="nav-2-4-5">
+    <label class="md-nav__link" for="nav-2-4-3-4">
       Administration
     </label>
-    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
-      <label class="md-nav__title" for="nav-2-4-5">
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="4">
+      <label class="md-nav__title" for="nav-2-4-3-4">
         Administration
       </label>
       <ul class="md-nav__list" data-md-scrollfix>
@@ -821,6 +852,11 @@
     <a href="../../tutorials/selfhosting/administration/office/" title="Online edition of office documents" class="md-nav__link">
       Online edition of office documents
     </a>
+  </li>
+
+        
+      </ul>
+    </nav>
   </li>
 
         
@@ -3274,15 +3310,15 @@ developing cozy-stack.</p>
 <p>For docker usage in production to self-host your cozy instance, please refer
 to our <a href="https://docs.cozy.io/en/tutorials/selfhosting/">Self Hosting Documentation</a>.</p>
 <h2 id="running-a-couchdb-instance">Running a CouchDB instance<a class="headerlink" href="#running-a-couchdb-instance" title="Permanent link">&para;</a></h2>
-<p>This will run a new instance of CouchDB in <code>single</code> mode (no cluster) and in
-<code>admin-party-mode</code> (no user). This command exposes couchdb on the port <code>5984</code>.</p>
+<p>This will run a new instance of CouchDB in <code>single</code> mode (no cluster). This
+command exposes couchdb on the port <code>5984</code>.</p>
 <div class="codehilite"><pre><span></span>$ docker run -d <span class="se">\</span>
     --name cozy-stack-couch <span class="se">\</span>
     -p <span class="m">5984</span>:5984 <span class="se">\</span>
     -e <span class="nv">COUCHDB_USER</span><span class="o">=</span>admin -e <span class="nv">COUCHDB_PASSWORD</span><span class="o">=</span>password <span class="se">\</span>
     -v <span class="nv">$HOME</span>/.cozy-stack-couch:/opt/couchdb/data <span class="se">\</span>
     couchdb:3.3
-$ curl -X PUT http://127.0.0.1:5984/<span class="o">{</span>_users,_replicator<span class="o">}</span>
+$ curl -X PUT http://admin:password@127.0.0.1:5984/<span class="o">{</span>_users,_replicator<span class="o">}</span>
 </pre></div>
 
 
