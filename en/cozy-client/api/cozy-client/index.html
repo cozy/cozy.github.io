@@ -1393,6 +1393,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#createfakeclient" title="createFakeClient" class="md-nav__link">
+    createFakeClient
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#createmockclient" title="createMockClient" class="md-nav__link">
     createMockClient
   </a>
@@ -3655,6 +3662,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#createfakeclient" title="createFakeClient" class="md-nav__link">
+    createFakeClient
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#createmockclient" title="createMockClient" class="md-nav__link">
     createMockClient
   </a>
@@ -4182,12 +4196,13 @@ query definitions.</p>
 <p><em>Defined in</em></p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/utils.js#L16">packages/cozy-client/src/utils.js:16</a></p>
 <hr />
-<h3 id="createmockclient">createMockClient<a class="headerlink" href="#createmockclient" title="Permanent link">&para;</a></h3>
-<p>▸ <strong>createMockClient</strong>(<code>options</code>): <a href="classes/CozyClient/"><code>CozyClient</code></a></p>
-<p>Creates a client suitable for use in tests</p>
+<h3 id="createfakeclient">createFakeClient<a class="headerlink" href="#createfakeclient" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>createFakeClient</strong>(<code>options?</code>): <a href="classes/CozyClient/"><code>CozyClient</code></a></p>
+<p>Creates a client with pre-filled store
+This can be useful for demo in documentation (e.g. storybook)</p>
 <ul>
-<li>client.{query,save} are mocked</li>
-<li>client.stackClient.fetchJSON is mocked</li>
+<li>client.{query,save} are replaced with empty functions</li>
+<li>client.stackClient.fetchJSON is replaced with empty functions</li>
 </ul>
 <p><em>Parameters</em></p>
 <table>
@@ -4203,6 +4218,11 @@ query definitions.</p>
 <td align="left"><code>options</code></td>
 <td align="left"><code>Object</code></td>
 <td align="left">Options</td>
+</tr>
+<tr>
+<td align="left"><code>options.clientFunctions</code></td>
+<td align="left"><code>any</code></td>
+<td align="left">-</td>
 </tr>
 <tr>
 <td align="left"><code>options.clientOptions</code></td>
@@ -4224,7 +4244,56 @@ query definitions.</p>
 <p><em>Returns</em></p>
 <p><a href="classes/CozyClient/"><code>CozyClient</code></a></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/mock.js#L45">packages/cozy-client/src/mock.js:45</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/mock.js#L92">packages/cozy-client/src/mock.js:92</a></p>
+<hr />
+<h3 id="createmockclient">createMockClient<a class="headerlink" href="#createmockclient" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>createMockClient</strong>(<code>options?</code>): <a href="classes/CozyClient/"><code>CozyClient</code></a></p>
+<p>Creates a client suitable for use in tests</p>
+<ul>
+<li>client.{query,save} are mocked</li>
+<li>client.stackClient.fetchJSON is mocked</li>
+</ul>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>options</code></td>
+<td align="left"><code>Object</code></td>
+<td align="left">Options</td>
+</tr>
+<tr>
+<td align="left"><code>options.clientFunctions</code></td>
+<td align="left"><code>any</code></td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left"><code>options.clientOptions</code></td>
+<td align="left"><code>any</code></td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left"><code>options.queries</code></td>
+<td align="left"><code>any</code></td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left"><code>options.remote</code></td>
+<td align="left"><code>any</code></td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><a href="classes/CozyClient/"><code>CozyClient</code></a></p>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/mock.js#L48">packages/cozy-client/src/mock.js:48</a></p>
 <hr />
 <h3 id="deconstructcozyweblinkwithslug">deconstructCozyWebLinkWithSlug<a class="headerlink" href="#deconstructcozyweblinkwithslug" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>deconstructCozyWebLinkWithSlug</strong>(<code>webLink</code>, <code>subDomainType?</code>): <code>CozyLinkData</code></p>
