@@ -8,6 +8,12 @@ export const appsConn = {
   fetchPolicy: defaultFetchPolicy
 }
 
+export const konnectorsConn = {
+  query: Q('io.cozy.konnectors'),
+  as: 'io.cozy.konnectors',
+  fetchPolicy: defaultFetchPolicy
+}
+
 export const instanceSettingsConn = {
   query: Q('io.cozy.settings').getById('io.cozy.settings.instance'),
   as: 'io.cozy.settings/instance_standalone',
@@ -40,7 +46,13 @@ export const mkHomeMagicFolderConn = t => {
     fetchPolicy: defaultFetchPolicy
   }
 }
-
+export const fetchKonnectorBySlug = slug => {
+  return {
+    query: Q('io.cozy.konnectors').getById(`io.cozy.konnectors/${slug}`),
+    as: `io.cozy.konnectors/${slug}`,
+    fetchPolicy: defaultFetchPolicy
+  }
+}
 export const mkHomeShorcutsConn = folderId => {
   return {
     query: Q('io.cozy.files')

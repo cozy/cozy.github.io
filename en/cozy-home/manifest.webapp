@@ -11,7 +11,7 @@
     "name": "Cozy Cloud",
     "url": "https://cozy.io"
   },
-  "version": "1.69.0",
+  "version": "1.70.0",
   "licence": "AGPL-3.0",
   "permissions": {
     "home": {
@@ -113,7 +113,14 @@
     {
       "action": "CREATE",
       "type": ["io.cozy.accounts"],
-      "href": "/intents"
+      "href": "/intents",
+      "data": ["slug"]
+    },
+    {
+      "action": "VIEW",
+      "type": ["io.cozy.accounts"],
+      "href": "/intents",
+      "data": ["slug", "accountId"]
     },
     {
       "action": "REDIRECT",

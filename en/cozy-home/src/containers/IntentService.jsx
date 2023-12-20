@@ -1,85 +1,61 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import { useEffect } from 'react'
 
-import { translate } from 'cozy-ui/transpiled/react/providers/I18n'
-import CreateAccountIntent from 'components/intents/CreateAccountIntent'
-import { getKonnector, receiveInstalledKonnector } from 'ducks/konnectors'
+import { useClient } from 'cozy-client'
+import { fetchKonnectorBySlug } from 'queries'
+import { useNavigate } from 'react-router-dom'
 
-class IntentService extends Component {
-  constructor(props) {
-    super(props)
-    this.state = { error: null }
-  }
+const IntentService = ({ data, service }) => {
+  const client = useClient()
+  const navigate = useNavigate()
 
-  handleInstallationSuccess(konnector) {
-    this.props.receiveKonnector(konnector)
-  }
-
-  async componentDidMount() {
-    const { data, konnector, receiveKonnector, service } = this.props
-    if (service && !konnector) {
-      const installedKonnector = await service.compose(
-        'INSTALL',
-        'io.cozy.apps',
-        data
-      )
-
-      // if installedKonnector is null, it means the installation have been
-      // cancelled
-      if (!installedKonnector) {
-        return service.cancel()
+  useEffect(() => {
+    const fetchData = async () => {
+      let konnectorReq
+      try {
+        konnectorReq = await client.query(
+          fetchKonnectorBySlug(data.slug).query,
+          fetchKonnectorBySlug
+        )
+      } catch (e) {
+        // why an error is throwed?
+        // eslint-disable-next-line
+        console.log('e', e)
+      } finally {
+        if (service && (!konnectorReq || konnectorReq.data.length === 0)) {
+          const installedKonnector = await service.compose(
+            'INSTALL',
+            'io.cozy.apps',
+            data
+          )
+          // setKonnectorData(installedKonnector)
+          navigate(`/${service.getData().slug}/new`)
+          // if installedKonnector is null, it means the installation have been
+          // cancelled
+          if (!installedKonnector) {
+            service.cancel()
+          }
+        } else {
+          if (service) {
+            const intent = service.getIntent()
+            if (service.hideCross) {
+              service.hideCross()
+            }
+            if (
+              intent.attributes.action === 'VIEW' &&
+              intent.attributes.type === 'io.cozy.accounts'
+            ) {
+              navigate(`/${service.getData().slug}/accounts/${data.accountId}`)
+            } else {
+              navigate(`/${service.getData().slug}/new`)
+            }
+          }
+        }
       }
-
-      receiveKonnector(installedKonnector)
     }
-  }
+    fetchData()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
-  onError(error) {
-    this.setState({
-      error: error
-    })
-  }
-
-  render() {
-    const { appData, konnector, onCancel, service, t } = this.props
-    const { error } = this.state
-
-    return (
-      <div className="coz-service">
-        {error && (
-          <div className="coz-error coz-service-error">
-            <p>{t(error.message)}</p>
-            {error.reason && (
-              <p>{t('intent.service.error.cause', { error: error.reason })}</p>
-            )}
-          </div>
-        )}
-        {!error && konnector && (
-          <CreateAccountIntent
-            appData={appData}
-            konnector={konnector}
-            onCancel={onCancel}
-            onTerminate={service.terminate}
-          />
-        )}
-      </div>
-    )
-  }
+  return null
 }
-
-const mapDispatchToProps = dispatch => ({
-  receiveKonnector: konnector => dispatch(receiveInstalledKonnector(konnector))
-})
-
-const mapStateToProps = (state, ownProps) => {
-  const { data } = ownProps
-  const { slug } = data
-  return {
-    konnector: slug && getKonnector(state.oldcozy, slug)
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(translate()(IntentService))
+export default IntentService

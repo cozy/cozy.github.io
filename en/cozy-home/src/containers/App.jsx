@@ -46,7 +46,7 @@ const App = ({ accounts, konnectors, triggers }) => {
   const [status, setStatus] = useState(IDLE)
   const [contentWrapper, setContentWrapper] = useState(undefined)
   const [isFetching, setIsFetching] = useState(
-    [accounts, konnectors, triggers].some(collection =>
+    [accounts, konnectors].some(collection =>
       ['pending', 'loading'].includes(collection.fetchStatus)
     )
   )
@@ -69,7 +69,11 @@ const App = ({ accounts, konnectors, triggers }) => {
       )
     )
   }, [accounts, konnectors, triggers])
-
+  /*  useEffect(() => {
+    client.query(Q('io.cozy.triggers'))
+    client.query(Q('io.cozy.jobs'))
+    client.query(Q('io.cozy.accounts'))
+  }, []) */
   useEffect(() => {
     // if we already have the query, let's refresh in "background"
     // aka without loading state
