@@ -3,7 +3,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 
 import flag, { enable as enableFlags } from 'cozy-flags'
 import minilog from '@cozy/minilog'
-import { Q, useClient } from 'cozy-client'
+import { useQuery } from 'cozy-client'
 import { useWebviewIntent } from 'cozy-intent'
 import { isFlagshipApp } from 'cozy-device-helper'
 
@@ -32,21 +32,23 @@ import { Konnector } from 'components/Konnector'
 import DefaultRedirectionSnackbar from 'components/DefaultRedirectionSnackbar/DefaultRedirectionSnackbar'
 import ReloadFocus from './ReloadFocus'
 import FooterLogo from 'components/FooterLogo/FooterLogo'
-import useCustomShortcuts from 'components/Shortcuts/useCustomShortcuts'
-
-const IDLE = 'idle'
-const FETCHING_CONTEXT = 'FETCHING_CONTEXT'
+import { formatShortcuts } from 'components/Shortcuts/utils'
+import {
+  mkHomeMagicFolderConn,
+  mkHomeCustomShorcutsConn,
+  mkHomeCustomShorcutsDirConn,
+  contextQuery
+} from 'queries'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 window.flag = window.flag || flag
 window.minilog = minilog
 
 const App = ({ accounts, konnectors, triggers }) => {
-  const client = useClient()
   const { isMobile } = useBreakpoints()
-  const [status, setStatus] = useState(IDLE)
   const [contentWrapper, setContentWrapper] = useState(undefined)
   const [isFetching, setIsFetching] = useState(
-    [accounts, konnectors].some(collection =>
+    [accounts, konnectors, triggers].some(collection =>
       ['pending', 'loading'].includes(collection.fetchStatus)
     )
   )
@@ -56,59 +58,61 @@ const App = ({ accounts, konnectors, triggers }) => {
   const webviewIntent = useWebviewIntent()
   const theme = useCozyTheme()
 
-  const { shortcutsDirectories } = useCustomShortcuts()
+  const { t } = useI18n()
+
+  const homeMagicFolderConn = mkHomeMagicFolderConn(t)
+  const { data: magicFolder } = useQuery(
+    homeMagicFolderConn.query,
+    homeMagicFolderConn
+  )
+  const magicHomeFolderId = magicFolder?.[0]?._id
+
+  const homeShortcutsDirConn = mkHomeCustomShorcutsDirConn({
+    currentFolderId: magicHomeFolderId
+  })
+  const { data: folders } = useQuery(homeShortcutsDirConn.query, {
+    ...homeShortcutsDirConn.options,
+    enabled: !!magicHomeFolderId
+  })
+  const customHomeShortcutsConn = mkHomeCustomShorcutsConn(
+    folders && folders.map(folder => folder._id)
+  )
+  const { data: customHomeShortcuts } = useQuery(
+    customHomeShortcutsConn.query,
+    {
+      ...customHomeShortcutsConn,
+      enabled: Boolean(folders && folders.length > 0)
+    }
+  )
+
+  const shortcutsDirectories = formatShortcuts(folders, customHomeShortcuts)
+  const context = useQuery(contextQuery.definition, contextQuery.options)
+
   useEffect(() => {
     setIsFetching(
-      [accounts, konnectors, triggers].some(collection =>
+      [accounts, konnectors, triggers, context].some(collection =>
         ['pending', 'loading'].includes(collection.fetchStatus)
       )
     )
     setHasError(
-      [accounts, konnectors, triggers].find(
+      [accounts, konnectors, triggers, context].find(
         collection => collection.fetchStatus === 'failed'
       )
     )
-  }, [accounts, konnectors, triggers])
-  /*  useEffect(() => {
-    client.query(Q('io.cozy.triggers'))
-    client.query(Q('io.cozy.jobs'))
-    client.query(Q('io.cozy.accounts'))
-  }, []) */
-  useEffect(() => {
-    // if we already have the query, let's refresh in "background"
-    // aka without loading state
-    const alreadyRequestedContext = client.getQueryFromState(
-      'io.cozy.settings/io.cozy.settings.context'
-    )
-    if (
-      !alreadyRequestedContext ||
-      alreadyRequestedContext.fetchStatus !== 'loaded'
-    ) {
-      setStatus(FETCHING_CONTEXT)
-    }
+  }, [accounts, konnectors, triggers, context])
 
-    const fetchContext = async () => {
-      const context = await client.query(
-        Q('io.cozy.settings').getById('io.cozy.settings.context')
-      )
-      if (context && context.attributes && context.attributes.features) {
-        const flags = toFlagNames(context.attributes.features)
-        enableFlags(flags)
-      }
-      setStatus(IDLE)
-    }
-    fetchContext()
-  }, [client])
-
+  if (context?.attributes?.features) {
+    const flags = toFlagNames(context.attributes.features)
+    enableFlags(flags)
+  }
   useEffect(() => {
     setIsReady(
       appsReady &&
         !hasError &&
         !isFetching &&
-        !(status === FETCHING_CONTEXT) &&
         shortcutsDirectories !== undefined
     )
-  }, [appsReady, hasError, isFetching, status, shortcutsDirectories])
+  }, [appsReady, hasError, isFetching, shortcutsDirectories])
 
   useEffect(() => {
     if (isReady && webviewIntent) {
