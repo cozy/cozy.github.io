@@ -51,6 +51,23 @@ export const makeBrands = async (client, dispatch, inService) => {
     type: 'konnector'
   })
 
+  /*
+    Even if we specify channel "stable", we can get a konnector that doesn't have
+    a stable version. We can have published konnector with no stable version, for
+    instance a konnector that have only dev or beta version. The 
+    ```
+    fetchApps({
+      limit: 1000,
+      channel: 'stable',
+      type: 'konnector'
+    })
+    ```
+    will return it. The channel filter is only applied on version & latest_version. 
+    So in order to only use konnector with a stable version, we filter them here.
+  */
+  const filteredKonnector = allRegistryKonnectors.filter(
+    konnector => konnector.latest_version
+  )
   const triggerWithoutCurrentStateQuery = buildTriggerWithoutCurrentStateQuery()
   const triggers = await client.queryAll(
     triggerWithoutCurrentStateQuery.definition,
@@ -60,8 +77,7 @@ export const makeBrands = async (client, dispatch, inService) => {
   const configuredKonnectorsSlugs = triggers
     ? triggers.map(getKonnectorSlug).filter(Boolean)
     : []
-
-  const allBrands = allRegistryKonnectors.reduce(
+  const allBrands = filteredKonnector.reduce(
     (allBrands, data) => [
       ...allBrands,
       makeBrand(data, brands, configuredKonnectorsSlugs)

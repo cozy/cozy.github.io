@@ -32,6 +32,9 @@ describe('makeBrands', () => {
           banksTransactionRegExp: '\\bameli\\b'
         }
       }
+    },
+    {
+      slug: 'fnac'
     }
   ])
   const mockClient = new CozyClient({
@@ -102,7 +105,6 @@ describe('makeBrands', () => {
   describe('target service', () => {
     it('Should make brands with just necessary informations and dispatch', async () => {
       const brands = await makeBrands(mockClient, undefined, true)
-
       act(() => {
         expect(brands).toEqual([
           {
