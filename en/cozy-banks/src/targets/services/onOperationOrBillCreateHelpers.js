@@ -52,6 +52,7 @@ export const doBillsMatching = async (client, setting, options = {}) => {
     }
   } catch (e) {
     log('error', `❗ [Bills matching service] ${e}`)
+    throw e
   }
 }
 
@@ -91,6 +92,7 @@ export const doTransactionsMatching = async (client, setting, options = {}) => {
     }
   } catch (e) {
     log('error', `❗ [Transactions matching service] ${e}`)
+    throw e
   }
 }
 
