@@ -3,8 +3,6 @@ import CozyTheme from '../../react/providers/CozyTheme'
 import Paper from '../../react/Paper'
 import Button from '../../react/deprecated/Button'
 import isTesting from '../../react/helpers/isTesting'
-import themes from '../../theme/themes'
-import palette from '../../theme/palette.json'
 import Typography from '../../react/Typography'
 import Divider from '../../react/Divider'
 import { isUsingDevStyleguidist } from '../../scripts/build-utils'
@@ -30,28 +28,18 @@ const styles = {
   }
 }
 
-const ThemeLabel = ({ theme }) => {
-  return (
-    <Typography component="div" className="u-db u-mb-1" variant="h5">
-      Theme: {theme}
-    </Typography>
-  )
-}
-
-const paperStyle = theme => ({
-  ...styles.paper,
-  backgroundColor: theme === themes.normal ? 'white' : palette.Primary['600']
-})
-
 export default ({ children }) => {
-  const [theme, setTheme] = useState(
-    localStorage.getItem('theme') || themes.normal
+  const [variant, setVariant] = useState(
+    localStorage.getItem('ui-theme-variant') || 'normal'
   )
-  const handleClick = () => {
-    setTheme(theme === themes.normal ? themes.inverted : themes.normal)
-  }
-  const otherThemes = Object.keys(themes).filter(v => v !== theme)
   const [lang, setLang] = useState(localStorage.getItem('lang') || 'en')
+
+  const otherVariant = variant === 'normal' ? 'inverted' : 'normal'
+
+  const handleVariantClick = () => {
+    setVariant(otherVariant)
+  }
+
   const handleLangClick = () => {
     const newLang = lang === 'fr' ? 'en' : 'fr'
     setLang(newLang)
@@ -59,8 +47,8 @@ export default ({ children }) => {
   }
   return (
     <CozyTheme>
-      <CozyTheme variant={theme}>
-        <Paper elevation={0} square style={paperStyle(theme)}>
+      <CozyTheme variant={variant}>
+        <Paper className="u-pos-relative u-p-1" elevation={0} square>
           <Button
             size="tiny"
             theme="secondary"
@@ -72,27 +60,32 @@ export default ({ children }) => {
             <Button
               size="tiny"
               theme="secondary"
-              label={theme === themes.normal ? themes.inverted : themes.normal}
+              label={variant}
               style={styles.button}
-              onClick={handleClick}
+              onClick={handleVariantClick}
             />
           )}
-          {isUsingDevStyleguidist() && <ThemeLabel theme={theme} />}
+          {isUsingDevStyleguidist() && (
+            <Typography component="div" className="u-db u-mb-1" variant="h5">
+              Variant: {variant}
+            </Typography>
+          )}
           {children}
         </Paper>
       </CozyTheme>
-      {isUsingDevStyleguidist() &&
-        otherThemes.map((otherTheme, i) => (
-          <React.Fragment key={i}>
-            <Divider />
-            <CozyTheme key={otherTheme} variant={otherTheme}>
-              <Paper elevation={0} square style={paperStyle(otherTheme)}>
-                <ThemeLabel theme={otherTheme} />
-                {children}
-              </Paper>
-            </CozyTheme>
-          </React.Fragment>
-        ))}
+      {isUsingDevStyleguidist() && (
+        <>
+          <Divider />
+          <CozyTheme variant={otherVariant}>
+            <Paper className="u-pos-relative u-p-1" elevation={0} square>
+              <Typography component="div" className="u-db u-mb-1" variant="h5">
+                Variant: {otherVariant}
+              </Typography>
+              {children}
+            </Paper>
+          </CozyTheme>
+        </>
+      )}
     </CozyTheme>
   )
 }

@@ -1,33 +1,32 @@
-import React, { Component } from 'react'
+import React from 'react'
 import DefaultTableOfContents from 'react-styleguidist/lib/client/rsg-components/TableOfContents/TableOfContentsRenderer'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 
-export default class TableOfContents extends Component {
-  constructor(props) {
-    super(props)
-    this.handleChange = this.handleChange.bind(this)
-    this.state = {
-      theme: localStorage.getItem('theme')
-    }
-  }
+const TableOfContents = props => {
+  const deviceThemeType = useMediaQuery('(prefers-color-scheme: dark)')
+    ? 'dark'
+    : 'light'
+  const themeType =
+    localStorage.getItem('ui-theme-type') || deviceThemeType || 'light'
 
-  handleChange(ev) {
-    localStorage.setItem('theme', ev.target.value)
+  const handleChange = ev => {
+    localStorage.setItem('ui-theme-type', ev.target.value)
     window.location.reload()
   }
 
-  render() {
-    return (
-      <>
-        <select
-          className="u-m-1 u-mb-0"
-          value={this.state.theme}
-          onChange={this.handleChange}
-        >
-          <option>normal</option>
-          <option>inverted</option>
-        </select>
-        <DefaultTableOfContents {...this.props} />
-      </>
-    )
-  }
+  return (
+    <>
+      <select
+        className="u-m-1 u-mb-0"
+        value={themeType}
+        onChange={handleChange}
+      >
+        <option>light</option>
+        <option>dark</option>
+      </select>
+      <DefaultTableOfContents {...props} />
+    </>
+  )
 }
+
+export default TableOfContents
