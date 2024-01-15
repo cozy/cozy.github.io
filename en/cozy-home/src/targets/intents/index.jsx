@@ -1,3 +1,4 @@
+import 'cozy-ui/dist/cozy-ui.min.css'
 import 'cozy-ui/transpiled/react/stylesheet.css'
 import 'cozy-ui/dist/cozy-ui.utils.min.css'
 import 'styles/intents.styl'
@@ -8,6 +9,7 @@ import { createRoot } from 'react-dom/client'
 import { HashRouter } from 'react-router-dom'
 import IntentHandler from 'containers/IntentHandler'
 import AppWrapper, { AppContext } from 'components/AppWrapper'
+import IconSprite from 'cozy-ui/transpiled/react/Icon/Sprite'
 
 document.addEventListener('DOMContentLoaded', () => {
   const container = document.querySelector('[role=application]')
@@ -32,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
           )}
         </AppContext.Consumer>
       </HashRouter>
+      <IconSprite />
     </AppWrapper>
   )
 })
