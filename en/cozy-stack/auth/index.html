@@ -5217,8 +5217,9 @@ send its registration access token to be able to use this endpoint.</p>
 
 <h3 id="post-authclientsclient-idchallenge">POST /auth/clients/:client-id/challenge<a class="headerlink" href="#post-authclientsclient-idchallenge" title="Permanent link">&para;</a></h3>
 <p>This route can be used to start the process for certifying that an app is
-really what it tells to be by using the android/iOS APIs (SafetyNet). It
-returns a nonce that must be used in the certificate.</p>
+really what it tells to be by using the android/iOS APIs
+(PlayIntegrity/SafetyNet/AppleAttestation). It returns a nonce that must be
+used in the certificate.</p>
 <p>The client must send its registration access token to use this endpoint.</p>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/auth/clients/64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3/challenge</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
@@ -5239,8 +5240,8 @@ returns a nonce that must be used in the certificate.</p>
 
 <h3 id="post-authclientsclient-idattestation">POST /auth/clients/:client-id/attestation<a class="headerlink" href="#post-authclientsclient-idattestation" title="Permanent link">&para;</a></h3>
 <p>This route can be used to finish the process for certifying that an app is
-really what it tells to be by using the android/iOS APIs (SafetyNet). The
-client can send its attestation.</p>
+really what it tells to be by using the android/iOS APIs. The client can send
+its attestation.</p>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/auth/clients/64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3/attestation</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
@@ -5256,7 +5257,8 @@ client can send its attestation.</p>
 
 
 <p>Note: the <code>platform</code> parameter can be <code>"android"</code> or <code>"ios"</code>. For <code>ios</code>, a
-<code>"keyId"</code> parameter is also required.</p>
+<code>"keyId"</code> parameter is also required. For <code>android</code>, the <code>"issuer"</code> can be
+<code>"playintegrity"</code> to use the Play Integrity API instead of the SafetyNet API.</p>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
 </pre></div>
 
