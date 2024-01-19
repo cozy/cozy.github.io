@@ -3060,6 +3060,40 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#post-notesidimage-idcopy" title="POST /notes/:id/:image-id/copy" class="md-nav__link">
+    POST /notes/:id/:image-id/copy
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#query-string" title="Query-String" class="md-nav__link">
+    Query-String
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request_12" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_10" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3947,6 +3981,40 @@
         
           <li class="md-nav__item">
   <a href="#response_9" title="Response" class="md-nav__link">
+    Response
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-notesidimage-idcopy" title="POST /notes/:id/:image-id/copy" class="md-nav__link">
+    POST /notes/:id/:image-id/copy
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#query-string" title="Query-String" class="md-nav__link">
+    Query-String
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request_12" title="Request" class="md-nav__link">
+    Request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_10" title="Response" class="md-nav__link">
     Response
   </a>
   
@@ -5195,6 +5263,75 @@ will rename this image.</p>
     <span class="p">},</span>
     <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
       <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/notes/f48d9370-e1ec-0137-8547-543d7eb8149c/images/e57d2ec0-d281-0139-2bed-543d7eb8149c/543d7eb8149c128b&quot;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="post-notesidimage-idcopy">POST /notes/:id/:image-id/copy<a class="headerlink" href="#post-notesidimage-idcopy" title="Permanent link">&para;</a></h3>
+<p>Copy an existing image to another note. It is similar to <code>POST
+/notes/:id/images</code> as creating an image, but can be useful to avoid downloading
+and then reuploading the image content when the user makes a copy/paste.</p>
+<p>The <code>:id</code> and <code>:image-id</code> path parameters identify the source image. The
+destination note will be specified in the query-string, as <code>To</code>.</p>
+<h4 id="query-string">Query-String<a class="headerlink" href="#query-string" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>To</td>
+<td>the ID of the note where the image will be copied</td>
+</tr>
+</tbody>
+</table>
+<h4 id="request_12">Request<a class="headerlink" href="#request_12" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/notes/f48d9370-e1ec-0137-8547-543d7eb8149c/e57d2ec0-d281-0139-2bed-543d7eb8149c/copy?To=76ddf590-905e-013c-5ff2-18c04daba326</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.com</span>
+</pre></div>
+
+
+<h4 id="response_10">Response<a class="headerlink" href="#response_10" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">201</span> <span class="ne">Created</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.notes.images&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;76ddf590-905e-013c-5ff2-18c04daba326/8d146530-905e-013c-5ff3-98b45e10905e&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-18c04dab&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;diagram.jpg&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;mime&quot;</span><span class="p">:</span> <span class="s2">&quot;image/jpeg&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;width&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+      <span class="nt">&quot;height&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+      <span class="nt">&quot;willBeResized&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nt">&quot;cozyMetadata&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;doctypeVersion&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;metadataVersion&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nt">&quot;createdAt&quot;</span><span class="p">:</span> <span class="s2">&quot;2024-01-08T15:18:00Z&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;createdByApp&quot;</span><span class="p">:</span> <span class="s2">&quot;notes&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;createdOn&quot;</span><span class="p">:</span> <span class="s2">&quot;https://cozy.example.com/&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;updatedAt&quot;</span><span class="p">:</span> <span class="s2">&quot;2024-01-08T15:18:00Z&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;uploadedAt&quot;</span><span class="p">:</span> <span class="s2">&quot;2024-01-08T15:18:00Z&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;uploadedOn&quot;</span><span class="p">:</span> <span class="s2">&quot;https://cozy.example.com/&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;uploadedBy&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;notes&quot;</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;links&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;self&quot;</span><span class="p">:</span> <span class="s2">&quot;/notes/76ddf590-905e-013c-5ff2-18c04daba326/images/8d146530-905e-013c-5ff3-98b45e10905e/d251f620d98e1740&quot;</span>
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>
