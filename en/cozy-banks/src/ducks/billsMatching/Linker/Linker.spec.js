@@ -4,12 +4,6 @@ import Linker from './Linker'
 import { cozyClient } from 'cozy-konnector-libs'
 import { Document } from 'cozy-doctypes'
 import brands from 'ducks/brandDictionary/brands'
-import { getBrands } from 'ducks/brandDictionary'
-
-jest.mock('ducks/brandDictionary', () => ({
-  ...jest.requireActual('ducks/brandDictionary'),
-  getBrands: jest.fn()
-}))
 
 let linker
 
@@ -327,11 +321,7 @@ describe('linker', () => {
   })
 
   describe('linkBillsToOperations', () => {
-    const getBrandsMock = filterFct => {
-      return filterFct ? brands.filter(filterFct) : brands
-    }
     beforeEach(() => {
-      getBrands.mockImplementation(getBrandsMock)
       linker.isBillAmountOverflowingOperationAmount = jest
         .fn()
         .mockReturnValue(false)
@@ -343,7 +333,12 @@ describe('linker', () => {
       const fn = testCase.focus ? fit : it
       fn(testCase.description, async () => {
         const { bills, operations, expectedResult } = testCase
-        const result = await linker.linkBillsToOperations(bills, operations)
+        const result = await linker.linkBillsToOperations(
+          bills,
+          operations,
+          undefined,
+          brands
+        )
 
         Object.keys(expectedResult).forEach(billId => {
           const expected = expectedResult[billId]
@@ -402,9 +397,9 @@ describe('linker', () => {
       ]
 
       expect(operations[0].reimbursements).toBe(undefined)
-      await linker.linkBillsToOperations(bills, operations)
+      await linker.linkBillsToOperations(bills, operations, undefined, brands)
       expect(operations[0].reimbursements.length).toBe(1)
-      await linker.linkBillsToOperations(bills, operations)
+      await linker.linkBillsToOperations(bills, operations, undefined, brands)
       expect(operations[0].reimbursements.length).toBe(1)
     })
   })

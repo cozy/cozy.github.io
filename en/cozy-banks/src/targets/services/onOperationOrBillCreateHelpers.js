@@ -22,7 +22,12 @@ import assert from '../../utils/assert'
 
 export const log = logger.namespace('onOperationOrBillCreate')
 
-export const doBillsMatching = async (client, setting, options = {}) => {
+export const doBillsMatching = async (
+  client,
+  setting,
+  options = {},
+  brands
+) => {
   // Bills matching
   log('info', 'Bills matching')
   const billsLastSeq =
@@ -47,7 +52,7 @@ export const doBillsMatching = async (client, setting, options = {}) => {
         `[Bills matching service] ${billsChanges.documents.length} new bills since last execution. Trying to find transactions for them`
       )
 
-      const result = await matchFromBills(billsChanges.documents)
+      const result = await matchFromBills(billsChanges.documents, brands)
       logResult(result)
     }
   } catch (e) {
@@ -56,7 +61,12 @@ export const doBillsMatching = async (client, setting, options = {}) => {
   }
 }
 
-export const doTransactionsMatching = async (client, setting, options = {}) => {
+export const doTransactionsMatching = async (
+  client,
+  setting,
+  options = {},
+  brands
+) => {
   assert(setting, 'No setting passed')
   log('info', '⌛ Do transaction matching...')
   const transactionsLastSeq =
@@ -87,7 +97,10 @@ export const doTransactionsMatching = async (client, setting, options = {}) => {
         `[Transactions matching service] ${transactionsChanges.documents.length} new transactions since last execution. Trying to find bills for them`
       )
 
-      const result = await matchFromTransactions(transactionsChanges.documents)
+      const result = await matchFromTransactions(
+        transactionsChanges.documents,
+        brands
+      )
       logResult(result)
     }
   } catch (e) {

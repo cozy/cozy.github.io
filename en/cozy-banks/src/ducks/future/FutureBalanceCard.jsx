@@ -1,13 +1,13 @@
 import React, { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
-import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
+import { Media, Bd, Img } from 'cozy-ui/transpiled/react/deprecated/Media'
 import RightIcon from 'cozy-ui/transpiled/react/Icons/Right'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import Figure from 'cozy-ui/transpiled/react/Figure'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import { getCurrencySymbol } from 'utils/currencySymbol'
 

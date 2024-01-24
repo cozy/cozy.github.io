@@ -6,7 +6,7 @@ import React, {
   useMemo
 } from 'react'
 
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 export const SelectionContext = createContext()
 

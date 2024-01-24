@@ -3,7 +3,7 @@ import groupBy from 'lodash/groupBy'
 import sortBy from 'lodash/sortBy'
 
 import { hasQueryBeenLoaded, isQueryLoading, useQuery } from 'cozy-client'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import Button from 'cozy-ui/transpiled/react/Buttons'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import PlusIcon from 'cozy-ui/transpiled/react/Icons/Plus'

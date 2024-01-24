@@ -1,14 +1,14 @@
 import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 import { PageTitle } from 'components/Title'
 import Padded from 'components/Padded'
 import Header from 'components/Header'
 import { Tab, Tabs } from 'cozy-ui/transpiled/react/MuiTabs'
-import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
+import Divider from 'cozy-ui/transpiled/react/Divider'
 
 export const tabNames = ['configuration', 'accounts', 'groups', 'tags']
 

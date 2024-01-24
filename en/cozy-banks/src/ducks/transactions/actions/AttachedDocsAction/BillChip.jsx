@@ -2,8 +2,8 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import Chip from 'cozy-ui/transpiled/react/Chip'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import Chip from 'cozy-ui/transpiled/react/deprecated/Chip'
 import flag from 'cozy-flags'
 import FileOpener from 'ducks/transactions/FileOpener'
 import FileIcon from 'ducks/transactions/actions/AttachedDocsAction/FileIcon'

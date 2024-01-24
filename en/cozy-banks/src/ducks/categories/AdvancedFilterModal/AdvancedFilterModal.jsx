@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import { ConfirmDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 import Button from 'cozy-ui/transpiled/react/Buttons'
-import List from 'cozy-ui/transpiled/react/MuiCozyTheme/List'
-import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
-import Overlay from 'cozy-ui/transpiled/react/Overlay'
+import List from 'cozy-ui/transpiled/react/List'
+import Divider from 'cozy-ui/transpiled/react/Divider'
+import Overlay from 'cozy-ui/transpiled/react/deprecated/Overlay'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import { isQueryLoading, useQueryAll } from 'cozy-client'
 

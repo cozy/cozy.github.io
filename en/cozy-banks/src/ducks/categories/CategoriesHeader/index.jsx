@@ -3,8 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import SadCozyIcon from 'cozy-ui/transpiled/react/Icons/SadCozy'
 
 import { useSelector, useDispatch } from 'react-redux'

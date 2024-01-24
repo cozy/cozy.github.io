@@ -4,8 +4,8 @@ import PropTypes from 'prop-types'
 import sortBy from 'lodash/sortBy'
 
 import { useClient, useQuery } from 'cozy-client'
-import List from 'cozy-ui/transpiled/react/MuiCozyTheme/List'
-import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
+import List from 'cozy-ui/transpiled/react/List'
+import Divider from 'cozy-ui/transpiled/react/Divider'
 
 import { ACCOUNT_DOCTYPE, konnectorTriggersConn } from 'doctypes'
 import { useFilters } from 'components/withFilters'

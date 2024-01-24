@@ -267,12 +267,14 @@ class Linker {
     bill,
     debitOperation,
     allOperations,
-    options
+    options,
+    brands
   ) {
     const creditOperation = await findCreditOperation(
       bill,
       options,
-      allOperations
+      allOperations,
+      brands
     )
 
     const promises = []
@@ -305,26 +307,28 @@ class Linker {
    * @param {Object} bill - an io.cozy.bills document
    * @param {Object[]} allOperations - an array of io.cozy.bank.operations documents
    * @param {Object} options - see getOptions
+   * @param {object[]} brands - Brands dictionary
    *
    * @returns {(Object|false)} The io.cozy.bank.operations that matched or false
    */
-  async linkBillToDebitOperation(bill, allOperations, options) {
+  async linkBillToDebitOperation(bill, allOperations, options, brands) {
     // eslint-disable-next-line
-    return findDebitOperation(bill, options, allOperations).then(operation => {
-      // eslint-disable-next-line
-      if (operation) {
-        log(
-          'debug',
-          `Found debit operation ${operation._id} for bill ${bill._id}`
-        )
+    return findDebitOperation(bill, options, allOperations, brands).then(operation => {
         // eslint-disable-next-line
+      if (operation) {
+          log(
+            'debug',
+            `Found debit operation ${operation._id} for bill ${bill._id}`
+          )
+          // eslint-disable-next-line
         return this.addBillToOperation(bill, operation).then(
-          addResult => addResult && operation
-        )
-      } else {
-        log('debug', `Can't find debit operation for bill ${bill._id}`)
+            addResult => addResult && operation
+          )
+        } else {
+          log('debug', `Can't find debit operation for bill ${bill._id}`)
+        }
       }
-    })
+    )
   }
 
   /**
@@ -339,13 +343,14 @@ class Linker {
    * @param {number} options.amountUpperDelta - Upper delta for amount window
    * @param {number} options.dateLowerDelta - Lower delta for date window
    * @param {number} options.dateUpperDelta - Upper delta for date window
+   * @param {object[]} brands - Brands dictionary
    *
    * @returns {Object} An object that contains matchings for each bill
    *
    * @see https://docs.cozy.io/en/cozy-doctypes/docs/io.cozy.bills/
    * @see https://docs.cozy.io/en/cozy-doctypes/docs/io.cozy.bank/#iocozybankoperations
    */
-  async linkBillsToOperations(bills, operations, options) {
+  async linkBillsToOperations(bills, operations, options, brands) {
     const optionsToUse = this.getOptions(options)
     const result = {}
 
@@ -385,7 +390,8 @@ class Linker {
       const debitOperation = await this.linkBillToDebitOperation(
         bill,
         allOperations,
-        optionsToUse
+        optionsToUse,
+        brands
       )
 
       if (debitOperation) {
@@ -397,7 +403,8 @@ class Linker {
           bill,
           debitOperation,
           allOperations,
-          optionsToUse
+          optionsToUse,
+          brands
         )
 
         if (creditOperation) {

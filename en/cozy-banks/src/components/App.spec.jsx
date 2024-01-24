@@ -6,7 +6,7 @@ import App from 'components/App'
 import AppLike from 'test/AppLike'
 import Links from 'ducks/client/links'
 
-import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import Alerter from 'cozy-ui/transpiled/react/deprecated/Alerter'
 import CozyClient from 'cozy-client'
 import CozyLink from 'cozy-client/dist/CozyLink'
 

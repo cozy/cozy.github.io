@@ -2,7 +2,7 @@ import React from 'react'
 import IconButton from 'cozy-ui/transpiled/react/IconButton'
 
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import MagnifierIcon from 'cozy-ui/transpiled/react/Icons/Magnifier'
 
 import cx from 'classnames'

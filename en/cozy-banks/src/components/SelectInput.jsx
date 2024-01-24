@@ -2,11 +2,11 @@ import React, { useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 
 import { makeStyles } from 'cozy-ui/transpiled/react/styles'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import ActionMenu, {
   ActionMenuItem,
   ActionMenuRadio
-} from 'cozy-ui/transpiled/react/ActionMenu'
+} from 'cozy-ui/transpiled/react/deprecated/ActionMenu'
 import DropdownText from 'cozy-ui/transpiled/react/DropdownText'
 import InputGroup from 'cozy-ui/transpiled/react/InputGroup'
 

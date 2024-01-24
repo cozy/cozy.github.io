@@ -1,5 +1,5 @@
 import React from 'react'
-import { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
+import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 export const themed = Component => {
   const ThemedComponent = props => {

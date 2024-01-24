@@ -40,16 +40,22 @@ const onOperationOrBillCreate = async (client, options) => {
     notifLastSeq
   )
   log('info', '✅ Transaction changes fetched')
+  const brands = await makeBrands(client, undefined, true)
 
   if (options.billsMatching !== false) {
-    await doBillsMatching(client, setting, options.billsMatching)
+    await doBillsMatching(client, setting, options.billsMatching, brands)
     setting = await updateSettings(client, setting)
   } else {
     log('info', '➡️ Skip bills matching')
   }
 
   if (options.transactionsMatching !== false) {
-    await doTransactionsMatching(client, setting, options.transactionsMatching)
+    await doTransactionsMatching(
+      client,
+      setting,
+      options.transactionsMatching,
+      brands
+    )
     setting = await updateSettings(client, setting)
   } else {
     log('info', '➡️ Skip transactions matching')
@@ -64,7 +70,6 @@ const onOperationOrBillCreate = async (client, options) => {
   await doSendNotifications(setting, notifChanges)
   setting = await updateSettings(client, setting)
 
-  const brands = await makeBrands(client, undefined, true)
   await doAppSuggestions(setting, brands)
   setting = await updateSettings(client, setting)
 

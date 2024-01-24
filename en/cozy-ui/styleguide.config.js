@@ -144,6 +144,7 @@ module.exports = {
     {
       name: 'Extra',
       components: () => [
+        '../react/ActionsBar',
         '../react/ActionsMenu',
         '../react/AppSections',
         '../react/BottomSheet',

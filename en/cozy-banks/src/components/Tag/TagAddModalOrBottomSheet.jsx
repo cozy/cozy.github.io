@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 
 import { useQueryAll, isQueryLoading, useClient } from 'cozy-client'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import { tagsConn } from 'doctypes'
 import TagAddModal from 'components/Tag/TagAddModal'

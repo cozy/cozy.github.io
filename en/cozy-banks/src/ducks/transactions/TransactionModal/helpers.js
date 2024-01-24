@@ -1,4 +1,4 @@
-import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import Alerter from 'cozy-ui/transpiled/react/deprecated/Alerter'
 
 import { getDate, getApplicationDate } from 'ducks/transactions/helpers'
 

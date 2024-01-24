@@ -1,8 +1,8 @@
 import React from 'react'
-import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
+import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import cx from 'classnames'
 import cozyBar from 'utils/cozyBar'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 const wrap = (Component, className) => {
   const WrappedBarComponent = ({ children }) => {

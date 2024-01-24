@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import { BarSearch } from 'components/Bar'
 import BarSearchInput from 'components/BarSearchInput'

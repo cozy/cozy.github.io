@@ -1,5 +1,5 @@
 import React from 'react'
-import Button from 'cozy-ui/transpiled/react/MuiCozyTheme/Buttons'
+import Button from 'cozy-ui/transpiled/react/Button'
 import PlusIcon from 'cozy-ui/transpiled/react/Icons/Plus'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 

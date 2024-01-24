@@ -1,7 +1,7 @@
 import React, { useMemo, memo } from 'react'
 import PropTypes from 'prop-types'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
-import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
+import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import cx from 'classnames'
 
 import { BalanceDetailsHeader } from 'ducks/balance'

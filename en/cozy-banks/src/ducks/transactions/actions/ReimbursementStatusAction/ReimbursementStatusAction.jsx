@@ -2,11 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import Chip from 'cozy-ui/transpiled/react/Chip'
-import Alerter from 'cozy-ui/transpiled/react/Alerter'
-import { useI18n, translate } from 'cozy-ui/transpiled/react/I18n'
-import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
-import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
+import Chip from 'cozy-ui/transpiled/react/deprecated/Chip'
+import Alerter from 'cozy-ui/transpiled/react/deprecated/Alerter'
+import { useI18n, translate } from 'cozy-ui/transpiled/react/providers/I18n'
+import ListItem from 'cozy-ui/transpiled/react/ListItem'
+import ListItemIcon from 'cozy-ui/transpiled/react/ListItemIcon'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 
 import {

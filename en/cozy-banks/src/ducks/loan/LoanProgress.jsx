@@ -1,12 +1,12 @@
 import React from 'react'
-import PercentageBar from 'cozy-ui/transpiled/react/PercentageBar'
+import PercentageBar from 'cozy-ui/transpiled/react/deprecated/PercentageBar'
 import Figure from 'cozy-ui/transpiled/react/Figure'
 import {
   getReimbursedPercentage,
   getReimbursedAmount,
   getBorrowedAmount
 } from 'ducks/account/helpers'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 
 const LoanProgress = props => {

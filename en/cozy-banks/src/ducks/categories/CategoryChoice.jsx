@@ -6,7 +6,7 @@ import Fuse from 'fuse.js/dist/fuse.js'
 import NestedSelect, {
   NestedSelectModal
 } from 'cozy-ui/transpiled/react/NestedSelect'
-import { translate } from 'cozy-ui/transpiled/react/I18n'
+import { translate } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import {
   CategoryIcon,

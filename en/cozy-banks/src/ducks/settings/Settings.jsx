@@ -1,9 +1,7 @@
-/* global __TARGET__, __APP_VERSION__ */
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
-import AppVersion from 'ducks/settings/AppVersion'
 import BarTheme from 'ducks/bar/BarTheme'
 import Padded from 'components/Padded'
 import styles from 'ducks/settings/Settings.styl'
@@ -25,11 +23,6 @@ const Settings = ({ delayContent }) => {
           <Outlet />
         </Padded>
       </Delayed>
-      {__TARGET__ === 'mobile' && (
-        <Padded>
-          <AppVersion version={__APP_VERSION__} />
-        </Padded>
-      )}
     </>
   )
 }

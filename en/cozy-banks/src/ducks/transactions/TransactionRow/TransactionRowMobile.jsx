@@ -3,14 +3,14 @@ import PropTypes from 'prop-types'
 import cx from 'classnames'
 
 import flag from 'cozy-flags'
-import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
+import { Media, Bd, Img } from 'cozy-ui/transpiled/react/deprecated/Media'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import ListItem from 'cozy-ui/transpiled/react/ListItem'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import Figure from 'cozy-ui/transpiled/react/Figure'
 import Checkbox from 'cozy-ui/transpiled/react/Checkbox'
-import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
+import Divider from 'cozy-ui/transpiled/react/Divider'
 
 import TransactionActions from 'ducks/transactions/TransactionActions'
 

@@ -3,7 +3,7 @@ import React from 'react'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import Chip from 'cozy-ui/transpiled/react/Chips'
 import PlusIcon from 'cozy-ui/transpiled/react/Icons/Plus'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 const TagAddChip = ({ className, disabled, onClick }) => {
   const { t } = useI18n()

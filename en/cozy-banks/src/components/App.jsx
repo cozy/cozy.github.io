@@ -6,18 +6,16 @@ import throttle from 'lodash/throttle'
 import flag from 'cozy-flags'
 import { queryConnect, useClient } from 'cozy-client'
 import CozyDevTools from 'cozy-client/dist/devtools'
-import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import Alerter from 'cozy-ui/transpiled/react/deprecated/Alerter'
 import { Content, Layout, Main } from 'cozy-ui/transpiled/react/Layout'
 import UISidebar from 'cozy-ui/transpiled/react/Sidebar'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import { useTheme } from 'cozy-ui/transpiled/react/styles'
 
 import { settingsConn } from 'doctypes'
 import Nav from 'ducks/commons/Nav'
 import SelectedTagsProvider from 'ducks/context/SelectedTagsContext'
-import { Warnings } from 'ducks/warnings'
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
-import { pinGuarded } from 'ducks/pin'
 import ErrorBoundary from 'components/ErrorBoundary'
 import ReactHint from 'components/ReactHint'
 import AppSearchBar from 'components/AppSearchBar'
@@ -99,8 +97,6 @@ const App = props => {
 
         {/* Outside every other component to bypass overflow:hidden */}
         <ReactHint />
-
-        <Warnings />
         <Alerter />
       </Layout>
       {flag('debug') ? <CozyDevTools panels={banksPanels} /> : null}
@@ -112,10 +108,4 @@ App.defaultProps = {
   showBottomNav: true
 }
 
-export default compose(
-  pinGuarded({
-    timeout: flag('pin.debug') ? 10 * 1000 : undefined,
-    showTimeout: flag('pin.debug')
-  }),
-  queryConnect({ settingsCollection: settingsConn })
-)(App)
+export default compose(queryConnect({ settingsCollection: settingsConn }))(App)

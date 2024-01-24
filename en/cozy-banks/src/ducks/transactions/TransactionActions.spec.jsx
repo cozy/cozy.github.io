@@ -7,7 +7,7 @@ import mapValues from 'lodash/mapValues'
 import { SyncTransactionActions } from './TransactionActions'
 import { findMatchingActions } from 'ducks/transactions/actions'
 
-import Chip from 'cozy-ui/transpiled/react/Chip'
+import Chip from 'cozy-ui/transpiled/react/deprecated/Chip'
 import AppLike from 'test/AppLike'
 import data from 'test/fixtures'
 import store, { normalizeData } from 'test/store'

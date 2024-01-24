@@ -1,28 +1,12 @@
 import React, { useState } from 'react'
 
 import { useClient, useQuery } from 'cozy-client'
-import { isMobileApp } from 'cozy-device-helper'
-import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import Alerter from 'cozy-ui/transpiled/react/deprecated/Alerter'
 import Typography from 'cozy-ui/transpiled/react/Typography'
-import Button from 'cozy-ui/transpiled/react/Button'
+import Button from 'cozy-ui/transpiled/react/deprecated/Button'
 import { PanelContent } from 'cozy-client/dist/devtools'
 
-import { getNotificationToken } from 'ducks/client/utils'
 import { accountsConn } from 'doctypes'
-
-const DeviceToken = ({ client }) => {
-  const notificationToken = getNotificationToken(client)
-  return (
-    <>
-      <Typography variant="h5">Device token</Typography>
-      <p>
-        {notificationToken
-          ? notificationToken
-          : '⚠️ Cannot receive notifications'}
-      </p>
-    </>
-  )
-}
 
 const sendNotification = async (
   client,
@@ -72,7 +56,6 @@ const Notifications = () => {
       <Typography variant="subtitle1" gutterBottom>
         Notifications
       </Typography>
-      {isMobileApp() && <DeviceToken client={client} />}
       <div>
         Route :{' '}
         <select

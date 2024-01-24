@@ -1,14 +1,14 @@
 import React, { useState, useMemo, memo } from 'react'
 import PropTypes from 'prop-types'
-import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
+import { Media, Bd, Img } from 'cozy-ui/transpiled/react/deprecated/Media'
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import resultWithArgs from 'utils/resultWithArgs'
 import { markdownBold } from './helpers'
 
 import useConfirmation from 'components/useConfirmation'
 import SettingCard from 'components/SettingCard'
-import Switch from 'cozy-ui/transpiled/react/MuiCozyTheme/Switch'
+import Switch from 'cozy-ui/transpiled/react/Switch'
 import EditionModal from 'components/EditionModal'
 
 import IconButton from 'cozy-ui/transpiled/react/IconButton'

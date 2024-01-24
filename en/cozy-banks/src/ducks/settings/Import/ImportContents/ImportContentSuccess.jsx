@@ -2,7 +2,7 @@ import React from 'react'
 
 import { isQueryLoading, useQuery } from 'cozy-client'
 import { Empty } from 'cozy-ui/transpiled/react'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 
 import successIllu from 'assets/icons/success-illu.svg'

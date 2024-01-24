@@ -74,14 +74,11 @@ class StartupChecksPlugin {
   async checkToLaunchJobs() {
     const client = this.client
     let triggers
-    const triggersFromState = client.getQueryFromState(
-      konnectorTriggersConn.as
-    )
+    const triggersFromState = client.getQueryFromState(konnectorTriggersConn.as)
     if (triggersFromState) {
       triggers = triggersFromState.data
     } else {
-      triggers = (await client.query(konnectorTriggersConn.query(client)))
-        .data
+      triggers = (await client.query(konnectorTriggersConn.query(client))).data
     }
     for (const launchOpts of this.options.launchTriggers || []) {
       await this.checkToLaunchJob(triggers, launchOpts)

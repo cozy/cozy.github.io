@@ -6,7 +6,7 @@ import * as d3 from 'utils/d3'
 import compose from 'lodash/flowRight'
 import 'element-scroll-polyfill'
 
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import { getCssVariableValue } from 'cozy-ui/transpiled/react/utils/color'
 import { lighten } from '@material-ui/core/styles'
 

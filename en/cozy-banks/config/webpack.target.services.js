@@ -1,9 +1,7 @@
 'use strict'
 
 const path = require('path')
-const fs = require('fs')
 const webpack = require('webpack')
-const { production } = require('./webpack.vars')
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
 
 const SRC_DIR = path.resolve(__dirname, '../src')
@@ -15,34 +13,7 @@ const mimerPath = require.resolve(
 // Used to disable node modules we do not use
 const noop = require.resolve(path.join(SRC_DIR, 'ducks/notifications/noop'))
 
-const serviceDir = path.resolve(SRC_DIR, './targets/services/')
-const servicesPaths = fs.existsSync(serviceDir)
-  ? fs.readdirSync(serviceDir)
-  : []
-
-const entries = {}
-servicesPaths.forEach(file => {
-  if (!file.match(/^[^.]*.js$/)) return
-  const filename = file.match(/^([^.]*).js$/)[1]
-  entries[filename] = path.resolve(path.join(serviceDir, file))
-})
-
-if (process.env.TEST_TEMPLATES) {
-  entries.testTemplates = path.resolve(
-    SRC_DIR,
-    './ducks/notifications/testTemplates.js'
-  )
-}
-
 module.exports = {
-  entry: entries,
-  mode: production ? 'production' : 'development',
-  target: 'node',
-  devtool: false,
-  output: {
-    path: path.resolve(__dirname, '../build'),
-    filename: '[name].js'
-  },
   module: {
     rules: [
       {
@@ -63,6 +34,11 @@ module.exports = {
       {
         test: /\.mjs$/,
         type: 'javascript/auto'
+      },
+      {
+        test: /\.webapp$/,
+        exclude: /node_modules/,
+        loader: 'raw-loader'
       }
     ],
 
@@ -88,13 +64,8 @@ module.exports = {
       handlebars: 'handlebars/dist/handlebars.min.js'
     }
   },
-
   plugins: [
     new webpack.NormalModuleReplacementPlugin(/mimer/, mimerPath),
-
-    new webpack.DefinePlugin({
-      __TARGET__: JSON.stringify('services')
-    }),
 
     /* Does not work in a bundle, we do not use it */
     new webpack.NormalModuleReplacementPlugin(/image-size/, noop),

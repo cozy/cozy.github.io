@@ -2,8 +2,8 @@ import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 
 import UISelectionBar from 'cozy-ui/transpiled/react/SelectionBar'
-import Alerter from 'cozy-ui/transpiled/react/Alerter'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import Alerter from 'cozy-ui/transpiled/react/deprecated/Alerter'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import { useSelectionContext } from 'ducks/context/SelectionContext'
 import { useSelectionBarActions } from 'ducks/selection/helpers'

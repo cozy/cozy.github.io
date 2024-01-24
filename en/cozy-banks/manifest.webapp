@@ -56,52 +56,52 @@
   "services": {
     "onOperationOrBillCreate": {
       "type": "node",
-      "file": "onOperationOrBillCreate.js",
+      "file": "services/onOperationOrBillCreate/banks.js",
       "trigger": "@event io.cozy.bills:CREATED",
       "debounce": "75s"
     },
     "categorization": {
       "type": "node",
-      "file": "categorization.js",
+      "file": "services/categorization/banks.js",
       "comment": "This service must be called programmatically from konnectors. See https://github.com/cozy/cozy-banks/blob/master/docs/services.md for more information."
     },
     "recurrence": {
       "type": "node",
-      "file": "recurrence.js",
+      "file": "services/recurrence/banks.js",
       "trigger": "@event io.cozy.bank.operations:CREATED,UPDATED",
       "debounce": "1m"
     },
     "autogroups": {
       "type": "node",
-      "file": "autogroups.js",
+      "file": "services/autogroups/banks.js",
       "trigger": "@event io.cozy.bank.accounts:CREATED",
       "debounce": "5s"
     },
     "budgetAlerts": {
       "type": "node",
-      "file": "budgetAlerts.js",
+      "file": "services/budgetAlerts/banks.js",
       "comment": "Service is run inside onOperationOrBillCreate. The service described here is for diagnosis/debug."
     },
     "linkMyselfToAccounts": {
       "type": "node",
-      "file": "linkMyselfToAccounts.js",
+      "file": "services/linkMyselfToAccounts/banks.js",
       "trigger": "@event io.cozy.bank.accounts:CREATED",
       "debounce": "5s"
     },
     "konnectorAlerts": {
       "type": "node",
-      "file": "konnectorAlerts.js",
+      "file": "services/konnectorAlerts/banks.js",
       "trigger": "@event io.cozy.jobs:UPDATED:konnector:worker",
       "debounce": "60s"
     },
     "export": {
       "type": "node",
-      "file": "export.js",
+      "file": "services/export/banks.js",
       "comment": "This service must be called programmatically from Banks."
     },
     "import": {
       "type": "node",
-      "file": "import.js",
+      "file": "services/import/banks.js",
       "comment": "This service must be called programmatically from Banks."
     }
   },

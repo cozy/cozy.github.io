@@ -1,9 +1,9 @@
 import React from 'react'
 import cx from 'classnames'
 import get from 'lodash/get'
-import { translate, useI18n } from 'cozy-ui/transpiled/react/I18n'
-import CompositeRow from 'cozy-ui/transpiled/react/CompositeRow'
-import NarrowContent from 'cozy-ui/transpiled/react/NarrowContent'
+import { translate, useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import CompositeRow from 'cozy-ui/transpiled/react/deprecated/CompositeRow'
+import NarrowContent from 'cozy-ui/transpiled/react/deprecated/NarrowContent'
 import Figure from 'cozy-ui/transpiled/react/Figure'
 
 import { BalanceDetailsHeader } from 'ducks/balance'
@@ -13,7 +13,7 @@ import LoanProgress from 'ducks/loan/LoanProgress'
 import Padded from 'components/Padded'
 import { getBorrowedAmount } from 'ducks/account/helpers'
 
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 const DATE_FORMAT = 'DD/MM/YY'
 

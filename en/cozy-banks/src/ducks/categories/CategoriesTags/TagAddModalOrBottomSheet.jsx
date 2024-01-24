@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import TagAddModal from 'components/Tag/TagAddModal'
 import TagBottomSheet from 'components/Tag/TagBottomSheet'

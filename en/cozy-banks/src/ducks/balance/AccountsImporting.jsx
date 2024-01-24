@@ -2,7 +2,7 @@ import React, { Fragment, memo } from 'react'
 import PropTypes from 'prop-types'
 import LinearProgress from 'cozy-ui/transpiled/react/LinearProgress'
 import Typography from 'cozy-ui/transpiled/react/Typography'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import Figure from 'cozy-ui/transpiled/react/Figure'
 import Header from 'components/Header'

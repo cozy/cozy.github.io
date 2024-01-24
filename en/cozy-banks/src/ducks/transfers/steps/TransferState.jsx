@@ -1,7 +1,7 @@
 import React from 'react'
-import Button from 'cozy-ui/transpiled/react/Button'
+import Button from 'cozy-ui/transpiled/react/deprecated/Button'
 import Typography from 'cozy-ui/transpiled/react/Typography'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import { IllustrationDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 import Stack from 'cozy-ui/transpiled/react/Stack'
 

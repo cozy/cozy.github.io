@@ -3,28 +3,85 @@
 exports[`App route should be a function returning a route 1`] = `
 <Routes>
   <Route
-    element={<withClient(UserActionRequired) />}
+    element={<withQuery(App) />}
+    path="/"
   >
     <Route
-      element={<withQuery(App) />}
-      path="/"
+      element={
+        <Navigate
+          replace={true}
+          to="balances"
+        />
+      }
+      index={true}
+    />
+    <Route
+      path="balances"
     >
       <Route
         element={
-          <Navigate
-            replace={true}
-            to="balances"
-          />
+          <ScrollToTopOnMountWrapper>
+            <BalanceWithBanksJobs />
+          </ScrollToTopOnMountWrapper>
         }
         index={true}
       />
       <Route
-        path="balances"
+        element={
+          <ScrollToTopOnMountWrapper>
+            <Memo(Connect(RawBalanceDetailsPage)) />
+          </ScrollToTopOnMountWrapper>
+        }
+        path="details"
+      />
+      <Route
+        element={
+          <ScrollToTopOnMountWrapper>
+            <PlannedTransactionsPage
+              emptyIcon="cozy"
+            />
+          </ScrollToTopOnMountWrapper>
+        }
+        path="future"
+      />
+      <Route
+        element={<SetFilterAndRedirect />}
+        path=":accountOrGroupId/:page"
+      />
+    </Route>
+    <Route
+      element={
+        <Navigate
+          replace={true}
+          to="../analysis/categories"
+        />
+      }
+      path="categories/*"
+    />
+    <Route
+      element={
+        <Navigate
+          replace={true}
+          to="../analysis/recurrence"
+        />
+      }
+      path="recurrence/*"
+    />
+    <Route
+      element={
+        <ScrollToTopOnMountWrapper>
+          <AnalysisPage />
+        </ScrollToTopOnMountWrapper>
+      }
+      path="analysis"
+    >
+      <Route
+        path="categories"
       >
         <Route
           element={
             <ScrollToTopOnMountWrapper>
-              <BalanceWithBanksJobs />
+              <Unknown />
             </ScrollToTopOnMountWrapper>
           }
           index={true}
@@ -32,241 +89,180 @@ exports[`App route should be a function returning a route 1`] = `
         <Route
           element={
             <ScrollToTopOnMountWrapper>
-              <Memo(Connect(RawBalanceDetailsPage)) />
+              <Unknown />
             </ScrollToTopOnMountWrapper>
           }
-          path="details"
+          path=":categoryName"
         />
         <Route
           element={
             <ScrollToTopOnMountWrapper>
-              <PlannedTransactionsPage
-                emptyIcon="cozy"
-              />
+              <Unknown />
             </ScrollToTopOnMountWrapper>
           }
-          path="future"
-        />
-        <Route
-          element={<SetFilterAndRedirect />}
-          path=":accountOrGroupId/:page"
+          path=":categoryName/:subcategoryName"
         />
       </Route>
       <Route
-        element={
-          <Navigate
-            replace={true}
-            to="../analysis/categories"
-          />
-        }
-        path="categories/*"
-      />
-      <Route
-        element={
-          <Navigate
-            replace={true}
-            to="../analysis/recurrence"
-          />
-        }
-        path="recurrence/*"
-      />
-      <Route
-        element={
-          <ScrollToTopOnMountWrapper>
-            <AnalysisPage />
-          </ScrollToTopOnMountWrapper>
-        }
-        path="analysis"
-      >
-        <Route
-          path="categories"
-        >
-          <Route
-            element={
-              <ScrollToTopOnMountWrapper>
-                <Unknown />
-              </ScrollToTopOnMountWrapper>
-            }
-            index={true}
-          />
-          <Route
-            element={
-              <ScrollToTopOnMountWrapper>
-                <Unknown />
-              </ScrollToTopOnMountWrapper>
-            }
-            path=":categoryName"
-          />
-          <Route
-            element={
-              <ScrollToTopOnMountWrapper>
-                <Unknown />
-              </ScrollToTopOnMountWrapper>
-            }
-            path=":categoryName/:subcategoryName"
-          />
-        </Route>
-        <Route
-          path="recurrence"
-        >
-          <Route
-            element={
-              <ScrollToTopOnMountWrapper>
-                <withError(RecurrencesPage) />
-              </ScrollToTopOnMountWrapper>
-            }
-            index={true}
-          />
-          <Route
-            element={
-              <ScrollToTopOnMountWrapper>
-                <RecurrencePage />
-              </ScrollToTopOnMountWrapper>
-            }
-            path=":bundleId"
-          />
-        </Route>
-      </Route>
-      <Route
-        path="settings"
+        path="recurrence"
       >
         <Route
           element={
-            <Navigate
-              replace={true}
-              to="../configuration/import"
-            />
+            <ScrollToTopOnMountWrapper>
+              <withError(RecurrencesPage) />
+            </ScrollToTopOnMountWrapper>
           }
-          path="import"
-        />
-        <Route
-          element={
-            <Navigate
-              replace={true}
-              to="../export"
-            />
-          }
-          path="configuration/export"
-        />
-        <Route
-          element={<Export />}
-          path="export"
+          index={true}
         />
         <Route
           element={
             <ScrollToTopOnMountWrapper>
-              <Settings
-                delayContent={0}
-              />
+              <RecurrencePage />
             </ScrollToTopOnMountWrapper>
           }
-        >
-          <Route
-            element={<Unknown />}
-            index={true}
-          />
-          <Route
-            element={<Memo(AccountsSettings) />}
-            path="accounts"
-          />
-          <Route
-            element={<withQuery(withQuery(Groups)) />}
-            path="groups"
-          />
-          <Route
-            element={<TagsSettings />}
-            path="tags"
-          />
-          <Route
-            element={
-              <OutletWrapper
-                Component={[Function]}
-              />
-            }
-            path="configuration"
-          >
-            <Route
-              element={<Import />}
-              path="import"
-            />
-          </Route>
-        </Route>
-        <Route
-          element={
-            <ScrollToTopOnMountWrapper>
-              <Memo(NewGroupSettings) />
-            </ScrollToTopOnMountWrapper>
-          }
-          path="groups/new"
-        />
-        <Route
-          element={
-            <ScrollToTopOnMountWrapper>
-              <Memo(ExistingGroupSettings) />
-            </ScrollToTopOnMountWrapper>
-          }
-          path="groups/:groupId"
-        />
-        <Route
-          element={
-            <Navigate
-              replace={true}
-              to="../accounts"
-            />
-          }
-          path="accounts/:accountId"
+          path=":bundleId"
         />
       </Route>
+    </Route>
+    <Route
+      path="settings"
+    >
       <Route
         element={
-          <ScrollToTopOnMountWrapper>
-            <TagPage />
-          </ScrollToTopOnMountWrapper>
+          <Navigate
+            replace={true}
+            to="../configuration/import"
+          />
         }
-        path="tag/:tagId"
-      />
-      <Route
-        element={
-          <ScrollToTopOnMountWrapper>
-            <Unknown />
-          </ScrollToTopOnMountWrapper>
-        }
-        path="transfers"
-      />
-      <Route
-        element={
-          <ScrollToTopOnMountWrapper>
-            <SearchPage />
-          </ScrollToTopOnMountWrapper>
-        }
-        path="search"
-      />
-      <Route
-        element={
-          <ScrollToTopOnMountWrapper>
-            <SearchPage />
-          </ScrollToTopOnMountWrapper>
-        }
-        path="search/:search"
-      />
-      <Route
-        element={
-          <ScrollToTopOnMountWrapper>
-            <DebugRecurrencePage />
-          </ScrollToTopOnMountWrapper>
-        }
-        path="recurrencedebug"
+        path="import"
       />
       <Route
         element={
           <Navigate
             replace={true}
-            to="balances"
+            to="../export"
           />
         }
-        path="*"
+        path="configuration/export"
+      />
+      <Route
+        element={<Export />}
+        path="export"
+      />
+      <Route
+        element={
+          <ScrollToTopOnMountWrapper>
+            <Settings
+              delayContent={0}
+            />
+          </ScrollToTopOnMountWrapper>
+        }
+      >
+        <Route
+          element={<Unknown />}
+          index={true}
+        />
+        <Route
+          element={<Memo(AccountsSettings) />}
+          path="accounts"
+        />
+        <Route
+          element={<withQuery(withQuery(Groups)) />}
+          path="groups"
+        />
+        <Route
+          element={<TagsSettings />}
+          path="tags"
+        />
+        <Route
+          element={
+            <OutletWrapper
+              Component={[Function]}
+            />
+          }
+          path="configuration"
+        >
+          <Route
+            element={<Import />}
+            path="import"
+          />
+        </Route>
+      </Route>
+      <Route
+        element={
+          <ScrollToTopOnMountWrapper>
+            <Memo(NewGroupSettings) />
+          </ScrollToTopOnMountWrapper>
+        }
+        path="groups/new"
+      />
+      <Route
+        element={
+          <ScrollToTopOnMountWrapper>
+            <Memo(ExistingGroupSettings) />
+          </ScrollToTopOnMountWrapper>
+        }
+        path="groups/:groupId"
+      />
+      <Route
+        element={
+          <Navigate
+            replace={true}
+            to="../accounts"
+          />
+        }
+        path="accounts/:accountId"
       />
     </Route>
+    <Route
+      element={
+        <ScrollToTopOnMountWrapper>
+          <TagPage />
+        </ScrollToTopOnMountWrapper>
+      }
+      path="tag/:tagId"
+    />
+    <Route
+      element={
+        <ScrollToTopOnMountWrapper>
+          <Unknown />
+        </ScrollToTopOnMountWrapper>
+      }
+      path="transfers"
+    />
+    <Route
+      element={
+        <ScrollToTopOnMountWrapper>
+          <SearchPage />
+        </ScrollToTopOnMountWrapper>
+      }
+      path="search"
+    />
+    <Route
+      element={
+        <ScrollToTopOnMountWrapper>
+          <SearchPage />
+        </ScrollToTopOnMountWrapper>
+      }
+      path="search/:search"
+    />
+    <Route
+      element={
+        <ScrollToTopOnMountWrapper>
+          <DebugRecurrencePage />
+        </ScrollToTopOnMountWrapper>
+      }
+      path="recurrencedebug"
+    />
+    <Route
+      element={
+        <Navigate
+          replace={true}
+          to="balances"
+        />
+      }
+      path="*"
+    />
   </Route>
 </Routes>
 `;
@@ -274,28 +270,85 @@ exports[`App route should be a function returning a route 1`] = `
 exports[`App route should have renderExtraRoutes 1`] = `
 <Routes>
   <Route
-    element={<withClient(UserActionRequired) />}
+    element={<withQuery(App) />}
+    path="/"
   >
     <Route
-      element={<withQuery(App) />}
-      path="/"
+      element={
+        <Navigate
+          replace={true}
+          to="balances"
+        />
+      }
+      index={true}
+    />
+    <Route
+      path="balances"
     >
       <Route
         element={
-          <Navigate
-            replace={true}
-            to="balances"
-          />
+          <ScrollToTopOnMountWrapper>
+            <BalanceWithBanksJobs />
+          </ScrollToTopOnMountWrapper>
         }
         index={true}
       />
       <Route
-        path="balances"
+        element={
+          <ScrollToTopOnMountWrapper>
+            <Memo(Connect(RawBalanceDetailsPage)) />
+          </ScrollToTopOnMountWrapper>
+        }
+        path="details"
+      />
+      <Route
+        element={
+          <ScrollToTopOnMountWrapper>
+            <PlannedTransactionsPage
+              emptyIcon="cozy"
+            />
+          </ScrollToTopOnMountWrapper>
+        }
+        path="future"
+      />
+      <Route
+        element={<SetFilterAndRedirect />}
+        path=":accountOrGroupId/:page"
+      />
+    </Route>
+    <Route
+      element={
+        <Navigate
+          replace={true}
+          to="../analysis/categories"
+        />
+      }
+      path="categories/*"
+    />
+    <Route
+      element={
+        <Navigate
+          replace={true}
+          to="../analysis/recurrence"
+        />
+      }
+      path="recurrence/*"
+    />
+    <Route
+      element={
+        <ScrollToTopOnMountWrapper>
+          <AnalysisPage />
+        </ScrollToTopOnMountWrapper>
+      }
+      path="analysis"
+    >
+      <Route
+        path="categories"
       >
         <Route
           element={
             <ScrollToTopOnMountWrapper>
-              <BalanceWithBanksJobs />
+              <Unknown />
             </ScrollToTopOnMountWrapper>
           }
           index={true}
@@ -303,245 +356,184 @@ exports[`App route should have renderExtraRoutes 1`] = `
         <Route
           element={
             <ScrollToTopOnMountWrapper>
-              <Memo(Connect(RawBalanceDetailsPage)) />
+              <Unknown />
             </ScrollToTopOnMountWrapper>
           }
-          path="details"
+          path=":categoryName"
         />
         <Route
           element={
             <ScrollToTopOnMountWrapper>
-              <PlannedTransactionsPage
-                emptyIcon="cozy"
-              />
+              <Unknown />
             </ScrollToTopOnMountWrapper>
           }
-          path="future"
-        />
-        <Route
-          element={<SetFilterAndRedirect />}
-          path=":accountOrGroupId/:page"
+          path=":categoryName/:subcategoryName"
         />
       </Route>
       <Route
-        element={
-          <Navigate
-            replace={true}
-            to="../analysis/categories"
-          />
-        }
-        path="categories/*"
-      />
-      <Route
-        element={
-          <Navigate
-            replace={true}
-            to="../analysis/recurrence"
-          />
-        }
-        path="recurrence/*"
-      />
-      <Route
-        element={
-          <ScrollToTopOnMountWrapper>
-            <AnalysisPage />
-          </ScrollToTopOnMountWrapper>
-        }
-        path="analysis"
-      >
-        <Route
-          path="categories"
-        >
-          <Route
-            element={
-              <ScrollToTopOnMountWrapper>
-                <Unknown />
-              </ScrollToTopOnMountWrapper>
-            }
-            index={true}
-          />
-          <Route
-            element={
-              <ScrollToTopOnMountWrapper>
-                <Unknown />
-              </ScrollToTopOnMountWrapper>
-            }
-            path=":categoryName"
-          />
-          <Route
-            element={
-              <ScrollToTopOnMountWrapper>
-                <Unknown />
-              </ScrollToTopOnMountWrapper>
-            }
-            path=":categoryName/:subcategoryName"
-          />
-        </Route>
-        <Route
-          path="recurrence"
-        >
-          <Route
-            element={
-              <ScrollToTopOnMountWrapper>
-                <withError(RecurrencesPage) />
-              </ScrollToTopOnMountWrapper>
-            }
-            index={true}
-          />
-          <Route
-            element={
-              <ScrollToTopOnMountWrapper>
-                <RecurrencePage />
-              </ScrollToTopOnMountWrapper>
-            }
-            path=":bundleId"
-          />
-        </Route>
-      </Route>
-      <Route
-        path="settings"
+        path="recurrence"
       >
         <Route
           element={
-            <Navigate
-              replace={true}
-              to="../configuration/import"
-            />
+            <ScrollToTopOnMountWrapper>
+              <withError(RecurrencesPage) />
+            </ScrollToTopOnMountWrapper>
           }
-          path="import"
-        />
-        <Route
-          element={
-            <Navigate
-              replace={true}
-              to="../export"
-            />
-          }
-          path="configuration/export"
-        />
-        <Route
-          element={<Export />}
-          path="export"
+          index={true}
         />
         <Route
           element={
             <ScrollToTopOnMountWrapper>
-              <Settings
-                delayContent={0}
-              />
+              <RecurrencePage />
             </ScrollToTopOnMountWrapper>
           }
-        >
-          <Route
-            element={<Unknown />}
-            index={true}
-          />
-          <Route
-            element={<Memo(AccountsSettings) />}
-            path="accounts"
-          />
-          <Route
-            element={<withQuery(withQuery(Groups)) />}
-            path="groups"
-          />
-          <Route
-            element={<TagsSettings />}
-            path="tags"
-          />
-          <Route
-            element={
-              <OutletWrapper
-                Component={[Function]}
-              />
-            }
-            path="configuration"
-          >
-            <Route
-              element={<Import />}
-              path="import"
-            />
-          </Route>
-        </Route>
-        <Route
-          element={
-            <ScrollToTopOnMountWrapper>
-              <Memo(NewGroupSettings) />
-            </ScrollToTopOnMountWrapper>
-          }
-          path="groups/new"
-        />
-        <Route
-          element={
-            <ScrollToTopOnMountWrapper>
-              <Memo(ExistingGroupSettings) />
-            </ScrollToTopOnMountWrapper>
-          }
-          path="groups/:groupId"
-        />
-        <Route
-          element={
-            <Navigate
-              replace={true}
-              to="../accounts"
-            />
-          }
-          path="accounts/:accountId"
+          path=":bundleId"
         />
       </Route>
+    </Route>
+    <Route
+      path="settings"
+    >
       <Route
         element={
-          <ScrollToTopOnMountWrapper>
-            <TagPage />
-          </ScrollToTopOnMountWrapper>
+          <Navigate
+            replace={true}
+            to="../configuration/import"
+          />
         }
-        path="tag/:tagId"
-      />
-      <Route
-        element={
-          <ScrollToTopOnMountWrapper>
-            <Unknown />
-          </ScrollToTopOnMountWrapper>
-        }
-        path="transfers"
-      />
-      <Route
-        element={
-          <ScrollToTopOnMountWrapper>
-            <SearchPage />
-          </ScrollToTopOnMountWrapper>
-        }
-        path="search"
-      />
-      <Route
-        element={
-          <ScrollToTopOnMountWrapper>
-            <SearchPage />
-          </ScrollToTopOnMountWrapper>
-        }
-        path="search/:search"
-      />
-      <Route
-        element={
-          <ScrollToTopOnMountWrapper>
-            <DebugRecurrencePage />
-          </ScrollToTopOnMountWrapper>
-        }
-        path="recurrencedebug"
-      />
-      <Route
-        element={<NewComponent />}
-        path="extra-route"
+        path="import"
       />
       <Route
         element={
           <Navigate
             replace={true}
-            to="balances"
+            to="../export"
           />
         }
-        path="*"
+        path="configuration/export"
+      />
+      <Route
+        element={<Export />}
+        path="export"
+      />
+      <Route
+        element={
+          <ScrollToTopOnMountWrapper>
+            <Settings
+              delayContent={0}
+            />
+          </ScrollToTopOnMountWrapper>
+        }
+      >
+        <Route
+          element={<Unknown />}
+          index={true}
+        />
+        <Route
+          element={<Memo(AccountsSettings) />}
+          path="accounts"
+        />
+        <Route
+          element={<withQuery(withQuery(Groups)) />}
+          path="groups"
+        />
+        <Route
+          element={<TagsSettings />}
+          path="tags"
+        />
+        <Route
+          element={
+            <OutletWrapper
+              Component={[Function]}
+            />
+          }
+          path="configuration"
+        >
+          <Route
+            element={<Import />}
+            path="import"
+          />
+        </Route>
+      </Route>
+      <Route
+        element={
+          <ScrollToTopOnMountWrapper>
+            <Memo(NewGroupSettings) />
+          </ScrollToTopOnMountWrapper>
+        }
+        path="groups/new"
+      />
+      <Route
+        element={
+          <ScrollToTopOnMountWrapper>
+            <Memo(ExistingGroupSettings) />
+          </ScrollToTopOnMountWrapper>
+        }
+        path="groups/:groupId"
+      />
+      <Route
+        element={
+          <Navigate
+            replace={true}
+            to="../accounts"
+          />
+        }
+        path="accounts/:accountId"
       />
     </Route>
+    <Route
+      element={
+        <ScrollToTopOnMountWrapper>
+          <TagPage />
+        </ScrollToTopOnMountWrapper>
+      }
+      path="tag/:tagId"
+    />
+    <Route
+      element={
+        <ScrollToTopOnMountWrapper>
+          <Unknown />
+        </ScrollToTopOnMountWrapper>
+      }
+      path="transfers"
+    />
+    <Route
+      element={
+        <ScrollToTopOnMountWrapper>
+          <SearchPage />
+        </ScrollToTopOnMountWrapper>
+      }
+      path="search"
+    />
+    <Route
+      element={
+        <ScrollToTopOnMountWrapper>
+          <SearchPage />
+        </ScrollToTopOnMountWrapper>
+      }
+      path="search/:search"
+    />
+    <Route
+      element={
+        <ScrollToTopOnMountWrapper>
+          <DebugRecurrencePage />
+        </ScrollToTopOnMountWrapper>
+      }
+      path="recurrencedebug"
+    />
+    <Route
+      element={<NewComponent />}
+      path="extra-route"
+    />
+    <Route
+      element={
+        <Navigate
+          replace={true}
+          to="balances"
+        />
+      }
+      path="*"
+    />
   </Route>
 </Routes>
 `;
@@ -549,41 +541,94 @@ exports[`App route should have renderExtraRoutes 1`] = `
 exports[`App route should have renderExtraRoutesOnly if condition is true 1`] = `
 <Routes>
   <Route
-    element={<withClient(UserActionRequired) />}
-  >
-    <Route
-      element={<NewComponent />}
-      path="extra-route-only"
-    />
-  </Route>
+    element={<NewComponent />}
+    path="extra-route-only"
+  />
 </Routes>
 `;
 
 exports[`App route should not have renderExtraRoutesOnly if condition is false 1`] = `
 <Routes>
   <Route
-    element={<withClient(UserActionRequired) />}
+    element={<withQuery(App) />}
+    path="/"
   >
     <Route
-      element={<withQuery(App) />}
-      path="/"
+      element={
+        <Navigate
+          replace={true}
+          to="balances"
+        />
+      }
+      index={true}
+    />
+    <Route
+      path="balances"
     >
       <Route
         element={
-          <Navigate
-            replace={true}
-            to="balances"
-          />
+          <ScrollToTopOnMountWrapper>
+            <BalanceWithBanksJobs />
+          </ScrollToTopOnMountWrapper>
         }
         index={true}
       />
       <Route
-        path="balances"
+        element={
+          <ScrollToTopOnMountWrapper>
+            <Memo(Connect(RawBalanceDetailsPage)) />
+          </ScrollToTopOnMountWrapper>
+        }
+        path="details"
+      />
+      <Route
+        element={
+          <ScrollToTopOnMountWrapper>
+            <PlannedTransactionsPage
+              emptyIcon="cozy"
+            />
+          </ScrollToTopOnMountWrapper>
+        }
+        path="future"
+      />
+      <Route
+        element={<SetFilterAndRedirect />}
+        path=":accountOrGroupId/:page"
+      />
+    </Route>
+    <Route
+      element={
+        <Navigate
+          replace={true}
+          to="../analysis/categories"
+        />
+      }
+      path="categories/*"
+    />
+    <Route
+      element={
+        <Navigate
+          replace={true}
+          to="../analysis/recurrence"
+        />
+      }
+      path="recurrence/*"
+    />
+    <Route
+      element={
+        <ScrollToTopOnMountWrapper>
+          <AnalysisPage />
+        </ScrollToTopOnMountWrapper>
+      }
+      path="analysis"
+    >
+      <Route
+        path="categories"
       >
         <Route
           element={
             <ScrollToTopOnMountWrapper>
-              <BalanceWithBanksJobs />
+              <Unknown />
             </ScrollToTopOnMountWrapper>
           }
           index={true}
@@ -591,241 +636,180 @@ exports[`App route should not have renderExtraRoutesOnly if condition is false 1
         <Route
           element={
             <ScrollToTopOnMountWrapper>
-              <Memo(Connect(RawBalanceDetailsPage)) />
+              <Unknown />
             </ScrollToTopOnMountWrapper>
           }
-          path="details"
+          path=":categoryName"
         />
         <Route
           element={
             <ScrollToTopOnMountWrapper>
-              <PlannedTransactionsPage
-                emptyIcon="cozy"
-              />
+              <Unknown />
             </ScrollToTopOnMountWrapper>
           }
-          path="future"
-        />
-        <Route
-          element={<SetFilterAndRedirect />}
-          path=":accountOrGroupId/:page"
+          path=":categoryName/:subcategoryName"
         />
       </Route>
       <Route
-        element={
-          <Navigate
-            replace={true}
-            to="../analysis/categories"
-          />
-        }
-        path="categories/*"
-      />
-      <Route
-        element={
-          <Navigate
-            replace={true}
-            to="../analysis/recurrence"
-          />
-        }
-        path="recurrence/*"
-      />
-      <Route
-        element={
-          <ScrollToTopOnMountWrapper>
-            <AnalysisPage />
-          </ScrollToTopOnMountWrapper>
-        }
-        path="analysis"
-      >
-        <Route
-          path="categories"
-        >
-          <Route
-            element={
-              <ScrollToTopOnMountWrapper>
-                <Unknown />
-              </ScrollToTopOnMountWrapper>
-            }
-            index={true}
-          />
-          <Route
-            element={
-              <ScrollToTopOnMountWrapper>
-                <Unknown />
-              </ScrollToTopOnMountWrapper>
-            }
-            path=":categoryName"
-          />
-          <Route
-            element={
-              <ScrollToTopOnMountWrapper>
-                <Unknown />
-              </ScrollToTopOnMountWrapper>
-            }
-            path=":categoryName/:subcategoryName"
-          />
-        </Route>
-        <Route
-          path="recurrence"
-        >
-          <Route
-            element={
-              <ScrollToTopOnMountWrapper>
-                <withError(RecurrencesPage) />
-              </ScrollToTopOnMountWrapper>
-            }
-            index={true}
-          />
-          <Route
-            element={
-              <ScrollToTopOnMountWrapper>
-                <RecurrencePage />
-              </ScrollToTopOnMountWrapper>
-            }
-            path=":bundleId"
-          />
-        </Route>
-      </Route>
-      <Route
-        path="settings"
+        path="recurrence"
       >
         <Route
           element={
-            <Navigate
-              replace={true}
-              to="../configuration/import"
-            />
+            <ScrollToTopOnMountWrapper>
+              <withError(RecurrencesPage) />
+            </ScrollToTopOnMountWrapper>
           }
-          path="import"
-        />
-        <Route
-          element={
-            <Navigate
-              replace={true}
-              to="../export"
-            />
-          }
-          path="configuration/export"
-        />
-        <Route
-          element={<Export />}
-          path="export"
+          index={true}
         />
         <Route
           element={
             <ScrollToTopOnMountWrapper>
-              <Settings
-                delayContent={0}
-              />
+              <RecurrencePage />
             </ScrollToTopOnMountWrapper>
           }
-        >
-          <Route
-            element={<Unknown />}
-            index={true}
-          />
-          <Route
-            element={<Memo(AccountsSettings) />}
-            path="accounts"
-          />
-          <Route
-            element={<withQuery(withQuery(Groups)) />}
-            path="groups"
-          />
-          <Route
-            element={<TagsSettings />}
-            path="tags"
-          />
-          <Route
-            element={
-              <OutletWrapper
-                Component={[Function]}
-              />
-            }
-            path="configuration"
-          >
-            <Route
-              element={<Import />}
-              path="import"
-            />
-          </Route>
-        </Route>
-        <Route
-          element={
-            <ScrollToTopOnMountWrapper>
-              <Memo(NewGroupSettings) />
-            </ScrollToTopOnMountWrapper>
-          }
-          path="groups/new"
-        />
-        <Route
-          element={
-            <ScrollToTopOnMountWrapper>
-              <Memo(ExistingGroupSettings) />
-            </ScrollToTopOnMountWrapper>
-          }
-          path="groups/:groupId"
-        />
-        <Route
-          element={
-            <Navigate
-              replace={true}
-              to="../accounts"
-            />
-          }
-          path="accounts/:accountId"
+          path=":bundleId"
         />
       </Route>
+    </Route>
+    <Route
+      path="settings"
+    >
       <Route
         element={
-          <ScrollToTopOnMountWrapper>
-            <TagPage />
-          </ScrollToTopOnMountWrapper>
+          <Navigate
+            replace={true}
+            to="../configuration/import"
+          />
         }
-        path="tag/:tagId"
-      />
-      <Route
-        element={
-          <ScrollToTopOnMountWrapper>
-            <Unknown />
-          </ScrollToTopOnMountWrapper>
-        }
-        path="transfers"
-      />
-      <Route
-        element={
-          <ScrollToTopOnMountWrapper>
-            <SearchPage />
-          </ScrollToTopOnMountWrapper>
-        }
-        path="search"
-      />
-      <Route
-        element={
-          <ScrollToTopOnMountWrapper>
-            <SearchPage />
-          </ScrollToTopOnMountWrapper>
-        }
-        path="search/:search"
-      />
-      <Route
-        element={
-          <ScrollToTopOnMountWrapper>
-            <DebugRecurrencePage />
-          </ScrollToTopOnMountWrapper>
-        }
-        path="recurrencedebug"
+        path="import"
       />
       <Route
         element={
           <Navigate
             replace={true}
-            to="balances"
+            to="../export"
           />
         }
-        path="*"
+        path="configuration/export"
+      />
+      <Route
+        element={<Export />}
+        path="export"
+      />
+      <Route
+        element={
+          <ScrollToTopOnMountWrapper>
+            <Settings
+              delayContent={0}
+            />
+          </ScrollToTopOnMountWrapper>
+        }
+      >
+        <Route
+          element={<Unknown />}
+          index={true}
+        />
+        <Route
+          element={<Memo(AccountsSettings) />}
+          path="accounts"
+        />
+        <Route
+          element={<withQuery(withQuery(Groups)) />}
+          path="groups"
+        />
+        <Route
+          element={<TagsSettings />}
+          path="tags"
+        />
+        <Route
+          element={
+            <OutletWrapper
+              Component={[Function]}
+            />
+          }
+          path="configuration"
+        >
+          <Route
+            element={<Import />}
+            path="import"
+          />
+        </Route>
+      </Route>
+      <Route
+        element={
+          <ScrollToTopOnMountWrapper>
+            <Memo(NewGroupSettings) />
+          </ScrollToTopOnMountWrapper>
+        }
+        path="groups/new"
+      />
+      <Route
+        element={
+          <ScrollToTopOnMountWrapper>
+            <Memo(ExistingGroupSettings) />
+          </ScrollToTopOnMountWrapper>
+        }
+        path="groups/:groupId"
+      />
+      <Route
+        element={
+          <Navigate
+            replace={true}
+            to="../accounts"
+          />
+        }
+        path="accounts/:accountId"
       />
     </Route>
+    <Route
+      element={
+        <ScrollToTopOnMountWrapper>
+          <TagPage />
+        </ScrollToTopOnMountWrapper>
+      }
+      path="tag/:tagId"
+    />
+    <Route
+      element={
+        <ScrollToTopOnMountWrapper>
+          <Unknown />
+        </ScrollToTopOnMountWrapper>
+      }
+      path="transfers"
+    />
+    <Route
+      element={
+        <ScrollToTopOnMountWrapper>
+          <SearchPage />
+        </ScrollToTopOnMountWrapper>
+      }
+      path="search"
+    />
+    <Route
+      element={
+        <ScrollToTopOnMountWrapper>
+          <SearchPage />
+        </ScrollToTopOnMountWrapper>
+      }
+      path="search/:search"
+    />
+    <Route
+      element={
+        <ScrollToTopOnMountWrapper>
+          <DebugRecurrencePage />
+        </ScrollToTopOnMountWrapper>
+      }
+      path="recurrencedebug"
+    />
+    <Route
+      element={
+        <Navigate
+          replace={true}
+          to="balances"
+        />
+      }
+      path="*"
+    />
   </Route>
 </Routes>
 `;

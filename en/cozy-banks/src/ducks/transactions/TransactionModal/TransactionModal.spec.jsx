@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, fireEvent, within } from '@testing-library/react'
-import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import Alerter from 'cozy-ui/transpiled/react/deprecated/Alerter'
 import { format } from 'date-fns'
 import { createMockClient } from 'cozy-client'
 
@@ -32,7 +32,7 @@ jest.mock('ducks/tracking/tracker', () => {
   }
 })
 
-jest.mock('cozy-ui/transpiled/react/Alerter', () => ({
+jest.mock('cozy-ui/transpiled/react/deprecated/Alerter', () => ({
   success: jest.fn()
 }))
 

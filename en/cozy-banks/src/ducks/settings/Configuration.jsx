@@ -1,11 +1,9 @@
-/* global __TARGET__ */
-
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import set from 'lodash/set'
 import compose from 'lodash/flowRight'
 
-import { translate } from 'cozy-ui/transpiled/react/I18n'
+import { translate } from 'cozy-ui/transpiled/react/providers/I18n'
 import Button from 'cozy-ui/transpiled/react/Buttons'
 import {
   queryConnect,
@@ -18,7 +16,6 @@ import flag from 'cozy-flags'
 import { settingsConn } from 'doctypes'
 import Loading from 'components/Loading'
 import { getDefaultedSettingsFromCollection } from 'ducks/settings/helpers'
-import PinSettings from 'ducks/settings/PinSettings'
 import { Section, SubSection } from 'ducks/settings/Sections'
 
 import DelayedDebitAlertRules from 'ducks/settings/DelayedDebitAlertRules'
@@ -30,7 +27,6 @@ import BalanceLowerRules from './BalanceLowerRules'
 import BalanceGreaterRules from './BalanceGreaterRules'
 import TransactionGreaterRules from './TransactionGreaterRules'
 
-import { PersonalInfoDialog } from 'ducks/personal-info'
 import { lateHealthReimbursement } from './specs'
 import { trackPage, trackEvent } from 'ducks/tracking/browser'
 import { launchExportJob } from 'ducks/export/helpers'
@@ -210,7 +206,6 @@ export class Configuration extends React.Component {
           )}
         </Section>
         <Section title={t('AdvancedFeaturesSettings.title')}>
-          {__TARGET__ === 'mobile' ? <PinSettings /> : null}
           <SubSection title={t('Settings.security.title')}>
             <ToggleRow
               description={t('Settings.security.amount-blur.description')}
@@ -263,24 +258,6 @@ export class Configuration extends React.Component {
               </SubSection>
             )}
         </Section>
-
-        {flag('banks.transfers.need-personal-information') ? (
-          <Section title={t('Settings.personal-info.title')}>
-            <Button
-              label={t('Settings.personal-info.edit')}
-              theme="contained"
-              onClick={() => this.setState({ showPersonalInfoDialog: true })}
-            />
-            {this.state.showPersonalInfoDialog ? (
-              <PersonalInfoDialog
-                onSaveSuccessful={() => {
-                  this.setState({ showPersonalInfoDialog: false })
-                }}
-                onClose={() => this.setState({ showPersonalInfoDialog: false })}
-              />
-            ) : null}
-          </Section>
-        ) : null}
 
         {Configuration.renderExtraItems()}
       </>

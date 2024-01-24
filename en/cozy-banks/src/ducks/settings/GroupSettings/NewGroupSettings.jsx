@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useClient } from 'cozy-client'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import BarTheme from 'ducks/bar/BarTheme'
 import GroupSettings from 'ducks/settings/GroupSettings'

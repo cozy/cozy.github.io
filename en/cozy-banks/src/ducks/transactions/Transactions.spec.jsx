@@ -5,8 +5,8 @@ import { render, fireEvent, wait } from '@testing-library/react'
 import { within } from '@testing-library/dom'
 
 import flag from 'cozy-flags'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
-import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
+import Alerter from 'cozy-ui/transpiled/react/deprecated/Alerter'
 import { createMockClient } from 'cozy-client/dist/mock'
 
 import data from 'test/fixtures'
@@ -18,13 +18,13 @@ import { TransactionsDumb, sortByDate } from './Transactions'
 // No need to test this here
 jest.mock('ducks/transactions/TransactionPageErrors', () => () => null)
 
-jest.mock('cozy-ui/transpiled/react/hooks/useBreakpoints', () => ({
+jest.mock('cozy-ui/transpiled/react/providers/Breakpoints', () => ({
   __esModule: true,
   default: jest.fn(),
   BreakpointsProvider: ({ children }) => children
 }))
 
-jest.mock('cozy-ui/transpiled/react/Alerter', () => ({
+jest.mock('cozy-ui/transpiled/react/deprecated/Alerter', () => ({
   success: jest.fn(),
   error: jest.fn()
 }))

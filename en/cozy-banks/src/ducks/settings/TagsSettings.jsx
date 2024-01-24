@@ -2,7 +2,7 @@ import React from 'react'
 
 import { tagsConn } from 'doctypes'
 import { useQueryAll, isQueryLoading } from 'cozy-client'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 
 import TagsListSettings from 'ducks/settings/TagsListSettings'

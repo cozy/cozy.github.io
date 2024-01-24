@@ -4,11 +4,9 @@ import Icon from 'cozy-ui/transpiled/react/Icon'
 import IconButton from 'cozy-ui/transpiled/react/IconButton'
 import CrossIcon from 'cozy-ui/transpiled/react/Icons/CrossCircle'
 import FileIcon from 'cozy-ui/transpiled/react/Icons/FileTypeSheet'
-import List from 'cozy-ui/transpiled/react/MuiCozyTheme/List'
-import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
-import ListItemIcon, {
-  smallSize
-} from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
+import List from 'cozy-ui/transpiled/react/List'
+import ListItem from 'cozy-ui/transpiled/react/ListItem'
+import ListItemIcon, { smallSize } from 'cozy-ui/transpiled/react/ListItemIcon'
 import Paper from 'cozy-ui/transpiled/react/Paper'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 

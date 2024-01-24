@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Padded from 'components/Padded'
 
-import { translate } from 'cozy-ui/transpiled/react/I18n'
+import { translate } from 'cozy-ui/transpiled/react/providers/I18n'
 import Input from 'cozy-ui/transpiled/react/Input'
 import InputGroup from 'cozy-ui/transpiled/react/InputGroup'
 import Label from 'cozy-ui/transpiled/react/Label'

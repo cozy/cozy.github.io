@@ -1,9 +1,9 @@
 import React from 'react'
 import { shallow } from 'enzyme'
 import PageTitle from './PageTitle'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
-jest.mock('cozy-ui/transpiled/react/hooks/useBreakpoints')
+jest.mock('cozy-ui/transpiled/react/providers/Breakpoints')
 
 describe('PageTitle', () => {
   it(`should display children on mobile`, () => {

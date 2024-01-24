@@ -4,7 +4,7 @@ import compose from 'lodash/flowRight'
 
 import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import Stack from 'cozy-ui/transpiled/react/Stack'
-import { translate, useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { translate, useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import {
   withClient,
   queryConnect,

@@ -1,12 +1,12 @@
 import React from 'react'
 import { MemoryRouter } from 'react-router-dom'
-import I18n from 'cozy-ui/transpiled/react/I18n'
+import I18n from "cozy-ui/transpiled/react/providers/I18n"
 import { CozyProvider } from 'cozy-client'
 import { Provider } from 'react-redux'
 import langEn from 'locales/en.json'
 import store from 'test/store'
 import getClient from 'test/client'
-import { BreakpointsProvider } from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import { BreakpointsProvider } from "cozy-ui/transpiled/react/providers/Breakpoints"
 import { TrackerProvider } from 'ducks/tracking/browser'
 import { JobsContext } from 'ducks/context/JobsContext'
 import { BanksContext } from 'ducks/context/BanksContext'

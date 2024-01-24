@@ -1,11 +1,9 @@
-/* global __TARGET__ */
 import { Intents } from 'cozy-interapp'
 import { RealtimePlugin } from 'cozy-realtime'
 
 let client
 
-const lib =
-  __TARGET__ === 'mobile' ? require('./mobile/mobile') : require('./web')
+const lib = require('./web')
 
 export const getClient = async () => {
   if (client) {

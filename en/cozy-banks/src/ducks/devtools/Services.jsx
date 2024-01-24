@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { useClient } from 'cozy-client'
 import flag from 'cozy-flags'
-import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import Alerter from 'cozy-ui/transpiled/react/deprecated/Alerter'
 import Typography from 'cozy-ui/transpiled/react/Typography'
-import Button from 'cozy-ui/transpiled/react/Button'
+import Button from 'cozy-ui/transpiled/react/deprecated/Button'
 import { PanelContent } from 'cozy-client/dist/devtools'
 
 const startAndWaitService = async (client, serviceName) => {

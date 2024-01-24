@@ -1,10 +1,13 @@
 // TODO Move this to Harvest
 
 import React from 'react'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import Infos from 'cozy-ui/transpiled/react/Infos'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import Infos from 'cozy-ui/transpiled/react/deprecated/Infos'
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import { getErrorLocaleBound, KonnectorJobError } from 'cozy-harvest-lib'
+import {
+  getErrorLocaleBound,
+  KonnectorJobError
+} from 'cozy-harvest-lib/dist/helpers/konnectors'
 
 import ReconnectTriggerButton from 'ducks/transactions/TransactionPageErrors/ReconnectTriggerButton'
 import WarningIcon from 'cozy-ui/transpiled/react/Icons/Warning'

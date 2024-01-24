@@ -11,7 +11,7 @@ import {
   dehydrate
 } from 'cozy-client'
 import NestedSelect from 'cozy-ui/transpiled/react/NestedSelect'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import PlusIcon from 'cozy-ui/transpiled/react/Icons/Plus'
 

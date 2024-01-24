@@ -3,7 +3,7 @@ import React from 'react'
 import { DialogContent } from 'cozy-ui/transpiled/react/Dialog'
 import InputGroup from 'cozy-ui/transpiled/react/InputGroup'
 import Input from 'cozy-ui/transpiled/react/Input'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import { DialogSection } from 'components/DialogSections'
 

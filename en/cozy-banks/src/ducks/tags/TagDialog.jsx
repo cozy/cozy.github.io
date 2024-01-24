@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { Dialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 
 import TagDialogTitle from 'ducks/tags/TagDialogTitle'

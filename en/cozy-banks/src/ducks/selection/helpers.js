@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react'
 
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import GraphCircleIcon from 'cozy-ui/transpiled/react/Icons/GraphCircle'
 import SelectAllIcon from 'cozy-ui/transpiled/react/Icons/SelectAll'
 

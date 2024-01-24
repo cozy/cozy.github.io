@@ -2,7 +2,7 @@ import React, { memo } from 'react'
 
 import { useQuery } from 'cozy-client'
 import flag from 'cozy-flags'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import { makeBalanceTransactionsConn } from 'doctypes'
 import Padded from 'components/Padded'

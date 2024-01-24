@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useI18n, translate } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n, translate } from 'cozy-ui/transpiled/react/providers/I18n'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import { queryConnect, hasQueryBeenLoaded } from 'cozy-client'
 import { connect } from 'react-redux'

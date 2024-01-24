@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react'
 
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import { Media, Bd, Img } from 'cozy-ui/transpiled/react/deprecated/Media'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 import TransactionTableHead from 'ducks/transactions/header/TableHead'
 import Header from 'components/Header'

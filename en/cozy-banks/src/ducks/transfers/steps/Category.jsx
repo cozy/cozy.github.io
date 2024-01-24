@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import FormControlLabel from 'cozy-ui/transpiled/react/FormControlLabel'
 import Radio from 'cozy-ui/transpiled/react/Radios'
 

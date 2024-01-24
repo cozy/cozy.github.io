@@ -2,7 +2,7 @@ import React from 'react'
 
 import { ConfirmDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import Button from 'cozy-ui/transpiled/react/Buttons'
 
 import TagAddModalContent from 'components/Tag/TagAddModalContent'

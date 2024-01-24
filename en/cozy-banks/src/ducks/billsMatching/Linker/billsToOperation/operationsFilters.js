@@ -35,8 +35,8 @@ const isHealthBill = bill => {
 }
 
 // filters
-const filterByBrand = bill => {
-  const regexp = getBillRegexp(bill)
+const filterByBrand = (bill, brands) => {
+  const regexp = getBillRegexp(bill, brands)
 
   const brandFilter = operation => {
     if (!regexp) {
@@ -107,7 +107,7 @@ const filterByReimbursements = bill => {
 
 // combine filters
 
-const operationsFilters = (bill, operations, options) => {
+const operationsFilters = (bill, operations, options, brands) => {
   const filterByConditions = filters => op => {
     for (let f of filters) {
       const res = f(op)
@@ -135,7 +135,7 @@ const operationsFilters = (bill, operations, options) => {
   // - we search a credit operation
   // - or when bill is not in the health category
   if (options.credit || !isHealthBill(bill)) {
-    const fbyBrand = filterByBrand(bill)
+    const fbyBrand = filterByBrand(bill, brands)
     conditions.push(fbyBrand)
   }
 

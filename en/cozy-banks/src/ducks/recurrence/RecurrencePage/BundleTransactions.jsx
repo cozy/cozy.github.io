@@ -1,10 +1,10 @@
 import React from 'react'
 
 import { useQuery, isQueryLoading, hasQueryBeenLoaded } from 'cozy-client'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import Empty from 'cozy-ui/transpiled/react/Empty'
-import ListSubheader from 'cozy-ui/transpiled/react/MuiCozyTheme/ListSubheader'
+import ListSubheader from 'cozy-ui/transpiled/react/ListSubheader'
 
 import Table from 'components/Table'
 import Padded from 'components/Padded'

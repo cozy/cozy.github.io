@@ -1,10 +1,10 @@
 import React from 'react'
 
 import { withStyles } from 'cozy-ui/transpiled/react/styles'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import Figure from 'cozy-ui/transpiled/react/Figure'
 import Card from 'cozy-ui/transpiled/react/Card'
-import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
+import { Media, Bd, Img } from 'cozy-ui/transpiled/react/deprecated/Media'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 
 import { getCurrencySymbol } from 'utils/currencySymbol'

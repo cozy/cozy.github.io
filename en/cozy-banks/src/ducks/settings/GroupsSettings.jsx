@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import get from 'lodash/get'
 import sortBy from 'lodash/sortBy'
 
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import Button from 'cozy-ui/transpiled/react/MuiCozyTheme/Buttons'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import Button from 'cozy-ui/transpiled/react/Button'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import PlusIcon from 'cozy-ui/transpiled/react/Icons/Plus'
@@ -17,7 +17,7 @@ import styles from 'ducks/settings/GroupsSettings.styl'
 import { getGroupLabel } from 'ducks/groups/helpers'
 import { useTrackPage } from 'ducks/tracking/browser'
 import LegalMention from 'ducks/legal/LegalMention'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 const GroupList = ({ groups }) => {
   const navigate = useNavigate()

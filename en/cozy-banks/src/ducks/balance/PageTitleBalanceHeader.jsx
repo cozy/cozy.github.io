@@ -1,9 +1,9 @@
 import React from 'react'
 import Padded from 'components/Padded'
 import { PageTitle } from 'components/Title'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import { MobileBarSearchIconLink } from 'ducks/search/SearchIconLink'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 const PageTitleBalanceHeader = () => {
   const { t } = useI18n()

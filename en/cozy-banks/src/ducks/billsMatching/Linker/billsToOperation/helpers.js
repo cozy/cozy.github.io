@@ -3,7 +3,6 @@ const get = require('lodash/get')
 const addDays = require('date-fns/add_days')
 const subDays = require('date-fns/sub_days')
 const differenceInDays = require('date-fns/difference_in_days')
-const { getBrands } = require('ducks/brandDictionary')
 
 const getOperationAmountFromBill = (bill, options) => {
   const searchingCredit = options && options.credit
@@ -94,11 +93,11 @@ const sortedOperations = (bill, operations) => {
   return sortBy(operations, buildSortFunction(bill))
 }
 
-const getBillRegexp = bill => {
+const getBillRegexp = (bill, brands) => {
   let regexpStr = bill.matchingCriterias && bill.matchingCriterias.labelRegex
 
   if (!regexpStr && bill.vendor) {
-    const [brand] = getBrands(
+    const [brand] = brands.filter(
       brand => brand.name === bill.vendor || brand.konnectorSlug === bill.vendor
     )
     regexpStr = brand ? brand.regexp : `\\b${bill.vendor}\\b`

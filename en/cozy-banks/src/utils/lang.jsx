@@ -1,5 +1,3 @@
-/* global __TARGET__ */
-
 import en from 'locales/en.json'
 import fr from 'locales/fr.json'
 import Polyglot from 'node-polyglot'
@@ -7,10 +5,6 @@ import parseCozyData from 'utils/cozyData'
 const locales = { en, fr }
 
 export const getLanguageFromDOM = rootOption => {
-  if (__TARGET__ === 'mobile' && navigator && navigator.language) {
-    return navigator.language.slice(0, 2)
-  }
-
   const root = rootOption || document.querySelector('[role=application]')
   return root?.dataset?.cozy ? parseCozyData(root).locale : 'en'
 }

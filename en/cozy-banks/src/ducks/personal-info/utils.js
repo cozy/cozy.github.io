@@ -1,14 +1,8 @@
 import { Q } from 'cozy-client'
-import sortBy from 'lodash/sortBy'
 import merge from 'lodash/merge'
 import get from 'lodash/get'
 
-import {
-  konnectorTriggersConn,
-  KONNECTOR_DOCTYPE,
-  IDENTITIES_DOCTYPE
-} from 'doctypes'
-import { updateUserConfig } from 'cozy-harvest-lib/dist/services/budget-insight'
+import { IDENTITIES_DOCTYPE } from 'doctypes'
 
 export const defaultIdentityIdentifier = 'regulatory-info'
 
@@ -84,50 +78,4 @@ export const saveIdentity = async (client, identity, contactAttrs) => {
   }
   const { data: ret } = await client.save(updatedIdentity)
   return ret
-}
-
-/**
- * Update BI user config with data from an io.cozy.identities
- * - Birth city
- * - Nationalities
- */
-export const updateBIUserConfig = async ({
-  client,
-  identity,
-  isBankTrigger
-}) => {
-  const { data: allTriggers } = await client.query(
-    konnectorTriggersConn.query(),
-    konnectorTriggersConn
-  )
-  // keep only successful bank triggers
-  const triggers = sortBy(
-    allTriggers
-      .filter(isBankTrigger)
-      .filter(trigger => trigger.current_state.last_success),
-    trigger => trigger.current_state.last_success
-  )
-
-  let konnector
-  for (let i = triggers.length - 1; i >= 0 && !konnector; i--) {
-    // last succesful trigger
-    const trigger = triggers[triggers.length - 1]
-    const { konnector: konnId } = trigger.message
-    const respKonnector = await client.query(
-      Q(KONNECTOR_DOCTYPE).getById(`io.cozy.konnectors/${konnId}`)
-    )
-    konnector = respKonnector.data.attributes
-  }
-
-  if (!konnector) {
-    throw new Error(
-      'Could not find suitable konnector to update BI user profile. Reconnect a banking konnector for BI user update to work.'
-    )
-  }
-
-  await updateUserConfig({
-    konnector,
-    client,
-    userConfig: identity.contact
-  })
 }

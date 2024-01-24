@@ -1,5 +1,3 @@
-/* global __TARGET__ */
-
 import debounce from 'lodash/debounce'
 import set from 'lodash/set'
 import sumBy from 'lodash/sumBy'
@@ -46,12 +44,6 @@ import ImportGroupPanel from 'ducks/balance/ImportGroupPanel'
 import Delayed from 'components/Delayed'
 import useFullyLoadedQuery from 'hooks/useFullyLoadedQuery'
 
-const syncPouchImmediately = async client => {
-  const pouchLink = client.links.find(link => link.pouches)
-  const pouchManager = pouchLink.pouches
-  await pouchManager.syncImmediately()
-}
-
 const isLoading = props => {
   const {
     accounts: accountsCollection,
@@ -91,7 +83,6 @@ class Balance extends PureComponent {
       trailing: true
     }).bind(this)
 
-    this.handleResume = this.handleResume.bind(this)
     this.updateQueries = this.updateQueries.bind(this)
     this.realtime = null
   }
@@ -193,35 +184,8 @@ class Balance extends PureComponent {
     this.props.transactions.fetch()
   }
 
-  handleResume() {
-    this.updateQueries()
-    if (__TARGET__ === 'mobile') {
-      const { client } = this.props
-      syncPouchImmediately(client)
-    }
-  }
-
-  startResumeListeners() {
-    if (__TARGET__ === 'mobile') {
-      document.addEventListener('resume', this.handleResume)
-      window.addEventListener('online', this.handleResume)
-    }
-  }
-
-  stopResumeListeners() {
-    if (__TARGET__ === 'mobile') {
-      document.removeEventListener('resume', this.handleResume)
-      window.removeEventListener('online', this.handleResume)
-    }
-  }
-
   componentDidMount() {
-    this.startResumeListeners()
     trackPage('moncompte:home')
-  }
-
-  componentWillUnmount() {
-    this.stopResumeListeners()
   }
 
   render() {

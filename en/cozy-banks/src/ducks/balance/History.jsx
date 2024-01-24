@@ -11,7 +11,7 @@ import cx from 'classnames'
 import { isQueryLoading, hasQueryBeenLoaded } from 'cozy-client'
 import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 import styles from 'ducks/balance/History.styl'
 import HistoryChart from 'ducks/balance/HistoryChart'

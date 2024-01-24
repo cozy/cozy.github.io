@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import Empty from 'cozy-ui/transpiled/react/Empty'
 import brokenIcon from 'assets/icons/icon-broken.svg'
 import Padded from 'components/Padded'
 import Typography from 'cozy-ui/transpiled/react/Typography'
-import { Button, ButtonLink } from 'cozy-ui/transpiled/react/Button'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import { Button, ButtonLink } from 'cozy-ui/transpiled/react/deprecated/Button'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import styles from 'components/ErrorBoundary/Error.styl'
 
 export const Error = React.memo(({ faqURL, emptyIcon }) => {

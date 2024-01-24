@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import SharingIcon from 'components/SharingIcon'
-import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
+import { Media, Bd, Img } from 'cozy-ui/transpiled/react/deprecated/Media'
 import styles from 'components/AccountSharingStatus/AccountSharingStatus.styl'
 
 const ownerRx = /\((.*)\)/ // find the word in parenthesis

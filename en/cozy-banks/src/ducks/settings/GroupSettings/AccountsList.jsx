@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import sortBy from 'lodash/sortBy'
 
 import { useClient, useQuery } from 'cozy-client'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 
 import { groupsConn } from 'doctypes'

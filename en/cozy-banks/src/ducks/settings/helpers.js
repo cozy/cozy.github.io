@@ -10,7 +10,7 @@ import compose from 'lodash/flowRight'
 import logger from 'cozy-logger'
 import { Q } from 'cozy-client'
 import { getDocumentFromState } from 'cozy-client/dist/store'
-import { translate } from 'cozy-ui/transpiled/react/I18n'
+import { translate } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import { DOCTYPE, DEFAULTS_SETTINGS } from 'ducks/settings/constants'
 import {

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import UICard from 'cozy-ui/transpiled/react/Card'
 import Icon, { iconPropType } from 'cozy-ui/transpiled/react/Icon'
 import PhoneIcon from 'cozy-ui/transpiled/react/Icons/Phone'

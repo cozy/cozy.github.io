@@ -49,31 +49,6 @@ export const checkForRevocation = async client => {
 }
 
 /**
- * Updates the device notification token
- *
- * @param  {CozyClient} client
- * @param  {String} token  - Device token, from Cordova Push Plugin
- */
-export const updateNotificationToken = (client, token) => {
-  // Updates local and remote information
-  const clientInfos = client.stackClient.oauthOptions
-  client.stackClient.updateInformation({
-    ...clientInfos,
-    notificationDeviceToken: token
-  })
-}
-
-/**
- * Get current device notification token
- *
- * @param  {CozyClient} client
- * @param  {String} token  - Device token, from Cordova Push Plugin
- */
-export const getNotificationToken = client => {
-  return client.stackClient.oauthOptions.notification_device_token
-}
-
-/**
  * Revokes all clients with the given softwareID apart from the current one
  *
  * @param  {CozyCLient} client

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Title from 'components/Title/Title'
 import { BarCenter } from 'components/Bar'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 /**
  * Renders a title in the bar

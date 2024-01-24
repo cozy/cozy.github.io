@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from 'components/Table/styles.styl'
 import cx from 'classnames'
-import { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
+import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 export const Row = ({ nav, ...props }) => {
   return (

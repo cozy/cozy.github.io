@@ -7,8 +7,6 @@ import PersonalInfoDialog, {
   PersonalInfoDialog as DumbPersonalInfoDialog
 } from './PersonalInfoDialog'
 
-jest.mock('cozy-harvest-lib/dist/services/budget-insight')
-
 jest.mock('hooks/useBankingSlugs', () => {
   return jest.fn().mockImplementation(() => {
     return {
@@ -18,8 +16,6 @@ jest.mock('hooks/useBankingSlugs', () => {
     }
   })
 })
-
-import { updateUserConfig } from 'cozy-harvest-lib/dist/services/budget-insight'
 
 const mockIdentities = [
   {
@@ -153,17 +149,6 @@ describe('personal info dialog', () => {
       identifier: 'regulatory-info',
       cozyMetadata: {
         createdByApp: 'banks'
-      }
-    })
-    await wait(() => expect(updateUserConfig).toHaveBeenCalledTimes(1))
-    expect(updateUserConfig).toHaveBeenCalledTimes(1)
-    expect(updateUserConfig).toHaveBeenCalledWith({
-      client,
-      konnector: mockKonnector.attributes,
-      userConfig: {
-        birthcity: 'Douarnenez',
-        birthcountry: 'Brazil',
-        nationalities: ['BR']
       }
     })
   })

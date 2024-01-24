@@ -18,7 +18,6 @@ module.exports = {
   snapshotSerializers: ['enzyme-to-json/serializer'],
   testPathIgnorePatterns: [
     'node_modules',
-    'src/targets/mobile/',
     JEST_PROJECT === 'e2e' ? null : '.*\\.e2e\\.spec\\.js'
   ].filter(Boolean),
   testMatch: [
@@ -32,7 +31,7 @@ module.exports = {
     '\\.hbs$': '<rootDir>/test/readFileESM.js'
   },
   transformIgnorePatterns: [
-    'node_modules/(?!(cozy-keys-lib|cozy-harvest-lib|cozy-sharing|cozy-ui|cozy-client|cozy-notifications))'
+    'node_modules/(?!(cozy-keys-lib|cozy-harvest-lib|cozy-sharing|cozy-ui|cozy-client|cozy-notifications|copy-text-to-clipboard))'
   ],
   globals: {
     __ALLOW_HTTP__: false,

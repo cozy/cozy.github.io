@@ -6,14 +6,13 @@ import cx from 'classnames'
 import debounce from 'lodash/debounce'
 import compose from 'lodash/flowRight'
 
-import { isMobileApp } from 'cozy-device-helper'
 import {
   queryConnect,
   isQueryLoading,
   hasQueryBeenLoaded,
   useQuery
 } from 'cozy-client'
-import { translate } from 'cozy-ui/transpiled/react/I18n'
+import { translate } from 'cozy-ui/transpiled/react/providers/I18n'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import flag from 'cozy-flags'
@@ -174,7 +173,6 @@ class TransactionsPage extends Component {
         transactions={transactions.data}
         canFetchMore={transactions.hasMore}
         filteringOnAccount={isFilteringOnAccount}
-        manualLoadMore={isMobileApp()}
         onReachBottom={this.handleFetchMoreBecomeVisible}
       />
     )

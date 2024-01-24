@@ -83,7 +83,7 @@ describe('LateHealthReimbursement', () => {
     const localeStrings = require(`locales/${lang}.json`)
     const {
       initTranslation
-    } = require('cozy-ui/transpiled/react/I18n/translation')
+    } = require('cozy-ui/transpiled/react/providers/I18n/translation')
     const translation = initTranslation(lang, () => localeStrings)
     const t = translation.t.bind(translation)
     const notification = new LateHealthReimbursement({

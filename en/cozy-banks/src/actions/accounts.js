@@ -2,7 +2,7 @@ import CozyClient, { Q } from 'cozy-client'
 import get from 'lodash/get'
 import uniq from 'lodash/uniq'
 
-import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import Alerter from 'cozy-ui/transpiled/react/deprecated/Alerter'
 import {
   GROUP_DOCTYPE,
   ACCOUNT_DOCTYPE,

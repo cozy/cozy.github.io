@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import Padded from 'components/Padded'
 import { getCategoryName } from 'ducks/categories/categoriesMap'

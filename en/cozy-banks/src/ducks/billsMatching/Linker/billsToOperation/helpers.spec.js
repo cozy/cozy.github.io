@@ -8,9 +8,6 @@ import {
   sortedOperations,
   getBillRegexp
 } from './helpers'
-import { getBrands } from '../../../brandDictionary'
-
-jest.mock('../../../brandDictionary')
 
 const OK = 'ok'
 
@@ -214,17 +211,17 @@ describe('getterHelper', () => {
     })
 
     it('should return the brand regexp if it exists', () => {
-      getBrands.mockReturnValueOnce([{ regexp: '\\bPAYFIT\\b' }])
+      const brands = [{ regexp: '\\bPAYFIT\\b' }]
       const bill = { vendor: 'Payfit' }
-      const regexp = getBillRegexp(bill)
+      const regexp = getBillRegexp(bill, brands)
 
-      expect(regexp.toString()).toBe('/\\bPAYFIT\\b/i')
+      expect(regexp.toString()).toBe('/\\bPayfit\\b/i')
     })
 
     it("should build a regexp from the bill's vendor if nothing else exists", () => {
-      getBrands.mockReturnValueOnce([])
+      const brands = []
       const bill = { vendor: 'Payfit' }
-      const regexp = getBillRegexp(bill)
+      const regexp = getBillRegexp(bill, brands)
 
       expect(regexp.toString()).toBe('/\\bPayfit\\b/i')
     })

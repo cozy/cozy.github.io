@@ -1,8 +1,8 @@
 import React from 'react'
 import Input from 'cozy-ui/transpiled/react/Input'
-import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
-import InlineCard from 'cozy-ui/transpiled/react/InlineCard'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { Media, Bd, Img } from 'cozy-ui/transpiled/react/deprecated/Media'
+import InlineCard from 'cozy-ui/transpiled/react/deprecated/InlineCard'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import Padded from 'components/Padded'
 import PageTitle from 'components/Title/PageTitle'

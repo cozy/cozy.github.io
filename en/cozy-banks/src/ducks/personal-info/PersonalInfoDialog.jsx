@@ -3,10 +3,10 @@ import compose from 'lodash/flowRight'
 import omit from 'lodash/omit'
 import merge from 'lodash/merge'
 
-import { translate } from 'cozy-ui/transpiled/react/I18n'
+import { translate } from 'cozy-ui/transpiled/react/providers/I18n'
 import { withClient } from 'cozy-client'
-import Alerter from 'cozy-ui/transpiled/react/Alerter'
-import Button from 'cozy-ui/transpiled/react/Button'
+import Alerter from 'cozy-ui/transpiled/react/deprecated/Alerter'
+import Button from 'cozy-ui/transpiled/react/deprecated/Button'
 import Field from 'cozy-ui/transpiled/react/Field'
 import Stack from 'cozy-ui/transpiled/react/Stack'
 import { Dialog } from 'cozy-ui/transpiled/react/CozyDialogs'
@@ -19,7 +19,6 @@ import {
   getDefaultIdentitySelector,
   saveIdentity,
   loadIdentities,
-  updateBIUserConfig,
   isCurrentAppIdentity
 } from 'ducks/personal-info/utils'
 import Typography from 'cozy-ui/transpiled/react/Typography'
@@ -122,7 +121,7 @@ export class PersonalInfoDialog extends React.Component {
    * Validates form and saves identity
    */
   async handleSave(ev) {
-    const { client, onSaveSuccessful, t, isBankTrigger } = this.props
+    const { client, onSaveSuccessful, t } = this.props
     const { formData, identity } = this.state
     ev && ev.preventDefault()
 
@@ -146,11 +145,6 @@ export class PersonalInfoDialog extends React.Component {
       })
       onSaveSuccessful && onSaveSuccessful(updatedIdentity)
       Alerter.success(t('PersonalInfo.info-saved-successfully'))
-      await updateBIUserConfig({
-        client,
-        identity: updatedIdentity,
-        isBankTrigger
-      })
       trackEvent('sauver')
     } finally {
       this.setState({ saving: false })

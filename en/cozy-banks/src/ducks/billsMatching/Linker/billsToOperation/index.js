@@ -3,7 +3,7 @@ const { findNeighboringOperations } = require('./findNeighboringOperations')
 const { sortedOperations } = require('./helpers')
 const { log, formatOperationLog, formatBillLog } = require('../../utils')
 
-const findOperation = (bill, options, allOperations) => {
+const findOperation = (bill, options, allOperations, brands) => {
   // By default, a bill is an expense. If it is not, it should be
   // declared as a refund: isRefund=true.
   if (options.credit && !bill.isRefund) return
@@ -20,7 +20,12 @@ const findOperation = (bill, options, allOperations) => {
         log('debug', formatOperationLog(operation))
       })
 
-      let filteredOperations = operationsFilters(bill, operations, options)
+      let filteredOperations = operationsFilters(
+        bill,
+        operations,
+        options,
+        brands
+      )
 
       log(
         'debug',
@@ -51,14 +56,14 @@ const findOperation = (bill, options, allOperations) => {
   )
 }
 
-const findDebitOperation = (bill, options, allOperations) => {
+const findDebitOperation = (bill, options, allOperations, brands) => {
   log('debug', `Finding debit operation for bill ${bill._id}`)
-  return findOperation(bill, options, allOperations)
+  return findOperation(bill, options, allOperations, brands)
 }
-const findCreditOperation = (bill, options, allOperations) => {
+const findCreditOperation = (bill, options, allOperations, brands) => {
   log('debug', `Finding credit operation for bill ${bill._id}`)
   const creditOptions = Object.assign({}, options, { credit: true })
-  return findOperation(bill, creditOptions, allOperations)
+  return findOperation(bill, creditOptions, allOperations, brands)
 }
 
 module.exports = {

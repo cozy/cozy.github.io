@@ -1,7 +1,7 @@
 import React from 'react'
 import { mount } from 'enzyme'
 import Header from './Header'
-import { useCozyTheme } from 'cozy-ui/transpiled/react/CozyTheme'
+import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 describe('Header', () => {
   const setup = element => mount(element).html()

@@ -1,11 +1,9 @@
 /* global __POUCH__ */
 
 import { StackLink } from 'cozy-client'
-import { isMobileApp, isIOSApp } from 'cozy-device-helper'
 import flag from 'cozy-flags'
 
 import { offlineDoctypes, TRANSACTION_DOCTYPE } from 'doctypes'
-import { pickAdapter, getAdapterPlugin } from 'ducks/client/linksHelpers'
 import { getWarmupQueries } from './linksHelpers'
 
 export const isActivatePouch = () => __POUCH__ && !flag('banks.pouch.disabled')
@@ -17,7 +15,6 @@ export const getLinks = async (options = {}) => {
   }
 
   const stackLink = new StackLink()
-  const adapter = await pickAdapter()
 
   links = [stackLink]
 
@@ -30,16 +27,6 @@ export const getLinks = async (options = {}) => {
         }
       },
       initialSync: true
-    }
-
-    if (isMobileApp() && isIOSApp()) {
-      pouchLinkOptions.pouch = {
-        plugins: [getAdapterPlugin(adapter)],
-        options: {
-          adapter,
-          location: 'default'
-        }
-      }
     }
 
     const PouchLink = require('cozy-pouch-link').default

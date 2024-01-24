@@ -8,7 +8,7 @@ import getClient from 'selectors/getClient'
 import Input from 'cozy-ui/transpiled/react/Input'
 import { ACCOUNT_DOCTYPE } from 'doctypes'
 import AppLike from 'test/AppLike'
-import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
+import ListItem from 'cozy-ui/transpiled/react/ListItem'
 
 jest.mock('selectors/getClient', () => jest.fn())
 jest.mock('components/AccountIcon', () => () => null)

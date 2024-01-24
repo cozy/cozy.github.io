@@ -1,10 +1,10 @@
 import React from 'react'
 
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import {
   ActionMenuItem,
   ActionMenuRadio
-} from 'cozy-ui/transpiled/react/ActionMenu'
+} from 'cozy-ui/transpiled/react/deprecated/ActionMenu'
 
 import { isFinished } from 'ducks/recurrence/api'
 

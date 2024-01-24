@@ -1,13 +1,13 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import ListItem from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItem'
-import ListItemIcon from 'cozy-ui/transpiled/react/MuiCozyTheme/ListItemIcon'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import ListItem from 'cozy-ui/transpiled/react/ListItem'
+import ListItemIcon from 'cozy-ui/transpiled/react/ListItemIcon'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import Typography from 'cozy-ui/transpiled/react/Typography'
-import Chip from 'cozy-ui/transpiled/react/Chip'
+import Chip from 'cozy-ui/transpiled/react/deprecated/Chip'
 
 import ListItemArrow from 'components/ListItemArrow'
 import iconRecurrence from 'components/IconRecurrence'

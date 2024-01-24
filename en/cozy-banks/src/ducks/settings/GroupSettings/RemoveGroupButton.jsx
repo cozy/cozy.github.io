@@ -2,9 +2,9 @@ import React, { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { useClient } from 'cozy-client'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import Alerter from 'cozy-ui/transpiled/react/Alerter'
-import Button from 'cozy-ui/transpiled/react/Button'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import Alerter from 'cozy-ui/transpiled/react/deprecated/Alerter'
+import Button from 'cozy-ui/transpiled/react/deprecated/Button'
 
 import { logException } from 'lib/sentry'
 import { trackEvent } from 'ducks/tracking/browser'

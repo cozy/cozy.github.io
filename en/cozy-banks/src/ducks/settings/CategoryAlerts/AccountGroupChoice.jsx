@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { queryConnect } from 'cozy-client'
 import { accountsConn, groupsConn } from 'doctypes'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import AccountIcon from 'components/AccountIcon'
 import { getGroupLabel } from 'ducks/groups/helpers'
 import { getAccountLabel } from 'ducks/account/helpers.js'
@@ -11,7 +11,7 @@ import {
   DialogSections,
   DialogListItem
 } from 'components/DialogSections'
-import List from 'cozy-ui/transpiled/react/MuiCozyTheme/List'
+import List from 'cozy-ui/transpiled/react/List'
 
 /**
  * Displays Rows to select among either

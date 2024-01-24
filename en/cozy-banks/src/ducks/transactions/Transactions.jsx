@@ -10,9 +10,9 @@ import sortBy from 'lodash/sortBy'
 import cx from 'classnames'
 
 import { isIOSApp } from 'cozy-device-helper'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import ListSubheader from 'cozy-ui/transpiled/react/MuiCozyTheme/ListSubheader'
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import ListSubheader from 'cozy-ui/transpiled/react/ListSubheader'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 import { Table } from 'components/Table'
 import TransactionPageErrors from 'ducks/transactions/TransactionPageErrors'

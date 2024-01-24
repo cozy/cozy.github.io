@@ -25,7 +25,6 @@ const CategoryTransactions = ({ transactions, subcategoryName }) => {
         transactions={categoryTransactions}
         canFetchMore={false}
         filteringOnAccount={true}
-        manualLoadMore={false}
         onReachBottom={null}
       />
     </div>

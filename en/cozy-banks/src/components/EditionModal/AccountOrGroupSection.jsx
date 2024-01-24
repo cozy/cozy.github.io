@@ -1,6 +1,6 @@
 import React from 'react'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
-import List from 'cozy-ui/transpiled/react/MuiCozyTheme/List'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import List from 'cozy-ui/transpiled/react/List'
 import { useSelector } from 'react-redux'
 import { getAccountsById } from 'selectors'
 import { DialogSection, DialogListItem } from 'components/DialogSections'

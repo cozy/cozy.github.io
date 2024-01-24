@@ -30,7 +30,7 @@ const BreakContext = () => {
   return React.useContext(ctx)
 }
 
-jest.mock('cozy-ui/transpiled/react/hooks/useBreakpoints', () => ({
+jest.mock('cozy-ui/transpiled/react/providers/Breakpoints', () => ({
   __esModule: true,
   default: jest.fn().mockImplementation(BreakContext),
   BreakpointsProvider: ({ children }) => children

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Tab, Tabs } from 'cozy-ui/transpiled/react/MuiTabs'
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import Header from 'components/Header'
 
 export const activeTab = location =>

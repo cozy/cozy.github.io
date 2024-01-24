@@ -1,5 +1,5 @@
 import React from 'react'
-import IntentModal from 'cozy-ui/transpiled/react/IntentModal'
+import IntentModal from 'cozy-ui/transpiled/react/deprecated/IntentModal'
 import { withClient } from 'cozy-client'
 
 class DumbBrowserConfigurationModal extends React.Component {

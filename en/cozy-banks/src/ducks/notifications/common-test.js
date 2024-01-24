@@ -49,7 +49,7 @@ export const setup = (templateName, lang) => {
   const localeStrings = require(`locales/${lang}`)
   const {
     initTranslation
-  } = require('cozy-ui/transpiled/react/I18n/translation')
+  } = require('cozy-ui/transpiled/react/providers/I18n/translation')
   const translation = initTranslation(lang, () => localeStrings)
   const t = translation.t.bind(translation)
   const cozyURL = 'https://test.mycozy.cloud'

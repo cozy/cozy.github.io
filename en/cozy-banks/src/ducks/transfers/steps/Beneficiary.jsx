@@ -1,8 +1,8 @@
 import React from 'react'
 import Padded, { Unpadded } from 'components/Padded'
-import { Media, Bd, Img } from 'cozy-ui/transpiled/react/Media'
-import { translate } from 'cozy-ui/transpiled/react/I18n'
-import Button from 'cozy-ui/transpiled/react/Button'
+import { Media, Bd, Img } from 'cozy-ui/transpiled/react/deprecated/Media'
+import { translate } from 'cozy-ui/transpiled/react/providers/I18n'
+import Button from 'cozy-ui/transpiled/react/deprecated/Button'
 import { Dialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 
 import AddAccountButton from 'ducks/categories/AddAccountButton'

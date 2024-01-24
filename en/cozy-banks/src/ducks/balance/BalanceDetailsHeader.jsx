@@ -2,7 +2,7 @@ import React from 'react'
 import cx from 'classnames'
 import { connect } from 'react-redux'
 
-import useBreakpoints from 'cozy-ui/transpiled/react/hooks/useBreakpoints'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 import Header from 'components/Header'
 import Padded from 'components/Padded'

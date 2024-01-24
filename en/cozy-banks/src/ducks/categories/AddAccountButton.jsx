@@ -1,5 +1,5 @@
 import React, { memo } from 'react'
-import Button from 'cozy-ui/transpiled/react/Button'
+import Button from 'cozy-ui/transpiled/react/deprecated/Button'
 import AddAccountLink from 'ducks/settings/AddAccountLink'
 import styles from 'ducks/categories/AddAccountButton.styl'
 import cx from 'classnames'

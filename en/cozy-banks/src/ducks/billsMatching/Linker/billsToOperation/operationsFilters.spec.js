@@ -7,20 +7,12 @@ import {
   operationsFilters
 } from './operationsFilters'
 import brands from 'ducks/brandDictionary/brands'
-import getClient from 'selectors/getClient'
-
-jest.mock('selectors/getClient', () => jest.fn())
 
 describe('operations filters', () => {
-  getClient.mockReturnValue({
-    store: {
-      getState: () => ({ brands })
-    }
-  })
   describe('filtering by brand', () => {
     it('should use the regexp from the dictionnary if the brand exists in it', () => {
       const bill = { vendor: 'Trainline' }
-      const fByBrand = filterByBrand(bill)
+      const fByBrand = filterByBrand(bill, brands)
 
       expect(fByBrand({ label: 'Trainline !!!' })).toBe(true)
       expect(fByBrand({ label: 'Yes Trainline' })).toBe(true)
@@ -29,7 +21,7 @@ describe('operations filters', () => {
 
     it("should generate a regexp with the bill vendor if the brand doesn't exist in the dictionnary", () => {
       const bill = { vendor: 'Tartanpion' }
-      const fByBrand = filterByBrand(bill)
+      const fByBrand = filterByBrand(bill, brands)
 
       expect(fByBrand({ label: 'Chez Tartanpion !!!' })).toBe(true)
       expect(fByBrand({ label: 'tartanpion 17/09' })).toBe(true)
@@ -38,7 +30,7 @@ describe('operations filters', () => {
 
     it('should use the regexp from the bill if it has one', () => {
       const bill = { matchingCriterias: { labelRegex: 'Bidule' } }
-      const fByBrand = filterByBrand(bill)
+      const fByBrand = filterByBrand(bill, brands)
 
       expect(fByBrand({ label: 'Chez Bidule !!!' })).toBe(true)
       expect(fByBrand({ label: 'bidule 20/08' })).toBe(true)
@@ -47,7 +39,7 @@ describe('operations filters', () => {
 
     it('should return false if the bill has no vendor and no regex', () => {
       const bill = {}
-      const fByBrand = filterByBrand(bill)
+      const fByBrand = filterByBrand(bill, brands)
 
       expect(fByBrand({ label: 'Something' })).toBe(false)
     })
@@ -271,15 +263,15 @@ describe('operations filters', () => {
       const creditOptions = { ...debitOptions, credit: true }
 
       test('get debit operation', () => {
-        expect(operationsFilters(bill, operations, debitOptions)).toEqual([
-          operations[0]
-        ])
+        expect(
+          operationsFilters(bill, operations, debitOptions, brands)
+        ).toEqual([operations[0]])
       })
 
       test('get credit operation', () => {
-        expect(operationsFilters(bill, operations, creditOptions)).toEqual([
-          operations[1]
-        ])
+        expect(
+          operationsFilters(bill, operations, creditOptions, brands)
+        ).toEqual([operations[1]])
       })
     })
 
@@ -294,13 +286,15 @@ describe('operations filters', () => {
       const creditOptions = { ...debitOptions, credit: true }
 
       test('get debit operation', () => {
-        expect(operationsFilters(bill, operations, debitOptions)).toEqual([
-          operations[3]
-        ])
+        expect(
+          operationsFilters(bill, operations, debitOptions, brands)
+        ).toEqual([operations[3]])
       })
 
       test('get credit operation', () => {
-        expect(operationsFilters(bill, operations, creditOptions)).toEqual([])
+        expect(
+          operationsFilters(bill, operations, creditOptions, brands)
+        ).toEqual([])
       })
     })
 
@@ -316,15 +310,15 @@ describe('operations filters', () => {
       const debitOptions = { ...defaultOptions }
       const creditOptions = { ...debitOptions, credit: true }
       it('get debit operation', () => {
-        expect(operationsFilters(bill, operations, debitOptions)).toEqual([
-          operations[8]
-        ])
+        expect(
+          operationsFilters(bill, operations, debitOptions, brands)
+        ).toEqual([operations[8]])
       })
 
       it('get credit operation', () => {
-        expect(operationsFilters(bill, operations, creditOptions)).toEqual([
-          operations[10]
-        ])
+        expect(
+          operationsFilters(bill, operations, creditOptions, brands)
+        ).toEqual([operations[10]])
       })
     })
   })

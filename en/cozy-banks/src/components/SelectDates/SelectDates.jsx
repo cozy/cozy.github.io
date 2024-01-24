@@ -10,10 +10,10 @@ import uniqBy from 'lodash/uniqBy'
 
 import { format, parse } from 'date-fns'
 
-import { translate } from 'cozy-ui/transpiled/react/I18n'
+import { translate } from 'cozy-ui/transpiled/react/providers/I18n'
 import withBreakpoints from 'cozy-ui/transpiled/react/helpers/withBreakpoints'
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import Chip from 'cozy-ui/transpiled/react/Chip'
+import Chip from 'cozy-ui/transpiled/react/deprecated/Chip'
 import LeftIcon from 'cozy-ui/transpiled/react/Icons/Left'
 import RightIcon from 'cozy-ui/transpiled/react/Icons/Right'
 

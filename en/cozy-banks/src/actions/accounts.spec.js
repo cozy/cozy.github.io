@@ -1,6 +1,6 @@
 import { deleteOrphanOperations, onAccountDelete } from './accounts'
 import CozyClient from 'cozy-client'
-import Alerter from 'cozy-ui/transpiled/react/Alerter'
+import Alerter from 'cozy-ui/transpiled/react/deprecated/Alerter'
 
 const setup = () => {
   const client = new CozyClient({})

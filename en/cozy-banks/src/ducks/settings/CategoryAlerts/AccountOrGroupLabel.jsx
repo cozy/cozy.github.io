@@ -1,4 +1,4 @@
-import { useI18n } from 'cozy-ui/transpiled/react/I18n'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import { getGroupsById, getAccountsById } from 'selectors'
 import { connect } from 'react-redux'

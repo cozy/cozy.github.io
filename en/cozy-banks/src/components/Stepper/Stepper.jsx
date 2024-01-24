@@ -5,7 +5,7 @@ import SwipeableViews from 'react-swipeable-views'
 import PercentageLine from 'components/PercentageLine'
 import MobileAwareBackButton from 'components/BackButton'
 import styles from './styles.styl'
-import CozyTheme from 'cozy-ui/transpiled/react/CozyTheme'
+import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 const StepperProgress = ({ currentIndex, steps }) => (
   <div className={styles.ProgressBackground}>
