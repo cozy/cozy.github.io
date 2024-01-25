@@ -25,7 +25,10 @@ const _AccountIcon = ({ account, className, size }) => {
   }
   return (
     <AccountIconContainer size={size}>
-      <KonnectorIcon konnectorSlug={institutionSlug} className={className} />
+      <KonnectorIcon
+        konnector={{ slug: institutionSlug }}
+        className={className}
+      />
     </AccountIconContainer>
   )
 }

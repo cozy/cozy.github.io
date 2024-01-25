@@ -26,9 +26,11 @@ const AccountListItem = ({
         <AccountIconContainer>
           <KonnectorIcon
             style={konnectorIconStyle}
-            konnectorSlug={
-              account.cozyMetadata ? account.cozyMetadata.createdByApp : null
-            }
+            konnector={{
+              slug: account.cozyMetadata
+                ? account.cozyMetadata.createdByApp
+                : null
+            }}
           />
         </AccountIconContainer>
       </ListItemIcon>

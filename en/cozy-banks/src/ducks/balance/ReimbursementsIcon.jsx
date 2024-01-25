@@ -3,7 +3,6 @@ import Icon from 'cozy-ui/transpiled/react/Icon'
 import cx from 'classnames'
 import healthCatIcon from 'assets/icons/categories/icon-cat-health.svg'
 import styles from 'ducks/balance/ReimbursementsIcon.styl'
-import { getCssVariableValue } from 'cozy-ui/transpiled/react/utils/color'
 import CategoryIcon from 'ducks/categories/CategoryIcon'
 import PropTypes from 'prop-types'
 
@@ -29,11 +28,7 @@ export default function ReimbursementsIcon(props) {
         <CategoryIcon categoryId={account.categoryId || '100'} size={size} />
       )}
       <span className={cx(styles.ReimbursementsIcon__hourglass)}>
-        <Icon
-          icon={HourglassIcon}
-          size={8}
-          color={getCssVariableValue('coolGrey')}
-        />
+        <Icon icon={HourglassIcon} size={8} color="var('--coolGrey')" />
       </span>
     </span>
   )

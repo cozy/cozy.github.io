@@ -7,7 +7,6 @@ import compose from 'lodash/flowRight'
 import 'element-scroll-polyfill'
 
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
-import { getCssVariableValue } from 'cozy-ui/transpiled/react/utils/color'
 import { lighten } from '@material-ui/core/styles'
 
 import LineChart from 'components/Chart/LineChart'
@@ -16,7 +15,7 @@ import flag from 'cozy-flags'
 import { getChartDataSelector as getChartData } from 'ducks/chart/selectors'
 
 // on iOS white transparency on SVG failed so we should calculate hexa color
-const gradientColor = getCssVariableValue('historyGradientColor') || '#297ef2'
+const gradientColor = '#297ef2'
 const gradientStyle = {
   '0%': lighten(gradientColor, 0.48),
   '100%': gradientColor

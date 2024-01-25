@@ -6,7 +6,7 @@ import Switch from 'cozy-ui/transpiled/react/Switch'
 import styles from 'ducks/categories/CategoriesHeader/CategoriesHeader.styl'
 
 const IncomeToggle = ({ withIncome, onToggle }) => {
-  const theme = useCozyTheme()
+  const { variant } = useCozyTheme()
   const { t } = useI18n()
 
   const handleChange = useCallback(
@@ -17,7 +17,7 @@ const IncomeToggle = ({ withIncome, onToggle }) => {
   )
 
   return (
-    <div className={cx(styles.CategoriesHeader__Toggle, styles[theme])}>
+    <div className={cx(styles.CategoriesHeader__Toggle, styles[variant])}>
       <Switch
         id="withIncome"
         disableRipple

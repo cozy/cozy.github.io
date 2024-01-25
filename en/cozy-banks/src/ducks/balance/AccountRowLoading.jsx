@@ -44,7 +44,7 @@ export class AccountRowLoading extends React.PureComponent {
         <ListItemIcon style={listItemIconStyle}>
           {konnectorSlug && (
             <KonnectorIcon
-              konnectorSlug={konnectorSlug}
+              konnector={{ slug: konnectorSlug }}
               className={styles.KonnectorIcon}
             />
           )}

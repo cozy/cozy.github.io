@@ -8,7 +8,7 @@ import { CozyConfirmDialogProvider } from 'cozy-harvest-lib'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import List from 'cozy-ui/transpiled/react/List'
-import { models, useClient, useAppsInMaintenance, useQuery } from 'cozy-client'
+import { models, useAppsInMaintenance, useQuery } from 'cozy-client'
 import DisconnectedAccountModal from 'cozy-harvest-lib/dist/components/DisconnectedAccountModal'
 import DialogContext from 'cozy-harvest-lib/dist/components/DialogContext'
 import HarvestBankAccountSettings from 'ducks/settings/HarvestBankAccountSettings'
@@ -50,8 +50,7 @@ const AccountsListSettings = ({
   jobsInProgress
 }) => {
   const { t } = useI18n()
-  const client = useClient()
-  const appsInMaintenance = useAppsInMaintenance(client)
+  const appsInMaintenance = useAppsInMaintenance()
   const [konnInError, setKonnInError] = useState([])
 
   const accounts = [...myAccounts].concat(

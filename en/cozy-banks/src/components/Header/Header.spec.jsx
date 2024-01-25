@@ -30,8 +30,8 @@ describe('Header', () => {
 
   it('should set cozy theme', () => {
     const Component = () => {
-      const theme = useCozyTheme()
-      return <>{theme}</>
+      const { variant } = useCozyTheme()
+      return <>{variant}</>
     }
     expect(
       mount(

@@ -38,10 +38,10 @@ export const Cell = ({ main, children, ...props }) => {
  * https://github.com/philipwalton/flexbugs/issues/3
  */
 export const Table = ({ children, className, ...rest }) => {
-  const theme = useCozyTheme()
+  const { variant } = useCozyTheme()
   return (
     <table
-      className={cx(styles['Table'], theme && styles[theme], className)}
+      className={cx(styles['Table'], variant && styles[variant], className)}
       {...rest}
     >
       {children}

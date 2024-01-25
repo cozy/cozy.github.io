@@ -52,7 +52,7 @@ const CategoriesChart = props => {
   } = props
 
   const { t } = useI18n()
-  const theme = useCozyTheme()
+  const { variant } = useCozyTheme()
 
   const sortedCategories = useMemo(
     () => getSortedCategories(categories),
@@ -78,7 +78,7 @@ const CategoriesChart = props => {
 
   return (
     <div
-      className={cx(styles.CategoriesChart, styles[theme], {
+      className={cx(styles.CategoriesChart, styles[variant], {
         [styles.NoAccount]: !hasAccount,
         [className]: className
       })}

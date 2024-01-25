@@ -1,8 +1,9 @@
 import flag from 'cozy-flags'
 
-import settingsIcon from 'assets/icons/icon-gear.svg'
-import walletIcon from 'assets/icons/icon-wallet.svg'
-import graphIcon from 'assets/icons/icon-graph.svg'
+import WalletIcon from 'cozy-ui/transpiled/react/Icons/Wallet'
+import GearIcon from 'cozy-ui/transpiled/react/Icons/Gear'
+import GraphCircleIcon from 'cozy-ui/transpiled/react/Icons/GraphCircle'
+
 import transfersIcon from 'assets/icons/icon-transfers.svg'
 
 const transferRoute = /\/transfers(\/.*)?/
@@ -15,13 +16,13 @@ const recurrenceRoute = /\/recurrence(\/.*)?/
 export const items = t => [
   {
     to: '/balances',
-    icon: walletIcon,
+    icon: WalletIcon,
     label: t('Nav.my-accounts'),
     rx: balancesRoute
   },
   {
     to: '/analysis/categories',
-    icon: graphIcon,
+    icon: GraphCircleIcon,
     label: t('Nav.analysis'),
     rx: analysisRoute
   },
@@ -47,7 +48,7 @@ export const items = t => [
     : null,
   {
     to: '/settings',
-    icon: settingsIcon,
+    icon: GearIcon,
     label: t('Nav.settings'),
     rx: settingsRoute
   }

@@ -12,6 +12,7 @@ const wrap = (Component, className) => {
         <CozyTheme
           className={cx('u-flex u-flex-items-center', className)}
           variant={isMobile ? 'inverted' : 'normal'}
+          ignoreItself={false}
         >
           {children}
         </CozyTheme>

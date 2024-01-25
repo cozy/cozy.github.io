@@ -12,11 +12,11 @@ import cx from 'classnames'
 import { BarLeft } from 'components/Bar'
 
 export const BackIcon = () => {
-  const theme = useCozyTheme()
+  const { variant } = useCozyTheme()
   return (
     <Icon
       className={cx(
-        theme ? styles[`BackIcon--${theme}`] : null,
+        variant ? styles[`BackIcon--${variant}`] : null,
         styles.BackIcon
       )}
       icon={arrowLeft}

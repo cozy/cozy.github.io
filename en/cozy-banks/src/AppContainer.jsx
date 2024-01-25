@@ -5,7 +5,7 @@ import { HashRouter } from 'react-router-dom'
 import { WebviewIntentProvider } from 'cozy-intent'
 import { CozyConfirmDialogProvider } from 'cozy-harvest-lib'
 import I18n, { initTranslation } from 'cozy-ui/transpiled/react/providers/I18n'
-import MuiCozyTheme from 'cozy-ui/transpiled/react/MuiCozyTheme'
+import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import { CozyProvider, RealTimeQueries } from 'cozy-client'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import {
@@ -86,7 +86,7 @@ const AppContainer = ({ store, lang, client }) => {
                       <BanksProvider client={client}>
                         <SelectionProvider>
                           <StoreURLProvider>
-                            <MuiCozyTheme>
+                            <CozyTheme>
                               <CozyConfirmDialogProvider>
                                 <RealTimeQueries doctype={TRIGGER_DOCTYPE} />
                                 <RealTimeQueries doctype={ACCOUNT_DOCTYPE} />
@@ -103,7 +103,7 @@ const AppContainer = ({ store, lang, client }) => {
                                   <AppRoute />
                                 </HashRouter>
                               </CozyConfirmDialogProvider>
-                            </MuiCozyTheme>
+                            </CozyTheme>
                           </StoreURLProvider>
                         </SelectionProvider>
                       </BanksProvider>
