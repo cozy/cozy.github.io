@@ -34,11 +34,22 @@ const onOperationOrBillCreate = async (client, options) => {
   // may be missed by `TransactionGreater` because their `_rev` don't start with `1`
   const notifLastSeq = setting.notifications.lastSeq
   log('info', '⌛ Fetching transaction changes...')
-  const notifChanges = await fetchChangesOrAll(
-    client,
-    TRANSACTION_DOCTYPE,
-    notifLastSeq
-  )
+  let notifChanges
+  try {
+    notifChanges = await fetchChangesOrAll(
+      client,
+      TRANSACTION_DOCTYPE,
+      notifLastSeq
+    )
+  } catch (e) {
+    if (!/Database does not exist/.test(e)) {
+      throw e
+    } else {
+      log('info', 'No transaction database so early exit')
+      process.exit(0)
+    }
+  }
+
   log('info', '✅ Transaction changes fetched')
   const brands = await makeBrands(client, undefined, true)
 

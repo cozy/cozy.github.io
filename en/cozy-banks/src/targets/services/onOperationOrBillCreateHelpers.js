@@ -56,8 +56,12 @@ export const doBillsMatching = async (
       logResult(result)
     }
   } catch (e) {
-    log('error', `❗ [Bills matching service] ${e}`)
-    throw e
+    if (!/Database does not exist/.test(e)) {
+      log('error', `❗ [Bills matching service] ${e}`)
+      throw e
+    } else {
+      log('info', `⚠️ [Bills matching no database]`)
+    }
   }
 }
 
@@ -104,8 +108,12 @@ export const doTransactionsMatching = async (
       logResult(result)
     }
   } catch (e) {
-    log('error', `❗ [Transactions matching service] ${e}`)
-    throw e
+    if (!/Database does not exist/.test(e)) {
+      log('error', `❗ [Transactions matching service] ${e}`)
+      throw e
+    } else {
+      log('info', `⚠️ [Transactions matching service no database]`)
+    }
   }
 }
 
