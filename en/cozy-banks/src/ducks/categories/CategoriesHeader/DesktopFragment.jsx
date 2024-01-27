@@ -6,7 +6,7 @@ import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import Empty from 'cozy-ui/transpiled/react/Empty'
 import Stack from 'cozy-ui/transpiled/react/Stack'
 import Fade from 'cozy-ui/transpiled/react/Fade'
-import Breadcrumb from 'cozy-ui/transpiled/react/Breadcrumbs'
+import Breadcrumbs from 'cozy-ui/transpiled/react/legacy/Breadcrumbs'
 
 import Table from 'components/Table'
 import Header from 'components/Header'
@@ -56,7 +56,7 @@ const DesktopFragment = React.memo(
                   </Stack>
                   {breadcrumbItems.length > 1 && (
                     <Fade in>
-                      <Breadcrumb className="u-mt-1" items={breadcrumbItems} />
+                      <Breadcrumbs className="u-mt-1" items={breadcrumbItems} />
                     </Fade>
                   )}
                   <AdvancedFilter

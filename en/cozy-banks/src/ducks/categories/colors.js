@@ -16,5 +16,5 @@ export default {
   tax: palette['lightishPurple'],
   transportation: palette['puertoRico'],
   goingOutAndTravel: palette['weirdGreen'],
-  uncategorized: palette['coolGrey']
+  uncategorized: '#95999D' // Chart.js can't manage var() color
 }

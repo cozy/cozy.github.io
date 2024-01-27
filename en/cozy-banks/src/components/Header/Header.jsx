@@ -9,7 +9,7 @@ class Header extends React.PureComponent {
     const { children, className, theme, fixed, paper, style } = this.props
 
     return (
-      <CozyTheme variant={theme}>
+      <CozyTheme variant={theme} ignoreItself={false}>
         <div
           role="header"
           className={cx(

@@ -114,10 +114,12 @@ const AccountsListSettings = ({
   const hasError = connection => konnInError.includes(connection?._id)
 
   const dialogContext = useCozyDialog({
+    size: 'l',
     open: true,
-    size: 'medium',
-    onClose: () => setEditionModalOptions(null)
+    onClose: () => setEditionModalOptions(null),
+    disableTitleAutoPadding: true
   })
+
   return (
     <Unpadded horizontal className={LegalMention.active ? 'u-mv-1' : 'u-mb-1'}>
       {/* Bank accounts still connected to io.cozy.accounts */}
