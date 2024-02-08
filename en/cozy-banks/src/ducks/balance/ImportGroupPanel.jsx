@@ -6,7 +6,7 @@ import AccordionDetails from 'cozy-ui/transpiled/react/AccordionDetails'
 import Accordion from 'cozy-ui/transpiled/react/Accordion'
 
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
-import styles from 'ducks/balance/GroupPanel.styl'
+import styles from 'ducks/balance/GroupPanel/GroupPanel.styl'
 
 import { withStyles } from 'cozy-ui/transpiled/react/styles'
 import Typography from 'cozy-ui/transpiled/react/Typography'

@@ -81,10 +81,10 @@ const genBankAccount = () => {
       createdByApp: accountBank.createdByApp,
       updatedByApp: accountBank.createdByApp,
       createdAt: faker.date
-        .between(new Date(2000, 0, 0), new Date(2021, 6, 1))
+        .between(new Date(2000, 0, 0), new Date())
         .toISOString(),
       updatedAt: faker.date
-        .between(new Date(2000, 0, 0), new Date(2021, 6, 1))
+        .between(new Date(2000, 0, 0), new Date())
         .toISOString()
     }
   }
@@ -107,18 +107,16 @@ const makeBankTransactionGen = (bankAccounts, bills, categoryTree) => {
       manualCategoryId: genCategoryId(),
       currency: '€',
       label: faker.finance.transactionDescription(),
-      date: faker.date
-        .between(new Date(2000, 0, 0), new Date(2021, 6, 1))
-        .toISOString(),
+      date: faker.date.between(new Date(2000, 0, 0), new Date()).toISOString(),
       bill: maybe(billGen, 0.01),
       cozyMetadata: {
         createdByApp: account.cozyMetadata.createdByApp,
         updatedByApp: account.cozyMetadata.updatedByApp,
         createdAt: faker.date
-          .between(new Date(2000, 0, 0), new Date(2021, 6, 1))
+          .between(new Date(2000, 0, 0), new Date())
           .toISOString(),
         updatedAt: faker.date
-          .between(new Date(2000, 0, 0), new Date(2021, 6, 1))
+          .between(new Date(2000, 0, 0), new Date())
           .toISOString()
       }
     }
@@ -132,18 +130,16 @@ const genBill = () => {
     subtype: billDatatype.subtype(),
     amount: billDatatype.amount(),
     isRefund: faker.datatype.boolean,
-    date: faker.date
-      .between(new Date(2000, 0, 0), new Date(2021, 6, 1))
-      .toISOString(),
+    date: faker.date.between(new Date(2000, 0, 0), new Date()).toISOString(),
     type: billDatatype.type(),
     cozyMetadata: {
       createdByApp: billDatatype.app(),
       updatedByApp: billDatatype.app(),
       createdAt: faker.date
-        .between(new Date(2000, 0, 0), new Date(2021, 6, 1))
+        .between(new Date(2000, 0, 0), new Date())
         .toISOString(),
       updatedAt: faker.date
-        .between(new Date(2000, 0, 0), new Date(2021, 6, 1))
+        .between(new Date(2000, 0, 0), new Date())
         .toISOString()
     }
   }
@@ -166,9 +162,7 @@ const makeBankGroups = (accounts, maxNbAccount) => {
 }
 
 const generate = (type, n) => {
-  return Array(n)
-    .fill(null)
-    .map(type)
+  return Array(n).fill(null).map(type)
 }
 
 const generateFixtures = ({
