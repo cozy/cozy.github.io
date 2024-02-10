@@ -24,6 +24,7 @@ const getGeojson02 = (dates = geoJson02Dates) => {
     source: 'agremob.com',
     startDate: dates.startDate,
     endDate: dates.endDate,
+    captureDevice: 'test',
     series: [
       {
         features: [

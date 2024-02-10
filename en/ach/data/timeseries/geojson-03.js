@@ -30,6 +30,7 @@ const getGeojson03 = (dates = geoJson03Dates) => {
     source: 'agremob.com',
     startDate: dates.startDate,
     endDate: dates.endDate,
+    captureDevice: 'test',
     series: [
       {
         type: 'FeatureCollection',
