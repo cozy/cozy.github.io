@@ -18,14 +18,14 @@ describe('reimbursement status modal', () => {
     )
     const reimbursedRow = root.getByText('I have already been reimbursed')
     fireEvent.click(reimbursedRow)
-    expect(onChange).toHaveBeenCalledWith('reimbursed')
+    expect(onChange).toHaveBeenCalledWith(expect.anything(), 'reimbursed')
 
     const notWaiting = root.getByText('I am not waiting for a reimbursement')
     fireEvent.click(notWaiting)
-    expect(onChange).toHaveBeenCalledWith('no-reimbursement')
+    expect(onChange).toHaveBeenCalledWith(expect.anything(), 'no-reimbursement')
 
     const waiting = root.getByText('I am waiting for a reimbursement')
     fireEvent.click(waiting)
-    expect(onChange).toHaveBeenCalledWith('pending')
+    expect(onChange).toHaveBeenCalledWith(expect.anything(), 'pending')
   })
 })

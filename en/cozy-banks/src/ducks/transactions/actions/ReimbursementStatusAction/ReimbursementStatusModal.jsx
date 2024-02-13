@@ -41,9 +41,9 @@ const ReimbursementStatusModal = function ReimbursementStatusModal(props) {
     replaceLastPart(lastTracked, 'depense-remboursement')
   )
 
-  const handleClose = () => {
+  const handleClose = evt => {
     trackPage(lastTracked => replaceLastPart(lastTracked, 'depense'))
-    onClose()
+    onClose(evt)
   }
 
   return (
@@ -71,7 +71,7 @@ const ReimbursementStatusModal = function ReimbursementStatusModal(props) {
                   divider
                   button
                   disableRipple
-                  onClick={() => onChange(choice)}
+                  onClick={evt => onChange(evt, choice)}
                   key={choice}
                 >
                   <ListItemIcon>
@@ -82,7 +82,7 @@ const ReimbursementStatusModal = function ReimbursementStatusModal(props) {
                           key={choice}
                           name="reimbursementStatus"
                           checked={status === choice}
-                          onChange={ev => onChange(ev.target.value)}
+                          onChange={evt => onChange(evt, evt.target.value)}
                           className="u-ml-1"
                         />
                       }

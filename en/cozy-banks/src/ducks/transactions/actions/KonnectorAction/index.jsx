@@ -60,31 +60,35 @@ const Component = ({ fetchTriggers, isModalItem, transaction }) => {
     useState(false)
   const [showIntentModalState, setShowIntentModalState] = useState(false)
 
-  const showInformativeDialog = ev => {
-    ev?.preventDefault()
+  const showInformativeDialog = evt => {
+    evt?.stopPropagation()
+    evt?.preventDefault()
     setShowInformativeDialogState(true)
   }
-  const hideInformativeDialog = ev => {
-    ev?.preventDefault()
+  const hideInformativeDialog = evt => {
+    evt?.stopPropagation()
+    evt?.preventDefault()
     setShowInformativeDialogState(false)
   }
-  const showIntentModal = ev => {
-    ev?.preventDefault()
+  const showIntentModal = evt => {
+    evt?.stopPropagation()
+    evt?.preventDefault()
     setShowIntentModalState(true)
   }
-  const hideIntentModal = ev => {
-    ev?.preventDefault()
+  const hideIntentModal = evt => {
+    evt?.stopPropagation()
+    evt?.preventDefault()
     setDisableEnforceFocus?.(false)
     setShowIntentModalState(false)
   }
-  const onInformativeDialogConfirm = () => {
+  const onInformativeDialogConfirm = evt => {
     setDisableEnforceFocus?.(true)
     hideInformativeDialog()
-    showIntentModal()
+    showIntentModal(evt)
   }
-  const onIntentComplete = () => {
+  const onIntentComplete = evt => {
     fetchTriggers()
-    hideIntentModal()
+    hideIntentModal(evt)
   }
 
   if (!brand) return null

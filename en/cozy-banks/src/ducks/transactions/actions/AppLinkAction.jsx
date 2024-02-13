@@ -39,8 +39,9 @@ const Component = ({ transaction, actionProps: { urls }, isModalItem }) => {
   const url = urls[appName]
 
   const handleClick = useCallback(
-    ev => {
-      ev && ev.preventDefault()
+    evt => {
+      evt?.stopPropagation()
+      evt?.preventDefault()
       open(url)
     },
     [url]
@@ -63,7 +64,7 @@ const Component = ({ transaction, actionProps: { urls }, isModalItem }) => {
   }
 
   return (
-    <Chip size="small" variant="outlined" onClick={() => open(url)}>
+    <Chip size="small" variant="outlined" onClick={handleClick}>
       {label}
       <Chip.Separator />
       <Icon icon={OpenwithIcon} />

@@ -1,24 +1,21 @@
 import React from 'react'
+
 import IntentModal from 'cozy-ui/transpiled/react/deprecated/IntentModal'
-import { withClient } from 'cozy-client'
+import { useClient } from 'cozy-client'
 
-class DumbBrowserConfigurationModal extends React.Component {
-  render() {
-    const { client, slug, ...rest } = this.props
+const BrowserConfigurationModal = ({ slug, ...rest }) => {
+  const client = useClient()
 
-    return (
-      <IntentModal
-        action="INSTALL"
-        doctype="io.cozy.apps"
-        mobileFullscreen
-        {...rest}
-        options={{ slug }}
-        create={client.intents.create.bind(client.intents)}
-      />
-    )
-  }
+  return (
+    <IntentModal
+      action="INSTALL"
+      doctype="io.cozy.apps"
+      mobileFullscreen
+      {...rest}
+      options={{ slug, pageToDisplay: 'details' }}
+      create={client.intents.create}
+    />
+  )
 }
-
-const BrowserConfigurationModal = withClient(DumbBrowserConfigurationModal)
 
 export default BrowserConfigurationModal

@@ -21,8 +21,9 @@ const Component = ({ actionProps: { urls }, isModalItem }) => {
   const label = t(`Transactions.actions.${name}`)
 
   const handleClick = useCallback(
-    ev => {
-      ev && ev.preventDefault()
+    evt => {
+      evt?.stopPropagation()
+      evt?.preventDefault()
       open(url)
     },
     [url]
@@ -30,7 +31,7 @@ const Component = ({ actionProps: { urls }, isModalItem }) => {
 
   const handleModalClick = useCallback(
     ev => {
-      ev && ev.preventDefault()
+      ev & ev.preventDefault()
       open(url, '_blank')
     },
     [url]

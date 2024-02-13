@@ -18,8 +18,9 @@ const Component = ({ transaction, isModalItem }) => {
   const action = transaction.action
 
   const handleClick = useCallback(
-    ev => {
-      ev && ev.preventDefault()
+    evt => {
+      evt?.stopPropagation()
+      evt?.preventDefault()
       open(action.url, action.target)
     },
     [action.target, action.url]

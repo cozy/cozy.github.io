@@ -92,21 +92,24 @@ export class DumbReimbursementStatusAction extends React.PureComponent {
     showModal: false
   }
 
-  showModal = ev => {
-    ev && ev.preventDefault()
+  showModal = evt => {
+    evt?.stopPropagation()
+    evt?.preventDefault()
     this.setState({ showModal: true })
   }
 
-  hideModal = ev => {
-    ev && ev.preventDefault()
+  hideModal = evt => {
+    evt?.stopPropagation()
+    evt?.preventDefault()
     this.setState({ showModal: false })
   }
 
-  handleChange = async value => {
+  handleChange = async (evt, value) => {
+    evt?.stopPropagation()
     const { transaction, client, t } = this.props
     transaction.reimbursementStatus = value
 
-    this.hideModal()
+    this.hideModal(evt)
 
     try {
       await client.save(transaction)
