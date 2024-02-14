@@ -160,6 +160,7 @@ const AccountsListSettings = ({
             editionModalOptions.connection ? (
               <HarvestBankAccountSettings
                 connectionId={editionModalOptions.connection._id}
+                onDismiss={() => setEditionModalOptions(null)}
               />
             ) : (
               <DisconnectedAccountModal

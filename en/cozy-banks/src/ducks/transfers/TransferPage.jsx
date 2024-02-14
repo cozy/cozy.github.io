@@ -15,7 +15,7 @@ import Realtime from 'cozy-realtime'
 import flag from 'cozy-flags'
 import pickBy from 'lodash/pickBy'
 
-import { logException } from 'lib/sentry'
+import logger from 'lib/logger'
 import { recipientsConn, accountsConn } from 'doctypes'
 
 import Padded from 'components/Padded'
@@ -270,7 +270,7 @@ class TransferPage extends React.Component {
     } catch (e) {
       console.error(e) // eslint-disable-line no-console
       if (!isLoginFailed(e)) {
-        logException(e)
+        logger.error(e)
       }
       this.setState({ transferState: e })
     }

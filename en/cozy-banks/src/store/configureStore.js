@@ -1,5 +1,6 @@
 /* global __DEVELOPMENT__ */
 import { compose, createStore, applyMiddleware, combineReducers } from 'redux'
+import * as Sentry from '@sentry/react'
 
 import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
@@ -9,7 +10,6 @@ import {
   getTracker,
   createTrackerMiddleware
 } from 'cozy-ui/transpiled/react/helpers/tracker'
-import { isSentryEnabled, getSentryMiddleware } from 'lib/sentry'
 
 import filters from 'ducks/filters'
 import brands from 'ducks/brandDictionary/brandsReducer'
@@ -29,9 +29,15 @@ const configureStore = (cozyClient, persistedState) => {
     const loggerMiddleware = createLogger()
     middlewares.push(loggerMiddleware)
   }
-  if (isSentryEnabled()) {
-    middlewares.push(getSentryMiddleware(cozyClient))
-  }
+
+  const sentryReduxEnhancer = Sentry.createReduxEnhancer({
+    actionTransformer: ({ type, queryId }) => ({
+      type,
+      queryId
+    }),
+    stateTransformer: () => null,
+    attachReduxState: false
+  })
 
   const store = createStore(
     combineReducers({
@@ -40,7 +46,10 @@ const configureStore = (cozyClient, persistedState) => {
       cozy: cozyClient.reducer()
     }),
     persistedState,
-    composeEnhancers(applyMiddleware.apply(null, middlewares))
+    composeEnhancers(
+      applyMiddleware.apply(null, middlewares),
+      sentryReduxEnhancer
+    )
   )
 
   return store

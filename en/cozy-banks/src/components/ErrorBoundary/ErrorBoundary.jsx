@@ -1,6 +1,6 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
-import { logException } from 'lib/sentry'
+import logger from 'lib/logger'
 import Error from 'components/ErrorBoundary/Error'
 
 class ErrorBoundary extends React.Component {
@@ -13,8 +13,8 @@ class ErrorBoundary extends React.Component {
     return { hasError: true }
   }
 
-  componentDidCatch(error, info) {
-    logException({ error, info })
+  componentDidCatch(error) {
+    logger.error(error)
   }
 
   componentDidUpdate(prevProps) {

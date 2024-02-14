@@ -15,6 +15,14 @@ import { loadState, persistState } from 'store/persistedState'
 import configureStore from 'store/configureStore'
 import 'number-to-locale-string'
 import FastClick from 'fastclick'
+import { captureConsoleIntegration } from '@sentry/integrations'
+import * as Sentry from '@sentry/react'
+import {
+  useLocation,
+  useNavigationType,
+  createRoutesFromChildren,
+  matchRoutes
+} from 'react-router-dom'
 
 import { setupLocale as setupD3Locale } from 'utils/d3'
 import { isIOSApp } from 'cozy-device-helper'
@@ -32,8 +40,9 @@ import { makeItShine } from 'utils/display.debug'
 import cozyBar from 'utils/cozyBar'
 
 import { getLanguageFromDOM } from 'utils/lang'
+import manifest from '../../../manifest.webapp'
 
-import '../../logger'
+import 'lib/logger'
 import parseCozyData from 'utils/cozyData'
 
 let store, client, lang, root
@@ -113,6 +122,25 @@ const setupApp = async persistedState => {
       lang: locale,
       replaceTitleOnMobile: true
     })
+
+  Sentry.init({
+    dsn: 'https://d18802c5412f4b8babe4aad094618d37@errors.cozycloud.cc/38',
+    environment: process.env.NODE_ENV,
+    release: manifest.version,
+    integrations: [
+      captureConsoleIntegration({ levels: ['error'] }), // We also want to capture the `console.error` to, among other things, report the logs present in the `try/catch`
+      Sentry.reactRouterV6BrowserTracingIntegration({
+        useEffect: React.useEffect,
+        useLocation,
+        useNavigationType,
+        createRoutesFromChildren,
+        matchRoutes
+      })
+    ],
+    tracesSampleRate: 0.1,
+    // React log these warnings(bad Proptypes), in a console.error, it is not relevant to report this type of information to Sentry
+    ignoreErrors: [/^Warning: /]
+  })
 
   initRender()
 }

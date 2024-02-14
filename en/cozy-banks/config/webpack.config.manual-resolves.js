@@ -54,7 +54,6 @@ module.exports = {
         'pouchdb-utils',
         'prop-types',
         'qs',
-        'raven-js',
         'react',
         'react-is',
         'react-markdown',

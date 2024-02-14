@@ -6,7 +6,7 @@ import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import Alerter from 'cozy-ui/transpiled/react/deprecated/Alerter'
 import Button from 'cozy-ui/transpiled/react/deprecated/Button'
 
-import { logException } from 'lib/sentry'
+import logger from 'lib/logger'
 import { trackEvent } from 'ducks/tracking/browser'
 
 const RemoveGroupButton = ({ group }) => {
@@ -22,7 +22,7 @@ const RemoveGroupButton = ({ group }) => {
       })
       navigate('/settings/groups')
     } catch (err) {
-      logException(err)
+      logger.error(err)
       Alerter.error(t('Groups.deletion-error'))
     }
   }, [group, navigate, client, t])

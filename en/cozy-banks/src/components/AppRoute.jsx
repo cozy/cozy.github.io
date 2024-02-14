@@ -1,5 +1,7 @@
 import React from 'react'
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom'
+import * as Sentry from '@sentry/react'
+
 import App from 'components/App'
 
 import { CategoriesPage } from 'ducks/categories'
@@ -35,6 +37,8 @@ const OutletWrapper = ({ Component }) => (
   </>
 )
 
+const SentryRoutes = Sentry.withSentryReactRouterV6Routing(Routes)
+
 // Use a function to delay instantation and have access to AppRoute methods
 const AppRoute = () => {
   const { routes, condition } = AppRoute.renderExtraRoutesOnly()
@@ -43,7 +47,7 @@ const AppRoute = () => {
   }
 
   return (
-    <Routes>
+    <SentryRoutes>
       <Route path="/" element={<App />}>
         <Route index element={<Navigate to="balances" replace />} />
         <Route path="balances">
@@ -229,7 +233,7 @@ const AppRoute = () => {
         {AppRoute.renderExtraRoutes()}
         <Route path="*" element={<Navigate to="balances" replace />} />
       </Route>
-    </Routes>
+    </SentryRoutes>
   )
 }
 

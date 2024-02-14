@@ -3991,6 +3991,13 @@ file at the root of this repository.</p>
 <li><code>from</code> to send a mail from the user</li>
 <li><code>support</code> to send both an email to the support and a confirmation to
     the user</li>
+<li><code>campaign</code> to send a non transactional email to the user via an SMTP
+    server using the following configurations, in order of priority:<ol>
+<li><code>campaign_mail.contexts.&lt;context name&gt;</code> if defined</li>
+<li><code>campaign_mail</code> otherwise</li>
+<li><code>mail</code> as the final fallback</li>
+</ol>
+</li>
 </ul>
 </li>
 <li><code>to</code>: list of object <code>{name, email}</code> representing the addresses of the

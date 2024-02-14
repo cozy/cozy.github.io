@@ -20,7 +20,7 @@ import ReimbursementStatusModal from 'ducks/transactions/actions/ReimbursementSt
 import { trackEvent } from 'ducks/tracking/browser'
 
 import iconReimbursement from 'assets/icons/icon-reimbursement.svg'
-import { logException } from 'lib/sentry'
+import logger from 'lib/logger'
 import cx from 'classnames'
 import compose from 'lodash/flowRight'
 import { withClient } from 'cozy-client'
@@ -114,7 +114,7 @@ export class DumbReimbursementStatusAction extends React.PureComponent {
     try {
       await client.save(transaction)
     } catch (err) {
-      logException(err)
+      logger.error(err)
       Alerter.error(t('Transactions.reimbursementStatusUpdateError'))
     }
 
