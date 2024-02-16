@@ -12,14 +12,21 @@ import { konnectorTriggersConn } from 'doctypes'
 import Carrousel from 'components/Carrousel'
 import flag from 'cozy-flags'
 import { getTransactionPageErrors } from 'ducks/transactions/TransactionPageErrors/errors'
-import withBankingSlugs from 'hoc/withBankingSlugs'
+import { useBanksContext } from 'ducks/context/BanksContext'
 
 /**
  * Shows connection errors for the currently filtered bank accounts.
  * If there is more than 1 error, a carrousel wraps the errors.
  */
-export const TransactionPageErrors = props => {
-  const errors = getTransactionPageErrors(props)
+export const TransactionPageErrors = ({ triggerCol, accounts }) => {
+  const { isBankTrigger } = useBanksContext()
+
+  const errors = getTransactionPageErrors({
+    triggerCol,
+    accounts,
+    isBankTrigger
+  })
+
   const count = errors.length
   const Wrapper = count > 1 ? Carrousel : React.Fragment
   const wrapperProps =
@@ -74,6 +81,5 @@ export default compose(
       fetchPolicy: CozyClient.fetchPolicies.noFetch
     }
   }),
-  React.memo,
-  withBankingSlugs
+  React.memo
 )(TransactionPageErrors)

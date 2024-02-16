@@ -3542,8 +3542,6 @@ on using the Pull Request feature. We use the &lsquo;fork and pull&rsquo; model 
 there.</p>
 <h4 id="step-1-fork">Step 1: Fork<a class="headerlink" href="#step-1-fork" title="Permanent link">&para;</a></h4>
 <p>Fork the project on GitHub and check out your copy locally:</p>
-<p>⚠️ Be sure to clone outside the <code>$GOPATH</code> otherwise gomodules will not work (or
-use the <code>GO111MODULE=on</code> env variable to force the usage of go modules).</p>
 <div class="codehilite"><pre><span></span>$ git clone https://github.com/cozy/cozy-stack.git
 $ <span class="nb">cd</span> cozy-stack
 $ git remote add fork git://github.com/username/cozy-stack.git
@@ -3564,12 +3562,22 @@ etc.).</p>
 <p>We are using <a href="https://godoc.org/golang.org/x/tools/cmd/goimports">goimports</a> to
 format code, and <a href="https://github.com/golangci/golangci-lint">golangci-lint</a> to
 detect code smells.</p>
+<div class="codehilite"><pre><span></span>$ make lint
+</pre></div>
+
+
 <p>We are using <a href="https://eslint.org/">eslint</a> to lint JavaScript code. The linting
 rules are based on
 <a href="https://github.com/cozy/cozy-libs/tree/master/packages/eslint-config-cozy-app">cozy-app</a></p>
+<div class="codehilite"><pre><span></span>$ make jslint
+</pre></div>
+
+
 <h4 id="step-4-test">Step 4: Test<a class="headerlink" href="#step-4-test" title="Permanent link">&para;</a></h4>
-<p>Don&rsquo;t forget to add tests and be sure they are green:</p>
-<div class="codehilite"><pre><span></span>$ make unit-tests
+<p>Don&rsquo;t forget to add tests and be sure they are green. You need CouchDB
+installed, with an account, and configuring the stack to use this account:</p>
+<div class="codehilite"><pre><span></span>$ <span class="nb">export</span> <span class="nv">COZY_COUCHDB_URL</span><span class="o">=</span>http://admin:password@localhost:5984
+$ make unit-tests
 </pre></div>
 
 
@@ -3623,12 +3631,13 @@ as <code>package oauth_test</code>.</p>
 <p>The cozy-stack serve some assets for the client application. In particular,
 cozy-client-js and cozy-bar assets are listed in <code>assets/.externals</code>. To update
 them, you can open a pull request for this file. When a maintainer will accept
-this pull request, he will also run <code>scripts/build.sh assets</code> to transform them
-in go code (to make the repository go gettable).</p>
+this pull request, he will also run <code>make assets</code> to transform them in go code
+(to make the repository go gettable).</p>
 <h2 id="useful-commands">Useful commands<a class="headerlink" href="#useful-commands" title="Permanent link">&para;</a></h2>
 <p>There are some useful commands to know in order to develop with the go code of
 cozy-stack:</p>
 <div class="codehilite"><pre><span></span><span class="nb">cd</span> cozy-stack
+make <span class="nb">help</span>               <span class="c1"># Show the commands that can be launched via make</span>
 go build                <span class="c1"># Build the stack, also takes care of updating dependencies through gomodules</span>
 go install              <span class="c1"># Installs the `cozy-stack` binary</span>
 go <span class="nb">test</span> -v ./...        <span class="c1"># To launch the tests</span>

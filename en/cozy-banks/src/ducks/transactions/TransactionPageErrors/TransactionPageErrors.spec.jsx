@@ -21,6 +21,13 @@ describe('get derived data', () => {
   })
 })
 
+jest.mock('ducks/context/BanksContext', () => ({
+  ...jest.requireActual('ducks/context/BanksContext'),
+  useBanksContext: () => ({
+    isBankTrigger: () => true
+  })
+}))
+
 describe('transaction page errors', () => {
   const setup = ({
     triggers = DEFAULT_TRIGGERS,
@@ -30,7 +37,6 @@ describe('transaction page errors', () => {
       <TransactionPageErrors
         accounts={accounts}
         triggerCol={{ data: triggers }}
-        isBankTrigger={() => true}
       />
     )
     return {

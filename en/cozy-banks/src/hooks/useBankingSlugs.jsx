@@ -31,8 +31,9 @@ const useBankingSlugs = () => {
     load()
   }, [client])
 
-  const isBankTrigger = trigger =>
-    bankingSlugs.includes(trigger?.message?.konnector)
+  const isBankTrigger = trigger => {
+    return bankingSlugs.includes(trigger?.message?.konnector)
+  }
 
   const isBankKonnector = job => {
     return bankingSlugs.includes(job?.konnector)
