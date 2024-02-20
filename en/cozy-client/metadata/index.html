@@ -3333,9 +3333,10 @@
 <h2 id="options-for-cozy-client">Options for cozy-client<a class="headerlink" href="#options-for-cozy-client" title="Permanent link">&para;</a></h2>
 <p>This cozyMetadata block is managed by the apps themselves. Cozy-Client is able to manage some parts of cozyMetadata automatically. For this it needs an <code>appMetadata</code> parameter with a few informations:</p>
 <ul>
-<li><code>slug</code>: the slug of the app or connector (will be used in <code>createdByApp</code> and <code>updatedByApps</code>)</li>
+<li><code>slug</code>: the slug of the app or konnector (will be used in <code>createdByApp</code> and <code>updatedByApps</code>)</li>
 <li><code>version</code>: version of the app (will be used in <code>createdByAppVersion</code> and <code>updatedByApps</code>)</li>
-<li>when in a connector, <code>sourceAccount</code>: the id of the io.cozy.accounts document that triggered the current execution (it will help to know which documents belong or are created by which account)</li>
+<li>when in a konnector, <code>sourceAccount</code>: the id of the io.cozy.accounts document that triggered the current execution (it will help to know which documents belong or are created by which account)</li>
+<li>when in a konnector, <code>sourceAccountIdentifier</code>: identifier unique to the account targetted by the konnector. It is the user login most of the time</li>
 </ul>
 <div class="codehilite"><pre><span></span>const client = new CozyClient({
   appMetadata: {
