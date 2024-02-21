@@ -4698,6 +4698,18 @@ will be sent to the user with a code, and this request will return:</p>
 </pre></div>
 
 
+<p><strong>Note:</strong> if the two-factor authentication is enabled, and the cloudery has
+already verified the email address, a parameter <code>email_verified_code</code> can be sent
+to skip another 2FA code sent by mail.</p>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;passphrase&quot;</span><span class="p">:</span> <span class="s2">&quot;4f58133ea0f415424d0a856e0d3d2e0cd28e4358fce7e333cb524729796b2791&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;client_id&quot;</span><span class="p">:</span> <span class="s2">&quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;client_secret&quot;</span><span class="p">:</span> <span class="s2">&quot;eyJpc3Mi[...omitted for brevity...]&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;email_verified_code&quot;</span><span class="p">:</span> <span class="s2">&quot;987456321&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
 <p><strong>Note:</strong> if the OAuth client has not been certified as the flagship app,
 this request will return:</p>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">202</span> <span class="ne">Accepted</span>
