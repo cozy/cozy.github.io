@@ -29,6 +29,7 @@ import SetFilterAndRedirect from 'ducks/balance/SetFilterAndRedirect'
 import TagPage from 'ducks/tags/TagPage'
 import Export from 'ducks/settings/Export'
 import Import from 'ducks/settings/Import/Import'
+import HarvestRoutes from 'ducks/transactions/TransactionPageErrors/HarvestRoutes'
 
 const OutletWrapper = ({ Component }) => (
   <>
@@ -66,7 +67,12 @@ const AppRoute = () => {
                 <BalanceDetailsPage />
               </ScrollToTopOnMountWrapper>
             }
-          />
+          >
+            <Route
+              path="harvest/:connectorSlug/*"
+              element={<HarvestRoutes />}
+            />
+          </Route>
           <Route
             path="future"
             element={

@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, act, fireEvent } from '@testing-library/react'
+import { render, act, fireEvent, screen } from '@testing-library/react'
 import Carrousel from './Carrousel'
 import AppLike from 'test/AppLike'
 
@@ -20,15 +20,14 @@ describe('Carrousel', () => {
     )
     expect(root.getByText('Slide 1')).toBeTruthy()
     expect(root.queryByText('Slide 2')).toBeFalsy()
-    const previous = root.getByTestId('carrousel-previous')
-    const next = root.getByTestId('carrousel-next')
+    expect(screen.queryByLabelText(/previous/i)).toBeNull()
     act(() => {
-      fireEvent.click(next)
+      fireEvent.click(screen.getByLabelText(/next/i))
     })
     expect(root.queryByText('Slide 1')).toBeFalsy()
     expect(root.getByText('Slide 2')).toBeTruthy()
     act(() => {
-      fireEvent.click(previous)
+      fireEvent.click(screen.getByLabelText(/previous/i))
     })
     expect(root.getByText('Slide 1')).toBeTruthy()
     expect(root.queryByText('Slide 2')).toBeFalsy()

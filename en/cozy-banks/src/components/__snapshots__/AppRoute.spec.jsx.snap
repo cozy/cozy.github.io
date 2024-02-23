@@ -33,7 +33,12 @@ exports[`App route should be a function returning a route 1`] = `
           </ScrollToTopOnMountWrapper>
         }
         path="details"
-      />
+      >
+        <Route
+          element={<HarvestRoutes />}
+          path="harvest/:connectorSlug/*"
+        />
+      </Route>
       <Route
         element={
           <ScrollToTopOnMountWrapper>
@@ -300,7 +305,12 @@ exports[`App route should have renderExtraRoutes 1`] = `
           </ScrollToTopOnMountWrapper>
         }
         path="details"
-      />
+      >
+        <Route
+          element={<HarvestRoutes />}
+          path="harvest/:connectorSlug/*"
+        />
+      </Route>
       <Route
         element={
           <ScrollToTopOnMountWrapper>
@@ -580,7 +590,12 @@ exports[`App route should not have renderExtraRoutesOnly if condition is false 1
           </ScrollToTopOnMountWrapper>
         }
         path="details"
-      />
+      >
+        <Route
+          element={<HarvestRoutes />}
+          path="harvest/:connectorSlug/*"
+        />
+      </Route>
       <Route
         element={
           <ScrollToTopOnMountWrapper>

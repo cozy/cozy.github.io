@@ -8,6 +8,7 @@ import { ACCOUNT_DOCTYPE, GROUP_DOCTYPE } from 'doctypes'
 import { ReimbursementsPage } from 'ducks/reimbursements'
 import BarTheme from 'ducks/bar/BarTheme'
 import { getFilteringDoc } from 'ducks/filters'
+import { Outlet } from 'react-router-dom'
 
 const getComponent = filteringDoc => {
   if (filteringDoc && filteringDoc._type === ACCOUNT_DOCTYPE) {
@@ -39,6 +40,7 @@ export const RawBalanceDetailsPage = props => {
     <>
       <BarTheme theme={'primary'} />
       <Component {...props} />
+      <Outlet />
     </>
   )
 }

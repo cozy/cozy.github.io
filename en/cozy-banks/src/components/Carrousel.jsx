@@ -1,18 +1,12 @@
+import range from 'lodash/range'
 import React, { useState, useCallback } from 'react'
 import SwipeableViews from 'react-swipeable-views'
 
-import { Media, Bd, Img } from 'cozy-ui/transpiled/react/deprecated/Media'
-import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
-
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import range from 'lodash/range'
-
 import LeftIcon from 'cozy-ui/transpiled/react/Icons/Left'
 import RightIcon from 'cozy-ui/transpiled/react/Icons/Right'
-
-const hidden = {
-  visibility: 'hidden'
-}
+import IconButton from 'cozy-ui/transpiled/react/IconButton'
+import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 const useCounter = (min, max) => {
   const [index, setIndex] = useState(min)
@@ -31,47 +25,68 @@ const useCounter = (min, max) => {
   return [index, handleChange, handlePrev, handleNext]
 }
 
-const Carrousel = props => {
-  const { children, className } = props
+const Carrousel = ({ children, className }) => {
+  const { t } = useI18n()
+  const [action, setAction] = useState(null)
   const [index, handleChange, handlePrev, handleNext] = useCounter(
     0,
     children.length
   )
-  const { isMobile } = useBreakpoints()
+
+  const handleAction = useCallback(action => {
+    setAction(action)
+  }, [])
+
+  const handleContentUpdate = useCallback(() => {
+    if (typeof action?.updateHeight === 'function') {
+      action.updateHeight()
+    }
+  }, [action])
 
   return (
-    <Media className={className}>
-      <Img
-        style={index === 0 ? hidden : null}
-        className="u-c-pointer u-slateGrey"
-        onClick={handlePrev}
-        data-testid="carrousel-previous"
-      >
-        <Icon className={isMobile ? 'u-mh-half' : 'u-mh-1'} icon={LeftIcon} />
-      </Img>
-      <Bd>
-        <SwipeableViews animateHeight disabled index={index}>
-          {React.Children.map(children, (child, i) => {
-            return React.cloneElement(child, { active: i === index })
-          })}
-        </SwipeableViews>
-        <div className="u-ta-center u-slateGrey u-c-pointer">
+    <div className={className}>
+      <SwipeableViews animateHeight index={index} action={handleAction}>
+        {React.Children.map(children, (child, i) => {
+          return React.cloneElement(child, {
+            active: i === index,
+            onContentUpdate: handleContentUpdate
+          })
+        })}
+      </SwipeableViews>
+      <div className="u-flex u-flex-items-center u-flex-justify-center">
+        <div className="u-w-2-half">
+          {index !== 0 ? (
+            <IconButton
+              onClick={handlePrev}
+              size="medium"
+              aria-label={t('Carrousel.previous')}
+              className="u-slateGrey"
+            >
+              <Icon icon={LeftIcon} />
+            </IconButton>
+          ) : null}
+        </div>
+        <div className="u-ta-center u-slateGrey u-c-pointer u-mh-half">
           {range(children.length).map((x, i) => (
             <span key={i} onClick={() => handleChange(i)}>
               {i === index ? '●' : '○'}
             </span>
           ))}
         </div>
-      </Bd>
-      <Img
-        style={index === children.length - 1 ? hidden : null}
-        className="u-c-pointer u-slateGrey"
-        onClick={handleNext}
-        data-testid="carrousel-next"
-      >
-        <Icon className={isMobile ? 'u-mh-half' : 'u-mh-1'} icon={RightIcon} />
-      </Img>
-    </Media>
+        <div className="u-w-2-half">
+          {index !== children.length - 1 ? (
+            <IconButton
+              onClick={handleNext}
+              size="medium"
+              aria-label={t('Carrousel.next')}
+              className="u-slateGrey"
+            >
+              <Icon icon={RightIcon} />
+            </IconButton>
+          ) : null}
+        </div>
+      </div>
+    </div>
   )
 }
 

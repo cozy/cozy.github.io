@@ -1,73 +1,68 @@
+import cx from 'classnames'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import compose from 'lodash/flowRight'
 
+import { hasQueryBeenLoaded, useQuery } from 'cozy-client'
+
 import { getFilteredAccounts } from 'ducks/filters'
-
-import CozyClient, { queryConnect } from 'cozy-client'
-
-import TriggerErrorCard from 'ducks/transactions/TriggerErrorCard'
-import { konnectorTriggersConn } from 'doctypes'
 import Carrousel from 'components/Carrousel'
-import flag from 'cozy-flags'
-import { getTransactionPageErrors } from 'ducks/transactions/TransactionPageErrors/errors'
+import HarvestBanner from 'ducks/transactions/TransactionPageErrors/HarvestBanner'
 import { useBanksContext } from 'ducks/context/BanksContext'
+import { getTriggersOrderByError } from 'ducks/transactions/TransactionPageErrors/helpers'
+import { konnectorTriggersConn } from 'doctypes'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
+import Divider from 'cozy-ui/transpiled/react/Divider'
 
 /**
  * Shows connection errors for the currently filtered bank accounts.
  * If there is more than 1 error, a carrousel wraps the errors.
  */
-export const TransactionPageErrors = ({ triggerCol, accounts }) => {
+export const TransactionPageErrors = ({ accounts }) => {
   const { isBankTrigger } = useBanksContext()
+  const { isMobile, isDesktop } = useBreakpoints()
 
-  const errors = getTransactionPageErrors({
-    triggerCol,
-    accounts,
-    isBankTrigger
-  })
-
-  const count = errors.length
-  const Wrapper = count > 1 ? Carrousel : React.Fragment
-  const wrapperProps =
-    count > 1
-      ? {
-          className: 'u-bg-errorBackground'
-        }
-      : null
-
-  if (flag('demo')) {
-    return null
-  }
-
-  return (
-    <Wrapper {...wrapperProps}>
-      {errors.map((error, i) => {
-        const Component = TransactionPageErrors.errorTypeToComponent[error.type]
-        if (!Component) {
-          throw new Error(`No component available for error ${error.type}`)
-        }
-        return (
-          <Component
-            className="u-flex-shrink-0"
-            error={error}
-            key={error._id}
-            index={i}
-            count={count}
-          />
-        )
-      })}
-    </Wrapper>
+  const { query: triggersQueryDefinition, ...triggersQueryOptions } =
+    konnectorTriggersConn
+  const { data: triggers, ...triggersResult } = useQuery(
+    triggersQueryDefinition,
+    triggersQueryOptions
   )
-}
 
-// Use static property to be able to override
-TransactionPageErrors.errorTypeToComponent = {
-  'errored-trigger': TriggerErrorCard
+  if (hasQueryBeenLoaded(triggersResult)) {
+    const bankTriggers = getTriggersOrderByError({
+      triggers,
+      accounts,
+      isBankTrigger
+    })
+
+    const hasMultipleTriggers = bankTriggers.length > 1
+    const Wrapper = hasMultipleTriggers ? Carrousel : 'div'
+    const wrapperProps = {
+      className: cx(
+        bankTriggers.length === 1 ? 'u-mb-1' : null,
+        !isMobile ? 'u-mh-1' : null
+      )
+    }
+
+    if (bankTriggers.length !== 0) {
+      return (
+        <>
+          <Wrapper {...wrapperProps}>
+            {bankTriggers.map(trigger => (
+              <HarvestBanner key={trigger._id} trigger={trigger} />
+            ))}
+          </Wrapper>
+          {isDesktop ? <Divider /> : null}
+        </>
+      )
+    }
+  }
+  return null
 }
 
 TransactionPageErrors.propTypes = {
-  triggerCol: PropTypes.object.isRequired,
   accounts: PropTypes.array.isRequired
 }
 
@@ -75,11 +70,5 @@ export default compose(
   connect(state => ({
     accounts: getFilteredAccounts(state)
   })),
-  queryConnect({
-    triggerCol: {
-      ...konnectorTriggersConn,
-      fetchPolicy: CozyClient.fetchPolicies.noFetch
-    }
-  }),
   React.memo
 )(TransactionPageErrors)
