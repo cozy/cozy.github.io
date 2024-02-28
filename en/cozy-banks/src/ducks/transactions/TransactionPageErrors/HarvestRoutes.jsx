@@ -29,9 +29,10 @@ const HarvestRoutes = () => {
     queryKonnector.options
   )
 
-  const konnectorWithTriggers = konnector
-    ? { ...konnector, triggers: { data: triggers } }
-    : undefined
+  const konnectorWithTriggers =
+    konnector && trigger
+      ? { ...konnector, triggers: { data: triggers } }
+      : undefined
 
   const onDismiss = useCallback(() => {
     navigate('..')

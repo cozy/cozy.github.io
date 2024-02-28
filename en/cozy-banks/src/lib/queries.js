@@ -21,7 +21,7 @@ export const buildTriggersQueryByKonnectorSlug = (slug, enabled) => ({
 export const buildKonnectorBySlug = (slug, enabled = Boolean(slug)) => ({
   definition: () => Q('io.cozy.konnectors').getById(`io.cozy.konnectors/${slug}`),
   options: {
-    as: 'konnector',
+    as: `io.cozy.konnectors/${slug}`,
     singleDocData: true,
     enabled
   }

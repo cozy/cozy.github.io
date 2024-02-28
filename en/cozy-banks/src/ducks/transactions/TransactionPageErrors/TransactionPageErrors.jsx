@@ -41,6 +41,7 @@ export const TransactionPageErrors = ({ accounts }) => {
     const Wrapper = hasMultipleTriggers ? Carrousel : 'div'
     const wrapperProps = {
       className: cx(
+        'u-mt-1',
         bankTriggers.length === 1 ? 'u-mb-1' : null,
         !isMobile ? 'u-mh-1' : null
       )
