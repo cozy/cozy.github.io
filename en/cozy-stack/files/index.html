@@ -5870,6 +5870,10 @@ Hello world!
 <h3 id="get-filesfile-idthumbnailssecretformat">GET /files/:file-id/thumbnails/:secret/:format<a class="headerlink" href="#get-filesfile-idthumbnailssecretformat" title="Permanent link">&para;</a></h3>
 <p>Get a thumbnail of a file (for an image &amp; pdf only). <code>:format</code> can be <code>tiny</code> (96x96)
 <code>small</code> (640x480), <code>medium</code> (1280x720), or <code>large</code> (1920x1080).</p>
+<p>This API does not require authentication because the secret acts as a token. 
+This secret is valid for 10 minutes, after which the link will return an error. 
+To retrieve a new functional link, you must query the files API again to obtain
+a new secret.</p>
 <h3 id="put-filesfile-id">PUT /files/:file-id<a class="headerlink" href="#put-filesfile-id" title="Permanent link">&para;</a></h3>
 <p>Overwrite a file</p>
 <p>The <code>updated_at</code> field will be the first value in this list:</p>
