@@ -3,6 +3,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 
 const SRC_DIR = path.resolve(__dirname, '../src')
 
@@ -48,7 +49,18 @@ module.exports = {
     exprContextRegExp: /$^/,
     exprContextCritical: false
   },
-
+  optimization: {
+    minimizer: [
+      new TerserPlugin({
+        parallel: true,
+        terserOptions: {
+          mangle: {
+            keep_fnames: true
+          }
+        }
+      })
+    ]
+  },
   resolve: {
     alias: {
       // We are building with target: node as webpack options. This causes webpack
