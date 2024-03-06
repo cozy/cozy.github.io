@@ -4135,22 +4135,41 @@ care of it later.</p>
 <h3 id="description-of-a-sharing">Description of a sharing<a class="headerlink" href="#description-of-a-sharing" title="Permanent link">&para;</a></h3>
 <ul>
 <li>An identifier (the same for all members of the sharing)</li>
-<li>A list of <code>members</code>. The first one is the owner. For each member, we have
-    the URL of the cozy, a contact name, a public name, an email, a status, a
-    read-only flag, and some credentials to authorize the transfer of data
-    between the owner and the recipients. The status can be:<ul>
+<li>A list of <code>members</code>. The first one is the owner. For each member, we have:<ul>
+<li><code>status</code>, a status that can be:<ul>
 <li><code>owner</code> for the member that has created the sharing</li>
-<li><code>mail-not-sent</code> for a member that has been added, but its invitation
-    has not yet been sent (often, this status is used only for a few
-    seconds)</li>
-<li><code>pending</code> for a member with an invitation sent, but who has not clicked
-    on the link</li>
-<li><code>seen</code> for a member that has clicked on the invitation link, but has not
-    setup the Cozy to Cozy replication for the sharing</li>
-<li><code>ready</code> for a member where the Cozy to Cozy replication has been set up</li>
+<li><code>mail-not-sent</code> for a member that has been added, but its
+  invitation has not yet been sent (often, this status is used only
+  for a few seconds)</li>
+<li><code>pending</code> for a member with an invitation sent, but who has not
+  clicked on the link</li>
+<li><code>seen</code> for a member that has clicked on the invitation link, but
+  has not setup the Cozy to Cozy replication for the sharing</li>
+<li><code>ready</code> for a member where the Cozy to Cozy replication has been
+  set up</li>
 <li><code>revoked</code> for a member who is on longer in the sharing</li>
 </ul>
 </li>
+<li><code>name</code>, a contact name</li>
+<li><code>public_name</code>, a public name</li>
+<li><code>email</code>, the email address</li>
+<li><code>instance</code>, the URL of the Cozy</li>
+<li><code>read_only</code>, a flag to tell if the contact is restricted to read-only mode</li>
+<li><code>only_in_groups</code>, a flag that will be false if the member has been added
+  as a single contact</li>
+<li><code>groups</code>, a list of indexes of the groups</li>
+</ul>
+</li>
+<li>A list of <code>groups</code>, with for each one:<ul>
+<li><code>id</code>, the identifier of the io.cozy.contacts.groups</li>
+<li><code>name</code>, the name of the group</li>
+<li><code>addedBy</code>, the index of the member that has added the group</li>
+<li><code>read_only</code>, a flag to tell if the group is restricted to read-only mode</li>
+<li><code>revoked</code>, a flag set to true when the group is revoked from the sharing</li>
+</ul>
+</li>
+<li>Some <code>credentials</code> to authorize the transfer of data between the owner and
+    the recipients</li>
 <li>A <code>description</code> (one sentence that will help people understand what is
     shared and why)</li>
 <li>A flag <code>active</code> that says if the sharing is currently active for at least
