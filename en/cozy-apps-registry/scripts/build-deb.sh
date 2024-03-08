@@ -15,7 +15,7 @@ export DEBFULLNAME="Cozycloud Packaging Team"
 export DEBEMAIL="debian@cozycloud.cc"
 [ -z "${UPSTREAM_VERSION+x}" ] && UPSTREAM_VERSION="3.0"
 [ -z "${WITH_TRANSIFEX+x}" ] && WITH_TRANSIFEX=true
-GOVERSION="1.22.0"
+GOVERSION="1.22.1"
 TODAY=$(date +%Y%m%d%H%M%S)
 
 # If .transifexrc file exists AND contains a password different from 'None' then keep going

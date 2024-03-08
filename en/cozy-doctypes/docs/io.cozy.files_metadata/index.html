@@ -3787,8 +3787,7 @@ repository.</p>
 Most of these attributes heavily depends on the document context and are not
 expected in every cases.</p>
 <ul>
-<li><code>contentAuthor</code> : {string} the author of the document, e.g. <code>impots.gouv</code>,
-  <code>amazon.com</code>, etc.</li>
+<li><code>contentAuthor</code> : {string} the author of the document, e.g. <code>impots.gouv</code>, <code>amazon.com</code>, etc. It is currently used as a source meaning.</li>
 <li><code>datetime</code> : {date} Equals to the date attribute specified by <code>datetimeLabel</code>.</li>
 <li><code>fileIdAttributes</code> : {string} Used to deduplicate files imported by a konnector. This is a concatenation of a set of attributes, separated by <code>####</code>. For example: <code>mycontractid####myfile.pdf####/mypath/</code>.</li>
 <li><code>datetimeLabel</code> : {string} specify which attribute is used as <code>datetime</code>, e.g.
@@ -3802,7 +3801,8 @@ expected in every cases.</p>
 <li><code>noticePeriod</code> : {string} number of days before expiration alert.</li>
 <li><code>contractType</code> : {string} type of employment contract.</li>
 <li><code>refTaxIncome</code> : {string} reference tax income.</li>
-<li><code>netSocialAmount</code> : {number} net social amount.</li>
+<li><code>netSocialAmount</code> : {string} net social amount.</li>
+<li><code>employerName</code> : {string} name of the employer.</li>
 <li><code>taxNumber</code> : {string} fiscal reference number.</li>
 <li><code>invoiceNumber</code> : {string} invoice number.</li>
 <li><code>number</code> : {string} Relative number e.g. iban number for an iban document.</li>
@@ -3838,7 +3838,8 @@ to be added to a document.</p>
 <ul>
 <li><code>datetime</code> : {date} Equals to <code>startDate</code></li>
 <li><code>datetimeLabel</code> : {string} <code>'startDate'</code></li>
-<li><code>contentAuthor</code> : {string} Employer on the payslip</li>
+<li><code>contentAuthor</code> : {string} Source of the payslip, e.g. <code>payfit.fr</code></li>
+<li><code>employerName</code> : {string} Name of the employer on the payslip</li>
 <li><code>startDate</code> : {date} First day of the worked period</li>
 <li><code>endDate</code> : {date} Last day of the worked period</li>
 <li><code>issueDate</code> : {date} Issue date of the document</li>
@@ -4057,7 +4058,8 @@ to be added to a document.</p>
   <span class="p">},</span>
   <span class="s2">&quot;datetime&quot;</span><span class="o">:</span> <span class="s2">&quot;2019-05-01&quot;</span><span class="p">,</span>
   <span class="s2">&quot;datetimeLabel&quot;</span><span class="o">:</span> <span class="s2">&quot;startDate&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;contentAuthor&quot;</span><span class="o">:</span> <span class="s2">&quot;cozycloud&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;contentAuthor&quot;</span><span class="o">:</span> <span class="s2">&quot;payfit.fr&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;employerName&quot;</span><span class="o">:</span> <span class="s2">&quot;cozycloud&quot;</span><span class="p">,</span>
   <span class="s2">&quot;startDate&quot;</span><span class="o">:</span> <span class="s2">&quot;2019-05-01&quot;</span><span class="p">,</span>
   <span class="s2">&quot;endDate&quot;</span><span class="o">:</span> <span class="s2">&quot;2019-05-31&quot;</span>
 <span class="p">},</span>
