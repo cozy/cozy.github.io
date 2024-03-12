@@ -1,8 +1,9 @@
 const { Q } = require('cozy-client')
+const { DOCTYPE_GEOJSON } = require('../../libs/doctypes')
 
 module.exports = {
   getDoctypes: function() {
-    return ['io.cozy.timeseries.geojson']
+    return [DOCTYPE_GEOJSON]
   },
   /**
    * FIXME: The params are an array passed to the scripts, here used to get the startDate
@@ -19,7 +20,7 @@ module.exports = {
     const fromDate = params.length > 0 ? params[0] : null
 
     console.log(`Looking for docs with startDate above ${fromDate}`)
-    const query = Q('io.cozy.timeseries.geojson')
+    const query = Q(DOCTYPE_GEOJSON)
       .where({
         aggregation: { $exists: true },
         startDate: {

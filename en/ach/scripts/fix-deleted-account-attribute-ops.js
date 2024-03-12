@@ -1,17 +1,17 @@
-const DOCTYPE_BANK_OPERATIONS = 'io.cozy.bank.operations'
+const { DOCTYPE_BANK_TRANSACTIONS } = require('../libs/doctypes')
 const mkAPI = require('./api')
 
 const findAccount = async (client, trId) => {
   const doc = await client.fetchJSON(
     'GET',
-    `/data/${DOCTYPE_BANK_OPERATIONS}/${trId}?revs=true`
+    `/data/${DOCTYPE_BANK_TRANSACTIONS}/${trId}?revs=true`
   )
   const revs = doc._revisions.ids
   let i = doc._revisions.start
   for (let rev of revs) {
     const doc = await client.fetchJSON(
       'GET',
-      `/data/${DOCTYPE_BANK_OPERATIONS}/${trId}?revs=true&rev=${i}-${rev}`
+      `/data/${DOCTYPE_BANK_TRANSACTIONS}/${trId}?revs=true&rev=${i}-${rev}`
     )
     i--
     if (doc.account) {
@@ -21,7 +21,7 @@ const findAccount = async (client, trId) => {
 }
 
 const repairOperationsWithAccounts = async (api, client, dryRun) => {
-  const operations = await api.fetchAll(DOCTYPE_BANK_OPERATIONS)
+  const operations = await api.fetchAll(DOCTYPE_BANK_TRANSACTIONS)
   const orphanOperations = operations.filter(x => !x.account)
   console.log('Total number of operations', operations.length)
   console.log(
@@ -44,7 +44,7 @@ const repairOperationsWithAccounts = async (api, client, dryRun) => {
         console.log(`Updating operation ${op._id} with account ${op.account}`)
         await client.fetchJSON(
           'PUT',
-          `/data/${DOCTYPE_BANK_OPERATIONS}/${op._id}`,
+          `/data/${DOCTYPE_BANK_TRANSACTIONS}/${op._id}`,
           op
         )
       }
@@ -54,7 +54,7 @@ const repairOperationsWithAccounts = async (api, client, dryRun) => {
 
 module.exports = {
   getDoctypes: function() {
-    return [DOCTYPE_BANK_OPERATIONS]
+    return [DOCTYPE_BANK_TRANSACTIONS]
   },
 
   run: async function(ach, dryRun = true) {

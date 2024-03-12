@@ -2161,6 +2161,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#generate-some-papers" title="Generate some papers" class="md-nav__link">
+    Generate some papers
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3395,6 +3402,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#generate-some-papers" title="Generate some papers" class="md-nav__link">
+    Generate some papers
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3430,6 +3444,7 @@
 <li><a href="#create-photo-albums-with-ach">Create photo albums with ACH</a></li>
 <li><a href="#export-data-keeping-the-ids">Export data keeping the ids</a></li>
 <li><a href="#how-to-export-all-data-from-a-konnector">How to export all data from a konnector</a></li>
+<li><a href="#Generate-some-papers">Generate some qualified files with referenced contacts (mespapiers)</a></li>
 </ul>
 <h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
 <p>Install ACH using yarn 1 (v1.22.18 or greater)</p>
@@ -3622,6 +3637,18 @@ environment variable <code>ACH_NO_KEEP_ID</code> to do so :</p>
 environment variable <code>ACH_KEEP_REV</code>.</p>
 <h3 id="import-data-from-a-csv">Import data from a CSV<a class="headerlink" href="#import-data-from-a-csv" title="Permanent link">&para;</a></h3>
 <p>See the <a href="examples/data-from-csv/">example</a>.</p>
+<h3 id="generate-some-papers">Generate some papers<a class="headerlink" href="#generate-some-papers" title="Permanent link">&para;</a></h3>
+<p>(usefull for MesPapiers)</p>
+<p>To create qualified files with contacts referenced in a Cozy, use the <code>script papers/createPapers</code> command.</p>
+<div class="codehilite"><pre><span></span>ACH script papers/createPapers <span class="o">[</span>numberFile<span class="o">]</span> <span class="o">[</span>folderId<span class="o">]</span> -t &lt;token&gt;
+</pre></div>
+
+
+<p>Parameters:
+- <code>numberFile</code>: Number of papers to create (default: 1)
+- <code>folderId</code>: ID of the folder where the files will be created. (default: &lsquo;io.cozy.files.root-dir&rsquo;)</p>
+<p>Options:
+- <code>-t</code>/<code>--token</code>: app/konnector token, <strong>required to view files in the MesPapiers app.</strong>(Creates the <code>cozyMetadata.createdByApp</code> prop)</p>
                 
                   
                 

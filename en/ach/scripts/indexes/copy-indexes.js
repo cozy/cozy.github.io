@@ -1,9 +1,5 @@
-const {
-  N_INDEXES,
-  DOCTYPE_DUMMY,
-  queryDocsByIndexes,
-  indexedFields
-} = require('./common')
+const { N_INDEXES, queryDocsByIndexes, indexedFields } = require('./common')
+const { DOCTYPE_DUMMY } = require('../../libs/doctypes')
 
 const getIndex = async (client, ddoc) => {
   return client.fetchJSON('GET', `/data/${DOCTYPE_DUMMY}/_design/${ddoc}`)

@@ -8,13 +8,15 @@ const {
   migrationDiff: diff,
   getWithInstanceLogger
 } = require('../../libs/utils')
+const {
+  DOCTYPE_CONTACTS_ACCOUNTS,
+  DOCTYPE_CONTACTS,
+  DOCTYPE_ACCOUNTS
+} = require('../../libs/doctypes')
 
 const CONTACTS_APP_NAME = 'Contacts'
 const KONNECTOR_APP_NAME = 'konnector-google'
 const ACCOUNT_APP_VERSION = 1
-const DOCTYPE_CONTACTS = 'io.cozy.contacts'
-const DOCTYPE_ACCOUNTS = 'io.cozy.accounts'
-const DOCTYPE_CONTACTS_ACCOUNT = 'io.cozy.contacts.accounts'
 const DOCTYPE_CONTACTS_VERSION = 2
 
 const getCreatedByApp = contact => {
@@ -66,7 +68,7 @@ const migrateContactV1toV2 = (contact, contactsAccountsMapping) => {
     accounts = [
       {
         _id: contactAccountId,
-        _type: DOCTYPE_CONTACTS_ACCOUNT
+        _type: DOCTYPE_CONTACTS_ACCOUNTS
       }
     ]
   }
@@ -112,9 +114,9 @@ const createContactAccount = accountName => ({
 
 async function doMigrations(dryRun, api, logWithInstance) {
   if (!dryRun) {
-    const result = await api.createDoctype(DOCTYPE_CONTACTS_ACCOUNT)
+    const result = await api.createDoctype(DOCTYPE_CONTACTS_ACCOUNTS)
     if (!result.ok) {
-      logWithInstance(`Failed to create ${DOCTYPE_CONTACTS_ACCOUNT}`)
+      logWithInstance(`Failed to create ${DOCTYPE_CONTACTS_ACCOUNTS}`)
       return
     }
   }
@@ -140,8 +142,10 @@ async function doMigrations(dryRun, api, logWithInstance) {
       contactsAccountsMapping[name] = `contactAccount-${name}`
     })
   } else {
-    await api.updateAll(DOCTYPE_CONTACTS_ACCOUNT, contactsAccounts)
-    const createdContactsAccounts = await api.fetchAll(DOCTYPE_CONTACTS_ACCOUNT)
+    await api.updateAll(DOCTYPE_CONTACTS_ACCOUNTS, contactsAccounts)
+    const createdContactsAccounts = await api.fetchAll(
+      DOCTYPE_CONTACTS_ACCOUNTS
+    )
     contactsAccountsMapping = createdContactsAccounts.reduce(
       (mapping, contactAccount) => ({
         ...mapping,
@@ -167,7 +171,7 @@ async function doMigrations(dryRun, api, logWithInstance) {
   logWithInstance(
     dryRun ? 'Would create' : 'Has created',
     Object.keys(contactsAccountsMapping).length,
-    DOCTYPE_CONTACTS_ACCOUNT
+    DOCTYPE_CONTACTS_ACCOUNTS
   )
 
   logWithInstance(
@@ -179,7 +183,7 @@ async function doMigrations(dryRun, api, logWithInstance) {
 
 module.exports = {
   getDoctypes: function() {
-    return [DOCTYPE_ACCOUNTS, DOCTYPE_CONTACTS, DOCTYPE_CONTACTS_ACCOUNT]
+    return [DOCTYPE_ACCOUNTS, DOCTYPE_CONTACTS, DOCTYPE_CONTACTS_ACCOUNTS]
   },
 
   run: async function(ach, dryRun = true) {

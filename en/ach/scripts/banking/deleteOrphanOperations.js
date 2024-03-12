@@ -1,12 +1,14 @@
 const keyBy = require('lodash/keyBy')
-const DOCTYPE_BANK_OPERATIONS = 'io.cozy.bank.operations'
-const DOCTYPE_BANK_ACCOUNTS = 'io.cozy.bank.accounts'
 const api = require('../api')
+const {
+  DOCTYPE_BANK_ACCOUNTS,
+  DOCTYPE_BANK_TRANSACTIONS
+} = require('../../libs/doctypes')
 
 const deleteOrphanBankOperations = async dryRun => {
   const accounts = keyBy(await api.fetchAll(DOCTYPE_BANK_ACCOUNTS), 'id')
   const operations = (await api.fetchAll(
-    DOCTYPE_BANK_OPERATIONS,
+    DOCTYPE_BANK_TRANSACTIONS,
     'include_docs=true'
   ))
     .map(x => x.doc)
@@ -27,7 +29,7 @@ const deleteOrphanBankOperations = async dryRun => {
 module.exports = {
   api: api,
   getDoctypes: function() {
-    return [DOCTYPE_BANK_OPERATIONS, DOCTYPE_BANK_ACCOUNTS]
+    return [DOCTYPE_BANK_TRANSACTIONS, DOCTYPE_BANK_ACCOUNTS]
   },
 
   run: async function(ach, dryRun = true) {

@@ -1,6 +1,5 @@
+const { DOCTYPE_FILES } = require('../libs/doctypes')
 const mkAPI = require('./api')
-
-const DOCTYPE_FILES = 'io.cozy.files'
 
 const referencesToRemove = files => {
   const toRemove = {}

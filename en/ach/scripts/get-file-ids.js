@@ -28,13 +28,14 @@ $ node # in ACH directory
 > .load scripts/get-file-ids
 */
 
+const { DOCTYPE_FILES } = require('cozy-client-js')
 const fs = require('fs')
 
 let client
 
 module.exports = {
   getDoctypes: function() {
-    return ['io.cozy.files']
+    return [DOCTYPE_FILES]
   },
 
   run: async function(ach) {

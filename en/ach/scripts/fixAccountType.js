@@ -5,8 +5,7 @@
  * in the trigger.
  */
 
-const DOCTYPE_COZY_ACCOUNTS = 'io.cozy.accounts'
-const DOCTYPE_COZY_TRIGGERS = 'io.cozy.triggers'
+const { DOCTYPE_ACCOUNTS, DOCTYPE_TRIGGERS } = require('../libs/doctypes')
 
 let client
 
@@ -19,7 +18,7 @@ const decodeBase64JSON = val => {
 }
 
 const findTriggers = async client => {
-  const index = await client.data.defineIndex(DOCTYPE_COZY_TRIGGERS, ['_id'])
+  const index = await client.data.defineIndex(DOCTYPE_TRIGGERS, ['_id'])
   return client.data.query(index, { selector: { _id: { $gt: null } } })
 }
 
@@ -60,7 +59,7 @@ const findKonnectorSlug = (triggers, account) => {
 }
 
 const fixAccountsWithoutAccountType = async (client, dryRun = true) => {
-  const index = await client.data.defineIndex(DOCTYPE_COZY_ACCOUNTS, ['_id'])
+  const index = await client.data.defineIndex(DOCTYPE_ACCOUNTS, ['_id'])
   const accounts = await client.data.query(index, {
     selector: { _id: { $gt: null } }
   })
@@ -86,7 +85,7 @@ const fixAccountsWithoutAccountType = async (client, dryRun = true) => {
           console.info(
             '👌  Updating ' + accountId + ' with account_type ' + konnectorSlug
           )
-          await client.data.update(DOCTYPE_COZY_ACCOUNTS, account, account)
+          await client.data.update(DOCTYPE_ACCOUNTS, account, account)
         } else {
           console.info(
             '👌  Would update ' +
@@ -107,7 +106,7 @@ const fixAccountsWithoutAccountType = async (client, dryRun = true) => {
 
 module.exports = {
   getDoctypes: function() {
-    return [DOCTYPE_COZY_ACCOUNTS, DOCTYPE_COZY_TRIGGERS]
+    return [DOCTYPE_ACCOUNTS, DOCTYPE_TRIGGERS]
   },
 
   run: async function(ach, dryRun = true) {

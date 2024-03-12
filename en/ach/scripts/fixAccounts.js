@@ -3,13 +3,14 @@
  * This watch every account and update it if needed.
  */
 const { isEqual } = require('lodash')
-
-const DOCTYPE_COZY_ACCOUNTS = 'io.cozy.accounts'
-const DOCTYPE_COZY_FILES = 'io.cozy.files'
-const DOCTYPE_COZY_TRIGGERS = 'io.cozy.triggers'
+const {
+  DOCTYPE_TRIGGERS,
+  DOCTYPE_ACCOUNTS,
+  DOCTYPE_FILES
+} = require('../libs/doctypes')
 
 const findTriggerByAccount = async (client, accountId) => {
-  const index = await client.data.defineIndex(DOCTYPE_COZY_TRIGGERS, [
+  const index = await client.data.defineIndex(DOCTYPE_TRIGGERS, [
     'message.account'
   ])
   const results = await client.data.query(index, {
@@ -245,7 +246,7 @@ const fixAccount = async (client, account, dryRun = true) => {
       console.info(`👌  Would update ${account._id}`)
     } else {
       console.info(`👌  Updating ${account._id}`)
-      await client.data.update(DOCTYPE_COZY_ACCOUNTS, account, sanitizedAccount)
+      await client.data.update(DOCTYPE_ACCOUNTS, account, sanitizedAccount)
     }
   }
 
@@ -257,7 +258,7 @@ const fixAccounts = async (url, client, dryRun = true) => {
 
   let accounts
   try {
-    const index = await client.data.defineIndex(DOCTYPE_COZY_ACCOUNTS, ['_id'])
+    const index = await client.data.defineIndex(DOCTYPE_ACCOUNTS, ['_id'])
     accounts = await client.data.query(index, {
       selector: { _id: { $gt: null } }
     })
@@ -276,7 +277,7 @@ const fixAccounts = async (url, client, dryRun = true) => {
 let client
 module.exports = {
   getDoctypes: function() {
-    return [DOCTYPE_COZY_ACCOUNTS, DOCTYPE_COZY_TRIGGERS, DOCTYPE_COZY_FILES]
+    return [DOCTYPE_ACCOUNTS, DOCTYPE_TRIGGERS, DOCTYPE_FILES]
   },
   run: async function(ach, dryRun = true) {
     client = ach.oldClient

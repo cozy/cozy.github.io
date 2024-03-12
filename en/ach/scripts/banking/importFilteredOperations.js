@@ -1,7 +1,6 @@
+const { DOCTYPE_BANK_TRANSACTIONS } = require('../../libs/doctypes')
 const parseDataFile = require('../../libs/parseDataFile')
 const createGenerator = require('../../libs/random')
-
-const DOCTYPE_OPERATIONS = 'io.cozy.bank.operations'
 
 /**
  * This script can be used to import Cozy banks operations.
@@ -16,7 +15,7 @@ const DOCTYPE_OPERATIONS = 'io.cozy.bank.operations'
  */
 module.exports = {
   getDoctypes: function() {
-    return [DOCTYPE_OPERATIONS]
+    return [DOCTYPE_BANK_TRANSACTIONS]
   },
   run: async function(ach, dryRun, parameters) {
     // Parsing script parameters
@@ -30,7 +29,7 @@ module.exports = {
 
     const client = ach.client
     const categoriesList = categories.split(',')
-    const data = parseDataFile(filepath)[DOCTYPE_OPERATIONS]
+    const data = parseDataFile(filepath)[DOCTYPE_BANK_TRANSACTIONS]
     const filteredData = data
       .filter(e => {
         // Category ID are explained here :
@@ -43,7 +42,7 @@ module.exports = {
           return categoriesList.includes(e.cozyCategoryId)
         }
       })
-      .map(e => ({ ...e, _type: DOCTYPE_OPERATIONS }))
+      .map(e => ({ ...e, _type: DOCTYPE_BANK_TRANSACTIONS }))
       .slice(0, nOperations)
       .sort(() => {
         if (typeof randomOrder === 'string') {

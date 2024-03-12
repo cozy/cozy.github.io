@@ -1,4 +1,5 @@
-const DOCTYPE_DUMMY = 'io.cozy.dummy'
+const { DOCTYPE_DUMMY } = require('../../libs/doctypes')
+
 const N_DOCS = 1000
 const N_INDEXES = 50
 

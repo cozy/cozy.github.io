@@ -5,8 +5,7 @@ const groupBy = require('lodash/groupBy')
 const merge = require('lodash/merge')
 const mutations = require('./mutations')
 const mkAPI = require('../api')
-
-const DOCTYPE_OPERATIONS = 'io.cozy.bank.operations'
+const { DOCTYPE_BANK_TRANSACTIONS } = require('../../libs/doctypes')
 
 const getDisplayDate = x => {
   return (x['realisationDate'] || x['date']).substr(0, 10)
@@ -48,7 +47,7 @@ const matchIntraDay = function*(transactions) {
 }
 
 const computeMutation = async api => {
-  const trs = await api.fetchAll(DOCTYPE_OPERATIONS)
+  const trs = await api.fetchAll(DOCTYPE_BANK_TRANSACTIONS)
   const results = Array.from(matchIntraDay(trs))
 
   const toDelete = []
@@ -80,7 +79,7 @@ const run = async (api, dryRun) => {
 }
 
 module.exports = {
-  getDoctypes: () => [DOCTYPE_OPERATIONS],
+  getDoctypes: () => [DOCTYPE_BANK_TRANSACTIONS],
   run: async function(ach, dryRun = true) {
     return run(mkAPI(ach.oldClient), dryRun).catch(err => {
       console.error(err)

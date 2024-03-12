@@ -1,7 +1,8 @@
 const { Q } = require('cozy-client')
-
-const DOCTYPE_GEOJSON = 'io.cozy.timeseries.geojson'
-const DOCTYPE_GEOJSON_AGGREGATE = 'io.cozy.timeseries.geojson.aggregate'
+const {
+  DOCTYPE_GEOJSON,
+  DOCTYPE_GEOJSON_AGGREGATE
+} = require('../../libs/doctypes')
 
 const queryTrips = async (client, { fields } = {}) => {
   const query = Q(DOCTYPE_GEOJSON)

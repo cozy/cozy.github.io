@@ -1,11 +1,12 @@
+const {
+  DOCTYPE_FILES,
+  DOCTYPE_BANK_ACCOUNTS,
+  DOCTYPE_BANK_TRANSACTIONS,
+  DOCTYPE_BILLS,
+  DOCTYPE_ALBUMS
+} = require('../../libs/doctypes')
 const { queryAll } = require('../libs/utils')
 const PromisePool = require('es6-promise-pool')
-
-const DOCTYPE_BANK_ACCOUNTS = 'io.cozy.bank.accounts'
-const DOCTYPE_BANK_TRANSACTIONS = 'io.cozy.bank.operations'
-const DOCTYPE_BILLS = 'io.cozy.bills'
-const DOCTYPE_FILES = 'io.cozy.files'
-const DOCTYPE_ALBUMS = 'io.cozy.photos.albums'
 
 const ALREADY_IN_TRASH = 'File or directory is already in the trash'
 

@@ -16,9 +16,10 @@ const STREETS = require('../../data/timeseries/streetsOfLyon.json')
 const {
   'io.cozy.accounts': ACCOUNTS
 } = require('../../data/accounts/tracemob.json')
-
-const DOCTYPE_GEOJSON_AGGREGATE = 'io.cozy.timeseries.geojson.aggregate'
-const DOCTYPE_GEOJSON = 'io.cozy.timeseries.geojson'
+const {
+  DOCTYPE_GEOJSON,
+  DOCTYPE_GEOJSON_AGGREGATE
+} = require('../../libs/doctypes')
 
 // Change the year of a date to use current year
 const changeDateYear = date => {

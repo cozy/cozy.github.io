@@ -4,8 +4,8 @@ const ACH = require('./ACH')
 const log = require('./log')
 const { uploadFile, handleBadToken } = require('./utils')
 const { runSerially, runInPoolAfterFirst, tee } = require('./promises')
+const { DOCTYPE_FILES } = require('./doctypes')
 
-const FILE_DOCTYPE = 'io.cozy.files'
 const H = Handlebars.create()
 
 const assert = function(cond, msg) {
@@ -53,7 +53,7 @@ const dirname = path =>
  * to know where is the file and where to put it.
  */
 const createDocumentFromDescription = async function(client, doctype, data) {
-  if (doctype === FILE_DOCTYPE) {
+  if (doctype === DOCTYPE_FILES) {
     const src = data.__SRC__
     const dest = data.__DEST__
     if (!src || !dest) {

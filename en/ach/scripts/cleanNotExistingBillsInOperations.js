@@ -3,10 +3,8 @@
  * If any and if not in dry run, their reference will be removed from operations
  */
 
+const { DOCTYPE_BILLS, DOCTYPE_BANK_TRANSACTIONS } = require('../libs/doctypes')
 const mkAPI = require('./api')
-
-const DOCTYPE_BILLS = 'io.cozy.bills'
-const DOCTYPE_OPERATIONS = 'io.cozy.bank.operations'
 
 const keyBy = require('lodash/keyBy')
 
@@ -81,7 +79,7 @@ function findOperationsToUpdate(bills, ops) {
 
 const run = async (api, dryRun) => {
   const bills = await api.fetchAll(DOCTYPE_BILLS)
-  const operations = await api.fetchAll(DOCTYPE_OPERATIONS)
+  const operations = await api.fetchAll(DOCTYPE_BANK_TRANSACTIONS)
 
   const {
     opToUpdate,
@@ -99,13 +97,13 @@ const run = async (api, dryRun) => {
 
   if (!dryRun && opToUpdate.length) {
     console.log('Updating operations...')
-    await api.updateAll(DOCTYPE_OPERATIONS, opToUpdate)
+    await api.updateAll(DOCTYPE_BANK_TRANSACTIONS, opToUpdate)
     console.log('  done')
   }
 }
 
 module.exports = {
-  getDoctypes: () => [DOCTYPE_BILLS, DOCTYPE_OPERATIONS],
+  getDoctypes: () => [DOCTYPE_BILLS, DOCTYPE_BANK_TRANSACTIONS],
   findOperationsToUpdate,
   run: async function(ach, dryRun = true) {
     return run(mkAPI(ach.oldClient), dryRun).catch(err => {

@@ -2023,9 +2023,17 @@
     Notification views
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getextraattributes" title="getExtraAttributes" class="md-nav__link">
+    getExtraAttributes
+  </a>
+  
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#preferredchannels" title="preferredChannels" class="md-nav__link">
     preferredChannels
   </a>
@@ -2051,6 +2059,11 @@
     </nav>
   
 </li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#templates" title="Templates" class="md-nav__link">
@@ -2069,6 +2082,13 @@
         <li class="md-nav__item">
   <a href="#built-in-helpers" title="Built-in helpers" class="md-nav__link">
     Built-in helpers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-documentation" title="Related documentation" class="md-nav__link">
+    Related documentation
   </a>
   
 </li>
@@ -3302,9 +3322,17 @@
     Notification views
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getextraattributes" title="getExtraAttributes" class="md-nav__link">
+    getExtraAttributes
+  </a>
+  
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#preferredchannels" title="preferredChannels" class="md-nav__link">
     preferredChannels
   </a>
@@ -3330,6 +3358,11 @@
     </nav>
   
 </li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#templates" title="Templates" class="md-nav__link">
@@ -3348,6 +3381,13 @@
         <li class="md-nav__item">
   <a href="#built-in-helpers" title="Built-in helpers" class="md-nav__link">
     Built-in helpers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-documentation" title="Related documentation" class="md-nav__link">
+    Related documentation
   </a>
   
 </li>
@@ -3383,12 +3423,12 @@ application or konnector.</p>
 <p>You will most likely also need a custom webpack config if building for node (for example
 in konnectors, since mjml and its dependents are not built for node-js).</p>
 <p><code>webpack.config.js</code></p>
-<div class="codehilite"><pre><span></span>const webpackMerge = require(&#39;webpack-merge&#39;)
-const cozyNotificationsWebpackConfig = require(&#39;cozy-notifications/dist/webpack/config&#39;)
+<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">webpackMerge</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack-merge&#39;</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">cozyNotificationsWebpackConfig</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-notifications/dist/webpack/config&#39;</span><span class="p">)</span>
 
-module.exports = webpackMerge({
-  // initialConfig
-}, cozyNotificationsWebpackConfig)
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">webpackMerge</span><span class="p">({</span>
+  <span class="c1">// initialConfig</span>
+<span class="p">},</span> <span class="nx">cozyNotificationsWebpackConfig</span><span class="p">)</span>
 </pre></div>
 
 
@@ -3406,18 +3446,27 @@ module.exports = webpackMerge({
 <li>deciding if the notification should be sent</li>
 </ul>
 <div class="codehilite"><pre><span></span><span class="kr">class</span> <span class="nx">MyNotification</span> <span class="p">{</span>
-  <span class="nx">async</span> <span class="nx">buildData() {</span>
+  <span class="nx">async</span> <span class="nx">buildData</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="p">{</span>
       <span class="c1">// data that will be used in the template</span>
     <span class="p">}</span>
   <span class="p">}</span>
 
-  <span class="nx">getPushContent() {</span>
+  <span class="nx">getPushContent</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="s1">&#39;push content&#39;</span>
   <span class="p">}</span>
 
-  <span class="nx">getTitle() {</span>
+  <span class="nx">getTitle</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="s1">&#39;title&#39;</span>
+  <span class="p">}</span>
+
+  <span class="nx">getExtraAttributes</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+        <span class="c1">// data that will be sent in the notification payload for mobiles</span>
+        <span class="nx">redirectLink</span><span class="o">:</span> <span class="s2">&quot;settings/#/subscription&quot;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>
 
@@ -3425,17 +3474,48 @@ module.exports = webpackMerge({
 </pre></div>
 
 
-<h2 id="preferredchannels">preferredChannels<a class="headerlink" href="#preferredchannels" title="Permanent link">&para;</a></h2>
-<p>We can define one which channels the user will receive the notification.</p>
-<div class="codehilite"><pre><span></span>MyNotification.preferredChannels = [&#39;mail&#39;, &#39;mobile&#39;]
+<h3 id="getextraattributes">getExtraAttributes<a class="headerlink" href="#getextraattributes" title="Permanent link">&para;</a></h3>
+<p>In <code>getExtraAttributes</code>, you can pass data that will be sent in the notification payload for mobiles.</p>
+<div class="codehilite"><pre><span></span><span class="nx">getExtraAttributes</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+      <span class="c1">// Standardized. When opening the notification, it will open settings app on subscription page.</span>
+      <span class="nx">redirectLink</span><span class="o">:</span> <span class="s2">&quot;settings/#/subscription&quot;</span><span class="p">,</span>
+      <span class="c1">// Standardized. When opening the notification, it will refresh the app.</span>
+      <span class="nx">refresh</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="c1">// You can also pass whatever you want.</span>
+      <span class="nx">age</span><span class="o">:</span> <span class="mi">42</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
 </pre></div>
 
 
-<h3 id="mobile">mobile<a class="headerlink" href="#mobile" title="Permanent link">&para;</a></h3>
+<p>In <code>getExtraAttributes</code>, you can also pass a <code>state</code> (only needed if your notification is <code>stateful</code>).</p>
+<div class="codehilite"><pre><span></span><span class="nx">getExtraAttributes</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="c1">// State to send the notification only 1 time per day.</span>
+    <span class="nx">state</span><span class="o">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">toLocaleDateString</span><span class="p">(</span><span class="s1">&#39;fr-FR&#39;</span><span class="p">,</span> <span class="p">{</span>
+      <span class="nx">day</span><span class="o">:</span> <span class="s1">&#39;2-digit&#39;</span><span class="p">,</span>
+      <span class="nx">month</span><span class="o">:</span> <span class="s1">&#39;2-digit&#39;</span><span class="p">,</span>
+      <span class="nx">year</span><span class="o">:</span> <span class="s1">&#39;numeric&#39;</span>
+    <span class="p">})</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="preferredchannels">preferredChannels<a class="headerlink" href="#preferredchannels" title="Permanent link">&para;</a></h3>
+<p>We can define one which channels the user will receive the notification.</p>
+<div class="codehilite"><pre><span></span><span class="nx">MyNotification</span><span class="p">.</span><span class="nx">preferredChannels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mail&#39;</span><span class="p">,</span> <span class="s1">&#39;mobile&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<h4 id="mobile">mobile<a class="headerlink" href="#mobile" title="Permanent link">&para;</a></h4>
 <p>The mobile channels consists of a push notification. Its title will be
 the result of the <code>getTitle</code> method and its content will be the result
 of <code>getPushContent</code>.</p>
-<h3 id="mail">mail<a class="headerlink" href="#mail" title="Permanent link">&para;</a></h3>
+<h4 id="mail">mail<a class="headerlink" href="#mail" title="Permanent link">&para;</a></h4>
 <p>Emails need more markup and thus will need the <code>template</code> class attribute.
 They are written in <code>mjml</code>, making it possible to write good looking emails in every major mail client.</p>
 <h2 id="templates">Templates<a class="headerlink" href="#templates" title="Permanent link">&para;</a></h2>
@@ -3461,9 +3541,9 @@ They are written in <code>mjml</code>, making it possible to write good looking 
 particular application, it is advised to create a template extending <code>cozy-layout</code>
 in your application and then refer to it in each of your email templates.</p>
 <p>To provide the content for a particular part, use the following syntax:</p>
-<div class="codehilite"><pre><span></span><span class="cp">{{</span><span class="err">#</span><span class="nv">content</span> <span class="s2">&quot;part&quot;</span><span class="cp">}}</span><span class="x"></span>
+<div class="codehilite"><pre><span></span><span class="cp">{{</span><span class="nf">#content</span> <span class="s2">&quot;part&quot;</span><span class="cp">}}</span><span class="x"></span>
 <span class="x">  Content of the part</span>
-<span class="cp">{{</span><span class="o">/</span><span class="nv">content</span><span class="cp">}}</span><span class="x"></span>
+<span class="cp">{{</span><span class="nf">/content</span><span class="cp">}}</span><span class="x"></span>
 </pre></div>
 
 
@@ -3520,16 +3600,16 @@ bundler and/or test runner to require those files correctly.</p>
 
 
 <p>We can now use our template for a notification view.</p>
-<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">template</span> <span class="nn">from</span> <span class="s1">&#39;./my-notification.hbs&#39;</span>
-<span class="kn">import</span> <span class="nn">appTemplate</span> <span class="nn">from</span> <span class="s1">&#39;./app-layout.hbs&#39;</span>
-<span class="kn">import</span> <span class="p">{</span> <span class="n">NotificationView</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;cozy-notifications&#39;</span>
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">template</span> <span class="nx">from</span> <span class="s1">&#39;./my-notification.hbs&#39;</span>
+<span class="kr">import</span> <span class="nx">appTemplate</span> <span class="nx">from</span> <span class="s1">&#39;./app-layout.hbs&#39;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">NotificationView</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-notifications&#39;</span>
 
-<span class="k">class</span> <span class="nc">MyNotificationView</span> <span class="n">extends</span> <span class="n">NotificationView</span> <span class="p">{</span>
-  <span class="n">getPartials</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="p">{</span> <span class="s1">&#39;app-layout&#39;</span><span class="p">:</span> <span class="n">appTemplate</span> <span class="p">}</span>
+<span class="kr">class</span> <span class="nx">MyNotificationView</span> <span class="kr">extends</span> <span class="nx">NotificationView</span> <span class="p">{</span>
+  <span class="nx">getPartials</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span> <span class="s1">&#39;app-layout&#39;</span><span class="o">:</span> <span class="nx">appTemplate</span> <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">}</span>
-<span class="n">MyNotificationView</span><span class="o">.</span><span class="n">template</span> <span class="o">=</span> <span class="n">template</span>
+<span class="nx">MyNotificationView</span><span class="p">.</span><span class="nx">template</span> <span class="o">=</span> <span class="nx">template</span>
 </pre></div>
 
 
@@ -3539,10 +3619,10 @@ email will not be sent directly to the stack, but only rendered parts will be
 sent; in other words, only <code>appURL</code>, <code>topLogo</code>, <code>content</code> etc&hellip; will be sent,
 instead of the whole content). This is why <code>cozy-notifications</code> needs to know
 our <em>uncompiled</em> partials. We can destructure <code>parts</code> to access rendered parts.</p>
-<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="p">{</span> <span class="n">renderer</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;cozy-notifications&#39;</span>
-<span class="n">const</span> <span class="n">render</span> <span class="o">=</span> <span class="n">renderer</span><span class="p">({</span> <span class="n">partials</span><span class="p">,</span> <span class="n">helpers</span> <span class="p">})</span>
-<span class="n">const</span> <span class="p">{</span> <span class="n">parts</span> <span class="p">}</span> <span class="o">=</span> <span class="n">render</span><span class="p">({</span> <span class="n">template</span><span class="p">,</span> <span class="n">data</span> <span class="p">})</span>
-<span class="o">//</span> <span class="p">{</span> <span class="s2">&quot;emailTitle&quot;</span><span class="p">:</span> <span class="s2">&quot;A notification from My App !&quot;</span><span class="p">,</span> <span class="o">...</span> <span class="p">}</span>
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">renderer</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-notifications&#39;</span>
+<span class="kr">const</span> <span class="nx">render</span> <span class="o">=</span> <span class="nx">renderer</span><span class="p">({</span> <span class="nx">partials</span><span class="p">,</span> <span class="nx">helpers</span> <span class="p">})</span>
+<span class="kr">const</span> <span class="p">{</span> <span class="nx">parts</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">render</span><span class="p">({</span> <span class="nx">template</span><span class="p">,</span> <span class="nx">data</span> <span class="p">})</span>
+<span class="c1">// { &quot;emailTitle&quot;: &quot;A notification from My App !&quot;, ... }</span>
 </pre></div>
 
 
@@ -3589,6 +3669,16 @@ our <em>uncompiled</em> partials. We can destructure <code>parts</code> to acces
 <span class="x">  A primary button</span>
 <span class="x"> &lt;/mj-button&gt;</span>
 </pre></div>
+
+
+<h2 id="related-documentation">Related documentation<a class="headerlink" href="#related-documentation" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://github.com/cozy/cozy-stack/blob/master/docs/notifications.md">Notification configuration and routes on cozy-stack</a></li>
+<li><a href="https://github.com/cozy/cozy-stack/blob/master/docs/flagship.md#notifications">Notification custom behavior for flagship app on cozy-stack</a></li>
+<li><a href="https://github.com/cozy/cozy-flagship-app/blob/master/docs/how-to-debug-notifications.md">How to debug notifications on flagship app</a></li>
+<li><a href="https://github.com/cozy/cozy-banks/blob/master/docs/notifications.md">How to debug notifications on cozy-banks</a></li>
+<li><a href="https://github.com/cozy/cozy-banks/blob/master/src/ducks/devtools/Notifications.jsx">How notifications have been added in devtools on cozy-banks</a></li>
+</ul>
                 
                   
                 

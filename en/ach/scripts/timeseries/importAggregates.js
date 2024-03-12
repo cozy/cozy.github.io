@@ -1,9 +1,10 @@
 const { get } = require('lodash')
 
 const { createTrips } = require('./importGeojson')
-
-const DOCTYPE_GEOJSON_AGGREGATE = 'io.cozy.timeseries.geojson.aggregate'
-const DOCTYPE_GEOJSON = 'io.cozy.timeseries.geojson'
+const {
+  DOCTYPE_GEOJSON_AGGREGATE,
+  DOCTYPE_GEOJSON
+} = require('../../libs/doctypes')
 
 const createAggregates = trips => {
   return trips.map(trip => {

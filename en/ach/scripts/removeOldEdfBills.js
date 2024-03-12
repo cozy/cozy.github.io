@@ -1,9 +1,7 @@
+const { DOCTYPE_BANK_TRANSACTIONS, DOCTYPE_BILLS } = require('../libs/doctypes')
 const mkAPI = require('./api')
 let instance
 let api
-
-const DOCTYPE_BILLS = 'io.cozy.bills'
-const DOCTYPE_OPERATIONS = 'io.cozy.bank.operations'
 
 const isOldEdfBill = bill => bill.vendor === 'EDF'
 
@@ -11,7 +9,7 @@ const run = async (api, dryRun) => {
   const bills = (await api.fetchAll(DOCTYPE_BILLS)).filter(isOldEdfBill)
   console.log(`Will remove ${bills.length} EDF bills on ${instance}`)
 
-  const operations = await api.fetchAll(DOCTYPE_OPERATIONS)
+  const operations = await api.fetchAll(DOCTYPE_BANK_TRANSACTIONS)
 
   removeBillsFromOperations(bills, operations, dryRun, instance)
 
@@ -21,7 +19,7 @@ const run = async (api, dryRun) => {
 }
 
 module.exports = {
-  getDoctypes: () => [DOCTYPE_BILLS, DOCTYPE_OPERATIONS],
+  getDoctypes: () => [DOCTYPE_BILLS, DOCTYPE_BANK_TRANSACTIONS],
   run: async function(ach, dryRun = true) {
     instance = ach.url.replace('https://', '')
     return run((api = mkAPI(ach.oldClient)), dryRun).catch(err => {
@@ -105,7 +103,7 @@ async function removeBillsFromOperations(bills, operations, dryRun, instance) {
 
   if (!dryRun && batchTodo.length) {
     console.log('Updating operations')
-    await api.updateAll(DOCTYPE_OPERATIONS, batchTodo)
+    await api.updateAll(DOCTYPE_BANK_TRANSACTIONS, batchTodo)
   }
 }
 

@@ -8,11 +8,12 @@ const some = require('lodash/some')
 const mkAPI = require('../api')
 const mutations = require('./mutations')
 
-const BANK_TRANSACTIONS = 'io.cozy.bank.operations'
-const BANK_ACCOUNTS = 'io.cozy.bank.accounts'
-const BANK_GROUPS = 'io.cozy.bank.groups'
-
 const { matchAccounts } = require('cozy-doctypes/src/banking/matching-accounts')
+const {
+  DOCTYPE_BANK_TRANSACTIONS,
+  DOCTYPE_BANK_ACCOUNTS,
+  DOCTYPE_BANK_GROUPS
+} = require('../../libs/doctypes')
 
 const strictMethods = [
   'originalNumber-exact',
@@ -217,10 +218,10 @@ const mergeCouples = async (couples, data, api, dryRun) => {
 }
 
 const fetchData = async api => {
-  const transactions = await api.fetchAll(BANK_TRANSACTIONS)
+  const transactions = await api.fetchAll(DOCTYPE_BANK_TRANSACTIONS)
   const trByAccount = groupBy(transactions, x => x.account)
-  const accounts = await api.fetchAll(BANK_ACCOUNTS)
-  const groups = await api.fetchAll(BANK_GROUPS)
+  const accounts = await api.fetchAll(DOCTYPE_BANK_ACCOUNTS)
+  const groups = await api.fetchAll(DOCTYPE_BANK_GROUPS)
   const groupsByAccount = fromPairs(
     accounts.map(acc => [
       acc._id,
@@ -244,7 +245,11 @@ const run = async (api, dryRun) => {
 
 module.exports = {
   getDoctypes: function() {
-    return [BANK_TRANSACTIONS, BANK_ACCOUNTS, BANK_GROUPS]
+    return [
+      DOCTYPE_BANK_TRANSACTIONS,
+      DOCTYPE_BANK_ACCOUNTS,
+      DOCTYPE_BANK_GROUPS
+    ]
   },
 
   run: async function(ach, dryRun = true) {

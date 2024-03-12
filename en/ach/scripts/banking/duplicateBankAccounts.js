@@ -1,7 +1,6 @@
+const { DOCTYPE_BANK_ACCOUNTS } = require('../../libs/doctypes')
 const mkAPI = require('../api')
 const groupBy = require('lodash/groupBy')
-
-const DOCTYPE_BANK_ACCOUNTS = 'io.cozy.bank.accounts'
 
 const run = async (client, api) => {
   const accounts = await api.fetchAll(DOCTYPE_BANK_ACCOUNTS)

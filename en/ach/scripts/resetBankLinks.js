@@ -1,7 +1,5 @@
+const { DOCTYPE_BANK_TRANSACTIONS, DOCTYPE_BILLS } = require('../libs/doctypes')
 const mkAPI = require('./api')
-
-const DOCTYPE_BILLS = 'io.cozy.bills'
-const DOCTYPE_OPERATIONS = 'io.cozy.bank.operations'
 
 let client
 
@@ -13,17 +11,20 @@ const resetBankLinks = operation => {
 
 module.exports = {
   getDoctypes: function() {
-    return [DOCTYPE_BILLS, DOCTYPE_OPERATIONS]
+    return [DOCTYPE_BILLS, DOCTYPE_BANK_TRANSACTIONS]
   },
   run: async function(ach, dryRun) {
     client = ach.oldClient
     const api = mkAPI(client)
-    const operations = await api.fetchAll(DOCTYPE_OPERATIONS)
+    const operations = await api.fetchAll(DOCTYPE_BANK_TRANSACTIONS)
     if (dryRun) {
       console.log(`Would update ${operations.length} operations`)
     } else {
       console.log(`Updating ${operations.length} operations...`)
-      await api.updateAll(DOCTYPE_OPERATIONS, operations.map(resetBankLinks))
+      await api.updateAll(
+        DOCTYPE_BANK_TRANSACTIONS,
+        operations.map(resetBankLinks)
+      )
     }
   }
 }

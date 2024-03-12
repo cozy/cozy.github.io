@@ -1,11 +1,11 @@
 const mkAPI = require('../api')
 const {
-  DOCTYPE_DUMMY,
   N_DOCS,
   N_INDEXES,
   queryDocsByIndexes,
   indexedFields
 } = require('./common')
+const { DOCTYPE_DUMMY } = require('../../libs/doctypes')
 
 const buildDocs = () => {
   const docs = []

@@ -3,8 +3,7 @@ const {
   migrationDiff: diff,
   getWithInstanceLogger
 } = require('../../libs/utils')
-
-const DOCTYPE_BANK_TRANSACTIONS = 'io.cozy.bank.operations'
+const { DOCTYPE_BANK_TRANSACTIONS } = require('../../libs/doctypes')
 
 let client, api
 

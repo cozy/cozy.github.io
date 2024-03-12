@@ -1,9 +1,10 @@
+const {
+  DOCTYPE_ACCOUNTS,
+  DOCTYPE_KONNECTORS,
+  DOCTYPE_PERMISSIONS
+} = require('../../libs/doctypes')
 const mkAPI = require('../api')
 const log = require('cozy-logger').namespace('create-agg-account')
-
-const ACCOUNT_DOCTYPE = 'io.cozy.accounts'
-const KONNECTOR_DOCTYPE = 'io.cozy.konnectors'
-const PERMISSION_DOCTYPE = 'io.cozy.permissions'
 
 const AGGREGATOR_ACCOUNT_ID = 'bi-aggregator'
 const BANKING_KONNECTOR_SLUGS = [
@@ -42,7 +43,7 @@ utils.ensureAggregatorAccountExists = async (client, dryRun) => {
   try {
     agg = await client.fetchJSON(
       'GET',
-      `/data/${ACCOUNT_DOCTYPE}/${AGGREGATOR_ACCOUNT_ID}`
+      `/data/${DOCTYPE_ACCOUNTS}/${AGGREGATOR_ACCOUNT_ID}`
     )
     log('debug', 'BI aggregator account already exists')
   } catch (e) {
@@ -51,16 +52,16 @@ utils.ensureAggregatorAccountExists = async (client, dryRun) => {
   if (agg) {
     return { created: false, already: true }
   }
-  log('debug', `Need to create ${ACCOUNT_DOCTYPE}:${AGGREGATOR_ACCOUNT_ID}...`)
+  log('debug', `Need to create ${DOCTYPE_ACCOUNTS}:${AGGREGATOR_ACCOUNT_ID}...`)
   if (dryRun) {
     log(
       'debug',
-      `Would have created ${ACCOUNT_DOCTYPE}:${AGGREGATOR_ACCOUNT_ID}...`
+      `Would have created ${DOCTYPE_ACCOUNTS}:${AGGREGATOR_ACCOUNT_ID}...`
     )
   } else {
     return client.fetchJSON(
       'PUT',
-      `/data/${ACCOUNT_DOCTYPE}/${AGGREGATOR_ACCOUNT_ID}`,
+      `/data/${DOCTYPE_ACCOUNTS}/${AGGREGATOR_ACCOUNT_ID}`,
       {}
     )
   }
@@ -93,9 +94,9 @@ const ensureKonnectorHasAggregatorPermissions = async (
         attributes: {
           permissions: {
             aggregatorAccount: {
-              type: ACCOUNT_DOCTYPE,
+              type: DOCTYPE_ACCOUNTS,
               verbs: ['GET', 'PUT'],
-              values: [`${ACCOUNT_DOCTYPE}.${AGGREGATOR_ACCOUNT_ID}`]
+              values: [`${DOCTYPE_ACCOUNTS}.${AGGREGATOR_ACCOUNT_ID}`]
             }
           }
         }
@@ -142,13 +143,13 @@ const ensureAccountHasRelationship = async (client, account, dryRun) => {
         `Would have added "parent" relationship to ${AGGREGATOR_ACCOUNT_ID} to ${account._id}`
       )
     } else {
-      await client.data.updateAttributes(ACCOUNT_DOCTYPE, account._id, {
+      await client.data.updateAttributes(DOCTYPE_ACCOUNTS, account._id, {
         relationships: {
           ...(account.relationships || {}),
           parent: {
             data: {
               _id: AGGREGATOR_ACCOUNT_ID,
-              _type: ACCOUNT_DOCTYPE
+              _type: DOCTYPE_ACCOUNTS
             }
           }
         }
@@ -165,7 +166,7 @@ const ensureAccountHasRelationship = async (client, account, dryRun) => {
 const fetchAllBankingAccounts = async client => {
   const allAccounts = await client.fetchJSON(
     'GET',
-    `/data/${ACCOUNT_DOCTYPE}/_normal_docs`
+    `/data/${DOCTYPE_ACCOUNTS}/_normal_docs`
   )
   return allAccounts.rows.filter(account =>
     BANKING_KONNECTOR_SLUGS.includes(account.account_type)
@@ -211,7 +212,7 @@ utils.run = async (api, client, dryRun) => {
 
 module.exports = {
   getDoctypes: function() {
-    return [ACCOUNT_DOCTYPE, KONNECTOR_DOCTYPE, PERMISSION_DOCTYPE]
+    return [DOCTYPE_ACCOUNTS, DOCTYPE_KONNECTORS, DOCTYPE_PERMISSIONS]
   },
   utils,
   log,
