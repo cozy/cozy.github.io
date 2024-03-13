@@ -2162,6 +2162,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#generate-some-files" title="Generate some files" class="md-nav__link">
+    Generate some files
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#generate-some-papers" title="Generate some papers" class="md-nav__link">
     Generate some papers
   </a>
@@ -3403,6 +3410,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#generate-some-files" title="Generate some files" class="md-nav__link">
+    Generate some files
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#generate-some-papers" title="Generate some papers" class="md-nav__link">
     Generate some papers
   </a>
@@ -3442,8 +3456,9 @@
 <li><a href="#import-data">Import data</a></li>
 <li><a href="#import-repositories-with-files">Import repositories with files</a></li>
 <li><a href="#create-photo-albums-with-ach">Create photo albums with ACH</a></li>
-<li><a href="#export-data-keeping-the-ids">Export data keeping the ids</a></li>
-<li><a href="#how-to-export-all-data-from-a-konnector">How to export all data from a konnector</a></li>
+<li><a href="#export-data-removing-the-ids">Export data removing the ids</a></li>
+<li><a href="#Import-data-from-a-CSV">Import data from a CSV</a></li>
+<li><a href="#Generate-some-files">Generate some files</a></li>
 <li><a href="#Generate-some-papers">Generate some qualified files with referenced contacts (mespapiers)</a></li>
 </ul>
 <h2 id="install">Install<a class="headerlink" href="#install" title="Permanent link">&para;</a></h2>
@@ -3468,7 +3483,7 @@ the result of <code>yarn global bin</code>.</p>
 <span class="n">Commands</span><span class="p">:</span>
   <span class="kn">import</span> <span class="o">&lt;</span><span class="n">filepath</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">handlebarsOptionsFile</span><span class="p">]</span>   <span class="n">The</span> <span class="nb">file</span> <span class="n">containing</span> <span class="n">the</span> <span class="n">JSON</span> <span class="n">data</span> <span class="n">to</span> <span class="n">import</span><span class="o">.</span> <span class="n">Defaults</span> <span class="n">to</span> <span class="s2">&quot;example-data.json&quot;</span><span class="o">.</span> <span class="n">If</span> <span class="n">the</span> <span class="nb">file</span> <span class="n">doesn</span><span class="s1">&#39;t exist in the application, ACH will try to find it inside its data folder. Then the dummy helpers JS file (optional).</span>
   <span class="n">importDir</span> <span class="o">&lt;</span><span class="n">directoryPath</span><span class="o">&gt;</span>                   <span class="n">The</span> <span class="n">path</span> <span class="n">to</span> <span class="n">the</span> <span class="n">directory</span> <span class="n">content</span> <span class="n">to</span> <span class="n">import</span><span class="o">.</span> <span class="n">Defaults</span> <span class="n">to</span> <span class="s2">&quot;./DirectoriesToInject&quot;</span><span class="o">.</span>
-  <span class="n">generateFiles</span> <span class="p">[</span><span class="n">path</span><span class="p">]</span> <span class="p">[</span><span class="n">filesCount</span><span class="p">]</span>           <span class="n">Generates</span> <span class="n">a</span> <span class="n">given</span> <span class="n">number</span> <span class="n">of</span> <span class="n">small</span> <span class="n">files</span><span class="o">.</span>
+  <span class="n">generateFiles</span> <span class="p">[</span><span class="n">filesCount</span><span class="p">]</span> <span class="p">[</span><span class="n">dirId</span><span class="p">]</span>          <span class="n">Generates</span> <span class="n">a</span> <span class="n">given</span> <span class="n">number</span> <span class="n">of</span> <span class="n">small</span> <span class="n">files</span><span class="o">.</span> <span class="p">(</span><span class="n">optional</span> <span class="n">dirId</span><span class="p">)</span>
   <span class="n">drop</span> <span class="p">[</span><span class="n">options</span><span class="p">]</span> <span class="o">&lt;</span><span class="n">doctypes</span><span class="o">...&gt;</span>                <span class="n">Deletes</span> <span class="nb">all</span> <span class="n">documents</span> <span class="n">of</span> <span class="n">the</span> <span class="n">provided</span> <span class="n">doctypes</span><span class="o">.</span> <span class="n">For</span> <span class="n">real</span><span class="o">.</span>
   <span class="n">export</span> <span class="o">&lt;</span><span class="n">doctypes</span><span class="o">&gt;</span> <span class="p">[</span><span class="n">filename</span><span class="p">]</span>                <span class="n">Exports</span> <span class="n">data</span> <span class="kn">from</span> <span class="nn">the</span> <span class="nn">doctypes</span> <span class="p">(</span><span class="n">separated</span> <span class="n">by</span> <span class="n">commas</span><span class="p">)</span> <span class="n">to</span> <span class="n">filename</span>
   <span class="n">downloadFile</span> <span class="o">&lt;</span><span class="n">fileid</span><span class="o">&gt;</span>                       <span class="n">Download</span> <span class="n">the</span> <span class="nb">file</span>
@@ -3637,6 +3652,15 @@ environment variable <code>ACH_NO_KEEP_ID</code> to do so :</p>
 environment variable <code>ACH_KEEP_REV</code>.</p>
 <h3 id="import-data-from-a-csv">Import data from a CSV<a class="headerlink" href="#import-data-from-a-csv" title="Permanent link">&para;</a></h3>
 <p>See the <a href="examples/data-from-csv/">example</a>.</p>
+<h3 id="generate-some-files">Generate some files<a class="headerlink" href="#generate-some-files" title="Permanent link">&para;</a></h3>
+<p>To create files into a Cozy, use the <code>generateFiles</code> command:</p>
+<div class="codehilite"><pre><span></span>$ ACH generateFiles <span class="m">10</span> &lt;id of directory&gt; <span class="c1"># by default will be at the root of your Drive</span>
+</pre></div>
+
+
+<p>Options:
+- <code>-q</code>/<code>--qualify</code>: In order to have a random qualification on your files
+- <code>-m</code>/<code>--mime</code>: In order to change the default mime of files (<code>text/plain</code>)</p>
 <h3 id="generate-some-papers">Generate some papers<a class="headerlink" href="#generate-some-papers" title="Permanent link">&para;</a></h3>
 <p>(usefull for MesPapiers)</p>
 <p>To create qualified files with contacts referenced in a Cozy, use the <code>script papers/createPapers</code> command.</p>

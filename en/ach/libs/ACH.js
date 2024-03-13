@@ -121,7 +121,7 @@ const methods = {
   },
   createFiles: {
     method: createFiles,
-    oldClient: true
+    oldClient: false
   },
   export: {
     method: exportDocs,
