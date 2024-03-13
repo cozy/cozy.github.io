@@ -44,7 +44,7 @@ def ordered_dump(data, stream=None, Dumper=yaml.Dumper, **kwds):
     return yaml.dump(data, stream, OrderedDumper, **kwds)
 
 
-leadingHash = re.compile('#+\s+')
+leadingHash = re.compile(r'#+\s+')
 
 def read_toc(directory):
     def make_paths_absolute(tree):
