@@ -146,7 +146,6 @@ module.exports = {
         '../react/SelectBox/SelectBox.jsx',
         '../react/Spinner',
         '../react/Stack',
-        '../react/Table',
         '../react/Textarea',
         '../react/UnorderedList',
         '../react/Wizard'
