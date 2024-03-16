@@ -1,5 +1,7 @@
-import webpack from 'webpack'
 import path from 'path'
+
+import TerserPlugin from 'terser-webpack-plugin'
+import webpack from 'webpack'
 
 export default {
   resolve: {
@@ -8,7 +10,19 @@ export default {
     }
   },
   optimization: {
-    minimize: false
+    minimizer: [
+      // Minimizing everything breaks mjml.
+      // Fix `Element mj-head doesn't exist or is not registered ...` error
+      // when sending a notification at runtime after a build.
+      new TerserPlugin({
+        parallel: true,
+        terserOptions: {
+          mangle: {
+            keep_fnames: true
+          }
+        }
+      })
+    ]
   },
   module: {
     // mjml-core/lib/helpers/mjmlconfig and encoding/lib/iconv-loader use
