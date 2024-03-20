@@ -2147,8 +2147,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#savefilesentries-fields-options" title="saveFiles(entries, fields, options) ⏏" class="md-nav__link">
-    saveFiles(entries, fields, options) ⏏
+  <a href="#savefilesentries-fields-options-contract" title="saveFiles(entries, fields, options, [contract]) ⏏" class="md-nav__link">
+    saveFiles(entries, fields, options, [contract]) ⏏
   </a>
   
 </li>
@@ -4356,8 +4356,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#savefilesentries-fields-options" title="saveFiles(entries, fields, options) ⏏" class="md-nav__link">
-    saveFiles(entries, fields, options) ⏏
+  <a href="#savefilesentries-fields-options-contract" title="saveFiles(entries, fields, options, [contract]) ⏏" class="md-nav__link">
+    saveFiles(entries, fields, options, [contract]) ⏏
   </a>
   
 </li>
@@ -5516,7 +5516,7 @@ full permission on <code>io.cozy.bank.operations</code> in your manifest, to be 
 <h2 id="savefiles">saveFiles<a class="headerlink" href="#savefiles" title="Permanent link">&para;</a></h2>
 <p>Saves the given files in the given folder via the Cozy API.</p>
 <p><a name="exp_module_saveFiles--saveFiles"></a></p>
-<h3 id="savefilesentries-fields-options">saveFiles(entries, fields, options) ⏏<a class="headerlink" href="#savefilesentries-fields-options" title="Permanent link">&para;</a></h3>
+<h3 id="savefilesentries-fields-options-contract">saveFiles(entries, fields, options, [contract]) ⏏<a class="headerlink" href="#savefilesentries-fields-options-contract" title="Permanent link">&para;</a></h3>
 <p>Saves the files given in the fileurl attribute of each entries</p>
 <p>You need the full permission on <code>io.cozy.files</code> in your manifest to use this function.</p>
 <p><strong>Kind</strong>: Exported function  </p>
@@ -5580,6 +5580,21 @@ full permission on <code>io.cozy.bank.operations</code> in your manifest, to be 
 <td>A subpath to save all files, will be created if needed.</td>
 </tr>
 <tr>
+<td>entries.contract</td>
+<td><code>object</code></td>
+<td>contract object associated to the files</td>
+</tr>
+<tr>
+<td>entries.contract.id</td>
+<td><code>string</code></td>
+<td>id of the contract</td>
+</tr>
+<tr>
+<td>entries.contract.name</td>
+<td><code>string</code></td>
+<td>name of the contract</td>
+</tr>
+<tr>
 <td>fields</td>
 <td><code>object</code></td>
 <td>is the argument given to the main function of your connector by the BaseKonnector.  It especially contains a <code>folderPath</code> which is the string path configured by the user in collect/home</td>
@@ -5623,6 +5638,21 @@ full permission on <code>io.cozy.bank.operations</code> in your manifest, to be 
 <td>options.subPath</td>
 <td><code>string</code></td>
 <td>A subpath to save this file, will be created if needed.</td>
+</tr>
+<tr>
+<td>[contract]</td>
+<td><code>object</code></td>
+<td>contract object associated to the file</td>
+</tr>
+<tr>
+<td>[contract.id]</td>
+<td><code>string</code></td>
+<td>id of the contract</td>
+</tr>
+<tr>
+<td>[contract.name]</td>
+<td><code>string</code></td>
+<td>name of the contract</td>
 </tr>
 <tr>
 <td>options.fetchFile</td>

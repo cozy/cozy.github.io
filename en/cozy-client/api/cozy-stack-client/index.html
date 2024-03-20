@@ -2216,6 +2216,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#sharingcollectionrevokegroupsharing-groupindex" title="sharingCollection.revokeGroup(sharing, groupIndex)" class="md-nav__link">
+    sharingCollection.revokeGroup(sharing, groupIndex)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#sharingcollectionrevokeselfsharing" title="sharingCollection.revokeSelf(sharing)" class="md-nav__link">
     sharingCollection.revokeSelf(sharing)
   </a>
@@ -5712,6 +5719,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#sharingcollectionrevokegroupsharing-groupindex" title="sharingCollection.revokeGroup(sharing, groupIndex)" class="md-nav__link">
+    sharingCollection.revokeGroup(sharing, groupIndex)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#sharingcollectionrevokeselfsharing" title="sharingCollection.revokeSelf(sharing)" class="md-nav__link">
     sharingCollection.revokeSelf(sharing)
   </a>
@@ -9198,6 +9212,7 @@ Serves to dedupe equal queries requested at the same time</p>
 <li><a href="#SharingCollection+getDiscoveryLink">.getDiscoveryLink(sharingId, sharecode)</a> ⇒ <code>string</code></li>
 <li><a href="#SharingCollection+addRecipients">.addRecipients(options)</a></li>
 <li><a href="#SharingCollection+revokeRecipient">.revokeRecipient(sharing, recipientIndex)</a></li>
+<li><a href="#SharingCollection+revokeGroup">.revokeGroup(sharing, groupIndex)</a></li>
 <li><a href="#SharingCollection+revokeSelf">.revokeSelf(sharing)</a></li>
 <li><a href="#SharingCollection+revokeAllRecipients">.revokeAllRecipients(sharing)</a></li>
 </ul>
@@ -9405,13 +9420,38 @@ Serves to dedupe equal queries requested at the same time</p>
 <tbody>
 <tr>
 <td>sharing</td>
-<td><code>object</code></td>
+<td><a href="#Sharing"><code>Sharing</code></a></td>
 <td>Sharing Object</td>
 </tr>
 <tr>
 <td>recipientIndex</td>
 <td><code>number</code></td>
 <td>Index of this recipient in the members array of the sharing</td>
+</tr>
+</tbody>
+</table>
+<p><a name="SharingCollection+revokeGroup"></a></p>
+<h3 id="sharingcollectionrevokegroupsharing-groupindex">sharingCollection.revokeGroup(sharing, groupIndex)<a class="headerlink" href="#sharingcollectionrevokegroupsharing-groupindex" title="Permanent link">&para;</a></h3>
+<p>Revoke only one group of the sharing.</p>
+<p><strong>Kind</strong>: instance method of <a href="#SharingCollection"><code>SharingCollection</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sharing</td>
+<td><a href="#Sharing"><code>Sharing</code></a></td>
+<td>Sharing Object</td>
+</tr>
+<tr>
+<td>groupIndex</td>
+<td><code>number</code></td>
+<td>Index of this group in the groups array of the sharing</td>
 </tr>
 </tbody>
 </table>
@@ -9430,7 +9470,7 @@ Serves to dedupe equal queries requested at the same time</p>
 <tbody>
 <tr>
 <td>sharing</td>
-<td><code>object</code></td>
+<td><a href="#Sharing"><code>Sharing</code></a></td>
 <td>Sharing Object</td>
 </tr>
 </tbody>
@@ -9451,7 +9491,7 @@ from the owner&rsquo;s cozy</p>
 <tbody>
 <tr>
 <td>sharing</td>
-<td><code>object</code></td>
+<td><a href="#Sharing"><code>Sharing</code></a></td>
 <td>Sharing Objects</td>
 </tr>
 </tbody>
