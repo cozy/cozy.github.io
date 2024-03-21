@@ -51,7 +51,7 @@ export const categorizeChunk = async (categorizer, chunk) => {
   const categorizedTransactions = categorizer.categorize(chunk)
   categorizedTransactions.forEach(t => (t.toCategorize = false))
 
-  await BankTransaction.bulkSave(categorizedTransactions, 30)
+  await BankTransaction.bulkSave(categorizedTransactions, { concurrency: 30 })
 
   const timeEnd = new Date()
   const timeElapsed = differenceInSeconds(timeEnd, timeStart)
