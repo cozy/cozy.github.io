@@ -38,6 +38,7 @@ documentation so that we can fix it.
         - [Installing from source](./install/sources.md)
     - Finalize installation
         - [Nginx and certificates](./finalize/nginx.md)
+        - [Using Apache instead of Nginx](./finalize/apache.md)
         - [Create your first instance](./finalize/create_instance.md)
     - [Administration](./administration/index.md)
         - [Create more instances](./administration/more_instances.md)

@@ -43,6 +43,7 @@ nav:
         - From sources: tutorials/selfhosting/install/sources.md
       - Finalize installation:
         - Nginx and certificates: tutorials/selfhosting/finalize/nginx.md
+        - Using Apache instead of Nginx: tutorials/selfhosting/finalize/apache.md
         - Create first instance: tutorials/selfhosting/finalize/create_instance.md
       - Administration:
         - Index: tutorials/selfhosting/administration/index.md

@@ -18,6 +18,10 @@ First create a DNS entry in your domain for `cozy.domain.example` and `*.cozy.do
     cozy     1h     IN         A     <your_server_IP>
     *.cozy   1h     IN     CNAME     cozy
 
+!!! note
+
+    If you prefer using [Apache](https://httpd.apache.org/) as a reverse proxy, please stop here and consult [apache configuration page](./apache.md) instead
+
 Then install Nginx and Certbot:
 
     sudo apt install -y nginx certbot
