@@ -47,7 +47,7 @@ const HarvestBankAccountSettings = ({
     <HarvestVaultProvider>
       <VaultUnlockProvider>
         <HarvestTrackingProvider>
-          <HarvestModal>
+          <HarvestModal onDismiss={onDismiss}>
             <HarvestSwitch
               initialFragment={`/accounts/${connectionId}`}
               routes={[

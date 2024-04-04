@@ -4,6 +4,7 @@ import Dialog from 'cozy-ui/transpiled/react/Dialog'
 import { withStyles } from 'cozy-ui/transpiled/react/styles'
 import { useVaultUnlockContext } from 'cozy-keys-lib'
 import { useDialogContext } from 'cozy-harvest-lib/dist/components/DialogContext'
+import { DialogCloseButton } from 'cozy-ui/transpiled/react/CozyDialogs'
 
 const withHarvestDialogStyles = () => {
   /**
@@ -36,7 +37,7 @@ const withHarvestDialogStyles = () => {
 /**
  * This component copies the functionality of the modal in Harvest and its Routes component.
  */
-const HarvestModal = ({ children }) => {
+const HarvestModal = ({ children, onDismiss }) => {
   const { showingUnlockForm } = useVaultUnlockContext()
   const dialogContext = useDialogContext()
 
@@ -46,6 +47,7 @@ const HarvestModal = ({ children }) => {
 
   return (
     <Dialog disableRestoreFocus {...dialogContext.dialogProps}>
+      <DialogCloseButton onClick={onDismiss} />
       {children}
     </Dialog>
   )
