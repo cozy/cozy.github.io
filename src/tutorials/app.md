@@ -7,7 +7,7 @@ summary: Have your first application ready to be run in a Cozy
 
 Developing an application for Cozy is like developing a front-end JS application. All you need to have is:
 
-- NodeJS 16
+- NodeJS 20
 - [Yarn](https://yarnpkg.com): a NodeJS package manager, like `npm`
 - Docker to have a Cozy for dev
 - Some basics about developing a single page application in HTML/JS or you just want to learn :)
@@ -61,7 +61,7 @@ The script will download some dependencies (may take a while) and ask you a few 
 !!! warning ""
     If the `yarn create cozy-app` command fails with the `There should only be one folder in a package cache [...]` error, then run `yarn cache clean` and try again
 
-You'll also need a running `cozy-stack` server as a backend server. You can use the docker image you downloaded earlier. 
+You'll also need a running `cozy-stack` server as a backend server. You can use the docker image you downloaded earlier.
 
 Note: We disable CSP since we're using a wepback-dev-server by defaut to get HMR that runs on `localhost` and not on `cozy.localhost`. This should not be used in production ! Please check the behavior of your application once you built it on production mode and have enabled CSP back.  
 

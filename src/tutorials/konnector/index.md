@@ -7,7 +7,7 @@ To protect your data, each connector runs inside a container in order to sandbox
 
 What will you need to start ?
 
-- [Node](https://nodejs.org/en/) (16), follow the link to [nodejs](https://nodejs.org/en/docs/) doc for proper installation. When it's done, you can check your version with `node --version` in your shell.
+- [Node](https://nodejs.org/en/) (20), follow the link to [nodejs](https://nodejs.org/en/docs/) doc for proper installation. When it's done, you can check your version with `node --version` in your shell.
 - [Yarn](https://classic.yarnpkg.com/lang/en/), again follow the [Yarn doc](https://classic.yarnpkg.com/en/docs/getting-started) for proper install. Check the version with `yarn --version` in your shell.
 
 In this tutorial you will learn how to:
@@ -23,7 +23,7 @@ If you want to go further:
 - [Add Two Factor Authentication to your connector](./2fa.md)
 - [Developing an OAuth connector](./oauth.md)
 - [Use a browser simulation to request the website](./cozy-browser.md)
-- [ENV vars injected by the cozy-stack when running a konnector](https://docs.cozy.io/en/cozy-stack/konnectors-workflow/#execute-the-konnector) 
+- [ENV vars injected by the cozy-stack when running a konnector](https://docs.cozy.io/en/cozy-stack/konnectors-workflow/#execute-the-konnector)
 - [Going further](./going-further.md)
 
 [Cozy Home]: https://github.com/cozy/cozy-home
