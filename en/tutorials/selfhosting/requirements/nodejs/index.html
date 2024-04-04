@@ -3227,12 +3227,12 @@
                 
                 
                 <h1 id="installing-nodejs">Installing NodeJS<a class="headerlink" href="#installing-nodejs" title="Permanent link">&para;</a></h1>
-<p>To be able to run Cozy connectors and gather all your data, cozy-stack needs NodeJS version 16. This documents gives instructions to instal NodeJS 16.</p>
+<p>To be able to run Cozy connectors and gather all your data, cozy-stack needs NodeJS version 20. This documents gives instructions to instal NodeJS 20.</p>
 <p>You can refer to <a href="https://github.com/nodesource/distributions/blob/master/README.md#manual-installation">NodeJS installation documentation</a> or simply follow the instructions below.</p>
-<p>Add NodeJS 16 package repository to your system:</p>
+<p>Add NodeJS 20 package repository to your system:</p>
 <div class="codehilite"><pre><span></span>KEYRING=/usr/share/keyrings/nodesource.gpg
 curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o &quot;$KEYRING&quot;
-echo &quot;deb [signed-by=$KEYRING] https://deb.nodesource.com/node_16.x nodistro main&quot; | sudo tee /etc/apt/sources.list.d/nodesource.list &gt;/dev/null
+echo &quot;deb [signed-by=$KEYRING] https://deb.nodesource.com/node_20.x nodistro main&quot; | sudo tee /etc/apt/sources.list.d/nodesource.list &gt;/dev/null
 cat &lt;&lt;EOF | sudo tee /etc/apt/preferences.d/nodejs.pref &gt; /dev/null
 Package: *
 Pin: origin deb.nodesource.com
@@ -3246,14 +3246,14 @@ EOF
 </pre></div>
 
 
-<p>Verify that NodeJS 16 is properly installed</p>
+<p>Verify that NodeJS 20 is properly installed</p>
 <div class="codehilite"><pre><span></span>nodejs --version
 </pre></div>
 
 
 <blockquote>
 <p>This command should give you nodejs installed version. For example:</p>
-<p><code>v16.20.2</code></p>
+<p><code>v20.11.1</code></p>
 </blockquote>
 <div style="text-align: right">
   <a href="../../install/">Next --&gt;</a>

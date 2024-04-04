@@ -3468,7 +3468,7 @@
                 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <p>Developing an application for Cozy is like developing a front-end JS application. All you need to have is:</p>
 <ul>
-<li>NodeJS 16</li>
+<li>NodeJS 20</li>
 <li><a href="https://yarnpkg.com">Yarn</a>: a NodeJS package manager, like <code>npm</code></li>
 <li>Docker to have a Cozy for dev</li>
 <li>Some basics about developing a single page application in HTML/JS or you just want to learn :)</li>
@@ -3514,7 +3514,7 @@
 <div class="admonition warning">
 <p>If the <code>yarn create cozy-app</code> command fails with the <code>There should only be one folder in a package cache [...]</code> error, then run <code>yarn cache clean</code> and try again</p>
 </div>
-<p>You&rsquo;ll also need a running <code>cozy-stack</code> server as a backend server. You can use the docker image you downloaded earlier. </p>
+<p>You&rsquo;ll also need a running <code>cozy-stack</code> server as a backend server. You can use the docker image you downloaded earlier.</p>
 <p>Note: We disable CSP since we&rsquo;re using a wepback-dev-server by defaut to get HMR that runs on <code>localhost</code> and not on <code>cozy.localhost</code>. This should not be used in production ! Please check the behavior of your application once you built it on production mode and have enabled CSP back.  </p>
 <div class="codehilite"><pre><span></span>touch ~/cozy.yaml <span class="c1"># You can edit this file to configure the stack</span>
 docker run -ti --rm -p <span class="m">8080</span>:8080 -p <span class="m">5984</span>:5984 -p <span class="m">8025</span>:8025 -e <span class="nv">COZY_DISABLE_CSP</span><span class="o">=</span><span class="m">1</span> -v <span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/mycozyapp/build:/data/cozy-app/mycozyapp -v ~/cozy.yaml:/etc/cozy/cozy.yaml cozy/cozy-app-dev
