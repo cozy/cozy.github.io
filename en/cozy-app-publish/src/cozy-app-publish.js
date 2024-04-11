@@ -76,6 +76,10 @@ parser.addArgument('--verbose', {
   help: 'print additional logs',
   action: 'storeTrue'
 })
+parser.addArgument('--mode', {
+  help: 'Override the publication mode (default: manual)',
+  choices: Object.values(MODES)
+})
 
 const handleError = error => {
   logger.error(colorize.red(`Publishing failed: ${error.message}`))
@@ -91,8 +95,10 @@ try {
   handleError(error)
 }
 
-function _getPublishMode() {
-  if (process.env.TRAVIS === 'true') {
+function _getPublishMode(mode) {
+  if (mode) {
+    return mode
+  } else if (process.env.TRAVIS === 'true') {
     return MODES.TRAVIS
   } else {
     // default mode
@@ -101,7 +107,7 @@ function _getPublishMode() {
 }
 
 async function publishApp(cliOptions) {
-  const publishMode = _getPublishMode()
+  const publishMode = _getPublishMode(cliOptions.mode)
   const publishFn = scripts[publishMode]
 
   logger.log(
