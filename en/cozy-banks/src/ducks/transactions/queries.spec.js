@@ -156,20 +156,20 @@ describe('makeEarliestLatestQueries', () => {
     expect(makeEarliestLatestQueries(baseQuery)).toEqual([
       expect.objectContaining({
         selector: {
-          account: { $in: ['comptelou1', 'compteisa2'] },
-          date: { $gt: null }
+          date: { $gt: null },
+          account: { $in: ['comptelou1', 'compteisa2'] }
         },
-        indexedFields: ['account', 'date'],
-        sort: [{ account: 'asc' }, { date: 'asc' }],
+        indexedFields: ['date', 'account'],
+        sort: [{ date: 'asc' }, { account: 'asc' }],
         limit: 1
       }),
       expect.objectContaining({
         selector: {
-          account: { $in: ['comptelou1', 'compteisa2'] },
-          date: { $gt: null }
+          date: { $gt: null },
+          account: { $in: ['comptelou1', 'compteisa2'] }
         },
-        indexedFields: ['account', 'date'],
-        sort: [{ account: 'desc' }, { date: 'desc' }],
+        indexedFields: ['date', 'account'],
+        sort: [{ date: 'desc' }, { account: 'desc' }],
         limit: 1
       })
     ])

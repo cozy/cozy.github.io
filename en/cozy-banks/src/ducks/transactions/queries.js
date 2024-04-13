@@ -108,11 +108,14 @@ export const makeEarliestLatestQueries = baseQuery => {
    * "all accounts", the result was not right. This is because
    * we indexed by _id first and then date.
    * So the current fix is :
-   * - If we have a selector on an account, then the index should
-   * be indexed by account first and then we ensure that we have
-   * the date within the index
+   * - If we have a selector on an account AND this selector doesn't
+   * containt any special operator (aka starting by $)
+   * (see https://forum.cozy.io/t/impossible-de-remonter-jusquau-bout-de-lhistorique-doperations-dans-analyse-apres-import-ach/7547),
+   * then the index should be indexed by account first and then we ensure 
+   * that we have the date within the index
+   * 
    * - If we don't have a slector on an account, then the index
-   * should be indexed first by the date and then by the selector
+   * should be indexed first by the date and then by the account
    *
    * @todo: We should really split all this query creation to several
    * methods. We can't have optimized query with such generic methods
@@ -120,7 +123,7 @@ export const makeEarliestLatestQueries = baseQuery => {
 
   const selectors = Object.keys(baseQuery.selector)
   let indexedFields
-  if (selectors.includes('account')) {
+  if (selectors.includes('account') && !Object.values(baseQuery.selector).some(a => Object.keys(a)[0].startsWith('$')) ){ 
     indexedFields = selectors
     indexedFields.push('date')
   } else {
