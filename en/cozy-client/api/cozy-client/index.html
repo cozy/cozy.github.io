@@ -1608,6 +1608,26 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#usesettings" title="useSettings" class="md-nav__link">
+    useSettings
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#type-parameters" title="Type parameters" class="md-nav__link">
+    Type parameters
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#withclient" title="withClient" class="md-nav__link">
     withClient
   </a>
@@ -3889,6 +3909,26 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#usesettings" title="useSettings" class="md-nav__link">
+    useSettings
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#type-parameters" title="Type parameters" class="md-nav__link">
+    Type parameters
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#withclient" title="withClient" class="md-nav__link">
     withClient
   </a>
@@ -5130,6 +5170,58 @@ const rootCozyUrl = await rootCozyUrl(new URL(userInput))
 <p><code>UseQueryReturnValue</code></p>
 <p><em>Defined in</em></p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/hooks/useQueryAll.jsx#L14">packages/cozy-client/src/hooks/useQueryAll.jsx:14</a></p>
+<hr />
+<h3 id="usesettings">useSettings<a class="headerlink" href="#usesettings" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>useSettings</strong>&lt;<code>T</code>&gt;(<code>slug</code>, <code>keys</code>): <code>UseSettingsReturnValue</code>&lt;<code>T</code>&gt;</p>
+<p>Query the cozy-app settings corresponding to the given slug and
+return:</p>
+<ul>
+<li>the values corresponding to the given <code>keys</code></li>
+<li>the <code>save()</code> method that can be used to edit the setting&rsquo;s value</li>
+<li>the query that manages the state during the fetching of the setting</li>
+<li>the mutation that manages the state during the saving of the setting</li>
+</ul>
+<h4 id="type-parameters">Type parameters<a class="headerlink" href="#type-parameters" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>T</code></td>
+<td align="left">extends <code>string</code></td>
+</tr>
+</tbody>
+</table>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>slug</code></td>
+<td align="left"><code>string</code></td>
+<td align="left">the cozy-app&rsquo;s slug containing the setting (special cases are: &lsquo;instance&rsquo; for global settings and &lsquo;passwords&rsquo; for bitwarden settings)</td>
+</tr>
+<tr>
+<td align="left"><code>keys</code></td>
+<td align="left"><code>T</code>[]</td>
+<td align="left">The name of the setting to retrieve</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>UseSettingsReturnValue</code>&lt;<code>T</code>&gt;</p>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/hooks/useSetting.js#L24">packages/cozy-client/src/hooks/useSetting.js:24</a></p>
 <hr />
 <h3 id="withclient">withClient<a class="headerlink" href="#withclient" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>withClient</strong>(<code>WrappedComponent</code>): <code>Function</code></p>
