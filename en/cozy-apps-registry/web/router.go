@@ -253,7 +253,7 @@ func httpErrorHandler(err error, c echo.Context) {
 	if !c.Response().Committed {
 		if isJSON {
 			if c.Request().Method == echo.HEAD {
-				c.Response().Header().Set(echo.HeaderContentType, echo.MIMEApplicationJSONCharsetUTF8)
+				c.Response().Header().Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 				err = c.NoContent(code)
 			} else {
 				err = c.JSON(code, echo.Map{"error": desc})
@@ -314,7 +314,7 @@ func stripVersion(v string) string {
 
 func writeJSON(c echo.Context, doc interface{}) error {
 	if c.Request().Method == http.MethodHead {
-		c.Response().Header().Set(echo.HeaderContentType, echo.MIMEApplicationJSONCharsetUTF8)
+		c.Response().Header().Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 		return c.NoContent(http.StatusOK)
 	}
 	return c.JSON(http.StatusOK, doc)
