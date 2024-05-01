@@ -3376,15 +3376,15 @@ sent.</p>
 <h2 id="firebase-configuration">Firebase configuration<a class="headerlink" href="#firebase-configuration" title="Permanent link">&para;</a></h2>
 <p>The push notifications can be sent via Firebase to smartphones. By default, the
 key used to connect to firebase is set in the configuration file, via the
-<code>notifications.android_api_key</code> parameter. But it can be useful to have several
-firebase accounts when there are several applications developed by several
-organizations. In that case, it is possible to tell the stack to use a particular
-key for a given app by creating a CouchDB document inside the
+<code>notifications.fcm_credentials_file</code> parameter. But it can be useful to have
+several firebase accounts when there are several applications developed by
+several organizations. In that case, it is possible to tell the stack to use a
+particular key for a given app by creating a CouchDB document inside the
 <code>secrets/io-cozy-account_types</code> database, like this:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
     <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;myapp&quot;</span><span class="p">,</span>
     <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;myapp&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;android_api_key&quot;</span><span class="p">:</span> <span class="s2">&quot;th3_f1r3b4s3_k3y&quot;</span>
+    <span class="nt">&quot;fcm_credentials&quot;</span><span class="p">:</span> <span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;service_account&quot;</span><span class="p">,</span> <span class="nt">&quot;etc.&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -3394,7 +3394,7 @@ with the context name and <code>/</code>:</p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
     <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;mycontext/myapp&quot;</span><span class="p">,</span>
     <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;myapp&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;android_api_key&quot;</span><span class="p">:</span> <span class="s2">&quot;th3_0th3r_f1r3b4s3_k3y&quot;</span>
+    <span class="nt">&quot;fcm_credentials&quot;</span><span class="p">:</span> <span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;service_account&quot;</span><span class="p">,</span> <span class="nt">&quot;etc.&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
