@@ -6,6 +6,7 @@ Cozycloud provides precompiled packages for the last two versions of Debian and 
 - Debian 12 Bookworm
 - Ubuntu 20.04 Focal Fossa
 - Ubuntu 22.04 Jammy Jellyfish
+- Ubuntu 24.04 Noble Numbat
 
 Precompiled packages install precompiled binaries of cozy-stack as well as configuration and system glue (log management, systemd unit for autostart at boot, ...)
 If you use one of the supported distribution, using [precompiled package](./package.md) is the preferred way to go.
