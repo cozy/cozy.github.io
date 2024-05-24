@@ -11,10 +11,11 @@ export const formatShortcuts = (folders, shortcuts) => {
   if (shortcuts === null) return undefined
   return folders
     .map(folder => ({
+      id: folder._id,
       name: folder.attributes.name,
-      shortcuts: shortcuts.filter(
+      items: shortcuts.filter(
         shortcut => shortcut.attributes.dir_id === folder._id
       )
     }))
-    .filter(folder => folder.shortcuts.length > 0)
+    .filter(folder => folder.items.length > 0)
 }

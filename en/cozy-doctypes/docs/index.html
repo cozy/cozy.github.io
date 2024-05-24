@@ -3567,9 +3567,14 @@ for another doctype, feel free to open a PR with the description and role of you
 
 
 <h3 id="document-metadata">Document metadata<a class="headerlink" href="#document-metadata" title="Permanent link">&para;</a></h3>
-<p>We distinguish three levels : the data (a list of songs from a playlist), the metadata about the data (the creation date of the playlist itself), the metadata of the cozy document (the creation date of the cozy document describing the playlist).</p>
-<p>The third level (metadata of the wrapping document) is described by an object named <code>cozyMetadata</code> at the root of the document.</p>
-<p>The following keys are reserved and have special meanings:</p>
+<p>We distinguish three levels of attributes:</p>
+<ol>
+<li>The data (e.g. a list of songs from a playlist)</li>
+<li>The metadata about the data (e.g. the creation date of the playlist itself)</li>
+<li>The metadata of the cozy document (e.g. the creation date of the cozy document describing the playlist).</li>
+</ol>
+<p>The third level is described by an object named <code>cozyMetadata</code> at the root of the document.</p>
+<p>The expected <code>cozyMetadata</code> attributes are the following:</p>
 <ul>
 <li><code>doctypeVersion</code>: Name or identifier for the version of the schema used by this document (ie: <code>doctypeVersion: 2</code> for &ldquo;This document conforms to io.cozy.contacts in its version 2&rdquo;)</li>
 <li><code>metadataVersion</code>: Version of the <code>cozyMetadata</code></li>
@@ -3581,7 +3586,8 @@ for another doctype, feel free to open a PR with the description and role of you
 <li><code>sourceAccount</code>: When the document was imported from a connector, identifier of the account in io.cozy.accounts</li>
 <li><code>sourceAccountIdentifier</code>: When the document was imported from a connector, identifier of the account on targeted web service (the email address most of the time)</li>
 </ul>
-<p>Note: All these attributes are optional and taken care by the apps modifying the document. Unless specified otherwise in the documentation of the doctype, all these attributes may not be present or may have a <code>null</code> value.</p>
+<p>ℹ️ All these attributes are optional and taken care by the apps modifying the document. Unless specified otherwise in the documentation of the doctype, all these attributes may not be present or may have a <code>null</code> value.</p>
+<p>ℹ️ For doctypes protected by the stack such as <code>io.cozy.files</code>, any non-expected attribute in <code>cozyMetadata</code> will be refused by the stack. </p>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;xxxx&quot;</span><span class="p">,</span>
   <span class="nt">&quot;cozyMetadata&quot;</span><span class="p">:</span> <span class="p">{</span>
