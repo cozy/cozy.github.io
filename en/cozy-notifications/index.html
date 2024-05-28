@@ -3531,10 +3531,15 @@ in konnectors, since mjml and its dependents are not built for node-js).</p>
 
 <h3 id="preferredchannels">preferredChannels<a class="headerlink" href="#preferredchannels" title="Permanent link">&para;</a></h3>
 <p>We can define one which channels the user will receive the notification.</p>
-<div class="codehilite"><pre><span></span><span class="nx">MyNotification</span><span class="p">.</span><span class="nx">preferredChannels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mail&#39;</span><span class="p">,</span> <span class="s1">&#39;mobile&#39;</span><span class="p">]</span>
+<div class="codehilite"><pre><span></span><span class="nx">MyNotification</span><span class="p">.</span><span class="nx">preferredChannels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mobile&#39;</span><span class="p">,</span> <span class="s1">&#39;mail&#39;</span><span class="p">]</span>
 </pre></div>
 
 
+<p>In this example, we first try to send the notification to a mobile, and if it fails to the email address of the user. Some things to know :</p>
+<ul>
+<li>the stack has a fallback by email mechanism. So <code>preferredChannels = ['mobile', 'mail']</code> is equivalent to <code>preferredChannels = ['mobile']</code>.</li>
+<li>the stack do not check the delivery of the email. So if you set <code>preferredChannels = ['mail', 'mobile']</code>, it is very unlikely that a mobile notification will be sent.</li>
+</ul>
 <h4 id="mobile">mobile<a class="headerlink" href="#mobile" title="Permanent link">&para;</a></h4>
 <p>The mobile channels consists of a push notification. Its title will be
 the result of the <code>getTitle</code> method and its content will be the result
