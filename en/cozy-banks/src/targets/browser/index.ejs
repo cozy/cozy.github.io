@@ -3,7 +3,6 @@
 <head>
   <meta charset="utf-8">
   <title><%= htmlWebpackPlugin.options.title %></title>
-  {{.ThemeCSS}}
   <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
   <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
   <link rel="mask-icon" href="/public/safari-pinned-tab.svg" color="#16B52D">
@@ -18,6 +17,7 @@
   <% _.forEach(htmlWebpackPlugin.files.css, function(file) { %>
   <link rel="stylesheet" href="<%- file %>" />
   <% }); %>
+  {{.ThemeCSS}}
 </head>
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
