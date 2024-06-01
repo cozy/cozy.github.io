@@ -9,10 +9,11 @@ import defaultLogger from './logger'
 export const hasBrowserContext = typeof window !== 'undefined'
 
 /**
- * The cozy Realtime doctype
+ * The cozy Realtime protocol name
+ * See https://github.com/cozy/cozy-stack/blob/master/docs/realtime.md
  * @type {string}
  */
-export const doctype = 'io.cozy.websocket'
+export const protocol = 'io.cozy.websocket'
 
 /**
  * Returns if the navigator is online
@@ -97,6 +98,6 @@ export function getCozyClientFromOptions({
   return client || cozyClient
 }
 
-export function createWebSocket(url, doctype) {
-  return new WebSocket(url, doctype)
+export function createWebSocket(url, protocol) {
+  return new WebSocket(url, protocol)
 }

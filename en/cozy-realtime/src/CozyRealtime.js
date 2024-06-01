@@ -15,7 +15,7 @@ import {
   createWebSocket,
   getUrl,
   getToken,
-  doctype,
+  protocol,
   hasBrowserContext,
   getCozyClientFromOptions,
   isOnline
@@ -95,7 +95,7 @@ class CozyRealtime {
     this.logger.info('creating a new websocket…')
     const url = getUrl(this.client)
     try {
-      this.websocket = this.createWebSocket(url, doctype)
+      this.websocket = this.createWebSocket(url, protocol)
       this.websocket.authenticated = false
       this.websocket.onmessage = this.onWebSocketMessage
       this.websocket.onerror = this.onWebSocketError

@@ -7,7 +7,7 @@ import {
   requireDoubleUnsubscriptions
 } from './config'
 import logger from './logger'
-import { doctype } from './utils'
+import { protocol } from './utils'
 
 const testLogger = logger.minilog('test/cozy-realtime')
 
@@ -176,7 +176,10 @@ describe('CozyRealtime', () => {
       // Give some time for createWebSocket to be called
       await sleep(10)
 
-      expect(createWebSocket).toHaveBeenCalledWith(defaultWebsocketURI, doctype)
+      expect(createWebSocket).toHaveBeenCalledWith(
+        defaultWebsocketURI,
+        protocol
+      )
     })
 
     it('receives a subscription on the server', done => {

@@ -3429,8 +3429,8 @@ This will automatically subscribe to all the events occuring on the specified do
 <span class="kr">import</span> <span class="p">{</span> <span class="nx">RealtimePlugin</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-realtime&#39;</span>
 
 <span class="kr">const</span> <span class="nx">agent</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Agent</span><span class="p">({</span> <span class="nx">keepAlive</span><span class="o">:</span> <span class="kc">true</span> <span class="p">})</span>
-<span class="kr">const</span> <span class="nx">createWebSocket</span> <span class="o">=</span> <span class="p">(</span><span class="nx">uri</span><span class="p">,</span> <span class="nx">doctype</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">(</span><span class="nx">uri</span><span class="p">,</span> <span class="nx">doctype</span><span class="p">,</span> <span class="p">{</span> <span class="nx">agent</span> <span class="p">})</span>
+<span class="kr">const</span> <span class="nx">createWebSocket</span> <span class="o">=</span> <span class="p">(</span><span class="nx">uri</span><span class="p">,</span> <span class="nx">protocol</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">(</span><span class="nx">uri</span><span class="p">,</span> <span class="nx">protocol</span><span class="p">,</span> <span class="p">{</span> <span class="nx">agent</span> <span class="p">})</span>
 <span class="p">}</span>
 
 <span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CozyClient</span><span class="p">({})</span>
@@ -3505,7 +3505,7 @@ This will automatically subscribe to all the events occuring on the specified do
 <span class="cm">/**</span>
 <span class="cm"> * In Node applications, provide a function to instantiate Websockets:</span>
 <span class="cm"> *</span>
-<span class="cm"> * const createWebSocket = (uri, doctype) =&gt; { ... }</span>
+<span class="cm"> * const createWebSocket = (uri, protocol) =&gt; { ... }</span>
 <span class="cm"> *</span>
 <span class="cm"> * const realtime = new CozyRealtime({ client: cozyClient, createWebSocket })</span>
 <span class="cm"> *</span>
