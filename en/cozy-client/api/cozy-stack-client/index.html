@@ -2428,6 +2428,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#encodepath-string" title="encodePath ⇒ string" class="md-nav__link">
+    encodePath ⇒ string
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#getaccesstoken-string" title="getAccessToken() ⇒ string" class="md-nav__link">
     getAccessToken() ⇒ string
   </a>
@@ -2514,6 +2521,13 @@
         <li class="md-nav__item">
   <a href="#getcozyurl" title="getCozyURL()" class="md-nav__link">
     getCozyURL()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#joinpathstart-end-string" title="joinPath(start, end) ⇒ string" class="md-nav__link">
+    joinPath(start, end) ⇒ string
   </a>
   
 </li>
@@ -5962,6 +5976,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#encodepath-string" title="encodePath ⇒ string" class="md-nav__link">
+    encodePath ⇒ string
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#getaccesstoken-string" title="getAccessToken() ⇒ string" class="md-nav__link">
     getAccessToken() ⇒ string
   </a>
@@ -6048,6 +6069,13 @@
         <li class="md-nav__item">
   <a href="#getcozyurl" title="getCozyURL()" class="md-nav__link">
     getCozyURL()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#joinpathstart-end-string" title="joinPath(start, end) ⇒ string" class="md-nav__link">
+    joinPath(start, end) ⇒ string
   </a>
   
 </li>
@@ -6574,6 +6602,9 @@ See <a href="https://docs.cozy.io/en/cozy-stack/sharing-design/#description-of-a
 <dt><a href="#forceDownload">forceDownload</a></dt>
 <dd><p>Force a download from the given href</p>
 </dd>
+<dt><a href="#encodePath">encodePath</a> ⇒ <code>string</code></dt>
+<dd><p>Encode a path for use in a URL by encoding special characters but keeping slashes</p>
+</dd>
 </dl>
 
 <h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
@@ -6617,6 +6648,9 @@ or using preloaded url when blob not needed</p>
 </dd>
 <dt><a href="#getCozyURL">getCozyURL()</a></dt>
 <dd><p>Get a uniform formatted URL and SSL information according to a provided URL</p>
+</dd>
+<dt><a href="#joinPath">joinPath(start, end)</a> ⇒ <code>string</code></dt>
+<dd><p>Join two paths together ensuring there is only one slash between them</p>
 </dd>
 </dl>
 
@@ -10119,6 +10153,27 @@ See https://docs.cozy.io/en/cozy-stack/sharing-design/#description-of-a-sharing<
 </tr>
 </tbody>
 </table>
+<p><a name="encodePath"></a></p>
+<h2 id="encodepath-string">encodePath ⇒ <code>string</code><a class="headerlink" href="#encodepath-string" title="Permanent link">&para;</a></h2>
+<p>Encode a path for use in a URL by encoding special characters but keeping slashes</p>
+<p><strong>Kind</strong>: global constant<br />
+<strong>Returns</strong>: <code>string</code> - - The encoded path with special characters for parentheses and spaces  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>path</td>
+<td><code>string</code></td>
+<td>The path to encode</td>
+</tr>
+</tbody>
+</table>
 <p><a name="getAccessToken"></a></p>
 <h2 id="getaccesstoken-string">getAccessToken() ⇒ <code>string</code><a class="headerlink" href="#getaccesstoken-string" title="Permanent link">&para;</a></h2>
 <p>Get the access token string</p>
@@ -10310,7 +10365,33 @@ or using preloaded url when blob not needed</p>
 <h2 id="getcozyurl">getCozyURL()<a class="headerlink" href="#getcozyurl" title="Permanent link">&para;</a></h2>
 <p>Get a uniform formatted URL and SSL information according to a provided URL</p>
 <p><strong>Kind</strong>: global function<br />
-<a name="FetchChangesReturnValue"></a></p>
+<a name="joinPath"></a></p>
+<h2 id="joinpathstart-end-string">joinPath(start, end) ⇒ <code>string</code><a class="headerlink" href="#joinpathstart-end-string" title="Permanent link">&para;</a></h2>
+<p>Join two paths together ensuring there is only one slash between them</p>
+<p><strong>Kind</strong>: global function<br />
+<strong>Returns</strong>: <code>string</code> - The joined path  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>start</td>
+<td><code>string</code></td>
+<td>The starting part of the path</td>
+</tr>
+<tr>
+<td>end</td>
+<td><code>string</code></td>
+<td>The ending part of the path</td>
+</tr>
+</tbody>
+</table>
+<p><a name="FetchChangesReturnValue"></a></p>
 <h2 id="fetchchangesreturnvalue-promisefetchchangesreturnvalue">FetchChangesReturnValue ⇒ <a href="#FetchChangesReturnValue"><code>Promise.&lt;FetchChangesReturnValue&gt;</code></a><a class="headerlink" href="#fetchchangesreturnvalue-promisefetchchangesreturnvalue" title="Permanent link">&para;</a></h2>
 <p>Use Couch _changes API
 Deleted and design docs are filtered by default, thus documents are retrieved in the response
