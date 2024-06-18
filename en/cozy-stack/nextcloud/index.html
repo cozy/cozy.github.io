@@ -4126,12 +4126,13 @@ The new path must be given with the <code>To</code> parameter in the query-strin
 <h2 id="post-remotenextcloudaccountcopypath">POST /remote/nextcloud/:account/copy/*path<a class="headerlink" href="#post-remotenextcloudaccountcopypath" title="Permanent link">&para;</a></h2>
 <p>This route can be used to create a copy of a file in the same directory, with a
 copy suffix in its name. The new name can be optionaly given with the <code>Name</code>
-parameter in the query-string.</p>
+parameter in the query-string, or the full path can be given with <code>Path</code>
+parameter.</p>
 <p>The <code>:account</code> parameter is the identifier of the NextCloud <code>io.cozy.account</code>.</p>
 <p>The <code>*path</code> parameter is the path of the file on the NextCloud.</p>
 <p><strong>Note:</strong> a permission on <code>POST io.cozy.files</code> is required to use this route.</p>
 <h3 id="request_2">Request<a class="headerlink" href="#request_2" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/remote/nextcloud/4ab2155707bb6613a8b9463daf00381b/copy/Documents/wallpaper.jpg</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/remote/nextcloud/4ab2155707bb6613a8b9463daf00381b/copy/Documents/wallpaper.jpg?Path=/Images/beach.jpg</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.net</span>
 <span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer eyJhbG...</span>
 </pre></div>
@@ -4158,11 +4159,13 @@ parameter in the query-string.</p>
 <li>409 Conflict, when a file already exists with the new name on the NextCloud.</li>
 </ul>
 <h2 id="post-remotenextcloudaccountdownstreampath">POST /remote/nextcloud/:account/downstream/*path<a class="headerlink" href="#post-remotenextcloudaccountdownstreampath" title="Permanent link">&para;</a></h2>
-<p>This route can be used to move a file from the NextCloud to the Cozy.</p>
+<p>This route can be used to move/copy a file from the NextCloud to the Cozy.</p>
 <p>The <code>:account</code> parameter is the identifier of the NextCloud <code>io.cozy.account</code>.</p>
 <p>The <code>*path</code> parameter is the path of the file on the NextCloud.</p>
 <p>The <code>To</code> parameter in the query-string must be given, as the ID of the
 directory on the Cozy where the file will be put.</p>
+<p>By default, the file will be moved, but using <code>Copy=true</code> in the query-string
+will makes a copy.</p>
 <p><strong>Note:</strong> a permission on <code>POST io.cozy.files</code> is required to use this route.</p>
 <h3 id="request_3">Request<a class="headerlink" href="#request_3" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/remote/nextcloud/4ab2155707bb6613a8b9463daf00381b/downstream/Documents/Images/sunset.jpg?To=b3ecbc00f4ba013c2bf418c04daba326</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
@@ -4239,11 +4242,13 @@ directory on the Cozy where the file will be put.</p>
 <li>404 Not Found, when the account is not found or the file is not found on the NextCloud</li>
 </ul>
 <h2 id="post-remotenextcloudaccountupstreampath">POST /remote/nextcloud/:account/upstream/*path<a class="headerlink" href="#post-remotenextcloudaccountupstreampath" title="Permanent link">&para;</a></h2>
-<p>This route can be used to move a file from the Cozy to the NextCloud.</p>
+<p>This route can be used to move/copy a file from the Cozy to the NextCloud.</p>
 <p>The <code>:account</code> parameter is the identifier of the NextCloud <code>io.cozy.account</code>.</p>
 <p>The <code>*path</code> parameter is the path of the file on the NextCloud.</p>
 <p>The <code>From</code> parameter in the query-string must be given, as the ID of the
 file on the Cozy that will be moved.</p>
+<p>By default, the file will be moved, but using <code>Copy=true</code> in the query-string
+will makes a copy.</p>
 <p><strong>Note:</strong> a permission on <code>POST io.cozy.files</code> is required to use this route.</p>
 <h3 id="request_4">Request<a class="headerlink" href="#request_4" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/remote/nextcloud/4ab2155707bb6613a8b9463daf00381b/upstream/Documents/Images/sunset2.jpg?From=7b41fb7c31e87eeaf13a54bc32001830</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>

@@ -14,7 +14,7 @@ require (
 	github.com/ncw/swift v1.0.53
 	github.com/pkg/xattr v0.4.9
 	github.com/sirupsen/logrus v1.9.3
-	github.com/spf13/cobra v1.8.0
+	github.com/spf13/cobra v1.8.1
 	github.com/spf13/viper v1.14.0
 	github.com/stretchr/testify v1.9.0
 	golang.org/x/crypto v0.24.0

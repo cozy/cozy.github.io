@@ -51,6 +51,7 @@ var (
 	ErrAppSlugMismatch   = errshttp.NewError(http.StatusBadRequest, "Application slug does not match the one specified in the body")
 	ErrAppSlugInvalid    = errshttp.NewError(http.StatusBadRequest, "Invalid application slug: should contain only lowercase alphanumeric characters and dashes")
 	ErrAppEditorMismatch = errshttp.NewError(http.StatusBadRequest, "Application can not be updated: editor can not change")
+	ErrAppTypeMismatch   = errshttp.NewError(http.StatusBadRequest, "Application can not be updated: type can not change")
 
 	ErrVersionAlreadyExists = errshttp.NewError(http.StatusConflict, "Version already exists")
 	ErrVersionSlugMismatch  = errshttp.NewError(http.StatusBadRequest, "Version slug does not match the application")
@@ -281,6 +282,13 @@ func ModifyApp(c *space.Space, appSlug string, opts AppOptions) (*App, error) {
 	if err != nil {
 		return nil, err
 	}
+	if opts.Editor != "" && opts.Editor != app.Editor {
+		return nil, ErrAppEditorMismatch
+	}
+	if opts.Type != "" && opts.Type != app.Type {
+		return nil, ErrAppTypeMismatch
+	}
+
 	if opts.DataUsageCommitment != nil {
 		app.DataUsageCommitment = *opts.DataUsageCommitment
 	}
