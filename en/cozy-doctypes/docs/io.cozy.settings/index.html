@@ -1611,6 +1611,33 @@
     io.cozy.settings
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instance-settings-document" title="Instance settings document" class="md-nav__link">
+    Instance settings document
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bitwarden-settings-document" title="Bitwarden settings document" class="md-nav__link">
+    Bitwarden settings document
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-settings-document" title="Display settings document" class="md-nav__link">
+    Display settings document
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
       
@@ -3272,6 +3299,33 @@
     io.cozy.settings
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instance-settings-document" title="Instance settings document" class="md-nav__link">
+    Instance settings document
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bitwarden-settings-document" title="Bitwarden settings document" class="md-nav__link">
+    Bitwarden settings document
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#display-settings-document" title="Display settings document" class="md-nav__link">
+    Display settings document
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
       
@@ -3301,13 +3355,16 @@
 <h2 id="iocozysettings"><code>io.cozy.settings</code><a class="headerlink" href="#iocozysettings" title="Permanent link">&para;</a></h2>
 <p>The <code>io.cozy.settings</code> doctype contains some documents. The most important one
 is the stack instance-related settings.</p>
+<h3 id="instance-settings-document">Instance settings document<a class="headerlink" href="#instance-settings-document" title="Permanent link">&para;</a></h3>
 <ul>
 <li><code>_id</code>: <code>io.cozy.settings.instance</code></li>
 <li><code>tz</code>: {string} Timezone of the instance (ex: <code>Europe/Paris</code>)</li>
 <li><code>email</code>: {string} Email of the instance</li>
 <li><code>public_name</code>: {string} Public displayed name of the instance</li>
 <li><code>default_redirection</code>: {string} Redirect to an app after login (ex: <code>drive/#/folder</code>)</li>
+<li><code>colorScheme</code>: {&lsquo;light&rsquo;|&rsquo;dark&rsquo;|&rsquo;auto} Used to manage the appearance of an app</li>
 </ul>
+<h3 id="bitwarden-settings-document">Bitwarden settings document<a class="headerlink" href="#bitwarden-settings-document" title="Permanent link">&para;</a></h3>
 <p>There is also a document with the stuff related to authentication and Bitwarden:</p>
 <ul>
 <li><code>_id</code>: <code>io.cozy.settings.bitwarden</code></li>
@@ -3322,12 +3379,12 @@ is the stack instance-related settings.</p>
 <li><code>organization_id</code>: {string} the identifier of the Cozy organization</li>
 <li><code>collection_id</code>: {string} the identifier of the collection for the Cozy organization</li>
 <li><code>equivalent_domains</code>: {array} an array with lists of equivalent domains</li>
-<li>
-<p><code>global_equivalent_domains</code>: {array} an array of integers used by bitwarden clients</p>
-</li>
-<li>
-<p><code>_id</code>: <code>io.cozy.settings.display</code></p>
-</li>
+<li><code>global_equivalent_domains</code>: {array} an array of integers used by bitwarden clients</li>
+</ul>
+<h3 id="display-settings-document">Display settings document<a class="headerlink" href="#display-settings-document" title="Permanent link">&para;</a></h3>
+<p><img alt="⚠️" class="emojione" src="https://cdnjs.cloudflare.com/ajax/libs/emojione/2.2.7/assets/png/26a0.png" title=":warning:" /> Deprecated because there is no direct stack route to use it.</p>
+<ul>
+<li><code>_id</code>: <code>io.cozy.settings.display</code></li>
 <li><code>pushBanners</code>: {object} Relative attributes to push banners</li>
 <li><code>hideFlagshipApp</code>: {bool} Hide the push banner for Flagship App</li>
 <li><code>hidePassMobile</code>: {bool} Hide the push banner for Pass Mobile App</li>
