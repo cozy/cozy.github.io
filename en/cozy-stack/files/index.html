@@ -6476,6 +6476,9 @@ will be included in the archive. For directories, it includes all the files and
 sub-directories in the archive.</p>
 <p>It&rsquo;s possible to give a file by its id (in the <code>ids</code> array) or by its path (in
 the <code>files</code> array).</p>
+<p>For PDF files, it&rsquo;s possible to put in the archive a single page, with the
+<code>pages</code> argument: it&rsquo;s an array of objects, with <code>id</code> the file identifier of
+the PDF file, and <code>page</code> the page number (1 is the first page).</p>
 <p>The generated archive is temporary and is not persisted.</p>
 <h4 id="request_15">Request<a class="headerlink" href="#request_15" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">POST</span> <span class="nn">/files/archive</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
@@ -6493,6 +6496,9 @@ the <code>files</code> array).</p>
         <span class="s2">&quot;/Documents/bills&quot;</span><span class="p">,</span>
         <span class="s2">&quot;/Documents/images/sunset.jpg&quot;</span><span class="p">,</span>
         <span class="s2">&quot;/Documents/images/eiffel-tower.jpg&quot;</span>
+      <span class="p">],</span>
+      <span class="nt">&quot;pages&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span> <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;3780caf0-104f-013d-3619-18c04daba326&quot;</span><span class="p">,</span> <span class="nt">&quot;page&quot;</span><span class="p">:</span> <span class="mi">1</span> <span class="p">}</span>
       <span class="p">]</span>
     <span class="p">}</span>
   <span class="p">}</span>

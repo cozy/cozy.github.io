@@ -3996,6 +3996,8 @@ creates a zip archive from files in the VFS. The options are:</p>
 <li><code>dir_id</code>: the directory identifier where the zip archive will be put</li>
 <li><code>filename</code>: the name of the zip archive.</li>
 </ul>
+<p><strong>Note:</strong> it is possible to include only a page for a PDF file, by using an
+object with <code>id</code> and <code>page</code> instead of just the file identifier.</p>
 <h3 id="example_2">Example<a class="headerlink" href="#example_2" title="Permanent link">&para;</a></h3>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
     <span class="nt">&quot;files&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -4003,7 +4005,9 @@ creates a zip archive from files in the VFS. The options are:</p>
         <span class="nt">&quot;selection/two.pdf&quot;</span><span class="p">:</span> <span class="s2">&quot;36eb54c8-90fe-11e9-aeca-03ddc3acf91c&quot;</span><span class="p">,</span>
         <span class="nt">&quot;selection/three.pdf&quot;</span><span class="p">:</span> <span class="s2">&quot;37284586-90fe-11e9-be6d-179f72076e43&quot;</span><span class="p">,</span>
         <span class="nt">&quot;selection/four.pdf&quot;</span><span class="p">:</span> <span class="s2">&quot;37655462-90fe-11e9-9059-8739e3746720&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;selection/five.pdf&quot;</span><span class="p">:</span> <span class="s2">&quot;379fedfc-90fe-11e9-849f-0bbe172eba5f&quot;</span>
+        <span class="nt">&quot;selection/five.pdf&quot;</span><span class="p">:</span> <span class="s2">&quot;379fedfc-90fe-11e9-849f-0bbe172eba5f&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;selection/front.pdf&quot;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;49ca9e50-1074-013d-361a-18c04daba326&quot;</span><span class="p">,</span> <span class="nt">&quot;page&quot;</span><span class="p">:</span> <span class="mi">1</span> <span class="p">},</span>
+        <span class="nt">&quot;selection/back.pdf&quot;</span><span class="p">:</span>  <span class="p">{</span> <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;49ca9e50-1074-013d-361a-18c04daba326&quot;</span><span class="p">,</span> <span class="nt">&quot;page&quot;</span><span class="p">:</span> <span class="mi">2</span> <span class="p">}</span>
     <span class="p">},</span>
     <span class="nt">&quot;dir_id&quot;</span><span class="p">:</span> <span class="s2">&quot;3657ce9c-90fe-11e9-b40b-33baf841bcb8&quot;</span><span class="p">,</span>
     <span class="nt">&quot;filename&quot;</span><span class="p">:</span> <span class="s2">&quot;selection.zip&quot;</span>
