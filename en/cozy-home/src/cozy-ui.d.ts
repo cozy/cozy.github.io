@@ -19,9 +19,24 @@ declare module 'cozy-ui/transpiled/react/CozyDialogs' {
     title?: string
   }
 
+  interface DialogProps {
+    actions?: ReactNode
+    actionsLayout?: 'row' | 'column'
+    background?: string
+    content?: ReactNode
+    disableTitleAutoPadding?: boolean
+    onBack?: () => void
+    onClose?: () => void
+    open: boolean
+    size?: 'small' | 'medium' | 'large'
+    title?: ReactNode
+    fullScreen?: boolean
+  }
+
+  const Dialog: (props: DialogProps) => JSX.Element
   const ConfirmDialog: (props: ConfirmDialogProps) => JSX.Element
 
-  export { ConfirmDialog, ConfirmDialogProps }
+  export { ConfirmDialog, ConfirmDialogProps, Dialog, DialogProps }
 }
 
 declare module 'cozy-ui/transpiled/react/providers/CozyTheme' {
@@ -77,4 +92,8 @@ declare module 'cozy-ui/transpiled/react/ActionsMenu/Actions' {
 
 declare module 'cozy-ui/transpiled/react/styles' {
   export function makeStyles<T>(styles: T): T
+}
+
+declare module 'cozy-ui/react/Avatar/helpers' {
+  export function nameToColor(name: string): string
 }

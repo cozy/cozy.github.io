@@ -1745,6 +1745,27 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#filecollectiondownloadarchivefileids-notsecurefilename-options" title="fileCollection.downloadArchive(fileIds, [notSecureFilename], [options])" class="md-nav__link">
+    fileCollection.downloadArchive(fileIds, [notSecureFilename], [options])
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filecollectiongetarchivelinkbyids" title="~~fileCollection.getArchiveLinkByIds()~~" class="md-nav__link">
+    ~~fileCollection.getArchiveLinkByIds()~~
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filecollectioncreatearchivelinkbyidsparams-promisestring" title="fileCollection.createArchiveLinkByIds(params) ⇒ Promise.&lt;string&gt;" class="md-nav__link">
+    fileCollection.createArchiveLinkByIds(params) ⇒ Promise.&lt;string&gt;
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#filecollectionischildofchild-parent-boolean" title="fileCollection.isChildOf(child, parent) ⇒ boolean" class="md-nav__link">
     fileCollection.isChildOf(child, parent) ⇒ boolean
   </a>
@@ -2731,6 +2752,13 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#archivepages-object" title="ArchivePages : object" class="md-nav__link">
+    ArchivePages : object
+  </a>
   
 </li>
       
@@ -5293,6 +5321,27 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#filecollectiondownloadarchivefileids-notsecurefilename-options" title="fileCollection.downloadArchive(fileIds, [notSecureFilename], [options])" class="md-nav__link">
+    fileCollection.downloadArchive(fileIds, [notSecureFilename], [options])
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filecollectiongetarchivelinkbyids" title="~~fileCollection.getArchiveLinkByIds()~~" class="md-nav__link">
+    ~~fileCollection.getArchiveLinkByIds()~~
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filecollectioncreatearchivelinkbyidsparams-promisestring" title="fileCollection.createArchiveLinkByIds(params) ⇒ Promise.&lt;string&gt;" class="md-nav__link">
+    fileCollection.createArchiveLinkByIds(params) ⇒ Promise.&lt;string&gt;
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#filecollectionischildofchild-parent-boolean" title="fileCollection.isChildOf(child, parent) ⇒ boolean" class="md-nav__link">
     fileCollection.isChildOf(child, parent) ⇒ boolean
   </a>
@@ -6283,6 +6332,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#archivepages-object" title="ArchivePages : object" class="md-nav__link">
+    ArchivePages : object
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#fetchchangesreturnvalue-fetchchangesreturnvalue" title="FetchChangesReturnValue ⇒ FetchChangesReturnValue" class="md-nav__link">
     FetchChangesReturnValue ⇒ FetchChangesReturnValue
   </a>
@@ -6685,6 +6741,9 @@ Deleted and design docs are filtered by default, thus documents are retrieved in
 </dd>
 <dt><a href="#OAuthClient">OAuthClient</a> : <code>object</code></dt>
 <dd><p>Document representing a io.cozy.oauth.clients</p>
+</dd>
+<dt><a href="#ArchivePages">ArchivePages</a> : <code>object</code></dt>
+<dd><p>Attributes used for create archive link by ids</p>
 </dd>
 <dt><a href="#FetchChangesReturnValue">FetchChangesReturnValue</a> ⇒ <code><a href="#FetchChangesReturnValue">FetchChangesReturnValue</a></code></dt>
 <dd><p>Use cozy-stack&#39;s _changes API for io.cozy.files
@@ -7548,6 +7607,9 @@ files associated to a specific document</p>
 <li><a href="#FileCollection+download">.download(file, versionId, filename)</a></li>
 <li><a href="#FileCollection+fetchFileContentById">.fetchFileContentById(id)</a></li>
 <li><a href="#FileCollection+getBeautifulSize">.getBeautifulSize(file, decimal)</a></li>
+<li><a href="#FileCollection+downloadArchive">.downloadArchive(fileIds, [notSecureFilename], [options])</a></li>
+<li>~~<a href="#FileCollection+getArchiveLinkByIds">.getArchiveLinkByIds()</a>~~</li>
+<li><a href="#FileCollection+createArchiveLinkByIds">.createArchiveLinkByIds(params)</a> ⇒ <code>Promise.&lt;string&gt;</code></li>
 <li><a href="#FileCollection+isChildOf">.isChildOf(child, parent)</a> ⇒ <code>boolean</code></li>
 <li><a href="#FileCollection+statById">.statById(id, options)</a> ⇒ <code>object</code></li>
 <li><a href="#FileCollection+createDirectoryByPath">.createDirectoryByPath(path)</a> ⇒ <code>object</code></li>
@@ -8079,6 +8141,82 @@ it before doing an operation.</p>
 <td>decimal</td>
 <td><code>number</code></td>
 <td>number of decimal</td>
+</tr>
+</tbody>
+</table>
+<p><a name="FileCollection+downloadArchive"></a></p>
+<h3 id="filecollectiondownloadarchivefileids-notsecurefilename-options">fileCollection.downloadArchive(fileIds, [notSecureFilename], [options])<a class="headerlink" href="#filecollectiondownloadarchivefileids-notsecurefilename-options" title="Permanent link">&para;</a></h3>
+<p>Download an archive of the files</p>
+<p><strong>Kind</strong>: instance method of <a href="#FileCollection"><code>FileCollection</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fileIds</td>
+<td><code>Array.&lt;string&gt;</code></td>
+<td>List of file ids</td>
+</tr>
+<tr>
+<td>[notSecureFilename]</td>
+<td><code>string</code></td>
+<td>Name of the archive (default: &lsquo;files&rsquo;)</td>
+</tr>
+<tr>
+<td>[options]</td>
+<td><code>object</code></td>
+<td>Additional options</td>
+</tr>
+<tr>
+<td>[options.pages]</td>
+<td><a href="#ArchivePages"><code>Array.&lt;ArchivePages&gt;</code></a></td>
+<td>Array of objects, with <code>id</code> the file identifier, and <code>page</code> the page number (1 is the first page)</td>
+</tr>
+</tbody>
+</table>
+<p><a name="FileCollection+getArchiveLinkByIds"></a></p>
+<h3 id="filecollectiongetarchivelinkbyids">~~fileCollection.getArchiveLinkByIds()~~<a class="headerlink" href="#filecollectiongetarchivelinkbyids" title="Permanent link">&para;</a></h3>
+<p><strong><em>Deprecated</em></strong></p>
+<p><strong>Kind</strong>: instance method of <a href="#FileCollection"><code>FileCollection</code></a><br />
+<a name="FileCollection+createArchiveLinkByIds"></a></p>
+<h3 id="filecollectioncreatearchivelinkbyidsparams-promisestring">fileCollection.createArchiveLinkByIds(params) ⇒ <code>Promise.&lt;string&gt;</code><a class="headerlink" href="#filecollectioncreatearchivelinkbyidsparams-promisestring" title="Permanent link">&para;</a></h3>
+<p>Create the archive link for a list of files
+The generated archive is temporary and is not persisted</p>
+<p><strong>Kind</strong>: instance method of <a href="#FileCollection"><code>FileCollection</code></a><br />
+<strong>Returns</strong>: <code>Promise.&lt;string&gt;</code> - - The archive link  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>params</td>
+<td><code>object</code></td>
+<td>Parameters</td>
+</tr>
+<tr>
+<td>params.ids</td>
+<td><code>Array.&lt;string&gt;</code></td>
+<td>List of file ids</td>
+</tr>
+<tr>
+<td>[params.name]</td>
+<td><code>string</code></td>
+<td>Name of the archive (default: &lsquo;files&rsquo;)</td>
+</tr>
+<tr>
+<td>[params.pages]</td>
+<td><a href="#ArchivePages"><code>Array.&lt;ArchivePages&gt;</code></a></td>
+<td>Array of objects, with <code>id</code> the file identifier, and <code>page</code> the page number (1 is the first page)</td>
 </tr>
 </tbody>
 </table>
@@ -11029,7 +11167,33 @@ cozy creation by setting the user password into the cozy-stack</p>
 If this is the case, call the onRevocationChange callback</p>
 <p><strong>Kind</strong>: instance method of <a href="#OAuthClient"><code>OAuthClient</code></a><br />
 <strong>Returns</strong>: <code>Promise.&lt;boolean&gt;</code> - A Promise that resolves to <code>false</code> if client is still valid, or <code>true</code> if it has been revoked.<br />
-<a name="FetchChangesReturnValue"></a></p>
+<a name="ArchivePages"></a></p>
+<h2 id="archivepages-object">ArchivePages : <code>object</code><a class="headerlink" href="#archivepages-object" title="Permanent link">&para;</a></h2>
+<p>Attributes used for create archive link by ids</p>
+<p><strong>Kind</strong>: global typedef<br />
+<strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td><code>string</code></td>
+<td>Id of the file</td>
+</tr>
+<tr>
+<td>page</td>
+<td><code>number</code></td>
+<td>The page number. PDF files only (1 is the first page)</td>
+</tr>
+</tbody>
+</table>
+<p><a name="FetchChangesReturnValue"></a></p>
 <h2 id="fetchchangesreturnvalue-fetchchangesreturnvalue">FetchChangesReturnValue ⇒ <a href="#FetchChangesReturnValue"><code>FetchChangesReturnValue</code></a><a class="headerlink" href="#fetchchangesreturnvalue-fetchchangesreturnvalue" title="Permanent link">&para;</a></h2>
 <p>Use cozy-stack&rsquo;s _changes API for io.cozy.files
 Design docs are filtered by default, thus documents are retrieved in the

@@ -14,6 +14,7 @@
     grid-auto-rows minmax(rem(91), auto)
     grid-gap rem(10) 0
     justify-content center
+    min-width 320px
 
     &.detailed
         grid-template-columns repeat(3, detailedAppTileWithGutter)
@@ -28,6 +29,9 @@
             grid-template-columns repeat(1, calc(100% - 2.5rem))
             column-gap 0
 
+        div[class*='MuiGrid-grid-xs']
+            padding 2px
+
     .item-grid-icon
         width rem(16)
         height rem(16)
@@ -39,6 +43,37 @@
     a
         text-decoration none
         -webkit-tap-highlight-color transparent // https://developer.mozilla.org/en-US/docs/Web/CSS/-webkit-tap-highlight-color
+
+// Hacks specific to categories display, at this point it decided not to modify cozy-ui
+
+// The CSS grid is no good in modal display because of the fluid width
+// To handle a more fixed design, we're using flexbox instead
+.dialogContentWrapper .shortcuts-list:not(.detailed)
+    display flex
+    flex-wrap wrap
+    align-items flex-start
+    justify-content space-between
+    // @stylint off
+    width calc(100% + 2rem) !important
+    // @stylint on
+    margin-left -1rem
+
+    &:after
+        content ''
+        flex auto
+
+// Grid alignment for group of 1 to 4 apps icons
+div[class*='SquareAppIcon-icon-container'] .section-app-group
+    align-self flex-start
+    align-items flex-start
+    justify-content flex-start
+
+// Color issue with SquareAppIcon in detailed mode (appears blue)
+.shortcuts-list span[class*='MuiListItemText-primary']
+    color var(--primaryTextColor)
+    font-weight 700
+
+// End of categories display hacks
 
 .app-list-wrapper, .services-list-wrapper, .shortcuts-list-wrapper, .failure-wrapper
     max-width 50rem
@@ -61,6 +96,22 @@
     +small-screen()
         padding-left .5rem
 
+.scale-hover
+    transition transform 50ms ease
+
 .scale-hover:hover
     transform scale(1.0625)
-    transition transform 50ms ease
+
+.section-app-group-grid
+    display flex
+    align-items center
+
+.section-app-group-icon
+    display block
+
+.section-app-group-tile
+    display flex
+    justify-content center
+    width 100%
+    align-items center
+    min-width 14px
