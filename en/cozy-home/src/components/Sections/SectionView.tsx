@@ -15,6 +15,7 @@ import {
   GroupMode,
   SectionViewProps
 } from 'components/Sections/SectionsTypes'
+import { useSections } from './SectionsContext'
 
 export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {
   const { isMobile } = useBreakpoints()
@@ -22,6 +23,11 @@ export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {
   const isGroupMode =
     (section && computeGroupMode(isMobile, section)) === GroupMode.GROUPED
   const { t } = useI18n()
+  const isSuggestionModal = Boolean(
+    section.type === 'category' && section.pristine
+  )
+  const { isRunning, isSuggested } = useSections()
+
   return (
     <div
       className={cx(
@@ -32,19 +38,21 @@ export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {
         { detailed: Boolean(currentDisplayMode === DisplayMode.DETAILED) }
       )}
     >
-      {section.items.map((item, index) =>
+      {(section.items as IOCozyKonnector[]).map((item, index) =>
         item.type === 'konnector' ? (
           <KonnectorTile
-            key={(item as IOCozyKonnector).slug}
-            konnector={item as IOCozyKonnector}
+            isSuggestion={isSuggestionModal || isSuggested(item.slug)}
+            key={item.slug}
+            konnector={item}
             isInMaintenance={false}
-            loading={false}
+            loading={isRunning(item.slug)}
           />
         ) : (
           <ShortcutLink key={index} file={item} display={currentDisplayMode} />
         )
       )}
-      {section.type === 'category' && !section.pristine && (
+
+      {!isSuggestionModal && (
         <AddServiceTile label={t('add_service')} category={section.name} />
       )}
     </div>
