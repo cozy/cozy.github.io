@@ -2393,6 +2393,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#makekeyfrompartialfilter-string" title="makeKeyFromPartialFilter ⇒ string" class="md-nav__link">
+    makeKeyFromPartialFilter ⇒ string
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#getindexnamefromfields-string" title="getIndexNameFromFields ⇒ string" class="md-nav__link">
     getIndexNameFromFields ⇒ string
   </a>
@@ -2416,6 +2423,13 @@
         <li class="md-nav__item">
   <a href="#ismatchingindex-boolean" title="isMatchingIndex ⇒ boolean" class="md-nav__link">
     isMatchingIndex ⇒ boolean
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#makeoperatorsexplicit-object" title="makeOperatorsExplicit ⇒ object" class="md-nav__link">
+    makeOperatorsExplicit ⇒ object
   </a>
   
 </li>
@@ -2472,6 +2486,13 @@
         <li class="md-nav__item">
   <a href="#geticonurl" title="getIconURL()" class="md-nav__link">
     getIconURL()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#handlenoroperatorconditions-array" title="handleNorOperator(conditions) ⇒ Array" class="md-nav__link">
+    handleNorOperator(conditions) ⇒ Array
   </a>
   
 </li>
@@ -5969,6 +5990,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#makekeyfrompartialfilter-string" title="makeKeyFromPartialFilter ⇒ string" class="md-nav__link">
+    makeKeyFromPartialFilter ⇒ string
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#getindexnamefromfields-string" title="getIndexNameFromFields ⇒ string" class="md-nav__link">
     getIndexNameFromFields ⇒ string
   </a>
@@ -5992,6 +6020,13 @@
         <li class="md-nav__item">
   <a href="#ismatchingindex-boolean" title="isMatchingIndex ⇒ boolean" class="md-nav__link">
     isMatchingIndex ⇒ boolean
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#makeoperatorsexplicit-object" title="makeOperatorsExplicit ⇒ object" class="md-nav__link">
+    makeOperatorsExplicit ⇒ object
   </a>
   
 </li>
@@ -6048,6 +6083,13 @@
         <li class="md-nav__item">
   <a href="#geticonurl" title="getIconURL()" class="md-nav__link">
     getIconURL()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#handlenoroperatorconditions-array" title="handleNorOperator(conditions) ⇒ Array" class="md-nav__link">
+    handleNorOperator(conditions) ⇒ Array
   </a>
   
 </li>
@@ -6630,10 +6672,13 @@ Serves to dedupe equal queries requested at the same time</p>
 <dt><a href="#getIllegalCharacters">getIllegalCharacters</a> ⇒ <code>string</code></dt>
 <dd><p>Get the list of illegal characters in the file name</p>
 </dd>
+<dt><a href="#makeKeyFromPartialFilter">makeKeyFromPartialFilter</a> ⇒ <code>string</code></dt>
+<dd><p>Process a partial filter to generate a string key</p>
+</dd>
 <dt><a href="#getIndexNameFromFields">getIndexNameFromFields</a> ⇒ <code>string</code></dt>
 <dd><p>Name an index, based on its indexed fields and partial filter.</p>
 <p>It follows this naming convention:
-`by_{indexed_field1}<em>and</em>{indexed_field2}<em>filter</em>{partial_filter_field1}<em>and</em>{partial_filter_field2}</p>
+<code>by_{indexed_field1}_and_{indexed_field2}_filter_({partial_filter.key1}_{partial_filter.value1})_and_({partial_filter.key2}_{partial_filter.value2})</code></p>
 </dd>
 <dt><a href="#transformSort">transformSort</a> ⇒ <code><a href="#MangoSort">MangoSort</a></code></dt>
 <dd><p>Transform sort into Array</p>
@@ -6644,6 +6689,9 @@ query to work</p>
 </dd>
 <dt><a href="#isMatchingIndex">isMatchingIndex</a> ⇒ <code>boolean</code></dt>
 <dd><p>Check if an index is matching the given fields</p>
+</dd>
+<dt><a href="#makeOperatorsExplicit">makeOperatorsExplicit</a> ⇒ <code>object</code></dt>
+<dd><p>Transform a query to make all operators explicit</p>
 </dd>
 <dt><a href="#getPermissionsFor">getPermissionsFor</a> ⇒ <code>object</code></dt>
 <dd><p>Build a permission set</p>
@@ -6674,6 +6722,10 @@ See <a href="https://docs.cozy.io/en/cozy-stack/sharing-design/#description-of-a
 <dt><a href="#getIconURL">getIconURL()</a></dt>
 <dd><p>Get Icon URL using blob mechanism if OAuth connected
 or using preloaded url when blob not needed</p>
+</dd>
+<dt><a href="#handleNorOperator">handleNorOperator(conditions)</a> ⇒ <code>Array</code></dt>
+<dd><p>Handle the $nor operator in a query
+CouchDB transforms $nor into $and with $ne operators</p>
 </dd>
 <dt><a href="#garbageCollect">garbageCollect()</a></dt>
 <dd><p>Delete outdated results from cache</p>
@@ -10092,11 +10144,32 @@ found&rdquo; error.  </p>
 </tr>
 </tbody>
 </table>
+<p><a name="makeKeyFromPartialFilter"></a></p>
+<h2 id="makekeyfrompartialfilter-string">makeKeyFromPartialFilter ⇒ <code>string</code><a class="headerlink" href="#makekeyfrompartialfilter-string" title="Permanent link">&para;</a></h2>
+<p>Process a partial filter to generate a string key</p>
+<p><strong>Kind</strong>: global constant<br />
+<strong>Returns</strong>: <code>string</code> - - The string key of the processed partial filter  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>condition</td>
+<td><code>object</code></td>
+<td>An object representing the partial filter or a sub-condition of the partial filter</td>
+</tr>
+</tbody>
+</table>
 <p><a name="getIndexNameFromFields"></a></p>
 <h2 id="getindexnamefromfields-string">getIndexNameFromFields ⇒ <code>string</code><a class="headerlink" href="#getindexnamefromfields-string" title="Permanent link">&para;</a></h2>
 <p>Name an index, based on its indexed fields and partial filter.</p>
 <p>It follows this naming convention:
-`by_{indexed_field1}<em indexed_field2="indexed_field2">and</em><em partial_filter_field1="partial_filter_field1">filter</em><em partial_filter_field2="partial_filter_field2">and</em></p>
+<code>by_{indexed_field1}_and_{indexed_field2}_filter_({partial_filter.key1}_{partial_filter.value1})_and_({partial_filter.key2}_{partial_filter.value2})</code></p>
 <p><strong>Kind</strong>: global constant<br />
 <strong>Returns</strong>: <code>string</code> - The index name, built from the fields  </p>
 <table>
@@ -10114,14 +10187,9 @@ found&rdquo; error.  </p>
 <td>The indexed fields</td>
 </tr>
 <tr>
-<td>params</td>
+<td>[partialFilter]</td>
 <td><code>object</code></td>
-<td>The additional params</td>
-</tr>
-<tr>
-<td>[params.partialFilterFields]</td>
-<td><code>Array.&lt;string&gt;</code></td>
-<td>The partial filter fields</td>
+<td>The partial filter</td>
 </tr>
 </tbody>
 </table>
@@ -10179,6 +10247,32 @@ query to work</p>
 <td>partialFilter</td>
 <td><code>object</code></td>
 <td>An optional partial filter</td>
+</tr>
+</tbody>
+</table>
+<p><a name="makeOperatorsExplicit"></a></p>
+<h2 id="makeoperatorsexplicit-object">makeOperatorsExplicit ⇒ <code>object</code><a class="headerlink" href="#makeoperatorsexplicit-object" title="Permanent link">&para;</a></h2>
+<p>Transform a query to make all operators explicit</p>
+<p><strong>Kind</strong>: global constant<br />
+<strong>Returns</strong>: <code>object</code> - - The transformed query with all operators explicit  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>query</td>
+<td><code>object</code></td>
+<td>The query to transform</td>
+</tr>
+<tr>
+<td>reverseEq</td>
+<td><code>boolean</code></td>
+<td>If true, $eq will be transformed to $ne (useful for manage $nor)</td>
 </tr>
 </tbody>
 </table>
@@ -10329,7 +10423,29 @@ See https://docs.cozy.io/en/cozy-stack/sharing-design/#description-of-a-sharing<
 <p>Get Icon URL using blob mechanism if OAuth connected
 or using preloaded url when blob not needed</p>
 <p><strong>Kind</strong>: global function<br />
-<a name="garbageCollect"></a></p>
+<a name="handleNorOperator"></a></p>
+<h2 id="handlenoroperatorconditions-array">handleNorOperator(conditions) ⇒ <code>Array</code><a class="headerlink" href="#handlenoroperatorconditions-array" title="Permanent link">&para;</a></h2>
+<p>Handle the $nor operator in a query
+CouchDB transforms $nor into $and with $ne operators</p>
+<p><strong>Kind</strong>: global function<br />
+<strong>Returns</strong>: <code>Array</code> - - The reversed conditions  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>conditions</td>
+<td><code>Array</code></td>
+<td>The conditions inside the $nor operator</td>
+</tr>
+</tbody>
+</table>
+<p><a name="garbageCollect"></a></p>
 <h2 id="garbagecollect">garbageCollect()<a class="headerlink" href="#garbagecollect" title="Permanent link">&para;</a></h2>
 <p>Delete outdated results from cache</p>
 <p><strong>Kind</strong>: global function<br />
