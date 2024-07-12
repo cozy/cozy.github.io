@@ -4,6 +4,14 @@ import AppLinker from 'cozy-ui/transpiled/react/AppLinker'
 
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 
+/**
+ * AddServiceTile component.
+ *
+ * @param {Object} props - The component props.
+ * @param {string} props.label - The label for the service tile.
+ * @param {string} [props.category] - The category of the service tile.
+ * @returns {JSX.Element} The rendered AddServiceTile component.
+ */
 const AddServiceTile = ({ label, category }) => {
   const client = useClient()
   const nativePath = `/discover/?type=konnector${

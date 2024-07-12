@@ -10,16 +10,17 @@ import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { PersistGate } from 'redux-persist/integration/react'
 import AlertProvider from 'cozy-ui/transpiled/react/providers/Alert'
+import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 import configureStore from 'store/configureStore'
 import { RealtimePlugin } from 'cozy-realtime'
 // import { isFlagshipApp } from 'cozy-device-helper'
 
-import { usePreferedTheme } from 'hooks/usePreferedTheme'
+import { useWallpaperContext } from 'hooks/useWallpaperContext'
 
 import schema from '../schema'
 import { ConditionalWrapper } from './ConditionalWrapper'
-import { CustomWallPaperProvider } from 'hooks/useCustomWallpaperContext'
+import { WallPaperProvider } from 'hooks/useWallpaperContext'
 import { SectionsProvider } from './Sections/SectionsContext'
 const dictRequire = lang => require(`locales/${lang}.json`)
 
@@ -73,11 +74,20 @@ const Inner = ({ children, lang, context }) => (
 )
 
 const ThemeProvider = ({ children }) => {
-  const preferedTheme = usePreferedTheme()
+  const {
+    data: { isCustomWallpaper }
+  } = useWallpaperContext()
+  const { type } = useCozyTheme()
+
+  const variant = isCustomWallpaper
+    ? type === 'light'
+      ? 'inverted'
+      : 'normal'
+    : 'normal'
 
   return (
     <CozyTheme
-      variant={preferedTheme}
+      variant={variant}
       className="u-flex u-flex-column u-w-100 u-miw-100 u-flex-items-center"
     >
       {children}
@@ -97,8 +107,8 @@ const AppWrapper = ({ children }) => {
     <AppContext.Provider value={appContext}>
       <BreakpointsProvider>
         <CozyProvider client={cozyClient}>
-          <CustomWallPaperProvider>
-            <CozyTheme ignoreItself>
+          <WallPaperProvider>
+            <CozyTheme>
               <ThemeProvider>
                 <AlertProvider>
                   <ReduxProvider store={store}>
@@ -118,7 +128,7 @@ const AppWrapper = ({ children }) => {
                 </AlertProvider>
               </ThemeProvider>
             </CozyTheme>
-          </CustomWallPaperProvider>
+          </WallPaperProvider>
         </CozyProvider>
       </BreakpointsProvider>
     </AppContext.Provider>

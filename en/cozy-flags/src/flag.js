@@ -6,14 +6,17 @@ const store = new FlagStore()
 
 /**
  * Public API to use flags
+ * @template T
+ * @param {string} key - The flag key to get or set.
+ * @param {T} [value] - The value to set for the flag key. If not provided, the function will return the value of the key.
+ * @returns {T} The value of the flag key when getting, or the set value when setting.
  */
-const flag = function () {
-  const args = [].slice.call(arguments)
-  if (args.length === 1) {
-    return store.get(args[0])
+const flag = function (key, value) {
+  if (arguments.length === 1) {
+    return store.get(key)
   } else {
-    store.set(args[0], args[1])
-    return args[1]
+    store.set(key, value)
+    return value
   }
 }
 

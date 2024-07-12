@@ -5,7 +5,7 @@ import AppWrapper, { setupAppContext } from './AppWrapper'
 import { render } from '@testing-library/react'
 import React from 'react'
 import AppLike from 'test/AppLike'
-import { CustomWallPaperProvider } from 'hooks/useCustomWallpaperContext'
+import { WallPaperProvider } from 'hooks/useWallpaperContext'
 import { act } from 'react-dom/test-utils'
 
 const mockClient = {
@@ -44,9 +44,6 @@ jest.mock('redux-persist/integration/react', () => ({
 }))
 const AddButtonMock = () => <></>
 jest.mock('./AddButton/AddButton', () => AddButtonMock)
-jest.mock('hooks/usePreferedTheme', () => ({
-  usePreferedTheme: jest.fn().mockReturnValue('inverted')
-}))
 
 describe('AppWrapper.jsx', () => {
   beforeEach(() => {
@@ -80,9 +77,9 @@ describe('AppWrapper.jsx', () => {
       // When
       const { getByText } = render(
         <AppLike>
-          <CustomWallPaperProvider>
+          <WallPaperProvider>
             <AppWrapper>children</AppWrapper>
-          </CustomWallPaperProvider>
+          </WallPaperProvider>
         </AppLike>
       )
       await act(async () => {})
@@ -99,7 +96,7 @@ describe('AppWrapper.jsx', () => {
       // When
       const { getAllByTestId } = render(
         <AppWrapper>
-          <CustomWallPaperProvider>children </CustomWallPaperProvider>
+          <WallPaperProvider>children</WallPaperProvider>
         </AppWrapper>
       )
       await act(async () => {})
