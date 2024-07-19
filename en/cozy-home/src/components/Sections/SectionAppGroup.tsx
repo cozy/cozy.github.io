@@ -1,18 +1,22 @@
 import React from 'react'
 import get from 'lodash/get'
+import cx from 'classnames'
 
 import type { IOCozyFile, IOCozyKonnector } from 'cozy-client/types/types'
 import { nameToColor } from 'cozy-ui/react/Avatar/helpers'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import Grid from 'cozy-ui/transpiled/react/Grid'
 import AppIcon from 'cozy-ui/transpiled/react/AppIcon'
+import { STATUS } from 'components/KonnectorHelpers'
 
 interface SectionAppGroupProps {
   items: IOCozyFile[] | IOCozyKonnector[]
 }
 
 interface SectionAppTileProps {
-  item: IOCozyFile | IOCozyKonnector
+  item: (IOCozyFile | IOCozyKonnector) & {
+    status?: number
+  }
 }
 
 const typedNameToColor = nameToColor as (name: string) => string
@@ -20,14 +24,15 @@ const typedNameToColor = nameToColor as (name: string) => string
 const SectionAppTile = ({ item }: SectionAppTileProps): JSX.Element => {
   const icon = get(item, 'attributes.metadata.icon') as string
   const iconMimeType = get(item, 'attributes.metadata.iconMimeType') as string
-
   return (
     <Grid item xs={6} key={item.id} className="section-app-group-grid">
       {item.type === 'konnector' ? (
         <AppIcon
           app={(item as IOCozyKonnector).slug}
           type="konnector"
-          className="item-grid-icon"
+          className={cx('item-grid-icon', {
+            ghost: item.status === STATUS.NO_ACCOUNT
+          })}
         />
       ) : icon ? (
         <img

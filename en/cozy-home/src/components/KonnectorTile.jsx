@@ -8,6 +8,12 @@ import { getErrorLocaleBound, KonnectorJobError } from 'cozy-harvest-lib'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import { generateWebLink, useClient } from 'cozy-client'
 
+import {
+  STATUS,
+  getAccountsFromTrigger,
+  getTriggersBySlug
+} from 'components/KonnectorHelpers'
+
 /**
  *
  * @param {object} param
@@ -25,20 +31,25 @@ const getKonnectorError = ({ error, lang, konnector }) => {
   return getErrorLocaleBound(konnError, konnector, lang, 'title')
 }
 
-export const STATUS = {
-  OK: 0,
-  MAINTENANCE: 2,
-  ERROR: 3,
-  NO_ACCOUNT: 4,
-  LOADING: 5
-}
+/**
+ * @typedef {Object} StatusMap
+ * @property {string} [STATUS.NO_ACCOUNT] - The status when there is no account, represented as 'ghost'.
+ * @property {string} [STATUS.MAINTENANCE] - The status when under maintenance, represented as 'maintenance'.
+ * @property {string} [STATUS.ERROR] - The status when there is an error, represented as 'error'.
+ * @property {string} [STATUS.LOADING] - The status when loading, represented as 'loading'.
+ */
 
+/**
+ * A mapping of status constants to their corresponding string representations.
+ * @type {StatusMap}
+ */
 const statusMap = {
   [STATUS.NO_ACCOUNT]: 'ghost',
   [STATUS.MAINTENANCE]: 'maintenance',
   [STATUS.ERROR]: 'error',
   [STATUS.LOADING]: 'loading'
 }
+
 /**
  *
  * @param {object} props
@@ -64,21 +75,6 @@ export const getKonnectorStatus = ({
 }
 
 /**
- * @param {object} triggers
- * @param {import('cozy-client/types/types').IOCozyTrigger} triggers.trigger - io.cozy.triggers object
- * @param {import('cozy-client/types/types').IOCozyKonnector['slug']} slug
- * @returns
- */
-function getTriggersBySlug(triggers, slug) {
-  return Object.values(triggers).filter(trigger => {
-    return (
-      trigger.message &&
-      trigger.message.konnector &&
-      trigger.message.konnector === slug
-    )
-  })
-}
-/**
  * @param {import('cozy-client/types/types').IOCozyTrigger[]} triggers - io.cozy.triggers object
  * @param {object} jobs
  * @returns {null|true|string}
@@ -99,19 +95,7 @@ function getErrorForTriggers(triggers, jobs) {
   }
   return null
 }
-/**
- *
- * @param {import('cozy-client/types/types').IOCozyAccount[]} accounts
- * @param {import('cozy-client/types/types').IOCozyTrigger[]} triggers
- * @returns
- */
-const getAccountsFromTrigger = (accounts, triggers) => {
-  const triggerAccountIds = triggers.map(trigger => trigger.message.account)
-  const matchingAccounts = Object.values(accounts).filter(account =>
-    triggerAccountIds.includes(account.id)
-  )
-  return matchingAccounts
-}
+
 /**
  *
  * @param {import('cozy-client/types/types').IOCozyTrigger[]} triggers
