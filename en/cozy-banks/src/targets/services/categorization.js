@@ -54,7 +54,7 @@ const runCategorization = async client => {
     }
   }
 
-  log('info', 'All transactions have been successfuly categorized.')
+  log('info', 'All transactions have been successfully categorized.')
 
   log('info', 'Starting onOperationOrBillCreate service...')
   await startService(client, 'onOperationOrBillCreate')

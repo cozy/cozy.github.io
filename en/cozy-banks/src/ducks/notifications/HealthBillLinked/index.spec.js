@@ -81,7 +81,7 @@ describe('HealthBillLinked', () => {
   })
 
   describe('onSuccess', () => {
-    it('should be called after successfuly sending notifications', async () => {
+    it('should be called after successfully sending notifications', async () => {
       jest.spyOn(Bill, 'getAll').mockResolvedValue(mockBills)
 
       const client = new CozyClient({

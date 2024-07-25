@@ -265,7 +265,7 @@ class TransactionGreater extends NotificationView {
    * Saves last notification date to transactions for which there was
    * the notification.
    *
-   * Executed by `Notification` when the notification has been successfuly sent
+   * Executed by `Notification` when the notification has been successfully sent
    * See `Notification::sendNotification`
    */
   async onSuccess() {
