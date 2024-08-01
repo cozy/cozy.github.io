@@ -3791,7 +3791,10 @@ To avoid this side-effect, one could set an attribute to <code>undefined</code> 
 <p>To achieve this, we need to evaluate queries the same way it would have been done on the database side. Our query system relies on mango, a <a href="https://docs.couchdb.org/en/stable/api/database/find.html#find-selectors">mongo-like query system</a> supported by CouchDB, the Cozy database.</p>
 <p>We rely on <a href="https://github.com/crcn/sift.js">sift.js</a> for the in-memory query evaluation. This library is able to take as input a mongo query definition and transform it into a javascript predicate. Then, all the queries are evaluated on the stores&rsquo;s <code>documents</code>, and efficiently updated accordingly to the results.</p>
 <p>💡 If you want to know more about our query system and syntax, please check <a href="https://docs.cozy.io/en/tutorials/data/queries/">this documentation</a>.</p>
-<p>⚠️ Please not that there is not a perfect matching between mango operators and sift, see <a href="https://github.com/cozy/cozy-client/issues/1132">this issue</a> for instance.</p>
+<p>⚠️ Please note that there is not a perfect matching between mango operators and sift, see <a href="https://github.com/cozy/cozy-client/issues/1132">this issue</a> for instance.</p>
+<p>ℹ️ You can also directly run a query on the store&rsquo;s <code>documents</code>, and never actually use the database. This is useful when you know you have already the documents, typically after a sync. Simply use the <code>executeFromStore</code> option:</p>
+<div class="codehilite"><pre><span></span><span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">queryDef</span><span class="p">,</span> <span class="p">{</span> <span class="nx">executeFromStore</span><span class="o">:</span> <span class="kc">true</span><span class="p">})</span>
+</pre></div>
                 
                   
                 
