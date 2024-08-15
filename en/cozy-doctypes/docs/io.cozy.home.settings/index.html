@@ -1515,6 +1515,26 @@
     io.cozy.home.settings
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fields" title="Fields:" class="md-nav__link">
+    Fields:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metadata" title="Metadata:" class="md-nav__link">
+    Metadata:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
       
@@ -3272,6 +3292,26 @@
     io.cozy.home.settings
   </a>
   
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fields" title="Fields:" class="md-nav__link">
+    Fields:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#metadata" title="Metadata:" class="md-nav__link">
+    Metadata:
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
       
@@ -3294,11 +3334,54 @@
                 
                 
                 <p><a href="../#table-of-contents">Table of contents</a></p>
-<h1 id="cozy-home-settings-doctype">Cozy home settings doctype<a class="headerlink" href="#cozy-home-settings-doctype" title="Permanent link">&para;</a></h1>
+<h1 id="cozy-home-settings-doctype">Cozy Home Settings Doctype<a class="headerlink" href="#cozy-home-settings-doctype" title="Permanent link">&para;</a></h1>
 <h2 id="iocozyhomesettings"><code>io.cozy.home.settings</code><a class="headerlink" href="#iocozyhomesettings" title="Permanent link">&para;</a></h2>
-<p>The <code>io.cozy.home.settings</code> doctype contains one document containing :
-- <code>default_redirection_snackbar_disabled</code>: {boolean} If the default redirection snackbar has been disabled
-- <code>default_redirection_view_count</code>: {number} View count of the home app if the default redirection app is different than the home app</p>
+<p>The <code>io.cozy.home.settings</code> doctype contains one document that manages settings for the Cozy Home app. This document includes configuration options for UI elements, behavior customization, and user preferences.</p>
+<h3 id="fields">Fields:<a class="headerlink" href="#fields" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><strong><code>default_redirection_snackbar_disabled</code></strong>: {boolean} If the default redirection snackbar (a notification suggesting redirection to another app) has been disabled.</p>
+</li>
+<li>
+<p><strong><code>default_redirection_view_count</code></strong>: {number} The view count of the home app if the default redirection app is different from the home app. This tracks how often the user returns to the home app.</p>
+</li>
+<li>
+<p><strong><code>shortcutsLayout</code></strong>: {array of objects} Defines the layout and grouping of shortcuts for both desktop and mobile views in the Cozy Home app.</p>
+</li>
+<li><strong><code>createdByApp</code></strong>: {string} Identifier of the app that created the shortcut.</li>
+<li><strong><code>desktop</code></strong>: {object} Layout configuration for desktop view.<ul>
+<li><strong><code>detailedLines</code></strong>: {boolean} If <code>true</code>, the desktop view will display shortcuts with detailed lines.</li>
+<li><strong><code>grouped</code></strong>: {boolean} If <code>true</code>, shortcuts are grouped together on the desktop view.</li>
+</ul>
+</li>
+<li><strong><code>id</code></strong>: {string} Unique identifier for the shortcut.</li>
+<li><strong><code>mobile</code></strong>: {object} Layout configuration for mobile view.<ul>
+<li><strong><code>detailedLines</code></strong>: {boolean} If <code>true</code>, the mobile view will display shortcuts with detailed lines.</li>
+<li><strong><code>grouped</code></strong>: {boolean} If <code>true</code>, shortcuts are grouped together on the mobile view.</li>
+</ul>
+</li>
+<li><strong><code>order</code></strong>: {number} If provided, the order in which the shortcut should appear.</li>
+<li><strong><code>originalName</code></strong>: {string} Original name of the shortcut.</li>
+</ul>
+<h3 id="metadata">Metadata:<a class="headerlink" href="#metadata" title="Permanent link">&para;</a></h3>
+<ul>
+<li>
+<p><strong><code>_id</code></strong>: {string} Unique identifier for the settings document.</p>
+</li>
+<li>
+<p><strong><code>_rev</code></strong>: {string} Revision identifier for the settings document, tracking changes over time.</p>
+</li>
+<li>
+<p><strong><code>cozyMetadata</code></strong>: {object} Metadata related to the document&rsquo;s lifecycle in Cozy.</p>
+</li>
+<li><strong><code>createdAt</code></strong>: {string} Timestamp when the document was created.</li>
+<li><strong><code>metadataVersion</code></strong>: {number} Version number of the metadata format.</li>
+<li><strong><code>updatedAt</code></strong>: {string} Timestamp of the last update.</li>
+<li><strong><code>updatedByApps</code></strong>: {array of objects} Array detailing which apps have updated the document and when.<ul>
+<li><strong><code>date</code></strong>: {string} Timestamp of the update by an app.</li>
+</ul>
+</li>
+</ul>
                 
                   
                 
