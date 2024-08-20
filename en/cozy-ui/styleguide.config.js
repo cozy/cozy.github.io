@@ -59,6 +59,7 @@ module.exports = {
         '../react/Skeletons',
         '../react/Snackbar',
         '../react/Stepper',
+        '../react/MobileStepper',
         '../react/Switch',
         '../react/Tabs',
         '../react/TextField',
