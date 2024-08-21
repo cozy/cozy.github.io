@@ -37,7 +37,7 @@ func createVersion(c echo.Context) (err error) {
 
 	editor, err := checkPermissions(c, app.Editor, app.Slug, false /* = not master */)
 	if err != nil {
-		return errshttp.NewError(http.StatusUnauthorized, err.Error())
+		return errshttp.NewError(http.StatusUnauthorized, "%s", err)
 	}
 
 	if err = validateVersionRequest(c, opts); err != nil {
@@ -118,12 +118,12 @@ func getPendingVersions(c echo.Context) (err error) {
 	}
 	_, err = checkPermissions(c, tokenEditor, "", true /* = master */)
 	if err != nil {
-		return errshttp.NewError(http.StatusUnauthorized, err.Error())
+		return errshttp.NewError(http.StatusUnauthorized, "%s", err)
 	}
 
 	versions, err := registry.GetPendingVersions(getSpace(c))
 	if err != nil {
-		return errshttp.NewError(http.StatusInternalServerError, err.Error())
+		return errshttp.NewError(http.StatusInternalServerError, "%s", err)
 	}
 
 	slugFilter := c.QueryParam("filter[slug]")
@@ -149,7 +149,7 @@ func lookForPendingVersion(c echo.Context) (app *registry.App, version *registry
 	editorName := "cozy"
 	_, err = checkPermissions(c, editorName, "", true /* = master */)
 	if err != nil {
-		return nil, nil, errshttp.NewError(http.StatusUnauthorized, err.Error())
+		return nil, nil, errshttp.NewError(http.StatusUnauthorized, "%s", err)
 	}
 
 	appSlug := c.Param("app")
@@ -210,7 +210,7 @@ func deletePendingVersion(c echo.Context) (err error) {
 	editorName := "cozy"
 	_, err = checkPermissions(c, editorName, "", true /* = master */)
 	if err != nil {
-		return errshttp.NewError(http.StatusUnauthorized, err.Error())
+		return errshttp.NewError(http.StatusUnauthorized, "%s", err)
 	}
 
 	appSlug := c.Param("app")

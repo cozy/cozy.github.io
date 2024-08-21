@@ -337,7 +337,7 @@ func askPassword(prompt ...string) []byte {
 	if len(prompt) == 0 {
 		fmt.Fprintf(os.Stderr, "Enter passphrase: ")
 	} else {
-		fmt.Fprintf(os.Stderr, prompt[0])
+		fmt.Fprintf(os.Stderr, "%s", prompt[0])
 	}
 	pass, err := gopass.GetPasswdPrompt("", false, os.Stdin, os.Stderr)
 	if err != nil {

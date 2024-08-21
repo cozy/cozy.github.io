@@ -282,7 +282,7 @@ func wrapErr(err error, code int) error {
 	if errHTTP, ok := err.(*errshttp.Error); ok {
 		return errHTTP
 	}
-	return errshttp.NewError(code, err.Error())
+	return errshttp.NewError(code, "%s", err)
 }
 
 func cacheControl(c echo.Context, rev string, maxAge time.Duration) bool {

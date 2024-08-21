@@ -29,7 +29,7 @@ func createApp(c echo.Context) (err error) {
 
 	editor, err := checkPermissions(c, opts.Editor, "", true /* = master */)
 	if err != nil {
-		return errshttp.NewError(http.StatusUnauthorized, err.Error())
+		return errshttp.NewError(http.StatusUnauthorized, "%s", err)
 	}
 
 	if err = validateAppRequest(c, opts); err != nil {
@@ -64,7 +64,7 @@ func patchApp(c echo.Context) (err error) {
 
 	_, err = checkPermissions(c, app.Editor, "", true /* = master */)
 	if err != nil {
-		return errshttp.NewError(http.StatusUnauthorized, err.Error())
+		return errshttp.NewError(http.StatusUnauthorized, "%s", err)
 	}
 
 	app, err = registry.ModifyApp(getSpace(c), appSlug, opts)
@@ -210,7 +210,7 @@ func activateMaintenanceApp(c echo.Context) error {
 
 	_, err = checkPermissions(c, app.Editor, app.Slug, true /* = master */)
 	if err != nil {
-		return errshttp.NewError(http.StatusUnauthorized, err.Error())
+		return errshttp.NewError(http.StatusUnauthorized, "%s", err)
 	}
 
 	var opts registry.MaintenanceOptions
@@ -248,7 +248,7 @@ func deactivateMaintenanceApp(c echo.Context) (err error) {
 
 	_, err = checkPermissions(c, app.Editor, app.Slug, true /* = master */)
 	if err != nil {
-		return errshttp.NewError(http.StatusUnauthorized, err.Error())
+		return errshttp.NewError(http.StatusUnauthorized, "%s", err)
 	}
 
 	if vs != nil {
