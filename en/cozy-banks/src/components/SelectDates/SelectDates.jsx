@@ -61,7 +61,7 @@ const mobileMenuStyle = base => ({
 })
 
 const textStyle = () => ({
-  color: 'var(--primaryColor)'
+  color: 'var(--primaryContrastTextColor)'
 })
 
 const getSelectStyle = (isMobile, isPrimary, type) => {

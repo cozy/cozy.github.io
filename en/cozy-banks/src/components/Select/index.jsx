@@ -1,14 +1,15 @@
 import React from 'react'
+import find from 'lodash/find'
+
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import SelectBox, {
   SelectBoxWithFixedOptions
 } from 'cozy-ui/transpiled/react/SelectBox'
-import styles from 'components/Select/styles.styl'
-import find from 'lodash/find'
-import palette from 'cozy-ui/transpiled/react/palette'
-import { mergeStyles } from 'components/Select/styleUtils'
-
+import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import BottomIcon from 'cozy-ui/transpiled/react/Icons/Bottom'
+
+import { mergeStyles } from 'components/Select/styleUtils'
+import styles from 'components/Select/styles.styl'
 
 const smallArrowStyle = { paddingLeft: '0.25rem' }
 const IndicatorSeparator = () => null
@@ -41,7 +42,10 @@ const mkControlStyle = props => base => {
   }
 }
 
-const singleValueStyle = base => ({ ...base, color: palette.slateGrey })
+const singleValueStyle = base => ({
+  ...base,
+  color: 'var(--secondaryTextColor)'
+})
 const valueContainerStyle = base => ({ ...base, paddingLeft: 0 })
 const menuStyle = base => ({ ...base, minWidth: '9.375rem' })
 
@@ -85,33 +89,35 @@ class Select extends React.Component {
     const Component = this.Component
 
     return (
-      <Component
-        value={
-          value ? find(options, option => option.value == value) : options[0]
-        }
-        isSearchable={false}
-        getOptionLabel={x => x.name}
-        components={componentsOptions}
-        classNamePrefix="needsclick cz"
-        formatOptionLabel={option => (
-          <span className="needsclick">{option.name}</span>
-        )}
-        styles={mergeStyles(
-          {
-            singleValue: singleValueStyle,
-            control: this.controlStyle,
-            valueContainer: valueContainerStyle,
-            menu: menuStyle
-          },
-          styles
-        )}
-        name={name}
-        placeholder={placeholder}
-        onChange={option => {
-          onChange(option.value, options.indexOf(option.value), name)
-        }}
-        options={options}
-      />
+      <CozyTheme variant="normal">
+        <Component
+          value={
+            value ? find(options, option => option.value == value) : options[0]
+          }
+          isSearchable={false}
+          getOptionLabel={x => x.name}
+          components={componentsOptions}
+          classNamePrefix="needsclick cz"
+          formatOptionLabel={option => (
+            <span className="needsclick">{option.name}</span>
+          )}
+          styles={mergeStyles(
+            {
+              singleValue: singleValueStyle,
+              control: this.controlStyle,
+              valueContainer: valueContainerStyle,
+              menu: menuStyle
+            },
+            styles
+          )}
+          name={name}
+          placeholder={placeholder}
+          onChange={option => {
+            onChange(option.value, options.indexOf(option.value), name)
+          }}
+          options={options}
+        />
+      </CozyTheme>
     )
   }
 }

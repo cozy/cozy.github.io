@@ -19,25 +19,12 @@ exports[`Title should extend className 1`] = `
 `;
 
 exports[`Title should handle theme 1`] = `
-<Context.Provider
-  value={
-    Object {
-      "type": "light",
-      "variant": "inverted",
-    }
-  }
+<DumbCozyTheme
+  ignoreItself={true}
+  variant="inverted"
 >
-  <MuiCozyTheme
-    type="light"
-    variant="inverted"
-  >
-    <div
-      className="CozyTheme--light-inverted u-dc"
-    >
-      <Title>
-        content
-      </Title>
-    </div>
-  </MuiCozyTheme>
-</Context.Provider>
+  <Title>
+    content
+  </Title>
+</DumbCozyTheme>
 `;

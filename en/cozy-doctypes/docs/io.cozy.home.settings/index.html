@@ -1920,6 +1920,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cc.cozycloud.announcements/" title="Announcements" class="md-nav__link">
+      Announcements
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -3357,9 +3369,7 @@
 <li>
 <p><strong><code>default_redirection_view_count</code></strong>: {number} The view count of the home app if the default redirection app is different from the home app. This tracks how often the user returns to the home app.</p>
 </li>
-<li>
-<p><strong><code>shortcutsLayout</code></strong>: {array of objects} Defines the layout and grouping of shortcuts for both desktop and mobile views in the Cozy Home app.</p>
-</li>
+<li><strong><code>shortcutsLayout</code></strong>: {array of objects} Defines the layout and grouping of shortcuts for both desktop and mobile views in the Cozy Home app.</li>
 <li><strong><code>createdByApp</code></strong>: {string} Identifier of the app that created the shortcut.</li>
 <li><strong><code>desktop</code></strong>: {object} Layout configuration for desktop view.<ul>
 <li><strong><code>detailedLines</code></strong>: {boolean} If <code>true</code>, the desktop view will display shortcuts with detailed lines.</li>
@@ -3374,18 +3384,15 @@
 </li>
 <li><strong><code>order</code></strong>: {number} If provided, the order in which the shortcut should appear.</li>
 <li><strong><code>originalName</code></strong>: {string} Original name of the shortcut.</li>
+<li><strong><code>announcements</code></strong>: {object} Data related to the lifecycle of announcement inside Cozy</li>
+<li><strong><code>announcements.dismissedAt</code></strong>: {date} The last time, the user dismiss the announcements dialog</li>
+<li><strong><code>announcements.seen</code></strong>: {string[]} The viewed announcements. The array size is limited to same as the number of announcement return by the API (currently: 5)</li>
 </ul>
 <h3 id="metadata">Metadata:<a class="headerlink" href="#metadata" title="Permanent link">&para;</a></h3>
 <ul>
-<li>
-<p><strong><code>_id</code></strong>: {string} Unique identifier for the settings document.</p>
-</li>
-<li>
-<p><strong><code>_rev</code></strong>: {string} Revision identifier for the settings document, tracking changes over time.</p>
-</li>
-<li>
-<p><strong><code>cozyMetadata</code></strong>: {object} Metadata related to the document&rsquo;s lifecycle in Cozy.</p>
-</li>
+<li><strong><code>_id</code></strong>: {string} Unique identifier for the settings document.</li>
+<li><strong><code>_rev</code></strong>: {string} Revision identifier for the settings document, tracking changes over time.</li>
+<li><strong><code>cozyMetadata</code></strong>: {object} Metadata related to the document&rsquo;s lifecycle in Cozy.</li>
 <li><strong><code>createdAt</code></strong>: {string} Timestamp when the document was created.</li>
 <li><strong><code>metadataVersion</code></strong>: {number} Version number of the metadata format.</li>
 <li><strong><code>updatedAt</code></strong>: {string} Timestamp of the last update.</li>
