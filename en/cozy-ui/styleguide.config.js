@@ -65,7 +65,8 @@ module.exports = {
         '../react/TextField',
         '../react/Thumbnail',
         '../react/Tooltip',
-        '../react/Typography'
+        '../react/Typography',
+        '../react/Markdown'
       ]
     },
     {
