@@ -16,6 +16,7 @@ export interface FlagshipMetadata {
   biometry_type?: BiometryType
   immersive?: boolean
   navbarHeight?: number
+  offline_available?: boolean
   platform?: Record<string, unknown>
   route?: FlagshipRoutes
   settings_PINEnabled?: boolean
@@ -40,3 +41,6 @@ export const getFlagshipMetadata = (): FlagshipMetadata =>
 
 export const isFlagshipApp = (): boolean =>
   getGlobalWindow()?.cozy?.flagship !== undefined
+
+export const isFlagshipOfflineSupported = (): boolean =>
+  getGlobalWindow()?.cozy?.flagship?.offline_available

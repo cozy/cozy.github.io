@@ -21,4 +21,8 @@ export { isCordova } from './cordova'
 export { nativeLinkOpen } from './link'
 export { openDeeplinkOrRedirect } from './deeplink'
 
-export { isFlagshipApp, getFlagshipMetadata } from './flagship'
+export {
+  isFlagshipApp,
+  isFlagshipOfflineSupported,
+  getFlagshipMetadata
+} from './flagship'
