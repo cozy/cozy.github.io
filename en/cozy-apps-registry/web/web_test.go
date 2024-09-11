@@ -3,7 +3,7 @@ package web
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
@@ -120,27 +120,27 @@ func TestListKonnsFromVirtualSpace(t *testing.T) {
 }
 
 func TestAppIconFromVirtualSpace(t *testing.T) {
-	expected, err := ioutil.ReadFile("../scripts/drive-icon.svg")
+	expected, err := os.ReadFile("../scripts/drive-icon.svg")
 	assert.NoError(t, err)
 	u := fmt.Sprintf("%s/%s/registry/%s/icon", server.URL, myAppsSpace, overwrittenApp)
 	res, err := http.Get(u)
 	assert.NoError(t, err)
 	assert.Equal(t, 200, res.StatusCode)
 	defer res.Body.Close()
-	body, err := ioutil.ReadAll(res.Body)
+	body, err := io.ReadAll(res.Body)
 	assert.NoError(t, err)
 	assert.Equal(t, expected, body)
 }
 
 func TestVersionIconFromVirtualSpace(t *testing.T) {
-	expected, err := ioutil.ReadFile("../scripts/drive-icon.svg")
+	expected, err := os.ReadFile("../scripts/drive-icon.svg")
 	assert.NoError(t, err)
 	u := fmt.Sprintf("%s/%s/registry/%s/1.2.3/icon", server.URL, myAppsSpace, overwrittenApp)
 	res, err := http.Get(u)
 	assert.NoError(t, err)
 	assert.Equal(t, 200, res.StatusCode)
 	defer res.Body.Close()
-	body, err := ioutil.ReadAll(res.Body)
+	body, err := io.ReadAll(res.Body)
 	assert.NoError(t, err)
 	assert.Equal(t, expected, body)
 }

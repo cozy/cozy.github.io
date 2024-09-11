@@ -2,7 +2,6 @@ package config
 
 import (
 	"io"
-	"io/ioutil"
 	stdlog "log"
 	"log/syslog"
 
@@ -25,7 +24,7 @@ func SetupLogger(opts LoggerOptions) {
 		hook, err := logrus_syslog.NewSyslogHook("", "", syslog.LOG_INFO, "cozy-apps-registry")
 		if err == nil {
 			logrus.AddHook(hook)
-			logrus.SetOutput(ioutil.Discard)
+			logrus.SetOutput(io.Discard)
 		}
 		w = logrus.WithField("nspace", "go-redis").Writer()
 	} else {

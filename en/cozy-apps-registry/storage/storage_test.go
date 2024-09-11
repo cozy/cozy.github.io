@@ -1,7 +1,6 @@
 package storage
 
 import (
-	"io/ioutil"
 	"os"
 	"strings"
 	"testing"
@@ -31,7 +30,7 @@ func TestSwift(t *testing.T) {
 }
 
 func TestLocal(t *testing.T) {
-	tmp, err := ioutil.TempDir(os.TempDir(), "local")
+	tmp, err := os.MkdirTemp(os.TempDir(), "local")
 	assert.NoError(t, err)
 	defer os.RemoveAll(tmp)
 	local := &localFS{tmp}

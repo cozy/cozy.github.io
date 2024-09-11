@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
@@ -93,7 +92,7 @@ func (m *localFS) Get(prefix base.Prefix, name string) (*bytes.Buffer, map[strin
 	if err != nil {
 		return nil, nil, err
 	}
-	content, err := ioutil.ReadFile(path)
+	content, err := os.ReadFile(path)
 	if err != nil {
 		if os.IsNotExist(err) {
 			return nil, nil, base.NewFileNotFoundError(err)

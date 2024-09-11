@@ -10,7 +10,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 	"os"
@@ -301,7 +300,7 @@ func RegenerateOverwrittenTarballs(virtualSpaceName string, appSlug string) (err
 		}
 
 		prefix := fmt.Sprintf("%s_%s_*.tar.gz", lastVersion.Slug, lastVersion.Version)
-		file, err := ioutil.TempFile("", prefix)
+		file, err := os.CreateTemp("", prefix)
 		defer func() {
 			cerr := file.Close()
 			if err == nil {

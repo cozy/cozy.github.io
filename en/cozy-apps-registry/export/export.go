@@ -7,7 +7,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"path"
 	"strings"
 	"time"
@@ -154,7 +153,7 @@ func exportSwiftContainer(writer *tar.Writer, prefix string, container base.Pref
 				if err != nil {
 					return err
 				}
-				content, err := ioutil.ReadAll(reader)
+				content, err := io.ReadAll(reader)
 				if err != nil {
 					return err
 				}

@@ -8,7 +8,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/url"
 	"os"
 	"strings"
@@ -236,7 +236,7 @@ func TestCreateVersionWithAttachment(t *testing.T) {
 	ver.Version = "2.0.0"
 	ver.Slug = "app-test"
 	ver.ID = getVersionID(ver.Slug, ver.Version)
-	att1Content := ioutil.NopCloser(strings.NewReader("this is the file content of attachment 1"))
+	att1Content := io.NopCloser(strings.NewReader("this is the file content of attachment 1"))
 	attachments := []*kivik.Attachment{{
 		Filename:    "myfile1",
 		ContentType: "text/plain",
@@ -296,7 +296,7 @@ func TestFindAppAttachment(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Equal(t, "text/plain", att.ContentType)
 
-	content, err := ioutil.ReadAll(att.Content)
+	content, err := io.ReadAll(att.Content)
 	assert.NoError(t, err)
 	assert.Equal(t, "this is the file content of attachment 1", string(content))
 }
@@ -451,7 +451,7 @@ func TestDeleteVersion(t *testing.T) {
 // Download version
 
 func TestDownloadVersioNoManifest(t *testing.T) {
-	missingManifestFile, _ := ioutil.TempFile(os.TempDir(), "cozy-registry-test")
+	missingManifestFile, _ := os.CreateTemp(os.TempDir(), "cozy-registry-test")
 	tarWriter := tar.NewWriter(missingManifestFile)
 	defer func() {
 		tarWriter.Close()
@@ -473,7 +473,7 @@ func TestDownloadVersioNoManifest(t *testing.T) {
 	tarWriter.Flush()
 
 	h := sha256.New()
-	fileContent, _ := ioutil.ReadFile(missingManifestFile.Name())
+	fileContent, _ := os.ReadFile(missingManifestFile.Name())
 	_, err = h.Write(fileContent)
 	assert.NoError(t, err)
 
@@ -613,7 +613,7 @@ func generateManifestJSON(tw *tar.Writer, manifest *Manifest) error {
 func generateTarball(manifestContent *Manifest, packageContent map[string]interface{}) (string, string, error) {
 	var err error
 	// Creating a test tarball
-	tmpFile, _ := ioutil.TempFile(os.TempDir(), "cozy-registry-test")
+	tmpFile, _ := os.CreateTemp(os.TempDir(), "cozy-registry-test")
 	tarWriter := tar.NewWriter(tmpFile)
 	defer tarWriter.Close()
 
@@ -631,7 +631,7 @@ func generateTarball(manifestContent *Manifest, packageContent map[string]interf
 	// Computes the SHA256 sum of the tarball
 	h := sha256.New()
 	filename := tmpFile.Name()
-	fileContent, _ := ioutil.ReadFile(filename)
+	fileContent, _ := os.ReadFile(filename)
 	_, err = h.Write(fileContent)
 	if err != nil {
 		return "", "", err

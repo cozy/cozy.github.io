@@ -6,7 +6,7 @@ import (
 	"encoding/base64"
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
@@ -519,5 +519,5 @@ func assetDecompress(asset string) (b []byte, err error) {
 	if err != nil {
 		return
 	}
-	return ioutil.ReadAll(gr)
+	return io.ReadAll(gr)
 }

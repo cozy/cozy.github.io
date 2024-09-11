@@ -4,7 +4,6 @@ import (
 	"encoding/base64"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 	"regexp"
 	"strconv"
@@ -112,7 +111,7 @@ var verifyTokenCmd = &cobra.Command{
 			token = []byte(rest[0])
 		} else {
 			fmt.Fprintf(os.Stderr, "Waiting for token on stdin...")
-			token, err = ioutil.ReadAll(io.LimitReader(os.Stdin, 10*1024))
+			token, err = io.ReadAll(io.LimitReader(os.Stdin, 10*1024))
 			if err != nil {
 				return fmt.Errorf("Error reading token on stdin: %s", err)
 			}

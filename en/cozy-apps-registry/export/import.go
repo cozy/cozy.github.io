@@ -8,7 +8,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"path"
 	"strings"
 
@@ -188,7 +187,7 @@ func Import(reader io.Reader) (err error) {
 			contentType := header.PAXRecords[contentTypeAttr]
 			container, parts := parts[0], parts[1:]
 			name := path.Join(parts...)
-			content, err := ioutil.ReadAll(tr)
+			content, err := io.ReadAll(tr)
 			if err != nil {
 				return err
 			}

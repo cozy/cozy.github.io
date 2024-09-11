@@ -11,7 +11,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 	"os"
@@ -890,13 +889,13 @@ func HandleAssets(tarball *Tarball, opts *VersionOptions) ([]*kivik.Attachment, 
 			continue
 		}
 		var data []byte
-		data, err = ioutil.ReadAll(tr)
+		data, err = io.ReadAll(tr)
 		if err != nil {
 			return nil, err
 		}
 
 		mime := getMIMEType(name, data)
-		body := ioutil.NopCloser(bytes.NewReader(data))
+		body := io.NopCloser(bytes.NewReader(data))
 		attachments = append(attachments, &kivik.Attachment{
 			Content:     body,
 			Size:        int64(len(data)),
@@ -927,7 +926,7 @@ func ReadTarballVersion(reader io.Reader, contentType, url string) (*Tarball, er
 
 	hasPrefix := true
 
-	content, err := ioutil.ReadAll(reader)
+	content, err := io.ReadAll(reader)
 	if err != nil {
 		err = errshttp.NewError(http.StatusUnprocessableEntity,
 			"Cannot read tarball for url %s: %s", url, err)
@@ -992,7 +991,7 @@ func ReadTarballVersion(reader io.Reader, contentType, url string) (*Tarball, er
 
 		if basename == "package.json" {
 			var packageContent []byte
-			packageContent, err = ioutil.ReadAll(tr)
+			packageContent, err = io.ReadAll(tr)
 			if err != nil {
 				err = errshttp.NewError(http.StatusUnprocessableEntity,
 					"Could not reach version on specified url %s: %s", url, err)
@@ -1030,7 +1029,7 @@ func ReadTarballVersion(reader io.Reader, contentType, url string) (*Tarball, er
 // ReadTarballManifest handles the tarball manifest. It checks if the manifest
 // exists, is valid JSON and tries to load it to the Manifest struct
 func ReadTarballManifest(tr io.Reader, url string) (*Manifest, []byte, map[string]interface{}, error) {
-	manifestContent, err := ioutil.ReadAll(tr)
+	manifestContent, err := io.ReadAll(tr)
 	if err != nil {
 		err = errshttp.NewError(http.StatusUnprocessableEntity,
 			"Could not reach version on specified url %s: %s", url, err)
