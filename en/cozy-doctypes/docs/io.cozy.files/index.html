@@ -1568,6 +1568,26 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#toutatice-shortcuts" title="Toutatice shortcuts" class="md-nav__link">
+    Toutatice shortcuts
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-json-format_1" title="Example (JSON format)" class="md-nav__link">
+    Example (JSON format)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3463,6 +3483,26 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#toutatice-shortcuts" title="Toutatice shortcuts" class="md-nav__link">
+    Toutatice shortcuts
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-json-format_1" title="Example (JSON format)" class="md-nav__link">
+    Example (JSON format)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3716,19 +3756,27 @@ respect the <a href="http://www.lyberty.com/encyc/articles/tech/dot_url_format_-
 format</a>.</p>
 <p>They can have <code>metadata</code>:</p>
 <ul>
-<li><code>sharing.status</code> will be set if the link can be used to open a sharing. 2
+<li>
+<p><code>sharing.status</code> will be set if the link can be used to open a sharing. 2
   values are possible: <code>new</code> and <code>seen</code>, depending on whether the link
-  has been opened.</li>
-<li><code>target.cozyMetadata.instance</code> is set to the cozy instance when relevant
-  (mostly sharing and internal links)</li>
-<li><code>target._type</code> is the doctype of the destination of the link (when the link
-  goes to a sharing or document inside a cozy)</li>
-<li><code>target.mime</code> is the mime-type of the destination of the link (when it is a
-  file)</li>
-<li><code>target.app</code> is the slug of the destination app (internal links only).</li>
-<li><code>icon</code> {string?} contains the base64 encoded image or svg binary if mimetype is not present.</li>
+  has been opened.</p>
+</li>
+<li>
+<p><code>icon</code> {string?} contains the base64 encoded image or svg binary if mimetype is not present.</p>
+</li>
 <li><code>iconMimeType</code> {string?} contains the mime-type of the icon.</li>
 </ul>
+<p>An object <code>target</code>
+- <code>target.cozyMetadata.instance</code> is set to the cozy instance when relevant
+  (mostly sharing and internal links)
+- <code>target._type</code> is the doctype of the destination of the link (when the link
+  goes to a sharing or document inside a cozy)
+- <code>target.mime</code> is the mime-type of the destination of the link (when it is a
+  file)
+- <code>target.app</code> is the slug of the destination app (internal links only).
+- <code>target.title</code>: {string} the title of the application where the shortcut redirects (optional)
+- <code>target.description</code>: {string} the description of the application where the shortcut redirects (optional)
+- <code>target.category</code>: {string} the category of the application where the shortcut redirects (optional)</p>
 <h4 id="example-json-format">Example (JSON format)<a class="headerlink" href="#example-json-format" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="p">{</span>
   <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;629fb233be550a21174ac8e19f0043af&quot;</span><span class="p">,</span>
@@ -3766,6 +3814,76 @@ format</a>.</p>
     <span class="nt">&quot;createdOn&quot;</span><span class="p">:</span> <span class="s2">&quot;https://bob.cozy.example/&quot;</span><span class="p">,</span>
     <span class="nt">&quot;updatedAt&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-02-10T20:38:04Z&quot;</span><span class="p">,</span>
     <span class="nt">&quot;uploadedAt&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-02-10T20:38:04Z&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;uploadedOn&quot;</span><span class="p">:</span> <span class="s2">&quot;https://bob.cozy.example/&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="toutatice-shortcuts">Toutatice shortcuts<a class="headerlink" href="#toutatice-shortcuts" title="Permanent link">&para;</a></h3>
+<p>The <a href="https://github.com/konnectors/toutatice">Toutatice konnector</a> creates specific shortcuts for applications on the Toutatice store. This metadata is used to organize the display in the Home and Store applications.</p>
+<p>Generic data is stored in the <code>target</code> object with the following attributes:
+- <code>title</code>: {string} The title of the application to which the shortcut redirects
+- <code>description</code>: {string} A brief description of the application
+- <code>category</code>: {string} The category of the application (e.g., lien, info, triskell, perso). Each category corresponds to a sub-folder in the Home settings folder where the associated shortcuts are located.</p>
+<p>Additional information is stored in the <code>externalDataSource</code> object to maintain the link with the Toutatice object:
+- <code>source</code>: {string} The space to which the application belongs
+- <code>networkAccess</code>: {string} The access rights granted to the application
+- <code>hubMetadata</code>: {object} Contains various metadata fields:
+  - <code>derniereSynchronisation</code>: {string} Date of the last synchronization
+  - <code>etat</code>: {string} Current status of the application
+  - <code>favori</code>: {boolean} Indicates if the application is marked as a favorite
+  - <code>idInterne</code>: {string} Internal ID of the application
+  - <code>premiereSynchronisation</code>: {string} Date of the first synchronization</p>
+<h4 id="example-json-format_1">Example (JSON format)<a class="headerlink" href="#example-json-format_1" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;_id&quot;</span><span class="p">:</span> <span class="s2">&quot;629fb233be550a21174ac8e19f0043af&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;_rev&quot;</span><span class="p">:</span> <span class="s2">&quot;1-61c7804bdb4f9f8dae5a363cb9a30dd8&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;file&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;École Directe.url&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;dir_id&quot;</span><span class="p">:</span> <span class="s2">&quot;90c6120de7cf25f9f87424e09fea4e13&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;created_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2024-08-16T00:09:13.655513926Z&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;updated_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2024-08-16T00:09:13.655513926Z&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;md5sum&quot;</span><span class="p">:</span> <span class="s2">&quot;BZcKfVhs0FWFJ9r7vxhJRg==&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;mime&quot;</span><span class="p">:</span> <span class="s2">&quot;application/internet-shortcut&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;shortcut&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;trashed&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+  <span class="nt">&quot;metadata&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;target&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;École Directe&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Application de vie scolaire&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;category&quot;</span><span class="p">:</span> <span class="s2">&quot;lien&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;externalDataSource&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;networkAccess&quot;</span><span class="p">:</span> <span class="s2">&quot;ALL&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;Arena&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;hubMetadata&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;derniereSynchronisation&quot;</span><span class="p">:</span> <span class="s2">&quot;2022-10-21T14:27:37.794654Z&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;etat&quot;</span><span class="p">:</span> <span class="s2">&quot;AFFECTEE&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;favori&quot;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="nt">&quot;idInterne&quot;</span><span class="p">:</span> <span class="s2">&quot;4ebec71e-814e-4638-8b7e-7c5117599851&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;premiereSynchronisation&quot;</span><span class="p">:</span> <span class="s2">&quot;2022-10-21T07:27:21.375402Z&quot;</span>
+      <span class="p">},</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+  <span class="nt">&quot;cozyMetadata&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;doctypeVersion&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;metadataVersion&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;createdAt&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-02-10T20:38:04Z&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;createdByApp&quot;</span><span class="p">:</span> <span class="s2">&quot;toutatice&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;createdOn&quot;</span><span class="p">:</span> <span class="s2">&quot;https://bob.cozy.example/&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;updatedAt&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-02-10T20:38:04Z&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;updatedByApps&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;toutatice&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;date&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-02-10T20:38:04Z&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;instance&quot;</span><span class="p">:</span> <span class="s2">&quot;https://bob.cozy.example/&quot;</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;uploadedAt&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-02-10T20:38:04Z&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;uploadedBy&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;slug&quot;</span><span class="p">:</span> <span class="s2">&quot;toutatice&quot;</span>
+    <span class="p">},</span>
     <span class="nt">&quot;uploadedOn&quot;</span><span class="p">:</span> <span class="s2">&quot;https://bob.cozy.example/&quot;</span>
   <span class="p">}</span>
 <span class="p">}</span>
