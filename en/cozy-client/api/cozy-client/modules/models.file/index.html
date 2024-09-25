@@ -1272,7 +1272,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cozy-pouch-link/" title="Cozy Pouch Link API" class="md-nav__link">
+    <a href="../../../cozy-pouch-link.md" title="Cozy Pouch Link API" class="md-nav__link">
       Cozy Pouch Link API
     </a>
   </li>
@@ -3295,6 +3295,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#downloadfile" title="downloadFile" class="md-nav__link">
+    downloadFile
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#ensurefilepath" title="ensureFilePath" class="md-nav__link">
     ensureFilePath
   </a>
@@ -3560,7 +3567,7 @@
 <h3 id="albums_doctype">ALBUMS_DOCTYPE<a class="headerlink" href="#albums_doctype" title="Permanent link">&para;</a></h3>
 <p>• <code>Const</code> <strong>ALBUMS_DOCTYPE</strong>: <code>"io.cozy.photos.albums"</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L14">packages/cozy-client/src/models/file.js:14</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L16">packages/cozy-client/src/models/file.js:16</a></p>
 <h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
 <h3 id="copy">copy<a class="headerlink" href="#copy" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>copy</strong>(<code>client</code>, <code>file</code>, <code>destination</code>): <code>Promise</code>&lt;<code>any</code>&gt;</p>
@@ -3599,7 +3606,7 @@
 <li>A promise that resolves with the response from the API.</li>
 </ul>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L662">packages/cozy-client/src/models/file.js:662</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L664">packages/cozy-client/src/models/file.js:664</a></p>
 <hr />
 <h3 id="domobileupload">doMobileUpload<a class="headerlink" href="#domobileupload" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>doMobileUpload</strong>(<code>client</code>, <code>fileURL</code>, <code>options</code>): <code>Promise</code>&lt;<code>any</code>&gt;</p>
@@ -3634,7 +3641,55 @@
 <p><em>Returns</em></p>
 <p><code>Promise</code>&lt;<code>any</code>&gt;</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L599">packages/cozy-client/src/models/file.js:599</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L601">packages/cozy-client/src/models/file.js:601</a></p>
+<hr />
+<h3 id="downloadfile">downloadFile<a class="headerlink" href="#downloadfile" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>downloadFile</strong>(<code>params</code>): <code>Promise</code>&lt;<code>any</code>&gt;</p>
+<p>Download the requested file</p>
+<p>This method can be used in a web page context or in a WebView hosted by a Flagship app</p>
+<p>When used in a FlagshipApp WebView context, then the action is redirected to the host app
+that will process the download</p>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>params</code></td>
+<td align="left"><code>Object</code></td>
+<td align="left">The download parameters</td>
+</tr>
+<tr>
+<td align="left"><code>params.client</code></td>
+<td align="left"><a href="../../classes/CozyClient/"><code>CozyClient</code></a></td>
+<td align="left">Instance of CozyClient</td>
+</tr>
+<tr>
+<td align="left"><code>params.file</code></td>
+<td align="left"><code>IOCozyFile</code></td>
+<td align="left">io.cozy.files metadata of the document to downloaded</td>
+</tr>
+<tr>
+<td align="left"><code>params.url</code></td>
+<td align="left"><code>string</code></td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left"><code>params.webviewIntent</code></td>
+<td align="left"><code>WebviewService</code></td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>Promise</code>&lt;<code>any</code>&gt;</p>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L718">packages/cozy-client/src/models/file.js:718</a></p>
 <hr />
 <h3 id="ensurefilepath">ensureFilePath<a class="headerlink" href="#ensurefilepath" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>ensureFilePath</strong>(<code>file</code>, <code>parent</code>): <code>any</code></p>
@@ -3665,7 +3720,7 @@
 <p><code>any</code></p>
 <p>file object with path attribute</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L136">packages/cozy-client/src/models/file.js:136</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L138">packages/cozy-client/src/models/file.js:138</a></p>
 <hr />
 <h3 id="fetchblobfilebyid">fetchBlobFileById<a class="headerlink" href="#fetchblobfilebyid" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>fetchBlobFileById</strong>(<code>client</code>, <code>fileId</code>): <code>Promise</code>&lt;<code>Blob</code>&gt;</p>
@@ -3694,7 +3749,7 @@
 <p><em>Returns</em></p>
 <p><code>Promise</code>&lt;<code>Blob</code>&gt;</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L645">packages/cozy-client/src/models/file.js:645</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L647">packages/cozy-client/src/models/file.js:647</a></p>
 <hr />
 <h3 id="fetchfilesbyqualificationrules">fetchFilesByQualificationRules<a class="headerlink" href="#fetchfilesbyqualificationrules" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>fetchFilesByQualificationRules</strong>(<code>client</code>, <code>docRules</code>): <code>Promise</code>&lt;<code>any</code>&gt;</p>
@@ -3725,7 +3780,7 @@
 <p><code>Promise</code>&lt;<code>any</code>&gt;</p>
 <p>The files found by the rules</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L256">packages/cozy-client/src/models/file.js:256</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L258">packages/cozy-client/src/models/file.js:258</a></p>
 <hr />
 <h3 id="generatefilenameforrevision">generateFileNameForRevision<a class="headerlink" href="#generatefilenameforrevision" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>generateFileNameForRevision</strong>(<code>file</code>, <code>revision</code>, <code>f</code>): <code>string</code></p>
@@ -3760,7 +3815,7 @@
 <p><em>Returns</em></p>
 <p><code>string</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L479">packages/cozy-client/src/models/file.js:479</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L481">packages/cozy-client/src/models/file.js:481</a></p>
 <hr />
 <h3 id="generatenewfilenameonconflict">generateNewFileNameOnConflict<a class="headerlink" href="#generatenewfilenameonconflict" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>generateNewFileNameOnConflict</strong>(<code>filenameWithoutExtension</code>, <code>conflictOptions</code>): <code>string</code></p>
@@ -3791,7 +3846,7 @@
 <p><code>string</code></p>
 <p>A filename with the right suffix</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L449">packages/cozy-client/src/models/file.js:449</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L451">packages/cozy-client/src/models/file.js:451</a></p>
 <hr />
 <h3 id="getfullpath">getFullpath<a class="headerlink" href="#getfullpath" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>getFullpath</strong>(<code>client</code>, <code>dirId</code>, <code>name</code>): <code>Promise</code>&lt;<code>string</code>&gt;</p>
@@ -3827,7 +3882,7 @@
 <p><code>Promise</code>&lt;<code>string</code>&gt;</p>
 <p>The full path of the file in the cozy</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L291">packages/cozy-client/src/models/file.js:291</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L293">packages/cozy-client/src/models/file.js:293</a></p>
 <hr />
 <h3 id="getparentfolderid">getParentFolderId<a class="headerlink" href="#getparentfolderid" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>getParentFolderId</strong>(<code>file</code>): <code>string</code></p>
@@ -3853,7 +3908,7 @@
 <p><code>string</code></p>
 <p>id of the parent folder, if any</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L150">packages/cozy-client/src/models/file.js:150</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L152">packages/cozy-client/src/models/file.js:152</a></p>
 <hr />
 <h3 id="getsharingshortcutstatus">getSharingShortcutStatus<a class="headerlink" href="#getsharingshortcutstatus" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>getSharingShortcutStatus</strong>(<code>file</code>): <code>string</code></p>
@@ -3879,7 +3934,7 @@
 <p><code>string</code></p>
 <p>A description of the status</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L162">packages/cozy-client/src/models/file.js:162</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L164">packages/cozy-client/src/models/file.js:164</a></p>
 <hr />
 <h3 id="getsharingshortcuttargetdoctype">getSharingShortcutTargetDoctype<a class="headerlink" href="#getsharingshortcuttargetdoctype" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>getSharingShortcutTargetDoctype</strong>(<code>file</code>): <code>string</code></p>
@@ -3905,7 +3960,7 @@
 <p><code>string</code></p>
 <p>A doctype</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L182">packages/cozy-client/src/models/file.js:182</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L184">packages/cozy-client/src/models/file.js:184</a></p>
 <hr />
 <h3 id="getsharingshortcuttargetmime">getSharingShortcutTargetMime<a class="headerlink" href="#getsharingshortcuttargetmime" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>getSharingShortcutTargetMime</strong>(<code>file</code>): <code>string</code></p>
@@ -3931,7 +3986,7 @@
 <p><code>string</code></p>
 <p>The mime-type of the target file, or an empty string is the target is not a file.</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L172">packages/cozy-client/src/models/file.js:172</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L174">packages/cozy-client/src/models/file.js:174</a></p>
 <hr />
 <h3 id="hascertifications">hasCertifications<a class="headerlink" href="#hascertifications" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>hasCertifications</strong>(<code>file</code>): <code>boolean</code></p>
@@ -3955,7 +4010,7 @@
 <p><em>Returns</em></p>
 <p><code>boolean</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L625">packages/cozy-client/src/models/file.js:625</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L627">packages/cozy-client/src/models/file.js:627</a></p>
 <hr />
 <h3 id="hasmetadataattribute">hasMetadataAttribute<a class="headerlink" href="#hasmetadataattribute" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>hasMetadataAttribute</strong>(<code>params</code>): <code>boolean</code></p>
@@ -3990,7 +4045,7 @@
 <p><em>Returns</em></p>
 <p><code>boolean</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L280">packages/cozy-client/src/models/file.js:280</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L282">packages/cozy-client/src/models/file.js:282</a></p>
 <hr />
 <h3 id="hasqualifications">hasQualifications<a class="headerlink" href="#hasqualifications" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>hasQualifications</strong>(<code>file</code>): <code>boolean</code></p>
@@ -4014,7 +4069,7 @@
 <p><em>Returns</em></p>
 <p><code>boolean</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L617">packages/cozy-client/src/models/file.js:617</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L619">packages/cozy-client/src/models/file.js:619</a></p>
 <hr />
 <h3 id="isdirectory">isDirectory<a class="headerlink" href="#isdirectory" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>isDirectory</strong>(<code>file</code>): <code>boolean</code></p>
@@ -4038,7 +4093,7 @@
 <p><em>Returns</em></p>
 <p><code>boolean</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L46">packages/cozy-client/src/models/file.js:46</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L48">packages/cozy-client/src/models/file.js:48</a></p>
 <hr />
 <h3 id="isencrypted">isEncrypted<a class="headerlink" href="#isencrypted" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>isEncrypted</strong>(<code>file</code>): <code>boolean</code></p>
@@ -4063,7 +4118,7 @@
 <p><em>Returns</em></p>
 <p><code>boolean</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L74">packages/cozy-client/src/models/file.js:74</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L76">packages/cozy-client/src/models/file.js:76</a></p>
 <hr />
 <h3 id="isfile">isFile<a class="headerlink" href="#isfile" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>isFile</strong>(<code>file</code>): <code>boolean</code></p>
@@ -4087,7 +4142,7 @@
 <p><em>Returns</em></p>
 <p><code>boolean</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L40">packages/cozy-client/src/models/file.js:40</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L42">packages/cozy-client/src/models/file.js:42</a></p>
 <hr />
 <h3 id="isfromkonnector">isFromKonnector<a class="headerlink" href="#isfromkonnector" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>isFromKonnector</strong>(<code>file</code>): <code>boolean</code></p>
@@ -4111,7 +4166,7 @@
 <p><em>Returns</em></p>
 <p><code>boolean</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L636">packages/cozy-client/src/models/file.js:636</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L638">packages/cozy-client/src/models/file.js:638</a></p>
 <hr />
 <h3 id="isnote">isNote<a class="headerlink" href="#isnote" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>isNote</strong>(<code>file</code>): <code>boolean</code></p>
@@ -4136,7 +4191,7 @@
 <p><em>Returns</em></p>
 <p><code>boolean</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L54">packages/cozy-client/src/models/file.js:54</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L56">packages/cozy-client/src/models/file.js:56</a></p>
 <hr />
 <h3 id="isonlyofficefile">isOnlyOfficeFile<a class="headerlink" href="#isonlyofficefile" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>isOnlyOfficeFile</strong>(<code>file</code>): <code>boolean</code></p>
@@ -4161,7 +4216,7 @@
 <p><em>Returns</em></p>
 <p><code>boolean</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L84">packages/cozy-client/src/models/file.js:84</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L86">packages/cozy-client/src/models/file.js:86</a></p>
 <hr />
 <h3 id="isplaintext">isPlainText<a class="headerlink" href="#isplaintext" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>isPlainText</strong>(<code>mimeType?</code>, <code>fileName?</code>): <code>boolean</code></p>
@@ -4190,7 +4245,7 @@
 <p><em>Returns</em></p>
 <p><code>boolean</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L609">packages/cozy-client/src/models/file.js:609</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L611">packages/cozy-client/src/models/file.js:611</a></p>
 <hr />
 <h3 id="issharingshorcut">isSharingShorcut<a class="headerlink" href="#issharingshorcut" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>isSharingShorcut</strong>(<code>file</code>): <code>boolean</code></p>
@@ -4216,7 +4271,7 @@
 <p><em>Returns</em></p>
 <p><code>boolean</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L202">packages/cozy-client/src/models/file.js:202</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L204">packages/cozy-client/src/models/file.js:204</a></p>
 <hr />
 <h3 id="issharingshorcutnew">isSharingShorcutNew<a class="headerlink" href="#issharingshorcutnew" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>isSharingShorcutNew</strong>(<code>file</code>): <code>boolean</code></p>
@@ -4242,7 +4297,7 @@
 <p><em>Returns</em></p>
 <p><code>boolean</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L227">packages/cozy-client/src/models/file.js:227</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L229">packages/cozy-client/src/models/file.js:229</a></p>
 <hr />
 <h3 id="issharingshortcut">isSharingShortcut<a class="headerlink" href="#issharingshortcut" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>isSharingShortcut</strong>(<code>file</code>): <code>boolean</code></p>
@@ -4267,7 +4322,7 @@
 <p><em>Returns</em></p>
 <p><code>boolean</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L192">packages/cozy-client/src/models/file.js:192</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L194">packages/cozy-client/src/models/file.js:194</a></p>
 <hr />
 <h3 id="issharingshortcutnew">isSharingShortcutNew<a class="headerlink" href="#issharingshortcutnew" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>isSharingShortcutNew</strong>(<code>file</code>): <code>boolean</code></p>
@@ -4292,7 +4347,7 @@
 <p><em>Returns</em></p>
 <p><code>boolean</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L216">packages/cozy-client/src/models/file.js:216</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L218">packages/cozy-client/src/models/file.js:218</a></p>
 <hr />
 <h3 id="isshortcut">isShortcut<a class="headerlink" href="#isshortcut" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>isShortcut</strong>(<code>file</code>): <code>boolean</code></p>
@@ -4317,7 +4372,7 @@
 <p><code>boolean</code></p>
 <p>true if the file is a shortcut</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L109">packages/cozy-client/src/models/file.js:109</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L111">packages/cozy-client/src/models/file.js:111</a></p>
 <hr />
 <h3 id="move">move<a class="headerlink" href="#move" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>move</strong>(<code>client</code>, <code>file</code>, <code>destination</code>, <code>options?</code>): <code>Promise</code>&lt;{ <code>deleted</code>: <code>string</code>[] ; <code>moved</code>: <code>IOCozyFile</code>  }&gt;</p>
@@ -4373,7 +4428,7 @@ Manage 4 cases :</p>
 and the deleted file id (if any) if resolved or an Error if rejected</p>
 </blockquote>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L320">packages/cozy-client/src/models/file.js:320</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L322">packages/cozy-client/src/models/file.js:322</a></p>
 <hr />
 <h3 id="normalize">normalize<a class="headerlink" href="#normalize" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>normalize</strong>(<code>file</code>): <code>any</code></p>
@@ -4400,7 +4455,7 @@ and the deleted file id (if any) if resolved or an Error if rejected</p>
 <p><code>any</code></p>
 <p>full normalized object</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L122">packages/cozy-client/src/models/file.js:122</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L124">packages/cozy-client/src/models/file.js:124</a></p>
 <hr />
 <h3 id="overridefileforpath">overrideFileForPath<a class="headerlink" href="#overridefileforpath" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>overrideFileForPath</strong>(<code>client</code>, <code>dirPath</code>, <code>file</code>, <code>metadata</code>): <code>Promise</code>&lt;<code>IOCozyFile</code>&gt;</p>
@@ -4441,7 +4496,7 @@ and the deleted file id (if any) if resolved or an Error if rejected</p>
 <p><code>Promise</code>&lt;<code>IOCozyFile</code>&gt;</p>
 <p>The overrided file</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L415">packages/cozy-client/src/models/file.js:415</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L417">packages/cozy-client/src/models/file.js:417</a></p>
 <hr />
 <h3 id="readmobilefile">readMobileFile<a class="headerlink" href="#readmobilefile" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>readMobileFile</strong>(<code>fileURL</code>): <code>Promise</code>&lt;<code>any</code>&gt;</p>
@@ -4466,7 +4521,7 @@ and the deleted file id (if any) if resolved or an Error if rejected</p>
 <p><em>Returns</em></p>
 <p><code>Promise</code>&lt;<code>any</code>&gt;</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L552">packages/cozy-client/src/models/file.js:552</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L554">packages/cozy-client/src/models/file.js:554</a></p>
 <hr />
 <h3 id="savefilequalification">saveFileQualification<a class="headerlink" href="#savefilequalification" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>saveFileQualification</strong>(<code>client</code>, <code>file</code>, <code>qualification</code>): <code>Promise</code>&lt;<code>IOCozyFile</code>&gt;</p>
@@ -4502,7 +4557,7 @@ and the deleted file id (if any) if resolved or an Error if rejected</p>
 <p><code>Promise</code>&lt;<code>IOCozyFile</code>&gt;</p>
 <p>The saved file</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L242">packages/cozy-client/src/models/file.js:242</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L244">packages/cozy-client/src/models/file.js:244</a></p>
 <hr />
 <h3 id="shouldbeopenedbyonlyoffice">shouldBeOpenedByOnlyOffice<a class="headerlink" href="#shouldbeopenedbyonlyoffice" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>shouldBeOpenedByOnlyOffice</strong>(<code>file</code>): <code>boolean</code></p>
@@ -4529,7 +4584,7 @@ But we want to exclude .txt and .md because the CozyUI Viewer can already show t
 <p><em>Returns</em></p>
 <p><code>boolean</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L99">packages/cozy-client/src/models/file.js:99</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L101">packages/cozy-client/src/models/file.js:101</a></p>
 <hr />
 <h3 id="splitfilename">splitFilename<a class="headerlink" href="#splitfilename" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>splitFilename</strong>(<code>file</code>): <code>Object</code></p>
@@ -4572,7 +4627,7 @@ But we want to exclude .txt and .md because the CozyUI Viewer can already show t
 </tbody>
 </table>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L24">packages/cozy-client/src/models/file.js:24</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L26">packages/cozy-client/src/models/file.js:26</a></p>
 <hr />
 <h3 id="uploadfilewithconflictstrategy">uploadFileWithConflictStrategy<a class="headerlink" href="#uploadfilewithconflictstrategy" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>uploadFileWithConflictStrategy</strong>(<code>client</code>, <code>file</code>, <code>options</code>): <code>any</code></p>
@@ -4617,7 +4672,7 @@ If there is a conflict, then we apply the conflict strategy : <code>erase</code>
 <p><em>Returns</em></p>
 <p><code>any</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L512">packages/cozy-client/src/models/file.js:512</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/file.js#L514">packages/cozy-client/src/models/file.js:514</a></p>
                 
                   
                 

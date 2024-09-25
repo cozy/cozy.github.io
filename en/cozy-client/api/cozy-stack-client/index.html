@@ -1280,7 +1280,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../cozy-pouch-link/" title="Cozy Pouch Link API" class="md-nav__link">
+    <a href="../cozy-pouch-link.md" title="Cozy Pouch Link API" class="md-nav__link">
       Cozy Pouch Link API
     </a>
   </li>
@@ -6698,11 +6698,15 @@ Serves to dedupe equal queries requested at the same time</p>
 </dd>
 <dt><a href="#makeKeyFromPartialFilter">makeKeyFromPartialFilter</a> ⇒ <code>string</code></dt>
 <dd><p>Process a partial filter to generate a string key</p>
+<p>/!\ Warning: this method is similar to cozy-pouch-link mango.makeKeyFromPartialFilter()
+If you edit this method, please check if the change is also needed in mango file</p>
 </dd>
 <dt><a href="#getIndexNameFromFields">getIndexNameFromFields</a> ⇒ <code>string</code></dt>
 <dd><p>Name an index, based on its indexed fields and partial filter.</p>
 <p>It follows this naming convention:
 <code>by_{indexed_field1}_and_{indexed_field2}_filter_({partial_filter.key1}_{partial_filter.value1})_and_({partial_filter.key2}_{partial_filter.value2})</code></p>
+<p>/!\ Warning: this method is similar to cozy-pouch-link mango.getIndexNameFromFields()
+If you edit this method, please check if the change is also needed in mango file</p>
 </dd>
 <dt><a href="#transformSort">transformSort</a> ⇒ <code><a href="#MangoSort">MangoSort</a></code></dt>
 <dd><p>Transform sort into Array</p>
@@ -10171,6 +10175,8 @@ found&rdquo; error.  </p>
 <p><a name="makeKeyFromPartialFilter"></a></p>
 <h2 id="makekeyfrompartialfilter-string">makeKeyFromPartialFilter ⇒ <code>string</code><a class="headerlink" href="#makekeyfrompartialfilter-string" title="Permanent link">&para;</a></h2>
 <p>Process a partial filter to generate a string key</p>
+<p>/!\ Warning: this method is similar to cozy-pouch-link mango.makeKeyFromPartialFilter()
+If you edit this method, please check if the change is also needed in mango file</p>
 <p><strong>Kind</strong>: global constant<br />
 <strong>Returns</strong>: <code>string</code> - - The string key of the processed partial filter  </p>
 <table>
@@ -10194,6 +10200,8 @@ found&rdquo; error.  </p>
 <p>Name an index, based on its indexed fields and partial filter.</p>
 <p>It follows this naming convention:
 <code>by_{indexed_field1}_and_{indexed_field2}_filter_({partial_filter.key1}_{partial_filter.value1})_and_({partial_filter.key2}_{partial_filter.value2})</code></p>
+<p>/!\ Warning: this method is similar to cozy-pouch-link mango.getIndexNameFromFields()
+If you edit this method, please check if the change is also needed in mango file</p>
 <p><strong>Kind</strong>: global constant<br />
 <strong>Returns</strong>: <code>string</code> - The index name, built from the fields  </p>
 <table>
@@ -10880,6 +10888,11 @@ Deleted and design docs are filtered by default, thus documents are retrieved in
 <td>_id</td>
 <td><code>string</code></td>
 <td>Id of the file</td>
+</tr>
+<tr>
+<td>_rev</td>
+<td><code>string</code></td>
+<td>Rev of the file</td>
 </tr>
 <tr>
 <td>attributes</td>
@@ -11982,7 +11995,7 @@ not.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../cozy-pouch-link/" title="Cozy Pouch Link API" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../cozy-client/" title="Cozy Client API" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -11991,7 +12004,7 @@ not.</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Cozy Pouch Link API
+                Cozy Client API
               </span>
             </div>
           </a>

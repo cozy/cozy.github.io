@@ -1272,7 +1272,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cozy-pouch-link/" title="Cozy Pouch Link API" class="md-nav__link">
+    <a href="../../../cozy-pouch-link.md" title="Cozy Pouch Link API" class="md-nav__link">
       Cozy Pouch Link API
     </a>
   </li>
@@ -3281,8 +3281,22 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#persistcozydata" title="persistCozyData" class="md-nav__link">
+    persistCozyData
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#request" title="request" class="md-nav__link">
     request
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reset" title="reset" class="md-nav__link">
+    reset
   </a>
   
 </li>
@@ -3318,11 +3332,12 @@
 <li>
 <p><strong><code>CozyLink</code></strong></p>
 <p>↳ <a href="../StackLink/"><code>StackLink</code></a></p>
+<p>↳ <a href="../WebFlagshipLink/"><code>WebFlagshipLink</code></a></p>
 </li>
 </ul>
 <h2 id="constructors">Constructors<a class="headerlink" href="#constructors" title="Permanent link">&para;</a></h2>
 <h3 id="constructor">constructor<a class="headerlink" href="#constructor" title="Permanent link">&para;</a></h3>
-<p>• <strong>new CozyLink</strong>(<code>requestHandler</code>)</p>
+<p>• <strong>new CozyLink</strong>(<code>requestHandler</code>, <code>persistHandler</code>)</p>
 <p><em>Parameters</em></p>
 <table>
 <thead>
@@ -3336,40 +3351,87 @@
 <td align="left"><code>requestHandler</code></td>
 <td align="left"><code>any</code></td>
 </tr>
+<tr>
+<td align="left"><code>persistHandler</code></td>
+<td align="left"><code>any</code></td>
+</tr>
 </tbody>
 </table>
 <p><em>Defined in</em></p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/CozyLink.js#L2">packages/cozy-client/src/CozyLink.js:2</a></p>
 <h2 id="methods">Methods<a class="headerlink" href="#methods" title="Permanent link">&para;</a></h2>
-<h3 id="request">request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h3>
-<p>▸ <strong>request</strong>(<code>operation</code>, <code>result</code>, <code>forward</code>): <code>void</code></p>
+<h3 id="persistcozydata">persistCozyData<a class="headerlink" href="#persistcozydata" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>persistCozyData</strong>(<code>data</code>, <code>forward</code>): <code>Promise</code>&lt;<code>any</code>&gt;</p>
+<p>Persist the given data into the links storage</p>
 <p><em>Parameters</em></p>
 <table>
 <thead>
 <tr>
 <th align="left">Name</th>
 <th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>data</code></td>
+<td align="left"><code>any</code></td>
+<td align="left">The document to persist</td>
+</tr>
+<tr>
+<td align="left"><code>forward</code></td>
+<td align="left"><code>any</code></td>
+<td align="left">The next persistCozyData of the chain</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>Promise</code>&lt;<code>any</code>&gt;</p>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/CozyLink.js#L31">packages/cozy-client/src/CozyLink.js:31</a></p>
+<hr />
+<h3 id="request">request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>request</strong>(<code>operation</code>, <code>result</code>, <code>forward</code>): <code>Promise</code>&lt;<code>any</code>&gt;</p>
+<p>Request the given operation from the link</p>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td align="left"><code>operation</code></td>
 <td align="left"><code>any</code></td>
+<td align="left">The operation to request</td>
 </tr>
 <tr>
 <td align="left"><code>result</code></td>
 <td align="left"><code>any</code></td>
+<td align="left">The result from the previous request of the chain</td>
 </tr>
 <tr>
 <td align="left"><code>forward</code></td>
 <td align="left"><code>any</code></td>
+<td align="left">The next request of the chain</td>
 </tr>
 </tbody>
 </table>
 <p><em>Returns</em></p>
-<p><code>void</code></p>
+<p><code>Promise</code>&lt;<code>any</code>&gt;</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/CozyLink.js#L8">packages/cozy-client/src/CozyLink.js:8</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/CozyLink.js#L20">packages/cozy-client/src/CozyLink.js:20</a></p>
+<hr />
+<h3 id="reset">reset<a class="headerlink" href="#reset" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>reset</strong>(): <code>Promise</code>&lt;<code>any</code>&gt;</p>
+<p>Reset the link data</p>
+<p><em>Returns</em></p>
+<p><code>Promise</code>&lt;<code>any</code>&gt;</p>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/CozyLink.js#L40">packages/cozy-client/src/CozyLink.js:40</a></p>
                 
                   
                 

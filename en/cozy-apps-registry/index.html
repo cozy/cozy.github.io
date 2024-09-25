@@ -1276,7 +1276,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../cozy-client/api/cozy-pouch-link/" title="Cozy Pouch Link API" class="md-nav__link">
+    <a href="../cozy-client/api/cozy-pouch-link.md" title="Cozy Pouch Link API" class="md-nav__link">
       Cozy Pouch Link API
     </a>
   </li>
@@ -4219,6 +4219,14 @@ cozy-apps-registry gen-token --master Cozy -c cozy-registry.yml
 </thead>
 <tbody>
 <tr>
+<td><code>accept_from_flagship</code></td>
+<td>(Boolean) indicating if the app accepts receiving files from our Flagship application. See <a href="https://github.com/cozy/cozy-stack/blob/master/docs/accept-from-flagship.md">Accept from Flagship</a> documentation.</td>
+</tr>
+<tr>
+<td><code>accept_documents_from_flagship</code></td>
+<td>an object defining properties of accepted files when <code>accept_from_flagship</code> is <code>true</code>. See <a href="https://github.com/cozy/cozy-stack/blob/master/docs/accept-from-flagship.md">Accept from Flagship</a> documentation.</td>
+</tr>
+<tr>
 <td><code>aggregator</code></td>
 <td>Object containing aggregator data. Typically <code>{ accountId: 'aggregator-service' }</code>.</td>
 </tr>
@@ -4295,8 +4303,16 @@ cozy-apps-registry gen-token --master Cozy -c cozy-registry.yml
 <td>the prefix to display with the name</td>
 </tr>
 <tr>
+<td><code>notifications</code></td>
+<td>an object defining how the application can notify the user. See <a href="https://docs.cozy.io/en/cozy-stack/apps/#notifications">Notifications</a> documentation.</td>
+</tr>
+<tr>
 <td><code>oauth</code></td>
 <td><em>(konnector specific)</em> JSON object containing oAuth information, like <code>scope</code>. If a manifest provides an <code>oauth</code> property, it is considered as an OAuth konnector. Note: scope can be a string or an array. If it is an array, its values will be joined with a space. A <code>false</code> or <code>null</code> value in scope will remove any scope parameter in the request sent to the oauth provider.</td>
+</tr>
+<tr>
+<td><code>offline_support</code></td>
+<td>(Boolean) indicating if the app supports Offline mode when opened from our Flagship applicaiton. See <a href="https://github.com/cozy/cozy-flagship-app/blob/master/docs/how-to-make-cozy-app-offline-compatible.md">Flagship Offline mode</a> documentation</td>
 </tr>
 <tr>
 <td><code>parameters</code></td>
