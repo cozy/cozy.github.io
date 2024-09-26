@@ -27,18 +27,14 @@ const AnnouncementsDialog: FC<AnnouncementsDialogProps> = ({
   const { isMobile } = useBreakpoints()
 
   const [activeStep, setActiveStep] = useState(0)
+  const [unSkippedAnnouncements, setUnSkippedAnnouncements] =
+    useState(announcements)
 
   const handleBack = (): void => {
     setActiveStep(activeStep - 1)
   }
 
   const handleNext = (): void => {
-    const uuid = announcements[activeStep].attributes.uuid
-    if (!values?.seen.includes(uuid)) {
-      save({
-        seen: [...(values?.seen ?? []), uuid]
-      })
-    }
     setActiveStep(activeStep + 1)
   }
 
@@ -46,13 +42,27 @@ const AnnouncementsDialog: FC<AnnouncementsDialogProps> = ({
     setActiveStep(index)
   }
 
-  const handleLast = (): void => {
-    const uuid = announcements[activeStep].attributes.uuid
-    save({
-      dismissedAt: new Date().toISOString(),
-      seen: [...(values?.seen ?? []), uuid]
-    })
-    onDismiss()
+  const handleSkip = (): void => {
+    const uuid = unSkippedAnnouncements[activeStep].attributes.uuid
+    const isLast = activeStep === maxSteps - 1
+
+    if (!values.seen.includes(uuid)) {
+      save({
+        seen: [...values.seen, uuid],
+        ...(isLast ? { dismissedAt: new Date().toISOString() } : {})
+      })
+    }
+
+    if (unSkippedAnnouncements.length === 1) {
+      onDismiss()
+    } else {
+      setUnSkippedAnnouncements(
+        unSkippedAnnouncements.filter(a => a.attributes.uuid !== uuid)
+      )
+      if (isLast) {
+        setActiveStep(activeStep - 1)
+      }
+    }
   }
 
   const handleDismiss = (): void => {
@@ -62,12 +72,13 @@ const AnnouncementsDialog: FC<AnnouncementsDialogProps> = ({
     onDismiss()
   }
 
-  const maxSteps = announcements.length
+  const maxSteps = unSkippedAnnouncements.length
 
   return (
     <CozyTheme variant="normal">
       <FixedActionsDialog
         open
+        title={<span />} // Required to avoid margin-top problem inside flagship app
         onClose={handleDismiss}
         content={
           <SwipeableViews
@@ -75,13 +86,11 @@ const AnnouncementsDialog: FC<AnnouncementsDialogProps> = ({
             onChangeIndex={handleChangedIndex}
             animateTransitions={isMobile}
           >
-            {announcements.map((announcement, index) => (
+            {unSkippedAnnouncements.map(announcement => (
               <AnnouncementsDialogContent
-                key={index}
-                isLast={index === maxSteps - 1}
+                key={announcement.attributes.uuid}
                 announcement={announcement}
-                onNext={handleNext}
-                onLast={handleLast}
+                onSkip={handleSkip}
               />
             ))}
           </SwipeableViews>
