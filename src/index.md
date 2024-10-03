@@ -23,6 +23,12 @@ Find guides for developing apps and connectors and for self-hosting.
     <em>For Developers</em>
   </a>
 
+  <a href="tutorials/translate">
+    <img class="img-tuto" src="assets/images/home/icon-dev.svg" />
+    <p>How to translate apps</p>
+    <em>For Everyone</em>
+  </a>
+
   <a href="tutorials/selfhosting">
     <img class="img-tuto" src="assets/images/home/icon-install.svg" />
     <p>How to install your own server</p>

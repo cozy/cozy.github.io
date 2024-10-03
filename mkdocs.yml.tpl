@@ -29,6 +29,7 @@ nav:
     - DocTypes: tutorials/data/doctypes.md
     - Qualification: tutorials/data/qualification.md
     - Advanced: tutorials/data/advanced.md
+  - Translate Apps: tutorials/translate/index.md
   - Self-Hosting:
     - Introduction: tutorials/selfhosting/index.md
     - Running inside Docker: tutorials/selfhosting/docker/index.md
