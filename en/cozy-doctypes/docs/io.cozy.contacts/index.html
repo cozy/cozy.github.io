@@ -3384,6 +3384,7 @@
 <li><code>additionalName?</code>: {string} (example: <code>"J."</code>)</li>
 <li><code>namePrefix?</code>: {string} (example: <code>"Dr."</code>)</li>
 <li><code>nameSuffix?</code>: {string} (example: <code>"III"</code>)</li>
+<li><code>surname?</code>: {string} (example: <code>"Anderson"</code>)</li>
 <li><code>birthday?</code>: {date} (example: <code>"1959-05-15"</code>)</li>
 <li><code>gender?</code>: {string} <code>male|female</code></li>
 <li><code>note?</code>: {string}</li>
@@ -3443,6 +3444,16 @@
 <li><code>data</code>: {array} list of accounts</li>
 <li><code>_id</code>: {string} id of the io.cozy.contacts.accounts document</li>
 <li><code>_type</code>: {string} doctype &ldquo;io.cozy.contacts.accounts&rdquo;</li>
+</ul>
+</li>
+<li><code>related</code>: {object}<ul>
+<li><code>data</code>: {array} list of related contacts</li>
+<li><code>_id</code>: {string} id of the related io.cozy.contacts document</li>
+<li><code>_type</code>: {string} doctype &ldquo;io.cozy.contacts&rdquo;</li>
+<li><code>metadata</code>: {object}<ul>
+<li><code>relationTypes</code>: {array} list of relationship types with target contacts (see <a href="https://datatracker.ietf.org/doc/html/rfc6350#section-6.6.6">related-type-value</a>)</li>
+</ul>
+</li>
 </ul>
 </li>
 <li><code>trashed?</code>: {boolean} is <code>true</code> if the contact is marked for removal and will be deleted soon (e.g. after remote deletion is confirmed)</li>

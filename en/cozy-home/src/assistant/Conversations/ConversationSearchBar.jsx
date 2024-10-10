@@ -6,9 +6,10 @@ import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import SearchBar from 'cozy-ui/transpiled/react/SearchBar'
 import Circle from 'cozy-ui/transpiled/react/Circle'
 import ArrowUpIcon from 'cozy-ui/transpiled/react/Icons/ArrowUp'
-import CrossMediumIcon from 'cozy-ui/transpiled/react/Icons/CrossMedium'
+import StopIcon from 'cozy-ui/transpiled/react/Icons/Stop'
 import ButtonBase from 'cozy-ui/transpiled/react/ButtonBase'
 import useEventListener from 'cozy-ui/transpiled/react/hooks/useEventListener'
+import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 import ResultMenu from '../ResultMenu/ResultMenu'
 import { useAssistant } from '../AssistantProvider'
@@ -25,6 +26,7 @@ const ConversationSearchBar = ({
   onClose
 }) => {
   const { t } = useI18n()
+  const { isMobile } = useBreakpoints()
   const { assistantState, onAssistantExecute } = useAssistant()
   const { setSearchValue, delayedSetSearchValue } = useSearch()
   const [inputValue, setInputValue] = useState('')
@@ -90,7 +92,7 @@ const ConversationSearchBar = ({
                   onClick={handleStop}
                 >
                   <Circle size="small">
-                    <Icon icon={CrossMediumIcon} size={12} />
+                    <Icon icon={StopIcon} size={12} />
                   </Circle>
                 </ButtonBase>
               ) : (
@@ -120,7 +122,7 @@ const ConversationSearchBar = ({
                 </ButtonBase>
               ),
             onKeyDown: ev => {
-              if (ev.key === 'Enter') {
+              if (!isMobile && ev.key === 'Enter') {
                 ev.preventDefault() // prevent form submit
                 handleClick()
               }
