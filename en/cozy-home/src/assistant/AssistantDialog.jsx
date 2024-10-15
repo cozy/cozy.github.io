@@ -8,8 +8,6 @@ import ConversationSearchBar from './Conversations/ConversationSearchBar'
 import AssistantProvider, { useAssistant } from './AssistantProvider'
 import SearchProvider from './SearchProvider'
 
-import styles from './styles.styl'
-
 const AssistantDialog = ({ onClose }) => {
   const { assistantState } = useAssistant()
   const { isMobile } = useBreakpoints()
@@ -19,27 +17,27 @@ const AssistantDialog = ({ onClose }) => {
       open
       fullScreen
       size="full"
-      className={styles['assistantDialog']}
       componentsProps={{
+        dialogTitle: { className: isMobile ? 'u-ph-0' : '' },
+        dialogActions: { className: isMobile ? 'u-mh-half' : 'u-mb-2' },
         divider: { className: 'u-dn' }
       }}
-      title=" "
-      content={
-        <>
-          {isMobile && !assistantState.conversationId && (
-            <div className="u-mb-2">
-              <ConversationSearchBar
-                assistantStatus={assistantState.status}
-                conversationId={assistantState.conversationId}
-                hasArrowDown
-                autoFocus
-                onClose={onClose}
-              />
-            </div>
-          )}
-          <Conversation id={assistantState.conversationId} />
-        </>
+      title={
+        isMobile && !assistantState.conversationId ? (
+          <div className="u-mh-half u-mt-3">
+            <ConversationSearchBar
+              assistantStatus={assistantState.status}
+              conversationId={assistantState.conversationId}
+              hasArrowDown
+              autoFocus
+              onClose={onClose}
+            />
+          </div>
+        ) : (
+          ' '
+        )
       }
+      content={<Conversation id={assistantState.conversationId} />}
       actions={
         isMobile ? (
           assistantState.conversationId && (
