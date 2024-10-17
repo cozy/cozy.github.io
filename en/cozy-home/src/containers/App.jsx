@@ -13,8 +13,8 @@ import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import { Main } from 'cozy-ui/transpiled/react/Layout'
 import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
-import AssistantWrapperMobile from 'assistant/AssistantWrapperMobile'
-import AssistantWrapperDesktop from 'assistant/AssistantWrapperDesktop'
+import AssistantDialog from 'assistant/Views/AssistantDialog'
+import SearchDialog from 'assistant/Views/SearchDialog'
 import AddButton from 'components/AddButton/AddButton'
 import Corner from 'components/HeroHeader/Corner'
 import Failure from 'components/Failure'
@@ -153,7 +153,6 @@ const App = ({ accounts, konnectors, triggers }) => {
               <Spinner size="xxlarge" />
             </Main>
           )}
-          <AssistantWrapperDesktop />
           {!isFetching && (
             <>
               <SentryRoutes>
@@ -167,6 +166,9 @@ const App = ({ accounts, konnectors, triggers }) => {
                     />
                   }
                 >
+                  <Route path="assistant" element={<AssistantDialog />} />
+                  <Route path="search" element={<SearchDialog />} />
+
                   <Route path=":konnectorSlug/*" element={<Konnector />} />
 
                   <Route path="categories/*">
@@ -190,7 +192,6 @@ const App = ({ accounts, konnectors, triggers }) => {
       </MainView>
       {isFlagshipApp() && <DefaultRedirectionSnackbar />}
       {flag(FLAG_FAB_BUTTON_ENABLED) && isMobile && <AddButton />}
-      <AssistantWrapperMobile />
     </>
   )
 }

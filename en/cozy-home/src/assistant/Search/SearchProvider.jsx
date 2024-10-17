@@ -1,4 +1,4 @@
-import React, { useMemo, useContext, useState } from 'react'
+import React, { useMemo, useContext, useState, useCallback } from 'react'
 import debounce from 'lodash/debounce'
 
 import { useFetchResult } from './useFetchResult'
@@ -19,9 +19,11 @@ const SearchProvider = ({ children }) => {
   const { isLoading, results } = useFetchResult(searchValue)
 
   const delayedSetSearchValue = useMemo(
-    () => debounce(setSearchValue, 375),
+    () => debounce(setSearchValue, 250),
     [setSearchValue]
   )
+
+  const clearSearch = useCallback(() => setSearchValue(''), [])
 
   const value = useMemo(
     () => ({
@@ -29,9 +31,10 @@ const SearchProvider = ({ children }) => {
       setSearchValue,
       delayedSetSearchValue,
       isLoading,
+      clearSearch,
       results
     }),
-    [searchValue, delayedSetSearchValue, isLoading, results]
+    [searchValue, delayedSetSearchValue, isLoading, clearSearch, results]
   )
 
   return (
