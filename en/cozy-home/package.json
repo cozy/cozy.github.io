@@ -15,7 +15,7 @@
     "watch:browser": "cs watch --browser --barV7 false",
     "watch:mobile": "cs watch --mobile",
     "start": "cs start --browser --barV7 false",
-    "cozyPublish": "cs publish --token $REGISTRY_TOKEN --prepublish downcloud --postpublish mattermost",
+    "cozyPublish": "cozy-app-publish --token $REGISTRY_TOKEN --prepublish downcloud --postpublish mattermost",
     "deploy": "git-directory-deploy --directory build/ --branch ${DEPLOY_BRANCH:-build} --repo=${DEPLOY_REPOSITORY:-origin}",
     "test": "jest",
     "typecheck": "yarn tsc"
@@ -35,6 +35,7 @@
   "homepage": "https://github.com/cozy/cozy-home#readme",
   "dependencies": {
     "@sentry/react": "7.119.0",
+    "comlink": "4.4.1",
     "cozy-client": "^48.25.0",
     "cozy-device-helper": "2.7.0",
     "cozy-doctypes": "1.83.8",
@@ -56,6 +57,7 @@
     "leaflet": "1.7.1",
     "localforage": "^1.10.0",
     "lodash": "4.17.21",
+    "mime-types": "2.1.35",
     "moment": "2.29.4",
     "papaparse": "5.3.1",
     "prop-types": "^15.8.1",
