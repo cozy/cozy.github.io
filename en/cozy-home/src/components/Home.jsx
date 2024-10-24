@@ -9,7 +9,6 @@ import { getFlagshipMetadata } from 'cozy-device-helper'
 import { Main, Content } from 'cozy-ui/transpiled/react/Layout'
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
-import AssistantWrapperMobile from 'assistant/AssistantWrapperMobile'
 import AssistantWrapperDesktop from 'assistant/AssistantWrapperDesktop'
 import Applications from 'components/Applications'
 import ScrollToTopOnMount from 'components/ScrollToTopOnMount'
@@ -29,8 +28,9 @@ const Home = ({ setAppsReady, wrapper }) => {
       <Main className="u-flex-grow-1">
         <ScrollToTopOnMount target={wrapper} />
         {pathname === '/connected' && <Announcements />}
-        <AssistantWrapperDesktop />
-        <AssistantWrapperMobile />
+        {flag('cozy.assistant.enabled') && !isMobile && (
+          <AssistantWrapperDesktop />
+        )}
         <Content
           className={cx('u-flex u-flex-column u-ph-1', {
             [styles['homeMainContent--withAssistant']]:
