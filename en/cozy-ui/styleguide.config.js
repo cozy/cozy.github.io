@@ -95,8 +95,7 @@ module.exports = {
         '../react/SquareAppIcon',
         '../react/QualificationGrid',
         '../react/QualificationItem',
-        '../react/UploadQueue',
-        '../react/Viewer'
+        '../react/UploadQueue'
       ]
     },
     {
