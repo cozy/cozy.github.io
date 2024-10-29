@@ -7,6 +7,9 @@ import { CHAT_EVENTS_DOCTYPE, CHAT_CONVERSATIONS_DOCTYPE } from './queries'
 
 export const AssistantContext = React.createContext()
 
+export const makeConversationId = () =>
+  `${Date.now()}-${Math.floor(Math.random() * 90000) + 10000}`
+
 export const useAssistant = () => {
   const context = useContext(AssistantContext)
 
@@ -32,8 +35,7 @@ const AssistantProvider = ({ children }) => {
   const [assistantState, setAssistantState] = useState({
     message: '',
     status: 'idle',
-    messagesId: [],
-    conversationId: undefined
+    messagesId: []
   })
 
   useRealtime(client, {
@@ -50,6 +52,7 @@ const AssistantProvider = ({ children }) => {
   useRealtime(client, {
     [CHAT_EVENTS_DOCTYPE]: {
       created: res => {
+        // to exclude realtime messages if not relevant to the actual conversation
         if (!isMessageForThisConversation(res, assistantState.messagesId)) {
           return
         }
@@ -77,50 +80,38 @@ const AssistantProvider = ({ children }) => {
     }
   })
 
-  const onAssistantExecute = useCallback(
-    async (inputValue, callback) => {
-      if (!inputValue) return
-
-      callback?.()
-
-      setAssistantState(v => ({
-        ...v,
-        message: '',
-        status: 'idle'
-      }))
-
-      const id =
-        assistantState.conversationId ||
-        `${Date.now()}-${Math.floor(Math.random() * 90000) + 10000}`
-
-      await client.stackClient.fetchJSON(
-        'POST',
-        `/ai/chat/conversations/${id}`,
-        {
-          q: inputValue
-        }
-      )
-
-      setAssistantState(v => ({
-        ...v,
-        message: '',
-        status: 'pending',
-        conversationId:
-          id !== assistantState.conversationId ? id : v.conversationId
-      }))
-    },
-    [client, assistantState.conversationId]
-  )
-
   const clearAssistant = useCallback(
     () =>
       setAssistantState({
         message: '',
         status: 'idle',
-        messagesId: [],
-        conversationId: undefined
+        messagesId: []
       }),
     []
+  )
+
+  const onAssistantExecute = useCallback(
+    async ({ value, conversationId }, callback) => {
+      if (!value) return
+
+      callback?.()
+
+      clearAssistant()
+
+      await client.stackClient.fetchJSON(
+        'POST',
+        `/ai/chat/conversations/${conversationId}`,
+        {
+          q: value
+        }
+      )
+
+      setAssistantState(v => ({
+        ...v,
+        status: 'pending'
+      }))
+    },
+    [client, clearAssistant]
   )
 
   const value = useMemo(

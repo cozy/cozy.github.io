@@ -1,9 +1,11 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import flag from 'cozy-flags'
 import { FixedDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
 
-import { useAssistant } from '../AssistantProvider'
+import SearchProvider from '../Search/SearchProvider'
+import { makeConversationId, useAssistant } from '../AssistantProvider'
 import ResultMenuContent from '../ResultMenu/ResultMenuContent'
 import { useSearch } from '../Search/SearchProvider'
 import SearchBar from '../Search/SearchBar'
@@ -12,16 +14,15 @@ import SearchSubmitFab from '../Search/SearchSubmitFab'
 const SearchDialog = () => {
   const { onAssistantExecute } = useAssistant()
   const navigate = useNavigate()
-  const { searchValue, clearSearch } = useSearch()
+  const { searchValue } = useSearch()
 
   const handleClick = () => {
-    onAssistantExecute(searchValue)
-    clearSearch()
-    navigate('../assistant', { replace: true })
+    const conversationId = makeConversationId()
+    onAssistantExecute({ value: searchValue, conversationId })
+    navigate(`../assistant/${conversationId}`, { replace: true })
   }
 
   const handleClose = () => {
-    clearSearch()
     navigate('..')
   }
 
@@ -40,7 +41,9 @@ const SearchDialog = () => {
       content={
         <>
           {searchValue !== '' && <ResultMenuContent onClick={handleClick} />}
-          <SearchSubmitFab searchValue={searchValue} onClick={handleClick} />
+          {flag('cozy.assistant.enabled') && (
+            <SearchSubmitFab searchValue={searchValue} onClick={handleClick} />
+          )}
         </>
       }
       onClose={handleClose}
@@ -48,4 +51,12 @@ const SearchDialog = () => {
   )
 }
 
-export default SearchDialog
+const SearchDialogWithProviders = () => {
+  return (
+    <SearchProvider>
+      <SearchDialog />
+    </SearchProvider>
+  )
+}
+
+export default SearchDialogWithProviders

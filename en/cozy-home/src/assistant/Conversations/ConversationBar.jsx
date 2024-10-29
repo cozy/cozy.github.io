@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react'
+import { useParams } from 'react-router-dom'
 
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import SearchBar from 'cozy-ui/transpiled/react/SearchBar'
@@ -11,7 +12,6 @@ import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
 import { useAssistant } from '../AssistantProvider'
-import { useSearch } from '../Search/SearchProvider'
 
 import styles from './styles.styl'
 
@@ -19,9 +19,9 @@ const ConversationBar = ({ assistantStatus }) => {
   const { t } = useI18n()
   const { isMobile } = useBreakpoints()
   const { onAssistantExecute } = useAssistant()
-  const { clearSearch, delayedSetSearchValue } = useSearch()
   const [inputValue, setInputValue] = useState('')
   const inputRef = useRef()
+  const { conversationId } = useParams()
 
   // to adjust input height for multiline when typing in it
   useEventListener(inputRef.current, 'input', () => {
@@ -31,11 +31,9 @@ const ConversationBar = ({ assistantStatus }) => {
 
   const handleClear = () => {
     setInputValue('')
-    clearSearch()
   }
 
   const handleChange = ev => {
-    delayedSetSearchValue(ev.target.value)
     setInputValue(ev.target.value)
   }
 
@@ -45,7 +43,7 @@ const ConversationBar = ({ assistantStatus }) => {
   }
 
   const handleClick = () =>
-    onAssistantExecute(inputValue, () => {
+    onAssistantExecute({ value: inputValue, conversationId }, () => {
       handleClear()
       inputRef.current.style.height = 'auto'
     })

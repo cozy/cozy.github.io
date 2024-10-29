@@ -95,6 +95,10 @@ const App = ({ accounts, konnectors, triggers }) => {
     : null
   const context = useQuery(contextQuery.definition, contextQuery.options)
 
+  const showAssistantForMobile = isFlagshipApp()
+    ? flag('cozy.searchbar.enabled-for-flagship')
+    : flag('cozy.searchbar.enabled') && isMobile
+
   useEffect(() => {
     setIsFetching(
       [accounts, konnectors, triggers, context].some(collection =>
@@ -112,6 +116,7 @@ const App = ({ accounts, konnectors, triggers }) => {
     const flags = toFlagNames(context.attributes.features)
     enableFlags(flags)
   }
+
   useEffect(() => {
     setIsReady(
       appsReady &&
@@ -167,7 +172,10 @@ const App = ({ accounts, konnectors, triggers }) => {
                     />
                   }
                 >
-                  <Route path="assistant" element={<AssistantDialog />} />
+                  <Route
+                    path="assistant/:conversationId"
+                    element={<AssistantDialog />}
+                  />
                   <Route path="search" element={<SearchDialog />} />
 
                   <Route path=":konnectorSlug/*" element={<Konnector />} />
@@ -191,7 +199,7 @@ const App = ({ accounts, konnectors, triggers }) => {
         </div>
         <FooterLogo />
       </MainView>
-      {flag('cozy.assistant.enabled') && isMobile && <AssistantWrapperMobile />}
+      {showAssistantForMobile && <AssistantWrapperMobile />}
       {isFlagshipApp() && <DefaultRedirectionSnackbar />}
       {flag(FLAG_FAB_BUTTON_ENABLED) && isMobile && <AddButton />}
     </>

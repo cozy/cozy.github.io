@@ -19,7 +19,7 @@ import EncryptedFolderIcon from './EncryptedFolderIcon'
 import { getFileMimetype } from './getFileMimetype'
 
 export const getIconForSearchResult = searchResult => {
-  if (searchResult.doc.type === 'io.cozy.apps') {
+  if (searchResult.doc._type === 'io.cozy.apps') {
     return {
       type: 'app',
       app: searchResult.doc
@@ -52,7 +52,8 @@ export const getIconForSearchResult = searchResult => {
   }
 
   return {
-    type: 'unknown'
+    type: 'component',
+    component: IconFiles
   }
 }
 
