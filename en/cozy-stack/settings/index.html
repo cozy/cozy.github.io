@@ -3670,6 +3670,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#get-settingssessionscurrent" title="GET /settings/sessions/current" class="md-nav__link">
+    GET /settings/sessions/current
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -5150,6 +5157,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#get-settingssessionscurrent" title="GET /settings/sessions/current" class="md-nav__link">
+    GET /settings/sessions/current
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -5561,7 +5575,7 @@ and the action.</p>
 <p>In case of success the user will be redirected to its setting page. In case of error
 an HTML error page will appears.</p>
 <div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">307</span> <span class="ne">Temporary Redirect</span>
-<span class="na">Location</span><span class="o">:</span> <span class="l">http://alice-settings.cozy.localhost:8080 </span>
+<span class="na">Location</span><span class="o">:</span> <span class="l">http://alice-settings.cozy.localhost:8080</span>
 </pre></div>
 
 
@@ -5737,7 +5751,7 @@ route is necessary to actually update the passphrase. See below.</p>
 <p>A <code>"force": true</code> parameter can be added in the JSON to force a passphrase on a
 Cozy where authentication by password is disabled and the vault is empty. It
 allows to use Cozy Pass when the authentication on the Cozy is delegated via
-OIDC. When forcing a password reset, you need to regenerate the </p>
+OIDC. When forcing a password reset, you need to regenerate the</p>
 <ul>
 <li>public and private keys</li>
 <li>encryption key</li>
@@ -6215,6 +6229,35 @@ authentication.</p>
 <h4 id="permissions_4">Permissions<a class="headerlink" href="#permissions_4" title="Permanent link">&para;</a></h4>
 <p>This route requires the application to have permissions on the
 <code>io.cozy.sessions</code> doctype with the <code>GET</code> verb.</p>
+<h3 id="get-settingssessionscurrent">GET /settings/sessions/current<a class="headerlink" href="#get-settingssessionscurrent" title="Permanent link">&para;</a></h3>
+<p>This route returns information about the current session.</p>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/settings/sessions/current</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
+<span class="na">Cookie</span><span class="o">:</span> <span class="l">...</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer ...</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;last_seen&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;long_run&quot;</span><span class="p">:</span> <span class="kc">true</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;meta&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;rev&quot;</span><span class="p">:</span> <span class="s2">&quot;...&quot;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
 <h2 id="oauth-2-clients">OAuth 2 clients<a class="headerlink" href="#oauth-2-clients" title="Permanent link">&para;</a></h2>
 <h3 id="get-settingsclients">GET /settings/clients<a class="headerlink" href="#get-settingsclients" title="Permanent link">&para;</a></h3>
 <p>Get the list of the registered clients</p>
