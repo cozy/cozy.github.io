@@ -4,6 +4,7 @@ import { useQuery, isQueryLoading } from 'cozy-client'
 
 import { buildChatConversationQueryById } from '../queries'
 import { useAssistant } from '../AssistantProvider'
+import { getInstantMessage } from '../helpers'
 import ChatUserItem from './ChatUserItem'
 import ChatAssistantItem from './ChatAssistantItem'
 import ChatRealtimeAnswer from './ChatRealtimeAnswer'
@@ -67,7 +68,7 @@ const ChatConversation = ({ conversation, myself }) => {
       {showLastConv && (
         <ChatRealtimeAnswer
           isLoading={assistantState.status === 'pending'}
-          label={assistantState.message}
+          label={getInstantMessage(assistantState)}
         />
       )}
     </div>
