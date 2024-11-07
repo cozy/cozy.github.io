@@ -23,8 +23,7 @@ module.exports = {
       extends: [
         'eslint:recommended',
         'plugin:@typescript-eslint/eslint-recommended',
-        'plugin:@typescript-eslint/recommended',
-        'plugin:@typescript-eslint/recommended-requiring-type-checking',
+        'plugin:@typescript-eslint/recommended-type-checked',
         'plugin:@typescript-eslint/strict'
       ],
 
@@ -41,7 +40,11 @@ module.exports = {
         '@typescript-eslint/no-unused-vars': [
           'error',
           { ignoreRestSiblings: true }
-        ]
+        ],
+        '@typescript-eslint/no-invalid-void-type': 0,
+        '@typescript-eslint/no-non-null-assertion': 0,
+        '@typescript-eslint/no-useless-constructor': 1,
+        '@typescript-eslint/no-dynamic-delete': 1
       }
     },
     {
