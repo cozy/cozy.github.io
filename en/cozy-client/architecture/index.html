@@ -1220,18 +1220,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../devtools/" title="Devtools" class="md-nav__link">
-      Devtools
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../metadata/" title="Metadata" class="md-nav__link">
       Metadata
     </a>
@@ -3601,7 +3589,7 @@ to create a <em>Query Definition</em>.</p>
 <p>Links accept query definitions and can choose</p>
 <ul>
 <li>either to return a response</li>
-<li>or to pass the query definition down to the next link. </li>
+<li>or to pass the query definition down to the next link.</li>
 </ul>
 <blockquote>
 <p>ℹ️ This is how offline support is implemented: on mobile, a PouchLink (we
@@ -3630,10 +3618,10 @@ UI components to the data.</p>
 advanced techniques where you create selectors directly on the data
 of cozy-client.</p>
 </blockquote>
-<p>The redux store is composed of two collections: <code>documents</code> and <code>queries</code>: </p>
+<p>The redux store is composed of two collections: <code>documents</code> and <code>queries</code>:</p>
 <ul>
 <li><code>documents</code> stores the data indexed by <a href="https://docs.cozy.io/en/cozy-doctypes/docs/">doctype</a> then <code>_id</code></li>
-<li><code>queries</code> store information for each query that has been done by cozy-client. <ul>
+<li><code>queries</code> store information for each query that has been done by cozy-client.<ul>
 <li>ids of the documents that match the query</li>
 <li>whether the server has more documents that can be fetched (useful for
   pagination)</li>
@@ -3662,18 +3650,18 @@ of cozy-client.</p>
 
 <blockquote>
 <p>⚠️ If queries are not named, a name is automatically generated, but this means that the <code>queries</code>
-collection can grow indefinitely. This is why you are encouraged to name your queries : <code>client.query(qdef, { as: 'finishedTodos'})</code>. 
+collection can grow indefinitely. This is why you are encouraged to name your queries : <code>client.query(qdef, { as: 'finishedTodos'})</code>.
 See these <a href="https://github.com/cozy/cozy-guidelines?tab=readme-ov-file#naming-of-queries">naming rules</a> that are followed at Cozy.</p>
 </blockquote>
 <p>ℹ️ See the <a href="/docs/react-integration.md">react integration</a> for more insight about the glue between the redux store and the UI.</p>
 <h4 id="react-example">React example<a class="headerlink" href="#react-example" title="Permanent link">&para;</a></h4>
-<p>Let&rsquo;s take a simple React example to demonstrate the connection of UI components to the data: </p>
+<p>Let&rsquo;s take a simple React example to demonstrate the connection of UI components to the data:</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="p">{</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">fetchStatus</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">useQuery</span><span class="p">(</span><span class="nx">Q</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">),</span> <span class="p">{</span><span class="s1">&#39;as&#39;</span><span class="o">:</span> <span class="s1">&#39;todoslist&#39;</span><span class="p">})</span>
 <span class="k">if</span> <span class="p">(</span><span class="nx">fetchStatus</span> <span class="o">===</span> <span class="s1">&#39;loading&#39;</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">Spinner</span> <span class="p">/&gt;</span> 
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">Spinner</span> <span class="p">/&gt;</span>
 <span class="p">}</span>
 <span class="k">if</span> <span class="p">(</span><span class="nx">fetchStatus</span> <span class="o">===</span> <span class="s1">&#39;loaded&#39;</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">TodoLists</span> <span class="na">todos</span><span class="o">=</span><span class="p">{</span><span class="nx">data</span><span class="p">}</span> <span class="p">/&gt;</span> 
+  <span class="k">return</span> <span class="p">&lt;</span><span class="nt">TodoLists</span> <span class="na">todos</span><span class="o">=</span><span class="p">{</span><span class="nx">data</span><span class="p">}</span> <span class="p">/&gt;</span>
 <span class="p">}</span>
 <span class="k">if</span> <span class="p">(</span><span class="nx">fetchStatus</span> <span class="o">===</span> <span class="s1">&#39;failed&#39;</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">return</span> <span class="p">&lt;</span><span class="nt">Error</span> <span class="p">/&gt;</span>
@@ -3700,7 +3688,7 @@ See these <a href="https://github.com/cozy/cozy-guidelines?tab=readme-ov-file#na
     <span class="nx">count</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
     <span class="nx">bookmark</span><span class="o">:</span> <span class="s2">&quot;xyz&quot;</span><span class="p">,</span>
     <span class="nx">data</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;docId1&quot;</span><span class="p">,</span> <span class="s2">&quot;docId2&quot;</span><span class="p">]</span> <span class="c1">// confusingly named `data`, but only stores ids</span>
-  <span class="p">}</span> 
+  <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
@@ -3715,9 +3703,9 @@ It can take the following values:
 <p>When a query is called for the first time, it is first initialized in the <code>queries</code> collection in the store, with the <code>pending</code> status.</p>
 <p>If the query already exists in the store, its status is checked to ensure that it is not already in a <code>loading</code> state. If it the case, a de-duplication mechanism is used to return the stored existing query. See the <a href="https://github.com/cozy/cozy-client/pull/988">PR</a> for more details.</p>
 <p>Then, the query is &ldquo;loaded&rdquo;, making its status on <code>loading</code>.</p>
-<p>Then, the query status is set on <code>loading</code> and the query actually run. 
+<p>Then, the query status is set on <code>loading</code> and the query actually run.
 When results are retrieved from the database, the status is set to <code>loaded</code> and some additional information are saved in the query store, such as <code>lastFetch</code> and <code>lastUpdate</code>.
-If any new data is retrieved by the query, all the documents ids retrieved by the query are then stored in the <code>data</code> array. </p>
+If any new data is retrieved by the query, all the documents ids retrieved by the query are then stored in the <code>data</code> array.</p>
 <p>Likewise, the <code>documents</code> collection is updated as well with the full documents content.</p>
 <h4 id="auto-query-update">Auto query update<a class="headerlink" href="#auto-query-update" title="Permanent link">&para;</a></h4>
 <p>Since there is a link between queries and documents through the ids list in each query object, we need to be able to deal with changes occuring in the documents collection, i.e. when documents are added or deleted.</p>
@@ -3726,14 +3714,14 @@ That means that for each query, we take its definition, convert it into a mango 
 For each query result, we check if there is any change in the known ids list, and update it accordingly.</p>
 <p>Thanks to this, we ensure that all the queries are always up-to-date, and apps can be effectively rendered thanks to the <a href="/docs/react-integration.md">react integration</a>.</p>
 <h4 id="fetch-policy-and-query-naming">Fetch policy and query naming<a class="headerlink" href="#fetch-policy-and-query-naming" title="Permanent link">&para;</a></h4>
-<p>The fetch policy is a useful mechanism to prevent excessive fetching. 
+<p>The fetch policy is a useful mechanism to prevent excessive fetching.
 It is optionnaly defined for each query, to specify a minimum time between 2 actual fetches.</p>
-<p>It means that after a query is run, if it is called again within this time, it will not be executed. </p>
+<p>It means that after a query is run, if it is called again within this time, it will not be executed.</p>
 <p>Here is an example to demonstrate how it works:</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">queryDef</span> <span class="o">=</span> <span class="nx">Q</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">).</span><span class="nx">where</span><span class="p">({</span><span class="nx">checked</span><span class="o">:</span> <span class="kc">true</span><span class="p">})</span>
 <span class="kr">const</span> <span class="nx">queryOptions</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">as</span><span class="o">:</span> <span class="s1">&#39;io.cozy.todos/checked/true&#39;</span><span class="p">,</span> <span class="c1">// query unique name, to find it in the store</span>
-  <span class="nx">fetchPolicy</span><span class="o">:</span> <span class="nx">CozyClient</span><span class="p">.</span><span class="nx">fetchPolicies</span><span class="p">.</span><span class="nx">olderThan</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span> <span class="c1">// fetch policy, for 10 seconds </span>
+  <span class="nx">fetchPolicy</span><span class="o">:</span> <span class="nx">CozyClient</span><span class="p">.</span><span class="nx">fetchPolicies</span><span class="p">.</span><span class="nx">olderThan</span><span class="p">(</span><span class="mi">10</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span> <span class="c1">// fetch policy, for 10 seconds</span>
 <span class="p">}</span>
 <span class="c1">// First query</span>
 <span class="kd">let</span> <span class="p">{</span><span class="nx">data</span><span class="o">:</span> <span class="nx">result</span> <span class="p">}</span> <span class="o">=</span> <span class="nx">await</span> <span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">queryDef</span><span class="p">,</span> <span class="nx">queryOptions</span><span class="p">)</span> <span class="c1">// result is filled</span>
@@ -3754,7 +3742,7 @@ It is optionnaly defined for each query, to specify a minimum time between 2 act
 <p>💡 In this example, we do not benefit from the React integration like demonstrated in this <a href="#react-example">example</a> with <code>useQuery</code>. When using it, the data is returned even though the fetch policy applies, by taking it directly from the store, to ensure the component is correctly rendered.</p>
 <p>💡 In a React context, thanks to the auto-query updater, the data will not be stale if there is a data change in the app: indeed, any change on the documents will trigger the in-memory re-evaluation of the query and a render on the app if something is different.</p>
 <p>ℹ️ The <code>as</code> option is used to name the query, which is always a good idea to ensure that it has a unique name. When it&rsquo;s not specified, a random id is generated, resulting in potential query duplication in the store. Likewise, one must be very careful to prevent queries with the same name, as it would mixup results in the store.
-Note that you can easily view each query using <a href="/docs/devtools.md">Devtools</a> to identify duplicates and follow the <a href="https://github.com/cozy/cozy-guidelines?tab=readme-ov-file#naming-of-queries">guidelines for the naming</a>.</p>
+Note that you can easily view each query using <a href="https://github.com/cozy/cozy-libs/tree/master/packages/cozy-devtools">Devtools</a> to identify duplicates and follow the <a href="https://github.com/cozy/cozy-guidelines?tab=readme-ov-file#naming-of-queries">guidelines for the naming</a>.</p>
 <h4 id="complete-query-flow">Complete query flow<a class="headerlink" href="#complete-query-flow" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span>---
 title: Query with cozy-client
@@ -3780,7 +3768,7 @@ sequenceDiagram
     Backend-&gt;&gt;CC:  Data
     CC-&gt;&gt;Store: Data
     Store-&gt;&gt;Store: Update query status
-    Store-&gt;&gt;Store: Update data 
+    Store-&gt;&gt;Store: Update data
     CC-&gt;&gt;App: Results
     Store-&gt;&gt;Store: Auto-update queries
 </pre></div>
@@ -3789,10 +3777,10 @@ sequenceDiagram
 <h4 id="persisted-store-and-background-fetching-stategy">Persisted store and background fetching stategy<a class="headerlink" href="#persisted-store-and-background-fetching-stategy" title="Permanent link">&para;</a></h4>
 <p>An app can decide to persist its store in localstorage. See <a href="https://github.com/cozy/cozy-home/blob/c47858515d4f95c24fa88a6b96bb0b500b947424/src/store/configureStore.js#L46">here</a> for an example.
 When doing so, the app loads the store when it starts and benefit from the instant available cached data.</p>
-<p>But, the data could have significantly evolved between the last store save and the start, making the documents potentially stale. 
-Hopefully, since the fetch policy is probably expired, queries will be run again, retrieving fresh data. Unfortunately, this might cause an immediate spinning display on the app when it starts, even though there is available data thanks to the persisted store. </p>
+<p>But, the data could have significantly evolved between the last store save and the start, making the documents potentially stale.
+Hopefully, since the fetch policy is probably expired, queries will be run again, retrieving fresh data. Unfortunately, this might cause an immediate spinning display on the app when it starts, even though there is available data thanks to the persisted store.</p>
 <p>To solve this, a <code>backgroundFetching</code> option can be set, at the query level, or at the store level (enabled for all queries).</p>
-<p>When the query is loaded, it simply keeps the query status in <code>loaded</code> state (rather than setting a <code>loading</code> state) and set a new <code>isFetching</code> attribute, stored in the query. 
+<p>When the query is loaded, it simply keeps the query status in <code>loaded</code> state (rather than setting a <code>loading</code> state) and set a new <code>isFetching</code> attribute, stored in the query.
 Thanks to this, the app can adapt its display to avoid the &ldquo;spinning effect&rdquo;, and might inform the user that data is being updated in the background, without refreshing the whole app.</p>
 <p>See <a href="https://github.com/cozy/cozy-client/pull/1211">this PR</a> for more insights.</p>
 <p>Here is a simplified execution sequence with or without background fetching:</p>
@@ -3831,7 +3819,7 @@ sequenceDiagram
 If it already exists, the document content is updated in this collection, after the backend response.</p>
 <p>Furthermore, just like with the queries, any mutation triggers the <a href="#auto-query-update">auto query updater</a>, that can result in adding or removing document ids.</p>
 <p>Thanks to it, the app is guaranteed to have the up-to-date documents, returned from the <code>documents</code> collection.</p>
-<p>⚠️ As already mentioned, when a mutated document already exists in the store throught its <code>_id</code>, it is updated with the new content. However, this update never removes existing fields, it only merges or adds new fields. This is typically useful when two queries retrieve the same document, but not with all the fields. 
+<p>⚠️ As already mentioned, when a mutated document already exists in the store throught its <code>_id</code>, it is updated with the new content. However, this update never removes existing fields, it only merges or adds new fields. This is typically useful when two queries retrieve the same document, but not with all the fields.
 Let us illustrate with this example:</p>
 <div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">Q1</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">definition</span><span class="o">:</span> <span class="nx">Q</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">).</span><span class="nx">getById</span><span class="p">(</span><span class="s1">&#39;my-todo&#39;</span><span class="p">),</span> <span class="nx">options</span><span class="o">:</span> <span class="p">{</span> <span class="nx">as</span><span class="o">:</span> <span class="s1">&#39;io.cozy.todos/my-todo&#39;</span><span class="p">,</span> <span class="nx">fetchPolicy</span><span class="o">:</span> <span class="nx">lessThan30s</span> <span class="p">}}</span>
 <span class="kr">const</span> <span class="nx">Q2</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">definition</span><span class="o">:</span> <span class="nx">Q</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">).</span><span class="nx">getById</span><span class="p">(</span><span class="s1">&#39;my-todo&#39;</span><span class="p">).</span><span class="nx">select</span><span class="p">([</span><span class="s1">&#39;label&#39;</span><span class="p">]),</span> <span class="nx">options</span><span class="o">:</span> <span class="p">{</span> <span class="nx">as</span><span class="o">:</span> <span class="s1">&#39;io.cozy.todos/my-todo/withLabel&#39;</span> <span class="p">}}</span>
@@ -3844,10 +3832,10 @@ Let us illustrate with this example:</p>
 
 <p>Q1 retrieves the full content of &lsquo;my-todo&rsquo; while Q2 only retrieves its label. When Q2 is run, &lsquo;my-todo&rsquo; already exists in the store, as Q1 was previsouly run. However, the fields retrieved by Q1 for &lsquo;my-todos&rsquo; but absent from Q2 are not lost. This way, when Q1 is run again, the results fetched from the store (thanks to the fetch policy) will include all the fields.</p>
 <p>⚠️ The problem is when some fields are removed from a document: the store will not reflect this change and result in stale data.
-To avoid this side-effect, one could set an attribute to <code>undefined</code> instead of removing it, as a workaround. </p>
+To avoid this side-effect, one could set an attribute to <code>undefined</code> instead of removing it, as a workaround.</p>
 <h3 id="in-memory-queries-evaluation">In-memory queries evaluation<a class="headerlink" href="#in-memory-queries-evaluation" title="Permanent link">&para;</a></h3>
 <p>Each time a change occurs in the store&rsquo;s <code>documents</code> collection, either through a query or an update, all the stored queries are dynamically re-evaluated.</p>
-<p>As we do not want to request the actual database each time, we do the evaluation directly from the store, in memory. </p>
+<p>As we do not want to request the actual database each time, we do the evaluation directly from the store, in memory.</p>
 <p>To achieve this, we need to evaluate queries the same way it would have been done on the database side. Our query system relies on mango, a <a href="https://docs.couchdb.org/en/stable/api/database/find.html#find-selectors">mongo-like query system</a> supported by CouchDB, the Cozy database.</p>
 <p>We rely on <a href="https://github.com/crcn/sift.js">sift.js</a> for the in-memory query evaluation. This library is able to take as input a mongo query definition and transform it into a javascript predicate. Then, all the queries are evaluated on the stores&rsquo;s <code>documents</code>, and efficiently updated accordingly to the results.</p>
 <p>💡 If you want to know more about our query system and syntax, please check <a href="https://docs.cozy.io/en/tutorials/data/queries/">this documentation</a>.</p>
