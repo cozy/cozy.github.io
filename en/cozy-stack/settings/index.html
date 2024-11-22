@@ -3476,12 +3476,25 @@
     Response
   </a>
   
-</li>
+    <nav class="md-nav">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#note-about-password_defined" title="Note about password_defined" class="md-nav__link">
     Note about password_defined
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#note-about-legal_notice_url" title="Note about legal_notice_url" class="md-nav__link">
+    Note about legal_notice_url
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -4963,12 +4976,25 @@
     Response
   </a>
   
-</li>
+    <nav class="md-nav">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#note-about-password_defined" title="Note about password_defined" class="md-nav__link">
     Note about password_defined
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#note-about-legal_notice_url" title="Note about legal_notice_url" class="md-nav__link">
+    Note about legal_notice_url
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -6015,20 +6041,25 @@ made from an authenticated Web session or Webapp.</p>
             <span class="nt">&quot;auth_mode&quot;</span><span class="p">:</span> <span class="s2">&quot;basic&quot;</span><span class="p">,</span>
             <span class="nt">&quot;default_redirection&quot;</span><span class="p">:</span> <span class="s2">&quot;drive/#/folder&quot;</span><span class="p">,</span>
             <span class="nt">&quot;context&quot;</span><span class="p">:</span> <span class="s2">&quot;dev&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;sponsorships&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;springfield&quot;</span><span class="p">]</span>
+            <span class="nt">&quot;sponsorships&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;springfield&quot;</span><span class="p">],</span>
+            <span class="nt">&quot;legal_notice_url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://manager.cozycloud.cc/e96388a5-8eed-44cc-81e6-40aad273f0d4.pdf&quot;</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
 
-<h4 id="note-about-password_defined">Note about <code>password_defined</code><a class="headerlink" href="#note-about-password_defined" title="Permanent link">&para;</a></h4>
+<h5 id="note-about-password_defined">Note about <code>password_defined</code><a class="headerlink" href="#note-about-password_defined" title="Permanent link">&para;</a></h5>
 <p>There are a few fields that are persisted on the instance its-self, not on its
 settings document. When they are updated, it won&rsquo;t be reflected in the realtime
 when listening on the <code>io.cozy.settings.instance</code> document.</p>
 <p>For <code>password_defined</code>, it is possible to be notified when the password is
 defined by watching a synthetic document with the doctype <code>io.cozy.settings</code>,
 and the id <code>io.cozy.settings.passphrase</code>.</p>
+<h5 id="note-about-legal_notice_url">Note about <code>legal_notice_url</code><a class="headerlink" href="#note-about-legal_notice_url" title="Permanent link">&para;</a></h5>
+<p>This attribute will only be present if a manager is associated with the
+instance and the instance was created on behalf of a partner with a defined
+legal notice.</p>
 <h3 id="post-settingsinstancedeletion">POST /settings/instance/deletion<a class="headerlink" href="#post-settingsinstancedeletion" title="Permanent link">&para;</a></h3>
 <p>The settings application can use this route if the user wants to delete their
 Cozy instance.</p>
