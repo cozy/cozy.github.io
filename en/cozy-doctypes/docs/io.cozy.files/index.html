@@ -3611,7 +3611,7 @@
 <li><code>md5sum</code>: {string} the checksum of its content, computed with the MD5 algorithm</li>
 <li><code>created_at</code>: {date} the date of the creation of this file given by the client</li>
 <li><code>updated_at</code>: {date} the date of the last update of this file given by the client</li>
-<li><code>tags</code>: {array of strings} a list of tags. It is currently used to know if a file was uploaded through the mobile photo sync, with the value <code>library</code>. </li>
+<li><code>tags</code>: {array of strings} a list of tags. It is currently used to know if a file was uploaded through the mobile photo sync, with the value <code>library</code>.</li>
 <li><code>size</code>: {number} the size of its content, in bytes</li>
 <li><code>executable</code>: {bool} true is the file has the executable bit on UNIX (<code>chmod +x</code>)</li>
 <li><code>class</code>: {string} a class in the list: <code>['image', 'document', 'audio', 'video', 'text', 'binary', 'pdf', 'files', 'code', 'slide', 'spreadsheet', 'text', 'zip', 'shortcut']</code></li>
@@ -3619,6 +3619,7 @@
 <li><code>metadata</code>: {map} an optional map of metadata (<a href="../io.cozy.files_metadata/">Full metadata description</a>), with for example:<ul>
 <li><code>width</code>: {number}</li>
 <li><code>height</code>: {number}</li>
+<li><code>description</code>: {string}</li>
 <li><code>datetime</code>: {date} : date in original image file metadata</li>
 <li><code>gps</code>: {map} : localization metadata with the following attributes<ul>
 <li><code>lat</code>: {float}: latitude</li>
@@ -3651,7 +3652,7 @@ These thumbnail links are valid for 10 minutes. After that, links will return a 
 <p>When a file or a directory is put in the trash bin, some attributes are updated:
 - <code>trashed</code> is set to true, but only for files: directories never have this attribute.
 - The <code>restore_path</code> is set, for both files and directories.
-  - ⚠️ The <code>restore_path</code> is not set on children. For instance, if a directory <code>foo</code> is trashed, it will have a <code>restore_path</code> but not the children. 
+  - ⚠️ The <code>restore_path</code> is not set on children. For instance, if a directory <code>foo</code> is trashed, it will have a <code>restore_path</code> but not the children.
 - The <code>path</code> is updated only for directories, starting with <code>.cozy_trash</code></p>
 <p>Here is how one could query files and directories <strong>not</strong> in the trash, through a mango query:</p>
 <div class="codehilite"><pre><span></span>_id: { $ne: &#39;io.cozy.files.trash-dir&#39; },
