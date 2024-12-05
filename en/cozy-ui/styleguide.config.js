@@ -94,6 +94,7 @@ module.exports = {
         '../react/Sidebar',
         '../react/SquareAppIcon',
         '../react/QualificationGrid',
+        '../react/QualificationIconStack',
         '../react/QualificationItem',
         '../react/UploadQueue'
       ]
