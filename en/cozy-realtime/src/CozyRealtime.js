@@ -1,7 +1,5 @@
 import MicroEE from 'microee'
 
-import { hasNetworkInformationPlugin, isCordova } from 'cozy-device-helper'
-
 import RetryManager from './RetryManager'
 import SubscriptionList from './SubscriptionList'
 import {
@@ -52,11 +50,6 @@ class CozyRealtime {
     })
     this.retryManager.on('error', err => this.emit('error', err))
     this.bindEventHandlers()
-    if (isCordova() && !hasNetworkInformationPlugin()) {
-      this.logger.warn(
-        `This seems a Cordova app and cordova-plugin-network-information doesn't seem to be installed. Please install it from https://cordova.apache.org/docs/en/latest/reference/cordova-plugin-network-information/ to support online and offline events.`
-      )
-    }
   }
 
   /**
@@ -73,7 +66,6 @@ class CozyRealtime {
       this.retryManager.reset()
       this.subscribeGlobalEvents()
       this.subscribeClientEvents()
-      this.subscribeCordovaEvents()
       this.emit('start')
       if (isOnline()) this.connect()
     }
@@ -176,7 +168,6 @@ class CozyRealtime {
   stop() {
     if (this.isStarted) {
       this.logger.info('stopped')
-      this.unsubscribeCordovaEvents()
       this.unsubscribeGlobalEvents()
       this.unsubscribeClientEvents()
       if (this.hasWebSocket()) {
@@ -448,9 +439,6 @@ class CozyRealtime {
     this.onOnline = this.onOnline.bind(this)
     this.onOffline = this.onOffline.bind(this)
     this.onVisibilityChange = this.onVisibilityChange.bind(this)
-    // cordova events
-    this.onDeviceReady = this.onDeviceReady.bind(this)
-    this.onResume = this.onResume.bind(this)
   }
 
   /* * * * * * * * * * * * */
@@ -576,53 +564,6 @@ class CozyRealtime {
     if (this.hasWebSocket()) {
       this.revokeWebSocket()
     }
-  }
-
-  /* * * * * * * * * * * */
-  /* * Cordova EVENTS  * */
-  /* * * * * * * * * * * */
-
-  /**
-   * Subscribes to cordova events
-   * @private
-   */
-  subscribeCordovaEvents() {
-    if (isCordova()) {
-      document.addEventListener('deviceready', this.onDeviceReady)
-      document.addEventListener('resume', this.onResume)
-    }
-  }
-
-  /**
-   * Unsubscribes to cordova events
-   * @private
-   */
-  unsubscribeCordovaEvents() {
-    if (isCordova()) {
-      document.removeEventListener('deviceready', this.onDeviceReady)
-      document.removeEventListener('resume', this.onResume)
-    }
-  }
-
-  /**
-   * when the device is ready (for Cordova)
-   * @private
-   */
-  onDeviceReady() {
-    // online and offline events were not ready
-    // detach them (should not be needed, but it doesnt' harm
-    // and we really  don't want to attach an event twice
-    this.unsubscribeGlobalEvents()
-    this.subscribeGlobalEvents()
-  }
-
-  /**
-   * when the device resumes (for Cordova)
-   * @see https://cordova.apache.org/docs/en/9.x/cordova/events/events.html#resume
-   * @private
-   */
-  onResume() {
-    this.reconnect({ immediate: true })
   }
 
   /* * * * * * * * * * * * * * * */

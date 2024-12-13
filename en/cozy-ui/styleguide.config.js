@@ -96,6 +96,7 @@ module.exports = {
         '../react/QualificationGrid',
         '../react/QualificationIconStack',
         '../react/QualificationItem',
+        '../react/QualificationModal',
         '../react/UploadQueue'
       ]
     },
