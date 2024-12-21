@@ -13,7 +13,7 @@
         <meta name="description" content="Cozy documentation">
       
       
-        <link rel="canonical" href="https://docs.cozy.io/cozy-client/link-authoring/">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-client/performances/">
       
       
         <meta name="author" content="CozyCloud - https://cozy.io">
@@ -42,7 +42,7 @@
     
     
       
-        <title>Link authoring - Cozy Developer Documentation</title>
+        <title>Performances analysis - Cozy Developer Documentation</title>
       
     
     
@@ -100,7 +100,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#what-is-it" tabindex="1" class="md-skip">
+      <a href="#performances-analysis" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -126,7 +126,7 @@
             </span>
             <span class="md-header-nav__topic">
               
-                Link authoring
+                Performances analysis
               
             </span>
           
@@ -3263,20 +3263,77 @@
 <nav class="md-nav md-nav--secondary">
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">Table of contents</label>
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#what-is-it" title="What is it ?" class="md-nav__link">
-    What is it ?
+  <a href="#nomenclature" title="Nomenclature" class="md-nav__link">
+    Nomenclature
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#authoring-a-link" title="Authoring a link" class="md-nav__link">
-    Authoring a link
+  <a href="#the-api" title="The API" class="md-nav__link">
+    The API
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#api-initialization" title="API initialization" class="md-nav__link">
+    API initialization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mark-method" title="Mark method" class="md-nav__link">
+    Mark method
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#measure-method" title="Measure method" class="md-nav__link">
+    Measure method
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-measurements" title="Adding measurements" class="md-nav__link">
+    Adding measurements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#web-usage" title="Web usage" class="md-nav__link">
+    Web usage
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-platforms" title="Other platforms" class="md-nav__link">
+    Other platforms
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#production-environment" title="Production environment" class="md-nav__link">
+    Production environment
   </a>
   
 </li>
@@ -3297,48 +3354,141 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-client/link-authoring.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                  <a href="https://github.com/cozy/cozy.github.io/edit/dev/src/cozy-client/performances.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
                 
                 
-                  <h1>Link authoring</h1>
-                
-                <!-- MarkdownTOC autolink=true -->
-
+                <h1 id="performances-analysis">Performances analysis<a class="headerlink" href="#performances-analysis" title="Permanent link">&para;</a></h1>
+<p>CozyClient allows to measure its internal performances through PerformanceAPI.</p>
+<p>This document aims to describe how to use this API.</p>
+<h2 id="nomenclature">Nomenclature<a class="headerlink" href="#nomenclature" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="#what-is-it-">What is it ?</a></li>
-<li><a href="#authoring-a-link">Authoring a link</a></li>
+<li><code>PerformanceAPI</code>: The API provided by CozyClient for measuring timings in the code base</li>
+<li><code>Performance devtools</code>: Browsers devtools pane dedicated to performance (i.e. <a href="https://developer.chrome.com/docs/devtools/performance">Chrome devtools</a> and <a href="https://profiler.firefox.com/docs/#/">Firefox profiled</a>)</li>
+<li><code>Mark</code>: A temporal event</li>
+<li><code>Measure</code>: A timing measurement between two temporal events</li>
 </ul>
-<!-- /MarkdownTOC -->
+<h2 id="the-api">The API<a class="headerlink" href="#the-api" title="Permanent link">&para;</a></h2>
+<p>The PerformanceAPI can be used to measure code execution timings. It is meant to wrap platform specific APIs like web&rsquo;s <a href="https://developer.mozilla.org/en-US/docs/Web/API/Performance">Performance API</a>, or React Native&rsquo;s <a href="https://github.com/oblador/react-native-performance">dedicated plugin</a>.</p>
+<p>For now the CozyClient&rsquo;s API only exposes a limited subset of methods, which are <code>mark()</code> and <code>measure()</code> with slightly different interfaces than their original implementation in order to fit Cozy&rsquo;s needs without the original APIs complexity (their interface will be described in following sections).</p>
+<p>Those methods can be used to measure temporal events and their duration. They do not output anything in the console but they maintain a list of measurements that can be then visualized in dedicated tools like browsers&rsquo; Performance devtools.</p>
+<h3 id="api-initialization">API initialization<a class="headerlink" href="#api-initialization" title="Permanent link">&para;</a></h3>
+<p>Because the measurement framework may differ based on the platform (i.e. web, mobile, nodejs), the PerformanceAPI has to be injected through CozyClient and CozyLinks constructor before being used.</p>
+<p>Because CozyClient&rsquo;s main usage is in web apps, a <code>webPerformanceAPI</code> implementation is already provided by CozyClient. On other platforms, the implementation should be provided by the consuming app.</p>
+<p>Example of CozyClient initialization with web compatible version of the PerformanceAPI</p>
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">CozyClient</span><span class="p">,</span> <span class="p">{</span> <span class="nx">webPerformanceAPI</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
 
-<h2 id="what-is-it">What is it ?<a class="headerlink" href="#what-is-it" title="Permanent link">&para;</a></h2>
-<p>Cozy Link is a simple yet powerful way to describe how you want to get the result of a query. Think of it as a sort of &ldquo;middleware&rdquo;.</p>
-<p>Links are units that you can chain together to define how each query should be handled: this allows us to use different sources of data, or to control the request lifecycle in a way that makes sense for your app. The first link operates on an operation object and each subsequent link operates on the result of the previous link:</p>
-<p><img alt="links chain" src="../cozy-client-links.png" /></p>
-<p>In the chain example pictured above, the Dedup link would avoid re-fetching the same query, the PouchDB link would try to get the data from a local Pouch instance, and fallback to the Stack link, assisted by the Retry link that will try to fetch again the query in case of a network error.</p>
-<h2 id="authoring-a-link">Authoring a link<a class="headerlink" href="#authoring-a-link" title="Permanent link">&para;</a></h2>
-<p>There are two ways of creating a new link. First, you can instantiate a <code>CozyLink</code> and pass a request handling function to its constructor:</p>
-<div class="codehilite"><pre><span></span><span class="kr">const</span> <span class="nx">logLink</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CozyLink</span><span class="p">((</span><span class="nx">operation</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">result</span><span class="p">,</span> <span class="nx">forward</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">operation</span><span class="p">))</span>
-  <span class="k">return</span> <span class="nx">forward</span><span class="p">(</span><span class="nx">operation</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span>
+<span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CozyClient</span><span class="p">({</span>
+  <span class="nx">uri</span><span class="p">,</span>
+  <span class="nx">schema</span><span class="p">,</span>
+  <span class="nx">token</span><span class="p">,</span>
+  <span class="nx">performancesApi</span><span class="o">:</span> <span class="nx">webPerformanceAPI</span>
 <span class="p">})</span>
 </pre></div>
 
 
-<p>Or you can subclass <code>CozyLink</code>:</p>
-<div class="codehilite"><pre><span></span><span class="kr">class</span> <span class="nx">LogLink</span> <span class="kr">extends</span> <span class="nx">CozyLink</span> <span class="p">{</span>
-  <span class="nx">request</span><span class="p">(</span><span class="nx">operation</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">result</span><span class="p">,</span> <span class="nx">forward</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">operation</span><span class="p">))</span>
-    <span class="k">return</span> <span class="nx">forward</span><span class="p">(</span><span class="nx">operation</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span>
+<p>By default, CozyClient will not do any measurement if no PerformanceAPI is injected.</p>
+<h3 id="mark-method">Mark method<a class="headerlink" href="#mark-method" title="Permanent link">&para;</a></h3>
+<p>The first API method is <code>mark(markName)</code>.</p>
+<p>This method&rsquo;s goal is to add a temporal mark that can be used for future measurements. For example it can be used to mark when a method starts or when any particular event happens (i.e. hiding splashscreen in mobile app).</p>
+<p>Exemple of marking the call of CozyClient&rsquo;s <code>query()</code> method</p>
+<div class="codehilite"><pre><span></span><span class="nx">async</span> <span class="nx">query</span><span class="p">(</span><span class="nx">queryDefinition</span><span class="p">,</span> <span class="p">{</span> <span class="nx">update</span><span class="p">,</span> <span class="nx">executeFromStore</span><span class="p">,</span> <span class="p">...</span><span class="nx">options</span> <span class="p">}</span> <span class="o">=</span> <span class="p">{})</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">markName</span> <span class="o">=</span> <span class="nx">client</span><span class="p">.</span><span class="nx">mark</span><span class="p">(</span><span class="sb">`client.query(</span><span class="si">${</span><span class="nx">queryDefinition</span><span class="p">.</span><span class="nx">doctype</span><span class="si">}</span><span class="sb">)`</span><span class="p">)</span>
+
+  <span class="c1">// ... method implementation</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>The method takes a <code>markName</code> argument. This name can be any string. The common usage is to describe the happening event.</p>
+<p>Because we expect to measure some methods that are called multiple times in parallel, the <code>mark(markName)</code> method will internally prefix the <code>markName</code> with some unique ID. This would ensure each mark is uniquely identified.</p>
+<div class="codehilite"><pre><span></span><span class="nx">async</span> <span class="nx">query</span><span class="p">(</span><span class="nx">queryDefinition</span><span class="p">,</span> <span class="p">{</span> <span class="nx">update</span><span class="p">,</span> <span class="nx">executeFromStore</span><span class="p">,</span> <span class="p">...</span><span class="nx">options</span> <span class="p">}</span> <span class="o">=</span> <span class="p">{})</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">markName</span> <span class="o">=</span> <span class="nx">client</span><span class="p">.</span><span class="nx">mark</span><span class="p">(</span><span class="sb">`Some mark name`</span><span class="p">)</span>
+
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">markName</span><span class="p">)</span> <span class="c1">// &quot;42 Some mark name&quot;</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h3 id="measure-method">Measure method<a class="headerlink" href="#measure-method" title="Permanent link">&para;</a></h3>
+<p>The previously described <code>mark(markName)</code> method can be used to place some temporal marks in the code. The <code>measure(options)</code> method can be used to measure the elapsed time since a specified temporal mark.</p>
+<p>Example of measuring the elapsed time between the call of CozyClient&rsquo;s <code>query()</code> method and its ending </p>
+<div class="codehilite"><pre><span></span><span class="nx">async</span> <span class="nx">query</span><span class="p">(</span><span class="nx">queryDefinition</span><span class="p">,</span> <span class="p">{</span> <span class="nx">update</span><span class="p">,</span> <span class="nx">executeFromStore</span><span class="p">,</span> <span class="p">...</span><span class="nx">options</span> <span class="p">}</span> <span class="o">=</span> <span class="p">{})</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">markName</span> <span class="o">=</span> <span class="nx">client</span><span class="p">.</span><span class="nx">mark</span><span class="p">(</span><span class="sb">`client.query(</span><span class="si">${</span><span class="nx">queryDefinition</span><span class="p">.</span><span class="nx">doctype</span><span class="si">}</span><span class="sb">)`</span><span class="p">)</span>
+
+  <span class="c1">// ... method implementation</span>
+
+  <span class="k">this</span><span class="p">.</span><span class="nx">performanceApi</span><span class="p">.</span><span class="nx">measure</span><span class="p">({</span> <span class="nx">markName</span> <span class="p">})</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>This methods takes an <code>options</code> argument that can contains:
+- <code>markName</code>: the reference mark used as starting point for the measurement
+- <code>measureName</code> (optional): the name of the measure that will be displayed by visualizing tools
+  - if not provided, the <code>markName</code> will be used instead. This parameter is useful when doing multiple different measures that use the same mark as starting point
+- <code>color</code> (optional): can be used to specify the color of the event when displayed in visualizing tools
+  - only a specific set of semantic colors can be used (i.e. <code>primary</code>, <code>secondary</code>, <code>error</code> etc.). Available colors are described in the JSDoc
+- <code>category</code> (optional): can be used to split measurements in multiple categories when displayed in visualizing tools
+  - this can be any string. Visualizing tools tends create as many category as provided (hence their are some exceptions like ReactNative&rsquo;s flipper plugin)</p>
+<p>Example of measuring the elapsed time between the call of CozyClient&rsquo;s <code>query()</code> method and its ending or its failing block</p>
+<div class="codehilite"><pre><span></span><span class="nx">async</span> <span class="nx">query</span><span class="p">(</span><span class="nx">queryDefinition</span><span class="p">,</span> <span class="p">{</span> <span class="nx">update</span><span class="p">,</span> <span class="nx">executeFromStore</span><span class="p">,</span> <span class="p">...</span><span class="nx">options</span> <span class="p">}</span> <span class="o">=</span> <span class="p">{})</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">markName</span> <span class="o">=</span> <span class="nx">client</span><span class="p">.</span><span class="nx">mark</span><span class="p">(</span><span class="sb">`client.query(</span><span class="si">${</span><span class="nx">queryDefinition</span><span class="p">.</span><span class="nx">doctype</span><span class="si">}</span><span class="sb">)`</span><span class="p">)</span>
+
+  <span class="k">try</span> <span class="p">{</span>
+    <span class="c1">// ... method implementation</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">performanceApi</span><span class="p">.</span><span class="nx">measure</span><span class="p">({</span>
+      <span class="nx">markName</span><span class="o">:</span> <span class="nx">markQuery</span><span class="p">,</span>
+      <span class="nx">measureName</span><span class="o">:</span> <span class="sb">`</span><span class="si">${</span><span class="nx">markName</span><span class="si">}</span><span class="sb"> success`</span><span class="p">,</span>
+      <span class="nx">category</span><span class="o">:</span> <span class="s1">&#39;CozyClient queries&#39;</span>
+    <span class="p">})</span>
+  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">performanceApi</span><span class="p">.</span><span class="nx">measure</span><span class="p">({</span>
+      <span class="nx">markName</span><span class="o">:</span> <span class="nx">markQuery</span><span class="p">,</span>
+      <span class="nx">measureName</span><span class="o">:</span> <span class="sb">`</span><span class="si">${</span><span class="nx">markName</span><span class="si">}</span><span class="sb"> error`</span><span class="p">,</span>
+      <span class="nx">category</span><span class="o">:</span> <span class="s1">&#39;CozyClient queries&#39;</span><span class="p">,</span>
+      <span class="nx">color</span><span class="o">:</span> <span class="s1">&#39;error&#39;</span>
+    <span class="p">})</span>
   <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 
 
-<p>At the core of a link is the <code>request</code> method. It takes the following arguments:
- - <code>operation</code>: the operation definition being passed through the link ;
- - <code>result</code>: the (maybe incomplete) result processed by the previous link ;
- - <code>forward</code>: (optional) specifies the next link in the chain of links.</p>
-<p>When the <code>request</code> method is called, the link has to return data back. Depending on where the link is in the chain, and its ability to provide the requested data, it will either use the <code>forward</code> callback to defer to the next link the task of providing (or completing) the data, or return back a result on its own.</p>
+<h2 id="adding-measurements">Adding measurements<a class="headerlink" href="#adding-measurements" title="Permanent link">&para;</a></h2>
+<p>On initial implementation, we chose to measure some parts of the code that we estimated useful and with potential high impact on performances (i.e. queries, store management, pouch management etc.).</p>
+<p>We expect to need more measurements in the future but we need to care to keep the balance beetween having useful measurements and to not visualy overload the measurement graphs.</p>
+<p>The API is meant to be simple to use so measurements can be quickly temporarily added in development environments.</p>
+<p>In the scenario where a measurement seems to be useful enough to be permanently added to our code base, please consider discussing this choice with the development team.</p>
+<h2 id="web-usage">Web usage<a class="headerlink" href="#web-usage" title="Permanent link">&para;</a></h2>
+<p>On web environment, it is possible to inject the already provided <code>webPerformanceAPI</code> implementation of the API.</p>
+<p>Example of CozyClient initialization with web compatible version of the PerformanceAPI</p>
+<div class="codehilite"><pre><span></span><span class="kr">import</span> <span class="nx">CozyClient</span><span class="p">,</span> <span class="p">{</span> <span class="nx">webPerformanceAPI</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;cozy-client&#39;</span>
+
+<span class="kr">const</span> <span class="nx">client</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CozyClient</span><span class="p">({</span>
+  <span class="nx">uri</span><span class="p">,</span>
+  <span class="nx">schema</span><span class="p">,</span>
+  <span class="nx">token</span><span class="p">,</span>
+  <span class="nx">performancesApi</span><span class="o">:</span> <span class="nx">webPerformanceAPI</span>
+<span class="p">})</span>
+</pre></div>
+
+
+<p>Then CozyClient will use this implementation to do its internal measurements.</p>
+<p>The consuming app can also add its own measurements by either:
+- Calling <code>client.performanceAPI.mark()</code> and <code>client.performanceAPI.measure()</code> method
+- Directly calling the web native API <code>performance.mark()</code> and <code>performance.measure()</code>
+  - However, please keep in mind that if both APIs will produce the same output, their interface is slightly different. So for code homogeneity purpose, please prefer using the CozyClient&rsquo;s API</p>
+<p>When the PerformanceAPI is used, then the result can be visualized in the browser&rsquo;s Performance develools.</p>
+<p><img alt="Performance devtools screenshot" src="../performances_devtools.png" /></p>
+<h2 id="other-platforms">Other platforms<a class="headerlink" href="#other-platforms" title="Permanent link">&para;</a></h2>
+<p>No implementation is provided by CozyClient for other platforms. So each consuming app needs to provide their own implementation of the API.</p>
+<p>The API interface is described in the JSDoc.</p>
+<p>Example of custom implementations:
+- Flagship App: <a href="https://github.com/cozy/cozy-flagship-app/pull/1264">feat: Add performance measurements</a></p>
+<h2 id="production-environment">Production environment<a class="headerlink" href="#production-environment" title="Permanent link">&para;</a></h2>
+<p>By default, if no API is injected, then CozyClient will use the <code>defaultPerformanceAPI</code> implementation that does nothing.</p>
+<p>The consuming app is then responsible to inject an implementation or keep the default one that doesn&rsquo;t do any profiling, regarding if the app is built for development environments or for production.</p>
+<p>PerformancesAPI seems to have an impact on performances light enough to be kept on production. However, we suggest to disable them in that environement if possible.</p>
                 
                   
                 
