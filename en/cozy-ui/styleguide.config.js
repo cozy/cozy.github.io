@@ -81,6 +81,7 @@ module.exports = {
         '../react/ContactPicker',
         '../react/CozyDialogs',
         '../react/CozyDialogs/SpecificDialogs',
+        '../react/DatePicker',
         '../react/FileImageLoader',
         '../react/FilePicker',
         '../react/HistoryRow',
