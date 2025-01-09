@@ -5500,10 +5500,14 @@ just have to click OK).</p>
 <td>state</td>
 <td>a code that identify the recipient</td>
 </tr>
+<tr>
+<td>shortcut</td>
+<td>true means that accepting the sharing will just create a shortcut on the recipient&rsquo;s Cozy</td>
+</tr>
 </tbody>
 </table>
 <h4 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/sharings/ce8835a061d0ef68947afe69a0046722/discovery?state=eiJ3iepoaihohz1Y</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/sharings/ce8835a061d0ef68947afe69a0046722/discovery?state=eiJ3iepoaihohz1Y&amp;shortcut=true</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.net</span>
 </pre></div>
 
@@ -5530,6 +5534,10 @@ ask the recipient to accept the permissions on its instance.</p>
 <tr>
 <td>url</td>
 <td>the URL of the Cozy for the recipient</td>
+</tr>
+<tr>
+<td>shortcut</td>
+<td>true means that accepting the sharing will just create a shortcut on the recipient&rsquo;s Cozy</td>
 </tr>
 </tbody>
 </table>
@@ -6461,8 +6469,8 @@ pending members can no longer accept this sharing.</p>
 
 <h3 id="delete-sharingssharing-idrecipientsindex">DELETE /sharings/:sharing-id/recipients/:index<a class="headerlink" href="#delete-sharingssharing-idrecipientsindex" title="Permanent link">&para;</a></h3>
 <p>This route can be only be called on the cozy instance of the sharer to revoke
-only one recipient of the sharing. The parameter is the index of this recipient 
-in the <code>members</code> array of the sharing. 
+only one recipient of the sharing. The parameter is the index of this recipient
+in the <code>members</code> array of the sharing.
 The status for this member will be set to <code>revoked</code>, its cozy will be informed of the
 revokation, and the credentials for this cozy will be deleted.</p>
 <p><strong>Note</strong>: 0 is not accepted for <code>index</code>, as it is the sharer him-self.</p>
