@@ -3292,6 +3292,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#buildmainfolderpath" title="buildMainFolderPath" class="md-nav__link">
+    buildMainFolderPath
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#createdirectorybypath" title="createDirectoryByPath" class="md-nav__link">
     createDirectoryByPath
   </a>
@@ -3396,7 +3403,7 @@
 <p><code>string</code></p>
 <p>The result path</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/konnectorFolder.js#L154">packages/cozy-client/src/models/konnectorFolder.js:154</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/konnectorFolder.js#L158">packages/cozy-client/src/models/konnectorFolder.js:158</a></p>
 <hr />
 <h3 id="buildfolderpermission">buildFolderPermission<a class="headerlink" href="#buildfolderpermission" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>buildFolderPermission</strong>(<code>folder</code>): <code>any</code></p>
@@ -3423,7 +3430,52 @@ client.collection(&lsquo;io.cozy.permissions&rsquo;).add().</p>
 <p><code>any</code></p>
 <p>Permission object</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/konnectorFolder.js#L266">packages/cozy-client/src/models/konnectorFolder.js:266</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/konnectorFolder.js#L314">packages/cozy-client/src/models/konnectorFolder.js:314</a></p>
+<hr />
+<h3 id="buildmainfolderpath">buildMainFolderPath<a class="headerlink" href="#buildmainfolderpath" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>buildMainFolderPath</strong>(<code>konnector</code>, <code>magicFolders?</code>): <code>string</code></p>
+<p>Build konnector main folder path for a given konnector.</p>
+<p>If konnector.folders[0].defaultDir exists, it is used as default directory.</p>
+<p>Occurrences of following strings in base directory are replaced by:</p>
+<ul>
+<li><code>$administrative</code>: Administrative folder</li>
+<li><code>$photos</code>: Photos folder</li>
+</ul>
+<p>Occurrences of following strings in path are replaced by:</p>
+<ul>
+<li><code>$konnector</code>: Konnector name</li>
+</ul>
+<p>If no konnectors.folders[0].defaultDir is set, the default dir used is</p>
+<ul>
+<li><code>$administrative/$konnector</code></li>
+</ul>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>konnector</code></td>
+<td align="left"><code>IOCozyKonnector</code></td>
+<td align="left">Konnector document</td>
+</tr>
+<tr>
+<td align="left"><code>magicFolders</code></td>
+<td align="left"><code>Object</code></td>
+<td align="left">Object containing a mapping from folder identifiers (ex: $administrative) to their localized values (ex: Administratif).</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>string</code></p>
+<p>The result path</p>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/konnectorFolder.js#L204">packages/cozy-client/src/models/konnectorFolder.js:204</a></p>
 <hr />
 <h3 id="createdirectorybypath">createDirectoryByPath<a class="headerlink" href="#createdirectorybypath" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>createDirectoryByPath</strong>(<code>client</code>, <code>path</code>): <code>Promise</code>&lt;<code>IOCozyFolder</code>&gt;</p>
@@ -3454,7 +3506,7 @@ client.collection(&lsquo;io.cozy.permissions&rsquo;).add().</p>
 <p><code>Promise</code>&lt;<code>IOCozyFolder</code>&gt;</p>
 <p>Directory attributes</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/konnectorFolder.js#L102">packages/cozy-client/src/models/konnectorFolder.js:102</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/konnectorFolder.js#L107">packages/cozy-client/src/models/konnectorFolder.js:107</a></p>
 <hr />
 <h3 id="ensurekonnectorfolder">ensureKonnectorFolder<a class="headerlink" href="#ensurekonnectorfolder" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>ensureKonnectorFolder</strong>(<code>client</code>, <code>options</code>): <code>Promise</code>&lt;<code>IOCozyFolder</code>&gt;</p>
@@ -3539,7 +3591,7 @@ client.collection(&lsquo;io.cozy.permissions&rsquo;).add().</p>
 <p><em>Returns</em></p>
 <p><code>Promise</code>&lt;<code>IOCozyFolder</code>&gt;</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/konnectorFolder.js#L374">packages/cozy-client/src/models/konnectorFolder.js:374</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/konnectorFolder.js#L422">packages/cozy-client/src/models/konnectorFolder.js:422</a></p>
 <hr />
 <h3 id="statdirectorybypath">statDirectoryByPath<a class="headerlink" href="#statdirectorybypath" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>statDirectoryByPath</strong>(<code>client</code>, <code>path</code>): <code>Promise</code>&lt;<code>IOCozyFolder</code>&gt;</p>
@@ -3571,7 +3623,7 @@ client.collection(&lsquo;io.cozy.permissions&rsquo;).add().</p>
 <p><code>Promise</code>&lt;<code>IOCozyFolder</code>&gt;</p>
 <p>Created io.cozy.files document</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/konnectorFolder.js#L117">packages/cozy-client/src/models/konnectorFolder.js:117</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/konnectorFolder.js#L122">packages/cozy-client/src/models/konnectorFolder.js:122</a></p>
                 
                   
                 
