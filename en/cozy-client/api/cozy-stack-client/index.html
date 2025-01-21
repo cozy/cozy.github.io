@@ -2235,8 +2235,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#sharingcollectiongetdiscoverylinksharingid-sharecode-string" title="sharingCollection.getDiscoveryLink(sharingId, sharecode) ⇒ string" class="md-nav__link">
-    sharingCollection.getDiscoveryLink(sharingId, sharecode) ⇒ string
+  <a href="#sharingcollectiongetdiscoverylinksharingid-sharecode-options-string" title="sharingCollection.getDiscoveryLink(sharingId, sharecode, [options]) ⇒ string" class="md-nav__link">
+    sharingCollection.getDiscoveryLink(sharingId, sharecode, [options]) ⇒ string
   </a>
   
 </li>
@@ -5908,8 +5908,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#sharingcollectiongetdiscoverylinksharingid-sharecode-string" title="sharingCollection.getDiscoveryLink(sharingId, sharecode) ⇒ string" class="md-nav__link">
-    sharingCollection.getDiscoveryLink(sharingId, sharecode) ⇒ string
+  <a href="#sharingcollectiongetdiscoverylinksharingid-sharecode-options-string" title="sharingCollection.getDiscoveryLink(sharingId, sharecode, [options]) ⇒ string" class="md-nav__link">
+    sharingCollection.getDiscoveryLink(sharingId, sharecode, [options]) ⇒ string
   </a>
   
 </li>
@@ -9626,7 +9626,7 @@ Serves to dedupe equal queries requested at the same time</p>
 <li><a href="#SharingCollection+get">.get(id)</a> ⇒ <a href="#Sharing"><code>Sharing</code></a></li>
 <li><a href="#SharingCollection+create">.create(params)</a></li>
 <li>~~<a href="#SharingCollection+share">.share(document, recipients, sharingType, description, [previewPath])</a>~~</li>
-<li><a href="#SharingCollection+getDiscoveryLink">.getDiscoveryLink(sharingId, sharecode)</a> ⇒ <code>string</code></li>
+<li><a href="#SharingCollection+getDiscoveryLink">.getDiscoveryLink(sharingId, sharecode, [options])</a> ⇒ <code>string</code></li>
 <li><a href="#SharingCollection+addRecipients">.addRecipients(options)</a></li>
 <li><a href="#SharingCollection+revokeRecipient">.revokeRecipient(sharing, recipientIndex)</a></li>
 <li><a href="#SharingCollection+revokeGroup">.revokeGroup(sharing, groupIndex)</a></li>
@@ -9763,7 +9763,7 @@ Serves to dedupe equal queries requested at the same time</p>
 </tbody>
 </table>
 <p><a name="SharingCollection+getDiscoveryLink"></a></p>
-<h3 id="sharingcollectiongetdiscoverylinksharingid-sharecode-string">sharingCollection.getDiscoveryLink(sharingId, sharecode) ⇒ <code>string</code><a class="headerlink" href="#sharingcollectiongetdiscoverylinksharingid-sharecode-string" title="Permanent link">&para;</a></h3>
+<h3 id="sharingcollectiongetdiscoverylinksharingid-sharecode-options-string">sharingCollection.getDiscoveryLink(sharingId, sharecode, [options]) ⇒ <code>string</code><a class="headerlink" href="#sharingcollectiongetdiscoverylinksharingid-sharecode-options-string" title="Permanent link">&para;</a></h3>
 <p>getDiscoveryLink - Returns the URL of the page that can be used to accept a sharing. See https://docs.cozy.io/en/cozy-stack/sharing/#get-sharingssharing-iddiscovery</p>
 <p><strong>Kind</strong>: instance method of <a href="#SharingCollection"><code>SharingCollection</code></a>  </p>
 <table>
@@ -9784,6 +9784,16 @@ Serves to dedupe equal queries requested at the same time</p>
 <td>sharecode</td>
 <td><code>string</code></td>
 <td>Code of the sharing</td>
+</tr>
+<tr>
+<td>[options]</td>
+<td><code>object</code></td>
+<td>Options</td>
+</tr>
+<tr>
+<td>[options.shortcut]</td>
+<td><code>boolean</code></td>
+<td>If true, add a shortcut to the sharing in the user&rsquo;s cozy and skip the OAuth authorize page.</td>
 </tr>
 </tbody>
 </table>

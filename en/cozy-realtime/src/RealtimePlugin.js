@@ -19,7 +19,7 @@ class RealtimePlugin {
    *
    * @constructor
    * @param {CozyClient} client A cozy-client instance
-   * @param {object} options
+   * @param {object} [options]
    * @param {Function} [options.createWebSocket] The function used to create WebSocket instances
    * @param {object} [options.logger] A custom logger for CozyRealtime
    */
