@@ -2098,8 +2098,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#permissioncollectionadddocument-permission-promise" title="permissionCollection.add(document, permission) ⇒ Promise" class="md-nav__link">
-    permissionCollection.add(document, permission) ⇒ Promise
+  <a href="#permissioncollectionadddocument-permission-options-promise" title="permissionCollection.add(document, permission, options) ⇒ Promise" class="md-nav__link">
+    permissionCollection.add(document, permission, options) ⇒ Promise
   </a>
   
 </li>
@@ -5771,8 +5771,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#permissioncollectionadddocument-permission-promise" title="permissionCollection.add(document, permission) ⇒ Promise" class="md-nav__link">
-    permissionCollection.add(document, permission) ⇒ Promise
+  <a href="#permissioncollectionadddocument-permission-options-promise" title="permissionCollection.add(document, permission, options) ⇒ Promise" class="md-nav__link">
+    permissionCollection.add(document, permission, options) ⇒ Promise
   </a>
   
 </li>
@@ -9322,7 +9322,7 @@ If this is the case, call the onRevocationChange callback</p>
 <ul>
 <li><a href="#PermissionCollection">PermissionCollection</a><ul>
 <li><a href="#PermissionCollection+create">.create(permission)</a></li>
-<li><a href="#PermissionCollection+add">.add(document, permission)</a> ⇒ <code>Promise</code></li>
+<li><a href="#PermissionCollection+add">.add(document, permission, options)</a> ⇒ <code>Promise</code></li>
 <li>~~<a href="#PermissionCollection+findApps">.findApps()</a>~~</li>
 <li><a href="#PermissionCollection+createSharingLink">.createSharingLink(document, options)</a></li>
 <li><a href="#PermissionCollection+fetchPermissionsByLink">.fetchPermissionsByLink(permissions)</a></li>
@@ -9369,7 +9369,7 @@ It can also associates one or more codes to it, via the codes parameter</p>
 </tbody>
 </table>
 <p><a name="PermissionCollection+add"></a></p>
-<h3 id="permissioncollectionadddocument-permission-promise">permissionCollection.add(document, permission) ⇒ <code>Promise</code><a class="headerlink" href="#permissioncollectionadddocument-permission-promise" title="Permanent link">&para;</a></h3>
+<h3 id="permissioncollectionadddocument-permission-options-promise">permissionCollection.add(document, permission, options) ⇒ <code>Promise</code><a class="headerlink" href="#permissioncollectionadddocument-permission-options-promise" title="Permanent link">&para;</a></h3>
 <p>Adds a permission to the given document. Document type must be
 <code>io.cozy.apps</code>, <code>io.cozy.konnectors</code> or <code>io.cozy.permissions</code></p>
 <p><strong>Kind</strong>: instance method of <a href="#PermissionCollection"><code>PermissionCollection</code></a>  </p>
@@ -9392,18 +9392,35 @@ It can also associates one or more codes to it, via the codes parameter</p>
 <td><code>object</code></td>
 <td>Describes the permission</td>
 </tr>
+<tr>
+<td>options</td>
+<td><code>object</code></td>
+<td>options</td>
+</tr>
+<tr>
+<td>[options.expiresAt]</td>
+<td><code>string</code></td>
+<td>Date at which the permission will expire. Set to &ldquo;&rdquo; to remove it.</td>
+</tr>
+<tr>
+<td>[options.password]</td>
+<td><code>string</code></td>
+<td>To generate a password-protected link. Set to &ldquo;&rdquo; to remove it.</td>
+</tr>
 </tbody>
 </table>
 <p><strong>Example</strong>  </p>
-<div class="codehilite"><pre><span></span>const permissions = await client
-  .collection(&#39;io.cozy.permissions&#39;)
-  .add(konnector, {
+<div class="codehilite"><pre><span></span>const permissions = await client.collection(&#39;io.cozy.permissions&#39;).add(
+  konnector,
+  {
     folder: {
       type: &#39;io.cozy.files&#39;,
       verbs: [&#39;GET&#39;, &#39;PUT&#39;],
       values: [`io.cozy.files.bc57b60eb2954537b0dcdc6ebd8e9d23`]
     }
- })
+  },
+  { expiresAt: &#39;2100-01-01T00:00:00Z&#39;, password: &#39;password&#39; }
+)
 </pre></div>
 
 
@@ -9435,9 +9452,29 @@ It can also associates one or more codes to it, via the codes parameter</p>
 <td>options</td>
 </tr>
 <tr>
-<td>options.verbs</td>
+<td>[options.ttl]</td>
+<td><code>string</code></td>
+<td>Time to live (bigduration format, e.g. &ldquo;4Y3M2D1h30m15s&rdquo;)</td>
+</tr>
+<tr>
+<td>[options.password]</td>
+<td><code>string</code></td>
+<td>To generate a password-protected link</td>
+</tr>
+<tr>
+<td>[options.verbs]</td>
 <td><code>Array.&lt;string&gt;</code></td>
 <td>explicit permissions to use</td>
+</tr>
+<tr>
+<td>[options.codes]</td>
+<td><code>string</code></td>
+<td>A comma separed list of values (defaulted to code)</td>
+</tr>
+<tr>
+<td>[options.tiny]</td>
+<td><code>boolean</code></td>
+<td>If set to true then the generated shortcode will be 6 digits Cozy-Stack has a few conditions to be able to use this tiny shortcode ATM you have to specifiy a ttl &lt; 1h, but it can change. see https://docs.cozy.io/en/cozy-stack/permissions/#post-permissions for exact informations</td>
 </tr>
 </tbody>
 </table>
@@ -10482,7 +10519,7 @@ query to work</p>
 <td>options</td>
 </tr>
 <tr>
-<td>options.verbs</td>
+<td>[options.verbs]</td>
 <td><code>Array.&lt;string&gt;</code></td>
 <td>explicit permissions to use</td>
 </tr>

@@ -3048,6 +3048,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#request-to-update-the-password-and-the-expiration-date-of-the-sharing-link" title="Request to update the password and the expiration date of the sharing link" class="md-nav__link">
+    Request to update the password and the expiration date of the sharing link
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-to-remove-the-password-and-the-expiration-date-of-the-sharing-link" title="Request to remove the password and the expiration date of the sharing link" class="md-nav__link">
+    Request to remove the password and the expiration date of the sharing link
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#request-to-add-permissions" title="Request to add permissions" class="md-nav__link">
     Request to add permissions
   </a>
@@ -3877,6 +3891,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#request-to-update-the-password-and-the-expiration-date-of-the-sharing-link" title="Request to update the password and the expiration date of the sharing link" class="md-nav__link">
+    Request to update the password and the expiration date of the sharing link
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request-to-remove-the-password-and-the-expiration-date-of-the-sharing-link" title="Request to remove the password and the expiration date of the sharing link" class="md-nav__link">
+    Request to remove the password and the expiration date of the sharing link
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#request-to-add-permissions" title="Request to add permissions" class="md-nav__link">
     Request to add permissions
   </a>
@@ -4064,7 +4092,7 @@ allow to access and modify any file or directory.</p>
 <li><code>io.cozy.jobs</code> and <code>io.cozy.triggers</code>, for <a href="../jobs/">jobs</a></li>
 <li><code>io.cozy.oauth.clients</code>, to list and revoke <a href="../auth/">OAuth 2 clients</a></li>
 </ul>
-<p>It is also possible to use a wildcard to use a doctype and its sub-doctypes if 
+<p>It is also possible to use a wildcard to use a doctype and its sub-doctypes if
 the doctype contains at least 3 <code>.</code>.
 For example, <code>io.cozy.bank.*</code> will give access to <code>io.cozy.bank</code>,
 <code>io.cozy.bank.accounts</code>, <code>io.cozy.bank.accounts.stats</code>,
@@ -4383,6 +4411,8 @@ application can send a &ldquo;<em>pick a photo</em>&rdquo; intent to the photos 
 its permission id, and the photos app can then let the user choose a photo and
 give the contacts application the permissions to use it.</p>
 <p>This route also accepts a <a href="https://github.com/cozy/cozy-doctypes/#document-metadata">document metadata</a> to update document informations.</p>
+<p>Giving an empty string for <code>password</code> or <code>expires_at</code> will remove it (while
+omitting the field will keep the old value).</p>
 <h4 id="request-to-add-remove-codes-with-a-document-metadata">Request to add / remove codes with a document metadata<a class="headerlink" href="#request-to-add-remove-codes-with-a-document-metadata" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><span class="nf">PATCH</span> <span class="nn">/permissions/a340d5e0-d647-11e6-b66c-5fc9ce1e17c6</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.net</span>
@@ -4400,6 +4430,60 @@ give the contacts application the permissions to use it.</p>
             <span class="nt">&quot;codes&quot;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="nt">&quot;jane&quot;</span><span class="p">:</span> <span class="s2">&quot;Yohyoo8BHahh1lie&quot;</span>
             <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;cozyMetadata&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;doctypeVersion&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nt">&quot;metadataVersion&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nt">&quot;updatedAt&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-05-14T12:00:37.372193145+02:00&quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h4 id="request-to-update-the-password-and-the-expiration-date-of-the-sharing-link">Request to update the password and the expiration date of the sharing link<a class="headerlink" href="#request-to-update-the-password-and-the-expiration-date-of-the-sharing-link" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">PATCH</span> <span class="nn">/permissions/a340d5e0-d647-11e6-b66c-5fc9ce1e17c6</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.net</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.permissions&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;password&quot;</span><span class="p">:</span> <span class="s2">&quot;NewPassword&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;expires_at&quot;</span><span class="p">:</span> <span class="s2">&quot;2025-01-01T00:00:00Z&quot;</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;cozyMetadata&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;doctypeVersion&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nt">&quot;metadataVersion&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nt">&quot;updatedAt&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-05-14T12:00:37.372193145+02:00&quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<h4 id="request-to-remove-the-password-and-the-expiration-date-of-the-sharing-link">Request to remove the password and the expiration date of the sharing link<a class="headerlink" href="#request-to-remove-the-password-and-the-expiration-date-of-the-sharing-link" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><span class="nf">PATCH</span> <span class="nn">/permissions/a340d5e0-d647-11e6-b66c-5fc9ce1e17c6</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.net</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;io.cozy.permissions&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;attributes&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;password&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;expires_at&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
         <span class="p">},</span>
         <span class="nt">&quot;cozyMetadata&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="nt">&quot;doctypeVersion&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
