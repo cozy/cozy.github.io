@@ -552,7 +552,7 @@ class CozyRealtime {
     // If this happenned, we should throw the socket and reconnect.
     //  Let's do that in all cases, as it won't be frequent anyways.
     if (this.hasWebSocket()) {
-      this.revokeWebSocket()
+      this.reconnect()
     }
   }
 
