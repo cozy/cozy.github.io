@@ -17,6 +17,12 @@ Find guides for developing apps and connectors and for self-hosting.
     <em>For Developers</em>
   </a>
 
+  <a href="tutorials/client-side-konnector">
+    <img class="img-tuto" src="assets/images/home/icon-dev.svg" />
+    <p>How to free data with client-side connectors</p>
+    <em>For Developers</em>
+  </a>
+
   <a href="tutorials/data">
     <img class="img-tuto" src="assets/images/home/icon-dev.svg" />
     <p>How to manipulate data</p>

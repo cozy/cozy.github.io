@@ -1,0 +1,8 @@
+# Additional ressources
+
+### Useful links
+
+- Cozy website - https://cozy.io/fr/
+- Cozy documentation website - https://docs.cozy.io/en/
+- Cozy Libera Chat - https://web.libera.chat/#cozycloud
+- Konnector's GitHub Organisation - https://github.com/konnectors
