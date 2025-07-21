@@ -1,3 +1,23 @@
+# Installation
+
+Here you will find the instruction to setup the development environnement of a Client-Side Konnector
+
+### Prerequisites
+
+To be able to make your first CliSK you will need on your machine :
+
+- A [cozy-stack](https://github.com/cozy/cozy-stack) , installed following the documentation
+- The [Twake App](https://github.com/cozy/cozy-flagship-app/) repo ready
+- An emulator or an external device - To run the Twake App
+- Chromium - To access the inspecting tool for your device on `chrome://inspect/#devices`
+- NodeJS 20 (or above)
+- Yarn 1 (or above)
+- Git
+
+### Detailed instance's setup instructions
+
+Here you will be guided step by step to create a local instance and get it ready to develop your first CliSK
+
 ##### Create a local instance
 
 Once everything is ready, you will need to create an instance to work on. To do so the cozy-stack must be running.
@@ -69,3 +89,13 @@ cozy-stack features flags '{"clisk.always-show-worker": true}' --domain [INSTANC
 ⚠️ _You may have to restart the Twake App for the flag to be updated_
 
 If you want to test your konnector having the "user experience" (no visible webview during execution) just set the value of the flag to `false` .
+
+### Troubleshooting common issues
+
+##### Cozy Application logs
+
+To troubleshoot some issues you may have, you can check the logs into the terminal tab where Metro is running (the one where you used the `yarn start` command).
+
+##### Chrome/Chromium inspector
+
+To access both of the webviews, you will need to use the chrome inspector and open the wanted webview. It will usually be the `worker`'s webview but know you can access the `pilot`'s from here too. Both are accessible from `chrome://inspect/#devices`.

@@ -1,3 +1,7 @@
+# Best Coding Practice
+
+### Coding standards
+
 A yarn script is provided to lint the code. It will respect most of our coding standards. Simply use the `yarn lint --fix` command
 
 #### Logs
@@ -22,3 +26,11 @@ this.log("debug", "This is a debug log");
 this.log("error", "This is an error log");
 throw new Error("Error that stops the execution");
 ```
+
+### Testing
+
+#### Testing your CliSK
+
+There is no unit tests for CliSK as execution's result is strongly dependent of the target website for the specific account you are using to develop. For example maybe you can find on the account used to develop the user's mail and no phone number associated, while another account on the same website may have both of them but no files to download etc .... Doing unit tests for each and every scenarios of each and every type of accounts would be like catching the wind so we are trying to be the most generic possible to fit the most of the accounts.
+
+You should have tested the konnector during your development phase, as you have to build step by step execution and cover the know scenarios for your account. Meaning that if you think it is ready, you probably have run the konnectors multiple times, ending in `Konnector success` .

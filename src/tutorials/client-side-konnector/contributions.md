@@ -1,3 +1,5 @@
+# Contributions
+
 #### Validation and release
 
 ###### Existing konnector modification or corrections
@@ -6,5 +8,5 @@ To validate your modifications on an existing konnector, you must create a GitHu
 
 ###### New konnector
 
-If you have built a konnector that doesn't exist yet in the twake library, you should submit it through [the contributor communication channel - TODO]() . Once tested on our side, you will need to transfer it to the `konnectors` organization. That way it can be part of the continuous deployment chain, with CI, library updates etc . We will do what is necessary to make it available in the application store so anyone can install it.
+If you have built a konnector that doesn't exist yet in the twake library, you should submit it through [Libera chat](https://web.libera.chat/#cozycloud) . Once tested on our side, you will need to transfer it to the `konnectors` organization. That way it can be part of the continuous deployment chain, with CI, library updates etc . We will do what is necessary to make it available in the application store so anyone can install it.
 After that, we will give you access to the `konnectors` organization so you can maintain your CliSK, and we will display your name in the store (the one you provided in the manifest of the konnector) as the owner of this konnector.

@@ -1,3 +1,5 @@
+# CliSK library (cozy-clisk)
+
 The CliSK library is designed specifically to facilitate communication between the content script (what's injected in the webview to navigate or manipulate the page) and the launcher for CliSK konnectors. It provides essential tools for both sides of the interaction.
 
 #### Installation

@@ -1,4 +1,43 @@
-### Creating your own CliSK
+# CliSK Creation
+
+In this section you will learn how to develop your own konnector from the [CliSK template](https://github.com/konnectors/template_ccc).
+
+### Introduction to Client-Side Konnectors (CliSK)
+
+A CliSK is a type of konnector using a webview to simulate a browser into the Twake App. It's allowing the developer to interact directly on the website via a script or by giving back the control to the user when needed. Very useful to bypass bot detection by inducing a real human interaction on the website on sensible phases such as login, 2FA or any type of captcha.
+
+### CliSK architecture
+
+##### How does it work ?
+
+The CliSK contains two webviews.
+
+- One called `pilot`
+- Second called `worker`
+  We will use those names during the tutorial, as it is part of mandatory understanding to make your konnector.
+
+###### Pilot
+
+The `pilot` webview is here to ensure the communication between the worker (navigating the web) and the Twake App. It "pilots" (clever, right ?) the worker's actions and gives back the result to the Twake App. It also keeps the state of the konnector execution.
+
+###### Worker
+
+The `worker` webview is like a very simple browser. It will navigate, interact, fill, scrap, intercept requests ... Pretty much the big part of the execution. It will return everything to the `pilot` in the end. That's the one you will be seeing when developing your konnector.
+
+###### Store
+
+It allows the developer to store data if needed like request's responses with interesting data, or scraped data that will be useful further down the execution
+
+###### Library
+
+The used library for CliSK development is the [cozy-clisk](https://github.com/konnectors/libs/tree/master/packages/cozy-clisk) library.
+We will cover it all in a [dedicated documentation](./clisk-lib-doc.md)
+
+---
+
+### Creating a CliSK for "books.toscrape.com"
+
+#### Creating your own CliSK
 
 If you want to develop a konnector from scratch, you will need to get the [CliSK template](https://github.com/konnectors/template_ccc) on your machine.
 Copy the template's file to a new directory named after the service you want to scrap. Let's say we will scrap the better website of all time for this job : [Books to scrap](http://books.toscrape.com) but as this website does not contains any login logic, we'll be using the one from [practicetestautomation.com](https://practicetestautomation.com/practice-test-login/) to simulate a login before scraping the books.
@@ -29,7 +68,7 @@ The mandatory are the following :
 - `slug` => The konnector's identifier. Only lower case letters and numbers are admitted.
 - `source` => The source of the konnector's file. Will always be `git@github.com:konnectors/[slug].git`
 - `vendor_link` => The main URL of the targeted website.
-- `categories` => Categories where the konnector will be displayed in the cozy store. See [here-TODO]() for the list of available categories. If you can't find the category you seek in the list, contact Cozy and we will discuss its addition.
+- `categories` => Categories where the konnector will be displayed in the cozy store. See [here](https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/assets/qualifications.json) for the list of available categories. If you can't find the category you seek in the list, contact Cozy and we will discuss its addition.
 - `developer`
   - `name` => The name of the developer displayed in the cozy store.
   - `link` => A link to your github profile or personal page so people knows who to thanks for this konnector.
@@ -94,7 +133,7 @@ In the end, your modified manifest should look like this :
 }
 ```
 
-You can find the [example commit-TODO]() in the [development example pull request - TODO]() to see the modifications from the template's manifest.
+You can find the [example commit](https://github.com/konnectors/template_ccc/pull/78/commits/db9fedee4af79644120ca4a598f4dc484209f9ad) in the [development example pull request](https://github.com/konnectors/template_ccc/pull/78) to see the modifications from the template's manifest.
 
 #### Cleaning
 
@@ -147,7 +186,7 @@ class BookToScrapeContentScript extends ContentScript {
 }
 ```
 
-You can find the example commit [here TODO]() in the pull request provided for development example.
+You can find the example commit [here](https://github.com/konnectors/template_ccc/pull/78/commits/de069767fd60f0fbff3dc66c245d543f4b429a74) in the pull request provided for development example.
 
 #### Scripting
 
@@ -341,7 +380,7 @@ await this.goto(homePageUrl);
 await this.waitForElementInWorker(productCardSelector);
 ```
 
-We will check the number of available pages with another handmade `worker`'s function (again, don't forget to declare it in the `init`'s array argument so it became callable by the `pilot`). For example's sake in the [example PR - TODO](), we will not scrape the whole 50 pages of the website, so we're limiting the number of wanted pages.
+We will check the number of available pages with another handmade `worker`'s function (again, don't forget to declare it in the `init`'s array argument so it became callable by the `pilot`). For example's sake in the [example PR](https://github.com/konnectors/template_ccc/pull/78/commits/0d4f8f706bda079345bd754b066a048fc7c13eca), we will not scrape the whole 50 pages of the website, so we're limiting the number of wanted pages.
 
 ```javascript
 // In fetch function
