@@ -1,6 +1,6 @@
-/* global __SIMULATE_FLAGSHIP__ */
 import React, { useState } from 'react'
 import { Navigate, Route } from 'react-router-dom'
+import { BarComponent } from 'cozy-bar'
 
 import flag from 'cozy-flags'
 import minilog from 'cozy-minilog'
@@ -13,36 +13,32 @@ import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import { Main } from 'cozy-ui/transpiled/react/Layout'
 import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
-import { AssistantMobileWrapper } from 'components/Assistant/AssistantMobileWrapper'
-import { AssistantDialog } from 'cozy-dataproxy-lib'
-import { SearchDialog } from 'cozy-dataproxy-lib'
-import AddButton from 'components/AddButton/AddButton'
-import Corner from 'components/HeroHeader/Corner'
-import Failure from 'components/Failure'
-import HeroHeader from 'components/HeroHeader'
-import Home from 'components/Home'
-import IntentRedirect from 'components/IntentRedirect'
-import MoveModal from 'components/MoveModal'
-import StoreRedirection from 'components/StoreRedirection'
-import BackupNotification from 'components/BackupNotification/BackupNotification'
+import { AssistantMobileWrapper } from '@/components/Assistant/AssistantMobileWrapper'
+import { AssistantDialog, SearchDialog } from 'cozy-search'
+import Failure from '@/components/Failure'
+import HeroHeader from '@/components/HeroHeader'
+import Home from '@/components/Home'
+import IntentRedirect from '@/components/IntentRedirect'
+import MoveModal from '@/components/MoveModal'
+import StoreRedirection from '@/components/StoreRedirection'
+import BackupNotification from '@/components/BackupNotification/BackupNotification'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
-import { BackgroundContainer } from 'components/BackgroundContainer'
-import { FLAG_FAB_BUTTON_ENABLED } from 'components/AddButton/helpers'
-import { MainView } from 'components/MainView'
-import { Konnector } from 'components/Konnector'
-import DefaultRedirectionSnackbar from 'components/DefaultRedirectionSnackbar/DefaultRedirectionSnackbar'
+import { BackgroundContainer } from '@/components/BackgroundContainer'
+import { MainView } from '@/components/MainView'
+import { Konnector } from '@/components/Konnector'
+import DefaultRedirectionSnackbar from '@/components/DefaultRedirectionSnackbar/DefaultRedirectionSnackbar'
 import ReloadFocus from './ReloadFocus'
-import FooterLogo from 'components/FooterLogo/FooterLogo'
-import { formatShortcuts } from 'components/Shortcuts/utils'
+import FooterLogo from '@/components/FooterLogo/FooterLogo'
+import { formatShortcuts } from '@/components/Shortcuts/utils'
 import {
   mkHomeMagicFolderConn,
   mkHomeCustomShorcutsConn,
   mkHomeCustomShorcutsDirConn
-} from 'queries'
-import { useFetchInitialData } from 'hooks/useFetchInitialData'
+} from '@/queries'
+import { useFetchInitialData } from '@/hooks/useFetchInitialData'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
-import SectionDialog from 'components/Sections/SectionDialog'
-import { SentryRoutes } from 'lib/sentry'
+import SectionDialog from '@/components/Sections/SectionDialog'
+import { SentryRoutes } from '@/lib/sentry'
 import '../flags'
 
 window.flag = window.flag || flag
@@ -103,7 +99,8 @@ const App = () => {
       webviewIntent.call('setTheme', theme.variant)
       webviewIntent.call('hideSplashScreen')
     }
-    if (!webviewIntent && __SIMULATE_FLAGSHIP__) {
+
+    if (!webviewIntent && process.env.PUBLIC_SIMULATE_FLAGSHIP) {
       document.getElementById('splashscreen').style.display = 'none'
     }
     setDidInit(true)
@@ -111,11 +108,16 @@ const App = () => {
 
   return (
     <>
+      <BarComponent
+        searchOptions={{ enabled: false }}
+        componentsProps={{
+          Wrapper: { className: 'u-bg-transparent u-elevation-0' }
+        }}
+      />
       <BackgroundContainer />
       <ReloadFocus />
       <MainView>
         <BackupNotification />
-        <Corner />
         <div
           className="u-flex u-flex-column u-flex-content-start u-flex-content-stretch u-w-100 u-m-auto u-pos-relative"
           ref={didInit ? div => setContentWrapper(div) : null}
@@ -173,7 +175,6 @@ const App = () => {
       </MainView>
       {showAssistantForMobile && <AssistantMobileWrapper />}
       {isFlagshipApp() && <DefaultRedirectionSnackbar />}
-      {flag(FLAG_FAB_BUTTON_ENABLED) && isMobile && <AddButton />}
     </>
   )
 }

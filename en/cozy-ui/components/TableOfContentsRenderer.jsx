@@ -1,19 +1,19 @@
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 import React, { useEffect, useState } from 'react'
 import DefaultTableOfContents from 'react-styleguidist/lib/client/rsg-components/TableOfContents/TableOfContentsRenderer'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
 
-import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
-import Paper from 'cozy-ui/transpiled/react/Paper'
 import Buttons from 'cozy-ui/transpiled/react/Buttons'
 import Icon from 'cozy-ui/transpiled/react/Icon'
-import PhoneIcon from 'cozy-ui/transpiled/react/Icons/Phone'
 import PaletteIcon from 'cozy-ui/transpiled/react/Icons/Palette'
+import PhoneIcon from 'cozy-ui/transpiled/react/Icons/Phone'
+import Paper from 'cozy-ui/transpiled/react/Paper'
 import Switch from 'cozy-ui/transpiled/react/Switch'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import {
   addFlagshipElements,
   removeFlagshipElements
 } from 'cozy-ui/transpiled/react/hooks/useSetFlagshipUi/helpers'
+import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 const TableOfContents = props => {
   const deviceThemeType = useMediaQuery('(prefers-color-scheme: dark)')

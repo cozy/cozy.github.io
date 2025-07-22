@@ -1,11 +1,12 @@
 import React, { useRef, useState } from 'react'
+import cx from 'classnames'
 
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
-import { GroupedSectionViewProps } from 'components/Sections/SectionsTypes'
-import { SectionHeader } from 'components/Sections/SectionHeader'
-import AddServiceTile from 'components/AddServiceTile'
-import GroupedSectionTile from 'components/Sections/GroupedSectionTile'
+import { GroupedSectionViewProps } from '@/components/Sections/SectionsTypes'
+import { SectionHeader } from '@/components/Sections/SectionHeader'
+import AddServiceTile from '@/components/AddServiceTile'
+import GroupedSectionTile from '@/components/Sections/GroupedSectionTile'
 
 export const GroupedSectionView = ({
   sections
@@ -25,7 +26,11 @@ export const GroupedSectionView = ({
         menuState={menuState}
       />
 
-      <div className="shortcuts-list u-w-100 u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center">
+      <div
+        className={cx(
+          'shortcuts-list shortcuts-list--gutter u-w-100 u-mh-auto u-mv-3 u-mv-2-t u-flex-justify-center'
+        )}
+      >
         {sections.map(section => (
           <GroupedSectionTile key={section.id} section={section} />
         ))}

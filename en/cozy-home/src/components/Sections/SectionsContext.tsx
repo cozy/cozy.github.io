@@ -30,20 +30,15 @@ import {
   Section,
   SectionsContextValue,
   SectionSetting
-} from 'components/Sections/SectionsTypes'
-import { formatSections } from 'components/Sections/utils'
+} from '@/components/Sections/SectionsTypes'
+import { formatSections } from '@/components/Sections/utils'
 import {
   fetchRunningKonnectors,
   getRunningKonnectors
-} from 'lib/konnectors_typed'
-import { useMagicFolder } from 'components/Sections/hooks/useMagicFolder'
-import { useShortcutsDirectories } from 'components/Sections/hooks/useShortcutsDirectories'
-import {
-  konnectorsConn,
-  makeAccountsQuery,
-  makeTriggersQuery,
-  suggestedKonnectorsConn
-} from 'queries'
+} from '@/lib/konnectors_typed'
+import { useMagicFolder } from '@/components/Sections/hooks/useMagicFolder'
+import { useShortcutsDirectories } from '@/components/Sections/hooks/useShortcutsDirectories'
+import { konnectorsConn, makeAccountsQuery, makeTriggersQuery } from '@/queries'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import { fetchAllKonnectors } from './queries/konnectors'
 import { formatServicesSections } from './lib/formatServicesSections'
@@ -64,9 +59,7 @@ const SectionsContext = createContext<SectionsContextValue>({
   shortcutsDirectories: [],
   ungroupedSections: [],
   groupedSections: [],
-  displayTutorialTip: false,
   isRunning: () => false,
-  isSuggested: () => false,
   isInMaintenance: () => false
 })
 
@@ -109,27 +102,6 @@ export const SectionsProvider = ({
     [konnectors]
   )
 
-  const suggestedKonnectorsQuery = useQuery(
-    suggestedKonnectorsConn.query,
-    suggestedKonnectorsConn
-  ) as { data: IOCozyKonnector[] }
-
-  const candidatesSlugBlacklist = useMemo(
-    () =>
-      appsAndKonnectorsInMaintenance
-        .map(({ slug }) => slug)
-        .concat(installedKonnectors.map(({ slug }) => slug)),
-    [appsAndKonnectorsInMaintenance, installedKonnectors]
-  )
-
-  const suggestedKonnectors = useMemo(() => {
-    return suggestedKonnectorsQuery.data
-      ? suggestedKonnectorsQuery.data.filter(
-          ({ slug }) => !candidatesSlugBlacklist.includes(slug)
-        )
-      : []
-  }, [suggestedKonnectorsQuery.data, candidatesSlugBlacklist])
-
   const [groupedData, setGroupedData] =
     useState<{ [key: string]: IOCozyKonnector[] }>()
 
@@ -148,7 +120,6 @@ export const SectionsProvider = ({
         ? formatServicesSections(
             groupedData,
             installedKonnectors,
-            suggestedKonnectors,
             appsAndKonnectorsInMaintenance,
             t,
             allTriggers,
@@ -158,7 +129,6 @@ export const SectionsProvider = ({
     [
       groupedData,
       installedKonnectors,
-      suggestedKonnectors,
       appsAndKonnectorsInMaintenance,
       t,
       allTriggers,
@@ -178,10 +148,6 @@ export const SectionsProvider = ({
     'slug'
   )
 
-  const areAllCategoriesPristine = konnectorsByCategory.every(
-    category => category.pristine
-  )
-
   const { data: jobData } = useQuery(
     fetchRunningKonnectors.definition,
     fetchRunningKonnectors.options
@@ -199,9 +165,6 @@ export const SectionsProvider = ({
         shortcutsDirectories,
         ungroupedSections,
         groupedSections,
-        displayTutorialTip: areAllCategoriesPristine,
-        isSuggested: (slug: string): boolean =>
-          suggestedKonnectors.some(konnector => konnector.slug === slug),
         isRunning: (slug: string): boolean => runningKonnectors.includes(slug),
         isInMaintenance: (slug: string): boolean =>
           Boolean(appsAndKonnectorsInMaintenanceBySlug[slug])

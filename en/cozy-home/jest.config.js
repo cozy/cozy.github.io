@@ -11,7 +11,8 @@ module.exports = {
     '\\.(png|gif|jpe?g|svg|css)$': '<rootDir>/test/__mocks__/fileMock.js',
     '.styl$': 'identity-obj-proxy',
     '^cozy-client$': 'cozy-client/dist/index',
-    '^test(.*)': '<rootDir>/test/$1'
+    '^@/test(.*)': '<rootDir>/test/$1',
+    '^@/(.*)$': '<rootDir>/src/$1'
   },
   setupFilesAfterEnv: ['<rootDir>/test/jestLib/setup.js'],
   testEnvironment: 'jsdom',
@@ -23,6 +24,6 @@ module.exports = {
     '^.+\\.webapp$': '<rootDir>/test/jestLib/json-transformer.js'
   },
   transformIgnorePatterns: [
-    'node_modules/(?!cozy-ui|cozy-harvest-lib|cozy-keys-lib|react-swipeable-views-core|copy-text-to-clipboard)'
+    'node_modules/(?!cozy-ui|cozy-harvest-lib|cozy-keys-lib|cozy-sharing|react-swipeable-views-core|copy-text-to-clipboard)'
   ]
 }

@@ -17,11 +17,11 @@ import {
   DisplayMode,
   Section,
   SectionViewProps
-} from 'components/Sections/SectionsTypes'
+} from '@/components/Sections/SectionsTypes'
 import {
   computeDisplayMode,
   handleSectionAction
-} from 'components/Sections/utils'
+} from '@/components/Sections/utils'
 
 export const displayModeAction =
   (actionLabel: DisplayMode): (() => Action) =>
@@ -39,6 +39,8 @@ export const displayModeAction =
         const isActive = actionLabel === currentDisplayMode
 
         return (
+          /*
+          // @ts-expect-error ActionsMenuItem not correctly typed */
           <ActionsMenuItem
             {...props}
             ref={ref}

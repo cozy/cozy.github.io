@@ -2,35 +2,32 @@ import cx from 'classnames'
 import React from 'react'
 
 import { getFlagshipMetadata } from 'cozy-device-helper'
-import flag from 'cozy-flags'
 
 import CozyTheme, {
   useCozyTheme
 } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
-import styles from './styles.styl'
+import { AssistantMobile } from 'cozy-search'
 
-import { useWallpaperContext } from 'hooks/useWallpaperContext'
-import { AssistantMobile } from 'cozy-dataproxy-lib'
+import styles from './assistant.styl'
 
 export const AssistantMobileWrapper = () => {
   const { type } = useCozyTheme()
 
-  const {
-    data: { isCustomWallpaper }
-  } = useWallpaperContext()
-
   return (
     <CozyTheme variant="normal">
       <div
-        className={cx(styles['mobile-assistant'], {
-          [styles[`mobile-assistant--${type}`]]: !isCustomWallpaper,
-          [styles['mobile-assistant--offset']]: flag('home.fab.button.enabled'),
-          [styles['mobile-assistant--immersive']]:
-            getFlagshipMetadata().immersive
+        className={cx('home-mobile-assistant', {
+          ['home-mobile-assistant--immersive']: getFlagshipMetadata().immersive
         })}
       >
-        <AssistantMobile />
+        <AssistantMobile
+          componentsProps={{
+            SearchBar: {
+              className: styles[`search-bar-background--${type}`]
+            }
+          }}
+        />
       </div>
     </CozyTheme>
   )

@@ -19,6 +19,7 @@ module.exports = {
         '../react/AppLinker',
         '../react/AppTile',
         '../react/AppTitle',
+        '../react/Avatar',
         '../react/Badge',
         '../react/Banner',
         '../react/Breadcrumbs',
@@ -64,6 +65,8 @@ module.exports = {
         '../react/Tabs',
         '../react/TextField',
         '../react/Thumbnail',
+        '../react/ToggleButton',
+        '../react/ToggleButtonGroup',
         '../react/Tooltip',
         '../react/Typography',
         '../react/Markdown'
@@ -94,8 +97,9 @@ module.exports = {
         '../react/Paywall',
         '../react/Sidebar',
         '../react/SquareAppIcon',
+        '../react/Table',
         '../react/QualificationGrid',
-        '../react/QualificationIconStack',
+        '../react/QualificationIcon',
         '../react/QualificationItem',
         '../react/QualificationModal',
         '../react/UploadQueue'
@@ -123,7 +127,7 @@ module.exports = {
     {
       name: 'Legacy',
       components: () => [
-        '../react/Avatar',
+        '../react/legacy/Avatar',
         '../react/BarButton',
         '../react/BarTitle',
         '../react/legacy/Breadcrumbs',
@@ -169,7 +173,7 @@ module.exports = {
       links: [
         {
           rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css?family=Lato:400,700,300'
+          href: 'https://fonts.googleapis.com/css?family=Inter:400,500,600'
         }
       ]
     }
@@ -184,7 +188,7 @@ module.exports = {
   },
   theme: {
     fontFamily: {
-      base: 'Lato, sans-serif'
+      base: 'sans-serif'
     }
   },
   webpackConfig: webpackMerge(require('./webpack.config.js'), {

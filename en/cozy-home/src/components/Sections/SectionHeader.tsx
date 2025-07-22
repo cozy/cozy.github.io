@@ -10,12 +10,12 @@ import Icon from 'cozy-ui/transpiled/react/Icon'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
-import { actions } from 'components/Sections/SectionActions'
-import { computeGroupMode } from 'components/Sections/utils'
+import { actions } from '@/components/Sections/SectionActions'
+import { computeGroupMode } from '@/components/Sections/utils'
 import {
   GroupMode,
   SectionHeaderProps
-} from 'components/Sections/SectionsTypes'
+} from '@/components/Sections/SectionsTypes'
 
 export const SectionHeader = ({
   section,
@@ -31,14 +31,16 @@ export const SectionHeader = ({
   return (
     <>
       <div className="u-flex u-w-100 u-flex-justify-between u-flex-items-center">
-        {!isGroupMode ? (
+        {isGroupMode ? (
+          isCategory ? (
+            <div className="u-ellipsis">{t(`category.${section.name}`)}</div>
+          ) : (
+            <div className="u-ellipsis u-mr-half">{section?.name}</div>
+          )
+        ) : (
           <Divider className="u-mv-0 u-flex-grow-1" variant="subtitle2">
             {section?.name}
           </Divider>
-        ) : isCategory ? (
-          <div className="u-ellipsis">{t(`category.${section.name}`)}</div>
-        ) : (
-          <div className="u-ellipsis u-mr-half">{section?.name}</div>
         )}
 
         {!isCategory && section && (
@@ -59,6 +61,8 @@ export const SectionHeader = ({
       {section && (
         <CozyTheme>
           <ActionsMenu
+            /*
+            // @ts-expect-error ActionsMenu not correctly typed */
             actions={actions}
             anchorOrigin={{
               horizontal: 'right',

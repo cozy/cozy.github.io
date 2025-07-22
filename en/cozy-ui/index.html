@@ -3345,7 +3345,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../cozy-desktop/developer/coffeescript/" title="Cofeescript" class="md-nav__link">
+    <a href="../cozy-desktop/developer/coffeescript.md" title="Cofeescript" class="md-nav__link">
       Cofeescript
     </a>
   </li>
@@ -3689,6 +3689,13 @@ yarn start:doc <span class="c1"># Run the styleguide in watch mode</span>
 </pre></div>
 
 
+<p>You may need to start css as well:</p>
+<div class="codehilite"><pre><span></span>yarn start:css <span class="c1"># Create cozy-ui css</span>
+yarn start:css:utils <span class="c1"># Create cozy-ui utility css</span>
+</pre></div>
+
+
+<p>tips: If you are starting <code>js</code> and <code>css</code> to have full control, and you want to link results in an application, in addition to all your start process you need to launch <code>yarn build:js</code> each time you want to see your modification from cozy-ui inside your application.</p>
 <h3 id="add-a-component">Add a component<a class="headerlink" href="#add-a-component" title="Permanent link">&para;</a></h3>
 <p>If you want to add a new component, you must follow these steps:</p>
 <ul>
@@ -3778,12 +3785,31 @@ it pushes to test for what the user sees.</p>
 <p>Components in <code>cozy-ui</code> are showcased with <a href="https://react-styleguidist.js.org/">React Styleguidist</a>. To prevent UI regressions,
 for each PR, each component is screenshotted and compared to the master version to find any
 regression (thanks <a href="https://github.com/argos-ci/argos">Argos</a> !).</p>
-<p>If your app uses <a href="https://react-styleguidist.js.org/">React Styleguidist</a>, <code>cozy-ui</code> provides <code>rsg-screenshots</code>, a CLI tool to take
-screenshots of your components (uses Puppeteer under the hood).</p>
-<div class="codehilite"><pre><span></span>yarn add cozy-ui <span class="c1"># The rsg-screenshots binary is now installed</span>
-yarn makeSpriteAndPalette
-yarn build:doc:react <span class="c1"># Build our styleguide, the output directory is docs/react</span>
-rsg-screenshots --screenshot-dir screenshots/ --styleguide-dir docs/react <span class="c1"># Each component in the styleguide will be screenshotted and saved inside the screenshots/ directory</span>
+<p>Before launching commands, you may need to change <code>executablePath</code> in <code>scripts/screenshots/prepares.js</code> to <code>/Applications/Chrome.app/Contents/MacOS/Chrome</code> or <code>/Applications/Chromium.app/Contents/MacOS/Chromium</code> depends on your system.</p>
+<p>Then you have to install dependencies:</p>
+<div class="codehilite"><pre><span></span>yarn add puppeteer@<span class="s2">&quot;22.15.0&quot;</span> --dev --exact
+yarn build:all
+</pre></div>
+
+
+<p>Now you are ready to launch screnshots:</p>
+<div class="codehilite"><pre><span></span>mkdir -p ./screenshots
+yarn screenshots --mode react --viewport desktop --screenshot-dir ./screenshots/reactDesktop
+</pre></div>
+
+
+<p>You can also specify a component to screenshot by adding <code>--component NameOfTheComponent</code> and change viewport to mobile size:</p>
+<div class="codehilite"><pre><span></span>yarn screenshots --mode react --viewport 300x600 --screenshot-dir ./screenshots/reactDesktop --component Sidebar
+</pre></div>
+
+
+<p>It may be interesting to create pristine screenshots, and then create screenshots of your modified component and compare them locally:</p>
+<div class="codehilite"><pre><span></span>mkdir -p ./pristine_screenshots
+yarn screenshots --mode react --viewport desktop --screenshot-dir ./pristine_screenshots/reactDesktop --component Sidebar
+<span class="c1"># make modifications on Sidebar component</span>
+<span class="c1"># screenshot it as described before</span>
+mkdir -p ./diffs
+yarn screenshots:server
 </pre></div>
 
 

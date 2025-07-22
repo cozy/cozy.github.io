@@ -1482,6 +1482,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#fetchregistrationdetails" title="fetchRegistrationDetails" class="md-nav__link">
+    fetchRegistrationDetails
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#generateweblink" title="generateWebLink" class="md-nav__link">
     generateWebLink
   </a>
@@ -3589,7 +3596,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cozy-desktop/developer/coffeescript/" title="Cofeescript" class="md-nav__link">
+    <a href="../../../cozy-desktop/developer/coffeescript.md" title="Cofeescript" class="md-nav__link">
       Cofeescript
     </a>
   </li>
@@ -3890,6 +3897,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#fetchregistrationdetails" title="fetchRegistrationDetails" class="md-nav__link">
+    fetchRegistrationDetails
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#generateweblink" title="generateWebLink" class="md-nav__link">
     generateWebLink
   </a>
@@ -4131,6 +4145,7 @@
 <li><a href="classes/CozyClient/">CozyClient</a></li>
 <li><a href="classes/CozyLink/">CozyLink</a></li>
 <li><a href="classes/CozyProvider/">CozyProvider</a></li>
+<li><a href="classes/DataProxyLink/">DataProxyLink</a></li>
 <li><a href="classes/HasMany/">HasMany</a></li>
 <li><a href="classes/HasManyInPlace/">HasManyInPlace</a></li>
 <li><a href="classes/HasManyTriggers/">HasManyTriggers</a></li>
@@ -4173,7 +4188,15 @@
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
+<td align="left"><code>CREATE_DOCUMENTS</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
 <td align="left"><code>DELETE_DOCUMENT</code></td>
+<td align="left"><code>string</code></td>
+</tr>
+<tr>
+<td align="left"><code>DELETE_DOCUMENTS</code></td>
 <td align="left"><code>string</code></td>
 </tr>
 <tr>
@@ -4199,7 +4222,7 @@
 </tbody>
 </table>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/queries/dsl.js#L510">packages/cozy-client/src/queries/dsl.js:510</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/queries/dsl.js#L528">packages/cozy-client/src/queries/dsl.js:528</a></p>
 <hr />
 <h3 id="mutations">Mutations<a class="headerlink" href="#mutations" title="Permanent link">&para;</a></h3>
 <p>• <code>Const</code> <strong>Mutations</strong>: <code>Object</code></p>
@@ -4225,8 +4248,16 @@
 <td align="left">(<code>document</code>: <code>any</code>) =&gt; { <code>document</code>: <code>any</code> ; <code>mutationType</code>: <code>string</code> = MutationTypes.CREATE_DOCUMENT }</td>
 </tr>
 <tr>
+<td align="left"><code>createDocuments</code></td>
+<td align="left">(<code>documents</code>: <code>any</code>) =&gt; { <code>documents</code>: <code>any</code> ; <code>mutationType</code>: <code>string</code> = MutationTypes.CREATE_DOCUMENTS }</td>
+</tr>
+<tr>
 <td align="left"><code>deleteDocument</code></td>
 <td align="left">(<code>document</code>: <code>any</code>) =&gt; { <code>document</code>: <code>any</code> ; <code>mutationType</code>: <code>string</code> = MutationTypes.DELETE_DOCUMENT }</td>
+</tr>
+<tr>
+<td align="left"><code>deleteDocuments</code></td>
+<td align="left">(<code>documents</code>: <code>any</code>) =&gt; { <code>documents</code>: <code>any</code> ; <code>mutationType</code>: <code>string</code> = MutationTypes.DELETE_DOCUMENTS }</td>
 </tr>
 <tr>
 <td align="left"><code>removeReferencedBy</code></td>
@@ -4251,7 +4282,7 @@
 </tbody>
 </table>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/queries/dsl.js#L498">packages/cozy-client/src/queries/dsl.js:498</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/queries/dsl.js#L514">packages/cozy-client/src/queries/dsl.js:514</a></p>
 <hr />
 <h3 id="defaultperformanceapi">defaultPerformanceApi<a class="headerlink" href="#defaultperformanceapi" title="Permanent link">&para;</a></h3>
 <p>• <code>Const</code> <strong>defaultPerformanceApi</strong>: <code>PerformanceAPI</code></p>
@@ -4411,7 +4442,7 @@ query definitions.</p>
 <li>Promise with .cancel method</li>
 </ul>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/utils.js#L16">packages/cozy-client/src/utils.js:16</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/utils.js#L17">packages/cozy-client/src/utils.js:17</a></p>
 <hr />
 <h3 id="createfakeclient">createFakeClient<a class="headerlink" href="#createfakeclient" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>createFakeClient</strong>(<code>options?</code>): <a href="classes/CozyClient/"><code>CozyClient</code></a></p>
@@ -4738,6 +4769,69 @@ This can be useful for demo in documentation (e.g. storybook)</p>
 <p><em>Defined in</em></p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/helpers/urlHelper.js#L1">packages/cozy-client/src/helpers/urlHelper.js:1</a></p>
 <hr />
+<h3 id="fetchregistrationdetails">fetchRegistrationDetails<a class="headerlink" href="#fetchregistrationdetails" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>fetchRegistrationDetails</strong>(<code>url</code>): <code>Promise</code>&lt;<code>RegistrationDetails</code>&gt;</p>
+<p>registrationDetails - Get the root URL and prelogin info of a Cozy from more
+precise ones</p>
+<p>The goal is to allow users to use any URL copied from their browser as their
+Cozy URL rather than trying to explain to them what we expect (e.g. when
+requesting the Cozy URL to connect an app).
+If we can&rsquo;t get the root URL either because there&rsquo;s no Cozy or the domain
+does not exist or anything else, we&rsquo;ll throw an InvalidCozyUrlError.
+Also, since we communicate only via HTTP or HTTPS, we&rsquo;ll throw an
+InvalidProtocolError if any other protocol is used.</p>
+<p>This function expects a fully qualified URL thus with a protocol and a valid
+hostname. If your application accepts Cozy intances as input (e.g. <code>claude</code>
+when the Cozy can be found at <code>https://claude.mycozy.cloud</code>), it is your
+responsibility to add the appropriate domain to the hostname before calling
+this function.</p>
+<p>Examples:</p>
+<ol>
+<li>getting the root URL when your user gives you its instance name</li>
+</ol>
+<p>const userInput = &lsquo;claude&rsquo;
+const details = await fetchRegistrationDetails(new URL(<code>https://${userInput}.mycozy.cloud</code>))
+// → returns { rootUrl: new URL(&lsquo;https://claude.mycozy.cloud&rsquo;), isOIDC: false }</p>
+<ol start="2">
+<li>getting the root URL when your user gives you a Cozy Drive URL</li>
+</ol>
+<p>const userInput = &lsquo;https://claude-drive.mycozy.cloud/#/folder/io.cozy.files.root-dir&rsquo;
+const rootUrl = await fetchRegistrationDetails(new URL(userInput))
+// → returns { rootUrl: new URL(&lsquo;https://claude.mycozy.cloud&rsquo;), isOIDC: false }</p>
+<ol start="3">
+<li>getting the root URL when the Cozy uses nested sub-domains</li>
+</ol>
+<p>const userInput = &lsquo;http://photos.camille.nimbus.com:8080/#/album/1234567890&rsquo;
+const rootCozyUrl = await fetchRegistrationDetails(new URL(userInput))
+// → returns { rootUrl: new URL(&lsquo;http://camille.nimbus.com:8080&rsquo;), isOIDC: false }</p>
+<ol start="4">
+<li>getting the root URL when your user gives you an instance from OIDC partners</li>
+</ol>
+<p>const details = await fetchRegistrationDetails(new URL(<code>https://alice.someoidcpartener.com</code>))
+// → returns { rootUrl: new URL(&lsquo;https://alice.someoidcpartener.com&rsquo;), isOIDC: true }</p>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>url</code></td>
+<td align="left"><code>URL</code></td>
+<td align="left">The URL from which we&rsquo;ll try to get the root Cozy URL</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>Promise</code>&lt;<code>RegistrationDetails</code>&gt;</p>
+<p>The root Cozy URL</p>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/helpers/urlHelper.js#L394">packages/cozy-client/src/helpers/urlHelper.js:394</a></p>
+<hr />
 <h3 id="generateweblink">generateWebLink<a class="headerlink" href="#generateweblink" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>generateWebLink</strong>(<code>options</code>): <code>string</code></p>
 <p>generateWebLink - Construct a link to a web app</p>
@@ -4818,7 +4912,7 @@ example.</p>
 <p><em>Returns</em></p>
 <p><code>any</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/queries/dsl.js#L474">packages/cozy-client/src/queries/dsl.js:474</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/queries/dsl.js#L486">packages/cozy-client/src/queries/dsl.js:486</a></p>
 <hr />
 <h3 id="getqueryfromstate">getQueryFromState<a class="headerlink" href="#getqueryfromstate" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>getQueryFromState</strong>(<code>state</code>, <code>queryId</code>): <code>any</code></p>
@@ -4844,7 +4938,7 @@ example.</p>
 <p><em>Returns</em></p>
 <p><code>any</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/store/stateHelpers.js#L15">packages/cozy-client/src/store/stateHelpers.js:15</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/store/stateHelpers.js#L22">packages/cozy-client/src/store/stateHelpers.js:22</a></p>
 <hr />
 <h3 id="getreferencedby">getReferencedBy<a class="headerlink" href="#getreferencedby" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>getReferencedBy</strong>(<code>file</code>, <code>referencedBy</code>): <code>Reference</code>[]</p>
@@ -4934,7 +5028,7 @@ example.</p>
 <p><em>Returns</em></p>
 <p><code>boolean</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/utils.js#L66">packages/cozy-client/src/utils.js:66</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/utils.js#L67">packages/cozy-client/src/utils.js:67</a></p>
 <hr />
 <h3 id="hasquerybeenloaded">hasQueryBeenLoaded<a class="headerlink" href="#hasquerybeenloaded" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>hasQueryBeenLoaded</strong>(<code>col</code>): <code>any</code></p>
@@ -4957,7 +5051,7 @@ example.</p>
 <p><em>Returns</em></p>
 <p><code>any</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/utils.js#L50">packages/cozy-client/src/utils.js:50</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/utils.js#L51">packages/cozy-client/src/utils.js:51</a></p>
 <hr />
 <h3 id="isqueriesloading">isQueriesLoading<a class="headerlink" href="#isqueriesloading" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>isQueriesLoading</strong>(<code>queriesResults</code>): <code>boolean</code></p>
@@ -4980,7 +5074,7 @@ example.</p>
 <p><em>Returns</em></p>
 <p><code>boolean</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/utils.js#L57">packages/cozy-client/src/utils.js:57</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/utils.js#L58">packages/cozy-client/src/utils.js:58</a></p>
 <hr />
 <h3 id="isqueryloading">isQueryLoading<a class="headerlink" href="#isqueryloading" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>isQueryLoading</strong>(<code>col</code>): <code>boolean</code></p>
@@ -5004,7 +5098,7 @@ is loading.</p>
 <p><em>Returns</em></p>
 <p><code>boolean</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/utils.js#L39">packages/cozy-client/src/utils.js:39</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/utils.js#L40">packages/cozy-client/src/utils.js:40</a></p>
 <hr />
 <h3 id="isreferencedby">isReferencedBy<a class="headerlink" href="#isreferencedby" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>isReferencedBy</strong>(<code>file</code>, <code>referencedBy</code>): <code>boolean</code></p>
@@ -5188,7 +5282,7 @@ const rootCozyUrl = await rootCozyUrl(new URL(userInput))
 <p><code>Promise</code>&lt;<code>URL</code>&gt;</p>
 <p>The root Cozy URL</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/helpers/urlHelper.js#L268">packages/cozy-client/src/helpers/urlHelper.js:268</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/helpers/urlHelper.js#L280">packages/cozy-client/src/helpers/urlHelper.js:280</a></p>
 <hr />
 <h3 id="useapplinkwithstorefallback">useAppLinkWithStoreFallback<a class="headerlink" href="#useapplinkwithstorefallback" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>useAppLinkWithStoreFallback</strong>(<code>slug</code>, <code>client</code>, <code>path?</code>): <code>Object</code></p>
@@ -5382,7 +5476,7 @@ const rootCozyUrl = await rootCozyUrl(new URL(userInput))
 <p><em>Returns</em></p>
 <p><code>Object</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/hooks/useQuery.js#L93">packages/cozy-client/src/hooks/useQuery.js:93</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/hooks/useQuery.js#L95">packages/cozy-client/src/hooks/useQuery.js:95</a></p>
 <hr />
 <h3 id="usequery">useQuery<a class="headerlink" href="#usequery" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>useQuery</strong>(<code>queryDefinition</code>, <code>options</code>): <code>UseQueryReturnValue</code></p>
@@ -5412,7 +5506,7 @@ const rootCozyUrl = await rootCozyUrl(new URL(userInput))
 <p><em>Returns</em></p>
 <p><code>UseQueryReturnValue</code></p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/hooks/useQuery.js#L28">packages/cozy-client/src/hooks/useQuery.js:28</a></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/hooks/useQuery.js#L30">packages/cozy-client/src/hooks/useQuery.js:30</a></p>
 <hr />
 <h3 id="usequeryall">useQueryAll<a class="headerlink" href="#usequeryall" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>useQueryAll</strong>(<code>queryDefinition</code>, <code>options</code>): <code>UseQueryReturnValue</code></p>

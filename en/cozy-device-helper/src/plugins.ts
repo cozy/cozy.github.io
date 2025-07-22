@@ -23,5 +23,6 @@ export const hasSafariPlugin = (): Promise<boolean> => {
  * @returns {boolean}
  */
 export const hasNetworkInformationPlugin = (): boolean => {
+  // @ts-expect-error Don't bother, method that will be removed soon
   return isCordova() && window.navigator.connection !== undefined
 }

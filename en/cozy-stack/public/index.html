@@ -3264,7 +3264,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-desktop/developer/coffeescript/" title="Cofeescript" class="md-nav__link">
+    <a href="../../cozy-desktop/developer/coffeescript.md" title="Cofeescript" class="md-nav__link">
       Cofeescript
     </a>
   </li>
@@ -3472,10 +3472,18 @@
 chosen, a fallback will be used, depending of the <code>fallback</code> parameter in the
 query-string:</p>
 <ul>
-<li><code>default</code>: a default image that shows the Cozy Cloud logo, but it can be
-  overriden by dynamic assets per context</li>
-<li><code>initials</code>: a generated image with the initials of the owner&rsquo;s public name</li>
-<li><code>404</code>: just a 404 - Not found error.</li>
+<li><code>default</code> or no <code>fallback</code> parameter: a default image that shows the Cozy
+  Cloud logo, but it can be overriden by dynamic assets per context (always a png)</li>
+<li><code>404</code>: just a HTTP 404 - Not found error.</li>
+<li><code>anonymous</code>: a generic user icon without initials visible</li>
+<li><code>initials</code>: a generated image with the initials of
+  the owner&rsquo;s public name, with the following special arguments:<ul>
+<li><code>format=png</code>: request a PNG response, otherwise defaults to SVG</li>
+<li><code>fx=translucent</code>: if SVG, make the output partially transparent</li>
+<li><code>as=unconfirmed</code>: if SVG, make the output grayscale</li>
+<li><code>q=high</code>: if SVG, embed the required fonts in the file (otherwise use <code>&lt;inline&gt;</code>)</li>
+</ul>
+</li>
 </ul>
 <h2 id="prelogin">Prelogin<a class="headerlink" href="#prelogin" title="Permanent link">&para;</a></h2>
 <h3 id="get-publicprelogin">GET /public/prelogin<a class="headerlink" href="#get-publicprelogin" title="Permanent link">&para;</a></h3>

@@ -3198,7 +3198,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../developer/coffeescript/" title="Cofeescript" class="md-nav__link">
+    <a href="../../developer/coffeescript.md" title="Cofeescript" class="md-nav__link">
       Cofeescript
     </a>
   </li>
@@ -3338,32 +3338,28 @@
                   <h1>Limitations</h1>
                 
                 <h2 id="limitations">Limitations<a class="headerlink" href="#limitations" title="Permanent link">&para;</a></h2>
-<p>Cozy-desktop is designed to synchronize files and folders between a remote
-cozy instance and a local hard drive, for a personal usage. We tried to make
-it simple and easy. So, it has some limitations:</p>
+<p>Twake Desktop is designed to synchronize files and folders between a Twake
+Workplace and a local hard drive, for a personal usage. We tried to make it
+simple and easy. So, it has some limitations:</p>
 <ul>
 <li>Files and folders named like this are ignored:</li>
-<li><code>.system-tmp-cozy-drive</code> (they are used to keep internal state)</li>
+<li><code>.system-tmp-twake-desktop</code> (they are used to keep internal state)</li>
 <li>
 <p><code>_design</code> (special meaning for pouchdb/couchdb)</p>
 </li>
 <li>
-<p>It&rsquo;s not a particularly good idea to share code with cozy-desktop:</p>
+<p>It&rsquo;s not a particularly good idea to share code with Twake Desktop:</p>
 </li>
 <li><code>node_modules</code> have tons of small files</li>
 <li>compiled code often has to be recompile to works on another environment</li>
-<li>git (and other VCS) repositories are not meant to be shared this way.
-    You may lose your work if you make changes on two laptops synchronized
-    by cozy-desktop (it&rsquo;s the same with <a href="https://github.com/anishathalye/git-remote-dropbox#faq">dropbox</a>, <a href="https://stackoverflow.com/questions/31984751/google-drive-can-corrupt-repositories-in-github-desktop">google-drive</a>,
-    <a href="https://forum.syncthing.net/t/is-putting-a-git-workspace-in-a-synced-folder-really-a-good-idea/1774">syncthing</a>, etc.)</li>
 <li>
-<p><code>cozy-desktop</code> keeps the time with only a precision of a second, which may
-    trigger unexpected &ldquo;file changed&rdquo; notifications in your editor (see
-    <a href="https://github.com/cozy-labs/cozy-desktop/issues/446">emacs issue</a> and
-    <a href="https://github.com/cozy-labs/cozy-desktop/issues/446#issuecomment-262239629">workaround</a>).</p>
+<p>git (and other VCS) repositories are not meant to be shared this way.
+    You may lose your work if you make changes on two laptops synchronized
+    by Twake Desktop (it&rsquo;s the same with <a href="https://github.com/anishathalye/git-remote-dropbox#faq">dropbox</a>, <a href="https://stackoverflow.com/questions/31984751/google-drive-can-corrupt-repositories-in-github-desktop">google-drive</a>,
+    <a href="https://forum.syncthing.net/t/is-putting-a-git-workspace-in-a-synced-folder-really-a-good-idea/1774">syncthing</a>, etc.)</p>
 </li>
 <li>
-<p>If the same file has been modified in parallel, cozy-desktop don&rsquo;t try to
+<p>If the same file has been modified in parallel, Twake Desktop don&rsquo;t try to
   merge the modifications. It will just rename of one the copies with a
   <code>-conflict</code> suffix. It&rsquo;s the same for folders.</p>
 </li>
@@ -3394,16 +3390,16 @@ it simple and easy. So, it has some limitations:</p>
   download/upload).</p>
 </li>
 <li>
-<p>Due to its nature, cozy-desktop needs resources:</p>
+<p>Due to its nature, Twake Desktop needs resources:</p>
 </li>
 <li>CPU, for checksums in particular</li>
 <li>RAM, to keep all the metadata in memory, and for nodejs libraries</li>
-<li>Disk, but the overhead from cozy-desktop is low</li>
+<li>Disk, but the overhead from Twake Desktop is low</li>
 <li>
 <p>Network bandwidth obviously</p>
 </li>
 <li>
-<p>No advanced feature, like P2P replication between several cozy-desktop
+<p>No advanced feature, like P2P replication between several Twake Desktop
   instances.</p>
 </li>
 </ul>

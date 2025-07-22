@@ -2,17 +2,18 @@ import React, { memo } from 'react'
 import memoize from 'lodash/memoize'
 import uniqBy from 'lodash/uniqBy'
 import { useQuery } from 'cozy-client'
+import { sortApplicationsList } from 'cozy-client/dist/models/applications'
 import flag from 'cozy-flags'
-import Divider from 'cozy-ui/transpiled/react/Divider'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import cx from 'classnames'
 
-import AppTile from 'components/AppTile'
-import LogoutTile from 'components/LogoutTile'
-import ShortcutLink from 'components/ShortcutLink'
-import LoadingPlaceholder from 'components/LoadingPlaceholder'
-import AppHighlightAlertWrapper from 'components/AppHighlightAlert/AppHighlightAlertWrapper'
-import homeConfig from 'config/home.json'
-import { appsConn, mkHomeMagicFolderConn, mkHomeShorcutsConn } from 'queries'
+import AppTile from '@/components/AppTile'
+import LogoutTile from '@/components/LogoutTile'
+import ShortcutLink from '@/components/ShortcutLink'
+import LoadingPlaceholder from '@/components/LoadingPlaceholder'
+import AppHighlightAlertWrapper from '@/components/AppHighlightAlert/AppHighlightAlertWrapper'
+import homeConfig from '@/config/home.json'
+import { appsConn, mkHomeMagicFolderConn, mkHomeShorcutsConn } from '@/queries'
 
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 
@@ -41,14 +42,22 @@ const isValidData = memoize(data => Array.isArray(data) && data.length > 0)
 const getApplicationsList = data => {
   if (isValidData(data)) {
     const hiddenApps = flag('apps.hidden') || []
+    const hiddenHomeApps = flag('apps.hidden-in-home') || []
+
     const apps = data.filter(
       app =>
         app.state !== 'hidden' &&
         !homeConfig.filteredApps.includes(app.slug) &&
-        !hiddenApps.includes(app.slug.toLowerCase())
+        !hiddenApps.includes(app.slug.toLowerCase()) &&
+        !hiddenHomeApps.includes(app.slug.toLowerCase())
     )
     const dedupapps = uniqBy(apps, 'slug')
-    const appList = dedupapps.map(app => <AppTile key={app.id} app={app} />)
+
+    const sortedApps = flag('apps.sort')
+      ? sortApplicationsList(dedupapps, flag('apps.sort'))
+      : dedupapps
+
+    const appList = sortedApps.map(app => <AppTile key={app.id} app={app} />)
 
     appList.push(
       <AppHighlightAlertWrapper key="AppHighlightAlertWrapper" apps={apps} />
@@ -60,8 +69,7 @@ const getApplicationsList = data => {
   }
 }
 
-export const Applications = () => {
-  const showLogout = !!flag('home.mainlist.show-logout')
+export const useApps = () => {
   const { t } = useI18n()
 
   const { data: apps } = useQuery(appsConn.query, appsConn)
@@ -80,12 +88,25 @@ export const Applications = () => {
     enabled: !!magicHomeFolderId
   })
 
+  return {
+    appsComponents: getApplicationsList(apps),
+    apps,
+    shortcuts
+  }
+}
+
+export const Applications = () => {
+  const showLogout = !!flag('home.mainlist.show-logout')
+  const { appsComponents, shortcuts } = useApps()
+
   return (
     <div className="app-list-wrapper u-m-auto u-w-100">
-      <Divider className="u-mv-0" />
-
-      <div className="app-list u-w-100 u-mv-3 u-mt-2-t u-mb-1-t u-mh-auto u-flex-justify-center">
-        {getApplicationsList(apps)}
+      <div
+        className={cx(
+          'app-list u-w-100 u-mh-auto u-flex-justify-center app-list--gutter'
+        )}
+      >
+        {appsComponents}
 
         {shortcuts &&
           shortcuts.map((shortcut, index) => (

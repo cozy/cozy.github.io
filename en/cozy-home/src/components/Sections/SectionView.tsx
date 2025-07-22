@@ -6,19 +6,18 @@ import type { IOCozyKonnector } from 'cozy-client/types/types'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 
-import AddServiceTile from 'components/AddServiceTile'
-import KonnectorTile from 'components/KonnectorTile'
-import { SectionHeader } from 'components/Sections/SectionHeader'
-import { ShortcutLink } from 'components/ShortcutLink'
-import { computeDisplayMode, computeGroupMode } from 'components/Sections/utils'
+import AddServiceTile from '@/components/AddServiceTile'
+import KonnectorTile from '@/components/KonnectorTile'
+import { SectionHeader } from '@/components/Sections/SectionHeader'
+import { ShortcutLink } from '@/components/ShortcutLink'
+import { computeDisplayMode, computeGroupMode } from '@/components/Sections/utils'
 import {
   DisplayMode,
   GroupMode,
   SectionViewProps
-} from 'components/Sections/SectionsTypes'
+} from '@/components/Sections/SectionsTypes'
 import { useSections } from './SectionsContext'
-import CandidateServiceTile from 'components/CandidateServiceTile'
-import { makeTriggersWithJobStatusQuery } from 'queries'
+import { makeTriggersWithJobStatusQuery } from '@/queries'
 
 export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {
   const { isMobile } = useBreakpoints()
@@ -38,7 +37,7 @@ export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {
   return (
     <div
       className={cx(
-        'shortcuts-list u-w-100',
+        'shortcuts-list shortcuts-list--gutter u-w-100',
         {
           'u-mv-3 u-mv-2-t u-mh-auto u-flex-justify-center': !isGroupMode
         },
@@ -46,9 +45,7 @@ export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {
       )}
     >
       {(section.items as IOCozyKonnector[]).map((item, index) => {
-        if (item._type === 'io.cozy.apps.suggestions') {
-          return <CandidateServiceTile key={item.slug} konnector={item} />
-        } else if (item.type === 'konnector') {
+        if (item.type === 'konnector') {
           return (
             <KonnectorTile
               shouldOpenStore={shouldOpenStoreModal}

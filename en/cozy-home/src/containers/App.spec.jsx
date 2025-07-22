@@ -2,8 +2,8 @@ import React from 'react'
 import { isFlagshipApp } from 'cozy-device-helper'
 import { render } from '@testing-library/react'
 import App from '../components/AnimatedWrapper'
-import AppLike from 'test/AppLike'
-import { WallPaperProvider } from 'hooks/useWallpaperContext'
+import AppLike from '@/test/AppLike'
+import { WallPaperProvider } from '@/hooks/useWallpaperContext'
 import { act } from 'react-dom/test-utils'
 import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
@@ -11,12 +11,17 @@ import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 jest.mock('components/HeroHeader', () => () => <div data-testid="HeroHeader" />)
 
 jest.mock('cozy-device-helper', () => ({
+  ...jest.requireActual('cozy-device-helper'),
   isFlagshipApp: jest.fn(),
   getFlagshipMetadata: jest.fn().mockReturnValue({
     immersive: jest.fn()
   }),
   isAndroidApp: jest.fn(),
   isIOS: jest.fn()
+}))
+
+jest.mock('cozy-bar', () => ({
+  BarComponent: () => <div data-testid="BarComponent" />
 }))
 
 jest.mock('cozy-harvest-lib', () => ({

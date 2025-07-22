@@ -1,5 +1,6 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const webpack = require('webpack')
+
 const { isUsingDevStyleguidist } = require('../scripts/build-utils')
 
 module.exports = {
@@ -7,10 +8,15 @@ module.exports = {
     alias: {
       docs: __dirname
     },
-    extensions: ['.jsx', '.js', '.json', '.styl', '.ts', '.tsx']
+    extensions: ['.jsx', '.js', '.mjs', '.json', '.styl', '.ts', '.tsx']
   },
   module: {
     rules: [
+      {
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: 'javascript/auto'
+      },
       {
         test: /\.(js|jsx|ts|tsx)$/,
         exclude: /node_modules/,

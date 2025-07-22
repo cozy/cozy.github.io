@@ -3,15 +3,6 @@ import React from 'react'
 
 import log from 'cozy-logger'
 
-// installed by cozy-scripts
-require('@babel/polyfill')
-
-// polyfill for requestAnimationFrame
-/* istanbul ignore next */
-global.requestAnimationFrame = cb => {
-  setTimeout(cb, 0)
-}
-
 log.setLevel('error')
 
 // eslint-disable-next-line no-console
@@ -31,7 +22,10 @@ console.warn = function (msg, msg2) {
 }
 
 jest.mock('cozy-dataproxy-lib', () => ({
-  DataProxyProvider: ({ children }) => children,
+  DataProxyProvider: ({ children }) => children
+}))
+
+jest.mock('cozy-search', () => ({
   SearchDialog: () => <div>SearchDialog</div>,
   AssistantDialog: () => <div>AssistantDialog</div>,
   AssistantDesktop: () => <div>AssistantDesktop</div>,

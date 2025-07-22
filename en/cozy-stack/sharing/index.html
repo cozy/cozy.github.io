@@ -4194,7 +4194,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cozy-desktop/developer/coffeescript/" title="Cofeescript" class="md-nav__link">
+    <a href="../../cozy-desktop/developer/coffeescript.md" title="Cofeescript" class="md-nav__link">
       Cofeescript
     </a>
   </li>
@@ -5754,9 +5754,13 @@ members, as well as the already shared documents for this sharing.</p>
 <h3 id="get-sharingsdoctypedoctype">GET /sharings/doctype/:doctype<a class="headerlink" href="#get-sharingsdoctypedoctype" title="Permanent link">&para;</a></h3>
 <p>Get information about all the sharings that have a rule for the given doctype.
 This includes the content of the rules, the members, as well as the already
-shared documents for this sharing.</p>
+shared documents for this sharing.
+A <code>shared_docs</code> query parameter is supported to control whether or not the
+shared docs should be included in the response. Default is true.
+This can be costful in case of large sharings, so it can be a good idea to set
+it to false for performances. </p>
 <h4 id="request_4">Request<a class="headerlink" href="#request_4" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/sharings/doctype/io.cozy.files</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="codehilite"><pre><span></span><span class="nf">GET</span> <span class="nn">/sharings/doctype/io.cozy.files?shared_docs=true</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.net</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </pre></div>

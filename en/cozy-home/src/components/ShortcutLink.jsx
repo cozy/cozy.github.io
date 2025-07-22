@@ -2,30 +2,21 @@ import React from 'react'
 import get from 'lodash/get'
 
 import { useClient, useFetchShortcut } from 'cozy-client'
-import { CozyFile } from 'cozy-doctypes'
 import flag from 'cozy-flags'
+import { splitFilename } from 'cozy-client/dist/models/file'
 
 import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
 import Link from 'cozy-ui/transpiled/react/Link'
-import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
-export const ShortcutLink = ({
-  display = 'compact',
-  file,
-  desktopSize = 44,
-  ...props
-}) => {
+export const ShortcutLink = ({ display = 'compact', file, ...props }) => {
   const client = useClient()
-  // We only need this call to useFetchShortcut in order to
-  // get the URL of the shortcut. For the rest of the information
-  // like the icon or iconType, we already have the informations
-  // within the file. So let's use these informations instead of
-  // waiting an http request to resolve.
-  const { shortcutInfos } = useFetchShortcut(client, file._id)
-  const { isMobile } = useBreakpoints()
+  const { shortcutInfos, shortcutImg, fetchStatus } = useFetchShortcut(
+    client,
+    file._id
+  )
+  const isLoading = fetchStatus === 'loading'
 
-  const computedSize = isMobile ? 32 : desktopSize
-  const { filename } = CozyFile.splitFilename(file)
+  const { filename } = splitFilename(file)
   const url = get(shortcutInfos, 'data.url', '#')
 
   /**
@@ -45,31 +36,41 @@ export const ShortcutLink = ({
       className="scale-hover"
       {...props}
     >
-      {icon ? (
+      {icon || shortcutImg ? (
         <SquareAppIcon
           name={filename}
           variant="shortcut"
           display={display}
           description={description}
           IconContent={
-            <img
-              src={
-                iconMimeType
-                  ? `data:${iconMimeType};base64,${icon}`
-                  : `data:image/svg+xml;base64,${window.btoa(icon)}`
-              }
-              width={computedSize}
-              height={computedSize}
-              alt={filename}
-            />
+            <div className="u-w-2 u-h-2">
+              {icon ? (
+                <img
+                  src={
+                    iconMimeType
+                      ? `data:${iconMimeType};base64,${icon}`
+                      : `data:image/svg+xml;base64,${window.btoa(icon)}`
+                  }
+                  alt={filename}
+                />
+              ) : (
+                <img
+                  className="u-bdrs-5"
+                  src={shortcutImg}
+                  width={32}
+                  height={32}
+                />
+              )}
+            </div>
           }
           hideShortcutBadge={flag('home.hide-shortcut-badge')}
         />
       ) : (
         <SquareAppIcon
           name={filename}
-          variant="shortcut"
+          variant={isLoading ? 'loading' : 'shortcut'}
           display={display}
+          IconContent={isLoading ? null : undefined}
           description={description}
           hideShortcutBadge={flag('home.hide-shortcut-badge')}
         />
