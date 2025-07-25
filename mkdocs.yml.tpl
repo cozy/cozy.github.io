@@ -22,6 +22,16 @@ nav:
     - Scrape data: tutorials/konnector/scrape-data.md
     - Save data: tutorials/konnector/save-data.md
     - Package your connector: tutorials/konnector/packaging.md
+  - Develop a Client-Side Connector:
+    - Introduction: tutorials/client-side-konnector/index.md
+    - Installation: tutorials/client-side-konnector/installation.md
+    - CliSK Creation: tutorials/client-side-konnector/clisk-creation.md
+    - Library Documentation: tutorials/client-side-konnector/clisk-lib-doc.md
+    - Troubleshooting: tutorials/client-side-konnector/troubleshooting.md
+    - Best Practice: tutorials/client-side-konnector/best-practice.md
+    - Contributions: tutorials/client-side-konnector/contributions.md
+    - Community: tutorials/client-side-konnector/community.md
+    - Additional Ressources: tutorials/client-side-konnector/additional-ressources.md
   - Manipulate data:
     - Introduction: tutorials/data/index.md
     - Queries: tutorials/data/queries.md
