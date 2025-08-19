@@ -7,8 +7,8 @@ Here you will find the instruction to setup the development environnement of a C
 To be able to make your first CliSK you will need on your machine :
 
 - A [cozy-stack](https://github.com/cozy/cozy-stack) , installed following the documentation
-- The [Twake App](https://github.com/cozy/cozy-flagship-app/) repo ready
-- An emulator or an external device - To run the Twake App
+- The [Twake mobile App](https://github.com/cozy/cozy-flagship-app/) repo ready
+- An emulator or an external device - To run the Twake mobile App
 - Chromium - To access the inspecting tool for your device on `chrome://inspect/#devices`
 - NodeJS 20 (or above)
 - Yarn 1 (or above)
@@ -35,9 +35,9 @@ There is nothing specific to do before using `nip.io` so you can simply run the 
 
 With that done you can connect to it on your browser just to check everything went well.
 
-Now open a terminal on the Twake App repo and connect your device to the PC if you are using an external one.
+Now open a terminal on the Twake mobile App repo and connect your device to the PC if you are using an external one.
 
-For you to connect on your instance via your emulated device or external device, you will need a MailHog server up and running to get the verification code, but you should have installed it when you followed the [cozy-stack doc](https://github.com/cozy/cozy-stack/blob/master/docs/INSTALL.md) for the Twake App, so start the server in another terminal with :
+For you to connect on your instance via your emulated device or external device, you will need a MailHog server up and running to get the verification code, but you should have installed it when you followed the [cozy-stack doc](https://github.com/cozy/cozy-stack/blob/master/docs/INSTALL.md) for the Twake mobile App, so start the server in another terminal with :
 
 ```bash
 MailHog
@@ -45,7 +45,7 @@ MailHog
 
 Once the server is up, you can go to `http://cozy.tools:8025/` on your browser.
 
-In the Twake App repo start the native server :
+In the Twake mobile App repo start the native server :
 
 ```bash
 # Download Dependencies
@@ -55,7 +55,7 @@ $ yarn
 $ yarn start # (must be started for the following commands)
 ```
 
-In a second tab still on the Twake App, launch on device :
+In a second tab still on the Twake mobile App, launch on device :
 
 ```bash
 # Run on Android Device
@@ -86,7 +86,7 @@ To be able to see the webview during the execution of a CliSK, you will need to 
 cozy-stack features flags '{"clisk.always-show-worker": true}' --domain [INSTANCE-NAME].[YOUR-LOCAL-IP].nip.io:8080
 ```
 
-⚠️ _You may have to restart the Twake App for the flag to be updated_
+⚠️ _You may have to restart the Twake mobile App for the flag to be updated_
 
 If you want to test your konnector having the "user experience" (no visible webview during execution) just set the value of the flag to `false` .
 
