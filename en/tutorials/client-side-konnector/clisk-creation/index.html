@@ -530,67 +530,6 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction-to-client-side-konnectors-clisk" title="Introduction to Client-Side Konnectors (CliSK)" class="md-nav__link">
-    Introduction to Client-Side Konnectors (CliSK)
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#clisk-architecture" title="CliSK architecture" class="md-nav__link">
-    CliSK architecture
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#how-does-it-work" title="How does it work ?" class="md-nav__link">
-    How does it work ?
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pilot" title="Pilot" class="md-nav__link">
-    Pilot
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#worker" title="Worker" class="md-nav__link">
-    Worker
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#store" title="Store" class="md-nav__link">
-    Store
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#library" title="Library" class="md-nav__link">
-    Library
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#creating-a-clisk-for-bookstoscrapecom" title="Creating a CliSK for "books.toscrape.com"" class="md-nav__link">
     Creating a CliSK for "books.toscrape.com"
   </a>
@@ -3596,67 +3535,6 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction-to-client-side-konnectors-clisk" title="Introduction to Client-Side Konnectors (CliSK)" class="md-nav__link">
-    Introduction to Client-Side Konnectors (CliSK)
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#clisk-architecture" title="CliSK architecture" class="md-nav__link">
-    CliSK architecture
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#how-does-it-work" title="How does it work ?" class="md-nav__link">
-    How does it work ?
-  </a>
-  
-    <nav class="md-nav">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pilot" title="Pilot" class="md-nav__link">
-    Pilot
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#worker" title="Worker" class="md-nav__link">
-    Worker
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#store" title="Store" class="md-nav__link">
-    Store
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#library" title="Library" class="md-nav__link">
-    Library
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#creating-a-clisk-for-bookstoscrapecom" title="Creating a CliSK for "books.toscrape.com"" class="md-nav__link">
     Creating a CliSK for "books.toscrape.com"
   </a>
@@ -3773,26 +3651,6 @@
                 
                 <h1 id="clisk-creation">CliSK Creation<a class="headerlink" href="#clisk-creation" title="Permanent link">&para;</a></h1>
 <p>In this section you will learn how to develop your own konnector from the <a href="https://github.com/konnectors/template_ccc">CliSK template</a>.</p>
-<h3 id="introduction-to-client-side-konnectors-clisk">Introduction to Client-Side Konnectors (CliSK)<a class="headerlink" href="#introduction-to-client-side-konnectors-clisk" title="Permanent link">&para;</a></h3>
-<p>A CliSK is a type of konnector using a webview to simulate a browser into the Twake App. It&rsquo;s allowing the developer to interact directly on the website via a script or by giving back the control to the user when needed. Very useful to bypass bot detection by inducing a real human interaction on the website on sensible phases such as login, 2FA or any type of captcha.</p>
-<h3 id="clisk-architecture">CliSK architecture<a class="headerlink" href="#clisk-architecture" title="Permanent link">&para;</a></h3>
-<h5 id="how-does-it-work">How does it work ?<a class="headerlink" href="#how-does-it-work" title="Permanent link">&para;</a></h5>
-<p>The CliSK contains two webviews.</p>
-<ul>
-<li>One called <code>pilot</code></li>
-<li>Second called <code>worker</code>
-  We will use those names during the tutorial, as it is part of mandatory understanding to make your konnector.</li>
-</ul>
-<h6 id="pilot">Pilot<a class="headerlink" href="#pilot" title="Permanent link">&para;</a></h6>
-<p>The <code>pilot</code> webview is here to ensure the communication between the worker (navigating the web) and the Twake App. It &ldquo;pilots&rdquo; (clever, right ?) the worker&rsquo;s actions and gives back the result to the Twake App. It also keeps the state of the konnector execution.</p>
-<h6 id="worker">Worker<a class="headerlink" href="#worker" title="Permanent link">&para;</a></h6>
-<p>The <code>worker</code> webview is like a very simple browser. It will navigate, interact, fill, scrap, intercept requests &hellip; Pretty much the big part of the execution. It will return everything to the <code>pilot</code> in the end. That&rsquo;s the one you will be seeing when developing your konnector.</p>
-<h6 id="store">Store<a class="headerlink" href="#store" title="Permanent link">&para;</a></h6>
-<p>It allows the developer to store data if needed like request&rsquo;s responses with interesting data, or scraped data that will be useful further down the execution</p>
-<h6 id="library">Library<a class="headerlink" href="#library" title="Permanent link">&para;</a></h6>
-<p>The used library for CliSK development is the <a href="https://github.com/konnectors/libs/tree/master/packages/cozy-clisk">cozy-clisk</a> library.
-We will cover it all in a <a href="../clisk-lib-doc/">dedicated documentation</a></p>
-<hr />
 <h3 id="creating-a-clisk-for-bookstoscrapecom">Creating a CliSK for &ldquo;books.toscrape.com&rdquo;<a class="headerlink" href="#creating-a-clisk-for-bookstoscrapecom" title="Permanent link">&para;</a></h3>
 <h4 id="creating-your-own-clisk">Creating your own CliSK<a class="headerlink" href="#creating-your-own-clisk" title="Permanent link">&para;</a></h4>
 <p>If you want to develop a konnector from scratch, you will need to get the <a href="https://github.com/konnectors/template_ccc">CliSK template</a> on your machine.
@@ -3890,8 +3748,8 @@ Copy the template&rsquo;s file to a new directory named after the service you wa
 <li><code>getUserDataFromWebsite</code></li>
 <li><code>fetch</code></li>
 </ul>
-<p>Those will be the minimum mandatory functions launch by the Twake App to execute your code.</p>
-<p>⚠️ Note : You won&rsquo;t need to call them explicitly anywhere in the code as the Twake App call them itself. However you will <em>need</em> to override them to fit the wanted flow for the targeted website.</p>
+<p>Those will be the minimum mandatory functions launch by the Twake mobile App to execute your code.</p>
+<p>⚠️ Note : You won&rsquo;t need to call them explicitly anywhere in the code as the Twake mobile App call them itself. However you will <em>need</em> to override them to fit the wanted flow for the targeted website.</p>
 <p>When done, your Class in <code>src/index.js</code> file should look like this :</p>
 <div class="codehilite"><pre><span></span><span class="kr">class</span> <span class="nx">BookToScrapeContentScript</span> <span class="kr">extends</span> <span class="nx">ContentScript</span> <span class="p">{</span>
   <span class="nx">onWorkerReady</span><span class="p">()</span> <span class="p">{}</span>

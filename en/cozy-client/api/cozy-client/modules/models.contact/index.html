@@ -3450,6 +3450,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#cleanformattedaddress" title="cleanFormattedAddress" class="md-nav__link">
+    cleanFormattedAddress
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#getdefaultsortindexvalue" title="getDefaultSortIndexValue" class="md-nav__link">
     getDefaultSortIndexValue
   </a>
@@ -3459,6 +3466,13 @@
           <li class="md-nav__item">
   <a href="#getdisplayname" title="getDisplayName" class="md-nav__link">
     getDisplayName
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#getformattedaddress" title="getFormattedAddress" class="md-nav__link">
+    getFormattedAddress
   </a>
   
 </li>
@@ -3554,6 +3568,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#updateindexfullnameanddisplayname" title="updateIndexFullNameAndDisplayName" class="md-nav__link">
+    updateIndexFullNameAndDisplayName
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3592,6 +3613,31 @@
 <p><em>Defined in</em></p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/contact.js#L6">packages/cozy-client/src/models/contact.js:6</a></p>
 <h2 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h2>
+<h3 id="cleanformattedaddress">cleanFormattedAddress<a class="headerlink" href="#cleanformattedaddress" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>cleanFormattedAddress</strong>(<code>formattedAddress</code>): <code>string</code></p>
+<p>Removed unwanted characters on contact&rsquo;s formatted address</p>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>formattedAddress</code></td>
+<td align="left"><code>string</code></td>
+<td align="left">The contact&rsquo;s formatted address</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>string</code></p>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/contact.js#L257">packages/cozy-client/src/models/contact.js:257</a></p>
+<hr />
 <h3 id="getdefaultsortindexvalue">getDefaultSortIndexValue<a class="headerlink" href="#getdefaultsortindexvalue" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>getDefaultSortIndexValue</strong>(<code>contact</code>): <code>string</code></p>
 <p>Returns &lsquo;byFamilyNameGivenNameEmailCozyUrl&rsquo; index of a contact</p>
@@ -3647,6 +3693,39 @@
 </ul>
 <p><em>Defined in</em></p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/contact.js#L176">packages/cozy-client/src/models/contact.js:176</a></p>
+<hr />
+<h3 id="getformattedaddress">getFormattedAddress<a class="headerlink" href="#getformattedaddress" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>getFormattedAddress</strong>(<code>address</code>, <code>t</code>): <code>string</code></p>
+<p>Returns the contact&rsquo;s formatted address</p>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>address</code></td>
+<td align="left"><code>any</code></td>
+<td align="left">A contact address</td>
+</tr>
+<tr>
+<td align="left"><code>t</code></td>
+<td align="left"><code>Function</code></td>
+<td align="left">Translate function</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>string</code></p>
+<ul>
+<li>The contact&rsquo;s formatted address</li>
+</ul>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/contact.js#L292">packages/cozy-client/src/models/contact.js:292</a></p>
 <hr />
 <h3 id="getfullname">getFullname<a class="headerlink" href="#getfullname" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>getFullname</strong>(<code>contact</code>): <code>string</code></p>
@@ -4041,6 +4120,32 @@
 </ul>
 <p><em>Defined in</em></p>
 <p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/contact.js#L117">packages/cozy-client/src/models/contact.js:117</a></p>
+<hr />
+<h3 id="updateindexfullnameanddisplayname">updateIndexFullNameAndDisplayName<a class="headerlink" href="#updateindexfullnameanddisplayname" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>updateIndexFullNameAndDisplayName</strong>(<code>contact</code>): <code>any</code></p>
+<p>Update fullname, displayName and Index values of a contact</p>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>contact</code></td>
+<td align="left"><code>any</code></td>
+<td align="left">an io.cozy.contact document</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>any</code></p>
+<p>an io.cozy.contact document</p>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/cozy/cozy-client/blob/master/packages/cozy-client/src/models/contact.js#L315">packages/cozy-client/src/models/contact.js:315</a></p>
                 
                   
                 

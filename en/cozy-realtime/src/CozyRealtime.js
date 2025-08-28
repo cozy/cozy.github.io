@@ -57,7 +57,6 @@ class CozyRealtime {
    * If not online, the connection will take place when receiving
    * the `online` event.
    * @see onOnline()
-   * @private
    */
   start() {
     if (!this.isStarted) {
@@ -74,7 +73,6 @@ class CozyRealtime {
   /**
    * Creates and attach a WebSocket to the current instance
    *
-   * @private
    * @returns {WebSocket} the created websocket
    */
   createSocket() {
@@ -101,7 +99,6 @@ class CozyRealtime {
 
   /**
    * Connects a new websocket as soon as possible
-   * @private
    */
   async connect({ immediate = false } = {}) {
     this.logger.info('connecting…')
@@ -123,16 +120,16 @@ class CozyRealtime {
 
   /**
    * Throws the previous socket and connect a new one
-   * @private
    */
   async reconnect({ immediate = false } = {}) {
-    if (this.hasWebSocket()) this.revokeWebSocket()
+    if (this.hasWebSocket()) {
+      this.revokeWebSocket()
+    }
     this.connect({ immediate })
   }
 
   /**
    * Removes all handlers on a websocket to avoid callbacks from an old rejected socket
-   * @private
    */
   revokeWebSocket() {
     this.emit('disconnected')
@@ -163,7 +160,6 @@ class CozyRealtime {
 
   /**
    * Closes the Realtime
-   * @private
    */
   stop() {
     if (this.isStarted) {

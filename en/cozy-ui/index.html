@@ -3920,11 +3920,15 @@ regression (thanks <a href="https://github.com/argos-ci/argos">Argos</a> !).</p>
 <p>Before launching commands, you may need to change <code>executablePath</code> in <code>scripts/screenshots/prepares.js</code> to <code>/Applications/Chrome.app/Contents/MacOS/Chrome</code> or <code>/Applications/Chromium.app/Contents/MacOS/Chromium</code> depends on your system.</p>
 <p>Then you have to install dependencies:</p>
 <div class="codehilite"><pre><span></span>yarn add puppeteer@<span class="s2">&quot;22.15.0&quot;</span> --dev --exact
-yarn build:all
 </pre></div>
 
 
-<p>Now you are ready to launch screnshots:</p>
+<p>Before creating any screenshots, make sure you have built everything:</p>
+<div class="codehilite"><pre><span></span>yarn build:all
+</pre></div>
+
+
+<p>Now you are ready to create screenshots:</p>
 <div class="codehilite"><pre><span></span>mkdir -p ./screenshots
 yarn screenshots --mode react --viewport desktop --screenshot-dir ./screenshots/reactDesktop
 </pre></div>
@@ -3939,7 +3943,8 @@ yarn screenshots --mode react --viewport desktop --screenshot-dir ./screenshots/
 <div class="codehilite"><pre><span></span>mkdir -p ./pristine_screenshots
 yarn screenshots --mode react --viewport desktop --screenshot-dir ./pristine_screenshots/reactDesktop --component Sidebar
 <span class="c1"># make modifications on Sidebar component</span>
-<span class="c1"># screenshot it as described before</span>
+<span class="c1"># build everything again</span>
+<span class="c1"># screenshot it as described before, then</span>
 mkdir -p ./diffs
 yarn screenshots:server
 </pre></div>

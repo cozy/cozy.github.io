@@ -73,15 +73,21 @@ module.exports = {
       ]
     },
     {
+      name: 'Contacts',
+      components: () => [
+        '../react/ContactsList',
+        '../react/ContactsListModal',
+        '../react/ContactPicker',
+        '../react/Contacts/Header'
+      ]
+    },
+    {
       name: 'Extra',
       components: () => [
         '../react/ActionsBar',
         '../react/ActionsMenu',
         '../react/AppSections',
         '../react/BottomSheet',
-        '../react/ContactsList',
-        '../react/ContactsListModal',
-        '../react/ContactPicker',
         '../react/CozyDialogs',
         '../react/CozyDialogs/SpecificDialogs',
         '../react/DatePicker',
@@ -110,7 +116,8 @@ module.exports = {
       components: () => [
         '../react/providers/Alert',
         '../react/providers/Breakpoints',
-        '../react/providers/CozyTheme'
+        '../react/providers/CozyTheme',
+        '../react/providers/Selection'
       ]
     },
     {
