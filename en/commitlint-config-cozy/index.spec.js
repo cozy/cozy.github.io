@@ -67,7 +67,7 @@ describe('Commitlint Config Cozy', () => {
         `fix: Bar\n\nWith a small body\n${TOO_LONG}`
       ]
       for (const body of invalidBody) {
-        expect((await lint(body, rules)).valid).toBeFalsy()
+        expect((await lint(body, rules)).warnings.length).toBe(1)
       }
     })
   })

@@ -78,6 +78,7 @@ module.exports = {
         '../react/ContactsList',
         '../react/ContactsListModal',
         '../react/ContactPicker',
+        '../react/Contacts/AddModal',
         '../react/Contacts/Header'
       ]
     },
@@ -103,6 +104,7 @@ module.exports = {
         '../react/Paywall',
         '../react/Sidebar',
         '../react/SquareAppIcon',
+        '../react/Storage',
         '../react/Table',
         '../react/QualificationGrid',
         '../react/QualificationIcon',
@@ -116,6 +118,7 @@ module.exports = {
       components: () => [
         '../react/providers/Alert',
         '../react/providers/Breakpoints',
+        '../react/providers/ConfirmDialog',
         '../react/providers/CozyTheme',
         '../react/providers/Selection'
       ]

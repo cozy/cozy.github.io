@@ -53,11 +53,13 @@ function getInstanceUri(client) {
  * @param {CozyClient} client - CozyClient instance
  * @return {string} WebSocket url
  */
-export function getUrl(client) {
+export function getUrl(client, sharedDriveId) {
   const url = getInstanceUri(client)
   const protocol = isSecureUrl(url) ? 'wss:' : 'ws:'
   const host = new URL(url).host
-  return `${protocol}//${host}/realtime/`
+  return sharedDriveId
+    ? `${protocol}//${host}/sharings/drives/${sharedDriveId}/realtime`
+    : `${protocol}//${host}/realtime/`
 }
 
 /**

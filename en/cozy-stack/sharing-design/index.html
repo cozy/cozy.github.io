@@ -100,7 +100,7 @@
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
     
-      <a href="#sharing-design" tabindex="1" class="md-skip">
+      <a href="#synchronized-sharing-design" tabindex="1" class="md-skip">
         Skip to content
       </a>
     
@@ -3257,6 +3257,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../rabbitmq/" title="/rabbitmq - RabbitMQ integration" class="md-nav__link">
+      /rabbitmq - RabbitMQ integration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../settings/" title="/settings - Settings" class="md-nav__link">
       /settings - Settings
     </a>
@@ -3283,6 +3295,18 @@
   <li class="md-nav__item">
     <a href="../sharing/" title="/sharings - Sharing" class="md-nav__link">
       /sharings - Sharing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../shared-drives/" title="/sharings/drives - Shared drives" class="md-nav__link">
+       /sharings/drives - Shared drives
     </a>
   </li>
 
@@ -3952,10 +3976,15 @@
                 
                 
                 <p><a href="../#table-of-contents">Table of contents</a></p>
-<h1 id="sharing-design">Sharing design<a class="headerlink" href="#sharing-design" title="Permanent link">&para;</a></h1>
+<h1 id="synchronized-sharing-design">Synchronized sharing design<a class="headerlink" href="#synchronized-sharing-design" title="Permanent link">&para;</a></h1>
 <h2 id="baseline">Baseline<a class="headerlink" href="#baseline" title="Permanent link">&para;</a></h2>
-<p>Here we detail the baseline of the Cozy sharing design and provide some core
-statements.</p>
+<p>Here we detail the baseline of the Cozy sharing design where files are
+synchronized between several cozy instances.</p>
+<p><strong>Note:</strong> shared drives is a newer feature, and it does not require to
+synchronize the files between the cozy instances. As such, it is more scalable
+but does not provide the same features as the synchronized sharing. In
+particular, when a shared drive is revoked, members no longer have access to a
+copy of the files in it.</p>
 <h3 id="data-sync">Data sync<a class="headerlink" href="#data-sync" title="Permanent link">&para;</a></h3>
 <ul>
 <li>The shared data is duplicated among members: it is both on the sharer&rsquo;s cozy
@@ -4398,6 +4427,7 @@ care of it later.</p>
 <li><code>false</code> if only the owner can add a new recipient</li>
 </ul>
 </li>
+<li>A flag <code>drive</code>, that is false for a synchronized sharing</li>
 <li>Some technical data (<code>created_at</code>, <code>updated_at</code>, <code>app_slug</code>, <code>preview_path</code>,
     <code>triggers</code>, <code>credentials</code>)</li>
 <li>A flag <code>initial_sync</code> present only when the initial replication is still

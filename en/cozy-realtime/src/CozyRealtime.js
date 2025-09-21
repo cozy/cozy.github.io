@@ -34,8 +34,10 @@ class CozyRealtime {
    * @param {CozyClient}  options.client A cozy-client instance
    * @param {Function} [options.createWebSocket] The function used to create WebSocket instances
    * @param {object} [options.logger] A custom logger
+   * @param {string} [options.sharedDriveId] - The ID of the shared drive to connect to
    */
   constructor(options) {
+    this.sharedDriveId = options.sharedDriveId
     this.client = getCozyClientFromOptions(options)
     this.createWebSocket = options.createWebSocket || createWebSocket
     this.logger = options.logger || defaultLogger
@@ -83,7 +85,7 @@ class CozyRealtime {
       this.revokeWebSocket()
     }
     this.logger.info('creating a new websocket…')
-    const url = getUrl(this.client)
+    const url = getUrl(this.client, this.sharedDriveId)
     try {
       this.websocket = this.createWebSocket(url, protocol)
       this.websocket.authenticated = false
@@ -295,7 +297,7 @@ class CozyRealtime {
     const has = this.subscriptions.hasSameTypeAndId(sub)
     this.subscriptions.add(sub)
     // send to the server if there wasn't any subscription with that type & id before
-    if (!has && this.isWebSocketAuthenticated()) {
+    if (!this.sharedDriveId && !has && this.isWebSocketAuthenticated()) {
       this.sendSubscription(sub.type, sub.id)
     }
   }
@@ -316,7 +318,7 @@ class CozyRealtime {
     // if there is no more subscription of this type & id
     // then unsubscribe to the server
     const has = this.subscriptions.hasSameTypeAndId(sub)
-    if (!has && this.isWebSocketAuthenticated()) {
+    if (!this.sharedDriveId && !has && this.isWebSocketAuthenticated()) {
       this.sendUnsubscription(sub.type, sub.id)
     }
     // if this was the last subscription, stop the realtime

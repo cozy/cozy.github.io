@@ -2080,20 +2080,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#device-name" title="Device Name" class="md-nav__link">
-    Device Name
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cordova-plugins" title="Cordova Plugins" class="md-nav__link">
-    Cordova Plugins
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -3042,6 +3028,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../cozy-stack/rabbitmq/" title="/rabbitmq - RabbitMQ integration" class="md-nav__link">
+      /rabbitmq - RabbitMQ integration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../cozy-stack/settings/" title="/settings - Settings" class="md-nav__link">
       /settings - Settings
     </a>
@@ -3068,6 +3066,18 @@
   <li class="md-nav__item">
     <a href="../cozy-stack/sharing/" title="/sharings - Sharing" class="md-nav__link">
       /sharings - Sharing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../cozy-stack/shared-drives/" title="/sharings/drives - Shared drives" class="md-nav__link">
+       /sharings/drives - Shared drives
     </a>
   </li>
 
@@ -3487,20 +3497,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#device-name" title="Device Name" class="md-nav__link">
-    Device Name
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cordova-plugins" title="Cordova Plugins" class="md-nav__link">
-    Cordova Plugins
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -3534,39 +3530,18 @@
 </blockquote>
 <h2 id="api">API<a class="headerlink" href="#api" title="Permanent link">&para;</a></h2>
 <h3 id="platforms">Platforms<a class="headerlink" href="#platforms" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="p">{</span> <span class="n">getPlatform</span><span class="p">,</span> <span class="n">isWebApp</span><span class="p">,</span> <span class="n">isMobileApp</span><span class="p">,</span> <span class="n">isIOSApp</span><span class="p">,</span> <span class="n">isAndroidApp</span><span class="p">,</span> <span class="n">isFlagshipApp</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;cozy-device-helper&#39;</span>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="p">{</span> <span class="n">isFlagshipApp</span><span class="p">,</span> <span class="n">isMobile</span><span class="p">,</span> <span class="n">isAndroid</span><span class="p">,</span> <span class="n">isIOS</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;cozy-device-helper&#39;</span>
 </pre></div>
 
 
 <p>To know the platform:</p>
 <ul>
 <li><code>isFlagshipApp()</code>: return <code>boolean</code> if inside the flagship app.</li>
-<li><code>getPlatform()</code>: return <code>ios</code>, <code>android</code> or <code>web</code></li>
-<li><code>isWebApp()</code>: return <code>boolean</code></li>
-<li><code>isMobileApp()</code>: return <code>boolean</code>. True if its a cordova App. False for others.</li>
-<li><code>isIOSApp()</code>: return <code>boolean</code>. True if its a cordova App on iOS.</li>
-<li><code>isAndroidApp()</code>: return <code>boolean</code>. True if its a cordova App on Android.</li>
+<li><code>isFlagshipOfflineSupported()</code>: return <code>boolean</code> if offline supported by the flagship app.</li>
+<li><code>getFlagshipMetadata()</code>: return <code>object</code> corresponding to flagship metadata.</li>
 <li><code>isAndroid()</code>: return <code>boolean</code> (check if the user is on an android smartphone (native &amp; browser))</li>
-<li><code>isOS()</code>: return <code>boolean</code> (check if the user is on an iOS smartphone (native &amp; browser))</li>
+<li><code>isIOS()</code>: return <code>boolean</code> (check if the user is on an iOS smartphone (native &amp; browser))</li>
 <li><code>isMobile()</code>: return <code>boolean</code> (check if the user is on an android or iOS smartphone (native &amp; browser))</li>
-</ul>
-<h3 id="device-name">Device Name<a class="headerlink" href="#device-name" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="p">{</span> <span class="n">getDeviceName</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;cozy-device-helper&#39;</span>
-</pre></div>
-
-
-<p>To know device name <code>getDeviceName()</code>.</p>
-<h3 id="cordova-plugins">Cordova Plugins<a class="headerlink" href="#cordova-plugins" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="p">{</span> <span class="n">hasDevicePlugin</span><span class="p">,</span> <span class="n">hasInAppBrowserPlugin</span><span class="p">,</span> <span class="n">hasSafariPlugin</span><span class="p">,</span> <span class="n">checkApp</span><span class="p">,</span> <span class="n">startApp</span> <span class="p">}</span> <span class="kn">from</span> <span class="s1">&#39;cozy-device-helper&#39;</span>
-</pre></div>
-
-
-<ul>
-<li><code>hasDevicePlugin</code>: return <code>boolean</code></li>
-<li><code>hasInAppBrowserPlugin</code>: return <code>boolean</code></li>
-<li><code>hasSafariPlugin</code>: return a promise which resolve by a <code>boolean</code></li>
-<li><code>checkApp</code>: return a <code>promise</code> that resolves with informations about the application (if installed) or false (if not installed)</li>
-<li><code>startApp</code>: Start an Application. Return a <code>promise</code> - False if the application was not able to be started</li>
 </ul>
                 
                   
