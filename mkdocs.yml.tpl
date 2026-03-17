@@ -102,29 +102,30 @@ theme:
   palette:
     primary: blue
     accent: blue
-  logo:
-    icon: cloud
+  icon:
+    logo: material/cloud
   font:
     text: Lato
     code: Ubuntu Mono
-  feature:
-    tabs: true
+  features:
+    - navigation.tabs
 markdown_extensions:
 - admonition
-- codehilite
-- extra
+- pymdownx.highlight
+- pymdownx.superfences
 - footnotes
 - meta
 - sane_lists
 - smarty
 - toc:
     permalink: true
-- pymdownx.emoji
-extra:
-  search:
-    tokenizer: "[^a-z\u0430-\u044F\u04510-9\\-\\.]"
+- pymdownx.emoji:
+    emoji_index: !!python/name:material.extensions.emoji.twemoji
+    emoji_generator: !!python/name:material.extensions.emoji.to_svg
+extra: {}
 plugins:
-    - search
+    - search:
+        separator: '[\s\-\.]+'
     - exclude-search:
         exclude:
           - cozy-stack/archives/*
