@@ -100,8 +100,18 @@ theme:
   custom_dir: cozy-theme
   name: material
   palette:
-    primary: blue
-    accent: blue
+    - scheme: default
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
   icon:
     logo: material/cloud
   font:
@@ -109,6 +119,8 @@ theme:
     code: Ubuntu Mono
   features:
     - navigation.tabs
+    - navigation.top
+    - content.code.copy
 markdown_extensions:
 - admonition
 - pymdownx.highlight
