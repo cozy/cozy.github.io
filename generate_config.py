@@ -13,6 +13,14 @@ from collections import OrderedDict, namedtuple
 import fnmatch
 import sh
 
+
+class PythonTag:
+    """Preserves !!python/* YAML tags as opaque pass-through values."""
+    def __init__(self, tag, value):
+        self.tag = tag
+        self.value = value
+
+
 def simple_glob(directory, glob_pattern):
     matches = []
     for root, dirnames, filenames in os.walk(directory, followlinks=True):
@@ -21,15 +29,20 @@ def simple_glob(directory, glob_pattern):
     return matches
 
 
-def ordered_load(stream, Loader=yaml.Loader, object_pairs_hook=OrderedDict):
+def ordered_load(stream, Loader=yaml.SafeLoader, object_pairs_hook=OrderedDict):
     class OrderedLoader(Loader):
         pass
     def construct_mapping(loader, node):
         loader.flatten_mapping(node)
         return object_pairs_hook(loader.construct_pairs(node))
+    def construct_python_tag(loader, tag_suffix, node):
+        return PythonTag('tag:yaml.org,2002:python/' + tag_suffix, loader.construct_scalar(node))
     OrderedLoader.add_constructor(
         yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG,
         construct_mapping)
+    OrderedLoader.add_multi_constructor(
+        'tag:yaml.org,2002:python/',
+        construct_python_tag)
     return yaml.load(stream, OrderedLoader)
 
 
@@ -40,7 +53,10 @@ def ordered_dump(data, stream=None, Dumper=yaml.Dumper, **kwds):
         return dumper.represent_mapping(
             yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG,
             data.items())
+    def _python_tag_representer(dumper, data):
+        return dumper.represent_scalar(data.tag, data.value)
     OrderedDumper.add_representer(OrderedDict, _dict_representer)
+    OrderedDumper.add_representer(PythonTag, _python_tag_representer)
     return yaml.dump(data, stream, OrderedDumper, **kwds)
 
 
@@ -106,12 +122,11 @@ has_pulled = {}
 def fetch_external_doc(repository, destination):
     sh.rm('-rf', destination)
     sh.mkdir('-p', destination)
-    with sh.pushd(destination):
-        if osp.exists('.git') and not has_pulled.get(repository):
-            sh.git('pull')
-            has_pulled[repository] = True
-        else:
-            sh.git('clone', repository, '--depth', '1', '.')
+    if osp.exists(osp.join(destination, '.git')) and not has_pulled.get(repository):
+        sh.git('pull', _cwd=destination)
+        has_pulled[repository] = True
+    else:
+        sh.git('clone', repository, '--depth', '1', '.', _cwd=destination)
 
 
 def fetch_all_external_docs_from_file(filename):
@@ -212,7 +227,7 @@ def main(argv):
     data['extra'] = dict(data['extra'], **outside_docs_entry)
 
     with open('mkdocs.yml', 'w+') as f:
-        ordered_dump(data, f, indent=2, default_flow_style=False, Dumper=yaml.SafeDumper)
+        ordered_dump(data, f, indent=2, default_flow_style=False, Dumper=yaml.Dumper)
         f.seek(0, 0)
         content = f.read()
         f.seek(0, 0)
