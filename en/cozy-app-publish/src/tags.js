@@ -71,11 +71,13 @@ const getVersionTags = async () => {
 
 const main = async () => {
   const tags = await getVersionTags()
+  // eslint-disable-next-line no-console
   console.log(tags)
 }
 
 if (require.main === module) {
   main().catch(e => {
+    // eslint-disable-next-line no-console
     console.error(e)
     process.exit(1)
   })

@@ -1,4 +1,5 @@
 const fetch = require('node-fetch')
+
 const { DEFAULT_SPACE_NAME } = require('./constants')
 
 const getFullRegistryUrl = (baseRegistryUrl, spaceName, appSlug) => {
@@ -46,7 +47,7 @@ module.exports = async ({
     try {
       const body = await response.json()
       errorMsg = body.error
-    } catch (e) {
+    } catch (_e) {
       errorMsg = await resp2.text()
     }
     throw new Error(`${response.status} ${response.statusText}: ${errorMsg}`)

@@ -1,57 +1,60 @@
-'use strict'
+import { fixupPluginRules } from '@eslint/compat'
+import pluginReact from 'eslint-plugin-react'
+import pluginReactHooks from 'eslint-plugin-react-hooks'
+import tseslint from 'typescript-eslint'
 
-const basics = require('./basics')
+import basics from './basics.js'
 
-module.exports = {
-  plugins: basics.plugins.concat(['react-hooks']),
-  extends: basics.extends.concat(['plugin:react/recommended']),
-  parser: basics.parser,
-  parserOptions: { ecmaFeatures: { jsx: true } },
-  env: basics.env,
-  settings: { react: { version: 'detect' } },
-  rules: Object.assign({}, basics.rules, {
-    'react/prop-types': 'off',
-    'react/jsx-curly-brace-presence': [
-      'error',
-      { props: 'never', children: 'never' }
+export default [
+  { files: ['**/*.jsx', '**/*.tsx'] },
+  ...basics,
+  {
+    plugins: { react: fixupPluginRules(pluginReact) },
+    rules: pluginReact.configs.recommended.rules,
+    languageOptions: {
+      parserOptions: { ecmaFeatures: { jsx: true } }
+    }
+  },
+  pluginReactHooks.configs.flat['recommended-latest'],
+  {
+    settings: { react: { version: 'detect' } },
+    rules: {
+      'react/prop-types': 'off',
+      'react/jsx-curly-brace-presence': [
+        'error',
+        { props: 'never', children: 'never' }
+      ]
+    }
+  },
+  ...tseslint.config({
+    files: ['**/*.ts', '**/*.tsx'],
+    extends: [
+      ...tseslint.configs.recommendedTypeChecked,
+      ...tseslint.configs.strict
     ],
-    'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'warn'
-  }),
-  overrides: [
-    {
-      extends: [
-        'eslint:recommended',
-        'plugin:@typescript-eslint/eslint-recommended',
-        'plugin:@typescript-eslint/recommended-type-checked',
-        'plugin:@typescript-eslint/strict'
-      ],
-
-      files: ['**/*.ts', '**/*.tsx'],
-      parser: '@typescript-eslint/parser',
+    languageOptions: {
       parserOptions: {
-        project: 'packages/**/tsconfig.json',
-        tsconfigRootDir: './'
-      },
-      plugins: ['@typescript-eslint'],
-      rules: {
-        '@typescript-eslint/explicit-function-return-type': 'error',
-        '@typescript-eslint/no-explicit-any': 'error',
-        '@typescript-eslint/no-unused-vars': [
-          'error',
-          { ignoreRestSiblings: true }
-        ],
-        '@typescript-eslint/no-invalid-void-type': 0,
-        '@typescript-eslint/no-non-null-assertion': 0,
-        '@typescript-eslint/no-useless-constructor': 1,
-        '@typescript-eslint/no-dynamic-delete': 1
+        project: true,
+        tsconfigRootDir: process.cwd()
       }
     },
-    {
-      files: ['**/*.spec.jsx', '**/*.spec.js', '**/*.spec.tsx', '**/*.spec.ts'],
-      rules: {
-        'react/display-name': ['off']
-      }
+    rules: {
+      '@typescript-eslint/explicit-function-return-type': 'error',
+      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { caughtErrorsIgnorePattern: '^_', ignoreRestSiblings: true }
+      ],
+      '@typescript-eslint/no-invalid-void-type': 0,
+      '@typescript-eslint/no-non-null-assertion': 0,
+      '@typescript-eslint/no-useless-constructor': 1,
+      '@typescript-eslint/no-dynamic-delete': 1
     }
-  ]
-}
+  }),
+  {
+    files: ['**/*.spec.jsx', '**/*.spec.js', '**/*.spec.tsx', '**/*.spec.ts'],
+    rules: {
+      'react/display-name': 'off'
+    }
+  }
+]

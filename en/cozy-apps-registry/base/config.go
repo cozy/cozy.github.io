@@ -37,6 +37,9 @@ type ConfigParameters struct {
 	// TrustedProtocols is used by the universal link to allow redirections on
 	// trusted protocols (like cozy://).
 	TrustedProtocols map[string][]string
+	// TrustedUrls is used by the universal link to allow redirections on
+	// exact URL matches.
+	TrustedUrls map[string][]string
 }
 
 // CleanParameters regroups the parameters for cleaning the old versions.

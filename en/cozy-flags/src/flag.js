@@ -98,7 +98,7 @@ export const getTemplateData = attr => {
     } else {
       return null
     }
-  } catch (e) {
+  } catch (_e) {
     return null
   }
 }

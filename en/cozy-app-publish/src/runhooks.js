@@ -12,7 +12,7 @@ const requireHook = (hook, type) => {
     } catch (err2) {
       logger.error(`Error when loading ${builtInHookPath}`, err1)
       logger.error(`Error when loading ${customHookPath}`, err2)
-      throw new Error(`"${hook}" could not be loaded.`)
+      throw new Error(`"${hook}" could not be loaded.`, { cause: err2 })
     }
   }
 }
@@ -32,7 +32,7 @@ module.exports = async (hookNames, type, options) => {
         logger.error(
           `↳ ❌  An error occured with ${type}publish hook ${hook}: ${error.message}`
         )
-        throw new Error(`${type}publish hooks failed`)
+        throw new Error(`${type}publish hooks failed`, { cause: error })
       }
     }
   }

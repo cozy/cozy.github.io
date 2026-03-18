@@ -7,7 +7,7 @@ import cx from 'classnames'
 import keyBy from 'lodash/keyBy'
 import has from 'lodash/has'
 
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import { useI18n } from 'twake-i18n'
 
 import AddServiceTile from '@/components/AddServiceTile'
 import KonnectorTile from '@/components/KonnectorTile'

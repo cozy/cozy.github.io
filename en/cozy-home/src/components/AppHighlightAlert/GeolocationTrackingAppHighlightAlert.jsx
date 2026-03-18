@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 import flag from 'cozy-flags'
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import { useI18n } from 'twake-i18n'
 
 import AppHighlightAlert from '@/components/AppHighlightAlert/AppHighlightAlert'
 import { buildExistingTimeseriesGeojsonQuery } from '@/queries'

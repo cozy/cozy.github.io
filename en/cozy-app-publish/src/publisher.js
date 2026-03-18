@@ -1,12 +1,13 @@
+const defaults = require('lodash/defaults')
+const { VError } = require('verror')
+
+const promptConfirm = require('./confirm')
+const constants = require('./constants')
 const postpublish = require('./postpublish')
 const prepublish = require('./prepublish')
 const publish = require('./publish')
 const colorize = require('./utils/colorize')
-const constants = require('./constants')
-const promptConfirm = require('./confirm')
-const defaults = require('lodash/defaults')
 const logger = require('./utils/logger')
-const { VError } = require('verror')
 
 const { DEFAULT_REGISTRY_URL, DEFAULT_BUILD_DIR, DEFAULT_SPACE_NAME } =
   constants

@@ -1,8 +1,10 @@
 const readline = require('readline')
+
 const { ArgumentParser } = require('argparse')
 const WebSocket = require('ws')
 
 const { createClientInteractive } = require('cozy-client/dist/cli')
+
 const CozyRealtime = require('../../dist').default
 
 global.WebSocket = WebSocket
@@ -26,6 +28,7 @@ const CHANNEL_ID = 'example-chat'
 
 const handleNotification = doc => {
   if (doc.data.producerId !== myId) {
+    // eslint-disable-next-line no-console
     console.log(`${doc.data.producerId}: ${doc.data.message}`)
   }
 }
@@ -63,7 +66,6 @@ const main = async () => {
 
   myId = args.name
 
-  // eslint-disable-next-line no-constant-condition
   while (true) {
     const message = await prompt('> ')
     realtime.send(CHANNEL_DOCTYPE, CHANNEL_ID, { producerId: myId, message })
@@ -73,10 +75,11 @@ const main = async () => {
 // eslint-disable-next-line promise/catch-or-return
 main()
   .catch(e => {
+    // eslint-disable-next-line no-console
     console.error(e)
     process.exit(1)
   })
-  // eslint-disable-next-line promise/always-return
+
   .then(() => {
     process.exit(0)
   })

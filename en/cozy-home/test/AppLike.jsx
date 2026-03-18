@@ -7,7 +7,7 @@ import { CozyProvider } from 'cozy-client'
 import { createMockClient } from 'cozy-client/dist/mock'
 import { BreakpointsProvider } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
-import I18n from 'cozy-ui/transpiled/react/providers/I18n'
+import I18n from 'twake-i18n'
 import AlertProvider from 'cozy-ui/transpiled/react/providers/Alert'
 import { SharingContext } from 'cozy-sharing'
 

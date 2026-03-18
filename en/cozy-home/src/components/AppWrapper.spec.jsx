@@ -22,7 +22,7 @@ jest.mock('cozy-client', () => ({
   RealTimeQueries: ({ doctype }) => (
     <div data-testid="RealTimeQueries">{doctype}</div>
   ),
-  default: () => mockClient,
+  default: jest.fn().mockImplementation(() => mockClient),
   useClient: () => mockClient
 }))
 

@@ -10,14 +10,15 @@ import { isFlagshipApp } from 'cozy-device-helper'
 
 import IconSprite from 'cozy-ui/transpiled/react/Icon/Sprite'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
-import { Main } from 'cozy-ui/transpiled/react/Layout'
-import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
+import { Layout } from 'cozy-ui/transpiled/react/Layout'
+import { useCozyTheme } from 'cozy-ui-plus/dist/providers/CozyTheme'
 
 import { AssistantMobileWrapper } from '@/components/Assistant/AssistantMobileWrapper'
 import { AssistantDialog, SearchDialog } from 'cozy-search'
 import Failure from '@/components/Failure'
 import HeroHeader from '@/components/HeroHeader'
 import Home from '@/components/Home'
+import { PersonalizationWrapper } from '@/components/Personalization/PersonalizationWrapper'
 import IntentRedirect from '@/components/IntentRedirect'
 import MoveModal from '@/components/MoveModal'
 import StoreRedirection from '@/components/StoreRedirection'
@@ -36,7 +37,6 @@ import {
   mkHomeCustomShorcutsDirConn
 } from '@/queries'
 import { useFetchInitialData } from '@/hooks/useFetchInitialData'
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
 import SectionDialog from '@/components/Sections/SectionDialog'
 import { SentryRoutes } from '@/lib/sentry'
 import '../flags'
@@ -52,9 +52,7 @@ const App = () => {
   const webviewIntent = useWebviewIntent()
   const theme = useCozyTheme()
 
-  const { t } = useI18n()
-
-  const homeMagicFolderConn = mkHomeMagicFolderConn(t)
+  const homeMagicFolderConn = mkHomeMagicFolderConn()
   const { data: magicFolder } = useQuery(
     homeMagicFolderConn.query,
     homeMagicFolderConn
@@ -107,7 +105,8 @@ const App = () => {
   }
 
   return (
-    <>
+    // u-bg-white avoids mix-blend-mode from home-custom-background to be linked to the background color of the body. Must not be responsive to the theme.
+    <Layout monoColumn className="u-bg-white">
       <BarComponent
         searchOptions={{ enabled: false }}
         componentsProps={{
@@ -125,14 +124,14 @@ const App = () => {
           <MoveModal />
           <HeroHeader />
           {hasError && (
-            <Main className="u-flex u-flex-items-center u-flex-justify-center">
+            <main className="u-flex u-flex-items-center u-flex-justify-center">
               <Failure errorType="initial" />
-            </Main>
+            </main>
           )}
           {isFetching && (
-            <Main className="u-flex u-flex-items-center u-flex-justify-center">
+            <main className="u-flex u-flex-items-center u-flex-justify-center">
               <Spinner size="xxlarge" />
-            </Main>
+            </main>
           )}
           {!isFetching && (
             <>
@@ -174,8 +173,11 @@ const App = () => {
         <FooterLogo />
       </MainView>
       {showAssistantForMobile && <AssistantMobileWrapper />}
+      {flag('home.wallpaper-personalization.enabled') && (
+        <PersonalizationWrapper />
+      )}
       {isFlagshipApp() && <DefaultRedirectionSnackbar />}
-    </>
+    </Layout>
   )
 }
 

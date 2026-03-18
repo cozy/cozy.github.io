@@ -1,12 +1,12 @@
 import React from 'react'
 
-import IntentWrapper from '../../react/IntentWrapper'
-import CozyTheme from '../../react/providers/CozyTheme'
 import Button from '../../react/Buttons'
+import IntentWrapper from '../../react/IntentWrapper'
 import Typography from '../../react/Typography'
+import CozyTheme from '../../react/providers/CozyTheme'
 import { placeholder90 } from '../placeholders/img'
 
-const IntentExample = function({ onComplete, action, doctype, options }) {
+const IntentExample = function ({ onComplete, action, doctype, options }) {
   return (
     <CozyTheme>
       <IntentWrapper

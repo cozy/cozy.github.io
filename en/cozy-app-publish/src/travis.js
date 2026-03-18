@@ -1,9 +1,10 @@
 const path = require('path')
-const getManifestAsObject = require('./utils/getManifestAsObject')
-const getTravisVariables = require('./utils/getTravisVariables')
+
+const publisher = require('./publisher')
 const tags = require('./tags')
 const { getDevVersion } = require('./tags')
-const publisher = require('./publisher')
+const getManifestAsObject = require('./utils/getManifestAsObject')
+const getTravisVariables = require('./utils/getTravisVariables')
 
 const getAutoTravisVersion = async ctx => {
   const tag = getRelevantTagTravis(ctx)

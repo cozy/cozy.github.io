@@ -1,9 +1,10 @@
 jest.mock('fs-extra')
 jest.mock('./helpers')
 
+const fs = require('fs-extra')
+
 const downcloud = require('./downcloud')
 const helpers = require('./helpers')
-const fs = require('fs-extra')
 
 it('should error if the build dir does not exist', () => {
   fs.existsSync = jest.fn().mockReturnValueOnce(false)

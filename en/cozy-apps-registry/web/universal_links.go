@@ -30,6 +30,66 @@ func universalLink(c echo.Context) error {
 	return c.String(http.StatusOK, content.String())
 }
 
+func isChatInvite(c echo.Context) bool {
+	requestPath := c.Request().URL.Path
+	return strings.HasPrefix(requestPath, ChatInvitePrefix)
+}
+
+func createDirectChatURL(baseURL, requestPath string) string {
+	parsedURL := url.URL{
+		Scheme: "https",
+		Host:   baseURL,
+		Path:   "/",
+	}
+
+	query := parsedURL.Query()
+	query.Set("redirect", "true")
+	query.Set("slug", "chat")
+	query.Set("path", "/#/bridge/web/#"+requestPath)
+
+	parsedURL.RawQuery = query.Encode()
+	return parsedURL.String()
+}
+
+func redirectChatInvite(c echo.Context) (bool, error) {
+	userAgent := c.Request().UserAgent()
+	platform := GetPlatformFromUserAgent(userAgent)
+
+	var redirectURL string
+	switch platform {
+	case "ios":
+		redirectURL = ChatIOSRedirectURL
+	case "android":
+		redirectURL = ChatAndroidRedirectURL
+	case "web":
+		// Extract Matrix ID and domain to determine the sign-up URL
+		requestPath := c.Request().URL.Path
+		matrixID := ExtractMatrixID(requestPath)
+		if matrixID == "" {
+			redirectURL = ChatFallbackURL
+			break
+		}
+
+		domain := ExtractDomainFromMatrixID(matrixID)
+		if domain == "" {
+			redirectURL = ChatFallbackURL
+			break
+		}
+
+		signUpURL := GetSignUpURLForDomain(domain)
+		if signUpURL == "" {
+			redirectURL = ChatFallbackURL
+			break
+		}
+
+		redirectURL = createDirectChatURL(signUpURL, requestPath)
+	default:
+		redirectURL = ChatFallbackURL
+	}
+
+	return true, c.Redirect(http.StatusSeeOther, redirectURL)
+}
+
 func universalLinkRedirect(c echo.Context) error {
 	space, err := getSpaceFromHost(c)
 	if err != nil {
@@ -37,6 +97,12 @@ func universalLinkRedirect(c echo.Context) error {
 	}
 	spacePrefix := space.GetPrefix()
 	fallback := c.QueryParam("fallback")
+
+	// Custom redirection for chat app invite links
+	if isChatInvite(c) {
+		_, err := redirectChatInvite(c)
+		return err
+	}
 
 	// The following code has been made to handle an iOS bug during JSON recovery.
 	// It should be removed if a fix is found one day.
@@ -127,6 +193,15 @@ func checkRedirectIsTrusted(parsedRedirect *url.URL, spacePrefix string, cfg bas
 	if protocols, ok := cfg.TrustedProtocols[spacePrefix]; ok {
 		for _, protocol := range protocols {
 			if parsedRedirect.Scheme == protocol {
+				return true
+			}
+		}
+	}
+
+	if urls, ok := cfg.TrustedUrls[spacePrefix]; ok {
+		redirectURL := parsedRedirect.String()
+		for _, trustedURL := range urls {
+			if redirectURL == trustedURL {
 				return true
 			}
 		}

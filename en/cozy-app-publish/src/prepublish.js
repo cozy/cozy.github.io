@@ -1,6 +1,8 @@
-const runHooks = require('./runhooks')
-const request = require('request')
 const crypto = require('crypto')
+
+const request = require('request')
+
+const runHooks = require('./runhooks')
 const logger = require('./utils/logger')
 
 /**
@@ -95,8 +97,8 @@ const shasum = async options => {
     logger.log('Verifying shasum...')
     const shasum = await prepublish.shasum256FromURL(appBuildUrl)
     options.sha256Sum = shasum
-  } catch (e) {
-    throw new Error('Cannot shasum ' + appBuildUrl)
+  } catch (_e) {
+    throw new Error('Cannot shasum ' + appBuildUrl, { cause: _e })
   }
   return options
 }

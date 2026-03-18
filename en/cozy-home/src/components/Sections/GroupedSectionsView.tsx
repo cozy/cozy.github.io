@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import cx from 'classnames'
 
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import { useI18n } from 'twake-i18n'
 
 import { GroupedSectionViewProps } from '@/components/Sections/SectionsTypes'
 import { SectionHeader } from '@/components/Sections/SectionHeader'

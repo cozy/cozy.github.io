@@ -1,81 +1,102 @@
-import React from 'react'
+import React, { useState } from 'react'
 import get from 'lodash/get'
+import { useOnLongPress } from 'rooks'
 
-import { useClient, useFetchShortcut } from 'cozy-client'
+import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
+import { useClient, useFetchShortcut, models } from 'cozy-client'
 import flag from 'cozy-flags'
-import { splitFilename } from 'cozy-client/dist/models/file'
+import ShortcutActionsMenu from './Shortcuts/ShortcutActionsMenu'
 
-import SquareAppIcon from 'cozy-ui/transpiled/react/SquareAppIcon'
+const {
+  file: { splitFilename, getShortcutImgSrc }
+} = models
+
+import SquareAppIcon from 'cozy-ui-plus/dist/SquareAppIcon'
+import Badge from 'cozy-ui/transpiled/react/Badge'
 import Link from 'cozy-ui/transpiled/react/Link'
 
 export const ShortcutLink = ({ display = 'compact', file, ...props }) => {
   const client = useClient()
+  const { isMobile } = useBreakpoints()
+
   const { shortcutInfos, shortcutImg, fetchStatus } = useFetchShortcut(
     client,
     file._id
   )
   const isLoading = fetchStatus === 'loading'
 
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const longPressRef = useOnLongPress(() => {
+    if (!isMobile) {
+      return
+    }
+    setIsMenuOpen(true)
+  })
+
   const { filename } = splitFilename(file)
   const url = get(shortcutInfos, 'data.url', '#')
 
-  /**
-   * If we don't have iconMimeType, we consider that the icon is a binary svg.
-   * Otherwise we consider that the icon comes from Iconizer api so it is in base64 directly.
-   */
-  const icon = get(file, 'attributes.metadata.icon')
-  const iconMimeType = get(file, 'attributes.metadata.iconMimeType')
+  const shortcutImgSrc = getShortcutImgSrc(file)
+
   const description = get(file, 'attributes.metadata.description')
 
   return (
-    <Link
-      underline="none"
-      href={url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="scale-hover"
-      {...props}
+    <Badge
+      badgeContent={
+        <ShortcutActionsMenu
+          isMenuOpen={isMenuOpen}
+          setIsMenuOpen={setIsMenuOpen}
+          file={file}
+          shortcutInfos={shortcutInfos}
+        />
+      }
+      withBorder={false}
+      size="large"
+      overlap="rectangular"
     >
-      {icon || shortcutImg ? (
-        <SquareAppIcon
-          name={filename}
-          variant="shortcut"
-          display={display}
-          description={description}
-          IconContent={
-            <div className="u-w-2 u-h-2">
-              {icon ? (
-                <img
-                  src={
-                    iconMimeType
-                      ? `data:${iconMimeType};base64,${icon}`
-                      : `data:image/svg+xml;base64,${window.btoa(icon)}`
-                  }
-                  alt={filename}
-                />
-              ) : (
-                <img
-                  className="u-bdrs-5"
-                  src={shortcutImg}
-                  width={32}
-                  height={32}
-                />
-              )}
-            </div>
-          }
-          hideShortcutBadge={flag('home.hide-shortcut-badge')}
-        />
-      ) : (
-        <SquareAppIcon
-          name={filename}
-          variant={isLoading ? 'loading' : 'shortcut'}
-          display={display}
-          IconContent={isLoading ? null : undefined}
-          description={description}
-          hideShortcutBadge={flag('home.hide-shortcut-badge')}
-        />
-      )}
-    </Link>
+      <Link
+        ref={longPressRef}
+        underline="none"
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="scale-hover"
+        {...props}
+      >
+        {shortcutImgSrc || shortcutImg ? (
+          <SquareAppIcon
+            name={filename}
+            variant="shortcut"
+            display={display}
+            description={description}
+            IconContent={
+              <div className="u-w-2 u-h-2">
+                {shortcutImgSrc ? (
+                  <img src={shortcutImgSrc} alt={filename} />
+                ) : (
+                  <img
+                    className="u-bdrs-5"
+                    src={shortcutImg}
+                    width={32}
+                    height={32}
+                  />
+                )}
+              </div>
+            }
+            hideShortcutBadge={flag('home.hide-shortcut-badge')}
+          />
+        ) : (
+          <SquareAppIcon
+            name={filename}
+            variant={isLoading ? 'loading' : 'shortcut'}
+            display={display}
+            IconContent={isLoading ? null : undefined}
+            description={description}
+            hideShortcutBadge={flag('home.hide-shortcut-badge')}
+          />
+        )}
+      </Link>
+    </Badge>
   )
 }
 

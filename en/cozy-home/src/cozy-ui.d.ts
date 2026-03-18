@@ -3,10 +3,9 @@ declare module 'cozy-ui/transpiled/react/*' {
   export default component
 }
 
-declare module 'cozy-ui/transpiled/react/Typography' {
-  export default function Typography(
-    props: Record<string, unknown>
-  ): JSX.Element
+declare module 'cozy-ui-plus/dist/*' {
+  const component: (props: Record<string, unknown>) => JSX.Element
+  export default component
 }
 
 declare module 'cozy-ui/transpiled/react/CozyDialogs' {
@@ -59,7 +58,7 @@ declare module 'cozy-ui/transpiled/react/CozyDialogs' {
   }
 }
 
-declare module 'cozy-ui/transpiled/react/providers/CozyTheme' {
+declare module 'cozy-ui-plus/dist/providers/CozyTheme' {
   import { ReactNode } from 'react'
 
   interface CozyThemeProps {
@@ -77,7 +76,7 @@ declare module 'cozy-ui/transpiled/react/providers/CozyTheme' {
   export function useCozyTheme(): CozyTheme
 }
 
-declare module 'cozy-ui/transpiled/react/providers/I18n' {
+declare module 'twake-i18n' {
   export const useI18n: () => {
     t: (key: string) => string
     lang: string

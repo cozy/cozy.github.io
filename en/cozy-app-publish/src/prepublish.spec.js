@@ -1,4 +1,3 @@
-/* eslint-env jest */
 const prepublishLib = require('./prepublish')
 
 const downcloudSpy = jest.fn()

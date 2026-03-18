@@ -1,12 +1,12 @@
 import Handlebars from 'handlebars'
-import overEvery from 'lodash/overEvery'
-import fromPairs from 'lodash/fromPairs'
 import layouts from 'handlebars-layouts'
+import fromPairs from 'lodash/fromPairs'
 import mapValues from 'lodash/mapValues'
+import overEvery from 'lodash/overEvery'
 
+import cozyLayout from './cozy-layout.hbs'
 import { palette, resolveCSSProperties } from './cssUtils'
 import stylesheet from './style.css'
-import cozyLayout from './cozy-layout.hbs'
 
 const isOfType = type => node => {
   return node.type == type

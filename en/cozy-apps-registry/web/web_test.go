@@ -304,6 +304,9 @@ func TestCheckRedirectIsTrusted(t *testing.T) {
 		TrustedProtocols: map[string][]string{
 			"__default__": {"cozy"},
 		},
+		TrustedUrls: map[string][]string{
+			"__default__": {"https://play.google.com/store/apps/details?id=io.cozy.flagship.mobile"},
+		},
 	}
 
 	u, err := url.Parse("https://example.mycozy.cloud/")
@@ -321,6 +324,19 @@ func TestCheckRedirectIsTrusted(t *testing.T) {
 	assert.False(t, checkRedirectIsTrusted(u, "__default__", cfg))
 
 	u, err = url.Parse("evil://manager.cozycloud.cc/")
+	require.NoError(t, err)
+	assert.False(t, checkRedirectIsTrusted(u, "__default__", cfg))
+
+	u, err = url.Parse("https://play.google.com/store/apps/details?id=io.cozy.flagship.mobile")
+	require.NoError(t, err)
+	assert.True(t, checkRedirectIsTrusted(u, "__default__", cfg))
+	assert.False(t, checkRedirectIsTrusted(u, "foobar", cfg))
+
+	u, err = url.Parse("https://play.google.com/store/apps/details?id=io.cozy.flagship.mobile&extra=param")
+	require.NoError(t, err)
+	assert.False(t, checkRedirectIsTrusted(u, "__default__", cfg))
+
+	u, err = url.Parse("https://play.google.com/store/apps/details?id=different.app")
 	require.NoError(t, err)
 	assert.False(t, checkRedirectIsTrusted(u, "__default__", cfg))
 }

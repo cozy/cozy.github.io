@@ -1,5 +1,7 @@
-const fs = require('fs-extra')
 const path = require('path')
+
+const fs = require('fs-extra')
+
 const colorize = require('./colorize')
 
 function getManifestAsObject(buildDirPath) {

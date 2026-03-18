@@ -148,7 +148,7 @@ class CozyRealtime {
       this.websocket.onclose = null
       try {
         this.websocket.close()
-      } catch (e) {
+      } catch (_e) {
         // void
       } finally {
         this.websocket = null
@@ -460,7 +460,7 @@ class CozyRealtime {
     for (const handler of handlers) {
       try {
         handler({ ...payload.doc, _type: payload.type })
-      } catch (e) {
+      } catch (_e) {
         this.logger.error(
           `handler did throw for ${event}, ${payload.type}, ${payload.id}`
         )

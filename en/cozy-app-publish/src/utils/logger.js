@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const logger = {
   log: console.log.bind(console),
   warn: console.warn.bind(console),

@@ -15,9 +15,6 @@ module.exports = {
       components: () => [
         '../react/Accordion',
         '../react/Alert',
-        '../react/AppIcon',
-        '../react/AppLinker',
-        '../react/AppTile',
         '../react/AppTitle',
         '../react/Avatar',
         '../react/Badge',
@@ -26,7 +23,6 @@ module.exports = {
         '../react/Buttons',
         '../react/Checkbox',
         '../react/Chips',
-        '../react/CipherIcon',
         '../react/CircleButton',
         '../react/CircularChart',
         '../react/Counter',
@@ -73,44 +69,22 @@ module.exports = {
       ]
     },
     {
-      name: 'Contacts',
-      components: () => [
-        '../react/ContactsList',
-        '../react/ContactsListModal',
-        '../react/ContactPicker',
-        '../react/Contacts/AddModal',
-        '../react/Contacts/Header'
-      ]
-    },
-    {
       name: 'Extra',
       components: () => [
         '../react/ActionsBar',
         '../react/ActionsMenu',
-        '../react/AppSections',
         '../react/BottomSheet',
         '../react/CozyDialogs',
         '../react/CozyDialogs/SpecificDialogs',
+        '../react/EditBadge',
         '../react/DatePicker',
-        '../react/FileImageLoader',
-        '../react/FilePicker',
         '../react/HistoryRow',
-        '../react/IntentDialogOpener/IntentDialogOpener.jsx',
-        '../react/IntentIframe/IntentIframe.jsx',
         '../react/Layout/Layout.jsx',
         '../react/MidEllipsis',
         '../react/NavigationList',
         '../react/NestedSelect/NestedSelect.jsx',
-        '../react/Paywall',
         '../react/Sidebar',
-        '../react/SquareAppIcon',
-        '../react/Storage',
-        '../react/Table',
-        '../react/QualificationGrid',
-        '../react/QualificationIcon',
-        '../react/QualificationItem',
-        '../react/QualificationModal',
-        '../react/UploadQueue'
+        '../react/Table'
       ]
     },
     {
@@ -143,9 +117,7 @@ module.exports = {
         '../react/legacy/Breadcrumbs',
         '../react/Card',
         '../react/Circle',
-        '../react/Labs/CollectionField',
         '../react/DateMonthPicker',
-        '../react/Field',
         '../react/Figure/Figure.jsx',
         '../react/Figure/FigureBlock.jsx',
         '../react/Filename',
@@ -153,7 +125,7 @@ module.exports = {
         '../react/FilePathLink',
         '../react/FileInput',
         '../react/Hero',
-        '../react/Input',
+        '../react/legacy/Input',
         '../react/InputGroup',
         '../react/Label',
         '../react/LoadMore',

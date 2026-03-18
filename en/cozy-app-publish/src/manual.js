@@ -1,8 +1,10 @@
 const path = require('path')
+
 const fs = require('fs-extra')
-const getManifestAsObject = require('./utils/getManifestAsObject')
-const tags = require('./tags')
+
 const publisher = require('./publisher')
+const tags = require('./tags')
+const getManifestAsObject = require('./utils/getManifestAsObject')
 const logger = require('./utils/logger')
 
 const getManifestManual = ctx => {
@@ -43,7 +45,9 @@ const manualPublish = publisher({
 
 const manualPublishCLI = function () {
   return manualPublish.apply(this, arguments).catch(e => {
+    // eslint-disable-next-line no-console
     console.error(e)
+    // eslint-disable-next-line no-console
     console.error(e.message)
     process.exit(1)
   })

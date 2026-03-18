@@ -6,11 +6,10 @@ const { ArgumentParser } = require('argparse')
 const capitalize = require('lodash/capitalize')
 const omitBy = require('lodash/omitBy')
 
-const logger = require('./utils/logger')
-const colorize = require('./utils/colorize')
 const scripts = require('./index')
-
 const pkg = require('../package.json')
+const colorize = require('./utils/colorize')
+const logger = require('./utils/logger')
 
 const MODES = {
   TRAVIS: 'travis',

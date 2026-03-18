@@ -37,6 +37,16 @@ const schema = {
         doctype: 'io.cozy.contacts'
       }
     }
+  },
+  assistants: {
+    doctype: 'io.cozy.ai.chat.assistants',
+    attributes: {},
+    relationships: {
+      provider: {
+        type: 'has-one',
+        doctype: 'io.cozy.accounts'
+      }
+    }
   }
 }
 

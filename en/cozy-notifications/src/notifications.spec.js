@@ -1,6 +1,6 @@
-import { sendNotification } from './notifications'
-import emailTemplate from './__tests__/email-layout.hbs'
 import appLayout from './__tests__/app-layout.hbs'
+import emailTemplate from './__tests__/email-layout.hbs'
+import { sendNotification } from './notifications'
 import NotificationView from './view'
 
 class MyNotificationView extends NotificationView {

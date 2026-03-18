@@ -20,7 +20,33 @@ module.exports = {
     url: 'http://cozy.localhost:8080/'
   },
   transform: {
-    '^.+\\.(ts|tsx|js|jsx)?$': 'babel-jest',
+    '\\.(js|jsx|mjs)$': [
+      '@swc/jest',
+      {
+        jsc: {
+          experimental: {
+            plugins: [['@swc-contrib/mut-cjs-exports', {}]]
+          },
+          parser: {
+            jsx: true
+          }
+        }
+      }
+    ],
+    '\\.(ts|tsx)$': [
+      '@swc/jest',
+      {
+        jsc: {
+          experimental: {
+            plugins: [['@swc-contrib/mut-cjs-exports', {}]]
+          },
+          parser: {
+            syntax: 'typescript',
+            tsx: true
+          }
+        }
+      }
+    ],
     '^.+\\.webapp$': '<rootDir>/test/jestLib/json-transformer.js'
   },
   transformIgnorePatterns: [

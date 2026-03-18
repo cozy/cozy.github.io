@@ -1,0 +1,52 @@
+.wallpaperGrid
+  display grid
+  grid-template-columns 1fr 1fr
+  gap 0.5rem
+  width calc(100% - 2rem)
+  height calc(100% - 1rem)
+
+.wallpaperGrid--bottomSheet
+  grid-template-columns repeat(4, minmax(0, 1fr))
+  grid-template-rows repeat(2, minmax(0, 1fr))
+
+.wallpaperItem
+  width calc(100% - 4px)
+  height calc(100% - 4px)
+  outline 0px solid
+  outline-color: var(--primaryColor)
+  margin: 2px
+  transition outline-width 0.15s
+  background: var(--paperBackgroundColor)
+
+.wallpaperItem--dark
+  background: var(--greyA400)
+
+.wallpaperItem:hover
+  border 1px solid var(--borderGhostColor)
+  margin 1px
+
+.wallpaperItem--selected
+  outline-width 3px
+  margin 0px
+  border 2px solid var(--paperBackgroundColor)
+
+.wallpaperImage
+  width 100%
+  height 100%
+  object-fit cover
+  object-position center
+  position absolute
+  top 0
+  left 0
+
+.wallpaperOverlay
+  background-color var(--black)
+  z-index var(--zIndex-low)
+
+.wallpaperLabel
+  position absolute
+  bottom 12px
+  left 0px
+  width 100%
+  text-align center
+  z-index var(--zIndex-nav)

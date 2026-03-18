@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+import { waitFor } from '@testing-library/dom'
 import MicroEE from 'microee'
 import { Server } from 'mock-socket'
 
@@ -143,8 +145,6 @@ function createSocketServer({
   return server
 }
 
-const sleep = time => new Promise(resolve => setTimeout(resolve, time))
-
 /** * TEST ***/
 
 describe('CozyRealtime', () => {
@@ -173,8 +173,7 @@ describe('CozyRealtime', () => {
       const handler = jest.fn()
       realtime.subscribe(event, type, handler)
 
-      // Give some time for createWebSocket to be called
-      await sleep(10)
+      await waitFor(() => expect(createWebSocket).toHaveBeenCalled())
 
       expect(createWebSocket).toHaveBeenCalledWith(
         defaultWebsocketURI,
@@ -193,37 +192,37 @@ describe('CozyRealtime', () => {
     })
 
     describe('when subscribing before the socket being ready', () => {
-      it('should receive corresponding messages on the handler', async done => {
+      it('should receive corresponding messages on the handler', async () => {
         const server = createSocketServer()
         const realtime = createRealtime()
 
         const handler = jest.fn().mockImplementation(data => {
           expect(data).toEqual(doc)
-          done()
         })
         realtime.subscribe(event, type, handler)
 
         await realtime.waitForSocketReady()
         server.emitMessage(event, payload)
+        await waitFor(() => expect(handler).toHaveBeenCalled())
       })
     })
 
     describe('when subscribing before the socket being ready', () => {
-      it('should receive corresponding messages on the handler', async done => {
+      it('should receive corresponding messages on the handler', async () => {
         const server = createSocketServer()
         const realtime = createRealtime()
 
         const handler = jest.fn().mockImplementation(data => {
           expect(data).toEqual(doc)
-          done()
         })
 
         realtime.subscribe('DELETED', 'io.cozy.notes', 'other-id', handler)
         await realtime.waitForSocketReady()
 
         realtime.subscribe(event, type, handler)
-        await sleep(10)
+        await waitFor(() => expect(server.onsubscribe).toHaveBeenCalledTimes(2))
         server.emitMessage(event, payload)
+        await waitFor(() => expect(handler).toHaveBeenCalled())
       })
     })
 
@@ -232,11 +231,13 @@ describe('CozyRealtime', () => {
       const realtime = createRealtime()
 
       const handler = jest.fn()
+      const sentinel = jest.fn()
       realtime.subscribe(event, 'other-type', id, handler)
+      realtime.subscribe(event, type, sentinel)
 
       await realtime.waitForSocketReady()
       server.emitMessage(event, payload)
-      await sleep(100)
+      await waitFor(() => expect(sentinel).toHaveBeenCalled())
 
       expect(handler).not.toHaveBeenCalled()
     })
@@ -246,58 +247,60 @@ describe('CozyRealtime', () => {
       const realtime = createRealtime()
 
       const handler = jest.fn()
+      const sentinel = jest.fn()
       realtime.subscribe('DELETED', type, id, handler)
+      realtime.subscribe('UPDATED', type, sentinel)
 
       await realtime.waitForSocketReady()
       server.emitMessage('UPDATED', payload)
-      await sleep(100)
+      await waitFor(() => expect(sentinel).toHaveBeenCalled())
 
       expect(handler).not.toHaveBeenCalled()
     })
 
     describe('without an id', () => {
-      it('should be able to trigger on a payload with an id', async done => {
+      it('should be able to trigger on a payload with an id', async () => {
         const server = createSocketServer()
         const realtime = createRealtime()
 
         const handler = jest.fn().mockImplementation(data => {
           expect(data).toEqual(doc)
-          done()
         })
         realtime.subscribe(event, type, handler)
 
         await realtime.waitForSocketReady()
         server.emitMessage(event, payload)
+        await waitFor(() => expect(handler).toHaveBeenCalled())
       })
 
-      it('should be able to trigger on a payload without an id', async done => {
+      it('should be able to trigger on a payload without an id', async () => {
         const server = createSocketServer()
         const realtime = createRealtime()
 
         const handler = jest.fn().mockImplementation(data => {
           expect(data).toEqual(doc)
-          done()
         })
         realtime.subscribe('CREATED', type, handler)
 
         await realtime.waitForSocketReady()
         server.emitMessage('CREATED', { type, doc })
+        await waitFor(() => expect(handler).toHaveBeenCalled())
       })
     })
 
     describe('with an id', () => {
-      it('should trigger for corresponding events', async done => {
+      it('should trigger for corresponding events', async () => {
         const server = createSocketServer()
         const realtime = createRealtime()
 
         const handler = jest.fn().mockImplementation(data => {
           expect(data).toEqual(doc)
-          done()
         })
         realtime.subscribe(event, type, id, handler)
 
         await realtime.waitForSocketReady()
         server.emitMessage(event, payload)
+        await waitFor(() => expect(handler).toHaveBeenCalled())
       })
 
       it('should not trigger for other ids', async () => {
@@ -305,80 +308,69 @@ describe('CozyRealtime', () => {
         const realtime = createRealtime()
 
         const handler = jest.fn()
+        const sentinel = jest.fn()
         realtime.subscribe(event, type, 'other_id', handler)
+        realtime.subscribe(event, type, id, sentinel)
 
         await realtime.waitForSocketReady()
         server.emitMessage(event, payload)
-        await sleep(100)
+        await waitFor(() => expect(sentinel).toHaveBeenCalled())
 
         expect(handler).not.toHaveBeenCalled()
       })
     })
 
-    it('should accept an subscription with an undefined id', async done => {
+    it('should accept an subscription with an undefined id', async () => {
       const server = createSocketServer()
       const realtime = createRealtime()
 
       const handler = jest.fn().mockImplementation(data => {
         expect(data).toEqual(doc)
-        done()
       })
       realtime.subscribe(event, type, undefined, handler)
 
       await realtime.waitForSocketReady()
       server.emitMessage(event, payload)
+      await waitFor(() => expect(handler).toHaveBeenCalled())
     })
 
-    it('should allow multiple handlers for the same message', async done => {
+    it('should allow multiple handlers for the same message', async () => {
       const server = createSocketServer()
       const realtime = createRealtime()
 
       const handler1 = jest.fn().mockImplementation(data => {
         expect(data).toEqual(doc)
-        finish()
       })
       const handler2 = jest.fn().mockImplementation(data => {
         expect(data).toEqual(doc)
-        finish()
       })
-
-      function finish() {
-        if (
-          handler1.mock.calls.length == 1 &&
-          handler2.mock.calls.length == 1
-        ) {
-          done()
-        }
-      }
 
       realtime.subscribe(event, type, undefined, handler1)
       realtime.subscribe(event, type, undefined, handler2)
 
       await realtime.waitForSocketReady()
       server.emitMessage(event, payload)
+      await waitFor(() => {
+        expect(handler1).toHaveBeenCalled()
+        expect(handler2).toHaveBeenCalled()
+      })
     })
 
     if (allowDoubleSubscriptions) {
-      it('should call twice the handler if subscribe 2 times', async done => {
+      it('should call twice the handler if subscribe 2 times', async () => {
         const server = createSocketServer()
         const realtime = createRealtime()
 
         const handler = jest.fn().mockImplementation(data => {
           expect(data).toEqual(doc)
-          finish()
         })
-
-        function finish() {
-          if (handler.mock.calls.length == 2) {
-            done()
-          }
-        }
 
         realtime.subscribe(event, type, undefined, handler)
         realtime.subscribe(event, type, undefined, handler)
 
         await realtime.waitForSocketReady()
         server.emitMessage(event, payload)
+        await waitFor(() => expect(handler).toHaveBeenCalledTimes(2))
       })
     } else {
       it('should not call the handler twice in case of double subscription', async () => {
@@ -386,12 +378,14 @@ describe('CozyRealtime', () => {
         const realtime = createRealtime()
 
         const handler = jest.fn()
+        const sentinel = jest.fn()
         realtime.subscribe(event, type, undefined, handler)
         realtime.subscribe(event, type, undefined, handler)
+        realtime.subscribe(event, type, undefined, sentinel)
 
         await realtime.waitForSocketReady()
         server.emitMessage(event, payload)
-        await sleep(100)
+        await waitFor(() => expect(sentinel).toHaveBeenCalled())
 
         expect(handler).toHaveBeenCalledTimes(1)
       })
@@ -405,12 +399,14 @@ describe('CozyRealtime', () => {
         const realtime = createRealtime()
 
         const handler = jest.fn()
+        const sentinel = jest.fn()
+        realtime.subscribe(event, type, undefined, sentinel)
         realtime.subscribe(event, type, undefined, handler)
         realtime.unsubscribe(event, type, undefined, handler)
 
         await realtime.waitForSocketReady()
         server.emitMessage(event, payload)
-        await sleep(100)
+        await waitFor(() => expect(sentinel).toHaveBeenCalled())
 
         expect(handler).not.toHaveBeenCalled()
       })
@@ -422,13 +418,14 @@ describe('CozyRealtime', () => {
         const realtime = createRealtime()
 
         const handler = jest.fn()
+        const sentinel = jest.fn()
         realtime.subscribe(event, type, undefined, handler)
+        realtime.subscribe(event, type, undefined, sentinel)
 
         await realtime.waitForSocketReady()
         realtime.unsubscribe(event, type, undefined, handler)
-        await sleep(10)
         server.emitMessage(event, payload)
-        await sleep(100)
+        await waitFor(() => expect(sentinel).toHaveBeenCalled())
 
         expect(handler).not.toHaveBeenCalled()
       })
@@ -443,7 +440,6 @@ describe('CozyRealtime', () => {
       realtime.unsubscribe(event, 'io.cozy.notes', undefined, handler)
 
       await realtime.waitForSocketReady()
-      await sleep(10) // no error just after success
     })
 
     if (allowDoubleSubscriptions) {
@@ -460,14 +456,13 @@ describe('CozyRealtime', () => {
 
           // first unsubscription leaves one handler
           server.emitMessage(event, payload)
-          await sleep(50)
+          await waitFor(() => expect(handler).toHaveBeenCalledTimes(1))
 
           // second unsubscription should not trigger the handler anymore
           realtime.unsubscribe(event, type, undefined, handler)
-          await sleep(50)
+          await waitFor(() => expect(server.hasClosedLastSocket()).toBeTruthy())
           server.emitMessage(event, payload)
 
-          await sleep(100)
           expect(handler).toHaveBeenCalledTimes(1)
         })
       } else {
@@ -476,13 +471,15 @@ describe('CozyRealtime', () => {
           const realtime = createRealtime()
 
           const handler = jest.fn()
+          const sentinel = jest.fn()
           realtime.subscribe(event, type, undefined, handler)
           realtime.subscribe(event, type, undefined, handler)
+          realtime.subscribe(event, type, undefined, sentinel)
           realtime.unsubscribe(event, type, undefined, handler)
           await realtime.waitForSocketReady()
 
           server.emitMessage(event, payload)
-          await sleep(100)
+          await waitFor(() => expect(sentinel).toHaveBeenCalled())
           expect(handler).not.toHaveBeenCalled()
         })
       }
@@ -498,9 +495,8 @@ describe('CozyRealtime', () => {
 
         await realtime.waitForSocketReady()
         realtime.unsubscribe(event, type, undefined, handler)
-        await sleep(200)
 
-        expect(server.hasClosedLastSocket()).toBeTruthy()
+        await waitFor(() => expect(server.hasClosedLastSocket()).toBeTruthy())
       })
     })
   })
@@ -515,9 +511,8 @@ describe('CozyRealtime', () => {
 
       await realtime.waitForSocketReady()
       realtime.unsubscribeAll()
-      await sleep(10)
+      await waitFor(() => expect(server.hasClosedLastSocket()).toBeTruthy())
       server.emitMessage(event, payload)
-      await sleep(100)
 
       expect(handler).not.toHaveBeenCalled()
     })
@@ -531,11 +526,8 @@ describe('CozyRealtime', () => {
 
       await realtime.waitForSocketReady()
       realtime.unsubscribeAll()
-      await sleep(10)
-      server.emitMessage(event, payload)
-      await sleep(100)
 
-      expect(server.hasClosedLastSocket()).toBeTruthy()
+      await waitFor(() => expect(server.hasClosedLastSocket()).toBeTruthy())
     })
   })
 
@@ -553,9 +545,9 @@ describe('CozyRealtime', () => {
       const handler = jest.fn()
       realtime.subscribe(event, type, handler)
 
-      await sleep(100)
-
-      expect(createWebSocket).toHaveBeenCalledWith(sharedDriveWsURI, protocol)
+      await waitFor(() =>
+        expect(createWebSocket).toHaveBeenCalledWith(sharedDriveWsURI, protocol)
+      )
     })
   })
 
@@ -572,9 +564,10 @@ describe('CozyRealtime', () => {
         await realtime.waitForSocketReady()
         client.emit('login')
 
-        await sleep(100)
-        expect(server.onauth).toHaveBeenCalledTimes(2)
-        expect(server.onsubscribe).toHaveBeenCalledTimes(2)
+        await waitFor(() => {
+          expect(server.onauth).toHaveBeenCalledTimes(2)
+          expect(server.onsubscribe).toHaveBeenCalledTimes(2)
+        })
       })
     })
 
@@ -590,8 +583,7 @@ describe('CozyRealtime', () => {
         await realtime.waitForSocketReady()
         client.emit('logout')
 
-        await sleep(100)
-        expect(server.hasClosedLastSocket()).toBeTruthy()
+        await waitFor(() => expect(server.hasClosedLastSocket()).toBeTruthy())
       })
     })
 
@@ -614,8 +606,7 @@ describe('CozyRealtime', () => {
         await realtime.waitForSocketReady()
         server.simulate('error')
 
-        await sleep(100)
-        expect(server.onconnect).toHaveBeenCalledTimes(2)
+        await waitFor(() => expect(server.onconnect).toHaveBeenCalledTimes(2))
       })
 
       it('should restart a connecting socket', async () => {
@@ -626,7 +617,6 @@ describe('CozyRealtime', () => {
         realtime.subscribe(event, type, undefined, handler)
         server.simulate('error')
 
-        await sleep(100)
         await realtime.waitForSocketReady()
 
         expect(server.hasClosedLastSocket()).toBeFalsy()
@@ -638,7 +628,6 @@ describe('CozyRealtime', () => {
 
         server.simulate('error')
 
-        await sleep(100)
         expect(server.onconnect).not.toHaveBeenCalled()
       })
     })
@@ -654,8 +643,7 @@ describe('CozyRealtime', () => {
         await realtime.waitForSocketReady()
         server.lastOpenedSocket.close()
 
-        await sleep(100)
-        expect(server.onconnect).toHaveBeenCalledTimes(2)
+        await waitFor(() => expect(server.onconnect).toHaveBeenCalledTimes(2))
       })
     })
   })
@@ -667,7 +655,9 @@ describe('CozyRealtime', () => {
 
         const handler = jest.fn()
         realtime.subscribe(event, type, undefined, handler)
-        await sleep(100)
+
+        // wait until the retry manager is in a waiting state (≥2 failures, wait > 0)
+        await waitFor(() => expect(realtime.retryManager.waiting).toBeTruthy())
 
         const server = createSocketServer()
         await realtime.waitForSocketReady()
@@ -691,7 +681,9 @@ describe('CozyRealtime', () => {
         realtime.retryManager.onFailure()
         realtime.retryManager.onFailure()
         realtime.onWebSocketError()
-        await sleep(25)
+
+        // wait until the pending reconnect is in a waiting state
+        await waitFor(() => expect(realtime.retryManager.waiting).toBeTruthy())
 
         // reconnect before the previous connection finishes to wait
         realtime.onOnline()
@@ -709,10 +701,8 @@ describe('CozyRealtime', () => {
         realtime.subscribe(event, type, undefined, handler)
         await realtime.waitForSocketReady()
 
-        const event = new Event('online')
-        window.dispatchEvent(event)
+        window.dispatchEvent(new Event('online'))
 
-        await sleep(100)
         await realtime.waitForSocketReady()
         expect(server.onconnect).toHaveBeenCalledTimes(2)
       })
@@ -728,11 +718,9 @@ describe('CozyRealtime', () => {
         realtime.retryManager.onFailure()
         realtime.retryManager.onFailure()
         realtime.retryManager.onFailure()
-        const event = new Event('online')
-        window.dispatchEvent(event)
+        window.dispatchEvent(new Event('online'))
 
-        await sleep(100)
-        expect(server.onconnect).toHaveBeenCalledTimes(2)
+        await waitFor(() => expect(server.onconnect).toHaveBeenCalledTimes(2))
       })
     })
 
@@ -753,13 +741,15 @@ describe('CozyRealtime', () => {
           realtime.retryManager.onFailure()
           realtime.retryManager.onFailure()
           realtime.onWebSocketClose()
-          await sleep(25)
 
-          const event = new Event('visibilitychange')
-          window.dispatchEvent(event)
+          // wait until the pending reconnect is in a waiting state
+          await waitFor(() =>
+            expect(realtime.retryManager.waiting).toBeTruthy()
+          )
 
-          await sleep(100)
-          expect(server.onconnect).toHaveBeenCalledTimes(2)
+          window.dispatchEvent(new Event('visibilitychange'))
+
+          await waitFor(() => expect(server.onconnect).toHaveBeenCalledTimes(2))
         })
       })
     })

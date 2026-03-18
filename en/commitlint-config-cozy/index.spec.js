@@ -1,4 +1,5 @@
 import lint from '@commitlint/lint'
+
 import { rules } from '.'
 
 const TOO_LONG = `It's an example of invalid sentence since it has more than 72 characters!`

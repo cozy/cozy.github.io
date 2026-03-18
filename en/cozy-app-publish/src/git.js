@@ -1,4 +1,5 @@
 const spawn = require('child_process').spawn
+
 const logger = require('./utils/logger')
 
 const launchCmd = (cmd, params, options) => {

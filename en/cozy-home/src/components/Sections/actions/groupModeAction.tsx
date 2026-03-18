@@ -5,7 +5,7 @@ import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import Switch from 'cozy-ui/transpiled/react/Switch'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { Action } from 'cozy-ui/transpiled/react/ActionsMenu/Actions'
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import { useI18n } from 'twake-i18n'
 import { useSettings } from 'cozy-client'
 
 import {

@@ -140,6 +140,7 @@ func configureParameters() error {
 		DomainSpaces:     viper.GetStringMapString("domain_space"),
 		TrustedDomains:   viper.GetStringMapStringSlice("trusted_domains"),
 		TrustedProtocols: viper.GetStringMapStringSlice("trusted_protocols"),
+		TrustedUrls:      viper.GetStringMapStringSlice("trusted_urls"),
 	}
 
 	return nil

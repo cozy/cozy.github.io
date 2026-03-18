@@ -1,3 +1,1 @@
-'use strict'
-
-module.exports = require('./basics')
+export { default } from './basics.js'

@@ -1,9 +1,10 @@
-import { renderer } from './templates'
-import { renderMJML } from './mjmlUtils'
-import { generateUniversalLink, generateWebLink } from './urls'
 import get from 'lodash/get'
+
 import enLocale from './locales/en.json'
 import frLocale from './locales/fr.json'
+import { renderMJML } from './mjmlUtils'
+import { renderer } from './templates'
+import { generateUniversalLink, generateWebLink } from './urls'
 
 const builtInLocales = {
   en: enLocale,

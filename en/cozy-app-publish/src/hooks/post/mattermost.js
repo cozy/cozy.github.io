@@ -1,5 +1,6 @@
 const https = require('https')
 const url = require('url')
+
 const tags = require('../../tags')
 const logger = require('../../utils/logger')
 
@@ -97,7 +98,7 @@ const getMattermostChannels = ({ appVersion }) => {
   let channelOptions
   try {
     channelOptions = JSON.parse(envChannel)
-  } catch (e) {
+  } catch (_e) {
     channelOptions = {
       dev: envChannel,
       beta: envChannel,

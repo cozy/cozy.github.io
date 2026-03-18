@@ -11,7 +11,7 @@ import MosaicMin from 'cozy-ui/transpiled/react/Icons/MosaicMin'
 import Radio from 'cozy-ui/transpiled/react/Radios'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { Action } from 'cozy-ui/transpiled/react/ActionsMenu/Actions'
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import { useI18n } from 'twake-i18n'
 
 import {
   DisplayMode,

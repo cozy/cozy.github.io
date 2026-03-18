@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import cx from 'classnames'
 
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import { useI18n } from 'twake-i18n'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import Buttons from 'cozy-ui/transpiled/react/Buttons'
 import Markdown from 'cozy-ui/transpiled/react/Markdown'

@@ -1,10 +1,11 @@
-/* eslint-env jest */
-const fs = require('fs-extra')
 const path = require('path')
 
+const fs = require('fs-extra')
+
+const promptConfirm = require('./confirm')
 const manualScript = require('./manual').manualPublish
-const publishLib = require('./publish')
 const prepublish = require('./prepublish')
+const publishLib = require('./publish')
 const tags = require('./tags')
 
 const rootPath = process.cwd()
@@ -12,7 +13,6 @@ const testFolder = '.tmp_test'
 const testPath = path.join(rootPath, testFolder)
 
 const mockAppDir = path.join(__dirname, 'test/mockApps/mockApp')
-const promptConfirm = require('./confirm')
 
 jest.mock('./confirm')
 jest.mock('./publish', () => jest.fn())

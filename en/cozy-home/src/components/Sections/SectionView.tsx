@@ -4,7 +4,7 @@ import cx from 'classnames'
 import { useQuery } from 'cozy-client'
 import type { IOCozyKonnector } from 'cozy-client/types/types'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import { useI18n } from 'twake-i18n'
 
 import AddServiceTile from '@/components/AddServiceTile'
 import KonnectorTile from '@/components/KonnectorTile'

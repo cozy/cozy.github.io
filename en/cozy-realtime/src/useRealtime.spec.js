@@ -1,5 +1,6 @@
-import useRealtime from './useRealtime'
 import { renderHook } from '@testing-library/react-hooks'
+
+import useRealtime from './useRealtime'
 
 it('should subscribe to realtime events according to given specs', () => {
   const onCreateOrUpdate = jest.fn()

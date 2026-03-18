@@ -12,16 +12,21 @@ interface WallPaperContextInterfaceData {
 }
 interface WallPaperContextInterface {
   data: WallPaperContextInterfaceData
+  setWallpaperLink: (link: string | null) => void
+  returnToDefaultWallpaper: () => void
   fetchStatus: string
+  clearCustomWallpaper: () => void
+  saveCustomWallpaper: (file: File) => Promise<void>
 }
 export const WallPaperProvider = ({
   children
 }: {
   children: JSX.Element
 }): JSX.Element => {
-  const data = useWallpaper() as WallPaperContextInterface
+  const value = useWallpaper() as WallPaperContextInterface
+
   return (
-    <WallPaperContext.Provider value={data}>
+    <WallPaperContext.Provider value={value}>
       {children}
     </WallPaperContext.Provider>
   )

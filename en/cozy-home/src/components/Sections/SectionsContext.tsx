@@ -39,7 +39,7 @@ import {
 import { useMagicFolder } from '@/components/Sections/hooks/useMagicFolder'
 import { useShortcutsDirectories } from '@/components/Sections/hooks/useShortcutsDirectories'
 import { konnectorsConn, makeAccountsQuery, makeTriggersQuery } from '@/queries'
-import { useI18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import { useI18n } from 'twake-i18n'
 import { fetchAllKonnectors } from './queries/konnectors'
 import { formatServicesSections } from './lib/formatServicesSections'
 

@@ -1,6 +1,7 @@
 import Polyglot from 'node-polyglot'
-import { isString, isObject, isArray, validateAgainst } from './validators'
+
 import { toText } from './text'
+import { isString, isObject, isArray, validateAgainst } from './validators'
 
 const optionsTypes = {
   data: isObject,

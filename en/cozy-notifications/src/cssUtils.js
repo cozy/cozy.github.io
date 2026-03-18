@@ -1,5 +1,6 @@
 import fromPairs from 'lodash/fromPairs'
 import mapValues from 'lodash/mapValues'
+
 import uiPalette from 'cozy-ui/stylus/settings/palette.styl'
 
 const resolveCSSPropertiesInMapping = cssMapping => {

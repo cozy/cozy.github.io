@@ -1,7 +1,9 @@
-const tar = require('tar')
 const { spawn } = require('child_process')
-const fs = require('fs-extra')
 const path = require('path')
+
+const fs = require('fs-extra')
+const tar = require('tar')
+
 const logger = require('../../utils/logger')
 
 const UPLOAD_DIR = 'www-upload/'
@@ -31,7 +33,7 @@ const launchCmd = (cmd, params, options) => {
 const deleteArchive = async archivePath => {
   try {
     await fs.remove(archivePath)
-  } catch (error) {
+  } catch (_error) {
     logger.error(`↳ ⚠️  Unable to delete the previous archive.`)
   }
 }
@@ -91,7 +93,8 @@ const pushArchive = async (archiveFileName, options) => {
     await sshCommand(`mkdir -p ${uploadDir}`, HOST_STRING)
   } catch (e) {
     throw new Error(
-      `Unable to create target directory ${uploadDir} on downcloud server : ${e.message}`
+      `Unable to create target directory ${uploadDir} on downcloud server : ${e.message}`,
+      { cause: e }
     )
   }
 
@@ -123,7 +126,7 @@ const createArchive = async archivePath => {
     logger.error(
       `↳ ❌ Unable to generate app archive. Is tar installed as a dependency ? Error : ${error.message}`
     )
-    throw new Error('Unable to generate archive')
+    throw new Error('Unable to generate archive', { cause: error })
   }
 }
 

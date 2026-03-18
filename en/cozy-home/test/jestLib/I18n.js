@@ -1,6 +1,6 @@
 'use strict'
 
-import { I18n } from 'cozy-ui/transpiled/react/providers/I18n'
+import { I18n } from 'twake-i18n'
 
 const I18nComponent = new I18n({
   lang: 'en',

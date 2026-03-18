@@ -1,4 +1,4 @@
-const helpers = jest.genMockFromModule('../helpers')
+const helpers = jest.createMockFromModule('../helpers')
 const helpersActual = jest.requireActual('../helpers')
 
 helpers.getArchiveFileName = helpersActual.getArchiveFileName

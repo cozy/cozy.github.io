@@ -1,4 +1,3 @@
-/* eslint-env jest */
 const fetch = require('jest-fetch-mock')
 
 const publish = require('./publish')

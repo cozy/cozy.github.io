@@ -1,13 +1,11 @@
-/* eslint-env jest */
 const path = require('path')
 
-const publishLib = require('./publish')
 const postpublish = require('./postpublish')
 const prepublish = require('./prepublish')
+const publishLib = require('./publish')
 
 const mockAppDir = path.join(__dirname, 'test/mockApps/mockApp')
 const mockAppNoEditorDir = path.join(__dirname, 'test/mockApps/mockAppNoEditor')
-const getTravisVariables = require('./utils/getTravisVariables')
 
 jest.mock('./publish', () => jest.fn())
 jest.mock('./prepublish', () =>
@@ -27,6 +25,7 @@ const mockCommons = {
 jest.mock('./utils/getTravisVariables')
 
 const travisScript = require('./travis')
+const getTravisVariables = require('./utils/getTravisVariables')
 
 function getOptions(buildUrl = null) {
   const options = {
