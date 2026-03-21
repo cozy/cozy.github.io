@@ -6137,6 +6137,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Real-time via websockets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#messages-flow-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Messages flow example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-message" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error message
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -8130,6 +8158,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Real-time via websockets">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#messages-flow-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Messages flow example
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-message" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error message
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -8180,19 +8236,27 @@ $<span class="w"> </span>curl<span class="w"> </span><span class="s2">&quot;http
 <p>In practice, when files are uploaded/modified/deleted, the trigger will create
 a job for the index worker (with debounce). The index worker will look at the
 changed feed, and will call the RAG for each entry in the changes feed.</p>
+<p>By default, only text-based files are indexed. Images, videos, and audio files
+can be indexed by enabling the following feature flags:</p>
+<ul>
+<li><code>rag.index.image.enabled</code></li>
+<li><code>rag.index.video.enabled</code></li>
+<li><code>rag.index.audio.enabled</code></li>
+</ul>
 <h2 id="openrag">openRAG<a class="headerlink" href="#openrag" title="Permanent link">&para;</a></h2>
 <p>Some openRAG API are directly exposed through cozy-stack.
 Note the JSON-API format is not used here as we follow the openRAG format.</p>
 <h3 id="post-aiv1chatcompletions">POST /ai/v1/chat/completions<a class="headerlink" href="#post-aiv1chatcompletions" title="Permanent link">&para;</a></h3>
 <p>This route directly follows the <a href="https://platform.openai.com/docs/api-reference/chat/create">openAI chat completion AI</a>.</p>
 <h4 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h4>
-<p>POST /ai/v1/chat/completions HTTP/1.1
-Content-Type: application/json</p>
+<div class="highlight"><pre><span></span><code><span class="nf">POST</span> <span class="nn">/ai/v1/chat/completions</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+</code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;messages&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Hello there, what&#39;s in your mind?&quot;</span><span class="w"> </span><span class="p">}</span>
 <span class="w">  </span><span class="p">],</span>
-<span class="nt">&quot;temperature&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.3</span>
+<span class="w">  </span><span class="nt">&quot;temperature&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.3</span>
 <span class="p">}</span>
 </code></pre></div>
 <h4 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h4>
@@ -8263,9 +8327,19 @@ response. The client must use the real-time websocket and subscribe to
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;q&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Why the sky is blue?&quot;</span>
+<span class="w">  </span><span class="nt">&quot;q&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Why the sky is blue?&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;stream&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;websearch&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;assistantID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abc123&quot;</span>
 <span class="p">}</span>
 </code></pre></div>
+<ul>
+<li><code>q</code> is the user&rsquo;s message (required).</li>
+<li><code>stream</code> enables streaming the response via SSE deltas (defaults to <code>true</code>).</li>
+<li><code>websearch</code> enables web search for the query (defaults to <code>false</code>).</li>
+<li><code>assistantID</code> associates the conversation with an <code>io.cozy.ai.chat.assistants</code>
+  document (optional). When set, the response includes a <code>relationships</code> block.</li>
+</ul>
 <h4 id="response_2">Response<a class="headerlink" href="#response_2" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">202</span> <span class="ne">Accepted</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
@@ -8283,19 +8357,28 @@ response. The client must use the real-time websocket and subscribe to
 <span class="w">          </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Why the sky is blue?&quot;</span><span class="p">,</span>
 <span class="w">          </span><span class="nt">&quot;createdAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-09-24T13:24:07.576Z&quot;</span>
 <span class="w">        </span><span class="p">}</span>
-<span class="w">      </span><span class="p">]</span>
+<span class="w">      </span><span class="p">],</span>
+<span class="w">      </span><span class="nt">&quot;relationships&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;assistant&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;b2e1a4144c123ec694697d996102983a&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;io.cozy.ai.chat.assistants&quot;</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">&quot;cozyMetadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;createdAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-09-24T13:24:07.576Z&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;createdOn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://cozy.localhost:8080/&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;doctypeVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;metadataVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;updatedAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-09-24T13:24:07.576Z&quot;</span>
+<span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;cozyMetadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;createdAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-09-24T13:24:07.576Z&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;createdOn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://cozy.localhost:8080/&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;doctypeVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;metadataVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;updatedAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-09-24T13:24:07.576Z&quot;</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="real-time-via-websockets">Real-time via websockets<a class="headerlink" href="#real-time-via-websockets" title="Permanent link">&para;</a></h3>
+<h4 id="messages-flow-example">Messages flow example<a class="headerlink" href="#messages-flow-example" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code>client &gt; {&quot;method&quot;: &quot;AUTH&quot;, &quot;payload&quot;: &quot;token&quot;}
 client &gt; {&quot;method&quot;: &quot;SUBSCRIBE&quot;,
           &quot;payload&quot;: {&quot;type&quot;: &quot;io.cozy.ai.chat.events&quot;}}
@@ -8311,15 +8394,19 @@ server &gt; {&quot;event&quot;: &quot;CREATED&quot;,
 server &gt; {&quot;event&quot;: &quot;CREATED&quot;,
           &quot;payload&quot;: {&quot;id&quot;: &quot;eb17c3205bf1013ddea018c04daba326&quot;,
                       &quot;type&quot;: &quot;io.cozy.ai.chat.events&quot;,
-                      &quot;doc&quot;: {&quot;object&quot;: &quot;generated&quot;}}}
-server &gt; {&quot;event&quot;: &quot;CREATED&quot;,
-          &quot;payload&quot;: {&quot;id&quot;: &quot;eb17c3205bf1013ddea018c04daba326&quot;,
-                      &quot;type&quot;: &quot;io.cozy.ai.chat.events&quot;,
                       &quot;doc&quot;: {&quot;object&quot;: &quot;sources&quot;, &quot;content&quot;: [{&quot;id&quot;: &quot;827f0fbb928b375cc457c732a4013aa7&quot;, &quot;doctype&quot;: &quot;io.cozy.files&quot;}]}}}
 server &gt; {&quot;event&quot;: &quot;CREATED&quot;,
           &quot;payload&quot;: {&quot;id&quot;: &quot;eb17c3205bf1013ddea018c04daba326&quot;,
                       &quot;type&quot;: &quot;io.cozy.ai.chat.events&quot;,
                       &quot;doc&quot;: {&quot;object&quot;: &quot;done&quot;}}}
+</code></pre></div>
+<h4 id="error-message">Error message<a class="headerlink" href="#error-message" title="Permanent link">&para;</a></h4>
+<p>If an error occurs while processing the AI response (e.g. the LLM is
+unavailable), an error event is sent instead:</p>
+<div class="highlight"><pre><span></span><code>server &gt; {&quot;event&quot;: &quot;CREATED&quot;,
+          &quot;payload&quot;: {&quot;id&quot;: &quot;eb17c3205bf1013ddea018c04daba326&quot;,
+                      &quot;type&quot;: &quot;io.cozy.ai.chat.events&quot;,
+                      &quot;doc&quot;: {&quot;object&quot;: &quot;error&quot;, &quot;message&quot;: &quot;I don&#39;t want to talk today&quot;}}}
 </code></pre></div>
 
 
