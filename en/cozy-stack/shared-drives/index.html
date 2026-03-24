@@ -9939,7 +9939,7 @@ The request body uses the same JSON:API shape as <a href="../permissions/#post-p
 <ul>
 <li>The shared-drive owner can create a link.</li>
 <li>A write-capable recipient can create a link.</li>
-<li>A read-only recipient cannot create a link.</li>
+<li>A read-only recipient can create a read-only link.</li>
 </ul>
 <p>Validation:</p>
 <ul>
@@ -9948,6 +9948,7 @@ The request body uses the same JSON:API shape as <a href="../permissions/#post-p
 <li>Selectors are not supported.</li>
 <li>The target must belong to the shared drive and must be readable by the
   caller.</li>
+<li>A read-only recipient cannot request writable verbs.</li>
 <li>Only one share-by-link permission can exist per target. A second creation
   attempt on the same target returns a conflict, regardless of which member
   created the existing link.</li>
@@ -9956,8 +9957,8 @@ The request body uses the same JSON:API shape as <a href="../permissions/#post-p
 <ul>
 <li><code>200 OK</code> created</li>
 <li><code>400 Bad Request</code> invalid permission set or invalid target</li>
-<li><code>403 Forbidden</code> caller lacks access to the target or is read-only on the
-  shared drive</li>
+<li><code>403 Forbidden</code> caller lacks access to the target or requests a permission
+  set larger than their shared-drive access</li>
 <li><code>409 Conflict</code> a share-by-link permission already exists for this target</li>
 </ul>
 <h3 id="patch-sharingsdrivesidpermissionsperm-id">PATCH /sharings/drives/:id/permissions/:perm-id<a class="headerlink" href="#patch-sharingsdrivesidpermissionsperm-id" title="Permanent link">&para;</a></h3>
@@ -9968,13 +9969,15 @@ The request body uses the same JSON:API shape as <a href="../permissions/#post-p
 <li>The creator of a share-by-link permission can patch the permission they
   created.</li>
 <li>Creator resolution works for same-stack and cross-stack recipients.</li>
+<li>A read-only shared-drive recipient can patch only the read-only permission
+  they created.</li>
 <li>Public share tokens (<code>share</code>, <code>share-preview</code>) cannot patch permissions.</li>
 </ul>
 <p>Allowed updates:</p>
 <ul>
 <li><code>password</code></li>
 <li><code>expires_at</code></li>
-<li><code>permissions</code> (same target only)</li>
+<li><code>permissions</code> (same target only, owner or write-capable creator only)</li>
 </ul>
 <p>Validation:</p>
 <ul>
@@ -9985,16 +9988,19 @@ The request body uses the same JSON:API shape as <a href="../permissions/#post-p
   inside the shared drive.</li>
 <li>A write-capable creator or the owner can promote a read-only link to a
   writable link if their current token grants those verbs.</li>
-<li>A read-only shared-drive recipient cannot patch a permission set to add
-  writable verbs.</li>
+<li>A read-only shared-drive recipient can only update <code>password</code> and
+  <code>expires_at</code>.</li>
+<li>A read-only shared-drive recipient cannot patch <code>permissions</code>, even if the
+  result would stay read-only.</li>
 </ul>
 <p>Status codes:</p>
 <ul>
 <li><code>200 OK</code> updated</li>
-<li><code>400 Bad Request</code> invalid payload (for example trying to update <code>permissions</code>
-  or <code>codes</code>), invalid <code>password</code> / <code>expires_at</code> attribute format</li>
-<li><code>403 Forbidden</code> caller is not owner/creator, or caller identity cannot be
-  verified for a shared-drive token</li>
+<li><code>400 Bad Request</code> invalid payload (for example trying to update <code>codes</code>),
+  invalid <code>password</code> / <code>expires_at</code> attribute format</li>
+<li><code>403 Forbidden</code> caller is not owner/creator, caller identity cannot be
+  verified for a shared-drive token, or a read-only recipient attempts to
+  patch <code>permissions</code></li>
 <li><code>404 Not Found</code> permission ID does not exist</li>
 </ul>
 <h3 id="delete-sharingsdrivesidpermissionsperm-id">DELETE /sharings/drives/:id/permissions/:perm-id<a class="headerlink" href="#delete-sharingsdrivesidpermissionsperm-id" title="Permanent link">&para;</a></h3>
@@ -10004,7 +10010,8 @@ The request body uses the same JSON:API shape as <a href="../permissions/#post-p
 <li>The shared-drive owner can revoke any share-by-link permission.</li>
 <li>The creator of a share-by-link permission can revoke the permission they
   created.</li>
-<li>A read-only shared-drive recipient cannot revoke a permission.</li>
+<li>A read-only shared-drive recipient can revoke the read-only permission they
+  created.</li>
 <li>Public share tokens (<code>share</code>, <code>share-preview</code>) cannot revoke permissions.</li>
 </ul>
 <p>Status codes:</p>

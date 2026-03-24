@@ -46,6 +46,13 @@ body
     &--immersive
         min-height calc(100vh - var(--flagship-bottom-height) - var(--flagship-top-height))
 
+    &--full-height
+        padding 0
+        min-height calc(100vh - 3rem - 1px) // 3rem is topbar height, 1px is divider height
+
+    &--full-height-mobile
+        margin-top 3rem
+
 +small-screen()
     .main-view, .home-custom-background
         transition transform 200ms ease-out
@@ -60,3 +67,6 @@ body
 
     #coz-bar
         top var(--flagship-top-height)
+
+.topbar-border
+    border-bottom 1px solid var(--dividerColor)

@@ -1,5 +1,6 @@
 import React from 'react'
 import { isFlagshipApp } from 'cozy-device-helper'
+import { HashRouter } from 'react-router-dom'
 import { render } from '@testing-library/react'
 import App from '../components/AnimatedWrapper'
 import AppLike from '@/test/AppLike'
@@ -57,7 +58,9 @@ describe('App', () => {
       <AppLike>
         <CozyTheme>
           <WallPaperProvider>
-            <App />
+            <HashRouter>
+              <App />
+            </HashRouter>
           </WallPaperProvider>
         </CozyTheme>
       </AppLike>
@@ -82,7 +85,9 @@ describe('App', () => {
       <AppLike>
         <CozyTheme>
           <WallPaperProvider>
-            <App />
+            <HashRouter>
+              <App />
+            </HashRouter>
           </WallPaperProvider>
         </CozyTheme>
       </AppLike>

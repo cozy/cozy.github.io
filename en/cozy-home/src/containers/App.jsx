@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { Navigate, Route } from 'react-router-dom'
+import { Navigate, Outlet, Route, useLocation } from 'react-router-dom'
 import { BarComponent } from 'cozy-bar'
+import cx from 'classnames'
 
 import flag from 'cozy-flags'
 import minilog from 'cozy-minilog'
@@ -14,7 +15,7 @@ import { Layout } from 'cozy-ui/transpiled/react/Layout'
 import { useCozyTheme } from 'cozy-ui-plus/dist/providers/CozyTheme'
 
 import { AssistantMobileWrapper } from '@/components/Assistant/AssistantMobileWrapper'
-import { AssistantDialog, SearchDialog } from 'cozy-search'
+import { AssistantDialog, AssistantView, SearchDialog } from 'cozy-search'
 import Failure from '@/components/Failure'
 import HeroHeader from '@/components/HeroHeader'
 import Home from '@/components/Home'
@@ -40,11 +41,13 @@ import { useFetchInitialData } from '@/hooks/useFetchInitialData'
 import SectionDialog from '@/components/Sections/SectionDialog'
 import { SentryRoutes } from '@/lib/sentry'
 import '../flags'
+import styles from '../styles/app.styl'
 
 window.flag = window.flag || flag
 window.minilog = minilog
 
 const App = () => {
+  const { pathname } = useLocation()
   const { isMobile } = useBreakpoints()
   const [contentWrapper, setContentWrapper] = useState(undefined)
 
@@ -104,25 +107,42 @@ const App = () => {
     setDidInit(true)
   }
 
+  const isNewAssistantView =
+    pathname.startsWith('/connected/assistant/') &&
+    flag('cozy.top-bar-in-assistant.enabled')
+
   return (
     // u-bg-white avoids mix-blend-mode from home-custom-background to be linked to the background color of the body. Must not be responsive to the theme.
-    <Layout monoColumn className="u-bg-white">
+    <Layout monoColumn className={`${isNewAssistantView ? '' : 'u-bg-white'}`}>
       <BarComponent
-        searchOptions={{ enabled: false }}
+        searchOptions={{ enabled: isNewAssistantView }}
+        appSlug={isNewAssistantView ? 'assistant' : undefined}
         componentsProps={{
-          Wrapper: { className: 'u-bg-transparent u-elevation-0' }
+          Wrapper: {
+            className: cx('u-elevation-0', {
+              'u-border-bottom': isNewAssistantView,
+              'u-bg-transparent': !isNewAssistantView,
+              [styles['topbar-border']]: isNewAssistantView
+            })
+          }
         }}
       />
-      <BackgroundContainer />
+      {!isNewAssistantView && <BackgroundContainer />}
       <ReloadFocus />
-      <MainView>
+      <MainView isFullHeight={isNewAssistantView}>
         <BackupNotification />
         <div
-          className="u-flex u-flex-column u-flex-content-start u-flex-content-stretch u-w-100 u-m-auto u-pos-relative"
+          className={cx(
+            'u-flex u-flex-column u-flex-content-start u-flex-content-stretch u-w-100 u-pos-relative',
+            {
+              'u-m-auto': !isNewAssistantView,
+              'u-h-100': isNewAssistantView
+            }
+          )}
           ref={didInit ? div => setContentWrapper(div) : null}
         >
           <MoveModal />
-          <HeroHeader />
+          {!isNewAssistantView && <HeroHeader />}
           {hasError && (
             <main className="u-flex u-flex-items-center u-flex-justify-center">
               <Failure errorType="initial" />
@@ -139,15 +159,25 @@ const App = () => {
                 <Route
                   path="/connected"
                   element={
-                    <Home
-                      wrapper={contentWrapper}
-                      shortcutsDirectories={shortcutsDirectories}
-                    />
+                    isNewAssistantView ? (
+                      <Outlet />
+                    ) : (
+                      <Home
+                        wrapper={contentWrapper}
+                        shortcutsDirectories={shortcutsDirectories}
+                      />
+                    )
                   }
                 >
                   <Route
                     path="assistant/:conversationId"
-                    element={<AssistantDialog />}
+                    element={
+                      flag('cozy.top-bar-in-assistant.enabled') ? (
+                        <AssistantView />
+                      ) : (
+                        <AssistantDialog />
+                      )
+                    }
                   />
                   <Route path="search" element={<SearchDialog />} />
 
@@ -170,7 +200,9 @@ const App = () => {
           )}
           <IconSprite />
         </div>
-        <FooterLogo />
+        {((!isMobile && isNewAssistantView) || !isNewAssistantView) && (
+          <FooterLogo />
+        )}
       </MainView>
       {showAssistantForMobile && <AssistantMobileWrapper />}
       {flag('home.wallpaper-personalization.enabled') && (

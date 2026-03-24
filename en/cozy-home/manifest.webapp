@@ -28,12 +28,17 @@
     "chatConversations": {
       "description": "Required by the cozy Assistant",
       "type": "io.cozy.ai.chat.conversations",
-      "verbs": ["GET", "POST"]
+      "verbs": ["ALL"]
     },
     "chatEvents": {
       "description": "Required by the cozy Assistant",
       "type": "io.cozy.ai.chat.events",
       "verbs": ["GET"]
+    },
+    "assistants": {
+      "type": "io.cozy.ai.chat.assistants",
+      "verbs": ["ALL"],
+      "description": "Required to fetch, create and update AI assistant"
     },
     "settings": {
       "description": "Required by the cozy-bar display Claudy, to know which applications are coming soon and to manage default redirection update",
@@ -129,11 +134,6 @@
       "type": "cc.cozycloud.announcements.uploads",
       "verbs": ["GET"],
       "description": "Remote-doctype required to get announcements images"
-    },
-    "assistants": {
-      "type": "io.cozy.ai.chat.assistants",
-      "verbs": ["ALL"],
-      "description": "Remote-doctype required to fetch, create and update assistant data"
     }
   },
   "routes": {

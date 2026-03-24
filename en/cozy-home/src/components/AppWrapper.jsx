@@ -78,6 +78,7 @@ const Inner = ({ children, lang, context }) => (
     <SectionsProvider>
       {children}
       <RealTimeQueries doctype="io.cozy.ai.chat.conversations" />
+      <RealTimeQueries doctype="io.cozy.ai.chat.assistant" />
       <RealTimeQueries doctype="io.cozy.apps" />
       <RealTimeQueries doctype="io.cozy.files" />
       <RealTimeQueries doctype="io.cozy.jobs" />
