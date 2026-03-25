@@ -15,7 +15,7 @@ import { Layout } from 'cozy-ui/transpiled/react/Layout'
 import { useCozyTheme } from 'cozy-ui-plus/dist/providers/CozyTheme'
 
 import { AssistantMobileWrapper } from '@/components/Assistant/AssistantMobileWrapper'
-import { AssistantDialog, AssistantView, SearchDialog } from 'cozy-search'
+import { AssistantView, SearchDialog } from 'cozy-search'
 import Failure from '@/components/Failure'
 import HeroHeader from '@/components/HeroHeader'
 import Home from '@/components/Home'
@@ -107,9 +107,7 @@ const App = () => {
     setDidInit(true)
   }
 
-  const isNewAssistantView =
-    pathname.startsWith('/connected/assistant/') &&
-    flag('cozy.top-bar-in-assistant.enabled')
+  const isNewAssistantView = pathname.startsWith('/connected/assistant/')
 
   return (
     // u-bg-white avoids mix-blend-mode from home-custom-background to be linked to the background color of the body. Must not be responsive to the theme.
@@ -171,13 +169,7 @@ const App = () => {
                 >
                   <Route
                     path="assistant/:conversationId"
-                    element={
-                      flag('cozy.top-bar-in-assistant.enabled') ? (
-                        <AssistantView />
-                      ) : (
-                        <AssistantDialog />
-                      )
-                    }
+                    element={<AssistantView />}
                   />
                   <Route path="search" element={<SearchDialog />} />
 

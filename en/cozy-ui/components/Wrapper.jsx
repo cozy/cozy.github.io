@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
 
+import Button from '../../react/Buttons'
 import Divider from '../../react/Divider'
 import Paper from '../../react/Paper'
-import Typography from '../../react/Typography'
-import Button from '../../react/deprecated/Button'
-import isTesting from '../../react/helpers/isTesting'
 import CozyTheme from '../../react/providers/CozyTheme'
 import { isUsingDevStyleguidist } from '../../scripts/build-utils'
 
@@ -30,16 +28,7 @@ const styles = {
 }
 
 export default ({ children }) => {
-  const [variant, setVariant] = useState(
-    localStorage.getItem('ui-theme-variant') || 'normal'
-  )
   const [lang, setLang] = useState(localStorage.getItem('lang') || 'en')
-
-  const otherVariant = variant === 'normal' ? 'inverted' : 'normal'
-
-  const handleVariantClick = () => {
-    setVariant(otherVariant)
-  }
 
   const handleLangClick = () => {
     const newLang = lang === 'fr' ? 'en' : 'fr'
@@ -48,40 +37,23 @@ export default ({ children }) => {
   }
   return (
     <CozyTheme>
-      <CozyTheme variant={variant}>
+      <CozyTheme>
         <Paper className="u-pos-relative u-p-1" elevation={0} square>
           <Button
-            size="tiny"
-            theme="secondary"
+            size="small"
+            variant="text"
             label={lang}
             style={styles.buttonLang}
             onClick={handleLangClick}
           />
-          {isTesting() || isUsingDevStyleguidist() ? null : (
-            <Button
-              size="tiny"
-              theme="secondary"
-              label={variant}
-              style={styles.button}
-              onClick={handleVariantClick}
-            />
-          )}
-          {isUsingDevStyleguidist() && (
-            <Typography component="div" className="u-db u-mb-1" variant="h5">
-              Variant: {variant}
-            </Typography>
-          )}
           {children}
         </Paper>
       </CozyTheme>
       {isUsingDevStyleguidist() && (
         <>
           <Divider />
-          <CozyTheme variant={otherVariant}>
+          <CozyTheme>
             <Paper className="u-pos-relative u-p-1" elevation={0} square>
-              <Typography component="div" className="u-db u-mb-1" variant="h5">
-                Variant: {otherVariant}
-              </Typography>
               {children}
             </Paper>
           </CozyTheme>

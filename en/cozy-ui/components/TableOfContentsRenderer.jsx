@@ -27,7 +27,7 @@ const TableOfContents = props => {
     busy: false
   })
   const [themeType, SetThemeType] = useState({
-    value: localStorage.getItem('ui-theme-type') || deviceThemeType || 'light',
+    value: localStorage.getItem('ui-theme') || deviceThemeType || 'light',
     busy: false
   })
 
@@ -51,7 +51,7 @@ const TableOfContents = props => {
           onClick={() => {
             const newThemeType = themeType.value === 'light' ? 'dark' : 'light'
             SetThemeType({ value: newThemeType, busy: true })
-            localStorage.setItem('ui-theme-type', newThemeType)
+            localStorage.setItem('ui-theme', newThemeType)
             window.location.reload()
           }}
         />
