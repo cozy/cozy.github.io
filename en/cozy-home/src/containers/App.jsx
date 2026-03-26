@@ -12,10 +12,10 @@ import { isFlagshipApp } from 'cozy-device-helper'
 import IconSprite from 'cozy-ui/transpiled/react/Icon/Sprite'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import { Layout } from 'cozy-ui/transpiled/react/Layout'
-import { useCozyTheme } from 'cozy-ui-plus/dist/providers/CozyTheme'
+import TwakeWorkplace from 'cozy-ui/transpiled/react/Icons/TwakeWorkplace'
 
 import { AssistantMobileWrapper } from '@/components/Assistant/AssistantMobileWrapper'
-import { AssistantView, SearchDialog } from 'cozy-search'
+import { AiText, AssistantView, SearchDialog } from 'cozy-search'
 import Failure from '@/components/Failure'
 import HeroHeader from '@/components/HeroHeader'
 import Home from '@/components/Home'
@@ -42,6 +42,7 @@ import SectionDialog from '@/components/Sections/SectionDialog'
 import { SentryRoutes } from '@/lib/sentry'
 import '../flags'
 import styles from '../styles/app.styl'
+import WorkplaceText from '@/components/Icons/WorkplaceText'
 
 window.flag = window.flag || flag
 window.minilog = minilog
@@ -53,7 +54,6 @@ const App = () => {
 
   const [didInit, setDidInit] = useState(false)
   const webviewIntent = useWebviewIntent()
-  const theme = useCozyTheme()
 
   const homeMagicFolderConn = mkHomeMagicFolderConn()
   const { data: magicFolder } = useQuery(
@@ -97,7 +97,6 @@ const App = () => {
     shortcutsDirectories !== undefined
   ) {
     if (webviewIntent) {
-      webviewIntent.call('setTheme', theme.variant)
       webviewIntent.call('hideSplashScreen')
     }
 
@@ -114,7 +113,12 @@ const App = () => {
     <Layout monoColumn className={`${isNewAssistantView ? '' : 'u-bg-white'}`}>
       <BarComponent
         searchOptions={{ enabled: isNewAssistantView }}
-        appSlug={isNewAssistantView ? 'assistant' : undefined}
+        appIcon={TwakeWorkplace}
+        appTextIcon={
+          isNewAssistantView
+            ? AiText
+            : () => <WorkplaceText style={{ height: 26, marginTop: 5 }} />
+        }
         componentsProps={{
           Wrapper: {
             className: cx('u-elevation-0', {

@@ -5,7 +5,6 @@ import cx from 'classnames'
 import flag from 'cozy-flags'
 
 import Avatar from 'cozy-ui/transpiled/react/Avatar'
-import { useCozyTheme } from 'cozy-ui-plus/dist/providers/CozyTheme'
 import { makeStyles } from 'cozy-ui/transpiled/react/styles'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 
@@ -18,12 +17,6 @@ const useStyles = makeStyles(theme => {
         theme.type === 'light'
           ? 'rgba(28, 27, 31, 1)'
           : 'rgba(255, 255, 255, 1)'
-    },
-    nameInverted: {
-      textShadow: theme.textShadows[1]
-    },
-    hostInverted: {
-      textShadow: theme.textShadows[1]
     }
   }
 })
@@ -31,7 +24,6 @@ const useStyles = makeStyles(theme => {
 export const HeroHeader = () => {
   const client = useClient()
   const classes = useStyles()
-  const theme = useCozyTheme()
   const rootURL = client.getStackClient().uri
 
   const { instanceSettings } = useInstanceSettings(client)
@@ -50,9 +42,7 @@ export const HeroHeader = () => {
       />
       <Typography
         variant="h3"
-        className={cx('u-ta-center u-mv-0 u-mh-1', classes.title, {
-          [classes.nameInverted]: theme.variant === 'inverted'
-        })}
+        className={cx('u-ta-center u-mv-0 u-mh-1', classes.title)}
       >
         {displayName}
       </Typography>

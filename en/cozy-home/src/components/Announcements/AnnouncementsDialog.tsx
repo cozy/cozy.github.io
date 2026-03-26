@@ -88,7 +88,7 @@ const AnnouncementsDialog: FC<AnnouncementsDialogProps> = ({
       }
 
   return (
-    <CozyTheme variant="normal">
+    <CozyTheme>
       <FixedActionsDialog
         open
         content={

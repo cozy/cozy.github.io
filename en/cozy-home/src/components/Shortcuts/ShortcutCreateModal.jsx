@@ -28,7 +28,7 @@ const ShortcutCreateModal = ({ onClose }) => {
   }
 
   return (
-    <CozyTheme variant="normal">
+    <CozyTheme>
       <ShortcutDialog onSave={createShortcut} onClose={onClose} />
     </CozyTheme>
   )

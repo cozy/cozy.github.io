@@ -71,7 +71,7 @@ class IntentHandler extends Component {
       )
 
     return (
-      <CozyTheme variant="normal" className="u-pos-absolute">
+      <CozyTheme className="u-pos-absolute">
         <div className="coz-service">
           {isInitializing && (
             <div className="coz-service-loading">

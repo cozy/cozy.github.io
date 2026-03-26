@@ -117,7 +117,7 @@ const BackupNotification = () => {
           </div>
         )}
       </AppLinker>
-      <CozyTheme variant="normal">
+      <CozyTheme>
         {isConfirmStopBackupDialogOpen && (
           <ConfirmStopBackupDialog
             onClose={() => setIsConfirmStopBackupDialogOpen(false)}

@@ -1,7 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
 import Button, { ButtonLink } from 'cozy-ui/transpiled/react/deprecated/Button'
-import { useCozyTheme } from 'cozy-ui-plus/dist/providers/CozyTheme'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { makeStyles } from 'cozy-ui/transpiled/react/styles'
 
@@ -14,16 +13,12 @@ const useStyles = makeStyles(theme => ({
     '&:visited': {
       color: theme.palette.text.secondary
     }
-  },
-  cornerButtonInverted: {
-    color: theme.palette.text.primary
   }
 }))
 
 const CornerButton = props => {
   const { isMobile } = useBreakpoints()
   const classes = useStyles()
-  const theme = useCozyTheme()
   const { href } = props
   const ButtonComp = href ? ButtonLink : Button
 
@@ -31,10 +26,7 @@ const CornerButton = props => {
     <ButtonComp
       size={isMobile ? 'normal' : 'small'}
       theme="text"
-      className={cx('corner-button', {
-        [classes.cornerButton]: theme.variant === 'normal',
-        [classes.cornerButtonInverted]: theme.variant === 'inverted'
-      })}
+      className={cx('corner-button', classes.cornerButton)}
       iconOnly={isMobile}
       extension={isMobile ? 'narrow' : null}
       {...props}

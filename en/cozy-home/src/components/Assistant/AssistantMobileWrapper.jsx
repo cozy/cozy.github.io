@@ -13,7 +13,7 @@ export const AssistantMobileWrapper = () => {
   const { type } = useCozyTheme()
 
   return (
-    <CozyTheme variant="normal">
+    <CozyTheme>
       <div
         className={cx('home-mobile-assistant u-dn', {
           ['home-mobile-assistant--immersive']: getFlagshipMetadata().immersive

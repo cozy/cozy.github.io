@@ -26,7 +26,7 @@ const ShortcutEditModal = ({ file, shortcutInfos, onClose }) => {
   }
 
   return (
-    <CozyTheme variant="normal">
+    <CozyTheme>
       <ShortcutDialog
         shortcut={shortcutData}
         onSave={onSave}

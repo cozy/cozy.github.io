@@ -30,7 +30,7 @@ const SectionDialog = (): JSX.Element | null => {
   if (!section) return null
 
   return (
-    <CozyTheme variant="normal">
+    <CozyTheme>
       <Dialog
         content={<SectionBody section={section} />}
         fullScreen={false}

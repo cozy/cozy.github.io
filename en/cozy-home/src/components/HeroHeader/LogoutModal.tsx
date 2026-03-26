@@ -13,7 +13,7 @@ export const LogoutDialog = (props: {
   const { t } = useI18n()
 
   return (
-    <CozyTheme variant="normal" className={'u-pos-absolute'}>
+    <CozyTheme className={'u-pos-absolute'}>
       <ConfirmDialog
         actions={
           <>

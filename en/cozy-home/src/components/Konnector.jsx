@@ -31,7 +31,7 @@ export const StatelessKonnector = ({ konnector, triggers, slug }) => {
   }
 
   return (
-    <CozyTheme variant="normal">
+    <CozyTheme>
       <HarvestRoutes
         datacardOptions={datacardOptions}
         konnector={konnectorWithTriggers}

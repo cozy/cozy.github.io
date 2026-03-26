@@ -62,14 +62,12 @@ declare module 'cozy-ui-plus/dist/providers/CozyTheme' {
   import { ReactNode } from 'react'
 
   interface CozyThemeProps {
-    variant?: 'normal' | 'inverted'
     children?: ReactNode
     className?: string
   }
 
   interface CozyTheme {
     type: string
-    variant: string
   }
 
   export default function CozyTheme(props: CozyThemeProps): JSX.Element

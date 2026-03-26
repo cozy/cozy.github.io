@@ -10,7 +10,7 @@ export const AssistantDesktopWrapper = () => {
   const { type } = useCozyTheme()
 
   return (
-    <CozyTheme variant="normal">
+    <CozyTheme>
       <div className="app-list-wrapper u-mh-auto u-mb-3">
         <AssistantDesktop
           componentsProps={{

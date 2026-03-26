@@ -21,7 +21,7 @@ export const KonnectorRoutes = ({ intentData, intentId }) => {
   }, [])
 
   return (
-    <CozyTheme variant="normal">
+    <CozyTheme>
       <HarvestRoutes
         konnectorRoot={`/${konnectorSlug}`}
         konnectorSlug={konnectorSlug}

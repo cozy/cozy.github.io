@@ -1,7 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
 import Typography from 'cozy-ui/transpiled/react/Typography'
-import Circle from 'cozy-ui/transpiled/react/Circle'
+import Avatar from 'cozy-ui/transpiled/react/Avatar'
 import IconButton from 'cozy-ui/transpiled/react/IconButton'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import CrossIcon from 'cozy-ui/transpiled/react/Icons/Cross'
@@ -62,8 +62,8 @@ export const WallpaperItem = ({
           <div
             className={cx(styles['wallpaperOverlay'], 'u-o-20 u-w-100 u-h-100')}
           />
-          <Circle
-            backgroundColor={'var(--primaryColor)'}
+          <Avatar
+            color={'var(--primaryColor)'}
             className={cx(
               'u-pos-absolute',
               isMobile ? 'u-top-0 u-right-0' : 'u-top-xs u-right-xs u-o-40'
@@ -84,7 +84,7 @@ export const WallpaperItem = ({
                 color={isMobile ? 'var(--white)' : 'var(--black)'}
               />
             </IconButton>
-          </Circle>
+          </Avatar>
         </>
       )}
 

@@ -52,7 +52,7 @@ const ShortcutActionsMenu = ({
           <Icon icon={DotsIcon} rotate={90} />
         </IconButton>
       )}
-      <CozyTheme variant="normal">
+      <CozyTheme>
         <ActionsMenu
           ref={anchorRef}
           open={isMenuOpen}
