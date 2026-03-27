@@ -1,23 +1,21 @@
-import React, { useMemo } from 'react'
-import sortBy from 'lodash/sortBy'
-import { useAppsInMaintenance, useQuery } from 'cozy-client'
-import { useSelector } from 'react-redux'
 import cx from 'classnames'
-
-import keyBy from 'lodash/keyBy'
 import has from 'lodash/has'
+import keyBy from 'lodash/keyBy'
+import sortBy from 'lodash/sortBy'
+import React, { useMemo } from 'react'
+import { useSelector } from 'react-redux'
 
+import { useAppsInMaintenance, useQuery } from 'cozy-client'
 import { useI18n } from 'twake-i18n'
+
+import { getInstalledKonnectors } from '../selectors/konnectors'
 
 import AddServiceTile from '@/components/AddServiceTile'
 import KonnectorTile from '@/components/KonnectorTile'
-
 import {
   fetchRunningKonnectors,
   getRunningKonnectors
 } from '@/lib/konnectors_typed'
-
-import { getInstalledKonnectors } from '../selectors/konnectors'
 
 export const useServices = () => {
   const appsAndKonnectorsInMaintenance = useAppsInMaintenance()
@@ -70,7 +68,7 @@ export const Services = () => {
         )}
       >
         {konnectors}
-        {<AddServiceTile label={t('add_service')} />}
+        <AddServiceTile label={t('add_service')} />
       </div>
     </div>
   )

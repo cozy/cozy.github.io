@@ -1,9 +1,9 @@
 import React from 'react'
 
 import { useClient } from 'cozy-client'
-
-import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
 import { ShortcutDialog } from 'cozy-ui/transpiled/react/CozyDialogs'
+import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
+
 import { useMagicFolder } from '@/components/Sections/hooks/useMagicFolder'
 
 const ShortcutEditModal = ({ file, shortcutInfos, onClose }) => {

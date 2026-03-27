@@ -3,13 +3,14 @@ enableFetchMocks()
 
 import React from 'react'
 import { fireEvent, render, screen } from '@testing-library/react'
+import { act } from 'react-dom/test-utils'
 import { Navigate, createMemoryRouter, RouterProvider } from 'react-router-dom'
 
 import { StatelessKonnector } from './Konnector'
-import { act } from 'react-dom/test-utils'
 
 jest.mock('cozy-harvest-lib', () => ({
   HarvestRoutes: ({ konnector, triggers, onDismiss }) => (
+    // eslint-disable-next-line react/no-unknown-property
     <div konnector={konnector} triggers={triggers} onClick={onDismiss}>
       {konnector.slug}
     </div>

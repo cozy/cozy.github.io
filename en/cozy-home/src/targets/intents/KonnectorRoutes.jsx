@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { HarvestRoutes } from 'cozy-harvest-lib'
 import { useParams } from 'react-router-dom'
-import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
+
 import { useClient } from 'cozy-client'
-import Intents from 'cozy-interapp'
+import { HarvestRoutes } from 'cozy-harvest-lib'
 import datacardOptions from 'cozy-harvest-lib/dist/datacards/datacardOptions'
+import Intents from 'cozy-interapp'
+import CozyTheme from 'cozy-ui/transpiled/react/providers/CozyTheme'
 
 export const KonnectorRoutes = ({ intentData, intentId }) => {
   const { konnectorSlug } = useParams()

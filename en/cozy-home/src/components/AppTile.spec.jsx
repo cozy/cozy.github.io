@@ -1,11 +1,14 @@
-import AppLike from '@/test/AppLike'
-import AppTileWrapper from './AppTile'
-import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
+import { render, waitFor, screen } from '@testing-library/react'
 import React from 'react'
 import { act } from 'react-dom/test-utils'
-import { render, waitFor, screen } from '@testing-library/react'
+
+import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
 import I18n from 'twake-i18n'
+
+import AppTileWrapper from './AppTile'
+
 import enLocale from '@/locales/en.json'
+import AppLike from '@/test/AppLike'
 
 const mockAppReady = {
   _id: 'mock-app-id',

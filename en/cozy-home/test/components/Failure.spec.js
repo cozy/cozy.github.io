@@ -1,8 +1,9 @@
-import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
+import React from 'react'
+
+import AppLike from '../AppLike'
 
 import { Failure } from '@/components/Failure'
-import AppLike from '../AppLike'
 
 describe('Failure component', () => {
   beforeEach(() => {

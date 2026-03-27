@@ -1,21 +1,20 @@
-import React, { memo } from 'react'
+import cx from 'classnames'
 import memoize from 'lodash/memoize'
 import uniqBy from 'lodash/uniqBy'
+import React, { memo } from 'react'
+
 import { useQuery, useFetchHomeShortcuts, models } from 'cozy-client'
-
 import flag from 'cozy-flags'
+import SquareAppIcon from 'cozy-ui-plus/dist/SquareAppIcon'
 import { useI18n } from 'twake-i18n'
-import cx from 'classnames'
 
+import AppHighlightAlertWrapper from '@/components/AppHighlightAlert/AppHighlightAlertWrapper'
 import AppTile from '@/components/AppTile'
+import LoadingPlaceholder from '@/components/LoadingPlaceholder'
 import LogoutTile from '@/components/LogoutTile'
 import ShortcutLink from '@/components/ShortcutLink'
-import LoadingPlaceholder from '@/components/LoadingPlaceholder'
-import AppHighlightAlertWrapper from '@/components/AppHighlightAlert/AppHighlightAlertWrapper'
 import homeConfig from '@/config/home.json'
 import { appsConn } from '@/queries'
-
-import SquareAppIcon from 'cozy-ui-plus/dist/SquareAppIcon'
 
 const {
   applications: {

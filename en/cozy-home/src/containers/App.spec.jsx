@@ -1,14 +1,16 @@
-import React from 'react'
-import { isFlagshipApp } from 'cozy-device-helper'
-import { HashRouter } from 'react-router-dom'
 import { render } from '@testing-library/react'
-import App from '../components/AnimatedWrapper'
-import AppLike from '@/test/AppLike'
-import { WallPaperProvider } from '@/hooks/useWallpaperContext'
+import React from 'react'
 import { act } from 'react-dom/test-utils'
+import { HashRouter } from 'react-router-dom'
+
+import { isFlagshipApp } from 'cozy-device-helper'
 import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
 
-// eslint-disable-next-line react/display-name
+import App from '../components/AnimatedWrapper'
+
+import { WallPaperProvider } from '@/hooks/useWallpaperContext'
+import AppLike from '@/test/AppLike'
+
 jest.mock('components/HeroHeader', () => () => <div data-testid="HeroHeader" />)
 
 jest.mock('cozy-device-helper', () => ({
@@ -27,6 +29,7 @@ jest.mock('cozy-bar', () => ({
 
 jest.mock('cozy-harvest-lib', () => ({
   HarvestRoutes: ({ konnector, triggers, onDismiss }) => (
+    // eslint-disable-next-line react/no-unknown-property
     <div konnector={konnector} triggers={triggers} onClick={onDismiss}>
       {konnector.slug}
     </div>
@@ -35,16 +38,16 @@ jest.mock('cozy-harvest-lib', () => ({
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
-  // eslint-disable-next-line react/display-name
+
   Routes: jest.fn(),
   useNavigate: () => () => {},
-  // eslint-disable-next-line react/display-name
+
   withRouter: Component => props => <Component {...props} />
 }))
 
 jest.mock('react-router', () => ({
   ...jest.requireActual('react-router'),
-  // eslint-disable-next-line react/display-name
+
   withRouter: Component => props => <Component {...props} />
 }))
 

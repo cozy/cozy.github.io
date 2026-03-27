@@ -1,20 +1,20 @@
-import React, { useState, useRef } from 'react'
-import IconButton from 'cozy-ui/transpiled/react/IconButton'
-import ActionsMenu from 'cozy-ui/transpiled/react/ActionsMenu'
-import Icon from 'cozy-ui/transpiled/react/Icon'
-import DotsIcon from 'cozy-ui/transpiled/react/Icons/Dots'
-import { editShortcut } from './actions/editShortcut'
-import { deleteShortcut } from './actions/deleteShortcut'
 import cx from 'classnames'
-import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
+import React, { useState, useRef } from 'react'
 
-import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
-import { makeActions } from 'cozy-ui/transpiled/react/ActionsMenu/Actions'
-import { useI18n } from 'twake-i18n'
 import { useClient } from 'cozy-client'
+import ActionsMenu from 'cozy-ui/transpiled/react/ActionsMenu'
+import { makeActions } from 'cozy-ui/transpiled/react/ActionsMenu/Actions'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import IconButton from 'cozy-ui/transpiled/react/IconButton'
+import DotsIcon from 'cozy-ui/transpiled/react/Icons/Dots'
+import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
+import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
+import { useI18n } from 'twake-i18n'
 
-import styles from './shortcut.styl'
 import ShortcutEditModal from './ShortcutEditModal'
+import { deleteShortcut } from './actions/deleteShortcut'
+import { editShortcut } from './actions/editShortcut'
+import styles from './shortcut.styl'
 
 const ShortcutActionsMenu = ({
   isMenuOpen,

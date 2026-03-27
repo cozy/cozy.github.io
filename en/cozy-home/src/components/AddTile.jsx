@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 
-import flag from 'cozy-flags'
 import { useClient, generateWebLink } from 'cozy-client'
+import flag from 'cozy-flags'
 import AppLinker from 'cozy-ui-plus/dist/AppLinker'
 import SquareAppIcon from 'cozy-ui-plus/dist/SquareAppIcon'
 import { useI18n } from 'twake-i18n'
 
-import styles from '@/styles/lists.styl'
 import ShortcutCreateModal from './Shortcuts/ShortcutCreateModal'
+
+import styles from '@/styles/lists.styl'
 
 const ShortcutAddTile = () => {
   const { t } = useI18n()

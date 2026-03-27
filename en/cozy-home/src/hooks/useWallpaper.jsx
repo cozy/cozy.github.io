@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react'
-import { useClient } from 'cozy-client'
 import localForage from 'localforage'
+import { useState, useEffect } from 'react'
+
+import { useClient } from 'cozy-client'
+
 import useBinaryWallpaper from './useBinaryWallpaper'
 
 const useWallpaper = () => {
@@ -29,7 +31,7 @@ const useWallpaper = () => {
           setFetchStatus('loaded')
           return
         }
-      } catch (error) {
+      } catch (_error) {
         returnToDefaultWallpaper()
         setFetchStatus('failed')
       }

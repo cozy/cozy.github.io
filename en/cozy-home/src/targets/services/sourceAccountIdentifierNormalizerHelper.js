@@ -1,5 +1,5 @@
-import logger from 'cozy-logger'
 import { Q, models } from 'cozy-client'
+import logger from 'cozy-logger'
 
 const log = logger.namespace('sourceAccountIdentifierNormalizer')
 

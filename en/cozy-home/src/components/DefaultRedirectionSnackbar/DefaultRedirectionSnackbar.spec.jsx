@@ -1,13 +1,13 @@
-import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
+import React from 'react'
 
 import { useSettings } from 'cozy-client'
-
 import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
 
-import AppLike from '@/test/AppLike'
 import DefaultRedirectionSnackbar from './DefaultRedirectionSnackbar'
 import { useShouldShowDefaultRedirectionSnackbar } from './useShouldShowDefaultRedirectionSnackbar'
+
+import AppLike from '@/test/AppLike'
 
 jest.mock('cozy-client', () => ({
   ...jest.requireActual('cozy-client'),

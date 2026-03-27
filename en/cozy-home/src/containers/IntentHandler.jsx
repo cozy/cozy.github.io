@@ -2,10 +2,9 @@ import React, { Component } from 'react'
 
 import { withClient } from 'cozy-client'
 import Intents from 'cozy-interapp'
-
-import { translate } from 'twake-i18n'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
+import { translate } from 'twake-i18n'
 
 import appEntryPoint from '@/components/appEntryPoint'
 import IntentService from '@/containers/IntentService'

@@ -1,14 +1,15 @@
+import cx from 'classnames'
 import React, { useEffect, useState, useRef } from 'react'
 
 import logger from 'cozy-logger'
-import { useWallpaperContext } from '@/hooks/useWallpaperContext'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
-import cx from 'classnames'
 
 import styles from './Wallpaper.styl'
-import { Wallpapers, ALLOWED_WALLPAPER_TYPES } from './wallpapers'
 import { WallpaperItem } from './WallpaperItem'
 import { getCurrentWallpaperKey } from './wallpaperUtils'
+import { Wallpapers, ALLOWED_WALLPAPER_TYPES } from './wallpapers'
+
+import { useWallpaperContext } from '@/hooks/useWallpaperContext'
 
 const Wallpaper = () => {
   const [currentWallpaper, setCurrentWallpaper] = useState()
@@ -65,6 +66,7 @@ const Wallpaper = () => {
 
   useEffect(() => {
     const wallpaperKey = getCurrentWallpaperKey(data?.wallpaperLink, Wallpapers)
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setCurrentWallpaper(wallpaperKey)
   }, [data?.wallpaperLink])
 

@@ -1,6 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
-import { useClient } from 'cozy-client'
 import localForage from 'localforage'
+import { useEffect, useRef, useState } from 'react'
+
+import { useClient } from 'cozy-client'
+
 import homeConfig from '@/config/home.json'
 
 const BLOB_KEY = 'customWallpaperBlob'
@@ -86,7 +88,7 @@ const useBinaryWallpaper = () => {
       currentUrlRef.current = url
       setBlobUrl(url)
       setStatus('loaded')
-    } catch (e) {
+    } catch (_e) {
       // Cleanup cache and state on failure
       await localForage.removeItem(BLOB_KEY)
       localStorage.setItem(HAS_BLOB_FLAG, 'false')
@@ -153,7 +155,7 @@ const useBinaryWallpaper = () => {
         if (existingFile?._id) {
           await fileCollection.deleteFilePermanently(existingFile._id)
         }
-      } catch (e) {
+      } catch (_e) {
         // If the file does not exist, ignore
       }
     } finally {

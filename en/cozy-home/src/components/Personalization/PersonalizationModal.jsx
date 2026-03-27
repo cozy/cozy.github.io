@@ -1,14 +1,14 @@
+import cx from 'classnames'
 import React from 'react'
 
-import styles from './Personalization.styl'
-import Wallpaper from './Wallpaper'
-
 import { useClient } from 'cozy-client'
-import { ThemeSwitcher } from './ThemeSwitcher'
-import IconButton from 'cozy-ui/transpiled/react/IconButton'
 import Icon from 'cozy-ui/transpiled/react/Icon'
+import IconButton from 'cozy-ui/transpiled/react/IconButton'
 import CrossIcon from 'cozy-ui/transpiled/react/Icons/Cross'
-import cx from 'classnames'
+
+import styles from './Personalization.styl'
+import { ThemeSwitcher } from './ThemeSwitcher'
+import Wallpaper from './Wallpaper'
 
 export const PersonalizationModal = ({
   isAnimationComplete = false,

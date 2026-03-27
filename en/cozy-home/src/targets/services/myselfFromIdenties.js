@@ -1,6 +1,8 @@
 import fetch from 'node-fetch'
+
 import CozyClient from 'cozy-client'
 import log from 'cozy-logger'
+
 import { updateMyselfWithIdentity } from './attributesHelpers'
 
 global.fetch = fetch
@@ -38,7 +40,7 @@ function getIdentity() {
   try {
     return JSON.parse(process.env.COZY_COUCH_DOC)
   } catch (e) {
-    throw new Error(`Wrong formatted identity doc: ${e.message}`)
+    throw new Error(`Wrong formatted identity doc: ${e.message}`, { cause: e })
   }
 }
 

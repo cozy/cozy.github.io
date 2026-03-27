@@ -1,10 +1,12 @@
-import React from 'react'
 import { render, screen } from '@testing-library/react'
+import React from 'react'
 import '@testing-library/jest-dom'
-import AppLike from '@/test/AppLike'
+
+import { useFetchShortcut } from 'cozy-client'
 
 import { ShortcutLink } from './ShortcutLink'
-import { useFetchShortcut } from 'cozy-client'
+
+import AppLike from '@/test/AppLike'
 
 jest.mock('cozy-client', () => {
   return {

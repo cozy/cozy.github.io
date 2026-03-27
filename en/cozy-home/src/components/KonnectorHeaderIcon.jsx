@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
-import { translate } from 'twake-i18n'
 import PropTypes from 'prop-types'
+import React, { Component } from 'react'
+
 import AppIcon from 'cozy-ui-plus/dist/AppIcon'
+import { translate } from 'twake-i18n'
 
 import styles from '@/styles/konnectorHeaderIcon.styl'
 

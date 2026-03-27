@@ -6,8 +6,8 @@ import {
   useSettings
 } from 'cozy-client'
 
-import useIncrementDefaultRedirectionViewCount from './useIncrementDefaultRedirectionViewCount'
 import useHomeAppOpened from './useHomeAppOpened'
+import useIncrementDefaultRedirectionViewCount from './useIncrementDefaultRedirectionViewCount'
 
 jest.mock('cozy-client')
 jest.mock('./useShouldShowDefaultRedirectionSnackbar')

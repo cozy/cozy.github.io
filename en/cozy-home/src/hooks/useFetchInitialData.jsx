@@ -1,12 +1,14 @@
 import { useEffect, useRef } from 'react'
+
 import { useQuery } from 'cozy-client'
+import log from 'cozy-logger'
+
 import {
   makeAccountsQuery,
   makeAppsQuery,
   makeKonnectorsQuery,
   makeTriggersQuery
 } from '@/queries'
-import log from 'cozy-logger'
 
 export const useFetchInitialData = () => {
   const accountsQuery = useQuery(

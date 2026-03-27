@@ -1,21 +1,21 @@
 import React, { useState } from 'react'
 
 import { useSettings } from 'cozy-client'
+import { isFlagshipApp } from 'cozy-device-helper'
 import { useWebviewIntent } from 'cozy-intent'
-import { useI18n } from 'twake-i18n'
-import { makeStyles } from 'cozy-ui/transpiled/react/styles'
-import Snackbar from 'cozy-ui/transpiled/react/Snackbar'
 import Alert from 'cozy-ui/transpiled/react/Alert'
 import Button from 'cozy-ui/transpiled/react/Buttons'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import LightbulbIcon from 'cozy-ui/transpiled/react/Icons/Lightbulb'
+import Snackbar from 'cozy-ui/transpiled/react/Snackbar'
+import { makeStyles } from 'cozy-ui/transpiled/react/styles'
+import { useI18n } from 'twake-i18n'
 
+import useIncrementDefaultRedirectionViewCount from './useIncrementDefaultRedirectionViewCount'
 import {
   HOME_DEFAULT_REDIRECTION,
   useShouldShowDefaultRedirectionSnackbar
 } from './useShouldShowDefaultRedirectionSnackbar'
-import useIncrementDefaultRedirectionViewCount from './useIncrementDefaultRedirectionViewCount'
-import { isFlagshipApp } from 'cozy-device-helper'
 
 const useStyles = makeStyles(theme => ({
   snackbar: {

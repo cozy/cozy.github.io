@@ -1,32 +1,32 @@
+import memoize from 'lodash/memoize'
 import React, { createContext, useEffect, useState } from 'react'
 import { Provider as ReduxProvider } from 'react-redux'
-import memoize from 'lodash/memoize'
+import { PersistGate } from 'redux-persist/integration/react'
 
-import flag from 'cozy-flags'
 import CozyClient, {
   CozyProvider,
   RealTimeQueries,
   WebFlagshipLink
 } from 'cozy-client'
-import SharingProvider from 'cozy-sharing'
-import CozyDevtools from 'cozy-devtools'
-import { useWebviewIntent } from 'cozy-intent'
-import I18n from 'twake-i18n'
-import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
-import { BreakpointsProvider } from 'cozy-ui/transpiled/react/providers/Breakpoints'
-import { PersistGate } from 'redux-persist/integration/react'
-import AlertProvider from 'cozy-ui/transpiled/react/providers/Alert'
-
-import configureStore from '@/store/configureStore'
-import { RealtimePlugin } from 'cozy-realtime'
-import { isFlagshipApp, isFlagshipOfflineSupported } from 'cozy-device-helper'
-
 import { DataProxyProvider } from 'cozy-dataproxy-lib'
+import { isFlagshipApp, isFlagshipOfflineSupported } from 'cozy-device-helper'
+import CozyDevtools from 'cozy-devtools'
+import flag from 'cozy-flags'
+import { useWebviewIntent } from 'cozy-intent'
+import { RealtimePlugin } from 'cozy-realtime'
+import SharingProvider from 'cozy-sharing'
+import AlertProvider from 'cozy-ui/transpiled/react/providers/Alert'
+import { BreakpointsProvider } from 'cozy-ui/transpiled/react/providers/Breakpoints'
+import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
+import I18n from 'twake-i18n'
 
 import schema from '../schema'
 import { ConditionalWrapper } from './ConditionalWrapper'
-import { WallPaperProvider } from '@/hooks/useWallpaperContext'
 import { SectionsProvider } from './Sections/SectionsContext'
+
+import { WallPaperProvider } from '@/hooks/useWallpaperContext'
+import configureStore from '@/store/configureStore'
+
 const dictRequire = lang => require(`@/locales/${lang}.json`)
 
 export const AppContext = createContext()
@@ -111,6 +111,7 @@ const AppWrapper = ({ children }) => {
 
     const newAppContext = setupAppContext(webviewIntent)
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setAppContext(newAppContext)
   }, [webviewIntent])
 

@@ -1,22 +1,22 @@
-import React from 'react'
 import cx from 'classnames'
+import React from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 
+import { getFlagshipMetadata } from 'cozy-device-helper'
 import flag from 'cozy-flags'
 import { CozyConfirmDialogProvider } from 'cozy-harvest-lib'
-import { getFlagshipMetadata } from 'cozy-device-helper'
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
-import { AssistantDesktopWrapper } from '@/components/Assistant/AssistantDesktopWrapper'
 
-import ApplicationsAndServices from '@/components/ApplicationsAndServices'
+import styles from './styles.styl'
+
+import { Announcements } from '@/components/Announcements/Announcements'
 import Applications from '@/components/Applications'
+import ApplicationsAndServices from '@/components/ApplicationsAndServices'
+import { AssistantDesktopWrapper } from '@/components/Assistant/AssistantDesktopWrapper'
+import GroupedServices from '@/components/GroupedServices'
 import ScrollToTopOnMount from '@/components/ScrollToTopOnMount'
 import Services from '@/components/Services'
 import Shortcuts from '@/components/Shortcuts'
-import GroupedServices from '@/components/GroupedServices'
-import { Announcements } from '@/components/Announcements/Announcements'
-
-import styles from './styles.styl'
 
 const Home = ({ wrapper }) => {
   const { pathname } = useLocation()

@@ -1,17 +1,18 @@
+import { Grow, Popper, ClickAwayListener } from '@material-ui/core'
+import cx from 'classnames'
 import React, { useRef, useState } from 'react'
 
-import Fab from 'cozy-ui/transpiled/react/Fab'
-import Icon from 'cozy-ui/transpiled/react/Icon'
-import Paper from 'cozy-ui/transpiled/react/Paper'
-import { Grow, Popper, ClickAwayListener } from '@material-ui/core'
-import { PersonalizationModal } from './PersonalizationModal'
-import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
+import flag from 'cozy-flags'
 import BottomSheet, {
   BottomSheetItem
 } from 'cozy-ui/transpiled/react/BottomSheet'
+import Fab from 'cozy-ui/transpiled/react/Fab'
+import Icon from 'cozy-ui/transpiled/react/Icon'
+import Paper from 'cozy-ui/transpiled/react/Paper'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
+
 import styles from './Personalization.styl'
-import flag from 'cozy-flags'
-import cx from 'classnames'
+import { PersonalizationModal } from './PersonalizationModal'
 
 export const PersonalizationWrapper = () => {
   const { isMobile } = useBreakpoints()
@@ -43,7 +44,7 @@ export const PersonalizationWrapper = () => {
             ? styles['personalize-fab-container-with-searchbar']
             : 'u-bottom-l'
         )}
-        key={'personalize-fab-container'}
+        key="personalize-fab-container"
       >
         <Fab
           onClick={() => toggleAppMenu()}
@@ -78,6 +79,7 @@ export const PersonalizationWrapper = () => {
         <Popper
           id="popper"
           open={openAppMenu}
+          // eslint-disable-next-line react-hooks/refs
           anchorEl={ref.current}
           transition
           className={styles['personalize-popper']}

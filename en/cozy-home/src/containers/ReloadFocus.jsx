@@ -1,10 +1,12 @@
 import { useEffect } from 'react'
+
+import { useClient } from 'cozy-client'
+
 import {
   makeTriggersWithJobStatusQuery,
   makeAppsQuery,
   makeJobsQuery
 } from '@/queries'
-import { useClient } from 'cozy-client'
 
 const ReloadFocus = () => {
   const client = useClient()

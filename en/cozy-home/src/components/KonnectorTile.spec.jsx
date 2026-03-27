@@ -1,14 +1,13 @@
 'use strict'
 
-/* eslint-env jest */
-
-import React from 'react'
 import { render } from '@testing-library/react'
-import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
-import { createMockClient } from 'cozy-client/dist/mock'
+import React from 'react'
 
-import { KonnectorTile, getKonnectorStatus } from '@/components/KonnectorTile'
+import { createMockClient } from 'cozy-client/dist/mock'
+import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
+
 import { STATUS } from '@/components/KonnectorHelpers'
+import { KonnectorTile, getKonnectorStatus } from '@/components/KonnectorTile'
 import AppLike from '@/test/AppLike'
 
 jest.mock('react-router-dom', () => ({

@@ -1,5 +1,5 @@
-import React from 'react'
 import cx from 'classnames'
+import React from 'react'
 
 import { getFlagshipMetadata } from 'cozy-device-helper'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'

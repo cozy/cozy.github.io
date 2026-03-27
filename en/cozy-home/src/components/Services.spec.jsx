@@ -1,19 +1,20 @@
 'use strict'
 
-/* eslint-env jest */
-
-import React from 'react'
 import { render } from '@testing-library/react'
+import React from 'react'
+
 import { useAppsInMaintenance } from 'cozy-client'
 import { createMockClient } from 'cozy-client/dist/mock'
+
 import { Services } from './Services'
+
 import AppLike from '@/test/AppLike'
 
 jest.mock('cozy-client', () => ({
   ...jest.requireActual('cozy-client'),
   useAppsInMaintenance: jest.fn()
 }))
-// eslint-disable-next-line react/display-name
+
 jest.mock('components/KonnectorTile', () => ({ konnector }) => (
   <div>{konnector.slug}</div>
 ))

@@ -1,10 +1,12 @@
-import React from 'react'
 import cx from 'classnames'
-import Typography from 'cozy-ui/transpiled/react/Typography'
+import React from 'react'
+
 import Avatar from 'cozy-ui/transpiled/react/Avatar'
-import IconButton from 'cozy-ui/transpiled/react/IconButton'
 import Icon from 'cozy-ui/transpiled/react/Icon'
+import IconButton from 'cozy-ui/transpiled/react/IconButton'
 import CrossIcon from 'cozy-ui/transpiled/react/Icons/Cross'
+import Typography from 'cozy-ui/transpiled/react/Typography'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
 import { useI18n } from 'twake-i18n'
 
@@ -14,7 +16,6 @@ import {
   getWallpaperAlt,
   getWallpaperLabel
 } from './wallpaperUtils'
-import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
 export const WallpaperItem = ({
   wallpaper,
@@ -45,14 +46,14 @@ export const WallpaperItem = ({
   const labelColor = hasCustomWallpaper
     ? undefined
     : wallpaper.role === 'import'
-    ? 'primary'
-    : 'textSecondary'
+      ? 'primary'
+      : 'textSecondary'
 
   const labelStyle = wallpaper.labelColor
     ? { color: wallpaper.labelColor }
     : hasCustomWallpaper
-    ? { color: 'white' }
-    : undefined
+      ? { color: 'white' }
+      : undefined
 
   return (
     <div className={className} onClick={onSelect}>
@@ -63,7 +64,7 @@ export const WallpaperItem = ({
             className={cx(styles['wallpaperOverlay'], 'u-o-20 u-w-100 u-h-100')}
           />
           <Avatar
-            color={'var(--primaryColor)'}
+            color="var(--primaryColor)"
             className={cx(
               'u-pos-absolute',
               isMobile ? 'u-top-0 u-right-0' : 'u-top-xs u-right-xs u-o-40'

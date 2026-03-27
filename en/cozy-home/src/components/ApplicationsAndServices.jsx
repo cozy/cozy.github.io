@@ -3,14 +3,14 @@ import React from 'react'
 import flag from 'cozy-flags'
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
+import AddTile from './AddTile'
+import { useApps } from './Applications'
+import AssistantTile from './AssistantTile'
+import { useServices } from './Services'
+
+import EntrypointLink from '@/components/EntrypointLink'
 import LogoutTile from '@/components/LogoutTile'
 import ShortcutLink from '@/components/ShortcutLink'
-import EntrypointLink from '@/components/EntrypointLink'
-
-import { useApps } from './Applications'
-import { useServices } from './Services'
-import AssistantTile from './AssistantTile'
-import AddTile from './AddTile'
 
 export const ApplicationsAndServices = () => {
   const showLogout = !!flag('home.mainlist.show-logout')

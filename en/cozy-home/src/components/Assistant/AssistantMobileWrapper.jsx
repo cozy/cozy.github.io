@@ -2,10 +2,8 @@ import cx from 'classnames'
 import React from 'react'
 
 import { getFlagshipMetadata } from 'cozy-device-helper'
-
-import CozyTheme, { useCozyTheme } from 'cozy-ui-plus/dist/providers/CozyTheme'
-
 import { AssistantMobile } from 'cozy-search'
+import CozyTheme, { useCozyTheme } from 'cozy-ui-plus/dist/providers/CozyTheme'
 
 import styles from './assistant.styl'
 

@@ -7,8 +7,8 @@ import {
   hasQueryBeenLoaded
 } from 'cozy-client'
 
-import { VIEW_COUNT_THRESHOLD } from './useShouldShowDefaultRedirectionSnackbar'
 import useHomeAppOpened from './useHomeAppOpened'
+import { VIEW_COUNT_THRESHOLD } from './useShouldShowDefaultRedirectionSnackbar'
 
 const useIncrementDefaultRedirectionViewCount = () => {
   const client = useClient()
@@ -32,6 +32,7 @@ const useIncrementDefaultRedirectionViewCount = () => {
 
   useEffect(() => {
     if (hasIncremented && homeJustQuitOnFlagshipApp) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setHasIncremented(false)
     }
   }, [hasIncremented, homeJustQuitOnFlagshipApp])
@@ -61,6 +62,7 @@ const useIncrementDefaultRedirectionViewCount = () => {
         default_redirection_view_count:
           (valueHome.default_redirection_view_count ?? 0) + 1
       })
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setHasIncremented(true)
     }
   }, [

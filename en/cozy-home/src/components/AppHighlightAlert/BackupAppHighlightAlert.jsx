@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
-import flag from 'cozy-flags'
 import { isFlagshipApp } from 'cozy-device-helper'
+import flag from 'cozy-flags'
 import { useI18n } from 'twake-i18n'
 
 import AppHighlightAlert from '@/components/AppHighlightAlert/AppHighlightAlert'

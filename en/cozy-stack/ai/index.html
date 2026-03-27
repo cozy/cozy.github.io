@@ -8330,15 +8330,17 @@ response. The client must use the real-time websocket and subscribe to
 <span class="w">  </span><span class="nt">&quot;q&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Why the sky is blue?&quot;</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;stream&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;websearch&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;assistantID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abc123&quot;</span>
+<span class="w">  </span><span class="nt">&quot;assistantID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abc123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;attachmentIDs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;827f0fbb928b375cc457c732a4013aa7&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;9a3b1c2d3e4f5a6b7c8d9e0f1a2b3c4d&quot;</span><span class="p">]</span>
 <span class="p">}</span>
 </code></pre></div>
 <ul>
 <li><code>q</code> is the user&rsquo;s message (required).</li>
 <li><code>stream</code> enables streaming the response via SSE deltas (defaults to <code>true</code>).</li>
 <li><code>websearch</code> enables web search for the query (defaults to <code>false</code>).</li>
-<li><code>assistantID</code> associates the conversation with an <code>io.cozy.ai.chat.assistants</code>
-  document (optional). When set, the response includes a <code>relationships</code> block.</li>
+<li><code>assistantID</code> (optional) associates the conversation with an <code>io.cozy.ai.chat.assistants</code>
+  document. When set, the response includes a <code>relationships</code> block.</li>
+<li><code>attachmentIDs</code> (optional) array of ids, specifying which documents should be leveraged by the RAG. If specified, only the given docs will be used, i.e. no semantic search.</li>
 </ul>
 <h4 id="response_2">Response<a class="headerlink" href="#response_2" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">202</span> <span class="ne">Accepted</span>
@@ -8355,6 +8357,7 @@ response. The client must use the real-time websocket and subscribe to
 <span class="w">          </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eb17c3205bf1013ddea018c04daba326&quot;</span><span class="p">,</span>
 <span class="w">          </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span><span class="p">,</span>
 <span class="w">          </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Why the sky is blue?&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;attachmentIDs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;827f0fbb928b375cc457c732a4013aa7&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;9a3b1c2d3e4f5a6b7c8d9e0f1a2b3c4d&quot;</span><span class="p">],</span>
 <span class="w">          </span><span class="nt">&quot;createdAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-09-24T13:24:07.576Z&quot;</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">      </span><span class="p">],</span>

@@ -1,9 +1,9 @@
 import React from 'react'
 
-import SquareAppIcon from 'cozy-ui-plus/dist/SquareAppIcon'
 import { AssistantLink } from 'cozy-search'
 import Icon from 'cozy-ui/transpiled/react/Icon'
 import AssistantIcon from 'cozy-ui/transpiled/react/Icons/Assistant'
+import SquareAppIcon from 'cozy-ui-plus/dist/SquareAppIcon'
 
 /**
  * AssistantTile component.

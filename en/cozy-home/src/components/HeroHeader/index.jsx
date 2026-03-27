@@ -1,12 +1,13 @@
-import React from 'react'
-import { useClient } from 'cozy-client'
-import { useInstanceSettings } from '@/hooks/useInstanceSettings'
 import cx from 'classnames'
-import flag from 'cozy-flags'
+import React from 'react'
 
+import { useClient } from 'cozy-client'
+import flag from 'cozy-flags'
 import Avatar from 'cozy-ui/transpiled/react/Avatar'
-import { makeStyles } from 'cozy-ui/transpiled/react/styles'
 import Typography from 'cozy-ui/transpiled/react/Typography'
+import { makeStyles } from 'cozy-ui/transpiled/react/styles'
+
+import { useInstanceSettings } from '@/hooks/useInstanceSettings'
 
 const useStyles = makeStyles(theme => {
   return {

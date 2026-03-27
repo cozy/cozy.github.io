@@ -5,6 +5,7 @@
  */
 import CozyClient from 'cozy-client'
 import logger from 'cozy-logger'
+
 import polyfillFetch from './polyfillFetch'
 import {
   normalizeIdentities,

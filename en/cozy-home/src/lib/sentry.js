@@ -8,7 +8,6 @@ import {
   matchRoutes
 } from 'react-router-dom'
 
-// eslint-disable-next-line import-alias/import-alias
 import manifest from '../../manifest.webapp'
 
 Sentry.init({

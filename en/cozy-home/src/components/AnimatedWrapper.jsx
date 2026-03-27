@@ -1,8 +1,9 @@
 import React from 'react'
-import { isFlagshipApp } from 'cozy-device-helper'
-import homeConfig from '@/config/home.json'
 import { RemoveScroll } from 'react-remove-scroll'
 
+import { isFlagshipApp } from 'cozy-device-helper'
+
+import homeConfig from '@/config/home.json'
 import App from '@/containers/App'
 
 const RemoveScrollOnFlaghsip = ({ children }) => {

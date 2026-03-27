@@ -1,19 +1,20 @@
-import React, { useState } from 'react'
 import get from 'lodash/get'
+import React, { useState } from 'react'
 import { useOnLongPress } from 'rooks'
 
-import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { useClient, useFetchShortcut, models } from 'cozy-client'
 import flag from 'cozy-flags'
-import ShortcutActionsMenu from './Shortcuts/ShortcutActionsMenu'
 
 const {
   file: { splitFilename, getShortcutImgSrc }
 } = models
 
-import SquareAppIcon from 'cozy-ui-plus/dist/SquareAppIcon'
 import Badge from 'cozy-ui/transpiled/react/Badge'
 import Link from 'cozy-ui/transpiled/react/Link'
+import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
+import SquareAppIcon from 'cozy-ui-plus/dist/SquareAppIcon'
+
+import ShortcutActionsMenu from './Shortcuts/ShortcutActionsMenu'
 
 export const ShortcutLink = ({ display = 'compact', file, ...props }) => {
   const client = useClient()

@@ -2,13 +2,13 @@ import React, { useCallback } from 'react'
 import { connect } from 'react-redux'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 
+import { HarvestRoutes } from 'cozy-harvest-lib'
 import datacardOptions from 'cozy-harvest-lib/dist/datacards/datacardOptions'
 import log from 'cozy-logger'
-import { HarvestRoutes } from 'cozy-harvest-lib'
+import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
 
 import { getKonnector } from '@/ducks/konnectors'
 import { getTriggersByKonnector } from '@/reducers'
-import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
 
 export const StatelessKonnector = ({ konnector, triggers, slug }) => {
   const navigate = useNavigate()

@@ -1,4 +1,3 @@
-/* eslint-env jest */
 import * as konnectors from '@/lib/konnectors'
 const cozyMock = {
   fetchJSON: jest.fn((method, endpoint, data) => Promise.resolve(data))

@@ -1,47 +1,49 @@
+import cx from 'classnames'
 import React, { useState } from 'react'
 import { Navigate, Outlet, Route, useLocation } from 'react-router-dom'
+
 import { BarComponent } from 'cozy-bar'
-import cx from 'classnames'
-
-import flag from 'cozy-flags'
-import minilog from 'cozy-minilog'
 import { useQuery } from 'cozy-client'
-import { useWebviewIntent } from 'cozy-intent'
 import { isFlagshipApp } from 'cozy-device-helper'
-
+import flag from 'cozy-flags'
+import { useWebviewIntent } from 'cozy-intent'
+import minilog from 'cozy-minilog'
+import { AiText, AssistantView, SearchDialog } from 'cozy-search'
 import IconSprite from 'cozy-ui/transpiled/react/Icon/Sprite'
-import Spinner from 'cozy-ui/transpiled/react/Spinner'
-import { Layout } from 'cozy-ui/transpiled/react/Layout'
 import TwakeWorkplace from 'cozy-ui/transpiled/react/Icons/TwakeWorkplace'
+import { Layout } from 'cozy-ui/transpiled/react/Layout'
+import Spinner from 'cozy-ui/transpiled/react/Spinner'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
+
+import ReloadFocus from './ReloadFocus'
 
 import { AssistantMobileWrapper } from '@/components/Assistant/AssistantMobileWrapper'
-import { AiText, AssistantView, SearchDialog } from 'cozy-search'
+import { BackgroundContainer } from '@/components/BackgroundContainer'
+import BackupNotification from '@/components/BackupNotification/BackupNotification'
+import DefaultRedirectionSnackbar from '@/components/DefaultRedirectionSnackbar/DefaultRedirectionSnackbar'
 import Failure from '@/components/Failure'
+import FooterLogo from '@/components/FooterLogo/FooterLogo'
 import HeroHeader from '@/components/HeroHeader'
 import Home from '@/components/Home'
-import { PersonalizationWrapper } from '@/components/Personalization/PersonalizationWrapper'
 import IntentRedirect from '@/components/IntentRedirect'
-import MoveModal from '@/components/MoveModal'
-import StoreRedirection from '@/components/StoreRedirection'
-import BackupNotification from '@/components/BackupNotification/BackupNotification'
-import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
-import { BackgroundContainer } from '@/components/BackgroundContainer'
-import { MainView } from '@/components/MainView'
 import { Konnector } from '@/components/Konnector'
-import DefaultRedirectionSnackbar from '@/components/DefaultRedirectionSnackbar/DefaultRedirectionSnackbar'
-import ReloadFocus from './ReloadFocus'
-import FooterLogo from '@/components/FooterLogo/FooterLogo'
+import { MainView } from '@/components/MainView'
+import MoveModal from '@/components/MoveModal'
+import { PersonalizationWrapper } from '@/components/Personalization/PersonalizationWrapper'
 import { formatShortcuts } from '@/components/Shortcuts/utils'
+import StoreRedirection from '@/components/StoreRedirection'
+import { useFetchInitialData } from '@/hooks/useFetchInitialData'
+import { SentryRoutes } from '@/lib/sentry'
 import {
   mkHomeMagicFolderConn,
   mkHomeCustomShorcutsConn,
   mkHomeCustomShorcutsDirConn
 } from '@/queries'
-import { useFetchInitialData } from '@/hooks/useFetchInitialData'
 import SectionDialog from '@/components/Sections/SectionDialog'
-import { SentryRoutes } from '@/lib/sentry'
+
 import '../flags'
 import styles from '../styles/app.styl'
+
 import WorkplaceText from '@/components/Icons/WorkplaceText'
 
 window.flag = window.flag || flag

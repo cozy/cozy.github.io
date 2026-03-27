@@ -3,6 +3,11 @@ import 'cozy-ui/transpiled/react/stylesheet.css'
 import 'cozy-ui-plus/dist/stylesheet.css'
 import 'cozy-viewer/dist/stylesheet.css'
 import 'cozy-ui/dist/cozy-ui.utils.min.css'
+
+import { KonnectorRoutes } from './KonnectorRoutes'
+
+import AppWrapper, { AppContext } from '@/components/AppWrapper'
+import IntentHandler from '@/containers/IntentHandler'
 import '@/styles/intents.styl'
 
 import React from 'react'
@@ -10,10 +15,6 @@ import { Route, Routes, HashRouter } from 'react-router-dom'
 import { createRoot } from 'react-dom/client'
 
 import IconSprite from 'cozy-ui/transpiled/react/Icon/Sprite'
-
-import IntentHandler from '@/containers/IntentHandler'
-import AppWrapper, { AppContext } from '@/components/AppWrapper'
-import { KonnectorRoutes } from './KonnectorRoutes'
 
 document.addEventListener('DOMContentLoaded', () => {
   const container = document.querySelector('[role=application]')

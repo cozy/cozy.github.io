@@ -1,15 +1,13 @@
 import React from 'react'
 
-import Icon from 'cozy-ui/transpiled/react/Icon'
-
 import { useClient, useQuery } from 'cozy-client'
 import log from 'cozy-logger'
-import { buildSettingsInstanceQuery } from './queries'
-
-import Tabs from 'cozy-ui/transpiled/react/Tabs'
+import Icon from 'cozy-ui/transpiled/react/Icon'
 import Tab from 'cozy-ui/transpiled/react/Tab'
+import Tabs from 'cozy-ui/transpiled/react/Tabs'
 
 import { themeOptions } from './constants'
+import { buildSettingsInstanceQuery } from './queries'
 
 export const ThemeSwitcher = () => {
   const client = useClient()
