@@ -12010,7 +12010,14 @@ file.</p>
 <p>When a file is deleted, it is first moved to the trash. In the trash, it can be
 restored. Or, after some time, it will be removed from the trash and permanently
 destroyed.</p>
-<p>The file <code>trashed</code> attribute will be set to true.</p>
+<p>The file <code>trashed</code> attribute will be set to true.
+When a file or folder is moved to the trash, <code>cozyMetadata</code> also records:</p>
+<ul>
+<li><code>trashedAt</code>: the server timestamp of the trash action</li>
+<li><code>trashedBy</code>: the request actor that triggered the trash action, with:</li>
+<li><code>kind</code>: <code>member</code> or <code>anonymous-share</code></li>
+<li><code>displayName</code> and <code>domain</code> for <code>member</code></li>
+</ul>
 <h3 id="get-filestrash">GET /files/trash<a class="headerlink" href="#get-filestrash" title="Permanent link">&para;</a></h3>
 <p>List the files inside the trash. It&rsquo;s paginated.</p>
 <h3 id="query-string_5">Query-String<a class="headerlink" href="#query-string_5" title="Permanent link">&para;</a></h3>
@@ -12069,6 +12076,12 @@ destroyed.</p>
 <span class="w">          </span><span class="nt">&quot;createdByApp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drive&quot;</span><span class="p">,</span>
 <span class="w">          </span><span class="nt">&quot;createdOn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://cozy.example.com/&quot;</span><span class="p">,</span>
 <span class="w">          </span><span class="nt">&quot;updatedAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2016-09-20T18:32:49Z&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;trashedAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2016-09-20T18:32:49Z&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;trashedBy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;member&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;displayName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Alice&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cozy.example.com&quot;</span>
+<span class="w">          </span><span class="p">},</span>
 <span class="w">          </span><span class="nt">&quot;uploadedAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2016-09-20T18:32:49Z&quot;</span><span class="p">,</span>
 <span class="w">          </span><span class="nt">&quot;uploadedOn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://cozy.example.com/&quot;</span><span class="p">,</span>
 <span class="w">          </span><span class="nt">&quot;uploadedBy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -12107,6 +12120,12 @@ destroyed.</p>
 <span class="w">          </span><span class="nt">&quot;createdByApp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drive&quot;</span><span class="p">,</span>
 <span class="w">          </span><span class="nt">&quot;createdOn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://cozy.example.com/&quot;</span><span class="p">,</span>
 <span class="w">          </span><span class="nt">&quot;updatedAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2016-09-20T18:32:49Z&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;trashedAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2016-09-20T18:32:49Z&quot;</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">&quot;trashedBy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;member&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;displayName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Alice&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cozy.example.com&quot;</span>
+<span class="w">          </span><span class="p">},</span>
 <span class="w">          </span><span class="nt">&quot;uploadedAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2016-09-20T18:32:49Z&quot;</span><span class="p">,</span>
 <span class="w">          </span><span class="nt">&quot;uploadedOn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://cozy.example.com/&quot;</span><span class="p">,</span>
 <span class="w">          </span><span class="nt">&quot;uploadedBy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>

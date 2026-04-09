@@ -6869,10 +6869,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#simple-method-convert-an-existing-folder" class="md-nav__link">
+  <a href="#simple-method-use-post-sharingsdrives" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Simple method: Convert an existing folder
+        Simple method: Use POST /sharings/drives
       
     </span>
   </a>
@@ -8505,10 +8505,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#simple-method-convert-an-existing-folder" class="md-nav__link">
+  <a href="#simple-method-use-post-sharingsdrives" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Simple method: Convert an existing folder
+        Simple method: Use POST /sharings/drives
       
     </span>
   </a>
@@ -9240,12 +9240,19 @@
 <p>A shared drive is a folder that is shared between several cozy instances. A
 member doesn&rsquo;t have the files in their Cozy, but can access them via the stack
 playing a proxy role.</p>
+<p>For drives created on an organization instance, the sharing payload also
+exposes <code>org_drive: true</code>. This is an additive classification flag for clients;
+it does not change the underlying drive-sharing behavior.</p>
 <h2 id="creating-a-shared-drive">Creating a shared drive<a class="headerlink" href="#creating-a-shared-drive" title="Permanent link">&para;</a></h2>
 <p>There are two ways to create a shared drive:</p>
-<h3 id="simple-method-convert-an-existing-folder">Simple method: Convert an existing folder<a class="headerlink" href="#simple-method-convert-an-existing-folder" title="Permanent link">&para;</a></h3>
-<p>Use the <a href="#post-sharingsdrives"><code>POST /sharings/drives</code></a> endpoint to convert any
-existing folder into a shared drive. This is the recommended approach as it
-handles all validation and setup automatically.</p>
+<h3 id="simple-method-use-post-sharingsdrives">Simple method: Use <code>POST /sharings/drives</code><a class="headerlink" href="#simple-method-use-post-sharingsdrives" title="Permanent link">&para;</a></h3>
+<p>Use the <a href="#post-sharingsdrives"><code>POST /sharings/drives</code></a> endpoint either to:</p>
+<ul>
+<li>convert an existing folder into a shared drive with <code>folder_id</code></li>
+<li>create a brand new shared-drive folder with <code>name</code></li>
+</ul>
+<p>This is the recommended approach as it handles validation and setup
+automatically.</p>
 <h3 id="manual-method">Manual method<a class="headerlink" href="#manual-method" title="Permanent link">&para;</a></h3>
 <p>To create a shared drive manually (typically on the organization Cozy), follow
 these steps:</p>
@@ -9260,6 +9267,8 @@ these steps:</p>
 <h2 id="managing-shared-drives">Managing shared drives<a class="headerlink" href="#managing-shared-drives" title="Permanent link">&para;</a></h2>
 <h3 id="get-sharingsdrives">GET /sharings/drives<a class="headerlink" href="#get-sharingsdrives" title="Permanent link">&para;</a></h3>
 <p>The <code>GET /sharings/drives</code> route returns the list of shared drives.</p>
+<p>When a drive was created on an organization instance, its attributes include
+<code>org_drive: true</code>.</p>
 <h4 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="nf">GET</span> <span class="nn">/sharings/drives</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">acme.example.net</span>
@@ -9276,6 +9285,7 @@ these steps:</p>
 <span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;aae62886e79611ef8381fb83ff72e425&quot;</span><span class="p">,</span>
 <span class="w">      </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="nt">&quot;drive&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;org_drive&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">&quot;owner&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Drive for the product team&quot;</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">&quot;app_slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drive&quot;</span><span class="p">,</span>
@@ -9323,10 +9333,14 @@ these steps:</p>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="post-sharingsdrives">POST /sharings/drives<a class="headerlink" href="#post-sharingsdrives" title="Permanent link">&para;</a></h3>
-<p>Creates a new shared drive from an existing folder. This is an alternative to
-the manual process of creating a sharing with <code>drive: true</code> - it automatically
-validates the folder and creates the sharing with appropriate rules.</p>
-<p>The folder must:</p>
+<p>Creates a new shared drive. The endpoint supports two mutually exclusive modes:</p>
+<ul>
+<li>pass <code>folder_id</code> to convert an existing folder into a shared drive</li>
+<li>pass <code>name</code> to create a new folder under the Shared Drives root and share it</li>
+</ul>
+<p>If the target Cozy is an organization instance, the created sharing is also
+marked with <code>org_drive: true</code>.</p>
+<p>When <code>folder_id</code> is used, the folder must:</p>
 <ul>
 <li>Exist and be a directory (not a file)</li>
 <li>Not be a system folder (root, trash, shared-with-me, shared-drives, no-longer-shared)</li>
@@ -9363,6 +9377,16 @@ validates the folder and creates the sharing with appropriate rules.</p>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+<p>Or create a brand new shared drive directly:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.sharings&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Product Team&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 <p><strong>Attributes:</strong></p>
 <table>
 <thead>
@@ -9375,8 +9399,13 @@ validates the folder and creates the sharing with appropriate rules.</p>
 <tbody>
 <tr>
 <td><code>folder_id</code></td>
-<td>Yes</td>
+<td>No</td>
 <td>The ID of the existing folder to convert into a shared drive</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td>No</td>
+<td>The name of the folder to create under Shared Drives for a new shared drive</td>
 </tr>
 <tr>
 <td><code>description</code></td>
@@ -9385,6 +9414,7 @@ validates the folder and creates the sharing with appropriate rules.</p>
 </tr>
 </tbody>
 </table>
+<p>Exactly one of <code>folder_id</code> or <code>name</code> must be provided.</p>
 <p><strong>Relationships:</strong></p>
 <table>
 <thead>
@@ -9484,12 +9514,12 @@ and add them later.</p>
 <tr>
 <td>409</td>
 <td>Conflict</td>
-<td>The folder already has a sharing, is inside a shared folder, or contains a shared subfolder</td>
+<td>The folder already has a sharing, is inside a shared folder, contains a shared subfolder, or the new <code>name</code> already exists in Shared Drives</td>
 </tr>
 <tr>
 <td>422</td>
 <td>Unprocessable Entity</td>
-<td>Missing <code>folder_id</code>, folder is a file, or folder is a system folder</td>
+<td>Invalid request: missing both <code>folder_id</code> and <code>name</code>, both provided together, folder is a file, folder is a system folder, or the new <code>name</code> is invalid</td>
 </tr>
 </tbody>
 </table>
@@ -9903,6 +9933,12 @@ drive.</p>
 <h4 id="delete-sharingsdrivesfile-id">DELETE /sharings/drives/:file-id<a class="headerlink" href="#delete-sharingsdrivesfile-id" title="Permanent link">&para;</a></h4>
 <h4 id="post-sharingsdrivestrashfile-id">POST /sharings/drives/trash/:file-id<a class="headerlink" href="#post-sharingsdrivestrashfile-id" title="Permanent link">&para;</a></h4>
 <h4 id="delete-sharingsdrivestrashfile-id">DELETE /sharings/drives/trash/:file-id<a class="headerlink" href="#delete-sharingsdrivestrashfile-id" title="Permanent link">&para;</a></h4>
+<p>Trash operations keep the same file metadata shape as <code>/files</code>: when an item is
+moved to the trash, <code>cozyMetadata.trashedAt</code> and <code>cozyMetadata.trashedBy</code> are
+exposed on both the caller side and the replicated shared-drive copies. On
+shared-drive requests, <code>trashedBy.kind</code> is <code>member</code> and
+<code>trashedBy.displayName</code> / <code>trashedBy.domain</code> are derived from the sharing
+member linked to the <code>DriveToken</code>.</p>
 <h2 id="share-by-link-permissions">Share-by-link permissions<a class="headerlink" href="#share-by-link-permissions" title="Permanent link">&para;</a></h2>
 <p>The following routes manage share-by-link permissions scoped to files inside a
 shared drive:</p>
