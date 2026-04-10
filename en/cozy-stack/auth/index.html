@@ -6571,6 +6571,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#post-authtoken_exchange" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /auth/token_exchange
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#post-authsession_code" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -9305,6 +9316,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#post-authtoken_exchange" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /auth/token_exchange
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#post-authsession_code" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -10505,6 +10527,61 @@ for an <code>access_token</code>. It can use this route with the <code>code</cod
 <span class="w">  </span><span class="nt">&quot;scope&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.files:GET io.cozy.contacts&quot;</span>
 <span class="p">}</span>
 </code></pre></div>
+<h3 id="post-authtoken_exchange">POST /auth/token_exchange<a class="headerlink" href="#post-authtoken_exchange" title="Permanent link">&para;</a></h3>
+<p>This endpoint exchanges an external OIDC <code>id_token</code> for a normal Cozy OAuth
+client and token pair on the target instance.</p>
+<p>It is intended for browser-based admin applications that authenticate with an
+external identity provider, then need to call Cozy APIs directly on an
+organization instance.</p>
+<p>The target Cozy instance is the request host. The exchanged <code>id_token</code> must:</p>
+<ul>
+<li>be signed by the configured OIDC provider</li>
+<li>match the configured issuer and audience</li>
+<li>contain an <code>org_id</code> claim equal to the target instance organization id</li>
+<li>contain an <code>org_role</code> claim equal to <code>owner</code> or <code>admin</code></li>
+</ul>
+<p>The request body is JSON:</p>
+<ul>
+<li><code>id_token</code>, the external OIDC token</li>
+<li><code>scope</code>, currently limited to <code>io.cozy.files</code></li>
+</ul>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code><span class="nf">POST</span> <span class="nn">/auth/token_exchange</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">myorg123.example.com</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;id_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eyJhbGciOiJSUzI1NiIsImtpZCI6InRva2VuLWV4Y2hhbmdlIn0...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;scope&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.files&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Response:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+<span class="na">Cache-Control</span><span class="o">:</span> <span class="l">no-store</span>
+<span class="na">Pragma</span><span class="o">:</span> <span class="l">no-cache</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;access_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eyJhbGciOiJS&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;token_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bearer&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;refresh_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eyJhbGciOiJS&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;scope&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;client_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;client_secret&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Oung7oi5&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;registration_access_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;reg123&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The returned OAuth client is a normal Cozy OAuth client:</p>
+<ul>
+<li><code>client_id</code>, <code>client_secret</code>, <code>access_token</code>, and <code>refresh_token</code> can be
+  used directly with <code>cozy-client</code></li>
+<li><code>registration_access_token</code> can be used with
+  <code>DELETE /auth/register/:client-id</code> to revoke that exchanged client</li>
+</ul>
+<p>When the external <code>id_token</code> contains a <code>sid</code> claim, the created OAuth client
+is bound to that upstream OIDC session so it can be revoked by OIDC
+backchannel logout.</p>
 <h3 id="post-authsession_code">POST /auth/session_code<a class="headerlink" href="#post-authsession_code" title="Permanent link">&para;</a></h3>
 <p>This endpoint can be used by the flagship application in order to create a
 session code: this code can be added to the URL of a cozy application (in the
