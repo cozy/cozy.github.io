@@ -1,13 +1,13 @@
-import React, { useState, useMemo } from 'react'
 import PropTypes from 'prop-types'
+import React, { useState, useMemo } from 'react'
 
-import Typography from '../../react/Typography'
 import Checkbox from '../../react/Checkbox'
-import Paper from '../../react/Paper'
-import isTesting from '../../react/helpers/isTesting'
-import Radio from '../../react/Radios'
-import RadioGroup from '../../react/RadioGroup'
 import FormControlLabel from '../../react/FormControlLabel'
+import Paper from '../../react/Paper'
+import RadioGroup from '../../react/RadioGroup'
+import Radio from '../../react/Radios'
+import Typography from '../../react/Typography'
+import isTesting from '../../react/helpers/isTesting'
 
 /**
  * Useful for components for which there are variants, this component

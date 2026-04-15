@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
 
 import Button from '../../react/Buttons'
-import Divider from '../../react/Divider'
 import Paper from '../../react/Paper'
 import CozyTheme from '../../react/providers/CozyTheme'
-import { isUsingDevStyleguidist } from '../../scripts/build-utils'
 
 const styles = {
   button: {
@@ -37,28 +35,16 @@ export default ({ children }) => {
   }
   return (
     <CozyTheme>
-      <CozyTheme>
-        <Paper className="u-pos-relative u-p-1" elevation={0} square>
-          <Button
-            size="small"
-            variant="text"
-            label={lang}
-            style={styles.buttonLang}
-            onClick={handleLangClick}
-          />
-          {children}
-        </Paper>
-      </CozyTheme>
-      {isUsingDevStyleguidist() && (
-        <>
-          <Divider />
-          <CozyTheme>
-            <Paper className="u-pos-relative u-p-1" elevation={0} square>
-              {children}
-            </Paper>
-          </CozyTheme>
-        </>
-      )}
+      <Paper className="u-pos-relative u-p-1" elevation={0} square>
+        <Button
+          size="small"
+          variant="text"
+          label={lang}
+          style={styles.buttonLang}
+          onClick={handleLangClick}
+        />
+        {children}
+      </Paper>
     </CozyTheme>
   )
 }
