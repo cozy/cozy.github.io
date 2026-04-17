@@ -6825,6 +6825,45 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#publishers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Publishers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Publishers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#auth-exchange" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        auth exchange
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#migration-exchange" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        migration exchange
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#handlers" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -7970,6 +8009,45 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#publishers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Publishers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Publishers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#auth-exchange" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        auth exchange
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#migration-exchange" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        migration exchange
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#handlers" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8156,6 +8234,37 @@
 <li>If queue-level <code>dlx_name</code>/<code>dlq_name</code> are not specified, exchange-level defaults are used.</li>
 <li>Messages that exceed the <code>delivery_limit</code> or are rejected will be sent to the DLX and routed to the DLQ.</li>
 </ul>
+<h3 id="publishers">Publishers<a class="headerlink" href="#publishers" title="Permanent link">&para;</a></h3>
+<p>The Stack also publishes messages to RabbitMQ. Publishers do not declare any
+queue or exchange on the Stack side: the exchange must already exist on the
+broker, and a queue must be bound by the consuming service. Publishes use the
+AMQP <code>mandatory</code> flag, so a publish to an exchange with no matching binding
+fails with <code>PublishReturnedError</code> and the caller is expected to surface the
+failure to the user.</p>
+<h4 id="auth-exchange"><code>auth</code> exchange<a class="headerlink" href="#auth-exchange" title="Permanent link">&para;</a></h4>
+<p>Routing key: <code>user.deletion.requested</code>. Published from
+<code>POST /settings/instance/deletion/force</code> when a user requests permanent
+deletion of their account. The payload is the <code>UserDeletionRequestedMessage</code>
+struct in <code>pkg/rabbitmq/contracts.go</code>.</p>
+<h4 id="migration-exchange"><code>migration</code> exchange<a class="headerlink" href="#migration-exchange" title="Permanent link">&para;</a></h4>
+<p>Routing key: <code>nextcloud.migration.requested</code>. Published from
+<code>POST /remote/nextcloud/migration</code> when a user starts a Nextcloud-to-Cozy
+bulk migration. The payload is the <code>NextcloudMigrationRequestedMessage</code>
+struct in <code>pkg/rabbitmq/contracts.go</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;migrationId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;d4e5f6a7b8c94d0ea1b2c3d4e5f6a7b8&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;workplaceFqdn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;alice.cozy.example.com&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;accountId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;a1b2c3d4e5f6&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;sourcePath&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1712563200</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Credentials are never in the payload: they live in the <code>io.cozy.accounts</code>
+document referenced by <code>accountId</code>. The Stack populates <code>MessageID</code> with the
+migration ID for cross-system tracing. The consuming service is responsible
+for declaring its queue, binding it to this exchange, and processing the
+messages; if no queue is bound when the Stack publishes, the user receives
+<code>503</code> and the tracking document is marked <code>failed</code>.</p>
 <h3 id="handlers">Handlers<a class="headerlink" href="#handlers" title="Permanent link">&para;</a></h3>
 <p>Handlers implement a simple interface:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">Handler</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span>
