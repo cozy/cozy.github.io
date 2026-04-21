@@ -7510,6 +7510,62 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#post-remotenextcloudmigrationidcancel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /remote/nextcloud/migration/:id/cancel
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="POST /remote/nextcloud/migration/:id/cancel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Response
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Response">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#status-codes_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Status codes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -9357,6 +9413,62 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#post-remotenextcloudmigrationidcancel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /remote/nextcloud/migration/:id/cancel
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="POST /remote/nextcloud/migration/:id/cancel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Response
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Response">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#status-codes_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Status codes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -9914,6 +10026,38 @@ should be a Nextcloud app password, not the user&rsquo;s main account password.<
 <li>500 Internal Server Error, when the conflict check, account upsert, or tracking document creation fails</li>
 <li>502 Bad Gateway, when the Nextcloud instance is unreachable</li>
 <li>503 Service Unavailable, when the migration command cannot be published to RabbitMQ. The tracking document is marked <code>failed</code> before returning</li>
+</ul>
+<h2 id="post-remotenextcloudmigrationidcancel">POST /remote/nextcloud/migration/:id/cancel<a class="headerlink" href="#post-remotenextcloudmigrationidcancel" title="Permanent link">&para;</a></h2>
+<p>This route asks the migration service to stop an in-flight migration. The
+Stack publishes a <code>nextcloud.migration.canceled</code> command to the <code>migration</code>
+RabbitMQ exchange; the migration service then stops the migration between
+files and transitions the tracking document to a new terminal state
+<code>canceled</code> with progress up to the last completed file preserved.</p>
+<p>The Stack does not write to the tracking document on cancel: that terminal
+state transition is owned by the migration service so there is a single
+writer for it. A <code>202 Accepted</code> means &ldquo;cancel requested, poll the tracking
+document for the terminal state&rdquo;, not &ldquo;migration stopped&rdquo;. Worst-case
+delay from request to observed terminal state is roughly one file transfer.</p>
+<p><strong>Note:</strong> a permission on <code>POST io.cozy.nextcloud.migrations</code> is required
+to use this route.</p>
+<h3 id="request_9">Request<a class="headerlink" href="#request_9" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nf">POST</span> <span class="nn">/remote/nextcloud/migration/d4e5f6a7b8c94d0ea1b2c3d4e5f6a7b8/cancel</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.net</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer eyJhbG...</span>
+</code></pre></div>
+<p>No request body.</p>
+<h3 id="response_10">Response<a class="headerlink" href="#response_10" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">202</span> <span class="ne">Accepted</span>
+</code></pre></div>
+<p>Empty body.</p>
+<h4 id="status-codes_12">Status codes<a class="headerlink" href="#status-codes_12" title="Permanent link">&para;</a></h4>
+<ul>
+<li>202 Accepted, when the cancel command has been published</li>
+<li>401 Unauthorized, when the bearer token is missing or invalid</li>
+<li>403 Forbidden, when the token lacks the <code>POST io.cozy.nextcloud.migrations</code> permission</li>
+<li>404 Not Found, when no tracking document with the given id exists on the instance</li>
+<li>409 Conflict, when the migration has already reached a terminal state (<code>completed</code>, <code>failed</code>, or <code>canceled</code>)</li>
+<li>503 Service Unavailable, when the cancel command cannot be published to RabbitMQ. Unlike the trigger endpoint, the tracking document is <strong>not</strong> marked <code>failed</code>: a broker glitch must not invalidate a migration that is still running. Retry the cancel.</li>
 </ul>
 
 
