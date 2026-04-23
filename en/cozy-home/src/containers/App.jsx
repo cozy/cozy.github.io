@@ -10,7 +10,6 @@ import { useWebviewIntent } from 'cozy-intent'
 import minilog from 'cozy-minilog'
 import { AiText, AssistantView, SearchDialog } from 'cozy-search'
 import IconSprite from 'cozy-ui/transpiled/react/Icon/Sprite'
-import TwakeWorkplace from 'cozy-ui/transpiled/react/Icons/TwakeWorkplace'
 import { Layout } from 'cozy-ui/transpiled/react/Layout'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
@@ -30,6 +29,7 @@ import { Konnector } from '@/components/Konnector'
 import { MainView } from '@/components/MainView'
 import MoveModal from '@/components/MoveModal'
 import { PersonalizationWrapper } from '@/components/Personalization/PersonalizationWrapper'
+import SectionDialog from '@/components/Sections/SectionDialog'
 import { formatShortcuts } from '@/components/Shortcuts/utils'
 import StoreRedirection from '@/components/StoreRedirection'
 import { useFetchInitialData } from '@/hooks/useFetchInitialData'
@@ -39,11 +39,11 @@ import {
   mkHomeCustomShorcutsConn,
   mkHomeCustomShorcutsDirConn
 } from '@/queries'
-import SectionDialog from '@/components/Sections/SectionDialog'
 
 import '../flags'
 import styles from '../styles/app.styl'
 
+import IconCozyHome from '@/components/Icons/IconCozyHome'
 import WorkplaceText from '@/components/Icons/WorkplaceText'
 
 window.flag = window.flag || flag
@@ -115,7 +115,7 @@ const App = () => {
     <Layout monoColumn className={`${isNewAssistantView ? '' : 'u-bg-white'}`}>
       <BarComponent
         searchOptions={{ enabled: isNewAssistantView }}
-        appIcon={TwakeWorkplace}
+        appIcon={IconCozyHome}
         appTextIcon={
           isNewAssistantView
             ? AiText
