@@ -8152,6 +8152,7 @@
 <span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">  </span><span class="nt">nodes</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">default</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">      </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">amqp://guest:guest@localhost:5672/</span>
 <span class="w">      </span><span class="nt">tls</span><span class="p">:</span>
 <span class="w">        </span><span class="c1"># root_ca: /etc/ssl/certs/ca.pem</span>
@@ -8161,26 +8162,84 @@
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auth</span>
 <span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">topic</span>
 <span class="w">      </span><span class="nt">durable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">      </span><span class="nt">declare_exchange</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">      </span><span class="nt">dlx_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auth.dlx</span>
-<span class="w">      </span><span class="nt">dlq_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auth.dlq</span>
+<span class="w">      </span><span class="nt">declare_exchange</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">      </span><span class="nt">queues</span><span class="p">:</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user.password.updated</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack.user.password.updated</span>
 <span class="w">          </span><span class="nt">declare</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">          </span><span class="nt">declare_dlx</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">          </span><span class="nt">declare_dlq</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">dlx_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack.auth.dlx</span>
+<span class="w">          </span><span class="nt">dlq_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack.dead.letter.user.password.updated</span>
+<span class="w">          </span><span class="nt">dl_routing_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">password.updated.dead</span>
 <span class="w">          </span><span class="nt">prefetch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
 <span class="w">          </span><span class="nt">delivery_limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
 <span class="w">          </span><span class="nt">bindings</span><span class="p">:</span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">password.changed</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user.created</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user.password.updated</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack.user.created</span>
 <span class="w">          </span><span class="nt">declare</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">          </span><span class="nt">declare_dlx</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">          </span><span class="nt">declare_dlx</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">          </span><span class="nt">declare_dlq</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">dlx_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack.auth.dlx</span>
+<span class="w">          </span><span class="nt">dlq_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack.dead.letter.user.created</span>
+<span class="w">          </span><span class="nt">dl_routing_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user.created.dead</span>
 <span class="w">          </span><span class="nt">prefetch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
 <span class="w">          </span><span class="nt">delivery_limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
 <span class="w">          </span><span class="nt">bindings</span><span class="p">:</span>
 <span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user.created</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack.user.phone.updated</span>
+<span class="w">          </span><span class="nt">declare</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">declare_dlx</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">declare_dlq</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">dlx_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack.auth.dlx</span>
+<span class="w">          </span><span class="nt">dlq_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack.dead.letter.user.phone.updated</span>
+<span class="w">          </span><span class="nt">dl_routing_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user.phone.updated.dead</span>
+<span class="w">          </span><span class="nt">prefetch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+<span class="w">          </span><span class="nt">delivery_limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">          </span><span class="nt">bindings</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user.phone.updated</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">billing</span>
+<span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">topic</span>
+<span class="w">      </span><span class="nt">durable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">declare_exchange</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">queues</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack.domain.subscription.changed</span>
+<span class="w">          </span><span class="nt">declare</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">declare_dlx</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">declare_dlq</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">dlx_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack.billing.dlx</span>
+<span class="w">          </span><span class="nt">dlq_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack.dead.letter.domain.subscription.changed</span>
+<span class="w">          </span><span class="nt">dl_routing_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">domain.subscription.changed.dead</span>
+<span class="w">          </span><span class="nt">prefetch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+<span class="w">          </span><span class="nt">delivery_limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">          </span><span class="nt">bindings</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">domain.subscription.changed</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">b2b</span>
+<span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">topic</span>
+<span class="w">      </span><span class="nt">durable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">declare_exchange</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">queues</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack.user.lifecycle.queue</span>
+<span class="w">          </span><span class="nt">declare</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">declare_dlx</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">declare_dlq</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">dlx_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack.b2b.dlx</span>
+<span class="w">          </span><span class="nt">dlq_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack.dead.letter.user.lifecycle</span>
+<span class="w">          </span><span class="nt">dl_routing_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">domain.user.deleted.dead</span>
+<span class="w">          </span><span class="nt">prefetch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+<span class="w">          </span><span class="nt">delivery_limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">          </span><span class="nt">bindings</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">domain.user.deleted</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack.app.commands.queue</span>
+<span class="w">          </span><span class="nt">declare</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">declare_dlx</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">declare_dlq</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">dlx_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack.b2b.dlx</span>
+<span class="w">          </span><span class="nt">dlq_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack.dead.letter.app.commands</span>
+<span class="w">          </span><span class="nt">dl_routing_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app.installation.requested.dead</span>
+<span class="w">          </span><span class="nt">prefetch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+<span class="w">          </span><span class="nt">delivery_limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">          </span><span class="nt">bindings</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app.installation.requested</span>
 </code></pre></div>
 <h3 id="dead-letter-exchange-dlx-and-dead-letter-queue-dlq">Dead Letter Exchange (DLX) and Dead Letter Queue (DLQ)<a class="headerlink" href="#dead-letter-exchange-dlx-and-dead-letter-queue-dlq" title="Permanent link">&para;</a></h3>
 <p>The RabbitMQ integration supports Dead Letter Exchange (DLX) and Dead Letter Queue (DLQ) functionality for handling failed messages:</p>
@@ -8200,28 +8259,35 @@
 <span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">  </span><span class="nt">nodes</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">default</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">      </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">amqp://guest:guest@localhost:5672/</span>
+<span class="w">    </span><span class="nt">linagora_default</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">amqp://guest:guest@localhost:5673/</span>
 <span class="w">  </span><span class="nt">exchanges</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auth</span>
 <span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">topic</span>
 <span class="w">      </span><span class="nt">durable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">      </span><span class="nt">declare_exchange</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">      </span><span class="nt">dlx_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auth.dlx</span>
-<span class="w">      </span><span class="nt">dlq_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">auth.dlq</span>
+<span class="w">      </span><span class="nt">declare_exchange</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">      </span><span class="nt">queues</span><span class="p">:</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user.password.updated</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack.user.password.updated</span>
 <span class="w">          </span><span class="nt">declare</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">          </span><span class="nt">declare_dlx</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">          </span><span class="nt">declare_dlq</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">dlx_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack.auth.dlx</span>
+<span class="w">          </span><span class="nt">dlq_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack.dead.letter.user.password.updated</span>
+<span class="w">          </span><span class="nt">dl_routing_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">password.updated.dead</span>
 <span class="w">          </span><span class="nt">prefetch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
 <span class="w">          </span><span class="nt">delivery_limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
 <span class="w">          </span><span class="nt">bindings</span><span class="p">:</span>
-<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">password.changed</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user.created</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user.password.updated</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack.user.created</span>
 <span class="w">          </span><span class="nt">declare</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">          </span><span class="nt">declare_dlx</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">          </span><span class="nt">declare_dlx</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">          </span><span class="nt">declare_dlq</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">          </span><span class="nt">dlq_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user.created.dlq</span><span class="w">  </span><span class="c1"># Override exchange default</span>
+<span class="w">          </span><span class="nt">dlx_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack.auth.dlx</span>
+<span class="w">          </span><span class="nt">dlq_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack.dead.letter.user.created</span>
+<span class="w">          </span><span class="nt">dl_routing_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user.created.dead</span>
 <span class="w">          </span><span class="nt">prefetch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
 <span class="w">          </span><span class="nt">delivery_limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
 <span class="w">          </span><span class="nt">bindings</span><span class="p">:</span>
@@ -8274,9 +8340,10 @@ messages; if no queue is bound when the Stack publishes, the user receives
 <p>Returning <code>nil</code> acknowledges the message. Returning a non-nil error causes the message to be requeued (subject to broker policies and delivery limits).</p>
 <p>Queue names are mapped to handlers in the stack. For example:</p>
 <ul>
-<li><code>user.password.updated</code> → updates an instance passphrase when a <code>password.changed</code> routing key is received.</li>
+<li><code>user.password.updated</code> → updates an instance passphrase when a <code>user.password.updated</code> routing key is received.</li>
 <li><code>user.created</code> → validates and processes user creation events.</li>
 <li><code>user.phone.updated</code> → updates the phone number stored in user settings.</li>
+<li><code>domain.user.deleted</code> on the <code>b2b</code> exchange → removes externally managed organization contacts.</li>
 </ul>
 <p>Message schemas are JSON and validated in the handler. Example payload for <code>user.password.updated</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
@@ -8300,9 +8367,27 @@ messages; if no queue is bound when the Stack publishes, the user receives
 <span class="w">  </span><span class="nt">&quot;publicKey&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;base64&quot;</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;privateKey&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cipherString&quot;</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cipherString&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1726040000</span>
+<span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1726040000</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;workplaceFqdn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;alice.example.twake.app&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;organizationId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;org-uuid-123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;organizationDomain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;example.com&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;canUpgrade&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
 <span class="p">}</span>
 </code></pre></div>
+<p>Example payload for <code>b2b/domain.user.deleted</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;emitter&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;admin-panel&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user.deleted&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;workplaceFqdn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;alice.example.twake.app&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;internalEmail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;alice@example.com&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;reason&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user deleted&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;organizationId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;org-uuid-123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;userId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;alice&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;example.com&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The delete handler removes the single matching contact found by <code>internalEmail</code>
+when <code>metadata.external</code> is true. </p>
 <p>Example payload for <code>user.phone.updated</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;twakeId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
