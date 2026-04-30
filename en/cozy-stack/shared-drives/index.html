@@ -7552,6 +7552,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#shortcuts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shortcuts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Shortcuts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-sharingsdrivesidshortcutsfile-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /sharings/drives/:id/shortcuts/:file-id
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#realtime" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -9188,6 +9216,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#shortcuts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shortcuts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Shortcuts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-sharingsdrivesidshortcutsfile-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /sharings/drives/:id/shortcuts/:file-id
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#realtime" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -9237,9 +9293,19 @@
 
 <p><a href="../#table-of-contents">Table of contents</a></p>
 <h1 id="shared-drives">Shared drives<a class="headerlink" href="#shared-drives" title="Permanent link">&para;</a></h1>
-<p>A shared drive is a folder that is shared between several cozy instances. A
-member doesn&rsquo;t have the files in their Cozy, but can access them via the stack
-playing a proxy role.</p>
+<p>A shared drive is a federated sharing in <code>io.cozy.files</code> between several Cozy
+instances. The root can currently be either:</p>
+<ul>
+<li>a directory</li>
+<li>a single file</li>
+</ul>
+<p>A member doesn&rsquo;t have the files in their Cozy, but can access them via the
+stack playing a proxy role.</p>
+<p>The root kind is exposed on the sharing payload with <code>drive_root_type</code>:</p>
+<ul>
+<li><code>directory</code></li>
+<li><code>file</code></li>
+</ul>
 <p>For drives created on an organization instance, the sharing payload also
 exposes <code>org_drive: true</code>. This is an additive classification flag for clients;
 it does not change the underlying drive-sharing behavior.</p>
@@ -9248,8 +9314,9 @@ it does not change the underlying drive-sharing behavior.</p>
 <h3 id="simple-method-use-post-sharingsdrives">Simple method: Use <code>POST /sharings/drives</code><a class="headerlink" href="#simple-method-use-post-sharingsdrives" title="Permanent link">&para;</a></h3>
 <p>Use the <a href="#post-sharingsdrives"><code>POST /sharings/drives</code></a> endpoint either to:</p>
 <ul>
-<li>convert an existing folder into a shared drive with <code>folder_id</code></li>
-<li>create a brand new shared-drive folder with <code>name</code></li>
+<li>convert an existing file or directory into a shared drive with <code>folder_id</code>
+  or <code>file_id</code></li>
+<li>create a brand new directory-root shared drive with <code>name</code></li>
 </ul>
 <p>This is the recommended approach as it handles validation and setup
 automatically.</p>
@@ -9260,9 +9327,11 @@ these steps:</p>
 <li>Ensure that the <code>/Drives</code> folder exists in the cozy instance with the
    <a href="https://docs.cozy.io/en/cozy-stack/files/#post-filesshared-drives"><code>POST /files/shared-drives</code></a>
    route.</li>
-<li>Create a folder inside it, with the name of shared drive.</li>
+<li>Create the root resource to share:
+   - either a folder inside it, with the name of shared drive
+   - or a file that will become the root of the shared drive</li>
 <li>Create a sharing with the <code>drive: true</code> attribute, and one rule for
-   shared folder (with <code>none</code> for <code>add</code>, <code>update</code> and <code>remove</code> attributes).</li>
+   the shared root (with <code>none</code> for <code>add</code>, <code>update</code> and <code>remove</code> attributes).</li>
 </ol>
 <h2 id="managing-shared-drives">Managing shared drives<a class="headerlink" href="#managing-shared-drives" title="Permanent link">&para;</a></h2>
 <h3 id="get-sharingsdrives">GET /sharings/drives<a class="headerlink" href="#get-sharingsdrives" title="Permanent link">&para;</a></h3>
@@ -9285,6 +9354,7 @@ these steps:</p>
 <span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;aae62886e79611ef8381fb83ff72e425&quot;</span><span class="p">,</span>
 <span class="w">      </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="nt">&quot;drive&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;drive_root_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;directory&quot;</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">&quot;org_drive&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">&quot;owner&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 <span class="w">        </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Drive for the product team&quot;</span><span class="p">,</span>
@@ -9333,20 +9403,36 @@ these steps:</p>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="post-sharingsdrives">POST /sharings/drives<a class="headerlink" href="#post-sharingsdrives" title="Permanent link">&para;</a></h3>
-<p>Creates a new shared drive. The endpoint supports two mutually exclusive modes:</p>
+<p>Creates a new shared drive. The endpoint supports three mutually exclusive
+modes:</p>
 <ul>
-<li>pass <code>folder_id</code> to convert an existing folder into a shared drive</li>
-<li>pass <code>name</code> to create a new folder under the Shared Drives root and share it</li>
+<li>pass <code>folder_id</code> to convert an existing file or directory into a shared drive</li>
+<li>pass <code>file_id</code> to convert an existing file or directory into a shared drive</li>
+<li>pass <code>name</code> to create a new directory under the Shared Drives root and share
+  it</li>
 </ul>
 <p>If the target Cozy is an organization instance, the created sharing is also
 marked with <code>org_drive: true</code>.</p>
-<p>When <code>folder_id</code> is used, the folder must:</p>
+<p><code>folder_id</code> is the legacy root identifier alias. <code>file_id</code> is the preferred
+identifier alias for clients migrating to the new API. In both cases, the
+actual root kind is determined from the referenced <code>io.cozy.files</code> document and
+is exposed back as <code>drive_root_type</code>.</p>
+<p>When an existing root is used through <code>folder_id</code> or <code>file_id</code>, that root must:</p>
 <ul>
-<li>Exist and be a directory (not a file)</li>
-<li>Not be a system folder (root, trash, shared-with-me, shared-drives, no-longer-shared)</li>
-<li>Not be inside the trash</li>
-<li>Not already have a sharing (directly or via a parent folder)</li>
-<li>Not contain any subfolder that already has a sharing</li>
+<li>Exist</li>
+<li>Not already have a sharing itself</li>
+<li>Not be inside another shared folder</li>
+</ul>
+<p>Additional rules for directory roots:</p>
+<ul>
+<li>Must not be a system folder (<code>root</code>, <code>trash</code>, <code>shared-with-me</code>,
+  <code>shared-drives</code>, <code>no-longer-shared</code>)</li>
+<li>Must not be inside the trash</li>
+<li>Must not contain any subfolder that already has a sharing</li>
+</ul>
+<p>Additional rules for file roots:</p>
+<ul>
+<li>Must not be trashed</li>
 </ul>
 <h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="nf">POST</span> <span class="nn">/sharings/drives</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
@@ -9387,6 +9473,17 @@ marked with <code>org_drive: true</code>.</p>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+<p>Or create a file-root shared drive explicitly:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.sharings&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Quarterly report&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;file_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;357665ec-e797-11ef-94fb-f3d08ccb3ff5&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 <p><strong>Attributes:</strong></p>
 <table>
 <thead>
@@ -9400,21 +9497,26 @@ marked with <code>org_drive: true</code>.</p>
 <tr>
 <td><code>folder_id</code></td>
 <td>No</td>
-<td>The ID of the existing folder to convert into a shared drive</td>
+<td>Legacy root ID alias. Can reference an existing file or directory to convert into a shared drive</td>
+</tr>
+<tr>
+<td><code>file_id</code></td>
+<td>No</td>
+<td>Preferred root ID alias. Can reference an existing file or directory to convert into a shared drive</td>
 </tr>
 <tr>
 <td><code>name</code></td>
 <td>No</td>
-<td>The name of the folder to create under Shared Drives for a new shared drive</td>
+<td>The name of the directory to create under Shared Drives for a new directory-root shared drive</td>
 </tr>
 <tr>
 <td><code>description</code></td>
 <td>No</td>
-<td>A description for the shared drive. If not provided, defaults to the folder name</td>
+<td>A description for the shared drive. If not provided, defaults to the root resource name</td>
 </tr>
 </tbody>
 </table>
-<p>Exactly one of <code>folder_id</code> or <code>name</code> must be provided.</p>
+<p>Exactly one of <code>folder_id</code>, <code>file_id</code>, or <code>name</code> must be provided.</p>
 <p><strong>Relationships:</strong></p>
 <table>
 <thead>
@@ -9446,6 +9548,7 @@ and add them later.</p>
 <span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;aae62886e79611ef8381fb83ff72e425&quot;</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nt">&quot;drive&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;drive_root_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;directory&quot;</span><span class="p">,</span>
 <span class="w">      </span><span class="nt">&quot;owner&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 <span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Project Documents&quot;</span><span class="p">,</span>
 <span class="w">      </span><span class="nt">&quot;app_slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drive&quot;</span><span class="p">,</span>
@@ -9509,21 +9612,21 @@ and add them later.</p>
 <tr>
 <td>404</td>
 <td>Not Found</td>
-<td>The folder with the given <code>folder_id</code> does not exist</td>
+<td>The file or directory with the given <code>folder_id</code> or <code>file_id</code> does not exist</td>
 </tr>
 <tr>
 <td>409</td>
 <td>Conflict</td>
-<td>The folder already has a sharing, is inside a shared folder, contains a shared subfolder, or the new <code>name</code> already exists in Shared Drives</td>
+<td>The root already has a sharing, is inside a shared folder, contains a shared subfolder, or the new <code>name</code> already exists in Shared Drives</td>
 </tr>
 <tr>
-<td>422</td>
-<td>Unprocessable Entity</td>
-<td>Invalid request: missing both <code>folder_id</code> and <code>name</code>, both provided together, folder is a file, folder is a system folder, or the new <code>name</code> is invalid</td>
+<td>400</td>
+<td>Bad Request</td>
+<td>Invalid request: missing all of <code>folder_id</code>, <code>file_id</code>, and <code>name</code>, conflicting attributes, invalid root type, system folder, trashed root, or invalid <code>name</code></td>
 </tr>
 </tbody>
 </table>
-<p><strong>Example error (folder already shared):</strong></p>
+<p><strong>Example error (root already shared):</strong></p>
 <div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">409</span> <span class="ne">Conflict</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </code></pre></div>
@@ -9540,6 +9643,10 @@ and add them later.</p>
 <h2 id="files-and-directories">Files and directories<a class="headerlink" href="#files-and-directories" title="Permanent link">&para;</a></h2>
 <p>Unless stated otherwise, a permission on the whole <code>io.cozy.files</code> doctype is
 required to use the following routes.</p>
+<p>For file-root shared drives (<code>drive_root_type = file</code>), iteration 1 currently
+supports only file-shaped routes. Directory-only routes return
+<code>422 Unprocessable Entity</code>. <code>_changes</code> and realtime are available with exact
+root-file semantics for file-root shared drives.</p>
 <h3 id="get-sharingsdrivesiddownloadfile-id">GET /sharings/drives/:id/download/:file-id<a class="headerlink" href="#get-sharingsdrivesiddownloadfile-id" title="Permanent link">&para;</a></h3>
 <p>Download a file via a drive share.</p>
 <p>Identical call to <a href="../files/#get-filesdownloadfile-id"><code>GET /files/download/:file-id</code></a> but over a shared drive.
@@ -9552,6 +9659,8 @@ See there for request and response examples</p>
 <p>Does not require an <code>Authorization</code> header (the secret acts as the credential).</p>
 <h3 id="post-sharingsdrivesidarchive">POST /sharings/drives/:id/archive<a class="headerlink" href="#post-sharingsdrivesidarchive" title="Permanent link">&para;</a></h3>
 <p>Create a temporary zip archive of multiple files and/or folders inside a shared drive. Works for both owners and recipients (including read-only recipients).</p>
+<p>This route is supported only for directory-root shared drives. File-root shared
+drives return <code>422 Unprocessable Entity</code>.</p>
 <p>The request body follows the same format as <a href="../files/#post-filesarchive"><code>POST /files/archive</code></a>. The <code>links.related</code> in the response points to <code>/sharings/drives/:id/archive/:secret/:name.zip</code> instead of <code>/files/archive/...</code>.</p>
 <h4 id="request_2">Request<a class="headerlink" href="#request_2" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="nf">POST</span> <span class="nn">/sharings/drives/aae62886e79611ef8381fb83ff72e425/archive</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
@@ -9599,6 +9708,8 @@ See there for request and response examples, differences are the URL and:</p>
 </ul>
 <p>eg: <code>//io.cozy.files.shared-drives-dir/1/ba3b516812f636fc022f3968f991357a/Meetings/Checklist.txt</code></p>
 <p>Schema and it&rsquo;s version, followed by the shared drive ID, and the path within</p>
+<p>For file-root shared drives, this route returns only changes for the root file.
+Unrelated file changes are filtered out.</p>
 <h3 id="get-sharingsdrivesidfile-id">GET /sharings/drives/:id/:file-id<a class="headerlink" href="#get-sharingsdrivesidfile-id" title="Permanent link">&para;</a></h3>
 <p>Get a directory or a file informations inside a shared drive. In the case of a
 directory, it contains the list of files and sub-directories inside it. For a
@@ -9715,6 +9826,8 @@ note, its images are included.</p>
 <h3 id="get-sharingsdrivesidfile-idsize">GET /sharings/drives/:id/:file-id/size<a class="headerlink" href="#get-sharingsdrivesidfile-idsize" title="Permanent link">&para;</a></h3>
 <p>This endpoint returns the size taken by the files in a directory inside a shared
 drive, including those in subdirectories.</p>
+<p>This route is supported only for directory-root shared drives. File-root shared
+drives return <code>422 Unprocessable Entity</code>.</p>
 <h4 id="request_4">Request<a class="headerlink" href="#request_4" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="nf">GET</span> <span class="nn">/sharings/drives/aae62886e79611ef8381fb83ff72e425/af1e1b66e92111ef8ddd5fbac4938703/size</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
@@ -9738,6 +9851,8 @@ drive, including those in subdirectories.</p>
 <p>Duplicates a file.</p>
 <p>Identical call to <a href="../files/#post-filesfile-idcopy"><code>POST /files/:file-id/copy</code></a> but over a shared drive.
 See there for request and response examples, the only difference is the URL.</p>
+<p>This route is supported only for directory-root shared drives. File-root shared
+drives return <code>422 Unprocessable Entity</code>.</p>
 <h3 id="post-sharingsdrivesmove">POST /sharings/drives/move<a class="headerlink" href="#post-sharingsdrivesmove" title="Permanent link">&para;</a></h3>
 <p>Move or copy a file or a directory between locations (personal drive and/or shared drives).</p>
 <p>Supported flows:</p>
@@ -9784,6 +9899,15 @@ See there for request and response examples, the only difference is the URL.</p>
 <li>Cross-stack operations perform a remote download/upload and delete the remote source upon success (only for move operations).</li>
 <li>When <code>copy: true</code>, source files and directories are preserved in their original location.</li>
 <li>When <code>copy: false</code> (default), source files and directories are deleted after successful copy to destination.</li>
+</ul>
+<p>Additional rules for file-root shared drives:</p>
+<ul>
+<li>A file-root shared drive can be used only as a copy source.</li>
+<li><code>move</code> is rejected when the source shared drive is file-root.</li>
+<li>A file-root shared drive cannot be used as a destination for either move or
+  copy.</li>
+<li>When a file-root shared drive is the source, only its root file can be
+  copied.</li>
 </ul>
 <h4 id="responses">Responses<a class="headerlink" href="#responses" title="Permanent link">&para;</a></h4>
 <ul>
@@ -9837,6 +9961,8 @@ rename it or to move it within the same shared drive.</p>
 <li><code>dir_id</code> attribute can be updated to move a file or directory (the new
   directory needs to be in the same shared drive as the old one)</li>
 </ul>
+<p>For file-root shared drives, metadata updates and rename are supported, but
+changing <code>dir_id</code> is rejected with <code>422 Unprocessable Entity</code>.</p>
 <h4 id="http-headers">HTTP headers<a class="headerlink" href="#http-headers" title="Permanent link">&para;</a></h4>
 <p>It&rsquo;s possible to send the <code>If-Match</code> header, with the previous revision of the
 file/directory (optional).</p>
@@ -9933,6 +10059,13 @@ drive.</p>
 <h4 id="delete-sharingsdrivesfile-id">DELETE /sharings/drives/:file-id<a class="headerlink" href="#delete-sharingsdrivesfile-id" title="Permanent link">&para;</a></h4>
 <h4 id="post-sharingsdrivestrashfile-id">POST /sharings/drives/trash/:file-id<a class="headerlink" href="#post-sharingsdrivestrashfile-id" title="Permanent link">&para;</a></h4>
 <h4 id="delete-sharingsdrivestrashfile-id">DELETE /sharings/drives/trash/:file-id<a class="headerlink" href="#delete-sharingsdrivestrashfile-id" title="Permanent link">&para;</a></h4>
+<p>For file-root shared drives:</p>
+<ul>
+<li><code>GET /sharings/drives/:id/metadata</code> is not supported and returns <code>422</code></li>
+<li><code>POST /sharings/drives/upload/metadata</code> is not supported and returns <code>422</code></li>
+<li><code>DELETE /sharings/drives/:file-id</code> is supported for the root file</li>
+<li>trash and restore routes are supported for the root file</li>
+</ul>
 <p>Trash operations keep the same file metadata shape as <code>/files</code>: when an item is
 moved to the trash, <code>cozyMetadata.trashedAt</code> and <code>cozyMetadata.trashedBy</code> are
 exposed on both the caller side and the replicated shared-drive copies. On
@@ -9951,6 +10084,7 @@ shared drive:</p>
 <h3 id="get-sharingsdrivesidpermissionsids">GET /sharings/drives/:id/permissions?ids=&hellip;<a class="headerlink" href="#get-sharingsdrivesidpermissionsids" title="Permanent link">&para;</a></h3>
 <p>Lists the share-by-link permissions for the requested file or folder IDs inside
 the shared drive.</p>
+<p>For file-root shared drives, the only valid target is the root file.</p>
 <p>Authorization rules:</p>
 <ul>
 <li>The shared-drive owner can list all matching links.</li>
@@ -9971,6 +10105,7 @@ the shared drive.</p>
 <h3 id="post-sharingsdrivesidpermissions">POST /sharings/drives/:id/permissions<a class="headerlink" href="#post-sharingsdrivesidpermissions" title="Permanent link">&para;</a></h3>
 <p>Creates a share-by-link permission for one file or folder in the shared drive.
 The request body uses the same JSON:API shape as <a href="../permissions/#post-permissions"><code>POST /permissions</code></a>.</p>
+<p>For file-root shared drives, the only valid target is the root file.</p>
 <p>Authorization rules:</p>
 <ul>
 <li>The shared-drive owner can create a link.</li>
@@ -10022,6 +10157,7 @@ The request body uses the same JSON:API shape as <a href="../permissions/#post-p
   RFC3339 date-time).</li>
 <li><code>permissions</code>, when provided, must still target the same file or folder
   inside the shared drive.</li>
+<li>for file-root shared drives, that target must remain the root file</li>
 <li>A write-capable creator or the owner can promote a read-only link to a
   writable link if their current token grants those verbs.</li>
 <li>A read-only shared-drive recipient can only update <code>password</code> and
@@ -10086,6 +10222,8 @@ difference is the URL.</p>
 <h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
 <h3 id="post-sharingsdrivesidnotes">POST /sharings/drives/:id/notes<a class="headerlink" href="#post-sharingsdrivesidnotes" title="Permanent link">&para;</a></h3>
 <p>Create a note inside a shared drive. Identical to <a href="../notes/#post-notes"><code>POST /notes</code></a>.</p>
+<p>This route is supported only for directory-root shared drives. File-root shared
+drives return <code>422 Unprocessable Entity</code>.</p>
 <h3 id="get-sharingsdrivesidnotesfile-idopen">GET /sharings/drives/:id/notes/:file-id/open<a class="headerlink" href="#get-sharingsdrivesidnotesfile-idopen" title="Permanent link">&para;</a></h3>
 <p>Return the parameters to build the URL where the note can be opened.
 Identical to <a href="../notes/#get-notesidopen"><code>GET /notes/:file-id/open</code></a>.</p>
@@ -10093,10 +10231,19 @@ Identical to <a href="../notes/#get-notesidopen"><code>GET /notes/:file-id/open<
 <h3 id="get-sharingsdrivesidofficefile-idopen">GET /sharings/drives/:id/office/:file-id/open<a class="headerlink" href="#get-sharingsdrivesidofficefile-idopen" title="Permanent link">&para;</a></h3>
 <p>Returns the parameters to open an office document. Identical to
 <a href="../office/#get-officeidopen"><code>GET /office/:file-id/open</code></a>.</p>
+<h2 id="shortcuts">Shortcuts<a class="headerlink" href="#shortcuts" title="Permanent link">&para;</a></h2>
+<h3 id="get-sharingsdrivesidshortcutsfile-id">GET /sharings/drives/:id/shortcuts/:file-id<a class="headerlink" href="#get-sharingsdrivesidshortcutsfile-id" title="Permanent link">&para;</a></h3>
+<p>Get information about a shortcut inside a shared drive. Identical to
+<a href="../shortcuts/#get-shortcutsid"><code>GET /shortcuts/:id</code></a>, with the same two
+variants depending on the <code>Accept</code> header (JSON-API response or redirect).</p>
+<p>Recipients are transparently proxied to the owner&rsquo;s instance.</p>
 <h2 id="realtime">Realtime<a class="headerlink" href="#realtime" title="Permanent link">&para;</a></h2>
 <h3 id="get-sharingsdrivesidrealtime">GET /sharings/drives/:id/realtime<a class="headerlink" href="#get-sharingsdrivesidrealtime" title="Permanent link">&para;</a></h3>
 <p>Get the changes inside a shared drive in real-time from a websocket.
 Identical to <a href="../realtime/"><code>GET /realtime</code></a>, except subscribing to the shared drive is automatically done.</p>
+<p>This route is currently available only for directory-root shared drives.
+For file-root shared drives, the websocket stream emits only events whose
+target is the root file of the drive. Unrelated file events are filtered out.</p>
 <div class="highlight"><pre><span></span><code>client &gt; {&quot;method&quot;: &quot;AUTH&quot;,
           &quot;payload&quot;: &quot;xxAppOrAuthTokenxx=&quot;}
 server &gt; {&quot;event&quot;: &quot;UPDATED&quot;,
