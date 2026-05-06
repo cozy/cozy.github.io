@@ -7469,6 +7469,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#post-sharingsdrivesidfile-idversions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /sharings/drives/:id/:file-id/versions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#get-sharingsdrivesiddownloadfile-idversion-id" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -9133,6 +9144,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#post-sharingsdrivesidfile-idversions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /sharings/drives/:id/:file-id/versions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#get-sharingsdrivesiddownloadfile-idversion-id" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -10214,6 +10236,12 @@ operation to the owner Cozy internally.</p>
 another string called the <code>version-id</code>, separated by a <code>/</code>. So, when a route
 makes reference to <code>/something/:file-id/:version-id</code>, you can use the identifier
 of the version document (without having to prepend the file identifier).</p>
+<h3 id="post-sharingsdrivesidfile-idversions">POST /sharings/drives/:id/:file-id/versions<a class="headerlink" href="#post-sharingsdrivesidfile-idversions" title="Permanent link">&para;</a></h3>
+<p>Create a new version of a file, with the same content but new metadata.</p>
+<p>Identical call to <a href="../files/#post-filesfile-idversions"><code>POST /files/:file-id/versions</code></a>
+but over a shared drive. See there for request and response examples, the only
+difference is the URL.</p>
+<p>For file-root shared drives, this route is supported for the root file.</p>
 <h3 id="get-sharingsdrivesiddownloadfile-idversion-id">GET /sharings/drives/:id/download/:file-id/:version-id<a class="headerlink" href="#get-sharingsdrivesiddownloadfile-idversion-id" title="Permanent link">&para;</a></h3>
 <p>Downloads an old version of the file content.</p>
 <p>Identical call to <a href="../files/#get-filesdownloadfile-idversion-id"><code>GET /files/download/:file-id/:version-id</code></a>
