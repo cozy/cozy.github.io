@@ -9179,6 +9179,22 @@ request.</p>
 <div class="highlight"><pre><span></span><code><span class="nf">POST</span> <span class="nn">/accounts/:accountType/:accountID/refresh</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">bob.cozy.rocks</span>
 </code></pre></div>
+<p>If the OAuth provider rejects the refresh token, the stack returns a structured
+JSON:API error that can be mapped to a reconnect flow:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">401</span> <span class="ne">Unauthorized</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+
+<span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;errors&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;401&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Unauthorized&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;oauth_refresh_invalid_token&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;detail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OAuth refresh token is invalid or expired; reconnect account.&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
 <h3 id="konnectors-marketplace-requirements">Konnectors Marketplace Requirements<a class="headerlink" href="#konnectors-marketplace-requirements" title="Permanent link">&para;</a></h3>
 <p>The following is a few points to be careful for in konnectors when we start
 allowing non-cozy developped OAuth konnectors.</p>
