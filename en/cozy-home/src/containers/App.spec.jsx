@@ -24,7 +24,9 @@ jest.mock('cozy-device-helper', () => ({
 }))
 
 jest.mock('cozy-bar', () => ({
-  BarComponent: () => <div data-testid="BarComponent" />
+  BarComponent: () => <div data-testid="BarComponent" />,
+  BarProvider: ({ children }) => <>{children}</>,
+  BarLeft: ({ children }) => <>{children}</>
 }))
 
 jest.mock('cozy-harvest-lib', () => ({

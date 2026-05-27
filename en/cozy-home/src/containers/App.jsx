@@ -1,14 +1,15 @@
 import cx from 'classnames'
-import React, { useState } from 'react'
-import { Navigate, Outlet, Route, useLocation } from 'react-router-dom'
+import React, { useMemo, useState } from 'react'
+import { Link, Navigate, Outlet, Route, useLocation } from 'react-router-dom'
 
-import { BarComponent } from 'cozy-bar'
+import { BarComponent, BarLeft, BarProvider } from 'cozy-bar'
 import { useQuery } from 'cozy-client'
 import { isFlagshipApp } from 'cozy-device-helper'
 import flag from 'cozy-flags'
 import { useWebviewIntent } from 'cozy-intent'
 import minilog from 'cozy-minilog'
 import { AiText, AssistantView, SearchDialog } from 'cozy-search'
+import AppTitle from 'cozy-ui/transpiled/react/AppTitle'
 import IconSprite from 'cozy-ui/transpiled/react/Icon/Sprite'
 import { Layout } from 'cozy-ui/transpiled/react/Layout'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
@@ -110,104 +111,122 @@ const App = () => {
 
   const isNewAssistantView = pathname.startsWith('/connected/assistant/')
 
+  const assistantBarLeft = useMemo(
+    () => (
+      <Link to="/connected" className="coz-nav-apps-btns-home">
+        <AppTitle appIcon={IconCozyHome} appTextIcon={AiText} />
+      </Link>
+    ),
+    []
+  )
+
   return (
-    // u-bg-white avoids mix-blend-mode from home-custom-background to be linked to the background color of the body. Must not be responsive to the theme.
-    <Layout monoColumn className={`${isNewAssistantView ? '' : 'u-bg-white'}`}>
-      <BarComponent
-        searchOptions={{ enabled: isNewAssistantView }}
-        appIcon={IconCozyHome}
-        appTextIcon={
-          isNewAssistantView
-            ? AiText
-            : () => <WorkplaceText style={{ height: 26, marginTop: 5 }} />
-        }
-        componentsProps={{
-          Wrapper: {
-            className: cx('u-elevation-0', {
-              'u-border-bottom': isNewAssistantView,
-              'u-bg-transparent': !isNewAssistantView,
-              [styles['topbar-border']]: isNewAssistantView
-            })
+    <BarProvider>
+      {/* u-bg-white avoids mix-blend-mode from home-custom-background to be linked to the background color of the body. Must not be responsive to the theme. */}
+      <Layout
+        monoColumn
+        className={`${isNewAssistantView ? '' : 'u-bg-white'}`}
+      >
+        <BarComponent
+          searchOptions={{ enabled: isNewAssistantView }}
+          appIcon={IconCozyHome}
+          appTextIcon={
+            isNewAssistantView
+              ? AiText
+              : () => <WorkplaceText style={{ height: 26, marginTop: 5 }} />
           }
-        }}
-      />
-      {!isNewAssistantView && <BackgroundContainer />}
-      <ReloadFocus />
-      <MainView isFullHeight={isNewAssistantView}>
-        <BackupNotification />
-        <div
-          className={cx(
-            'u-flex u-flex-column u-flex-content-start u-flex-content-stretch u-w-100 u-pos-relative',
-            {
-              'u-m-auto': !isNewAssistantView,
-              'u-h-100': isNewAssistantView
+          componentsProps={{
+            Wrapper: {
+              className: cx('u-elevation-0', {
+                'u-border-bottom': isNewAssistantView,
+                'u-bg-transparent': !isNewAssistantView,
+                [styles['topbar-border']]: isNewAssistantView
+              })
             }
-          )}
-          ref={didInit ? div => setContentWrapper(div) : null}
-        >
-          <MoveModal />
-          {!isNewAssistantView && <HeroHeader />}
-          {hasError && (
-            <main className="u-flex u-flex-items-center u-flex-justify-center">
-              <Failure errorType="initial" />
-            </main>
-          )}
-          {isFetching && (
-            <main className="u-flex u-flex-items-center u-flex-justify-center">
-              <Spinner size="xxlarge" />
-            </main>
-          )}
-          {!isFetching && (
-            <>
-              <SentryRoutes>
-                <Route
-                  path="/connected"
-                  element={
-                    isNewAssistantView ? (
-                      <Outlet />
-                    ) : (
-                      <Home
-                        wrapper={contentWrapper}
-                        shortcutsDirectories={shortcutsDirectories}
-                      />
-                    )
-                  }
-                >
+          }}
+        />
+        {isNewAssistantView && <BarLeft>{assistantBarLeft}</BarLeft>}
+        {!isNewAssistantView && <BackgroundContainer />}
+        <ReloadFocus />
+        <MainView isFullHeight={isNewAssistantView}>
+          <BackupNotification />
+          <div
+            className={cx(
+              'u-flex u-flex-column u-flex-content-start u-flex-content-stretch u-w-100 u-pos-relative',
+              {
+                'u-m-auto': !isNewAssistantView,
+                'u-h-100': isNewAssistantView
+              }
+            )}
+            ref={didInit ? div => setContentWrapper(div) : null}
+          >
+            <MoveModal />
+            {!isNewAssistantView && <HeroHeader />}
+            {hasError && (
+              <main className="u-flex u-flex-items-center u-flex-justify-center">
+                <Failure errorType="initial" />
+              </main>
+            )}
+            {isFetching && (
+              <main className="u-flex u-flex-items-center u-flex-justify-center">
+                <Spinner size="xxlarge" />
+              </main>
+            )}
+            {!isFetching && (
+              <>
+                <SentryRoutes>
                   <Route
-                    path="assistant/:conversationId"
-                    element={<AssistantView />}
-                  />
-                  <Route path="search" element={<SearchDialog />} />
+                    path="/connected"
+                    element={
+                      isNewAssistantView ? (
+                        <Outlet />
+                      ) : (
+                        <Home
+                          wrapper={contentWrapper}
+                          shortcutsDirectories={shortcutsDirectories}
+                        />
+                      )
+                    }
+                  >
+                    <Route
+                      path="assistant/:conversationId"
+                      element={<AssistantView />}
+                    />
+                    <Route path="search" element={<SearchDialog />} />
 
-                  <Route path=":konnectorSlug/*" element={<Konnector />} />
+                    <Route path=":konnectorSlug/*" element={<Konnector />} />
 
-                  <Route path="categories/*">
-                    <Route path=":type/:category" element={<SectionDialog />} />
+                    <Route path="categories/*">
+                      <Route
+                        path=":type/:category"
+                        element={<SectionDialog />}
+                      />
+                    </Route>
+
+                    <Route path="providers" element={<StoreRedirection />}>
+                      <Route path=":category" element={<StoreRedirection />} />
+                    </Route>
                   </Route>
 
-                  <Route path="providers" element={<StoreRedirection />}>
-                    <Route path=":category" element={<StoreRedirection />} />
-                  </Route>
-                </Route>
+                  <Route path="/redirect" element={<IntentRedirect />} />
 
-                <Route path="/redirect" element={<IntentRedirect />} />
-
-                <Route path="*" element={<Navigate to="connected" />} />
-              </SentryRoutes>
-            </>
+                  <Route path="*" element={<Navigate to="connected" />} />
+                </SentryRoutes>
+              </>
+            )}
+            <IconSprite />
+          </div>
+          {((!isMobile && isNewAssistantView) || !isNewAssistantView) && (
+            <FooterLogo />
           )}
-          <IconSprite />
-        </div>
-        {((!isMobile && isNewAssistantView) || !isNewAssistantView) && (
-          <FooterLogo />
+        </MainView>
+        {showAssistantForMobile && <AssistantMobileWrapper />}
+        {flag('home.wallpaper-personalization.enabled') && (
+          <PersonalizationWrapper />
         )}
-      </MainView>
-      {showAssistantForMobile && <AssistantMobileWrapper />}
-      {flag('home.wallpaper-personalization.enabled') && (
-        <PersonalizationWrapper />
-      )}
-      {isFlagshipApp() && <DefaultRedirectionSnackbar />}
-    </Layout>
+        {isFlagshipApp() && <DefaultRedirectionSnackbar />}
+      </Layout>
+    </BarProvider>
   )
 }
 
