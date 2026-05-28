@@ -12,7 +12,7 @@
         <meta name="author" content="CozyCloud - https://cozy.io">
       
       
-        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/cli/cozy-stack_fix/">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/cli/cozy-stack_fix_sharings-moved/">
       
       
       
@@ -25,7 +25,7 @@
     
     
       
-        <title>Cozy stack fix - Cozy Developer Documentation</title>
+        <title>Cozy stack fix sharings moved - Cozy Developer Documentation</title>
       
     
     
@@ -85,7 +85,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#cozy-stack-fix" class="md-skip">
+        <a href="#cozy-stack-fix-sharings-moved" class="md-skip">
           Skip to content
         </a>
       
@@ -119,7 +119,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Cozy stack fix
+              Cozy stack fix sharings moved
             
           </span>
         </div>
@@ -7700,16 +7700,27 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#cozy-stack-fix" class="md-nav__link">
+  <a href="#cozy-stack-fix-sharings-moved" class="md-nav__link">
     <span class="md-ellipsis">
       
-        cozy-stack fix
+        cozy-stack fix sharings-moved
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="cozy-stack fix">
+    <nav class="md-nav" aria-label="cozy-stack fix sharings-moved">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#synopsis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synopsis
+      
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#options" class="md-nav__link">
@@ -7769,14 +7780,23 @@
   
 
 
-  <h1>Cozy stack fix</h1>
+  <h1>Cozy stack fix sharings moved</h1>
 
-<h2 id="cozy-stack-fix">cozy-stack fix<a class="headerlink" href="#cozy-stack-fix" title="Permanent link">&para;</a></h2>
-<p>A set of tools to fix issues or migrate content.</p>
-<div class="highlight"><pre><span></span><code>cozy-stack fix &lt;command&gt; [flags]
+<h2 id="cozy-stack-fix-sharings-moved">cozy-stack fix sharings-moved<a class="headerlink" href="#cozy-stack-fix-sharings-moved" title="Permanent link">&para;</a></h2>
+<p>Fix sharings after a domain migration</p>
+<h3 id="synopsis">Synopsis<a class="headerlink" href="#synopsis" title="Permanent link">&para;</a></h3>
+<p>This fixer repairs sharings after a domain migration. It performs three actions:</p>
+<ol>
+<li>Updates the local sharing documents to use the new instance URL for &ldquo;self&rdquo;</li>
+<li>Updates all trigger documents to use the new domain (fixes share-track jobs)</li>
+<li>Notifies other sharing members about the domain change</li>
+</ol>
+<p>Run this fixer after migrating an instance to a new domain to restore file
+sharing synchronization.</p>
+<div class="highlight"><pre><span></span><code>cozy-stack fix sharings-moved &lt;domain&gt; [flags]
 </code></pre></div>
 <h3 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>  -h, --help   help for fix
+<div class="highlight"><pre><span></span><code>  -h, --help   help for sharings-moved
 </code></pre></div>
 <h3 id="options-inherited-from-parent-commands">Options inherited from parent commands<a class="headerlink" href="#options-inherited-from-parent-commands" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>      --admin-host string   administration server host (default &quot;localhost&quot;)
@@ -7787,17 +7807,7 @@
 </code></pre></div>
 <h3 id="see-also">SEE ALSO<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h3>
 <ul>
-<li><a href="../cozy-stack/">cozy-stack</a>    - cozy-stack is the main command</li>
-<li><a href="../cozy-stack_fix_contact-emails/">cozy-stack fix contact-emails</a>  - Detect and try to fix invalid emails on contacts</li>
-<li><a href="../cozy-stack_fix_indexes/">cozy-stack fix indexes</a>    - Rebuild the CouchDB views and indexes</li>
-<li><a href="../cozy-stack_fix_jobs/">cozy-stack fix jobs</a>  - Take a look at the consistency of the jobs</li>
-<li><a href="../cozy-stack_fix_mime/">cozy-stack fix mime</a>  - Fix the class computed from the mime-type</li>
-<li><a href="../cozy-stack_fix_orphan-account/">cozy-stack fix orphan-account</a>  - Remove the orphan accounts</li>
-<li><a href="../cozy-stack_fix_password-defined/">cozy-stack fix password-defined</a>  - Set the password_defined setting</li>
-<li><a href="../cozy-stack_fix_redis/">cozy-stack fix redis</a>    - Rebuild scheduling data strucutures in redis</li>
-<li><a href="../cozy-stack_fix_service-triggers/">cozy-stack fix service-triggers</a>  - Clean the triggers for webapp services</li>
-<li><a href="../cozy-stack_fix_sharings-moved/">cozy-stack fix sharings-moved</a>  - Fix sharings after a domain migration</li>
-<li><a href="../cozy-stack_fix_thumbnails/">cozy-stack fix thumbnails</a>  - Rebuild thumbnails image for images files</li>
+<li><a href="../cozy-stack_fix/">cozy-stack fix</a>    - A set of tools to fix issues or migrate content.</li>
 </ul>
 
 
