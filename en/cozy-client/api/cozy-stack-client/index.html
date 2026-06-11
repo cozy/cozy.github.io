@@ -4597,6 +4597,28 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#sharingcollectionsetreadonlysharing-recipientindex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sharingCollection.setReadOnly(sharing, recipientIndex)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sharingcollectionsetreadwritesharing-recipientindex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sharingCollection.setReadWrite(sharing, recipientIndex)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#sharingcollectionrevokegroupsharing-groupindex" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -12272,6 +12294,28 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#sharingcollectionsetreadonlysharing-recipientindex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sharingCollection.setReadOnly(sharing, recipientIndex)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sharingcollectionsetreadwritesharing-recipientindex" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sharingCollection.setReadWrite(sharing, recipientIndex)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#sharingcollectionrevokegroupsharing-groupindex" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -16928,6 +16972,8 @@ Serves to dedupe equal queries requested at the same time</p>
 <li><a href="#SharingCollection+getDiscoveryLink">.getDiscoveryLink(sharingId, sharecode, [options])</a> ⇒ <code>string</code></li>
 <li><a href="#SharingCollection+addRecipients">.addRecipients(options)</a></li>
 <li><a href="#SharingCollection+revokeRecipient">.revokeRecipient(sharing, recipientIndex)</a></li>
+<li><a href="#SharingCollection+setReadOnly">.setReadOnly(sharing, recipientIndex)</a></li>
+<li><a href="#SharingCollection+setReadWrite">.setReadWrite(sharing, recipientIndex)</a></li>
 <li><a href="#SharingCollection+revokeGroup">.revokeGroup(sharing, groupIndex)</a></li>
 <li><a href="#SharingCollection+revokeSelf">.revokeSelf(sharing)</a></li>
 <li><a href="#SharingCollection+revokeAllRecipients">.revokeAllRecipients(sharing)</a></li>
@@ -17200,6 +17246,56 @@ Serves to dedupe equal queries requested at the same time</p>
 <p><a name="SharingCollection+revokeRecipient"></a></p>
 <h3 id="sharingcollectionrevokerecipientsharing-recipientindex">sharingCollection.revokeRecipient(sharing, recipientIndex)<a class="headerlink" href="#sharingcollectionrevokerecipientsharing-recipientindex" title="Permanent link">&para;</a></h3>
 <p>Revoke only one recipient of the sharing.</p>
+<p><strong>Kind</strong>: instance method of <a href="#SharingCollection"><code>SharingCollection</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sharing</td>
+<td><a href="#Sharing"><code>Sharing</code></a></td>
+<td>Sharing Object</td>
+</tr>
+<tr>
+<td>recipientIndex</td>
+<td><code>number</code></td>
+<td>Index of this recipient in the members array of the sharing</td>
+</tr>
+</tbody>
+</table>
+<p><a name="SharingCollection+setReadOnly"></a></p>
+<h3 id="sharingcollectionsetreadonlysharing-recipientindex">sharingCollection.setReadOnly(sharing, recipientIndex)<a class="headerlink" href="#sharingcollectionsetreadonlysharing-recipientindex" title="Permanent link">&para;</a></h3>
+<p>Downgrade a sharing member to read-only.</p>
+<p><strong>Kind</strong>: instance method of <a href="#SharingCollection"><code>SharingCollection</code></a>  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sharing</td>
+<td><a href="#Sharing"><code>Sharing</code></a></td>
+<td>Sharing Object</td>
+</tr>
+<tr>
+<td>recipientIndex</td>
+<td><code>number</code></td>
+<td>Index of this recipient in the members array of the sharing</td>
+</tr>
+</tbody>
+</table>
+<p><a name="SharingCollection+setReadWrite"></a></p>
+<h3 id="sharingcollectionsetreadwritesharing-recipientindex">sharingCollection.setReadWrite(sharing, recipientIndex)<a class="headerlink" href="#sharingcollectionsetreadwritesharing-recipientindex" title="Permanent link">&para;</a></h3>
+<p>Upgrade a read-only sharing member to read-write.</p>
 <p><strong>Kind</strong>: instance method of <a href="#SharingCollection"><code>SharingCollection</code></a>  </p>
 <table>
 <thead>
