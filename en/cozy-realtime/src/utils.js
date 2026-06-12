@@ -51,15 +51,21 @@ function getInstanceUri(client) {
  * Return websocket url from cozyClient
  *
  * @param {CozyClient} client - CozyClient instance
+ * @param {string} [sharedDriveId] - The ID of the shared drive to connect to
+ * @param {boolean} [background] - Whether the connection is made by a
+ * background service rather than the user viewing the drive, so the stack
+ * does not mark the sharing as seen
  * @return {string} WebSocket url
  */
-export function getUrl(client, sharedDriveId) {
+export function getUrl(client, sharedDriveId, background) {
   const url = getInstanceUri(client)
   const protocol = isSecureUrl(url) ? 'wss:' : 'ws:'
   const host = new URL(url).host
-  return sharedDriveId
-    ? `${protocol}//${host}/sharings/drives/${sharedDriveId}/realtime`
-    : `${protocol}//${host}/realtime/`
+  if (!sharedDriveId) {
+    return `${protocol}//${host}/realtime/`
+  }
+  const driveUrl = `${protocol}//${host}/sharings/drives/${sharedDriveId}/realtime`
+  return background ? `${driveUrl}?background=true` : driveUrl
 }
 
 /**

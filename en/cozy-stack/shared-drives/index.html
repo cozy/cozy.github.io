@@ -10269,6 +10269,11 @@ variants depending on the <code>Accept</code> header (JSON-API response or redir
 <h3 id="get-sharingsdrivesidrealtime">GET /sharings/drives/:id/realtime<a class="headerlink" href="#get-sharingsdrivesidrealtime" title="Permanent link">&para;</a></h3>
 <p>Get the changes inside a shared drive in real-time from a websocket.
 Identical to <a href="../realtime/"><code>GET /realtime</code></a>, except subscribing to the shared drive is automatically done.</p>
+<p>On the recipient side, connecting marks the sharing as seen (its shortcut
+leaves the <code>new</code> status counted by <code>GET /sharings/news</code>). Background
+consumers that watch a drive without the user looking at it, like the
+dataproxy indexer, must pass the query parameter <code>background=true</code> to keep
+the sharing unseen.</p>
 <p>This route is currently available only for directory-root shared drives.
 For file-root shared drives, the websocket stream emits only events whose
 target is the root file of the drive. Unrelated file events are filtered out.</p>

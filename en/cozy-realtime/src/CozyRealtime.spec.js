@@ -549,6 +549,28 @@ describe('CozyRealtime', () => {
         expect(createWebSocket).toHaveBeenCalledWith(sharedDriveWsURI, protocol)
       )
     })
+
+    it('appends background=true to the shared drive URL for background connections', async () => {
+      const createWebSocket = jest.fn()
+      const sharedDriveId = 'drive-123'
+      const sharedDriveWsURI =
+        defaultClientUri.replace(/^http/, 'ws') +
+        `sharings/drives/${sharedDriveId}/realtime?background=true`
+
+      createSocketServer({ wsuri: sharedDriveWsURI })
+      const realtime = createRealtime({
+        createWebSocket,
+        sharedDriveId,
+        background: true
+      })
+
+      const handler = jest.fn()
+      realtime.subscribe(event, type, handler)
+
+      await waitFor(() =>
+        expect(createWebSocket).toHaveBeenCalledWith(sharedDriveWsURI, protocol)
+      )
+    })
   })
 
   describe('cozy-client events', () => {

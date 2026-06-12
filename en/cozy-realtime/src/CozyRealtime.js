@@ -35,9 +35,11 @@ class CozyRealtime {
    * @param {Function} [options.createWebSocket] The function used to create WebSocket instances
    * @param {object} [options.logger] A custom logger
    * @param {string} [options.sharedDriveId] - The ID of the shared drive to connect to
+   * @param {boolean} [options.background] - Whether the shared drive connection is made by a background service rather than the user viewing the drive, so the stack does not mark the sharing as seen
    */
   constructor(options) {
     this.sharedDriveId = options.sharedDriveId
+    this.background = options.background
     this.client = getCozyClientFromOptions(options)
     this.createWebSocket = options.createWebSocket || createWebSocket
     this.logger = options.logger || defaultLogger
@@ -85,7 +87,7 @@ class CozyRealtime {
       this.revokeWebSocket()
     }
     this.logger.info('creating a new websocket…')
-    const url = getUrl(this.client, this.sharedDriveId)
+    const url = getUrl(this.client, this.sharedDriveId, this.background)
     try {
       this.websocket = this.createWebSocket(url, protocol)
       this.websocket.authenticated = false
