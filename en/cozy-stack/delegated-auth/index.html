@@ -8151,6 +8151,10 @@ Cozy instance belongs to one context.</p>
 <span class="w">      </span><span class="nt">allow_custom_instance</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">      </span><span class="nt">allow_oauth_token</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 <span class="w">      </span><span class="nt">id_token_jwk_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://identity-provider/path/to/jwk</span>
+<span class="w">      </span><span class="nt">allow_app_token_exchange</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">app_token_exchange</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">twake-mail-web</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">software_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">registry://mail</span>
 </code></pre></div>
 <p>Let&rsquo;s see what it means:</p>
 <ul>
@@ -8183,6 +8187,15 @@ Cozy instance belongs to one context.</p>
   instance name</li>
 <li><code>allow_oauth_token</code> must be set to true to enable the
   <code>POST /oidc/access_token</code> route (see below for more details).</li>
+<li><code>allow_app_token_exchange</code> can be set to true to enable user app exchanges
+  on <code>POST /auth/token_exchange</code>. The request body must set
+  <code>exchange_type</code> to <code>app</code> for this exchange.</li>
+<li><code>app_token_exchange</code> maps an OIDC token audience to a trusted Cozy linked
+  app. The <code>software_id</code> must use the <code>registry://&lt;slug&gt;</code> format. The stack
+  derives the Cozy OAuth scope from the linked app manifest, so the OIDC
+  provider does not need to expose <code>registry://...</code> as an OIDC scope.</li>
+<li>Token exchange requires a <code>sid</code> claim so the created OAuth client can be
+  revoked by OIDC backchannel logout.</li>
 </ul>
 <p>With the example config, if the UserInfo response contains <code>"cozy_number":
 "00001"</code>, the user can login on the instance <code>name00001.mycozy.cloud</code>.</p>

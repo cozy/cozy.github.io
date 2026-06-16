@@ -10530,20 +10530,40 @@ for an <code>access_token</code>. It can use this route with the <code>code</cod
 <h3 id="post-authtoken_exchange">POST /auth/token_exchange<a class="headerlink" href="#post-authtoken_exchange" title="Permanent link">&para;</a></h3>
 <p>This endpoint exchanges an external OIDC <code>id_token</code> for a normal Cozy OAuth
 client and token pair on the target instance.</p>
-<p>It is intended for browser-based admin applications that authenticate with an
-external identity provider, then need to call Cozy APIs directly on an
-organization instance.</p>
+<p>It supports two configured exchanges:</p>
+<ul>
+<li>admin applications that authenticate with an external identity provider, then
+  need to call Cozy APIs directly on an organization instance</li>
+<li>trusted user applications mapped by OIDC audience to a Cozy linked app, such
+  as <code>twake-mail-web</code> to <code>registry://mail</code></li>
+</ul>
 <p>The target Cozy instance is the request host. The exchanged <code>id_token</code> must:</p>
 <ul>
 <li>be signed by the configured OIDC provider</li>
 <li>match the configured issuer and audience</li>
+<li>contain <code>iat</code> and <code>exp</code> claims</li>
+<li>contain a <code>sid</code> claim so the created OAuth client can be revoked by OIDC
+  backchannel logout</li>
+</ul>
+<p>For admin exchanges, the <code>id_token</code> must also:</p>
+<ul>
 <li>contain an <code>org_id</code> claim equal to the target instance organization id</li>
 <li>contain an <code>org_role</code> claim equal to <code>owner</code> or <code>admin</code></li>
 </ul>
+<p>For user app exchanges, the <code>id_token</code> audience must be present in the
+<code>oidc.app_token_exchange</code> stack configuration. The token must also match the
+target Cozy instance using the existing OIDC instance mapping (<code>sub</code> to
+<code>oidc_id</code> when <code>allow_custom_instance</code> is true, otherwise
+<code>userinfo_instance_field</code> with prefix/suffix). The returned scope is derived
+from the configured linked app manifest, for example
+<code>@io.cozy.apps/mail</code>; caller-provided scopes are rejected.</p>
 <p>The request body is JSON:</p>
 <ul>
 <li><code>id_token</code>, the external OIDC token</li>
-<li><code>scope</code>, a space-separated list of allowed doctypes: <code>io.cozy.files</code>, <code>io.cozy.contacts</code>, <code>io.cozy.contacts.groups</code></li>
+<li><code>exchange_type</code>, optional, either <code>admin</code> or <code>app</code>; when omitted, <code>admin</code>
+  is used</li>
+<li><code>scope</code>, for admin exchanges only, a space-separated list of allowed
+  doctypes: <code>io.cozy.files</code>, <code>io.cozy.contacts</code>, <code>io.cozy.contacts.groups</code></li>
 </ul>
 <p>Example:</p>
 <div class="highlight"><pre><span></span><code><span class="nf">POST</span> <span class="nn">/auth/token_exchange</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
@@ -10554,6 +10574,12 @@ organization instance.</p>
 <span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;id_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eyJhbGciOiJSUzI1NiIsImtpZCI6InRva2VuLWV4Y2hhbmdlIn0...&quot;</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">&quot;scope&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.files&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Example app exchange:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;id_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eyJhbGciOiJSUzI1NiIsImtpZCI6InRva2VuLWV4Y2hhbmdlIn0...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;exchange_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;app&quot;</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Response:</p>
@@ -10579,9 +10605,8 @@ organization instance.</p>
 <li><code>registration_access_token</code> can be used with
   <code>DELETE /auth/register/:client-id</code> to revoke that exchanged client</li>
 </ul>
-<p>When the external <code>id_token</code> contains a <code>sid</code> claim, the created OAuth client
-is bound to that upstream OIDC session so it can be revoked by OIDC
-backchannel logout.</p>
+<p>The created OAuth client is bound to the upstream OIDC session so it can be
+revoked by OIDC backchannel logout.</p>
 <h3 id="post-authsession_code">POST /auth/session_code<a class="headerlink" href="#post-authsession_code" title="Permanent link">&para;</a></h3>
 <p>This endpoint can be used by the flagship application in order to create a
 session code: this code can be added to the URL of a cozy application (in the

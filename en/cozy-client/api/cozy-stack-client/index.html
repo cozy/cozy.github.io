@@ -4326,6 +4326,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#permissioncollectionfindlinksbyidsids-promise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        permissionCollection.findLinksByIds(ids) ⇒ Promise
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#permissioncollectionfindapps" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -12023,6 +12034,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#permissioncollectionfindlinksbyidsids-promise" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        permissionCollection.findLinksByIds(ids) ⇒ Promise
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#permissioncollectionfindapps" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -16595,6 +16617,7 @@ If this is the case, call the onRevocationChange callback</p>
 <li><a href="#new_PermissionCollection_new">new PermissionCollection(doctype, stackClient, [options])</a></li>
 <li><a href="#PermissionCollection+create">.create(permission)</a></li>
 <li><a href="#PermissionCollection+add">.add(document, permission, options)</a> ⇒ <code>Promise</code></li>
+<li><a href="#PermissionCollection+findLinksByIds">.findLinksByIds(ids)</a> ⇒ <code>Promise</code></li>
 <li>~~<a href="#PermissionCollection+findApps">.findApps()</a>~~</li>
 <li><a href="#PermissionCollection+createSharingLink">.createSharingLink(document, options)</a></li>
 <li><a href="#PermissionCollection+fetchPermissionsByLink">.fetchPermissionsByLink(permissions)</a></li>
@@ -16722,7 +16745,37 @@ It can also associates one or more codes to it, via the codes parameter</p>
   { expiresAt: &#39;2100-01-01T00:00:00Z&#39;, password: &#39;password&#39; }
 )
 </code></pre></div>
-<a name="PermissionCollection+findApps"></a></p>
+<a name="PermissionCollection+findLinksByIds"></a></p>
+<h3 id="permissioncollectionfindlinksbyidsids-promise">permissionCollection.findLinksByIds(ids) ⇒ <code>Promise</code><a class="headerlink" href="#permissioncollectionfindlinksbyidsids-promise" title="Permanent link">&para;</a></h3>
+<p>Find sharing links by document ids</p>
+<p>This is the shared-drive equivalent of <code>findLinksByDoctype</code> when you
+already know the document ids. It uses the same <code>this.prefix</code>, so the
+URL becomes <code>/sharings/drives/:driveId/permissions?ids=...</code> when the
+collection is built with <code>{ driveId }</code>.</p>
+<p>The returned permissions are normalized (have <code>_id</code> and <code>_type</code>).</p>
+<p><strong>Kind</strong>: instance method of <a href="#PermissionCollection"><code>PermissionCollection</code></a><br />
+<strong>Returns</strong>: <code>Promise</code> - The matching permissions<br />
+<strong>Throws</strong>:</p>
+<ul>
+<li><code>Error</code> If the collection is not configured with a <code>driveId</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ids</td>
+<td><code>Array.&lt;string&gt;</code></td>
+<td>The list of document ids to look up</td>
+</tr>
+</tbody>
+</table>
+<p><a name="PermissionCollection+findApps"></a></p>
 <h3 id="permissioncollectionfindapps">~~permissionCollection.findApps()~~<a class="headerlink" href="#permissioncollectionfindapps" title="Permanent link">&para;</a></h3>
 <p><strong><em>Deprecated</em></strong></p>
 <p><strong>Kind</strong>: instance method of <a href="#PermissionCollection"><code>PermissionCollection</code></a><br />
