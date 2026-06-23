@@ -8155,6 +8155,7 @@ Cozy instance belongs to one context.</p>
 <span class="w">      </span><span class="nt">app_token_exchange</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">twake-mail-web</span><span class="p">:</span>
 <span class="w">          </span><span class="nt">software_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">registry://mail</span>
+<span class="w">          </span><span class="nt">instance_claim</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">workplaceFqdn</span>
 </code></pre></div>
 <p>Let&rsquo;s see what it means:</p>
 <ul>
@@ -8193,7 +8194,9 @@ Cozy instance belongs to one context.</p>
 <li><code>app_token_exchange</code> maps an OIDC token audience to a trusted Cozy linked
   app. The <code>software_id</code> must use the <code>registry://&lt;slug&gt;</code> format. The stack
   derives the Cozy OAuth scope from the linked app manifest, so the OIDC
-  provider does not need to expose <code>registry://...</code> as an OIDC scope.</li>
+  provider does not need to expose <code>registry://...</code> as an OIDC scope. When
+  <code>instance_claim</code> is set, the claim must contain the target Cozy instance
+  domain and is used instead of the default OIDC instance mapping.</li>
 <li>Token exchange requires a <code>sid</code> claim so the created OAuth client can be
   revoked by OIDC backchannel logout.</li>
 </ul>

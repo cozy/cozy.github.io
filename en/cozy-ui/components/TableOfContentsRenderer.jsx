@@ -1,11 +1,9 @@
+import { Icon, Palette, Phone } from '@linagora/twake-icons'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import React, { useEffect, useState } from 'react'
 import DefaultTableOfContents from 'react-styleguidist/lib/client/rsg-components/TableOfContents/TableOfContentsRenderer'
 
 import Buttons from 'cozy-ui/transpiled/react/Buttons'
-import Icon from 'cozy-ui/transpiled/react/Icon'
-import PaletteIcon from 'cozy-ui/transpiled/react/Icons/Palette'
-import PhoneIcon from 'cozy-ui/transpiled/react/Icons/Phone'
 import Paper from 'cozy-ui/transpiled/react/Paper'
 import Switch from 'cozy-ui/transpiled/react/Switch'
 import Typography from 'cozy-ui/transpiled/react/Typography'
@@ -43,7 +41,7 @@ const TableOfContents = props => {
       <Paper className="u-pv-1 u-ph-half u-ta-center" elevation={0} square>
         <Buttons
           className="u-w-100 u-mb-1"
-          startIcon={<Icon icon={PaletteIcon} />}
+          startIcon={<Icon icon={Palette} />}
           label={themeType.value}
           size="small"
           variant="secondary"
@@ -57,7 +55,7 @@ const TableOfContents = props => {
         />
         <Buttons
           className="u-w-100 u-mt-half"
-          startIcon={<Icon icon={PhoneIcon} />}
+          startIcon={<Icon icon={Phone} />}
           label={flagship.status}
           size="small"
           variant="secondary"

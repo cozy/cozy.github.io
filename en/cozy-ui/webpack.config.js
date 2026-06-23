@@ -19,7 +19,9 @@ module.exports = {
       },
       {
         test: /\.(js|jsx|ts|tsx)$/,
-        exclude: /node_modules/,
+        exclude: filepath =>
+          /node_modules/.test(filepath) &&
+          !filepath.includes('@linagora/twake-icons'),
         loader: 'babel-loader'
       },
       {

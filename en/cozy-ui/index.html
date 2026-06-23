@@ -3316,17 +3316,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#add-an-icon" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Add an icon
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#develop-inside-an-app" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8354,17 +8343,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#add-an-icon" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Add an icon
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#develop-inside-an-app" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8608,7 +8586,7 @@ import &#39;cozy-ui/transpiled/react/stylesheet.css&#39;
 <p>First <code>nvm use</code> (to set node version as defined in .nvmrc) then <code>yarn install</code></p>
 <h3 id="develop-inside-the-styleguidist">Develop inside the styleguidist<a class="headerlink" href="#develop-inside-the-styleguidist" title="Permanent link">&para;</a></h3>
 <p>It is convenient when modifying a component to use the styleguide site.</p>
-<div class="highlight"><pre><span></span><code>yarn<span class="w"> </span>makeSpriteAndPalette<span class="w"> </span><span class="c1"># Create sprite and palette</span>
+<div class="highlight"><pre><span></span><code>yarn<span class="w"> </span>makePalette<span class="w"> </span><span class="c1"># Create palette</span>
 yarn<span class="w"> </span>start<span class="w"> </span><span class="c1"># Transpile the files in watch mode</span>
 yarn<span class="w"> </span>build:css:all<span class="w"> </span><span class="c1"># Build CSS files needed by the documentation</span>
 yarn<span class="w"> </span>start:doc<span class="w"> </span><span class="c1"># Run the styleguide in watch mode</span>
@@ -8624,7 +8602,7 @@ yarn<span class="w"> </span>start:css:utils<span class="w"> </span><span class="
 <li>Add the new component in <code>/react</code> folder with its <code>README.md</code> file</li>
 <li>Expose it in the API by adding it in <code>react/index.js</code></li>
 <li>Add it in the documentation by modifying <code>docs/styleguide.config.js</code></li>
-<li>If necessary you can add snapshots for it by modifying <code>react/examples.spec.jsx</code> and updating them <code>yarn makeSpriteAndPalette &amp;&amp; yarn build &amp;&amp; yarn test -u</code></li>
+<li>If necessary you can add snapshots for it by modifying <code>react/examples.spec.jsx</code> and updating them <code>yarn makePalette &amp;&amp; yarn build &amp;&amp; yarn test -u</code></li>
 <li>Remember to propagate the possible <code>ref</code> with <code>React.forwardRef</code>. <a href="https://en.reactjs.org/docs/forwarding-refs.html">See forwardRef documentation</a></li>
 <li>Try to think of ARIA attributes if you are coding new components</li>
 </ul>
@@ -8638,25 +8616,14 @@ yarn<span class="w"> </span>start:css:utils<span class="w"> </span><span class="
 <li>Avoid stylus to style new components based on MUI and prefer <code>/helpers/makeStyles</code></li>
 <li>Use semantic variables for colors from <code>stylus/settings/palettes.styl</code>, or color from <code>theme</code> objects in <code>makeStyles</code></li>
 </ul>
-<h3 id="add-an-icon">Add an icon<a class="headerlink" href="#add-an-icon" title="Permanent link">&para;</a></h3>
-<p>If you want to add a new icon to cozy-ui, you must follow these steps:</p>
-<ul>
-<li>If you SVG file is an icon (not an illustration), verify that the file doesn&rsquo;t have any fill or fill-opacity properties. Remove them if necessary</li>
-<li>Add the SVG in the <code>assets/icons/[ui || illus]</code> folder</li>
-<li>Optimize it with <code>yarn svgo assets/icons/[ui || illus]/[new icon file name]</code></li>
-<li>Generate the react component by running <code>yarn makeSvgr assets/icons/[ui || illus]/[new icon file name]</code></li>
-<li>Update the documentation by adding the new file in <code>react/Icon/Readme.md</code>. If it&rsquo;s an icon, add it in SVGr icons and Available UI icons sections, or in SVGr illustrations and Available illustrations sections if it&rsquo;s an illustration</li>
-<li>Don&rsquo;t forget to check the icon&rsquo;s color on different theme (inverted, etc.)</li>
-<li>Update the tests by running <code>yarn makeSpriteAndPalette &amp;&amp; yarn build &amp;&amp; yarn test -u</code></li>
-</ul>
 <h3 id="develop-inside-an-app">Develop inside an app<a class="headerlink" href="#develop-inside-an-app" title="Permanent link">&para;</a></h3>
 <p>Sometimes, you want to develop on a component, from the context of an app.
 Then you need to link cozy-ui with <code>yarn link</code>. Since <code>cozy-ui</code> is transpiled, when linking you must first <code>yarn release</code>. If you change the icons, or the palette, you must run <code>yarn release</code> again.</p>
 <div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>cozy-ui
-yarn<span class="w"> </span>makeSpriteAndPalette<span class="w"> </span><span class="c1"># if first time</span>
+yarn<span class="w"> </span>makePalette<span class="w"> </span><span class="c1"># if first time</span>
 yarn<span class="w"> </span>link
 yarn<span class="w"> </span>start<span class="w"> </span><span class="c1"># Launch transpilation</span>
-yarn<span class="w"> </span>makeSpriteAndPalette<span class="w"> </span><span class="c1"># if you change icons or palette</span>
+yarn<span class="w"> </span>makePalette<span class="w"> </span><span class="c1"># if you change palette</span>
 </code></pre></div>
 <p>Then in your application folder, you can link to your local Cozy UI.
 You can use <a href="https://gist.github.com/ptbrowne/add609bdcf4396d32072acc4674fff23">rlink</a> instead of <code>yarn link</code>. It will prevent common build problems due to module resolution inside symlinked folders.
@@ -8676,7 +8643,7 @@ Don&rsquo;t forget to change <code>USERNAME</code> by yours.</p>
 <p>⚠️ If the <code>deploy:doc</code> failed, you need to checkout your dev branch by doing <code>git checkout -</code></p>
 <h3 id="unit-testing">Unit testing<a class="headerlink" href="#unit-testing" title="Permanent link">&para;</a></h3>
 <p>Be aware that snapshots in unit tests use the transpiled version of cozy-ui. Therefore if you make changes and need to update the snapshots, you need to transpile first.</p>
-<div class="highlight"><pre><span></span><code>yarn<span class="w"> </span>makeSpriteAndPalette<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>yarn<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>yarn<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-u
+<div class="highlight"><pre><span></span><code>yarn<span class="w"> </span>makePalette<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>yarn<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>yarn<span class="w"> </span><span class="nb">test</span><span class="w"> </span>-u
 </code></pre></div>
 <p>We suggest to use <code>@testing-library/react</code> over <code>enzyme</code> for tests. We have
 historically used <code>enzyme</code> but we prefer the philosophy behind <code>testing-library</code> since
@@ -8707,6 +8674,7 @@ regression (thanks <a href="https://github.com/argos-ci/argos">Argos</a> !).</p>
 <p>Before creating any screenshots, make sure you have built everything:</p>
 <div class="highlight"><pre><span></span><code>yarn<span class="w"> </span>build:all
 </code></pre></div>
+<p>You may have to change <code>executablePath</code> value of <code>prepareBrowser</code> function to match your OS configuration.</p>
 <p>Now you are ready to create screenshots:</p>
 <div class="highlight"><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>./screenshots
 yarn<span class="w"> </span>screenshots<span class="w"> </span>--mode<span class="w"> </span>react<span class="w"> </span>--viewport<span class="w"> </span>desktop<span class="w"> </span>--screenshot-dir<span class="w"> </span>./screenshots/reactDesktop

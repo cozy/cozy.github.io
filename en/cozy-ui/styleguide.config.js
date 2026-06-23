@@ -30,7 +30,6 @@ module.exports = {
         '../react/Empty',
         '../react/Fab',
         '../react/Grid',
-        '../react/Icon',
         '../react/IconButton',
         '../react/Labs/IconGrid',
         '../react/LinearProgress',
