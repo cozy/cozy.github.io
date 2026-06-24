@@ -16,6 +16,7 @@ module.exports = {
         '../react/Accordion',
         '../react/Alert',
         '../react/AppTitle',
+        '../react/Autocomplete',
         '../react/Avatar',
         '../react/Badge',
         '../react/Breadcrumbs',
