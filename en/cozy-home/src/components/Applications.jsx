@@ -17,11 +17,7 @@ import homeConfig from '@/config/home.json'
 import { appsConn } from '@/queries'
 
 const {
-  applications: {
-    sortApplicationsList,
-    selectEntrypoints,
-    checkEntrypointCondition
-  }
+  applications: { sortApplicationsList, checkEntrypointCondition }
 } = models
 
 const LoadingAppTiles = memo(({ num }) => {
@@ -76,39 +72,28 @@ const getApplicationsList = data => {
   }
 }
 
-// We get only the entrypoints we want:
-// - Drive onlyoffice
 const getEntrypoints = apps => {
-  const driveApp = apps.find(app => app.slug === 'drive') || {}
+  return (apps || []).flatMap(app =>
+    (app.entrypoints || [])
+      .filter(entrypoint => {
+        const conditions = entrypoint.conditions || []
 
-  const driveEntrypoints = driveApp.entrypoints || []
+        return conditions.every(condition => {
+          if (
+            condition.type === 'flag' &&
+            condition.name === 'bar.onlyoffice.enabled'
+          ) {
+            return true
+          }
 
-  const selectedEntrypoints = selectEntrypoints(driveEntrypoints, [
-    'new-file-type-text',
-    'new-file-type-sheet',
-    'new-file-type-slide'
-  ])
-
-  // Custom filtering because we want to ignore flag related to top bar
-  const filteredEntrypoints = selectedEntrypoints.filter(entrypoint => {
-    const conditions = entrypoint.conditions || []
-
-    return conditions.every(condition => {
-      if (
-        condition.type === 'flag' &&
-        condition.name === 'bar.onlyoffice.enabled'
-      ) {
-        return true
-      }
-
-      return checkEntrypointCondition(condition)
-    })
-  })
-
-  return filteredEntrypoints.map(entrypoint => ({
-    ...entrypoint,
-    slug: driveApp.slug
-  }))
+          return checkEntrypointCondition(condition)
+        })
+      })
+      .map(entrypoint => ({
+        ...entrypoint,
+        slug: app.slug
+      }))
+  )
 }
 
 export const useApps = () => {
