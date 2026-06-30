@@ -8443,7 +8443,8 @@ to respond to queries and mutations.</p>
 <h3 id="adddoctype">addDoctype<a class="headerlink" href="#adddoctype" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>addDoctype</strong>(<code>doctype</code>, <code>replicationOptions</code>, <code>options</code>): <code>Promise</code>&lt;<code>void</code>&gt;</p>
 <p>Adds a new doctype to the list of managed doctypes, sets its replication options,
-adds it to the pouches, and starts replication.</p>
+adds it to the pouches, and starts replication. Does nothing when the doctype is
+already managed, so the list stays free of duplicates.</p>
 <p><em>Parameters</em></p>
 <table>
 <thead>
@@ -8479,7 +8480,7 @@ adds it to the pouches, and starts replication.</p>
 <p><em>Returns</em></p>
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/linagora/cozy-client/blob/master/packages/cozy-pouch-link/src/CozyPouchLink.js#L823">CozyPouchLink.js:823</a></p>
+<p><a href="https://github.com/linagora/cozy-client/blob/master/packages/cozy-pouch-link/src/CozyPouchLink.js#L824">CozyPouchLink.js:824</a></p>
 <hr />
 <h3 id="addreferencesto">addReferencesTo<a class="headerlink" href="#addreferencesto" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>addReferencesTo</strong>(<code>mutation</code>): <code>Promise</code>&lt;<code>void</code>&gt;</p>
@@ -8839,7 +8840,7 @@ See https://pouchdb.com/api.html#database_information</p>
 <p><em>Returns</em></p>
 <p><code>string</code>[]</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/linagora/cozy-client/blob/master/packages/cozy-pouch-link/src/CozyPouchLink.js#L848">CozyPouchLink.js:848</a></p>
+<p><a href="https://github.com/linagora/cozy-client/blob/master/packages/cozy-pouch-link/src/CozyPouchLink.js#L856">CozyPouchLink.js:856</a></p>
 <hr />
 <h3 id="getsyncinfo">getSyncInfo<a class="headerlink" href="#getsyncinfo" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>getSyncInfo</strong>(<code>doctype</code>): <code>any</code></p>
@@ -9121,7 +9122,7 @@ and removes it from the pouches.</p>
 <p><em>Returns</em></p>
 <p><code>Promise</code>&lt;<code>void</code>&gt;</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/linagora/cozy-client/blob/master/packages/cozy-pouch-link/src/CozyPouchLink.js#L842">CozyPouchLink.js:842</a></p>
+<p><a href="https://github.com/linagora/cozy-client/blob/master/packages/cozy-pouch-link/src/CozyPouchLink.js#L850">CozyPouchLink.js:850</a></p>
 <hr />
 <h3 id="request">request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>request</strong>(<code>operation</code>, <code>options</code>, <code>result?</code>, <code>forward?</code>): <code>Promise</code>&lt;<code>any</code>&gt;</p>
