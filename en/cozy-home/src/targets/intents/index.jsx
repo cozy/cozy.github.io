@@ -14,7 +14,7 @@ import React from 'react'
 import { Route, Routes, HashRouter } from 'react-router-dom'
 import { createRoot } from 'react-dom/client'
 
-import IconSprite from 'cozy-ui/transpiled/react/Icon/Sprite'
+import { Sprite } from '@linagora/twake-icons'
 
 document.addEventListener('DOMContentLoaded', () => {
   const container = document.querySelector('[role=application]')
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
           )}
         </AppContext.Consumer>
       </HashRouter>
-      <IconSprite />
+      <Sprite />
     </AppWrapper>
   )
 })

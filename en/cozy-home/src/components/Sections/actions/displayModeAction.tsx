@@ -1,16 +1,13 @@
+import { Icon, ListMin, MosaicMin } from '@linagora/twake-icons'
 import React from 'react'
 
 import { useSettings } from 'cozy-client'
-
+import { Action } from 'cozy-ui/transpiled/react/ActionsMenu/Actions'
 import ActionsMenuItem from 'cozy-ui/transpiled/react/ActionsMenu/ActionsMenuItem'
-import Icon from 'cozy-ui/transpiled/react/Icon'
 import ListItemIcon from 'cozy-ui/transpiled/react/ListItemIcon'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
-import ListMin from 'cozy-ui/transpiled/react/Icons/ListMin'
-import MosaicMin from 'cozy-ui/transpiled/react/Icons/MosaicMin'
 import Radio from 'cozy-ui/transpiled/react/Radios'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
-import { Action } from 'cozy-ui/transpiled/react/ActionsMenu/Actions'
 import { useI18n } from 'twake-i18n'
 
 import {

@@ -1,10 +1,9 @@
 import cx from 'classnames'
 import React from 'react'
 
+import { Icon, Cross } from '@linagora/twake-icons'
 import Avatar from 'cozy-ui/transpiled/react/Avatar'
-import Icon from 'cozy-ui/transpiled/react/Icon'
 import IconButton from 'cozy-ui/transpiled/react/IconButton'
-import CrossIcon from 'cozy-ui/transpiled/react/Icons/Cross'
 import Typography from 'cozy-ui/transpiled/react/Typography'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { useCozyTheme } from 'cozy-ui/transpiled/react/providers/CozyTheme'
@@ -80,7 +79,7 @@ export const WallpaperItem = ({
               }}
             >
               <Icon
-                icon={CrossIcon}
+                icon={Cross}
                 size={12}
                 color={isMobile ? 'var(--white)' : 'var(--black)'}
               />

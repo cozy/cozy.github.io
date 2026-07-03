@@ -10,7 +10,6 @@ import { useWebviewIntent } from 'cozy-intent'
 import minilog from 'cozy-minilog'
 import { AiText, AssistantView, SearchDialog } from 'cozy-search'
 import AppTitle from 'cozy-ui/transpiled/react/AppTitle'
-import IconSprite from 'cozy-ui/transpiled/react/Icon/Sprite'
 import { Layout } from 'cozy-ui/transpiled/react/Layout'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
@@ -46,6 +45,8 @@ import styles from '../styles/app.styl'
 
 import IconCozyHome from '@/components/Icons/IconCozyHome'
 import WorkplaceText from '@/components/Icons/WorkplaceText'
+
+import { Sprite } from '@linagora/twake-icons'
 
 window.flag = window.flag || flag
 window.minilog = minilog
@@ -214,7 +215,7 @@ const App = () => {
                 </SentryRoutes>
               </>
             )}
-            <IconSprite />
+            <Sprite />
           </div>
           {((!isMobile && isNewAssistantView) || !isNewAssistantView) && (
             <FooterLogo />

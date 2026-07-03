@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 
+import { Icon, Lightbulb } from '@linagora/twake-icons'
 import { useSettings } from 'cozy-client'
 import { isFlagshipApp } from 'cozy-device-helper'
 import { useWebviewIntent } from 'cozy-intent'
 import Alert from 'cozy-ui/transpiled/react/Alert'
 import Button from 'cozy-ui/transpiled/react/Buttons'
-import Icon from 'cozy-ui/transpiled/react/Icon'
-import LightbulbIcon from 'cozy-ui/transpiled/react/Icons/Lightbulb'
 import Snackbar from 'cozy-ui/transpiled/react/Snackbar'
 import { makeStyles } from 'cozy-ui/transpiled/react/styles'
 import { useI18n } from 'twake-i18n'
@@ -70,7 +69,7 @@ const DefaultAppSnackbar = () => {
       anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
     >
       <Alert
-        icon={<Icon icon={LightbulbIcon} />}
+        icon={<Icon icon={Lightbulb} />}
         severity="primary"
         variant="filled"
       >

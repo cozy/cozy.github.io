@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
 
+import { Icon, CrossCircleOutline, PhoneUpload } from '@linagora/twake-icons'
 import { useClient, generateWebLink } from 'cozy-client'
 import { isFlagshipApp } from 'cozy-device-helper'
 import { useWebviewIntent } from 'cozy-intent'
 import CircularProgress from 'cozy-ui/transpiled/react/CircularProgress'
-import Icon from 'cozy-ui/transpiled/react/Icon'
-import CrossCircleOutlineIcon from 'cozy-ui/transpiled/react/Icons/CrossCircleOutline'
-import PhoneUploadIcon from 'cozy-ui/transpiled/react/Icons/PhoneUpload'
 import ListItem from 'cozy-ui/transpiled/react/ListItem'
 import ListItemIcon from 'cozy-ui/transpiled/react/ListItemIcon'
 import ListItemSecondaryAction from 'cozy-ui/transpiled/react/ListItemSecondaryAction'
@@ -77,7 +75,7 @@ const BackupNotification = () => {
               href={href}
             >
               <ListItemIcon className="u-pos-relative">
-                <Icon icon={PhoneUploadIcon} size={12} />
+                <Icon icon={PhoneUpload} size={12} />
                 <CircularProgress
                   variant="determinate"
                   value={backupProgressPercentage}
@@ -108,7 +106,7 @@ const BackupNotification = () => {
                 onClick={() => setIsConfirmStopBackupDialogOpen(true)}
               >
                 <ListItemIcon className="u-mr-half">
-                  <Icon icon={CrossCircleOutlineIcon} size={16} />
+                  <Icon icon={CrossCircleOutline} size={16} />
                 </ListItemIcon>
               </ListItemSecondaryAction>
             </ListItem>

@@ -1,10 +1,9 @@
 import cx from 'classnames'
 import React from 'react'
 
+import { Icon, Cross } from '@linagora/twake-icons'
 import { useClient } from 'cozy-client'
-import Icon from 'cozy-ui/transpiled/react/Icon'
 import IconButton from 'cozy-ui/transpiled/react/IconButton'
-import CrossIcon from 'cozy-ui/transpiled/react/Icons/Cross'
 
 import styles from './Personalization.styl'
 import { ThemeSwitcher } from './ThemeSwitcher'
@@ -38,7 +37,7 @@ export const PersonalizationModal = ({
               aria-label="Close wallpaper personalization dialog"
               size="small"
             >
-              <Icon icon={CrossIcon} size={16} />
+              <Icon icon={Cross} size={16} />
             </IconButton>
           )}
         </div>

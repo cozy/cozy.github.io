@@ -1,10 +1,9 @@
 import React, { useCallback } from 'react'
 
+import { Icon, LogoutLarge } from '@linagora/twake-icons'
 import { useClient } from 'cozy-client'
 import { isFlagshipApp } from 'cozy-device-helper'
 import { useWebviewIntent } from 'cozy-intent'
-import Icon from 'cozy-ui/transpiled/react/Icon'
-import LogoutLargeIcon from 'cozy-ui/transpiled/react/Icons/LogoutLarge'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import SquareAppIcon from 'cozy-ui-plus/dist/SquareAppIcon'
 import { useI18n } from 'twake-i18n'
@@ -28,7 +27,7 @@ const LogoutTile = () => {
     <div onClick={logout} className="scale-hover u-c-pointer">
       <SquareAppIcon
         name={t('logout')}
-        IconContent={<Icon icon={LogoutLargeIcon} size={isMobile ? 24 : 32} />}
+        IconContent={<Icon icon={LogoutLarge} size={isMobile ? 24 : 32} />}
       />
     </div>
   )

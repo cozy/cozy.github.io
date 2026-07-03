@@ -1,21 +1,20 @@
-import React from 'react'
+import { Dots, Icon } from '@linagora/twake-icons'
 import cx from 'classnames'
+import React from 'react'
 
 import ActionsMenu from 'cozy-ui/transpiled/react/ActionsMenu'
 import Button from 'cozy-ui/transpiled/react/Buttons'
-import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
 import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'
-import DotsIcon from 'cozy-ui/transpiled/react/Icons/Dots'
-import Icon from 'cozy-ui/transpiled/react/Icon'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
+import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
 import { useI18n } from 'twake-i18n'
 
 import { actions } from '@/components/Sections/SectionActions'
-import { computeGroupMode } from '@/components/Sections/utils'
 import {
   GroupMode,
   SectionHeaderProps
 } from '@/components/Sections/SectionsTypes'
+import { computeGroupMode } from '@/components/Sections/utils'
 
 export const SectionHeader = ({
   section,
@@ -50,7 +49,7 @@ export const SectionHeader = ({
               ['u-p-0']: isGroupMode,
               ['u-h-auto']: isGroupMode
             })}
-            label={<Icon icon={DotsIcon} color="var(--secondaryColor)" />}
+            label={<Icon icon={Dots} color="var(--secondaryColor)" />}
             onClick={toggleMenu}
             ref={anchorRef}
             variant="text"
@@ -62,7 +61,7 @@ export const SectionHeader = ({
         <CozyTheme>
           <ActionsMenu
             /*
-            // @ts-expect-error ActionsMenu not correctly typed */
+          // @ts-expect-error ActionsMenu not correctly typed */
             actions={actions}
             anchorOrigin={{
               horizontal: 'right',

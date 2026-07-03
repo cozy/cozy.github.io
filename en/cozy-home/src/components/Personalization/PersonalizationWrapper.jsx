@@ -2,12 +2,12 @@ import { Grow, Popper, ClickAwayListener } from '@material-ui/core'
 import cx from 'classnames'
 import React, { useRef, useState } from 'react'
 
+import { Icon, Pen } from '@linagora/twake-icons'
 import flag from 'cozy-flags'
 import BottomSheet, {
   BottomSheetItem
 } from 'cozy-ui/transpiled/react/BottomSheet'
 import Fab from 'cozy-ui/transpiled/react/Fab'
-import Icon from 'cozy-ui/transpiled/react/Icon'
 import Paper from 'cozy-ui/transpiled/react/Paper'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 
@@ -53,7 +53,7 @@ export const PersonalizationWrapper = () => {
           className="u-bdrs-circle"
         >
           <Icon
-            icon="pen"
+            icon={Pen}
             key="personalize-fab-icon"
             color="var(--primaryColor)"
             size={18}

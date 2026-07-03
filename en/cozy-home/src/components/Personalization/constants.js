@@ -1,4 +1,4 @@
-import DevicesIcon from 'cozy-ui/transpiled/react/Icons/Devices'
+import { Devices } from '@linagora/twake-icons'
 
 import MoonIcon from './icons/MoonIcon'
 import SunIcon from './icons/SunIcon'
@@ -14,6 +14,6 @@ export const themeOptions = [
   },
   {
     value: 'auto',
-    icon: DevicesIcon
+    icon: Devices
   }
 ]

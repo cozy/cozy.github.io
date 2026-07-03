@@ -1,12 +1,11 @@
 import cx from 'classnames'
 import React, { useState, useRef } from 'react'
 
+import { Icon, Dots } from '@linagora/twake-icons'
 import { useClient } from 'cozy-client'
 import ActionsMenu from 'cozy-ui/transpiled/react/ActionsMenu'
 import { makeActions } from 'cozy-ui/transpiled/react/ActionsMenu/Actions'
-import Icon from 'cozy-ui/transpiled/react/Icon'
 import IconButton from 'cozy-ui/transpiled/react/IconButton'
-import DotsIcon from 'cozy-ui/transpiled/react/Icons/Dots'
 import { useBreakpoints } from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
 import { useI18n } from 'twake-i18n'
@@ -49,7 +48,7 @@ const ShortcutActionsMenu = ({
             setIsMenuOpen(true)
           }}
         >
-          <Icon icon={DotsIcon} rotate={90} />
+          <Icon icon={Dots} rotate={90} />
         </IconButton>
       )}
       <CozyTheme>

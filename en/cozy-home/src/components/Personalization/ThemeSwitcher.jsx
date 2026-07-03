@@ -1,8 +1,8 @@
 import React from 'react'
 
+import { Icon } from '@linagora/twake-icons'
 import { useClient, useQuery } from 'cozy-client'
 import log from 'cozy-logger'
-import Icon from 'cozy-ui/transpiled/react/Icon'
 import Tab from 'cozy-ui/transpiled/react/Tab'
 import Tabs from 'cozy-ui/transpiled/react/Tabs'
 

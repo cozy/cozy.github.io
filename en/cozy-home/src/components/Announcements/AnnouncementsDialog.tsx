@@ -1,3 +1,4 @@
+import { Icon, Left, Right } from '@linagora/twake-icons'
 import React, { useState, FC } from 'react'
 import SwipeableViews from 'react-swipeable-views'
 
@@ -5,16 +6,14 @@ import {
   FixedActionsDialog,
   DialogCloseButton
 } from 'cozy-ui/transpiled/react/CozyDialogs'
-import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
-import MobileStepper from 'cozy-ui/transpiled/react/MobileStepper'
 import IconButton from 'cozy-ui/transpiled/react/IconButton'
-import Icon from 'cozy-ui/transpiled/react/Icon'
-import LeftIcon from 'cozy-ui/transpiled/react/Icons/Left'
-import RightIcon from 'cozy-ui/transpiled/react/Icons/Right'
+import MobileStepper from 'cozy-ui/transpiled/react/MobileStepper'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
+import CozyTheme from 'cozy-ui-plus/dist/providers/CozyTheme'
 
 import { AnnouncementsDialogContent } from './AnnouncementsDialogContent'
 import { Announcement } from './types'
+
 import { useAnnouncementsSettings } from '@/hooks/useAnnouncementsSettings'
 
 interface AnnouncementsDialogProps {
@@ -118,12 +117,12 @@ const AnnouncementsDialog: FC<AnnouncementsDialogProps> = ({
                   onClick={handleNext}
                   disabled={activeStep === maxSteps - 1}
                 >
-                  <Icon icon={RightIcon} />
+                  <Icon icon={Right} />
                 </IconButton>
               }
               backButton={
                 <IconButton onClick={handleBack} disabled={activeStep === 0}>
-                  <Icon icon={LeftIcon} />
+                  <Icon icon={Left} />
                 </IconButton>
               }
             />

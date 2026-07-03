@@ -1,8 +1,7 @@
 import React from 'react'
 
+import { Icon, Assistant } from '@linagora/twake-icons'
 import { AssistantLink } from 'cozy-search'
-import Icon from 'cozy-ui/transpiled/react/Icon'
-import AssistantIcon from 'cozy-ui/transpiled/react/Icons/Assistant'
 import SquareAppIcon from 'cozy-ui-plus/dist/SquareAppIcon'
 
 /**
@@ -18,11 +17,7 @@ const AssistantTile = () => {
           <SquareAppIcon
             name="Assistant"
             IconContent={
-              <Icon
-                icon={AssistantIcon}
-                size={24}
-                color="var(--primaryColor)"
-              />
+              <Icon icon={Assistant} size={24} color="var(--primaryColor)" />
             }
           />
         </a>
