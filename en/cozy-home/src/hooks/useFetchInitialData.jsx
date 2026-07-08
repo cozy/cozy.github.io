@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react'
 
-import { useQuery } from 'cozy-client'
 import log from 'cozy-logger'
 
+import { useQueryWithRetry } from '@/hooks/useQueryWithRetry'
 import {
   makeAccountsQuery,
   makeAppsQuery,
@@ -11,16 +11,19 @@ import {
 } from '@/queries'
 
 export const useFetchInitialData = () => {
-  const accountsQuery = useQuery(
+  const accountsQuery = useQueryWithRetry(
     makeAccountsQuery.definition,
     makeAccountsQuery.options
   )
-  const konnectorsQuery = useQuery(
+  const konnectorsQuery = useQueryWithRetry(
     makeKonnectorsQuery.definition,
     makeKonnectorsQuery.options
   )
-  const appsQuery = useQuery(makeAppsQuery.definition, makeAppsQuery.options)
-  const triggersQuery = useQuery(
+  const appsQuery = useQueryWithRetry(
+    makeAppsQuery.definition,
+    makeAppsQuery.options
+  )
+  const triggersQuery = useQueryWithRetry(
     makeTriggersQuery.definition,
     makeTriggersQuery.options
   )
@@ -46,9 +49,15 @@ export const useFetchInitialData = () => {
   }, [allQueries])
 
   const isFetching = allQueries.some(
-    query => query.fetchStatus === 'loading' || query.fetchStatus === 'pending'
+    query =>
+      query.fetchStatus === 'loading' ||
+      query.fetchStatus === 'pending' ||
+      query.isRetrying
   )
-  const hasError = allQueries.some(query => query.fetchStatus === 'failed')
+  // A query is only considered in error once useQueryWithRetry has exhausted its
+  // retries: a transient network failure keeps the app in the loading state
+  // instead of flashing the initial-data error screen.
+  const hasError = allQueries.some(query => query.hasError)
 
   return {
     isFetching,

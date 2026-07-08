@@ -7563,6 +7563,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#editors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Editors
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Editors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-sharingsdrivesideditorfile-idopen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /sharings/drives/:id/editor/:file-id/open
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#shortcuts" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -9238,6 +9266,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#editors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Editors
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Editors">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#get-sharingsdrivesideditorfile-idopen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /sharings/drives/:id/editor/:file-id/open
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#shortcuts" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -10259,6 +10315,14 @@ Identical to <a href="../notes/#get-notesidopen"><code>GET /notes/:file-id/open<
 <h3 id="get-sharingsdrivesidofficefile-idopen">GET /sharings/drives/:id/office/:file-id/open<a class="headerlink" href="#get-sharingsdrivesidofficefile-idopen" title="Permanent link">&para;</a></h3>
 <p>Returns the parameters to open an office document. Identical to
 <a href="../office/#get-officeidopen"><code>GET /office/:file-id/open</code></a>.</p>
+<h2 id="editors">Editors<a class="headerlink" href="#editors" title="Permanent link">&para;</a></h2>
+<h3 id="get-sharingsdrivesideditorfile-idopen">GET /sharings/drives/:id/editor/:file-id/open<a class="headerlink" href="#get-sharingsdrivesideditorfile-idopen" title="Permanent link">&para;</a></h3>
+<p>Return the parameters to open a file from a shared drive with an editor.
+Identical to <a href="../files/#get-editorfile-idopen"><code>GET /editor/:file-id/open</code></a>, but
+scoped to the shared drive.</p>
+<p>Recipients are resolved through the shared-drive owner instance, so the returned
+<code>instance</code>, <code>file_id</code>, and <code>sharecode</code> are the values to use for opening the
+file on that owner instance.</p>
 <h2 id="shortcuts">Shortcuts<a class="headerlink" href="#shortcuts" title="Permanent link">&para;</a></h2>
 <h3 id="get-sharingsdrivesidshortcutsfile-id">GET /sharings/drives/:id/shortcuts/:file-id<a class="headerlink" href="#get-sharingsdrivesidshortcutsfile-id" title="Permanent link">&para;</a></h3>
 <p>Get information about a shortcut inside a shared drive. Identical to
