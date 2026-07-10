@@ -24,6 +24,7 @@ module.exports = {
         '../react/Checkbox',
         '../react/Chips',
         '../react/CircularProgress',
+        '../react/ColorPickerCustom',
         '../react/Dialog',
         '../react/Divider',
         '../react/DropdownButton',

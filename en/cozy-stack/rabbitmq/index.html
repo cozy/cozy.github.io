@@ -8229,6 +8229,21 @@
 <span class="w">          </span><span class="nt">delivery_limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
 <span class="w">          </span><span class="nt">bindings</span><span class="p">:</span>
 <span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">domain.user.deleted</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack.b2b.group.lifecycle</span>
+<span class="w">          </span><span class="nt">declare</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">declare_dlx</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">declare_dlq</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">dlx_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack.b2b.dlx</span>
+<span class="w">          </span><span class="nt">dlq_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack.dead.letter.b2b.group.lifecycle</span>
+<span class="w">          </span><span class="nt">dl_routing_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">b2b.group.dead</span>
+<span class="w">          </span><span class="nt">prefetch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+<span class="w">          </span><span class="nt">delivery_limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">          </span><span class="nt">bindings</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">b2b.group.created</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">b2b.group.updated</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">b2b.group.deleted</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">b2b.group.member.added</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">b2b.group.member.removed</span>
 <span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack.app.commands.queue</span>
 <span class="w">          </span><span class="nt">declare</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">          </span><span class="nt">declare_dlx</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
@@ -8388,6 +8403,25 @@ messages; if no queue is bound when the Stack publishes, the user receives
 </code></pre></div>
 <p>The delete handler removes the single matching contact found by <code>internalEmail</code>
 when <code>metadata.external</code> is true. </p>
+<p>Example payload for <code>b2b.group.created</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-06-16T10:30:00.000Z&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;organizationId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;org123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;engineering&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;engineering&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Engineering team&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;color&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;#3366FF&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;createdAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-06-16T10:30:00.000Z&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;members&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The Stack consumes <code>b2b.group.created</code>, <code>b2b.group.updated</code>,
+<code>b2b.group.deleted</code>, <code>b2b.group.member.added</code>, and
+<code>b2b.group.member.removed</code> from one lifecycle queue. Groups are replicated as
+managed <code>io.cozy.contacts.groups</code> documents in every instance with the matching
+<code>org_id</code>. Group membership is stored on managed external contacts via
+<code>relationships.groups.data</code>; existing generated-ID external contacts are reused
+by matching email or Cozy URL.</p>
 <p>Example payload for <code>user.phone.updated</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">&quot;twakeId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
