@@ -776,4 +776,37 @@ describe('CozyRealtime', () => {
       })
     })
   })
+
+  describe('background reconnection give-up', () => {
+    it('stops a background realtime after too many failed attempts instead of reconnecting forever', () => {
+      const realtime = createRealtime({
+        background: true,
+        sharedDriveId: 'drive1'
+      })
+      const stopSpy = jest.spyOn(realtime, 'stop')
+      const connectSpy = jest
+        .spyOn(realtime, 'connect')
+        .mockImplementation(() => {})
+      realtime.retryManager.retries = 999
+
+      realtime.reconnect()
+
+      expect(stopSpy).toHaveBeenCalled()
+      expect(connectSpy).not.toHaveBeenCalled()
+    })
+
+    it('keeps reconnecting a foreground realtime regardless of the attempt count', () => {
+      const realtime = createRealtime()
+      const stopSpy = jest.spyOn(realtime, 'stop')
+      const connectSpy = jest
+        .spyOn(realtime, 'connect')
+        .mockImplementation(() => {})
+      realtime.retryManager.retries = 999
+
+      realtime.reconnect()
+
+      expect(stopSpy).not.toHaveBeenCalled()
+      expect(connectSpy).toHaveBeenCalled()
+    })
+  })
 })

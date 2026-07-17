@@ -6,7 +6,8 @@ import {
   raiseErrorAfterAttempts,
   timeBeforeSuccessful,
   baseWaitAfterFirstFailure,
-  maxWaitBetweenRetries
+  maxWaitBetweenRetries,
+  maxBackgroundConnectionAttempts
 } from './config'
 import defaultLogger from './logger'
 import {
@@ -36,10 +37,14 @@ class CozyRealtime {
    * @param {object} [options.logger] A custom logger
    * @param {string} [options.sharedDriveId] - The ID of the shared drive to connect to
    * @param {boolean} [options.background] - Whether the shared drive connection is made by a background service rather than the user viewing the drive, so the stack does not mark the sharing as seen
+   * @param {number} [options.maxReconnectionAttempts] - Give up reconnecting after this many failed attempts (defaults to unlimited, or a finite cap for background connections)
    */
   constructor(options) {
     this.sharedDriveId = options.sharedDriveId
     this.background = options.background
+    this.maxReconnectionAttempts =
+      options.maxReconnectionAttempts ??
+      (this.background ? maxBackgroundConnectionAttempts : null)
     this.client = getCozyClientFromOptions(options)
     this.createWebSocket = options.createWebSocket || createWebSocket
     this.logger = options.logger || defaultLogger
@@ -126,6 +131,16 @@ class CozyRealtime {
    * Throws the previous socket and connect a new one
    */
   async reconnect({ immediate = false } = {}) {
+    if (
+      this.maxReconnectionAttempts !== null &&
+      this.retryManager.retries > this.maxReconnectionAttempts
+    ) {
+      this.logger.warn(
+        `giving up reconnecting after ${this.retryManager.retries} failed attempts`
+      )
+      this.stop()
+      return
+    }
     if (this.hasWebSocket()) {
       this.revokeWebSocket()
     }

@@ -43,6 +43,14 @@ export const timeBeforeSuccessful = 1.2 * sec
 export const raiseErrorAfterAttempts = 8
 
 /**
+ * Give up reconnecting a background connection after this many failed attempts
+ *
+ * @type {number}
+ * @private
+ */
+export const maxBackgroundConnectionAttempts = 10
+
+/**
  * If one subscribe multiple times to the exact same event with the exact
  * same handler, should we call the handler multiple times for each event?
  * eventWhat to do if someone ask multiple times for the same subscription?

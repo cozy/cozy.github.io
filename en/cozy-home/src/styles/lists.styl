@@ -140,3 +140,93 @@ div[class*='SquareAppIcon-icon-container'] .section-app-group
     width 100%
     align-items center
     min-width 14px
+
+// Home folders / drag & drop
+.home-item
+    touch-action manipulation
+
+    &--placeholder
+        opacity .25
+        pointer-events none
+
+    // Highlights a tile that will receive a folder-drop
+    &--combine
+        box-shadow inset 0 0 0 2px var(--primaryColor)
+        border-radius rem(8)
+
+.home-folder-tile
+    width 100%
+    padding 0
+    border 0
+    background none
+    color inherit
+    font inherit
+    cursor pointer
+
+.home-folder-preview
+    display grid
+    grid-template-columns repeat(2, 1fr)
+    grid-template-rows repeat(2, 1fr)
+    grid-gap rem(2)
+    width rem(32)
+    height rem(32)
+
+.home-folder-preview-cell
+    display flex
+    overflow hidden
+    align-items center
+    justify-content center
+    border-radius rem(3)
+
+    // Beats cozy-ui-plus .c-app-icon sizing so every item fills its cell
+    // (the cell already clips to rounded corners via overflow + border-radius)
+    .home-folder-preview-img
+        display block
+        width 100%
+        height 100%
+        object-fit cover
+
+.home-drag-overlay
+    cursor grabbing
+
+.home-folder-content
+    display flex
+    flex-wrap wrap
+    justify-content flex-start
+    padding rem(14) 0 rem(4)
+    min-width rem(248)
+
+.home-folder-item
+    position relative
+
+    &--dragging
+        opacity .3
+
+    // App names should not look like links inside the folder dialog
+    a
+        text-decoration none
+
+    // Nested so the compound selector beats MUI .MuiIconButton-root while the
+    // cross overlays the icon's top-right corner; only shown on hover (below).
+    .home-folder-remove
+        position absolute
+        z-index 2
+        top rem(-6)
+        left 'calc(50% + %s)' % rem(13)
+        padding rem(2)
+        color var(--secondaryTextColor)
+        opacity 0
+        transition opacity 120ms ease
+
+        &:hover
+            color var(--primaryTextColor)
+
+.home-folder-item-icon
+    cursor grab
+    touch-action manipulation
+
+// Shown only when the tile is hovered; the paper background keeps it readable
+// over an icon and overrides the MUI IconButton hover tint.
+.home-folder-item:hover .home-folder-remove
+    opacity 1
+    background var(--paperBackgroundColor)
