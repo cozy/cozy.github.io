@@ -11673,7 +11673,9 @@ they have chosen their password for the first time (delegated authentication).</
 <h3 id="post-sharingssharing-idrecipients">POST /sharings/:sharing-id/recipients<a class="headerlink" href="#post-sharingssharing-idrecipients" title="Permanent link">&para;</a></h3>
 <p>This route allows the sharer to add new recipients (and groups of recipients)
 to a sharing. It can also be used by a recipient when the sharing has
-<code>open_sharing</code> set to true if the recipient doesn&rsquo;t have the <code>read_only</code> flag.</p>
+<code>open_sharing</code> set to true if the recipient doesn&rsquo;t have the <code>read_only</code> flag.
+Adding a recipient who is already active is idempotent: that recipient is
+ignored, while the other recipients from the same request are still processed.</p>
 <h4 id="request_9">Request<a class="headerlink" href="#request_9" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="nf">POST</span> <span class="nn">/sharings/ce8835a061d0ef68947afe69a0046722/recipients</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.net</span>
@@ -11786,7 +11788,9 @@ recipient invitations. Data for direct recipients should contain an email
 address but if it is not known, an instance URL can also be provided. For
 shared drives, each delegated recipient or group can also carry a <code>read_only</code>
 flag, and the owner applies the drive-specific reshare rules when processing
-the request.</p>
+the request. The owner persists the complete member and credential batch before
+sending shortcuts, so immediate auto-acceptance can safely resolve the
+invitation state.</p>
 <h4 id="request_10">Request<a class="headerlink" href="#request_10" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="nf">POST</span> <span class="nn">/sharings/ce8835a061d0ef68947afe69a0046722/recipients/delegated</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">alice.example.net</span>
