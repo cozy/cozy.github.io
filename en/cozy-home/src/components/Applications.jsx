@@ -17,7 +17,7 @@ import homeConfig from '@/config/home.json'
 import { appsConn } from '@/queries'
 
 const {
-  applications: { sortApplicationsList, checkEntrypointCondition }
+  applications: { sortApplicationsList, filterEntrypoints }
 } = models
 
 export const LoadingAppTiles = memo(({ num }) => {
@@ -72,27 +72,12 @@ const getApplicationsList = data => {
   }
 }
 
-const getEntrypoints = apps => {
+export const getEntrypoints = apps => {
   return (apps || []).flatMap(app =>
-    (app.entrypoints || [])
-      .filter(entrypoint => {
-        const conditions = entrypoint.conditions || []
-
-        return conditions.every(condition => {
-          if (
-            condition.type === 'flag' &&
-            condition.name === 'bar.onlyoffice.enabled'
-          ) {
-            return true
-          }
-
-          return checkEntrypointCondition(condition)
-        })
-      })
-      .map(entrypoint => ({
-        ...entrypoint,
-        slug: app.slug
-      }))
+    filterEntrypoints(app.entrypoints || []).map(entrypoint => ({
+      ...entrypoint,
+      slug: app.slug
+    }))
   )
 }
 

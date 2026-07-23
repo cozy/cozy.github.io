@@ -21,7 +21,7 @@ import type {
 import homeConfig from '@/config/home.json'
 
 const {
-  applications: { sortApplicationsList, checkEntrypointCondition }
+  applications: { sortApplicationsList, filterEntrypoints }
 } = models
 
 const FOLDER_PREFIX = 'folder:'
@@ -287,18 +287,12 @@ export const buildEntrypointItems = (
 ): EntrypointItem[] => {
   if (!Array.isArray(apps)) return []
   return apps.flatMap(app =>
-    ((app as IOCozyApp & { entrypoints?: Entrypoint[] }).entrypoints ?? [])
-      .filter(ep =>
-        (ep.conditions ?? []).every(c => {
-          if (c.type === 'flag' && c.name === 'bar.onlyoffice.enabled')
-            return true
-          return checkEntrypointCondition(c)
-        })
-      )
-      .map(ep => ({
-        type: 'entrypoint' as const,
-        id: makeEntrypointId(app.slug, ep.name),
-        entrypoint: { ...ep, slug: app.slug }
-      }))
+    filterEntrypoints(
+      (app as IOCozyApp & { entrypoints?: Entrypoint[] }).entrypoints || []
+    ).map(ep => ({
+      type: 'entrypoint' as const,
+      id: makeEntrypointId(app.slug, ep.name),
+      entrypoint: { ...ep, slug: app.slug }
+    }))
   )
 }
