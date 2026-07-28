@@ -12,31 +12,27 @@
         <meta name="author" content="CozyCloud - https://cozy.io">
       
       
-        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/intents/">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/adr/002-adr-intent-mobile-session-code/">
       
       
-        <link rel="prev" href="../references-docs-in-vfs/">
-      
-      
-        <link rel="next" href="../jobs/">
       
       
         
       
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
-        <title>/intents - Intents - Cozy Developer Documentation</title>
+        <title>ADR: Mobile intent WebView login via session_code - Cozy Developer Documentation</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -62,9 +58,9 @@
       
     
     
-      <link rel="stylesheet" href="../../css/extra.css">
+      <link rel="stylesheet" href="../../../css/extra.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -89,7 +85,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#intents" class="md-skip">
+        <a href="#adr-mobile-intent-webview-login-via-session_code" class="md-skip">
           Skip to content
         </a>
       
@@ -103,7 +99,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="Cozy Developer Documentation" class="md-header__button md-logo" aria-label="Cozy Developer Documentation" data-md-component="logo">
+    <a href="../../.." title="Cozy Developer Documentation" class="md-header__button md-logo" aria-label="Cozy Developer Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 20q-2.28 0-3.89-1.57Q1 16.85 1 14.58q0-1.95 1.17-3.48 1.18-1.53 3.08-1.95.63-2.3 2.5-3.72Q9.63 4 12 4q2.93 0 4.96 2.04Q19 8.07 19 11q1.73.2 2.86 1.5 1.14 1.28 1.14 3 0 1.88-1.31 3.19T18.5 20Z"/></svg>
@@ -123,7 +119,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              /intents - Intents
+              ADR: Mobile intent WebView login via session_code
             
           </span>
         </div>
@@ -234,7 +230,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../.." class="md-tabs__link">
+      <a href="../../.." class="md-tabs__link">
         
   
   
@@ -255,7 +251,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../tutorials/app/" class="md-tabs__link">
+        <a href="../../../tutorials/app/" class="md-tabs__link">
           
   
   
@@ -282,7 +278,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../howTos/dev/runCozyDocker/" class="md-tabs__link">
+        <a href="../../../howTos/dev/runCozyDocker/" class="md-tabs__link">
           
   
   
@@ -301,7 +297,12 @@
   
   
   
+  
     
+    
+      
+  
+  
   
   
     
@@ -310,22 +311,11 @@
   
   
   
-    
-  
   
     
     
-      
-  
-  
-  
-    
-  
-  
-    
-    
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../cozy-client/getting-started/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../../cozy-client/getting-started/" class="md-tabs__link">
           
   
   
@@ -351,7 +341,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../projects/" class="md-tabs__link">
+        <a href="../../../projects/" class="md-tabs__link">
           
   
   
@@ -385,7 +375,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Cozy Developer Documentation" class="md-nav__button md-logo" aria-label="Cozy Developer Documentation" data-md-component="logo">
+    <a href="../../.." title="Cozy Developer Documentation" class="md-nav__button md-logo" aria-label="Cozy Developer Documentation" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6.5 20q-2.28 0-3.89-1.57Q1 16.85 1 14.58q0-1.95 1.17-3.48 1.18-1.53 3.08-1.95.63-2.3 2.5-3.72Q9.63 4 12 4q2.93 0 4.96 2.04Q19 8.07 19 11q1.73.2 2.86 1.5 1.14 1.28 1.14 3 0 1.88-1.31 3.19T18.5 20Z"/></svg>
@@ -415,7 +405,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         
   
   
@@ -492,7 +482,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/app/" class="md-nav__link">
+      <a href="../../../tutorials/app/" class="md-nav__link">
         
   
   
@@ -570,7 +560,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/konnector/" class="md-nav__link">
+      <a href="../../../tutorials/konnector/" class="md-nav__link">
         
   
   
@@ -598,7 +588,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/konnector/getting-started/" class="md-nav__link">
+      <a href="../../../tutorials/konnector/getting-started/" class="md-nav__link">
         
   
   
@@ -626,7 +616,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/konnector/scrape-data/" class="md-nav__link">
+      <a href="../../../tutorials/konnector/scrape-data/" class="md-nav__link">
         
   
   
@@ -654,7 +644,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/konnector/save-data/" class="md-nav__link">
+      <a href="../../../tutorials/konnector/save-data/" class="md-nav__link">
         
   
   
@@ -682,7 +672,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/konnector/packaging/" class="md-nav__link">
+      <a href="../../../tutorials/konnector/packaging/" class="md-nav__link">
         
   
   
@@ -768,7 +758,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/client-side-konnector/" class="md-nav__link">
+      <a href="../../../tutorials/client-side-konnector/" class="md-nav__link">
         
   
   
@@ -796,7 +786,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/client-side-konnector/installation/" class="md-nav__link">
+      <a href="../../../tutorials/client-side-konnector/installation/" class="md-nav__link">
         
   
   
@@ -824,7 +814,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/client-side-konnector/clisk-creation/" class="md-nav__link">
+      <a href="../../../tutorials/client-side-konnector/clisk-creation/" class="md-nav__link">
         
   
   
@@ -852,7 +842,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/client-side-konnector/clisk-lib-doc/" class="md-nav__link">
+      <a href="../../../tutorials/client-side-konnector/clisk-lib-doc/" class="md-nav__link">
         
   
   
@@ -880,7 +870,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/client-side-konnector/troubleshooting/" class="md-nav__link">
+      <a href="../../../tutorials/client-side-konnector/troubleshooting/" class="md-nav__link">
         
   
   
@@ -908,7 +898,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/client-side-konnector/best-practice/" class="md-nav__link">
+      <a href="../../../tutorials/client-side-konnector/best-practice/" class="md-nav__link">
         
   
   
@@ -936,7 +926,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/client-side-konnector/contributions/" class="md-nav__link">
+      <a href="../../../tutorials/client-side-konnector/contributions/" class="md-nav__link">
         
   
   
@@ -964,7 +954,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/client-side-konnector/community/" class="md-nav__link">
+      <a href="../../../tutorials/client-side-konnector/community/" class="md-nav__link">
         
   
   
@@ -992,7 +982,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/client-side-konnector/additional-ressources/" class="md-nav__link">
+      <a href="../../../tutorials/client-side-konnector/additional-ressources/" class="md-nav__link">
         
   
   
@@ -1078,7 +1068,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/data/" class="md-nav__link">
+      <a href="../../../tutorials/data/" class="md-nav__link">
         
   
   
@@ -1106,7 +1096,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/data/queries/" class="md-nav__link">
+      <a href="../../../tutorials/data/queries/" class="md-nav__link">
         
   
   
@@ -1134,7 +1124,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/data/pouchdb/" class="md-nav__link">
+      <a href="../../../tutorials/data/pouchdb/" class="md-nav__link">
         
   
   
@@ -1162,7 +1152,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/data/doctypes/" class="md-nav__link">
+      <a href="../../../tutorials/data/doctypes/" class="md-nav__link">
         
   
   
@@ -1190,7 +1180,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/data/qualification/" class="md-nav__link">
+      <a href="../../../tutorials/data/qualification/" class="md-nav__link">
         
   
   
@@ -1218,7 +1208,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/data/advanced/" class="md-nav__link">
+      <a href="../../../tutorials/data/advanced/" class="md-nav__link">
         
   
   
@@ -1254,7 +1244,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/translate/" class="md-nav__link">
+      <a href="../../../tutorials/translate/" class="md-nav__link">
         
   
   
@@ -1332,7 +1322,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/selfhosting/" class="md-nav__link">
+      <a href="../../../tutorials/selfhosting/" class="md-nav__link">
         
   
   
@@ -1360,7 +1350,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/selfhosting/docker/" class="md-nav__link">
+      <a href="../../../tutorials/selfhosting/docker/" class="md-nav__link">
         
   
   
@@ -1488,7 +1478,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/selfhosting/requirements/" class="md-nav__link">
+      <a href="../../../tutorials/selfhosting/requirements/" class="md-nav__link">
         
   
   
@@ -1516,7 +1506,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/selfhosting/requirements/couchdb/" class="md-nav__link">
+      <a href="../../../tutorials/selfhosting/requirements/couchdb/" class="md-nav__link">
         
   
   
@@ -1544,7 +1534,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/selfhosting/requirements/nodejs/" class="md-nav__link">
+      <a href="../../../tutorials/selfhosting/requirements/nodejs/" class="md-nav__link">
         
   
   
@@ -1630,7 +1620,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/selfhosting/install/" class="md-nav__link">
+      <a href="../../../tutorials/selfhosting/install/" class="md-nav__link">
         
   
   
@@ -1658,7 +1648,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/selfhosting/install/package/" class="md-nav__link">
+      <a href="../../../tutorials/selfhosting/install/package/" class="md-nav__link">
         
   
   
@@ -1686,7 +1676,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/selfhosting/install/sources/" class="md-nav__link">
+      <a href="../../../tutorials/selfhosting/install/sources/" class="md-nav__link">
         
   
   
@@ -1772,7 +1762,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/selfhosting/finalize/nginx/" class="md-nav__link">
+      <a href="../../../tutorials/selfhosting/finalize/nginx/" class="md-nav__link">
         
   
   
@@ -1800,7 +1790,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/selfhosting/finalize/apache/" class="md-nav__link">
+      <a href="../../../tutorials/selfhosting/finalize/apache/" class="md-nav__link">
         
   
   
@@ -1828,7 +1818,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/selfhosting/finalize/create_instance/" class="md-nav__link">
+      <a href="../../../tutorials/selfhosting/finalize/create_instance/" class="md-nav__link">
         
   
   
@@ -1914,7 +1904,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/selfhosting/administration/" class="md-nav__link">
+      <a href="../../../tutorials/selfhosting/administration/" class="md-nav__link">
         
   
   
@@ -1942,7 +1932,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/selfhosting/administration/more_instances/" class="md-nav__link">
+      <a href="../../../tutorials/selfhosting/administration/more_instances/" class="md-nav__link">
         
   
   
@@ -1970,7 +1960,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/selfhosting/administration/upgrade/" class="md-nav__link">
+      <a href="../../../tutorials/selfhosting/administration/upgrade/" class="md-nav__link">
         
   
   
@@ -1998,7 +1988,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/selfhosting/administration/mail/" class="md-nav__link">
+      <a href="../../../tutorials/selfhosting/administration/mail/" class="md-nav__link">
         
   
   
@@ -2026,7 +2016,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorials/selfhosting/administration/office/" class="md-nav__link">
+      <a href="../../../tutorials/selfhosting/administration/office/" class="md-nav__link">
         
   
   
@@ -2185,7 +2175,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../howTos/dev/runCozyDocker/" class="md-nav__link">
+      <a href="../../../howTos/dev/runCozyDocker/" class="md-nav__link">
         
   
   
@@ -2213,7 +2203,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../howTos/dev/services/" class="md-nav__link">
+      <a href="../../../howTos/dev/services/" class="md-nav__link">
         
   
   
@@ -2241,7 +2231,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../howTos/dev/hmr/" class="md-nav__link">
+      <a href="../../../howTos/dev/hmr/" class="md-nav__link">
         
   
   
@@ -2269,7 +2259,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../howTos/dev/cordova/" class="md-nav__link">
+      <a href="../../../howTos/dev/cordova/" class="md-nav__link">
         
   
   
@@ -2297,7 +2287,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../howTos/dev/connect-mobile-app-local-stack/" class="md-nav__link">
+      <a href="../../../howTos/dev/connect-mobile-app-local-stack/" class="md-nav__link">
         
   
   
@@ -2325,7 +2315,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../howTos/dev/run-connectors-on-local-cozy-stack/" class="md-nav__link">
+      <a href="../../../howTos/dev/run-connectors-on-local-cozy-stack/" class="md-nav__link">
         
   
   
@@ -2353,7 +2343,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../howTos/dev/sendmail/" class="md-nav__link">
+      <a href="../../../howTos/dev/sendmail/" class="md-nav__link">
         
   
   
@@ -2381,7 +2371,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../references/git-flow/" class="md-nav__link">
+      <a href="../../../references/git-flow/" class="md-nav__link">
         
   
   
@@ -2409,7 +2399,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../references/tech-intro/" class="md-nav__link">
+      <a href="../../../references/tech-intro/" class="md-nav__link">
         
   
   
@@ -2495,7 +2485,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../howTos/sync/linux/" class="md-nav__link">
+      <a href="../../../howTos/sync/linux/" class="md-nav__link">
         
   
   
@@ -2535,29 +2525,24 @@
       
   
   
-    
   
   
-  
     
     
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
             
   
   
@@ -2575,7 +2560,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2693,7 +2678,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-client/getting-started/" class="md-nav__link">
+      <a href="../../../cozy-client/getting-started/" class="md-nav__link">
         
   
   
@@ -2721,7 +2706,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-client/relationships/" class="md-nav__link">
+      <a href="../../../cozy-client/relationships/" class="md-nav__link">
         
   
   
@@ -2749,7 +2734,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-client/timeseries/" class="md-nav__link">
+      <a href="../../../cozy-client/timeseries/" class="md-nav__link">
         
   
   
@@ -2777,7 +2762,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-client/react-integration/" class="md-nav__link">
+      <a href="../../../cozy-client/react-integration/" class="md-nav__link">
         
   
   
@@ -2805,7 +2790,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-client/hooks/" class="md-nav__link">
+      <a href="../../../cozy-client/hooks/" class="md-nav__link">
         
   
   
@@ -2833,7 +2818,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-client/metadata/" class="md-nav__link">
+      <a href="../../../cozy-client/metadata/" class="md-nav__link">
         
   
   
@@ -2861,7 +2846,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-client/logging/" class="md-nav__link">
+      <a href="../../../cozy-client/logging/" class="md-nav__link">
         
   
   
@@ -2889,7 +2874,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-client/node/" class="md-nav__link">
+      <a href="../../../cozy-client/node/" class="md-nav__link">
         
   
   
@@ -2917,7 +2902,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-client/architecture/" class="md-nav__link">
+      <a href="../../../cozy-client/architecture/" class="md-nav__link">
         
   
   
@@ -2945,7 +2930,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-client/api/cozy-client/" class="md-nav__link">
+      <a href="../../../cozy-client/api/cozy-client/" class="md-nav__link">
         
   
   
@@ -2973,7 +2958,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-client/api/cozy-pouch-link.md" class="md-nav__link">
+      <a href="../../../cozy-client/api/cozy-pouch-link.md" class="md-nav__link">
         
   
   
@@ -3001,7 +2986,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-client/api/cozy-stack-client/" class="md-nav__link">
+      <a href="../../../cozy-client/api/cozy-stack-client/" class="md-nav__link">
         
   
   
@@ -3037,7 +3022,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-ui/" class="md-nav__link">
+      <a href="../../../cozy-ui/" class="md-nav__link">
         
   
   
@@ -3115,7 +3100,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/" class="md-nav__link">
         
   
   
@@ -3143,7 +3128,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.accounts/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.accounts/" class="md-nav__link">
         
   
   
@@ -3171,7 +3156,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.ai.chat.conversations/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.ai.chat.conversations/" class="md-nav__link">
         
   
   
@@ -3199,7 +3184,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.apps/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.apps/" class="md-nav__link">
         
   
   
@@ -3227,7 +3212,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.apps.suggestions/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.apps.suggestions/" class="md-nav__link">
         
   
   
@@ -3255,7 +3240,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.bank/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.bank/" class="md-nav__link">
         
   
   
@@ -3283,7 +3268,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.bills/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.bills/" class="md-nav__link">
         
   
   
@@ -3311,7 +3296,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.calendar/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.calendar/" class="md-nav__link">
         
   
   
@@ -3339,7 +3324,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.konnectors/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.konnectors/" class="md-nav__link">
         
   
   
@@ -3367,7 +3352,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.coachco2/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.coachco2/" class="md-nav__link">
         
   
   
@@ -3395,7 +3380,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.contacts/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.contacts/" class="md-nav__link">
         
   
   
@@ -3423,7 +3408,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.docrules/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.docrules/" class="md-nav__link">
         
   
   
@@ -3451,7 +3436,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.files/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.files/" class="md-nav__link">
         
   
   
@@ -3479,7 +3464,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.files_metadata/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.files_metadata/" class="md-nav__link">
         
   
   
@@ -3507,7 +3492,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.home.settings/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.home.settings/" class="md-nav__link">
         
   
   
@@ -3535,7 +3520,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.identities/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.identities/" class="md-nav__link">
         
   
   
@@ -3563,7 +3548,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.notes/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.notes/" class="md-nav__link">
         
   
   
@@ -3591,7 +3576,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.notifications/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.notifications/" class="md-nav__link">
         
   
   
@@ -3619,7 +3604,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.permissions/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.permissions/" class="md-nav__link">
         
   
   
@@ -3647,7 +3632,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.photos/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.photos/" class="md-nav__link">
         
   
   
@@ -3675,7 +3660,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.procedures/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.procedures/" class="md-nav__link">
         
   
   
@@ -3703,7 +3688,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.sessions.logins/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.sessions.logins/" class="md-nav__link">
         
   
   
@@ -3731,7 +3716,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.settings/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.settings/" class="md-nav__link">
         
   
   
@@ -3759,7 +3744,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.sharings/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.sharings/" class="md-nav__link">
         
   
   
@@ -3787,7 +3772,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.tags/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.tags/" class="md-nav__link">
         
   
   
@@ -3815,7 +3800,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.timeseries/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.timeseries/" class="md-nav__link">
         
   
   
@@ -3843,7 +3828,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.todos/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.todos/" class="md-nav__link">
         
   
   
@@ -3871,7 +3856,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.account_types/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.account_types/" class="md-nav__link">
         
   
   
@@ -3899,7 +3884,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/cc.cozycloud.autocategorization/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/cc.cozycloud.autocategorization/" class="md-nav__link">
         
   
   
@@ -3927,7 +3912,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.exports/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.exports/" class="md-nav__link">
         
   
   
@@ -3955,7 +3940,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.jobs/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.jobs/" class="md-nav__link">
         
   
   
@@ -3983,7 +3968,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.oauth.clients/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.oauth.clients/" class="md-nav__link">
         
   
   
@@ -4011,7 +3996,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.oauth.access_codes/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.oauth.access_codes/" class="md-nav__link">
         
   
   
@@ -4039,7 +4024,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.triggers/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.triggers/" class="md-nav__link">
         
   
   
@@ -4067,7 +4052,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.triggers.state/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.triggers.state/" class="md-nav__link">
         
   
   
@@ -4095,7 +4080,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.remote.nextcloud.files/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.remote.nextcloud.files/" class="md-nav__link">
         
   
   
@@ -4123,7 +4108,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.remote.requests/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.remote.requests/" class="md-nav__link">
         
   
   
@@ -4151,7 +4136,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.sessions/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.sessions/" class="md-nav__link">
         
   
   
@@ -4179,7 +4164,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.shared/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.shared/" class="md-nav__link">
         
   
   
@@ -4207,7 +4192,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.terms/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.terms/" class="md-nav__link">
         
   
   
@@ -4235,7 +4220,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/com.bitwarden.ciphers/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/com.bitwarden.ciphers/" class="md-nav__link">
         
   
   
@@ -4263,7 +4248,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/com.bitwarden.folders/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/com.bitwarden.folders/" class="md-nav__link">
         
   
   
@@ -4291,7 +4276,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/com.bitwarden.organizations/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/com.bitwarden.organizations/" class="md-nav__link">
         
   
   
@@ -4319,7 +4304,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/com.bitwarden.contacts/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/com.bitwarden.contacts/" class="md-nav__link">
         
   
   
@@ -4347,7 +4332,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/com.unibet.bets/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/com.unibet.bets/" class="md-nav__link">
         
   
   
@@ -4375,7 +4360,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/cc.cozycloud.announcements/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/cc.cozycloud.announcements/" class="md-nav__link">
         
   
   
@@ -4403,7 +4388,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-doctypes/docs/io.cozy.drive.settings/" class="md-nav__link">
+      <a href="../../../cozy-doctypes/docs/io.cozy.drive.settings/" class="md-nav__link">
         
   
   
@@ -4439,7 +4424,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-realtime/" class="md-nav__link">
+      <a href="../../../cozy-realtime/" class="md-nav__link">
         
   
   
@@ -4467,7 +4452,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-device-helper/" class="md-nav__link">
+      <a href="../../../cozy-device-helper/" class="md-nav__link">
         
   
   
@@ -4553,7 +4538,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-konnector-libs/" class="md-nav__link">
+      <a href="../../../cozy-konnector-libs/" class="md-nav__link">
         
   
   
@@ -4581,7 +4566,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-konnector-libs/api/" class="md-nav__link">
+      <a href="../../../cozy-konnector-libs/api/" class="md-nav__link">
         
   
   
@@ -4609,7 +4594,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-konnector-libs/cli/" class="md-nav__link">
+      <a href="../../../cozy-konnector-libs/cli/" class="md-nav__link">
         
   
   
@@ -4637,7 +4622,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-konnector-libs/dev/" class="md-nav__link">
+      <a href="../../../cozy-konnector-libs/dev/" class="md-nav__link">
         
   
   
@@ -4665,7 +4650,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-konnector-libs/errors/" class="md-nav__link">
+      <a href="../../../cozy-konnector-libs/errors/" class="md-nav__link">
         
   
   
@@ -4693,7 +4678,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-konnector-libs/operation-linking/" class="md-nav__link">
+      <a href="../../../cozy-konnector-libs/operation-linking/" class="md-nav__link">
         
   
   
@@ -4721,7 +4706,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-konnector-libs/synchronization/" class="md-nav__link">
+      <a href="../../../cozy-konnector-libs/synchronization/" class="md-nav__link">
         
   
   
@@ -4757,7 +4742,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-app-publish/" class="md-nav__link">
+      <a href="../../../cozy-app-publish/" class="md-nav__link">
         
   
   
@@ -4785,7 +4770,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-notifications/" class="md-nav__link">
+      <a href="../../../cozy-notifications/" class="md-nav__link">
         
   
   
@@ -4863,7 +4848,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../babel-preset-cozy-app/" class="md-nav__link">
+      <a href="../../../babel-preset-cozy-app/" class="md-nav__link">
         
   
   
@@ -4891,7 +4876,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../commitlint-config-cozy/" class="md-nav__link">
+      <a href="../../../commitlint-config-cozy/" class="md-nav__link">
         
   
   
@@ -4919,7 +4904,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../eslint-config-cozy-app/" class="md-nav__link">
+      <a href="../../../eslint-config-cozy-app/" class="md-nav__link">
         
   
   
@@ -4947,7 +4932,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../ach/" class="md-nav__link">
+      <a href="../../../ach/" class="md-nav__link">
         
   
   
@@ -4980,8 +4965,6 @@
                 
   
   
-    
-  
   
   
     
@@ -4992,11 +4975,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" >
         
           
           <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
@@ -5017,7 +5000,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -5032,8 +5015,6 @@
                 
   
   
-    
-  
   
   
     
@@ -5044,11 +5025,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6_1" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6_1" >
         
           
           <label class="md-nav__link" for="__nav_4_6_1" id="__nav_4_6_1_label" tabindex="0">
@@ -5069,7 +5050,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_6_1_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_4_6_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4_6_1">
             <span class="md-nav__icon md-icon"></span>
             
@@ -5087,7 +5068,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../" class="md-nav__link">
+      <a href="../../" class="md-nav__link">
         
   
   
@@ -5165,7 +5146,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../INSTALL/" class="md-nav__link">
+      <a href="../../INSTALL/" class="md-nav__link">
         
   
   
@@ -5193,7 +5174,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../config/" class="md-nav__link">
+      <a href="../../config/" class="md-nav__link">
         
   
   
@@ -5221,7 +5202,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../instance/" class="md-nav__link">
+      <a href="../../instance/" class="md-nav__link">
         
   
   
@@ -5249,7 +5230,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../security/" class="md-nav__link">
+      <a href="../../security/" class="md-nav__link">
         
   
   
@@ -5277,7 +5258,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cli/cozy-stack/" class="md-nav__link">
+      <a href="../../cli/cozy-stack/" class="md-nav__link">
         
   
   
@@ -5305,7 +5286,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../admin/" class="md-nav__link">
+      <a href="../../admin/" class="md-nav__link">
         
   
   
@@ -5333,7 +5314,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../important-changes/" class="md-nav__link">
+      <a href="../../important-changes/" class="md-nav__link">
         
   
   
@@ -5419,7 +5400,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../http-api/" class="md-nav__link">
+      <a href="../../http-api/" class="md-nav__link">
         
   
   
@@ -5447,7 +5428,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../client-app-dev/" class="md-nav__link">
+      <a href="../../client-app-dev/" class="md-nav__link">
         
   
   
@@ -5475,7 +5456,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../docker/" class="md-nav__link">
+      <a href="../../docker/" class="md-nav__link">
         
   
   
@@ -5503,7 +5484,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../konnectors-dev/" class="md-nav__link">
+      <a href="../../konnectors-dev/" class="md-nav__link">
         
   
   
@@ -5531,7 +5512,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../doctype/" class="md-nav__link">
+      <a href="../../doctype/" class="md-nav__link">
         
   
   
@@ -5559,7 +5540,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../assets/" class="md-nav__link">
+      <a href="../../assets/" class="md-nav__link">
         
   
   
@@ -5587,7 +5568,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../release/" class="md-nav__link">
+      <a href="../../release/" class="md-nav__link">
         
   
   
@@ -5615,7 +5596,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../CONTRIBUTING/" class="md-nav__link">
+      <a href="../../CONTRIBUTING/" class="md-nav__link">
         
   
   
@@ -5701,7 +5682,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../flagship/" class="md-nav__link">
+      <a href="../../flagship/" class="md-nav__link">
         
   
   
@@ -5729,7 +5710,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../move-design/" class="md-nav__link">
+      <a href="../../move-design/" class="md-nav__link">
         
   
   
@@ -5757,7 +5738,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../realtime-internals/" class="md-nav__link">
+      <a href="../../realtime-internals/" class="md-nav__link">
         
   
   
@@ -5785,7 +5766,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../sharing-design/" class="md-nav__link">
+      <a href="../../sharing-design/" class="md-nav__link">
         
   
   
@@ -5813,7 +5794,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../konnectors-workflow/" class="md-nav__link">
+      <a href="../../konnectors-workflow/" class="md-nav__link">
         
   
   
@@ -5846,8 +5827,6 @@
                 
   
   
-    
-  
   
   
     
@@ -5858,11 +5837,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6_1_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6_1_5" >
         
           
           <label class="md-nav__link" for="__nav_4_6_1_5" id="__nav_4_6_1_5_label" tabindex="0">
@@ -5883,7 +5862,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_6_1_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="4" aria-labelledby="__nav_4_6_1_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4_6_1_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -5901,7 +5880,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ai/" class="md-nav__link">
+      <a href="../../ai/" class="md-nav__link">
         
   
   
@@ -5929,7 +5908,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../auth/" class="md-nav__link">
+      <a href="../../auth/" class="md-nav__link">
         
   
   
@@ -5957,7 +5936,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../delegated-auth/" class="md-nav__link">
+      <a href="../../delegated-auth/" class="md-nav__link">
         
   
   
@@ -5985,7 +5964,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../apps/" class="md-nav__link">
+      <a href="../../apps/" class="md-nav__link">
         
   
   
@@ -6013,7 +5992,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../registry/" class="md-nav__link">
+      <a href="../../registry/" class="md-nav__link">
         
   
   
@@ -6041,7 +6020,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../bitwarden/" class="md-nav__link">
+      <a href="../../bitwarden/" class="md-nav__link">
         
   
   
@@ -6069,7 +6048,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../connection-check/" class="md-nav__link">
+      <a href="../../connection-check/" class="md-nav__link">
         
   
   
@@ -6097,7 +6076,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../contacts/" class="md-nav__link">
+      <a href="../../contacts/" class="md-nav__link">
         
   
   
@@ -6125,7 +6104,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../data-system/" class="md-nav__link">
+      <a href="../../data-system/" class="md-nav__link">
         
   
   
@@ -6153,7 +6132,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../mango/" class="md-nav__link">
+      <a href="../../mango/" class="md-nav__link">
         
   
   
@@ -6181,7 +6160,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../couchdb-quirks/" class="md-nav__link">
+      <a href="../../couchdb-quirks/" class="md-nav__link">
         
   
   
@@ -6209,7 +6188,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pouchdb-quirks/" class="md-nav__link">
+      <a href="../../pouchdb-quirks/" class="md-nav__link">
         
   
   
@@ -6237,7 +6216,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../files/" class="md-nav__link">
+      <a href="../../files/" class="md-nav__link">
         
   
   
@@ -6265,7 +6244,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../not-synchronized-vfs/" class="md-nav__link">
+      <a href="../../not-synchronized-vfs/" class="md-nav__link">
         
   
   
@@ -6293,7 +6272,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../references-docs-in-vfs/" class="md-nav__link">
+      <a href="../../references-docs-in-vfs/" class="md-nav__link">
         
   
   
@@ -6318,37 +6297,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    /intents - Intents
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../intents/" class="md-nav__link">
         
   
   
@@ -6364,443 +6316,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Overview
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#glossary" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Glossary
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#proposal" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Proposal
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Proposal">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-manifest" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        1. Manifest
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-intent-start" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Intent Start
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-service-resolution" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Service Resolution
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-available-apps" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Available apps
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. Available apps">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#service-choice" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Service choice
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#no-available-service" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        No available service
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-handshake" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Handshake
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. Handshake">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#service-initialization" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Service Initialization
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#service-to-client" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Service to Client
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#client-to-service" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Client to Service
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-processing-terminating" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Processing &amp; Terminating
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#routes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Routes
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Routes">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#post-intents" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        POST /intents
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="POST /intents">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#request" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Request
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#response" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Response
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#get-intentsid" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        GET /intents/:id
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="GET /intents/:id">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#request_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Request
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#response_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Response
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#mobile-webview-flow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Mobile + WebView flow
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Mobile + WebView flow">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#flow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Flow
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Prerequisites
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#api-calls" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        API calls
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#security" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Security
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#annexes" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Annexes
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Annexes">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#use-cases" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Use Cases
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#bibliography-prior-art" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Bibliography &amp; Prior Art
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#discarded-ideas" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Discarded Ideas
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Discarded Ideas">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#disposition" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Disposition
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#client-server-architecture" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Client / Server architecture
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#data-representation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Data representation
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -6813,7 +6328,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../jobs/" class="md-nav__link">
+      <a href="../../jobs/" class="md-nav__link">
         
   
   
@@ -6841,7 +6356,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../workers/" class="md-nav__link">
+      <a href="../../workers/" class="md-nav__link">
         
   
   
@@ -6869,7 +6384,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../konnectors/" class="md-nav__link">
+      <a href="../../konnectors/" class="md-nav__link">
         
   
   
@@ -6897,7 +6412,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../move/" class="md-nav__link">
+      <a href="../../move/" class="md-nav__link">
         
   
   
@@ -6925,7 +6440,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../notes/" class="md-nav__link">
+      <a href="../../notes/" class="md-nav__link">
         
   
   
@@ -6953,7 +6468,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../notifications/" class="md-nav__link">
+      <a href="../../notifications/" class="md-nav__link">
         
   
   
@@ -6981,7 +6496,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../office/" class="md-nav__link">
+      <a href="../../office/" class="md-nav__link">
         
   
   
@@ -7009,7 +6524,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../public/" class="md-nav__link">
+      <a href="../../public/" class="md-nav__link">
         
   
   
@@ -7037,7 +6552,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../permissions/" class="md-nav__link">
+      <a href="../../permissions/" class="md-nav__link">
         
   
   
@@ -7065,7 +6580,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../realtime/" class="md-nav__link">
+      <a href="../../realtime/" class="md-nav__link">
         
   
   
@@ -7093,7 +6608,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../remote/" class="md-nav__link">
+      <a href="../../remote/" class="md-nav__link">
         
   
   
@@ -7121,7 +6636,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../nextcloud/" class="md-nav__link">
+      <a href="../../nextcloud/" class="md-nav__link">
         
   
   
@@ -7149,7 +6664,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rabbitmq/" class="md-nav__link">
+      <a href="../../rabbitmq/" class="md-nav__link">
         
   
   
@@ -7177,7 +6692,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../settings/" class="md-nav__link">
+      <a href="../../settings/" class="md-nav__link">
         
   
   
@@ -7205,7 +6720,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../user-action-required/" class="md-nav__link">
+      <a href="../../user-action-required/" class="md-nav__link">
         
   
   
@@ -7233,7 +6748,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../sharing/" class="md-nav__link">
+      <a href="../../sharing/" class="md-nav__link">
         
   
   
@@ -7261,7 +6776,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../shared-drives/" class="md-nav__link">
+      <a href="../../shared-drives/" class="md-nav__link">
         
   
   
@@ -7289,7 +6804,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../shortcuts/" class="md-nav__link">
+      <a href="../../shortcuts/" class="md-nav__link">
         
   
   
@@ -7317,7 +6832,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../wellknown/" class="md-nav__link">
+      <a href="../../wellknown/" class="md-nav__link">
         
   
   
@@ -7361,7 +6876,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-apps-registry/" class="md-nav__link">
+      <a href="../../../cozy-apps-registry/" class="md-nav__link">
         
   
   
@@ -7454,7 +6969,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../projects/" class="md-nav__link">
+      <a href="../../../projects/" class="md-nav__link">
         
   
   
@@ -7532,7 +7047,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-desktop/" class="md-nav__link">
+      <a href="../../../cozy-desktop/" class="md-nav__link">
         
   
   
@@ -7610,7 +7125,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-desktop/usage/build/" class="md-nav__link">
+      <a href="../../../cozy-desktop/usage/build/" class="md-nav__link">
         
   
   
@@ -7638,7 +7153,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-desktop/usage/cli/" class="md-nav__link">
+      <a href="../../../cozy-desktop/usage/cli/" class="md-nav__link">
         
   
   
@@ -7666,7 +7181,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-desktop/usage/file_systems/" class="md-nav__link">
+      <a href="../../../cozy-desktop/usage/file_systems/" class="md-nav__link">
         
   
   
@@ -7694,7 +7209,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-desktop/usage/ignore_files/" class="md-nav__link">
+      <a href="../../../cozy-desktop/usage/ignore_files/" class="md-nav__link">
         
   
   
@@ -7722,7 +7237,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-desktop/usage/inotify/" class="md-nav__link">
+      <a href="../../../cozy-desktop/usage/inotify/" class="md-nav__link">
         
   
   
@@ -7750,7 +7265,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-desktop/usage/limitations/" class="md-nav__link">
+      <a href="../../../cozy-desktop/usage/limitations/" class="md-nav__link">
         
   
   
@@ -7778,7 +7293,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-desktop/usage/linux/" class="md-nav__link">
+      <a href="../../../cozy-desktop/usage/linux/" class="md-nav__link">
         
   
   
@@ -7806,7 +7321,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-desktop/usage/macos/" class="md-nav__link">
+      <a href="../../../cozy-desktop/usage/macos/" class="md-nav__link">
         
   
   
@@ -7834,7 +7349,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-desktop/usage/windows/" class="md-nav__link">
+      <a href="../../../cozy-desktop/usage/windows/" class="md-nav__link">
         
   
   
@@ -7920,7 +7435,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-desktop/developer/api_doc/" class="md-nav__link">
+      <a href="../../../cozy-desktop/developer/api_doc/" class="md-nav__link">
         
   
   
@@ -7948,7 +7463,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-desktop/developer/coffeescript.md" class="md-nav__link">
+      <a href="../../../cozy-desktop/developer/coffeescript.md" class="md-nav__link">
         
   
   
@@ -7976,7 +7491,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-desktop/developer/debug/" class="md-nav__link">
+      <a href="../../../cozy-desktop/developer/debug/" class="md-nav__link">
         
   
   
@@ -8004,7 +7519,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-desktop/developer/log_analysis/" class="md-nav__link">
+      <a href="../../../cozy-desktop/developer/log_analysis/" class="md-nav__link">
         
   
   
@@ -8032,7 +7547,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-desktop/developer/requirements/" class="md-nav__link">
+      <a href="../../../cozy-desktop/developer/requirements/" class="md-nav__link">
         
   
   
@@ -8060,7 +7575,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-desktop/developer/setup/" class="md-nav__link">
+      <a href="../../../cozy-desktop/developer/setup/" class="md-nav__link">
         
   
   
@@ -8088,7 +7603,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-desktop/developer/setup/" class="md-nav__link">
+      <a href="../../../cozy-desktop/developer/setup/" class="md-nav__link">
         
   
   
@@ -8124,7 +7639,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../cozy-desktop/feedback/" class="md-nav__link">
+      <a href="../../../cozy-desktop/feedback/" class="md-nav__link">
         
   
   
@@ -8187,10 +7702,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#overview" class="md-nav__link">
+  <a href="#context" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Overview
+        Context
       
     </span>
   </a>
@@ -8198,10 +7713,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#glossary" class="md-nav__link">
+  <a href="#goal" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Glossary
+        Goal
       
     </span>
   </a>
@@ -8209,144 +7724,33 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#proposal" class="md-nav__link">
+  <a href="#non-goals" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Proposal
+        Non-goals
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Proposal">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Approach
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Approach">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-manifest" class="md-nav__link">
+  <a href="#data-flow" class="md-nav__link">
     <span class="md-ellipsis">
       
-        1. Manifest
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-intent-start" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        2. Intent Start
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-service-resolution" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        3. Service Resolution
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-available-apps" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Available apps
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. Available apps">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#service-choice" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Service choice
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#no-available-service" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        No available service
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-handshake" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        4. Handshake
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="4. Handshake">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#service-initialization" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Service Initialization
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#service-to-client" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Service to Client
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#client-to-service" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Client to Service
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-processing-terminating" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        5. Processing &amp; Terminating
+        Data flow
       
     </span>
   </a>
@@ -8359,34 +7763,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#routes" class="md-nav__link">
+  <a href="#implementation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Routes
+        Implementation
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Routes">
+    <nav class="md-nav" aria-label="Implementation">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#post-intents" class="md-nav__link">
+  <a href="#1-webauthflagshipgo-cancreatesessioncode" class="md-nav__link">
     <span class="md-ellipsis">
       
-        POST /intents
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="POST /intents">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#request" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Request
+        1. web/auth/flagship.go — canCreateSessionCode
       
     </span>
   </a>
@@ -8394,38 +7786,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#response" class="md-nav__link">
+  <a href="#2-webauthflagshipgo-new-helper-isapptokenexchangetoken" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Response
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#get-intentsid" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        GET /intents/:id
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="GET /intents/:id">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#request_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Request
+        2. web/auth/flagship.go — new helper isAppTokenExchangeToken
       
     </span>
   </a>
@@ -8433,43 +7797,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#response_1" class="md-nav__link">
+  <a href="#3-tests" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Response
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#mobile-webview-flow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Mobile + WebView flow
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Mobile + WebView flow">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#flow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Flow
+        3. Tests
       
     </span>
   </a>
@@ -8477,32 +7808,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
+  <a href="#4-docs-docsintentsmd-or-wherever-the-intent-mobile-flow-is-documented" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Prerequisites
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#api-calls" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        API calls
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#security" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Security
+        4. Docs — docs/intents.md (or wherever the intent mobile flow is documented)
       
     </span>
   </a>
@@ -8515,91 +7824,57 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#annexes" class="md-nav__link">
+  <a href="#what-is-not-changed" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Annexes
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Annexes">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#use-cases" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Use Cases
+        What is NOT changed
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#bibliography-prior-art" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#config-gating" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Bibliography &amp; Prior Art
+        Config &amp; gating
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#discarded-ideas" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#session-duration" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Discarded Ideas
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Discarded Ideas">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#disposition" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Disposition
+        Session duration
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#client-server-architecture" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#security-considerations" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Client / Server architecture
+        Security considerations
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#data-representation" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#alternatives-considered" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Data representation
+        Alternatives considered
       
     </span>
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -8623,478 +7898,191 @@
   
 
 
-<p><a href="../#table-of-contents">Table of contents</a></p>
-<h1 id="intents">Intents<a class="headerlink" href="#intents" title="Permanent link">&para;</a></h1>
+<h1 id="adr-mobile-intent-webview-login-via-session_code">ADR: Mobile intent WebView login via session_code<a class="headerlink" href="#adr-mobile-intent-webview-login-via-session_code" title="Permanent link">&para;</a></h1>
+<p><strong>Date:</strong> 2026-07-09
+<strong>Status:</strong> Accepted
+<strong>Scope:</strong> cozy-stack (Go)</p>
+<h2 id="context">Context<a class="headerlink" href="#context" title="Permanent link">&para;</a></h2>
+<p>The Intent feature lets a client-side app delegate an action (PICK, OPEN, EDIT,
+…) to another installed webapp. On web, the service app is loaded inside an
+iframe and relies on the browser-shared <code>cozysessid</code> cookie to be logged in.</p>
+<p>On mobile, the caller app is a native app and the service app is loaded in a
+WebView. The cookie is not shared between the native app and the WebView, so the
+service app loads unauthenticated and the intent cannot complete.</p>
+<p>The caller app can already exchange an OIDC <code>id_token</code> for cozy-stack tokens via
+<code>POST /auth/token_exchange</code> (<code>exchange_type=app</code>), which returns an app-scoped
+OAuth access token. That token can query the intents API, but it cannot by itself
+log in a WebView — it is a bearer token, not a cookie.</p>
+<h2 id="goal">Goal<a class="headerlink" href="#goal" title="Permanent link">&para;</a></h2>
+<p>Let a mobile caller app open an intent service app in a WebView that is already
+logged in, scoped to that service app, by reusing the existing <code>session_code</code>
+primitive.</p>
+<h2 id="non-goals">Non-goals<a class="headerlink" href="#non-goals" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="#overview">Overview</a></li>
-<li><a href="#glossary">Glossary</a></li>
-<li><a href="#proposal">Proposal</a><ul>
-<li><a href="#1-manifest">1. Manifest</a></li>
-<li><a href="##2-intent-start">2. Intent Start</a></li>
-<li><a href="#3-service-resolution">3. Service Resolution</a></li>
-<li><a href="#4-handshake">4. Handshake</a></li>
-<li><a href="#5-processing--terminating">5. Processing &amp; Terminating</a></li>
+<li>A token-less / cookie-less WebView (that is approach B, not selected).</li>
+<li>Binding the session cookie to a single intent ID (deliberately not done; see
+  Security).</li>
+<li>A new session primitive or a new intents API flow.</li>
 </ul>
-</li>
-<li><a href="#routes">Routes</a></li>
-<li><a href="#annexes">Annexes</a><ul>
-<li><a href="#use-cases">Use cases</a></li>
-<li><a href="#bibliography--prior-art">Bibliography &amp; Prior Art</a></li>
-<li><a href="#discarded-ideas">Discarded Ideas</a></li>
-</ul>
-</li>
-</ul>
-<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>A typical Twake Workplace runs multiple applications, but most of these applications
-are focused on one task and interact with one particular type of data.</p>
-<p>However, Twake Workplace especially shines when data is combined across apps to
-provide an integrated experience. This is made difficult by the fact that apps
-have no dedicated back-end and that they have restricted access to documents.</p>
-<p>This document outlines a proposal for apps to rely on each other to accomplish
-certain tasks and gain access to new documents, in a way that hopefully is
-neither painful for the users nor the developers.</p>
-<h2 id="glossary">Glossary<a class="headerlink" href="#glossary" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>Intent</strong>: Intents, sometimes also called Activities, is a pattern used in
-    environments where multiple apps with different purposes coexist. The idea
-    is that any app can express the need to do <em>something</em> that it can&rsquo;t do
-    itself, and an app that <em>can</em> do it will take over from there.</li>
-<li><strong>Stack</strong>: refers to <a href="https://github.com/cozy/cozy-stack/">cozy-stack</a>, the
-    server-side part of the Cozy infrastructure.</li>
-<li><strong>Client</strong>: the client is the application that <em>starts</em> an intent.</li>
-<li><strong>Service</strong>: the service is the application that <em>handles</em> an intent started
-    by a client.</li>
-<li><strong>Available apps</strong>: Uninstalled applications that <em>handles</em> the intent.</li>
-</ul>
-<h2 id="proposal">Proposal<a class="headerlink" href="#proposal" title="Permanent link">&para;</a></h2>
-<p>In this proposal, services declare themselves through their manifest. When a
-clients starts an intent, the stack finds the appropriate service and help the
-two apps to create a communication channel between them. After the channel is
-ready, the intent is processed. These steps are detailed below.</p>
-<h3 id="1-manifest">1. Manifest<a class="headerlink" href="#1-manifest" title="Permanent link">&para;</a></h3>
-<p>Every app can register itself as a potential handler for one or more intents. To
-do so, it must provide the following information for each intent it wishes to
-handle:</p>
-<ul>
-<li><code>action</code>: A verb that describes what the service should do. The most common
-    actions are <code>CREATE</code>, <code>EDIT</code>, <code>OPEN</code>, <code>PICK</code>, and <code>SHARE</code>. While we
-    recommend using one of these verbs, the list is not exhaustive and may be
-    extended by any app.</li>
-<li><code>type</code>: One or more types of data on which the service knows how to operate
-    the <code>action</code>. A <code>type</code> can be expressed as a
-    <a href="https://en.wikipedia.org/wiki/Media_type">MIME type</a> or a
-    <a href="https://github.com/cozy/cozy-stack/blob/master/docs/data-system.md#typing">Cozy Document Type</a>.
-    The application must have permissions for any Cozy Document Type listed
-    here. You can also think of the <code>type</code> as the intent&rsquo;s subject.</li>
-<li><code>href</code>: the relative URL of the route designed to handle this intent. A
-    query-string with the intent id will be added to this URL.</li>
-</ul>
-<p>These informations must be provided in the manifest of the application, inside
-the <code>intents</code> key.</p>
-<p>Here is a very simple example:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">&quot;intents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PICK&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;io.cozy.files&quot;</span><span class="p">],</span>
-<span class="w">        </span><span class="nt">&quot;href&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/pick&quot;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">]</span>
-</code></pre></div>
-<p>When this service is called, it will load the page
-<code>https://service.domain.example.com/pick?intent=123abc</code>.</p>
-<p>Here is an example of an app that supports multiple data types:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">&quot;intents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PICK&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;image/*&quot;</span><span class="p">],</span>
-<span class="w">        </span><span class="nt">&quot;href&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/pick&quot;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">]</span>
-</code></pre></div>
-<p>Finally, here is an example of an app that supports several intent types:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">&quot;intents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PICK&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;image/*&quot;</span><span class="p">],</span>
-<span class="w">        </span><span class="nt">&quot;href&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/pick&quot;</span>
-<span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;VIEW&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;image/gif&quot;</span><span class="p">],</span>
-<span class="w">        </span><span class="nt">&quot;href&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/viewer&quot;</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">]</span>
-</code></pre></div>
-<p>This information is stored by the stack when the application is installed.</p>
-<h3 id="2-intent-start">2. Intent Start<a class="headerlink" href="#2-intent-start" title="Permanent link">&para;</a></h3>
-<p>Any app can start a new intent whenever it wants. When it does, the app becomes
-the <em>client</em>.</p>
-<p>To start an intent, it must specify the following information:</p>
-<ul>
-<li><code>action</code>: an action verb, which will be matched against the actions
-    declared in services manifest files.</li>
-<li><code>type</code>: a <strong>single</strong> data type, which will be matched against the types
-    declared in services manifest files.</li>
-</ul>
-<p>There are also two optional fields that can be defined at the start of the
-intent:</p>
-<ul>
-<li><code>data</code>: Any data that the client wants to make available to the service.
-    <code>data</code> must be a JSON object but its structure is left to the discretion of
-    the client. The only exception is when <code>type</code> is a MIME type and the client
-    wishes to send a file to the service. In that case, the file should be
-    represented as a base-64 encoded <a href="http://dataurl.net/#about">Data URL</a> and
-    must be named <code>content</code>. This convention is also recomended when dealing
-    with other intent <code>type</code>s. See the examples below for an example of this.</li>
-<li><code>permissions</code>: When <code>type</code> is a Cozy Document Type and the client expects
-    to receive one or more documents as part of the reply from the service, the
-    <code>permissions</code> field allows the client to request permissions for these
-    documents. <code>permissions</code> is a list of HTTP Verbs. Refer
-    <a href="https://github.com/cozy/cozy-stack/blob/master/docs/permissions.md#verbs">to this section</a>
-    of the permission documentation for more information.</li>
-</ul>
-<p><strong>Note</strong>: if the intent&rsquo;s subject is a Cozy Doctype that holds references to
-other Cozy Documents (such as an album referencing photos or a playlist
-referencing music files), the permissions should be granted for the referenced
-documents too, whenever possible.</p>
-<p>Here is an example of what the API could look like:</p>
-<div class="highlight"><pre><span></span><code><span class="c1">// &quot;Let the user pick a file&quot;</span>
-<span class="nx">cozy</span><span class="p">.</span><span class="nx">intents</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="s1">&#39;PICK&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;io.cozy.files&#39;</span><span class="p">)</span>
-<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nb">document</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// document is a JSON representation of the picked file</span>
-<span class="p">});</span>
-
-<span class="c1">// &quot;Create a contact, with some information already filled out&quot;</span>
-<span class="nx">cozy</span><span class="p">.</span><span class="nx">intents</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="s1">&#39;CREATE&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;io.cozy.contacts&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;John Johnsons&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">tel</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;+12345678&#39;</span>
-<span class="w">    </span><span class="nx">email</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;john@johnsons.com&#39;</span>
-<span class="p">})</span>
-<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nb">document</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// document is a JSON representation of the contact that was created</span>
-<span class="p">});</span>
-
-<span class="c1">// &quot;Save this file somewhere&quot;</span>
-<span class="nx">cozy</span><span class="p">.</span><span class="nx">intents</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="s1">&#39;CREATE&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;io.cozy.files&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">content</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;data:application/zip;base64,UEsDB...&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;photos.zip&#39;</span>
-<span class="p">});</span>
-
-<span class="c1">// &quot;Create a new note, and give me read-only access to it&quot;</span>
-<span class="nx">cozy</span><span class="p">.</span><span class="nx">intents</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="s1">&#39;CREATE&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;io.cozy.notes&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{},</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
-<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nb">document</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// document is a JSON representation of the note that was created.</span>
-<span class="w">    </span><span class="c1">// Additionally, this note can now be retrieved through the API since we have read access on it.</span>
-<span class="p">});</span>
-
-<span class="c1">// &quot;Create an event based on the provided data, and give me full access to it&quot;</span>
-<span class="nx">cozy</span><span class="p">.</span><span class="nx">intents</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="s1">&#39;CREATE&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;io.cozy.events&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">date</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;2017/06/24&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Beach day&#39;</span>
-<span class="p">},</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;ALL&#39;</span><span class="p">])</span>
-<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nb">document</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// document is a JSON representation of the note that was created.</span>
-<span class="w">    </span><span class="c1">// Additionally, this note can now be retrieved through the API since we have read access on it.</span>
-<span class="p">});</span>
-
-<span class="c1">// &quot;Crop this picture&quot;</span>
-<span class="nx">cozy</span><span class="p">.</span><span class="nx">intents</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="s1">&#39;EDIT&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;image/png&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">content</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;data:image/png;base64,iVBORw...&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">width</span><span class="o">:</span><span class="w"> </span><span class="mf">50</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">height</span><span class="o">:</span><span class="w"> </span><span class="mf">50</span>
-<span class="p">})</span>
-<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">image</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">//image is the edited version of the image provided above.</span>
-<span class="p">})</span>
-</code></pre></div>
-<h3 id="3-service-resolution">3. Service Resolution<a class="headerlink" href="#3-service-resolution" title="Permanent link">&para;</a></h3>
-<p>The service resolution is the phase where a service is chosen to handle an
-intent. This phase is handled by the stack.</p>
-<p>After the client has started it&rsquo;s intent, it sends the <code>action</code>, the <code>type</code> and
-the <code>permissions</code> to the stack. The stack will then traverse the list of
-installed apps and find all the apps that can handle that specific combination.
-Note that if the intent request <code>GET</code> permissions on a certain Cozy Document
-Type, but the service does not have this permission itself, it can not handle
-the intent.</p>
-<p>The stack then stores the information for that intent:</p>
-<ul>
-<li>A unique id for that intent</li>
-<li>Client URL</li>
-<li>Service URL</li>
-<li><code>action</code></li>
-<li><code>type</code></li>
-<li><code>permissions</code></li>
-</ul>
-<p>Finally, the service URL is suffixed with <code>?intent=</code> followed by the intent&rsquo;s
-id, and then sent to the client.</p>
-<h3 id="4-available-apps">4. Available apps<a class="headerlink" href="#4-available-apps" title="Permanent link">&para;</a></h3>
-<p>In addition to the services that manage intents, a list of available (but not
-installed) applications of the instance that handles the intent is returned.
-This object list is called <code>availableApps</code> and contains:
-- The application <code>slug</code>
-- The application <code>name</code></p>
-<h4 id="service-choice">Service choice<a class="headerlink" href="#service-choice" title="Permanent link">&para;</a></h4>
-<p>If more than one service match the intent&rsquo;s criteria, the stack returns the list
-of all matching service URLs to the client (and stores it in the service URL
-version of the intent it keeps in memory). The client is then free to pick one
-arbitrarily.</p>
-<p>The client may also decide to let the user choose one of the services. To do
-this, it should start another intent with a <code>PICK</code> action and a <code>io.cozy.apps</code>
-<code>type</code>. This intent should be resolved by the stack to a special page, in order
-to avoid having multiple services trying to handle it and ending up in a loop.</p>
-<p>This special page is a service like any other; it expects the list of services
-to pick from as input data, and will return the one that has been picked to the
-client. The client can then proceed with the first intent.</p>
-<p>The user may decide to abort the intent before picking a service. If that is the
-case, the choice page will need to inform the client that the intent was
-aborted.</p>
-<h4 id="no-available-service">No available service<a class="headerlink" href="#no-available-service" title="Permanent link">&para;</a></h4>
-<p>If no service is available to handle an intent, the stack returns an error to
-the client. However, some non-installed applications may handle the intent, and
-are listed in the <code>availableApps</code> field.</p>
-<h3 id="4-handshake">4. Handshake<a class="headerlink" href="#4-handshake" title="Permanent link">&para;</a></h3>
-<p>The next phase consist of the client and the service establishing a
-communication channel between them. The communication will be done using the
-<a href="https://developer.mozilla.org/fr/docs/Web/API/Window/postMessage">window.postMessage</a>
-API.</p>
-<h4 id="service-initialization">Service Initialization<a class="headerlink" href="#service-initialization" title="Permanent link">&para;</a></h4>
-<p>When the client receives the service URL from the stack, it starts to listen for
-messages coming from that URL. Once the listener is started, it opens an iframe
-that points to the service&rsquo;s URL.</p>
-<h4 id="service-to-client">Service to Client<a class="headerlink" href="#service-to-client" title="Permanent link">&para;</a></h4>
-<p>At this point, the service app is opened on the route that it provided in the
-<code>href</code> part of it&rsquo;s manifest. This route now also contains the intent&rsquo;s id.</p>
-<p>The service queries the stack to find out information about the intent, passing
-along the intent id. In response, the stack sends the client&rsquo;s URL, the
-<code>action</code>, and the <code>type</code>. If the intent includes <code>permissions</code>, the stack sends
-them too, as well as the client&rsquo;s permission id.</p>
-<p>It then starts to listen for messages coming from the client&rsquo;s URL. Eventually,
-it sends a message to the client, as a mean to inform it that the service is now
-ready.</p>
-<h4 id="client-to-service">Client to Service<a class="headerlink" href="#client-to-service" title="Permanent link">&para;</a></h4>
-<p>After the client receives the &ldquo;ready&rdquo; message from the service, it sends a
-message to the service acknowledging the &ldquo;ready&rdquo; state.</p>
-<p>Along with this message, it should send the <code>data</code> that was provided at the
-start of the intent, if any.</p>
-<h3 id="5-processing-terminating">5. Processing &amp; Terminating<a class="headerlink" href="#5-processing-terminating" title="Permanent link">&para;</a></h3>
-<p>After this handshake, there is a confirmed communication channel between the
-client and the service, and the service knows what it has to do. This is the
-phase where the user interacts with the service.</p>
-<p>If the service is going to grant extra permissions to the client app, it is
-strongly recommended to make this clear to the user.</p>
-<p>When the service has finished his task, it sends a &ldquo;completed&rdquo; message to the
-client. Permissions extensions should have been done before that. Along with the
-completed message, the service should send any data it deems relevant. This data
-should be a JSON object. Again, the structure of that object is left to the
-discretion of the service, except when <code>type</code> is a MIME type. In that case, the
-file should be represented as a base-64 encoded
-<a href="http://dataurl.net/#about">Data URL</a> and must be named <code>content</code>. This
-convention is also recomended when dealing with other intent <code>type</code>s.</p>
-<p>After the client receives a &ldquo;completed&rdquo; message, it can close the service&rsquo;s
-iframe and resume operations as usual.</p>
-<p>If, for whatever reason, the service can not fulfill the intent, it can send an
-&ldquo;error&rdquo; message to the client. When the client receives an &ldquo;error&rdquo; message, the
-intent is aborted and the iframe can be closed.</p>
-<h2 id="routes">Routes<a class="headerlink" href="#routes" title="Permanent link">&para;</a></h2>
-<h3 id="post-intents">POST /intents<a class="headerlink" href="#post-intents" title="Permanent link">&para;</a></h3>
-<p>The client app can ask to start an intent via this route.</p>
-<p>Any client-side app can call this route, no permission is needed.</p>
-<h4 id="request">Request<a class="headerlink" href="#request" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>POST /intents HTTP/1.1
-Host: cozy.example.net
-Authorization: Bearer eyJhbG...
-Content-Type: application/vnd.api+json
-Accept: application/vnd.api+json
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.intents&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PICK&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;permissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">]</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<h4 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">201</span> <span class="ne">Created</span>
-<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;77bcc42c-0fd8-11e7-ac95-8f605f6e8338&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.intents&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PICK&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;permissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">],</span>
-<span class="w">            </span><span class="nt">&quot;client&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://contacts.cozy.example.net&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;services&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;files&quot;</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">&quot;href&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://files.cozy.example.net/pick?intent=77bcc42c-0fd8-11e7-ac95-8f605f6e8338&quot;</span>
-<span class="w">                </span><span class="p">}</span>
-<span class="w">            </span><span class="p">],</span>
-<span class="w">            </span><span class="nt">&quot;availableApps&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;myapp&quot;</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;My App&quot;</span>
-<span class="w">                </span><span class="p">}</span>
-<span class="w">            </span><span class="p">]</span>
-<span class="w">        </span><span class="p">},</span>
-<span class="w">        </span><span class="nt">&quot;links&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;self&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/intents/77bcc42c-0fd8-11e7-ac95-8f605f6e8338&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;permissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/permissions/a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot;</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<h3 id="get-intentsid">GET /intents/:id<a class="headerlink" href="#get-intentsid" title="Permanent link">&para;</a></h3>
-<p>Get all the informations about the intent</p>
-<p><strong>Note</strong>: only the service can access this route (no permission involved).</p>
-<h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="nf">GET</span> <span class="nn">/intents/77bcc42c-0fd8-11e7-ac95-8f605f6e8338</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
-<span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.net</span>
-<span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer J9l-ZhwP...</span>
-<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
-<span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
-</code></pre></div>
-<h4 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
-<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;77bcc42c-0fd8-11e7-ac95-8f605f6e8338&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.intents&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PICK&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;permissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">],</span>
-<span class="w">            </span><span class="nt">&quot;client&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://contacts.cozy.example.net&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;services&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;files&quot;</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">&quot;href&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://files.cozy.example.net/pick?intent=77bcc42c-0fd8-11e7-ac95-8f605f6e8338&quot;</span>
-<span class="w">                </span><span class="p">}</span>
-<span class="w">            </span><span class="p">],</span>
-<span class="w">            </span><span class="nt">&quot;availableApps&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;myapp&quot;</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;My App&quot;</span>
-<span class="w">                </span><span class="p">}</span>
-<span class="w">            </span><span class="p">]</span>
-<span class="w">        </span><span class="p">},</span>
-<span class="w">        </span><span class="nt">&quot;links&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;self&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/intents/77bcc42c-0fd8-11e7-ac95-8f605f6e8338&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;permissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/permissions/a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot;</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<h2 id="mobile-webview-flow">Mobile + WebView flow<a class="headerlink" href="#mobile-webview-flow" title="Permanent link">&para;</a></h2>
-<p>When the client app is a native mobile app and the service app must be loaded in a
-WebView, the browser-shared cookie is not available. The mobile app can authenticate
-the WebView by reusing the existing <code>session_code</code> mechanism.</p>
-<h3 id="flow">Flow<a class="headerlink" href="#flow" title="Permanent link">&para;</a></h3>
+<h2 id="approach">Approach<a class="headerlink" href="#approach" title="Permanent link">&para;</a></h2>
+<p>Reuse the flagship <code>session_code</code> flow end-to-end. The only new behavior is
+allowing an app-scoped token minted by <code>token_exchange</code> to mint a session_code,
+where today <code>canCreateSessionCode</code> only accepts a maximal/flagship token or
+passphrase+2FA.</p>
+<h3 id="data-flow">Data flow<a class="headerlink" href="#data-flow" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>Mobile app                cozy-stack                WebView (service app)
 ----------  --------------  ----------------------   ----------------------
-[token_exchange]  ──POST /auth/token_exchange──────▶
-                   ◀── app-scoped access_token ────
-[create intent]    ──POST /intents  (Bearer app token)────▶
-                   ◀── intent doc: id + service href ────
+[token_exchange]  ──POST /auth/token_exchange──▶
+                   ◀── app-scoped access_token ──
+[create intent]    ──POST /intents  (Bearer app token)──▶
+                   ◀── intent doc: id + service href ──
 [mint session_code]──POST /auth/session_code (Bearer app token)──▶
-                   ◀── {&quot;session_code&quot;: &quot;&lt;code&gt;&quot;} ────
-[open WebView]     ── load https://&lt;service&gt;.&lt;inst&gt;/?intent=&lt;id&gt;&amp;session_code=&lt;code&gt; ────▶
+                   ◀── {&quot;session_code&quot;: &quot;&lt;code&gt;&quot;} ──
+[open WebView]     ── load https://&lt;serviceSlug&gt;.&lt;inst&gt;/?intent=&lt;id&gt;&amp;session_code=&lt;code&gt; ──▶
                                                     ServeAppFile:
                                                     1. CheckAndClearSessionCode → ok
                                                     2. SetCookieForNewSession(NormalRun)
                                                     3. redirect to ?intent=&lt;id&gt; (code stripped)
-                                                    4. on reload: serve app with cozyData.token
-                   ◀── index.html with cozyData.token = &lt;app token&gt; ────
+                                                    4. on reload: relax CSP frame-ancestors
+                                                    5. inject BuildAppToken(serviceSlug, sessID)
+                   ◀── index.html with cozyData.token = &lt;app token&gt; ──
                                                     cozy-client in WebView uses app token
-                                                    for all API calls (scoped to service slug)
+                                                    for all API calls (scoped to serviceSlug)
 </code></pre></div>
-<h3 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h3>
+<p>The service-app scoping is achieved by the existing app-token layer:
+<code>ServeAppFile</code> injects <code>inst.BuildAppToken(serviceSlug, sessID)</code> into the served
+<code>index.html</code>, which is a JWT with <code>subject=serviceSlug</code> scoped to that app&rsquo;s
+manifest permissions. The cookie is a full user session, but the page only ever
+holds a service-app-scoped token, and <code>GET /intents/:id</code> independently enforces
+<code>intent.Services</code> on the bearer.</p>
+<h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h2>
+<p>The implementation keeps the existing two-call flow:</p>
 <ul>
-<li>The instance must have OIDC configured with <code>allow_app_token_exchange: true</code> and
-  at least one entry under <code>app_token_exchange</code> in the context configuration.</li>
-<li>The caller app must be a linked app listed in that configuration.</li>
-<li>The service app must be installed on the instance.</li>
+<li><code>POST /intents</code> creates the intent and returns the service href.</li>
+<li><code>POST /auth/session_code</code> mints a one-time code from an authorized bearer.</li>
+<li>The mobile app appends <code>session_code</code> to the selected service href.</li>
+<li><code>ServeAppFile</code> consumes the code, creates the cookie, strips only
+  <code>session_code</code>, and preserves the remaining query parameters such as
+  <code>intent</code>.</li>
 </ul>
-<h3 id="api-calls">API calls<a class="headerlink" href="#api-calls" title="Permanent link">&para;</a></h3>
+<h3 id="1-webauthflagshipgo-cancreatesessioncode">1. <code>web/auth/flagship.go</code> — <code>canCreateSessionCode</code><a class="headerlink" href="#1-webauthflagshipgo-cancreatesessioncode" title="Permanent link">&para;</a></h3>
+<p>Add a new branch returning <code>allowedToCreateSessionCode</code> when the request is
+authenticated with an app-scoped token from <code>token_exchange</code>. This is the only
+behavioral change.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nx">canCreateSessionCode</span><span class="p">(</span><span class="nx">c</span><span class="w"> </span><span class="nx">echo</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">inst</span><span class="w"> </span><span class="o">*</span><span class="nx">instance</span><span class="p">.</span><span class="nx">Instance</span><span class="p">)</span><span class="w"> </span><span class="nx">canCreateSessionCodeResult</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">middlewares</span><span class="p">.</span><span class="nx">AllowMaximal</span><span class="p">(</span><span class="nx">c</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">allowedToCreateSessionCode</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">isAppTokenExchangeToken</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span><span class="w"> </span><span class="nx">inst</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">                 </span><span class="c1">// NEW</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">allowedToCreateSessionCode</span><span class="w">                 </span><span class="c1">// NEW</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// …existing passphrase + 2FA path unchanged…</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="2-webauthflagshipgo-new-helper-isapptokenexchangetoken">2. <code>web/auth/flagship.go</code> — new helper <code>isAppTokenExchangeToken</code><a class="headerlink" href="#2-webauthflagshipgo-new-helper-isapptokenexchangetoken" title="Permanent link">&para;</a></h3>
+<p>Lives next to <code>canCreateSessionCode</code> (locality with the only caller). Verifies
+that the bearer token was minted by <code>token_exchange</code> for a linked app configured
+on the instance&rsquo;s context.</p>
+<p>The implementation uses the OAuth client lookup approach rather than adding a
+new JWT claim: read the decoded access-token claims from the echo context, fetch
+the <code>oauth.Client</code>, check that its <code>SoftwareID</code> is listed in
+<code>config.GetOIDCAppTokenExchange(inst.ContextName).Apps</code>, derive the linked app
+slug, and require that app to be installed. This avoids changing the
+<code>token_exchange</code> JWT shape and keeps revoked configuration effective for future
+session-code mints.</p>
+<h3 id="3-tests">3. Tests<a class="headerlink" href="#3-tests" title="Permanent link">&para;</a></h3>
+<p>The authorization tests are colocated in <code>web/auth/auth_test.go</code> with the
+existing token_exchange scaffolding:</p>
 <ol>
-<li><strong>Token exchange</strong> — <code>POST /auth/token_exchange</code> with <code>exchange_type: "app"</code> and
-   a valid OIDC <code>id_token</code>. Returns an OAuth access token scoped to the linked app.</li>
-<li><strong>Create intent</strong> — <code>POST /intents</code> with the app-scoped token. Returns the intent
-   document including the service app&rsquo;s href with <code>?intent=&lt;id&gt;</code>.</li>
-<li><strong>Mint session_code</strong> — <code>POST /auth/session_code</code> with the same app-scoped token
-   as Bearer. Returns <code>{"session_code": "&lt;code&gt;"}</code>.</li>
-<li><strong>Open WebView</strong> — load <code>https://&lt;serviceSlug&gt;.&lt;instance&gt;/...?intent=&lt;id&gt;&amp;session_code=&lt;code&gt;</code>.
-   The stack consumes the code, creates a session cookie, and redirects (code
-   stripped). The WebView now has a full user session for the instance domain.</li>
+<li><strong>App-scoped token mints a session_code</strong> — mint an app token via the existing
+   token_exchange helper; <code>POST /auth/session_code</code> with that bearer; assert 201
+   + <code>session_code</code> present; assert the code is present and single-use in the
+   store.</li>
+<li><strong>Admin token cannot mint a session_code</strong> — token_exchange admin tokens stay
+   rejected by <code>/auth/session_code</code>.</li>
+<li><strong>No token cannot mint a session_code</strong> — anonymous requests stay rejected.</li>
 </ol>
-<h3 id="security">Security<a class="headerlink" href="#security" title="Permanent link">&para;</a></h3>
+<p>The app-serving session_code behavior stays covered in <code>web/apps/apps_test.go</code>.</p>
+<h3 id="4-docs-docsintentsmd-or-wherever-the-intent-mobile-flow-is-documented">4. Docs — <code>docs/intents.md</code> (or wherever the intent mobile flow is documented)<a class="headerlink" href="#4-docs-docsintentsmd-or-wherever-the-intent-mobile-flow-is-documented" title="Permanent link">&para;</a></h3>
+<p>Add a section describing the mobile + WebView flow: token_exchange → create
+intent → session_code → load <code>https://&lt;serviceApp&gt;.&lt;inst&gt;/?intent=&lt;id&gt;&amp;session_
+code=&lt;code&gt;</code>.</p>
+<h2 id="what-is-not-changed">What is NOT changed<a class="headerlink" href="#what-is-not-changed" title="Permanent link">&para;</a></h2>
 <ul>
-<li>The <code>session_code</code> is single-use (atomic delete in Redis on read) with a 7-day TTL.</li>
-<li>The cookie is a <code>NormalRun</code> session (browser-session, 30-day max age) cleared
-  when the WebView is destroyed.</li>
-<li>The service page only receives a service-app-scoped token via <code>BuildAppToken</code>;
-  the underlying cookie grants a full user session, but the page code never
-  accesses it directly.</li>
-<li>Only tokens minted by <code>token_exchange</code> for a currently configured linked app
-  can mint session codes. Revoking the app from <code>app_token_exchange</code> immediately
-  prevents new session code minting.</li>
+<li><code>model/instance/auth.go:CreateSessionCode</code> — unchanged.</li>
+<li><code>model/instance/store.go</code> session_code store — unchanged (single-use,
+  7-day TTL, atomic delete on read).</li>
+<li><code>web/apps/serve.go</code> — <code>ServeAppFile</code> still consumes the existing
+  session_code primitive; it preserves the intent query parameter when stripping
+  <code>session_code</code>.</li>
+<li><code>web/intents/intents.go</code> — create/get handlers unchanged.</li>
+<li><code>model/intent/intents.go:GenerateHref</code> — unchanged.</li>
+<li>Flagship flow, magic link, delegated JWT — unchanged.</li>
 </ul>
-<h2 id="annexes">Annexes<a class="headerlink" href="#annexes" title="Permanent link">&para;</a></h2>
-<h3 id="use-cases">Use Cases<a class="headerlink" href="#use-cases" title="Permanent link">&para;</a></h3>
-<p>Here is a non exhaustive list of situations that <em>may</em> use intents:</p>
+<h2 id="config-gating">Config &amp; gating<a class="headerlink" href="#config-gating" title="Permanent link">&para;</a></h2>
+<p>No new config flag. The ability to mint a session_code is granted implicitly to
+any token that satisfies <code>isAppTokenExchangeToken</code>, i.e. any token minted by
+<code>token_exchange</code> for a linked app currently listed in the context&rsquo;s
+<code>app_token_exchange</code> config. Revoking an app from <code>app_token_exchange</code> revokes
+its ability to mint session_codes going forward.</p>
+<p>If a deployer later wants to separate &ldquo;can exchange id_token&rdquo; from &ldquo;can mint
+session_code&rdquo; per app, add an optional <code>allow_session_code</code> field (default
+<code>true</code>) under each <code>OIDCAppTokenExchangeAppConfig</code> in
+<code>pkg/config/config/config.go:439</code>. Deferred to YAGNI until a real need surfaces.</p>
+<h2 id="session-duration">Session duration<a class="headerlink" href="#session-duration" title="Permanent link">&para;</a></h2>
+<p><code>session.NormalRun</code> uses a browser-session cookie and the stored session remains
+subject to the normal server-side session lifetime. This matches the existing
+<code>ServeAppFile</code> session_code consumer and the flagship flow, so no
+special-casing is needed.</p>
+<h2 id="security-considerations">Security considerations<a class="headerlink" href="#security-considerations" title="Permanent link">&para;</a></h2>
+<p>The design reuses a battle-tested primitive, so the security surface is small
+and mostly inherited.</p>
 <ul>
-<li>Configure a new connector account</li>
-<li>Share a photo album via email</li>
-<li>Add an attachment to an email</li>
-<li>Attach a note to a contact</li>
-<li>Create a contact based on an email</li>
-<li>Save an attachment received in an email</li>
-<li>Create a birthday event in a calendar, based on a contact</li>
-<li>Create an event based on an email&rsquo;s content</li>
-<li>Create an event based on an ICS file</li>
-<li>Chose an avatar for a contact</li>
-<li>Open a file from the file browser (music, PDF, image, &hellip;)</li>
-<li>Attach a receipt to an expense</li>
-<li>Provide a tip for another application</li>
+<li><strong>Cookie scope</strong> — <code>cozysessid</code> is a full user session on the instance domain
+  (HttpOnly, Secure, SameSite=Lax, scoped to <code>.instance.tld</code>). Same risk
+  profile as flagship. Bounded by: single-use session_code (atomic delete in
+  the session-code store on read), 7-day mint TTL, NormalRun session,
+  WebView-only lifecycle.</li>
+<li><strong>WebView boundary</strong> — the cookie lives in the WebView&rsquo;s cookie jar, not the
+  mobile app&rsquo;s native storage. If the WebView is destroyed (standard iOS/Android
+  behavior), the cookie is cleared. This is a mobile-side implementation
+  responsibility, not a stack change.</li>
+<li><strong>Token elevation</strong> — the app-scoped token gains the ability to mint a user
+  session code. This is an elevation in effect, but the caller already proved
+  OIDC identity to cozy-stack during <code>token_exchange</code> (<code>validateTokenExchange-
+  AppToken</code>, <code>web/auth/token_exchange.go:297</code>), so minting a session_code is a
+  natural follow-on.</li>
+<li><strong>Bound to a configured linked app</strong> — <code>isAppTokenExchangeToken</code> verifies the
+  token&rsquo;s linked app is in <code>app_token_exchange</code> and installed, mirroring
+  <code>tokenExchangeCheckAppInstance</code>. Prevents a stray app token from minting codes.</li>
+<li><strong>Intent binding (deliberate non-feature)</strong> — the session_code is NOT bound to
+  the intent ID. The minted session is a generic user session; the intent is
+  consumed via <code>?intent=</code> which independently enforces <code>intent.Services</code> on
+  <code>GET /intents/:id</code>. Keeping them decoupled matches the flagship pattern (mint
+  code → use it wherever) and avoids new coupling. Single-use session bound to
+  one intent is approach B, not A.</li>
+<li><strong>No CSRF on mint</strong> — <code>POST /auth/session_code</code> requires a valid bearer token
+  (not a cookie-CSRF flow); the new branch inherits that.</li>
+<li><strong>Audit logging</strong> — log session_code creation with a distinct <code>source</code> value
+  (<code>"app_token_exchange"</code>) so audit logs distinguish app-token-minted codes from
+  flagship (<code>"flagship"</code>) and password (<code>"password"</code>) ones.</li>
 </ul>
-<h3 id="bibliography-prior-art">Bibliography &amp; Prior Art<a class="headerlink" href="#bibliography-prior-art" title="Permanent link">&para;</a></h3>
+<h2 id="alternatives-considered">Alternatives considered<a class="headerlink" href="#alternatives-considered" title="Permanent link">&para;</a></h2>
 <ul>
-<li><a href="https://forum.cozy.io/t/cozy-tech-topic-inter-app-communication-architecture/2287">Prior art</a></li>
-<li><a href="http://webintents.org/">Web intents</a></li>
-<li><a href="https://wiki.mozilla.org/WebAPI/WebActivities">WebActivities</a> and <a href="https://developer.mozilla.org/en-US/docs/Archive/Firefox_OS/API/Web_Activities">WebActivities on FirefoxOS (archive)</a></li>
-<li><a href="https://developer.apple.com/documentation/sirikit#//apple_ref/doc/uid/TP40016875-CH5-SW1">Siri Intents</a></li>
-<li><a href="https://developer.android.com/reference/android/content/Intent.html">Android Intents</a></li>
-<li><a href="https://developer.apple.com/library/content/documentation/General/Conceptual/ExtensibilityPG/index.html">iOS extensions</a></li>
+<li><strong>Approach B — Bearer token via <code>?sharecode=</code>-style injection (no cookie).</strong>
+  Mint a scoped JWT bound to the intent + service app, pass via <code>?sharecode=</code>,
+  reuse <code>ServeAppFile</code>&rsquo;s sharecode path. No cookie ever leaves the stack —
+  strongest isolation. Rejected: more new code (new minting endpoint, new token
+  shape, permission-check adjustments for <code>GET /intents/:id</code>), and the
+  cookie-free page cannot use cozy-bar / cross-app navigation. Acceptable
+  trade-off for a focused intent WebView, but A is cheaper and reuses more.</li>
+<li><strong>Approach C — Intent-bound scoped session.</strong> Add a <code>BoundApp</code> field to the
+  session doc and enforce it in <code>LoadSession</code>/<code>BuildAppToken</code>. Strongest cookie-
+  level isolation. Rejected: touches the core session model with the largest
+  blast radius; overkill given the app-token layer already scopes API calls in
+  approach A.</li>
 </ul>
-<h3 id="discarded-ideas">Discarded Ideas<a class="headerlink" href="#discarded-ideas" title="Permanent link">&para;</a></h3>
-<h4 id="disposition">Disposition<a class="headerlink" href="#disposition" title="Permanent link">&para;</a></h4>
-<p>Some specifications include a <code>disposition</code> field in the manifests, that gives a
-hint to the client about how to display the service (inlined or in a new
-window). Since we were unable to find a use case where a new window is required,
-we decided not to include the <code>disposition</code> in this specification. It might be
-added later if the need arises.</p>
-<h4 id="client-server-architecture">Client / Server architecture<a class="headerlink" href="#client-server-architecture" title="Permanent link">&para;</a></h4>
-<p>Instead of letting the two applications communicate with each other, they could
-be made to talk through the stack. This would be useful as the stack could act
-as a middleware, transforming data on the fly or granting permissions where
-appropriate.</p>
-<p>However, this approach has also severe drawbacks, notably the fact that the
-stack must hold a copy of all the data that the apps want to transfer (which can
-include large files). It also makes it significantly harder for the client to
-know when the intent has been processed.</p>
-<h4 id="data-representation">Data representation<a class="headerlink" href="#data-representation" title="Permanent link">&para;</a></h4>
-<p>The client could explicitly request a data format to be used in the
-communication. However, this idea was abandoned because the format is <em>always</em>
-json, except when then intent&rsquo;s <code>type</code> is a MIME type, in which case the data
-format <em>also</em> uses this type.</p>
 
 
 
@@ -9154,13 +8142,13 @@ format <em>also</em> uses this type.</p>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.top", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.top", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
-        <script src="../../extra.js"></script>
+        <script src="../../../extra.js"></script>
       
     
     <!-- Matomo -->
