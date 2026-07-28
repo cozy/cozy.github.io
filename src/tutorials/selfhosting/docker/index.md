@@ -100,7 +100,7 @@ You can then start with
 
 ```bash
 cd /opt/cozy
-docker-compose up -d
+docker compose up -d
 ```
 
 ## Create instance
