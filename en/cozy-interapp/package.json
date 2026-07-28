@@ -1,0 +1,35 @@
+{
+  "name": "cozy-interapp",
+  "version": "0.18.2",
+  "description": "Cozy Interapp allows applications to interact with each other and not have access to all data",
+  "main": "dist/index.js",
+  "author": "Cozy",
+  "license": "MIT",
+  "homepage": "https://github.com/cozy/cozy-libs/blob/master/packages/interapp/README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cozy/cozy-libs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cozy/cozy-libs/issues"
+  },
+  "scripts": {
+    "test": "jest",
+    "build": "babel src -d dist --ignore '*.spec.js'",
+    "prepublishOnly": "yarn build"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.16.8",
+    "@babel/core": "7.16.12",
+    "babel-jest": "30.3.0",
+    "babel-preset-cozy-app": "^2.8.4",
+    "jest": "30.3.0",
+    "jest-environment-jsdom": "30.3.0"
+  },
+  "jest": {
+    "testEnvironment": "jsdom"
+  },
+  "peerDependencies": {
+    "@babel/runtime": ">=7.12.5"
+  }
+}
