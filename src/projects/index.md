@@ -20,6 +20,11 @@
     <p>Cozy Flags</p>
   </a>
 
+  <a href="../cozy-interapp">
+    <img src="../assets/images/home/icon-cozy.png" alt="Cozy Interapp"/>
+    <p>Cozy Interapp</p>
+  </a>
+
   <a href="../cozy-stack">
     <img src="../assets/images/home/icon-cozy.png" alt="Cozy Stack" />
     <p>Cozy Stack</p>
