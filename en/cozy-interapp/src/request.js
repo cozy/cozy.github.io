@@ -1,6 +1,6 @@
 class Request {
-  constructor(cozyClient) {
-    this.stackClient = cozyClient.stackClient
+  constructor(fetchJSON) {
+    this.fetchJSON = fetchJSON
   }
 
   get(id, { tryDOM = false } = {}) {
@@ -11,26 +11,24 @@ class Request {
       }
     }
 
-    return this.stackClient.fetchJSON('GET', `/intents/${id}`).then(resp => {
+    return this.fetchJSON('GET', `/intents/${id}`).then(resp => {
       const intent = resp.data
       return normalizeIntent(intent)
     })
   }
 
   post(action, type, data, permissions) {
-    return this.stackClient
-      .fetchJSON('POST', '/intents', {
-        data: {
-          type: 'io.cozy.intents',
-          attributes: {
-            action: action,
-            type: type,
-            data: data,
-            permissions: permissions
-          }
+    return this.fetchJSON('POST', '/intents', {
+      data: {
+        type: 'io.cozy.intents',
+        attributes: {
+          action: action,
+          type: type,
+          data: data,
+          permissions: permissions
         }
-      })
-      .then(resp => resp.data)
+      }
+    }).then(resp => resp.data)
   }
 
   fromDOM() {

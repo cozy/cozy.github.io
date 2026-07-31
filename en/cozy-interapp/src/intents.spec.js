@@ -47,8 +47,8 @@ describe('Interapp', () => {
     cozyClient.stackClient.fetchJSON.mockImplementation(api.fetch)
   })
 
-  it('should initialise with cozy client', () => {
-    expect(intents.request.stackClient).toEqual(cozyClient.stackClient)
+  it('should initialise with fetchJSON from client', () => {
+    expect(typeof intents.request.fetchJSON).toBe('function')
   })
 
   describe('creation', () => {

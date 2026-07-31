@@ -9,11 +9,11 @@ describe('[Interapp] Request', () => {
         fetchJSON: jest.fn().mockReturnValue(Promise.resolve({ data: [] }))
       }
     }
-    request = new Request(cozyClient)
+    request = new Request(cozyClient.stackClient.fetchJSON)
   })
 
-  it('should initialise with stackClient', () => {
-    expect(request.stackClient).toEqual(cozyClient.stackClient)
+  it('should initialise with fetchJSON', () => {
+    expect(request.fetchJSON).toBe(cozyClient.stackClient.fetchJSON)
   })
 
   describe('get', () => {

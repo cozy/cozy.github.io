@@ -4,8 +4,18 @@ import Request from './request'
 import * as service from './service'
 
 class Intents {
-  constructor({ client } = {}) {
-    this.request = new Request(client)
+  constructor({ client, fetch } = {}) {
+    const fetchJSON =
+      fetch ||
+      (client &&
+        client.stackClient &&
+        client.stackClient.fetchJSON.bind(client.stackClient))
+    if (!fetchJSON) {
+      throw new Error(
+        'Intents: "fetch" function or "client" (with stackClient.fetchJSON) is required'
+      )
+    }
+    this.request = new Request(fetchJSON)
     this.create = this.create.bind(this)
   }
 
