@@ -7943,16 +7943,16 @@ used by the client to automatically fetch relationship data.</p>
 Example: The schema defines an <code>author</code> relationship :</p>
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">BOOK_SCHEMA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nx">relationships</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">     </span><span class="nx">author</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;has-one&#39;</span>
+<span class="w">     </span><span class="nx">author</span><span class="o">:</span><span class="w"> </span><span class="s1">'has-one'</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Hydrated <code>books</code> will have the <code>author</code> association instance under the <code>author</code> key.
 Accessing <code>hydratedBook.author.data</code> gives you the author from the store, for example :</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;St-Exupery&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;firstName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Antoine&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;antoine&quot;</span>
+<span class="w">  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"St-Exupery"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Antoine"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"antoine"</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>It is the responsibility of the relationship to decide how the relationship data is stored.
@@ -7960,12 +7960,12 @@ For example, here since we use the default <code>has-one</code> relationship, th
 is stored in the <code>relationships</code> attribute of the original document (in our case here, our book
 would be</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Le petit prince&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;relationships&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;author&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;doctype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.authors&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;antoine&quot;</span>
+<span class="w">  </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Le petit prince"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"relationships"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"doctype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.authors"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"antoine"</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
@@ -7974,8 +7974,8 @@ would be</p>
 <p>In the case of an &ldquo;in-place&rdquo; relationship, the relationship data is stored directly under the attribute named
 by the relationship (in our case <code>author</code>). Our book would be</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Le petit prince&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;author&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;antoine&quot;</span>
+<span class="w">    </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Le petit prince"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"author"</span><span class="p">:</span><span class="w"> </span><span class="s2">"antoine"</span>
 <span class="p">}</span>
 </code></pre></div>
 <hr />
@@ -8119,12 +8119,12 @@ by the relationship (in our case <code>author</code>). Our book would be</p>
 <p>Returns the document(s) from the store</p>
 <p>For document with relationships stored as JSON API spec :</p>
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">book</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Moby Dick&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">'Moby Dick'</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">relationships</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">author</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">doctype</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;io.cozy.authors&#39;</span><span class="p">,</span>
-<span class="w">        </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;herman&#39;</span>
+<span class="w">        </span><span class="nx">doctype</span><span class="o">:</span><span class="w"> </span><span class="s1">'io.cozy.authors'</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s1">'herman'</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
@@ -8132,10 +8132,10 @@ by the relationship (in our case <code>author</code>). Our book would be</p>
 </code></pre></div>
 <p><code>data</code> will be</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="nt">&quot;herman&quot;</span>
-<span class="w">  </span><span class="nt">&quot;_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.authors&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;firstName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;herman&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Melville&quot;</span>
+<span class="w">  </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="nt">"herman"</span>
+<span class="w">  </span><span class="nt">"_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.authors"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"herman"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Melville"</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Derived <code>Association</code>s need to implement this method.</p>
@@ -8149,12 +8149,12 @@ by the relationship (in our case <code>author</code>). Our book would be</p>
 <p>Returns the raw relationship data as stored in the original document</p>
 <p>For a document with relationships stored as JSON API spec:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">book</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Moby Dick&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">'Moby Dick'</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">relationships</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">author</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">doctype</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;io.cozy.authors&#39;</span><span class="p">,</span>
-<span class="w">        </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;herman&#39;</span>
+<span class="w">        </span><span class="nx">doctype</span><span class="o">:</span><span class="w"> </span><span class="s1">'io.cozy.authors'</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">id</span><span class="o">:</span><span class="w"> </span><span class="s1">'herman'</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
@@ -8162,8 +8162,8 @@ by the relationship (in our case <code>author</code>). Our book would be</p>
 </code></pre></div>
 <p>Raw value will be</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;doctype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.authors&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;herman&quot;</span>
+<span class="w">  </span><span class="nt">"doctype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.authors"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"herman"</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Derived <code>Association</code>s need to implement this method.</p>

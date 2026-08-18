@@ -7756,8 +7756,8 @@ to handle the protocol. You will have to do it manually (with curl for example).
 extended documentations for this.</p>
 <p>Once you have got your access token, simply add it your konnector-dev-config.json file like this :</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;fields&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;access_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;ACCESS_TOKEN&gt;&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"fields"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"access_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;ACCESS_TOKEN&gt;"</span><span class="p">,</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -7791,26 +7791,26 @@ needs to know some details about the api :</p>
 <p>These parameters will be saved in the &ldquo;secrets/io-cozy-account_types&rdquo; database in the following
 form for facebook :</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;facebook&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;grant_mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;authorization_code&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;redirect_uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://oauthcallback.cozy.tools:8080/accounts/facebook/redirect&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;token_mode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;get&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;token_endpoint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://graph.facebook.com/v2.12/oauth/access_token&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;auth_endpoint&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://www.facebook.com/v2.12/dialog/oauth&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;client_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;client_secret&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span>
+<span class="w">  </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"facebook"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"grant_mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"authorization_code"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"redirect_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://oauthcallback.cozy.tools:8080/accounts/facebook/redirect"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"token_mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"get"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"token_endpoint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://graph.facebook.com/v2.12/oauth/access_token"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"auth_endpoint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://www.facebook.com/v2.12/dialog/oauth"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"client_secret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>To provision this configuration in your own local cozy, you can use curl for example :</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>localhost:5984/secrets%2Fio-cozy-account_types/facebook<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{ &quot;grant_mode&quot;: &quot;authorization_code&quot;, &quot;client_id&quot;: &quot;...&quot;, &quot;client_secret&quot;: &quot;...&quot;, &quot;auth_endpoint&quot;: &quot;https://www.facebook.com/v2.12/dialog/oauth&quot;, &quot;token_endpoint&quot;: &quot;https://graph.facebook.com/v2.12/oauth/access_token&quot;, &quot;token_mode&quot;: &quot;get&quot;, &quot;redirect_url&quot;: &quot;https://oauthcallback.cozy.tools:8080/accounts/facebook/redirect&quot; }&#39;</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>PUT<span class="w"> </span>localhost:5984/secrets%2Fio-cozy-account_types/facebook<span class="w"> </span>-d<span class="w"> </span><span class="s1">'{ "grant_mode": "authorization_code", "client_id": "...", "client_secret": "...", "auth_endpoint": "https://www.facebook.com/v2.12/dialog/oauth", "token_endpoint": "https://graph.facebook.com/v2.12/oauth/access_token", "token_mode": "get", "redirect_url": "https://oauthcallback.cozy.tools:8080/accounts/facebook/redirect" }'</span>
 </code></pre></div>
 <p>And if you want this to be provisioned in production cozies in mycozy.cloud domain, please contact
 us.</p>
 <p>2) Most Oauth apis need <a href="https://oauth.net/2/scope/">scope</a> configuration. To be more versatile, this scope configuration in done
 in the connector manifest in the &ldquo;oauth.scope&rdquo; attribute :</p>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">&quot;oauth&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;scope&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">      </span><span class="s2">&quot;scope1 scope2&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">"oauth"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"scope"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">      </span><span class="s2">"scope1 scope2"</span>
 <span class="w">    </span><span class="p">]</span>
 <span class="w">  </span><span class="p">}</span>
 </code></pre></div>

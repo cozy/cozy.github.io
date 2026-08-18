@@ -7801,28 +7801,28 @@ remove the webpack specific configs.</p>
 <div class="highlight"><pre><span></span><code>yarn add cozy-ui@next
 </code></pre></div>
 <h3 id="2-add-stylesheetcss">2. Add <code>stylesheet.css</code><a class="headerlink" href="#2-add-stylesheetcss" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>+ import &#39;cozy-ui/transpiled/react/stylesheet.css&#39;
+<div class="highlight"><pre><span></span><code>+ import 'cozy-ui/transpiled/react/stylesheet.css'
 </code></pre></div>
 <h3 id="3-replace-occurences-of-cozy-uireact-by-cozy-uitranspiledreact">3. Replace occurences of <code>cozy-ui/react</code> by <code>cozy-ui/transpiled/react</code><a class="headerlink" href="#3-replace-occurences-of-cozy-uireact-by-cozy-uitranspiledreact" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>-import { Icon } from &#39;cozy-ui/react&#39;
-+import { Icon } from &#39;cozy-ui/transpiled/react&#39;
+<div class="highlight"><pre><span></span><code>-import { Icon } from 'cozy-ui/react'
++import { Icon } from 'cozy-ui/transpiled/react'
 </code></pre></div>
 <p>Alternatively, you can use a webpack alias. Inside <code>webpack.config.js</code> :</p>
 <div class="highlight"><pre><span></span><code>+resolve: {
 +    alias: {
-+      &#39;cozy-ui/react&#39;: &#39;cozy-ui/transpiled/react&#39;
++      'cozy-ui/react': 'cozy-ui/transpiled/react'
 +    }
 +}
 </code></pre></div>
 <h3 id="4-replace-palette-location">4. Replace palette location<a class="headerlink" href="#4-replace-palette-location" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>-import palette from &#39;cozy-ui/stylus/settings/palette.json&#39;
-+import palette from &#39;cozy-ui/transpiled/react/palette&#39;
+<div class="highlight"><pre><span></span><code>-import palette from 'cozy-ui/stylus/settings/palette.json'
++import palette from 'cozy-ui/transpiled/react/palette'
 </code></pre></div>
 <h2 id="caveats">Caveats<a class="headerlink" href="#caveats" title="Permanent link">&para;</a></h2>
 <p>You need to keep the stylus plugin if you use it in your stylus files, for example if you use a cozy-ui icon in your stylus files.</p>
 <div class="highlight"><pre><span></span><code>// If you do this, then keep the stylus plugin since it adds the cozy-ui
 // folder in the PATH of stylus    
-background-image embedurl(&#39;../assets/icons/ui/share.svg&#39;)
+background-image embedurl('../assets/icons/ui/share.svg')
 </code></pre></div>
 
 

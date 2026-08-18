@@ -10732,9 +10732,9 @@ The connector has to import the zombie npm package itself.</p>
 </tbody>
 </table>
 <p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">Browser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-konnector-libs/libs/CozyBrowser&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">Browser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">'cozy-konnector-libs/libs/CozyBrowser'</span><span class="p">)</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">browser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Browser</span><span class="p">()</span>
-<span class="k">await</span><span class="w"> </span><span class="nx">browser</span><span class="p">.</span><span class="nx">visit</span><span class="p">(</span><span class="s1">&#39;http://quotes.toscrape.com/&#39;</span><span class="p">)</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">browser</span><span class="p">.</span><span class="nx">visit</span><span class="p">(</span><span class="s1">'http://quotes.toscrape.com/'</span><span class="p">)</span>
 </code></pre></div>
 <a name="module_CozyBrowser--defaultOptions..addListeners"></a></p>
 <h4 id="defaultoptionsaddlisteners">defaultOptions~addListeners()<a class="headerlink" href="#defaultoptionsaddlisteners" title="Permanent link">&para;</a></h4>
@@ -10756,16 +10756,16 @@ use this function.</p>
   + <code>sourceAccountIdentifier</code> (String): identifier unique to the account targetted by the connector. It is the login most of the time</p>
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">documents</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
 <span class="w">  </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;toto&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'toto'</span><span class="p">,</span>
 <span class="w">    </span><span class="nx">height</span><span class="o">:</span><span class="w"> </span><span class="mf">1.8</span>
 <span class="w">  </span><span class="p">},</span>
 <span class="w">  </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;titi&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'titi'</span><span class="p">,</span>
 <span class="w">    </span><span class="nx">height</span><span class="o">:</span><span class="w"> </span><span class="mf">1.7</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">]</span>
 
-<span class="k">return</span><span class="w"> </span><span class="nx">addData</span><span class="p">(</span><span class="nx">documents</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;io.cozy.height&#39;</span><span class="p">)</span>
+<span class="k">return</span><span class="w"> </span><span class="nx">addData</span><span class="p">(</span><span class="nx">documents</span><span class="p">,</span><span class="w"> </span><span class="s1">'io.cozy.height'</span><span class="p">)</span>
 </code></pre></div>
 <p><strong>Kind</strong>: Exported function<br />
 <a name="module_cozyClient"></a></p>
@@ -10779,9 +10779,9 @@ initialized and ready to use.</p>
 initialized according to <code>COZY_URL</code> and <code>COZY_CREDENTIALS</code> environment variable given by cozy-stack
 You can refer to the <a href="https://github.com/cozy/cozy-client-js">cozy-client-js documentation</a> for more information.</p>
 <p>Example :</p>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="nx">cozyClient</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-konnector-libs&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="nx">cozyClient</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">'cozy-konnector-libs'</span><span class="p">)</span>
 
-<span class="nx">cozyClient</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">defineIndex</span><span class="p">(</span><span class="s1">&#39;my.doctype&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;_id&#39;</span><span class="p">])</span>
+<span class="nx">cozyClient</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">defineIndex</span><span class="p">(</span><span class="s1">'my.doctype'</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="s1">'_id'</span><span class="p">])</span>
 </code></pre></div>
 <p><strong>Kind</strong>: Exported constant<br />
 <a name="module_hydrateAndFilter"></a></p>
@@ -10812,18 +10812,18 @@ use this function.</p>
    -</code>selector<code>(optionnal object) : Mango request to get records. Default is built from the keys</code>{selector: {_id: {&ldquo;$gt&rdquo;: null}}}` to get all the records.</p>
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">documents</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
 <span class="w">  </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;toto&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'toto'</span><span class="p">,</span>
 <span class="w">    </span><span class="nx">height</span><span class="o">:</span><span class="w"> </span><span class="mf">1.8</span>
 <span class="w">  </span><span class="p">},</span>
 <span class="w">  </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;titi&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'titi'</span><span class="p">,</span>
 <span class="w">    </span><span class="nx">height</span><span class="o">:</span><span class="w"> </span><span class="mf">1.7</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">]</span>
 
-<span class="k">return</span><span class="w"> </span><span class="nx">hydrateAndFilter</span><span class="p">(</span><span class="nx">documents</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;io.cozy.height&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nx">keys</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
-<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">filteredDocuments</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">addData</span><span class="p">(</span><span class="nx">filteredDocuments</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;io.cozy.height&#39;</span><span class="p">))</span>
+<span class="k">return</span><span class="w"> </span><span class="nx">hydrateAndFilter</span><span class="p">(</span><span class="nx">documents</span><span class="p">,</span><span class="w"> </span><span class="s1">'io.cozy.height'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">keys</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">filteredDocuments</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">addData</span><span class="p">(</span><span class="nx">filteredDocuments</span><span class="p">,</span><span class="w"> </span><span class="s1">'io.cozy.height'</span><span class="p">))</span>
 </code></pre></div>
 <p><strong>Kind</strong>: Exported function<br />
 <a name="module_hydrateAndFilter--hydrateAndFilter..suitableCall"></a></p>
@@ -10853,17 +10853,17 @@ as <code>arguments</code>.</p>
 <ul>
 <li><code>...pathComponents</code>:  one or many path components to be joined</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mkdirp</span><span class="p">(</span><span class="s1">&#39;/foo&#39;</span><span class="p">)</span><span class="w"> </span><span class="c1">// Creates /foo</span>
-<span class="k">await</span><span class="w"> </span><span class="nx">mkdirp</span><span class="p">(</span><span class="s1">&#39;/foo&#39;</span><span class="p">)</span><span class="w"> </span><span class="c1">// Does nothing as /foo already exists</span>
-<span class="k">await</span><span class="w"> </span><span class="nx">mkdirp</span><span class="p">(</span><span class="s1">&#39;/bar/baz&#39;</span><span class="p">)</span><span class="w"> </span><span class="c1">// Creates /bar, then /bar/baz</span>
-<span class="k">await</span><span class="w"> </span><span class="nx">mkdirp</span><span class="p">(</span><span class="s1">&#39;/foo/bar/baz&#39;</span><span class="p">)</span><span class="w"> </span><span class="c1">// Creates /foo/bar, then /foo/bar/baz, not /foo</span>
-<span class="k">await</span><span class="w"> </span><span class="nx">mkdirp</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span><span class="w"> </span><span class="c1">// Does nothing</span>
-<span class="k">await</span><span class="w"> </span><span class="nx">mkdirp</span><span class="p">(</span><span class="s1">&#39;/qux&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;qux2/qux3&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;qux4&#39;</span><span class="p">)</span><span class="w"> </span><span class="c1">// Creates /qux, then /qux/qux2,</span>
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mkdirp</span><span class="p">(</span><span class="s1">'/foo'</span><span class="p">)</span><span class="w"> </span><span class="c1">// Creates /foo</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">mkdirp</span><span class="p">(</span><span class="s1">'/foo'</span><span class="p">)</span><span class="w"> </span><span class="c1">// Does nothing as /foo already exists</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">mkdirp</span><span class="p">(</span><span class="s1">'/bar/baz'</span><span class="p">)</span><span class="w"> </span><span class="c1">// Creates /bar, then /bar/baz</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">mkdirp</span><span class="p">(</span><span class="s1">'/foo/bar/baz'</span><span class="p">)</span><span class="w"> </span><span class="c1">// Creates /foo/bar, then /foo/bar/baz, not /foo</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">mkdirp</span><span class="p">(</span><span class="s1">'/'</span><span class="p">)</span><span class="w"> </span><span class="c1">// Does nothing</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">mkdirp</span><span class="p">(</span><span class="s1">'/qux'</span><span class="p">,</span><span class="w"> </span><span class="s1">'qux2/qux3'</span><span class="p">,</span><span class="w"> </span><span class="s1">'qux4'</span><span class="p">)</span><span class="w"> </span><span class="c1">// Creates /qux, then /qux/qux2,</span>
 <span class="w">                                          </span><span class="c1">// then /qux/qux2/qux3 and</span>
 <span class="w">                                          </span><span class="c1">// finally /qux/qux2/qux3/qux4</span>
 </code></pre></div>
 <p>The function will automatically add a leading slash when missing:</p>
-<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mkdirp</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;bar&#39;</span><span class="p">)</span><span class="w"> </span><span class="c1">// Creates /foo, then /foo/bar</span>
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">mkdirp</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">,</span><span class="w"> </span><span class="s1">'bar'</span><span class="p">)</span><span class="w"> </span><span class="c1">// Creates /foo, then /foo/bar</span>
 </code></pre></div>
 <p><strong>Kind</strong>: Exported constant<br />
 <a name="module_normalizeFilename"></a></p>
@@ -10888,9 +10888,9 @@ character in the given name.</p>
 <li><code>basename</code> is whatever string you want to generate the filename from</li>
 <li><code>ext</code> is an optional file extension, with or without leading dot</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">normalizeFilename</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-konnector-libs&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">normalizeFilename</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">'cozy-konnector-libs'</span><span class="p">)</span>
 
-<span class="kd">const</span><span class="w"> </span><span class="nx">filename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">normalizeFilename</span><span class="p">(</span><span class="s1">&#39;*foo/bar: &lt;baz&gt; \\&quot;qux&quot;\t???&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;.txt&#39;</span><span class="p">)</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">filename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">normalizeFilename</span><span class="p">(</span><span class="s1">'*foo/bar: &lt;baz&gt; \\"qux"\t???'</span><span class="p">,</span><span class="w"> </span><span class="s1">'.txt'</span><span class="p">)</span>
 <span class="c1">// `filename` === `foo bar baz qux.txt`</span>
 </code></pre></div>
 <p><strong>Kind</strong>: Exported function<br />
@@ -10926,13 +10926,13 @@ full permission on <code>io.cozy.bank.operations</code> in your manifest, to be 
 - <code>options</code> is passed directly to <code>saveFiles</code>, <code>hydrateAndFilter</code>, <code>addData</code> and <code>linkBankOperations</code>.</p>
 <p><strong>Kind</strong>: Exported function<br />
 <strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">BaseKonnector</span><span class="p">,</span><span class="w"> </span><span class="nx">saveBills</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-konnector-libs&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">BaseKonnector</span><span class="p">,</span><span class="w"> </span><span class="nx">saveBills</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">'cozy-konnector-libs'</span><span class="p">)</span>
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">BaseKonnector</span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="nx">fetch</span><span class="w"> </span><span class="p">(</span><span class="nx">fields</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">documents</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[]</span>
 <span class="w">  </span><span class="c1">// some code which fills documents</span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">saveBills</span><span class="p">(</span><span class="nx">documents</span><span class="p">,</span><span class="w"> </span><span class="nx">fields</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">identifiers</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;vendor&#39;</span><span class="p">]</span>
+<span class="w">    </span><span class="nx">identifiers</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">'vendor'</span><span class="p">]</span>
 <span class="w">  </span><span class="p">})</span>
 <span class="p">})</span>
 </code></pre></div>
@@ -11091,8 +11091,8 @@ full permission on <code>io.cozy.bank.operations</code> in your manifest, to be 
 </tbody>
 </table>
 <p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">saveFiles</span><span class="p">([{</span><span class="nx">fileurl</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;https://...&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">filename</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;bill1.pdf&#39;</span><span class="p">}],</span><span class="w"> </span><span class="nx">fields</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
-<span class="w">   </span><span class="nx">fileIdAttributes</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;fileurl&#39;</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">saveFiles</span><span class="p">([{</span><span class="nx">fileurl</span><span class="o">:</span><span class="w"> </span><span class="s1">'https://...'</span><span class="p">,</span><span class="w"> </span><span class="nx">filename</span><span class="o">:</span><span class="w"> </span><span class="s1">'bill1.pdf'</span><span class="p">}],</span><span class="w"> </span><span class="nx">fields</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">   </span><span class="nx">fileIdAttributes</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">'fileurl'</span><span class="p">]</span>
 <span class="p">})</span>
 </code></pre></div>
 <a name="module_saveIdentity"></a></p>
@@ -11110,12 +11110,12 @@ Parameters:</p>
 <code>options</code> (object): options which will be given to updateOrCreate directly :
   + <code>sourceAccount</code> (String): id of the source account
   + <code>sourceAccountIdentifier</code> (String): identifier unique to the account targetted by the connector. It is the login most of the time</p>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">saveIdentity</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-konnector-libs&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">saveIdentity</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">'cozy-konnector-libs'</span><span class="p">)</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">identity</span><span class="w"> </span><span class="o">=</span>
 <span class="w">  </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">contact</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;toto&#39;</span><span class="p">,</span>
-<span class="w">      </span><span class="nx">email</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s1">&#39;address&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;toto@example.com&#39;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">      </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'toto'</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">email</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s1">'address'</span><span class="o">:</span><span class="w"> </span><span class="s1">'toto@example.com'</span><span class="w"> </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 
@@ -11177,7 +11177,7 @@ by user with <code>formData</code>.</p>
 == basic example : ==
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">$</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">signin</span><span class="p">({</span>
 <span class="w">  </span><span class="nx">url</span><span class="o">:</span><span class="w"> </span><span class="sb">`http://quotes.toscrape.com/login`</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">formSelector</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;form&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">formSelector</span><span class="o">:</span><span class="w"> </span><span class="s1">'form'</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">formData</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">username</span><span class="p">,</span><span class="w"> </span><span class="nx">password</span><span class="w"> </span><span class="p">}</span>
 <span class="p">})</span>
 </code></pre></div>
@@ -11189,12 +11189,12 @@ will allow you to:
 <strong>Example</strong><br />
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">$</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">signin</span><span class="p">({</span>
 <span class="w">  </span><span class="nx">url</span><span class="o">:</span><span class="w"> </span><span class="sb">`http://quotes.toscrape.com/login`</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">formSelector</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;form&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">formSelector</span><span class="o">:</span><span class="w"> </span><span class="s1">'form'</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">formData</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">username</span><span class="p">,</span><span class="w"> </span><span class="nx">password</span><span class="w"> </span><span class="p">},</span>
 <span class="w">  </span><span class="nx">validate</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">statusCode</span><span class="p">,</span><span class="w"> </span><span class="nx">$</span><span class="p">,</span><span class="w"> </span><span class="nx">fullResponse</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">statusCode</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="mf">200</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="c1">// LOGIN_FAILED</span>
-<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.cgu&#39;</span><span class="p">).</span><span class="nx">length</span><span class="p">)</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s1">&#39;USER_ACTION_NEEDED&#39;</span><span class="p">)</span>
-<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">fullResponse</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">uri</span><span class="p">.</span><span class="nx">href</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">))</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s1">&#39;VENDOR_DOWN&#39;</span><span class="p">)</span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">'.cgu'</span><span class="p">).</span><span class="nx">length</span><span class="p">)</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s1">'USER_ACTION_NEEDED'</span><span class="p">)</span>
+<span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">fullResponse</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">uri</span><span class="p">.</span><span class="nx">href</span><span class="p">.</span><span class="nx">includes</span><span class="p">(</span><span class="s1">'error'</span><span class="p">))</span><span class="w"> </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s1">'VENDOR_DOWN'</span><span class="p">)</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">})</span>
 </code></pre></div></p>
@@ -11225,11 +11225,11 @@ Returns: Promise with the solved captcha response as a string</li>
 </ul>
 <p><strong>Kind</strong>: Exported function<br />
 <strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">solveCaptcha</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-konnector-libs&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">solveCaptcha</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">'cozy-konnector-libs'</span><span class="p">)</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">solvedKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">solveCaptcha</span><span class="p">({</span>
-<span class="w">  </span><span class="nx">websiteKey</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;the key in the webpage&#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">websiteURL</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;http://quotes.toscrape.com/login&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">websiteKey</span><span class="o">:</span><span class="w"> </span><span class="s1">'the key in the webpage'</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">websiteURL</span><span class="o">:</span><span class="w"> </span><span class="s1">'http://quotes.toscrape.com/login'</span><span class="p">,</span>
 <span class="p">})</span>
 <span class="c1">// now use the solveKey to submit your form</span>
 </code></pre></div>
@@ -11283,7 +11283,7 @@ with a selector and an index</p>
 <code>selector</code> (object): the mango query selector
 <code>index</code> (object): (optional) the query selector index. If not defined, the function will
 create it&rsquo;s own index with the keys specified in the selector</p>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">documents</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">queryAll</span><span class="p">(</span><span class="s1">&#39;io.cozy.bills&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">vendor</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Direct Energie&#39;</span><span class="p">})</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">documents</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">queryAll</span><span class="p">(</span><span class="s1">'io.cozy.bills'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">vendor</span><span class="o">:</span><span class="w"> </span><span class="s1">'Direct Energie'</span><span class="p">})</span>
 </code></pre></div>
 <p><strong>Kind</strong>: inner method of <a href="#module_utils"><code>utils</code></a><br />
 <a name="module_utils..findDuplicates"></a></p>
@@ -11300,7 +11300,7 @@ create it&rsquo;s own index with the keys specified in the selector</p>
 <code>toKeep</code>: this is the list of unique documents that you should keep in db
 <code>toRemove</code>: this is the list of documents that can remove from db. If this is io.cozy.bills
 documents, do not forget to clean linked bank operations</p>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="nx">toKeep</span><span class="p">,</span><span class="w"> </span><span class="nx">toRemove</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">findDuplicates</span><span class="p">(</span><span class="s1">&#39;io.cozy.bills&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">selector</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="nx">vendor</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Direct Energie&#39;</span><span class="p">}})</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="nx">toKeep</span><span class="p">,</span><span class="w"> </span><span class="nx">toRemove</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">findDuplicates</span><span class="p">(</span><span class="s1">'io.cozy.bills'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">selector</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="nx">vendor</span><span class="o">:</span><span class="w"> </span><span class="s1">'Direct Energie'</span><span class="p">}})</span>
 </code></pre></div>
 <p><strong>Kind</strong>: inner method of <a href="#module_utils"><code>utils</code></a><br />
 <a name="module_utils..batchUpdateAttributes"></a></p>
@@ -11315,7 +11315,7 @@ documents, do not forget to clean linked bank operations</p>
    - <code>index</code> (optionnal) : Return value returned by <code>cozy.data.defineIndex</code>, the default will correspond to all documents of the selected doctype.
    - <code>selector</code> (optionnal object) : Mango request to get records. Gets all the records by default</p>
 <p>Returns a promise which resolves with all the return values of updateAttributes</p>
-<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">batchUpdateAttributes</span><span class="p">(</span><span class="s1">&#39;io.cozy.bills&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">],</span><span class="w"> </span><span class="p">{</span><span class="nx">vendor</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Direct Energie&#39;</span><span class="p">})</span>
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">batchUpdateAttributes</span><span class="p">(</span><span class="s1">'io.cozy.bills'</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"> </span><span class="mf">3</span><span class="p">],</span><span class="w"> </span><span class="p">{</span><span class="nx">vendor</span><span class="o">:</span><span class="w"> </span><span class="s1">'Direct Energie'</span><span class="p">})</span>
 </code></pre></div>
 <p><strong>Kind</strong>: inner method of <a href="#module_utils"><code>utils</code></a><br />
 <a name="module_utils..batchDelete"></a></p>
@@ -11331,8 +11331,8 @@ documents, do not forget to clean linked bank operations</p>
    - <code>selector</code> (optionnal object) : Mango request to get records. Gets all the records by default</p>
 <p>Returns a promise which resolves with all the return values of updateAttributes</p>
 <p>Example to remove all the documents for a given doctype</p>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">documents</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetchAll</span><span class="p">(</span><span class="s1">&#39;io.cozy.marvel&#39;</span><span class="p">)</span>
-<span class="k">await</span><span class="w"> </span><span class="nx">batchDelete</span><span class="p">(</span><span class="s1">&#39;io.cozy.marvel&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">documents</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">documents</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetchAll</span><span class="p">(</span><span class="s1">'io.cozy.marvel'</span><span class="p">)</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">batchDelete</span><span class="p">(</span><span class="s1">'io.cozy.marvel'</span><span class="p">,</span><span class="w"> </span><span class="nx">documents</span><span class="p">)</span>
 </code></pre></div>
 <p><strong>Kind</strong>: inner method of <a href="#module_utils"><code>utils</code></a><br />
 <a name="module_utils..getPdfText"></a></p>
@@ -11348,7 +11348,7 @@ documents, do not forget to clean linked bank operations</p>
    - <code>1</code> : The full pdfjs data for page 1
    - <code>n</code> : The full pdfjs data for page n</p>
 <p>Example:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">pdfText</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">await</span><span class="w"> </span><span class="nx">getPdfText</span><span class="p">(</span><span class="s1">&#39;887ABCFE87687&#39;</span><span class="p">)).</span><span class="nx">text</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">pdfText</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="k">await</span><span class="w"> </span><span class="nx">getPdfText</span><span class="p">(</span><span class="s1">'887ABCFE87687'</span><span class="p">)).</span><span class="nx">text</span>
 </code></pre></div>
 <p><strong>Kind</strong>: inner method of <a href="#module_utils"><code>utils</code></a><br />
 <a name="module_utils..formatDate"></a></p>
@@ -11401,7 +11401,7 @@ documents, do not forget to clean linked bank operations</p>
 </tbody>
 </table>
 <p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">BaseKonnector</span><span class="p">,</span><span class="w"> </span><span class="nx">createCategorizer</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-konnector-libs&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">BaseKonnector</span><span class="p">,</span><span class="w"> </span><span class="nx">createCategorizer</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">'cozy-konnector-libs'</span><span class="p">)</span>
 
 <span class="kd">class</span><span class="w"> </span><span class="nx">BankingKonnector</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">BaseKonnector</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">saveTransactions</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
@@ -11441,7 +11441,7 @@ documents, do not forget to clean linked bank operations</p>
 </tbody>
 </table>
 <p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">BaseKonnector</span><span class="p">,</span><span class="w"> </span><span class="nx">categorize</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-konnector-libs&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">BaseKonnector</span><span class="p">,</span><span class="w"> </span><span class="nx">categorize</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">'cozy-konnector-libs'</span><span class="p">)</span>
 
 <span class="kd">class</span><span class="w"> </span><span class="nx">BankingKonnector</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">BaseKonnector</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">saveTransactions</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
@@ -11543,13 +11543,13 @@ the konnector cannot know that asynchronous code has been called.</p>
 </tbody>
 </table>
 <p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">BaseKonnector</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-konnector-libs&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">BaseKonnector</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">'cozy-konnector-libs'</span><span class="p">)</span>
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">BaseKonnector</span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="nx">fetch</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w"> </span><span class="c1">// use this to access the instance of the konnector to</span>
 <span class="w"> </span><span class="c1">// store any information that needs to be passed to</span>
 <span class="w"> </span><span class="c1">// different stages of the konnector</span>
-<span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">request</span><span class="p">(</span><span class="s1">&#39;http://ameli.fr&#39;</span><span class="p">)</span>
+<span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">request</span><span class="p">(</span><span class="s1">'http://ameli.fr'</span><span class="p">)</span>
 <span class="w">   </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">computeReimbursements</span><span class="p">)</span>
 <span class="w">   </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">saveBills</span><span class="p">)</span>
 <span class="p">})</span>
@@ -11727,13 +11727,13 @@ not run manually means that we do not have a graphic interface to fill the requi
 </tbody>
 </table>
 <p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">BaseKonnector</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-konnector-libs&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">BaseKonnector</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">'cozy-konnector-libs'</span><span class="p">)</span>
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">BaseKonnector</span><span class="p">(</span><span class="nx">start</span><span class="p">)</span>
 <span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">start</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">   </span><span class="c1">// we detect the need of a 2FA code</span>
 <span class="w">   </span><span class="kd">const</span><span class="w"> </span><span class="nx">code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">waitForTwoFaCode</span><span class="p">({</span>
-<span class="w">     </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;email&#39;</span>
+<span class="w">     </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">'email'</span>
 <span class="w">   </span><span class="p">})</span>
 <span class="w">   </span><span class="c1">// send the code to the targeted site</span>
 <span class="p">}</span>
@@ -11807,7 +11807,7 @@ connector now</p>
 </tbody>
 </table>
 <p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="k">this</span><span class="p">.</span><span class="nx">terminate</span><span class="p">(</span><span class="s1">&#39;LOGIN_FAILED&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">this</span><span class="p">.</span><span class="nx">terminate</span><span class="p">(</span><span class="s1">'LOGIN_FAILED'</span><span class="p">)</span>
 </code></pre></div>
 <a name="BaseKonnector+getCozyMetadata"></a></p>
 <h3 id="basekonnectorgetcozymetadatadata">baseKonnector.getCozyMetadata(data)<a class="headerlink" href="#basekonnectorgetcozymetadatadata" title="Permanent link">&para;</a></h3>
@@ -11874,15 +11874,15 @@ it to save/restore cookies</p>
 </tbody>
 </table>
 <p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">CookieKonnector</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-konnector-libs&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">CookieKonnector</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">'cozy-konnector-libs'</span><span class="p">)</span>
 <span class="kd">class</span><span class="w"> </span><span class="nx">MyConnector</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">CookieKonnector</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="nx">fields</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">     </span><span class="c1">// the code of your connector</span>
-<span class="w">     </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="s1">&#39;https://...&#39;</span><span class="p">)</span>
+<span class="w">     </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="s1">'https://...'</span><span class="p">)</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">testSession</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">     </span><span class="kd">const</span><span class="w"> </span><span class="nx">$</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="s1">&#39;https://...&#39;</span><span class="p">)</span>
-<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="w">     </span><span class="kd">const</span><span class="w"> </span><span class="nx">$</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="s1">'https://...'</span><span class="p">)</span>
+<span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="nx">$</span><span class="p">(</span><span class="s1">''</span><span class="p">)</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">connector</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">MyKonnector</span><span class="p">({</span>
@@ -12154,28 +12154,28 @@ instead of imperatively building them.</p>
 <ul>
 <li>For one object :</li>
 </ul>
-<div class="highlight"><pre><span></span><code>const item = scrape($(&#39;#item&#39;), {
-  title: &#39;.title&#39;,
-  content: &#39;.content&#39;
+<div class="highlight"><pre><span></span><code>const item = scrape($('#item'), {
+  title: '.title',
+  content: '.content'
 })
 </code></pre></div>
 <ul>
 <li>For a list of objects :</li>
 </ul>
-<div class="highlight"><pre><span></span><code>const items = scrape($(&#39;#content&#39;), {
-  title: &#39;.title&#39;,
-  content: &#39;.content&#39;
-}, &#39;.item&#39;)
+<div class="highlight"><pre><span></span><code>const items = scrape($('#content'), {
+  title: '.title',
+  content: '.content'
+}, '.item')
 </code></pre></div>
 <p>For more power, you can use <code>object</code>s for each retriever :</p>
-<div class="highlight"><pre><span></span><code>const items = scrape($(&#39;#content&#39;), {
-  title: &#39;.title&#39;,
-  content: &#39;.content&#39;,
+<div class="highlight"><pre><span></span><code>const items = scrape($('#content'), {
+  title: '.title',
+  content: '.content',
   link: {
-    sel: &#39;a&#39;,
-    attr: &#39;href&#39;
+    sel: 'a',
+    attr: 'href'
   },
-}, &#39;.item&#39;)
+}, '.item')
 </code></pre></div>
 <p>Here the <code>href</code> attribute of the <code>a</code> inside <code>.item</code>s would have been
 put into the <code>link</code> attribute of the items returned by <code>scrape</code>.</p>

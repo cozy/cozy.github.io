@@ -8071,23 +8071,23 @@ a version number). It can be overriden in the request description.</p>
 Content-Type: {{contentType}}
 
 {
-  &quot;key&quot;: &quot;{{json value}}&quot;,
-  &quot;url&quot;: &quot;http://anotherurl.com/{{path anotherPath}}?q={{query anotherQuery}}&quot;,
+  "key": "{{json value}}",
+  "url": "http://anotherurl.com/{{path anotherPath}}?q={{query anotherQuery}}",
 }
 </code></pre></div>
 <h2 id="declaring-permissions">Declaring permissions<a class="headerlink" href="#declaring-permissions" title="Permanent link">&para;</a></h2>
 <p>Nothing special here. The client side app must declare that it will use these
 doctypes in its manifest, like for other doctypes:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;...&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;permissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;search&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Required for searching on wikidata&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;org.wikidata.search&quot;</span>
+<span class="w">    </span><span class="nt">"..."</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"search"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Required for searching on wikidata"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"org.wikidata.search"</span>
 <span class="w">        </span><span class="p">},</span>
-<span class="w">        </span><span class="nt">&quot;entity&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Required for getting more informations about an entity on wikidata&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;org.wikidata.entity&quot;</span>
+<span class="w">        </span><span class="nt">"entity"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Required for getting more informations about an entity on wikidata"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"org.wikidata.entity"</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
@@ -8110,8 +8110,8 @@ remote website.</p>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;query&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Qbhtynf Nqnzf&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;comment&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;query is rot13 for Douglas Adams&quot;</span>
+<span class="w">    </span><span class="nt">"query"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Qbhtynf Nqnzf"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"query is rot13 for Douglas Adams"</span>
 <span class="p">}</span>
 </code></pre></div>
 <p><strong>Note</strong>: currently, only the response with a content-type that is an image,
@@ -8127,7 +8127,7 @@ something we want to allow).</p>
 <div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="s2">&quot;cc.cozycloud.dacc&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;cc.cozycloud.errors&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;org.wikidata.entity&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;org.wikidata.search&quot;</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="s2">"cc.cozycloud.dacc"</span><span class="p">,</span><span class="w"> </span><span class="s2">"cc.cozycloud.errors"</span><span class="p">,</span><span class="w"> </span><span class="s2">"org.wikidata.entity"</span><span class="p">,</span><span class="w"> </span><span class="s2">"org.wikidata.search"</span><span class="p">]</span>
 </code></pre></div>
 <h3 id="get-remoteassetsasset-name">GET <code>/remote/assets/:asset-name</code><a class="headerlink" href="#get-remoteassetsasset-name" title="Permanent link">&para;</a></h3>
 <p>The client application can fetch a list of predefined assets via this route. The
@@ -8149,8 +8149,8 @@ the request, then:</p>
 have the remote doctype as an id, and the secret in another field, 
 like this:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cc.cozycloud.foobar&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1c7f3ba03bd801391a91543d7eb8149c&quot;</span>
+<span class="w">  </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cc.cozycloud.foobar"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1c7f3ba03bd801391a91543d7eb8149c"</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>2- Use this secret in the remote doctype declaration:</p>

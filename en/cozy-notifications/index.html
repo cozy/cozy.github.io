@@ -8053,8 +8053,8 @@ application or konnector.</p>
 <p>You will most likely also need a custom webpack config if building for node (for example
 in konnectors, since mjml and its dependents are not built for node-js).</p>
 <p><code>webpack.config.js</code></p>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">webpackMerge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;webpack-merge&#39;</span><span class="p">)</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">cozyNotificationsWebpackConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-notifications/dist/webpack/config&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">webpackMerge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">'webpack-merge'</span><span class="p">)</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">cozyNotificationsWebpackConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">'cozy-notifications/dist/webpack/config'</span><span class="p">)</span>
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">webpackMerge</span><span class="p">({</span>
 <span class="w">  </span><span class="c1">// initialConfig</span>
@@ -8081,24 +8081,24 @@ in konnectors, since mjml and its dependents are not built for node-js).</p>
 <span class="w">  </span><span class="p">}</span>
 
 <span class="w">  </span><span class="nx">getPushContent</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s1">&#39;push content&#39;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s1">'push content'</span>
 <span class="w">  </span><span class="p">}</span>
 
 <span class="w">  </span><span class="nx">getTitle</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s1">&#39;title&#39;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="s1">'title'</span>
 <span class="w">  </span><span class="p">}</span>
 
 <span class="w">  </span><span class="nx">getExtraAttributes</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="c1">// data that will be sent in the notification payload for mobiles</span>
-<span class="w">        </span><span class="nx">redirectLink</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;settings/#/subscription&quot;</span>
+<span class="w">        </span><span class="nx">redirectLink</span><span class="o">:</span><span class="w"> </span><span class="s2">"settings/#/subscription"</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 
-<span class="nx">MyNotification</span><span class="p">.</span><span class="nx">template</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./template.hbs&#39;</span><span class="p">)</span>
+<span class="nx">MyNotification</span><span class="p">.</span><span class="nx">template</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">'./template.hbs'</span><span class="p">)</span>
 </code></pre></div>
 <h3 id="getextraattributes">getExtraAttributes<a class="headerlink" href="#getextraattributes" title="Permanent link">&para;</a></h3>
 <p>In <code>getExtraAttributes</code>, you can pass data that will be sent in the notification payload for mobiles.</p>
@@ -8106,7 +8106,7 @@ in konnectors, since mjml and its dependents are not built for node-js).</p>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="c1">// Standardized. When opening the notification, it will open settings app on subscription page.</span>
-<span class="w">      </span><span class="nx">redirectLink</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;settings/#/subscription&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">redirectLink</span><span class="o">:</span><span class="w"> </span><span class="s2">"settings/#/subscription"</span><span class="p">,</span>
 <span class="w">      </span><span class="c1">// Standardized. When opening the notification, it will refresh the app.</span>
 <span class="w">      </span><span class="nx">refresh</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 <span class="w">      </span><span class="c1">// You can also pass whatever you want.</span>
@@ -8119,17 +8119,17 @@ in konnectors, since mjml and its dependents are not built for node-js).</p>
 <div class="highlight"><pre><span></span><code><span class="nx">getExtraAttributes</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// State to send the notification only 1 time per day.</span>
-<span class="w">    </span><span class="nx">state</span><span class="o">:</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">().</span><span class="nx">toLocaleDateString</span><span class="p">(</span><span class="s1">&#39;fr-FR&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nx">day</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;2-digit&#39;</span><span class="p">,</span>
-<span class="w">      </span><span class="nx">month</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;2-digit&#39;</span><span class="p">,</span>
-<span class="w">      </span><span class="nx">year</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;numeric&#39;</span>
+<span class="w">    </span><span class="nx">state</span><span class="o">:</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">().</span><span class="nx">toLocaleDateString</span><span class="p">(</span><span class="s1">'fr-FR'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">day</span><span class="o">:</span><span class="w"> </span><span class="s1">'2-digit'</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">month</span><span class="o">:</span><span class="w"> </span><span class="s1">'2-digit'</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">year</span><span class="o">:</span><span class="w"> </span><span class="s1">'numeric'</span>
 <span class="w">    </span><span class="p">})</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="preferredchannels">preferredChannels<a class="headerlink" href="#preferredchannels" title="Permanent link">&para;</a></h3>
 <p>We can define one which channels the user will receive the notification.</p>
-<div class="highlight"><pre><span></span><code><span class="nx">MyNotification</span><span class="p">.</span><span class="nx">preferredChannels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;mobile&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mail&#39;</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code><span class="nx">MyNotification</span><span class="p">.</span><span class="nx">preferredChannels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s1">'mobile'</span><span class="p">,</span><span class="w"> </span><span class="s1">'mail'</span><span class="p">]</span>
 </code></pre></div>
 <p>In this example, we first try to send the notification to a mobile, and if it fails to the email address of the user. Some things to know :</p>
 <ul>
@@ -8166,7 +8166,7 @@ They are written in <code>mjml</code>, making it possible to write good looking 
 particular application, it is advised to create a template extending <code>cozy-layout</code>
 in your application and then refer to it in each of your email templates.</p>
 <p>To provide the content for a particular part, use the following syntax:</p>
-<div class="highlight"><pre><span></span><code><span class="cp">{{</span><span class="m m-Attribute">#content</span> <span class="s2">&quot;part&quot;</span><span class="cp">}}</span>
+<div class="highlight"><pre><span></span><code><span class="cp">{{</span><span class="m m-Attribute">#content</span> <span class="s2">"part"</span><span class="cp">}}</span>
 <span class="x">  Content of the part</span>
 <span class="cp">{{</span><span class="m m-Attribute">/content</span><span class="cp">}}</span>
 </code></pre></div>
@@ -8175,23 +8175,23 @@ in your application and then refer to it in each of your email templates.</p>
 files for syntax coloring to work correctly. You must configure your
 bundler and/or test runner to require those files correctly.</p>
 <p><code>app-layout.hbs</code></p>
-<div class="highlight"><pre><span></span><code><span class="cp">{{</span><span class="m m-Attribute">#extend</span> <span class="s2">&quot;cozy-layout&quot;</span><span class="cp">}}</span>
-<span class="x">  </span><span class="cp">{{</span><span class="m m-Attribute">#content</span> <span class="s2">&quot;logoUrl&quot;</span><span class="cp">}}</span><span class="x">https://example.com/logo-url</span><span class="cp">{{</span><span class="m m-Attribute">/content</span><span class="cp">}}</span>
+<div class="highlight"><pre><span></span><code><span class="cp">{{</span><span class="m m-Attribute">#extend</span> <span class="s2">"cozy-layout"</span><span class="cp">}}</span>
+<span class="x">  </span><span class="cp">{{</span><span class="m m-Attribute">#content</span> <span class="s2">"logoUrl"</span><span class="cp">}}</span><span class="x">https://example.com/logo-url</span><span class="cp">{{</span><span class="m m-Attribute">/content</span><span class="cp">}}</span>
 
-<span class="x">  </span><span class="cp">{{</span><span class="m m-Attribute">#content</span> <span class="s2">&quot;appName&quot;</span><span class="cp">}}</span>
+<span class="x">  </span><span class="cp">{{</span><span class="m m-Attribute">#content</span> <span class="s2">"appName"</span><span class="cp">}}</span>
 <span class="x">    My App</span>
 <span class="x">  </span><span class="cp">{{</span><span class="m m-Attribute">/content</span><span class="cp">}}</span>
 
-<span class="x">  </span><span class="cp">{{</span><span class="m m-Attribute">#content</span> <span class="s2">&quot;topLogo&quot;</span><span class="cp">}}</span><span class="x">&lt;mj-image width=&quot;129px&quot; src=&quot;https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/logo-cozy.png&quot; /&gt;</span><span class="cp">{{</span><span class="m m-Attribute">/content</span><span class="cp">}}</span>
+<span class="x">  </span><span class="cp">{{</span><span class="m m-Attribute">#content</span> <span class="s2">"topLogo"</span><span class="cp">}}</span><span class="x">&lt;mj-image width="129px" src="https://downcloud.cozycloud.cc/upload/cozy-banks/email-assets/logo-cozy.png" /&gt;</span><span class="cp">{{</span><span class="m m-Attribute">/content</span><span class="cp">}}</span>
 
-<span class="x">  </span><span class="cp">{{</span><span class="m m-Attribute">#content</span> <span class="s2">&quot;appURL&quot;</span><span class="cp">}}</span><span class="x">https://my-app.com</span><span class="cp">{{</span><span class="m m-Attribute">/content</span><span class="cp">}}</span>
+<span class="x">  </span><span class="cp">{{</span><span class="m m-Attribute">#content</span> <span class="s2">"appURL"</span><span class="cp">}}</span><span class="x">https://my-app.com</span><span class="cp">{{</span><span class="m m-Attribute">/content</span><span class="cp">}}</span>
 
-<span class="x">  </span><span class="cp">{{</span><span class="m m-Attribute">#content</span> <span class="s2">&quot;footerHelp&quot;</span><span class="cp">}}</span>
-<span class="x">    &lt;a css-class=&quot;footer__help&quot; href=&quot;</span><span class="cp">{{</span> <span class="nv">settingsUrl</span> <span class="cp">}}</span><span class="x">&quot;&gt;</span>
-<span class="x">      </span><span class="cp">{{</span><span class="nv">tGlobal</span> <span class="nv">@root.lang</span> <span class="s1">&#39;settings&#39;</span><span class="cp">}}</span>
+<span class="x">  </span><span class="cp">{{</span><span class="m m-Attribute">#content</span> <span class="s2">"footerHelp"</span><span class="cp">}}</span>
+<span class="x">    &lt;a css-class="footer__help" href="</span><span class="cp">{{</span> <span class="nv">settingsUrl</span> <span class="cp">}}</span><span class="x">"&gt;</span>
+<span class="x">      </span><span class="cp">{{</span><span class="nv">tGlobal</span> <span class="nv">@root.lang</span> <span class="s1">'settings'</span><span class="cp">}}</span>
 <span class="x">    &lt;/a&gt;</span>
-<span class="x">    &lt;a css-class=&quot;footer__help&quot; href=&quot;https://support.cozy.io/&quot;&gt;</span>
-<span class="x">      </span><span class="cp">{{</span><span class="nv">tGlobal</span> <span class="nv">@root.lang</span> <span class="s1">&#39;support&#39;</span><span class="cp">}}</span>
+<span class="x">    &lt;a css-class="footer__help" href="https://support.cozy.io/"&gt;</span>
+<span class="x">      </span><span class="cp">{{</span><span class="nv">tGlobal</span> <span class="nv">@root.lang</span> <span class="s1">'support'</span><span class="cp">}}</span>
 <span class="x">    &lt;/a&gt;</span>
 <span class="x">  </span><span class="cp">{{</span><span class="m m-Attribute">/content</span><span class="cp">}}</span>
 <span class="cp">{{</span><span class="m m-Attribute">/extend</span><span class="cp">}}</span>
@@ -8199,16 +8199,16 @@ bundler and/or test runner to require those files correctly.</p>
 <p>Now that we have provided generic parts, we can code a particular template.</p>
 <p>A sample template for a particular notification:</p>
 <p><code>my-notification.hbs</code></p>
-<div class="highlight"><pre><span></span><code><span class="cp">{{</span><span class="m m-Attribute">#extend</span> <span class="s2">&quot;app-layout&quot;</span><span class="cp">}}</span>
-<span class="x">  </span><span class="cp">{{</span><span class="m m-Attribute">#content</span> <span class="s2">&quot;emailTitle&quot;</span><span class="cp">}}</span>
+<div class="highlight"><pre><span></span><code><span class="cp">{{</span><span class="m m-Attribute">#extend</span> <span class="s2">"app-layout"</span><span class="cp">}}</span>
+<span class="x">  </span><span class="cp">{{</span><span class="m m-Attribute">#content</span> <span class="s2">"emailTitle"</span><span class="cp">}}</span>
 <span class="x">    A notification from My App !</span>
 <span class="x">  </span><span class="cp">{{</span><span class="m m-Attribute">/content</span><span class="cp">}}</span>
 
-<span class="x">  </span><span class="cp">{{</span><span class="m m-Attribute">#content</span> <span class="s2">&quot;emailSubtitle&quot;</span><span class="cp">}}</span>
+<span class="x">  </span><span class="cp">{{</span><span class="m m-Attribute">#content</span> <span class="s2">"emailSubtitle"</span><span class="cp">}}</span>
 <span class="x">    You should read this :)</span>
 <span class="x">  </span><span class="cp">{{</span><span class="m m-Attribute">/content</span><span class="cp">}}</span>
 
-<span class="x">  </span><span class="cp">{{</span><span class="m m-Attribute">#content</span> <span class="s2">&quot;content&quot;</span><span class="cp">}}</span>
+<span class="x">  </span><span class="cp">{{</span><span class="m m-Attribute">#content</span> <span class="s2">"content"</span><span class="cp">}}</span>
 <span class="x">    &lt;mj-section&gt;</span>
 <span class="x">    </span><span class="cp">{{</span> <span class="nv">greeting</span> <span class="nv">name</span> <span class="cp">}}</span><span class="x">,</span>
 
@@ -8219,13 +8219,13 @@ bundler and/or test runner to require those files correctly.</p>
 <span class="cp">{{</span><span class="m m-Attribute">/extend</span><span class="cp">}}</span>
 </code></pre></div>
 <p>We can now use our template for a notification view.</p>
-<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">template</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./my-notification.hbs&#39;</span>
-<span class="k">import</span><span class="w"> </span><span class="nx">appTemplate</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;./app-layout.hbs&#39;</span>
-<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">NotificationView</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;cozy-notifications&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">template</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./my-notification.hbs'</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">appTemplate</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./app-layout.hbs'</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">NotificationView</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'cozy-notifications'</span>
 
 <span class="kd">class</span><span class="w"> </span><span class="nx">MyNotificationView</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">NotificationView</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nx">getPartials</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s1">&#39;app-layout&#39;</span><span class="o">:</span><span class="w"> </span><span class="nx">appTemplate</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s1">'app-layout'</span><span class="o">:</span><span class="w"> </span><span class="nx">appTemplate</span><span class="w"> </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 <span class="nx">MyNotificationView</span><span class="p">.</span><span class="nx">template</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">template</span>
@@ -8236,10 +8236,10 @@ email will not be sent directly to the stack, but only rendered parts will be
 sent; in other words, only <code>appURL</code>, <code>topLogo</code>, <code>content</code> etc&hellip; will be sent,
 instead of the whole content). This is why <code>cozy-notifications</code> needs to know
 our <em>uncompiled</em> partials. We can destructure <code>parts</code> to access rendered parts.</p>
-<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">renderer</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;cozy-notifications&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">renderer</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'cozy-notifications'</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">render</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">renderer</span><span class="p">({</span><span class="w"> </span><span class="nx">partials</span><span class="p">,</span><span class="w"> </span><span class="nx">helpers</span><span class="w"> </span><span class="p">})</span>
 <span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">parts</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">render</span><span class="p">({</span><span class="w"> </span><span class="nx">template</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="p">})</span>
-<span class="c1">// { &quot;emailTitle&quot;: &quot;A notification from My App !&quot;, ... }</span>
+<span class="c1">// { "emailTitle": "A notification from My App !", ... }</span>
 </code></pre></div>
 <h2 id="built-in-helpers">Built-in helpers<a class="headerlink" href="#built-in-helpers" title="Permanent link">&para;</a></h2>
 <ul>
@@ -8248,7 +8248,7 @@ our <em>uncompiled</em> partials. We can destructure <code>parts</code> to acces
 </ul>
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">locales</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nx">de</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">hello</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Guten Tag %{name} !&quot;</span>
+<span class="w">    </span><span class="nx">hello</span><span class="o">:</span><span class="w"> </span><span class="s2">"Guten Tag %{name} !"</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 
@@ -8257,22 +8257,22 @@ our <em>uncompiled</em> partials. We can destructure <code>parts</code> to acces
 <span class="w">  </span><span class="nx">locales</span>
 <span class="p">})</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="cp">{{</span> <span class="nv">t</span> <span class="s2">&quot;hello&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s1">&#39;Homer&#39;</span> <span class="cp">}}</span>
+<div class="highlight"><pre><span></span><code><span class="cp">{{</span> <span class="nv">t</span> <span class="s2">"hello"</span> <span class="na">name</span><span class="o">=</span><span class="s1">'Homer'</span> <span class="cp">}}</span>
 </code></pre></div>
 <ul>
 <li><code>webLink</code> is able to build links that go the web version of an app</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="cp">{{</span> <span class="nv">webLink</span> <span class="na">slug</span><span class="o">=</span><span class="s2">&quot;home&quot;</span> <span class="cp">}}</span>
+<div class="highlight"><pre><span></span><code><span class="cp">{{</span> <span class="nv">webLink</span> <span class="na">slug</span><span class="o">=</span><span class="s2">"home"</span> <span class="cp">}}</span>
 </code></pre></div>
 <ul>
 <li><code>universalLink</code> is able to build links that use automatically the web or mobile version the app</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="cp">{{</span> <span class="nv">universalLink</span> <span class="na">slug</span><span class="o">=</span><span class="s2">&quot;banks&quot;</span> <span class="cp">}}</span>
+<div class="highlight"><pre><span></span><code><span class="cp">{{</span> <span class="nv">universalLink</span> <span class="na">slug</span><span class="o">=</span><span class="s2">"banks"</span> <span class="cp">}}</span>
 </code></pre></div>
 <ul>
 <li><code>palette</code> lets you pick a color by giving its &ndash;varName.</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="x">&lt;mj-button background-color=&quot;</span><span class="cp">{{</span> <span class="nv">palette</span> <span class="s1">&#39;--primaryColor&#39;</span> <span class="cp">}}</span><span class="x">&quot; color=&quot;</span><span class="cp">{{</span> <span class="nv">palette</span> <span class="s1">&#39;--primaryContrastTextColor&#39;</span> <span class="cp">}}</span><span class="x">&quot;&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="x">&lt;mj-button background-color="</span><span class="cp">{{</span> <span class="nv">palette</span> <span class="s1">'--primaryColor'</span> <span class="cp">}}</span><span class="x">" color="</span><span class="cp">{{</span> <span class="nv">palette</span> <span class="s1">'--primaryContrastTextColor'</span> <span class="cp">}}</span><span class="x">"&gt;</span>
 <span class="x">  A primary button</span>
 <span class="x"> &lt;/mj-button&gt;</span>
 </code></pre></div>

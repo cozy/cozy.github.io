@@ -7844,7 +7844,7 @@
 <p>Because the measurement framework may differ based on the platform (i.e. web, mobile, nodejs), the PerformanceAPI has to be injected through CozyClient and CozyLinks constructor before being used.</p>
 <p>Because CozyClient&rsquo;s main usage is in web apps, a <code>webPerformanceAPI</code> implementation is already provided by CozyClient. On other platforms, the implementation should be provided by the consuming app.</p>
 <p>Example of CozyClient initialization with web compatible version of the PerformanceAPI
-<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">CozyClient</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">webPerformanceAPI</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;cozy-client&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">CozyClient</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">webPerformanceAPI</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'cozy-client'</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">CozyClient</span><span class="p">({</span>
 <span class="w">  </span><span class="nx">uri</span><span class="p">,</span>
@@ -7869,7 +7869,7 @@
 <div class="highlight"><pre><span></span><code><span class="k">async</span><span class="w"> </span><span class="nx">query</span><span class="p">(</span><span class="nx">queryDefinition</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">update</span><span class="p">,</span><span class="w"> </span><span class="nx">executeFromStore</span><span class="p">,</span><span class="w"> </span><span class="p">...</span><span class="nx">options</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{})</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">markName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">mark</span><span class="p">(</span><span class="sb">`Some mark name`</span><span class="p">)</span>
 
-<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">markName</span><span class="p">)</span><span class="w"> </span><span class="c1">// &quot;42 Some mark name&quot;</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">markName</span><span class="p">)</span><span class="w"> </span><span class="c1">// "42 Some mark name"</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="measure-method">Measure method<a class="headerlink" href="#measure-method" title="Permanent link">&para;</a></h3>
@@ -7901,14 +7901,14 @@
 <span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">performanceApi</span><span class="p">.</span><span class="nx">measure</span><span class="p">({</span>
 <span class="w">      </span><span class="nx">markName</span><span class="o">:</span><span class="w"> </span><span class="nx">markQuery</span><span class="p">,</span>
 <span class="w">      </span><span class="nx">measureName</span><span class="o">:</span><span class="w"> </span><span class="sb">`</span><span class="si">${</span><span class="nx">markName</span><span class="si">}</span><span class="sb"> success`</span><span class="p">,</span>
-<span class="w">      </span><span class="nx">category</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;CozyClient queries&#39;</span>
+<span class="w">      </span><span class="nx">category</span><span class="o">:</span><span class="w"> </span><span class="s1">'CozyClient queries'</span>
 <span class="w">    </span><span class="p">})</span>
 <span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">performanceApi</span><span class="p">.</span><span class="nx">measure</span><span class="p">({</span>
 <span class="w">      </span><span class="nx">markName</span><span class="o">:</span><span class="w"> </span><span class="nx">markQuery</span><span class="p">,</span>
 <span class="w">      </span><span class="nx">measureName</span><span class="o">:</span><span class="w"> </span><span class="sb">`</span><span class="si">${</span><span class="nx">markName</span><span class="si">}</span><span class="sb"> error`</span><span class="p">,</span>
-<span class="w">      </span><span class="nx">category</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;CozyClient queries&#39;</span><span class="p">,</span>
-<span class="w">      </span><span class="nx">color</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;error&#39;</span>
+<span class="w">      </span><span class="nx">category</span><span class="o">:</span><span class="w"> </span><span class="s1">'CozyClient queries'</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">color</span><span class="o">:</span><span class="w"> </span><span class="s1">'error'</span>
 <span class="w">    </span><span class="p">})</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
@@ -7921,7 +7921,7 @@
 <h2 id="web-usage">Web usage<a class="headerlink" href="#web-usage" title="Permanent link">&para;</a></h2>
 <p>On web environment, it is possible to inject the already provided <code>webPerformanceAPI</code> implementation of the API.</p>
 <p>Example of CozyClient initialization with web compatible version of the PerformanceAPI
-<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">CozyClient</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">webPerformanceAPI</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;cozy-client&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">CozyClient</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">webPerformanceAPI</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'cozy-client'</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">CozyClient</span><span class="p">({</span>
 <span class="w">  </span><span class="nx">uri</span><span class="p">,</span>

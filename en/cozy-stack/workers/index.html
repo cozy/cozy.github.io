@@ -8840,25 +8840,25 @@ from external providers, and put them in the Cozy. Its execution is detailed on
 <a href="https://docs.cozy.io/en/cozy-stack/konnectors-workflow/#konnector-worker-specs">the Konnector Worker specs</a>.</p>
 <h3 id="job-arguments">Job arguments<a class="headerlink" href="#job-arguments" title="Permanent link">&para;</a></h3>
 <p>To execute a konnector through a job, the expected <code>arguments</code> are the following:
-<div class="highlight"><pre><span></span><code>&quot;arguments&quot;: {
-    &quot;konnector&quot;: &lt;konnector_slug&gt;,
-    &quot;account&quot;: &lt;account_id&gt;
+<div class="highlight"><pre><span></span><code>"arguments": {
+    "konnector": &lt;konnector_slug&gt;,
+    "account": &lt;account_id&gt;
 }
 </code></pre></div></p>
 <h2 id="service-worker">service worker<a class="headerlink" href="#service-worker" title="Permanent link">&para;</a></h2>
 <p>The <code>service</code> worker is used to process background jobs, generally to compute
 non-realtime user data.</p>
-<div class="highlight"><pre><span></span><code>&quot;arguments&quot;: {
-    &quot;slug&quot;: &lt;app slug&gt;,
-    &quot;name&quot;: &lt;service name&gt;,
-    &quot;fields&quot;: &lt;custom fields&gt;
+<div class="highlight"><pre><span></span><code>"arguments": {
+    "slug": &lt;app slug&gt;,
+    "name": &lt;service name&gt;,
+    "fields": &lt;custom fields&gt;
 }
 </code></pre></div>
 <h3 id="job-arguments_1">Job arguments<a class="headerlink" href="#job-arguments_1" title="Permanent link">&para;</a></h3>
 <p>To execute a service through a job, the expected <code>arguments</code> are the following:
-<div class="highlight"><pre><span></span><code>&quot;arguments&quot;: {
-    &quot;name&quot;: &lt;service_name&gt;,
-    &quot;slug&quot;: &lt;application_slug&gt;
+<div class="highlight"><pre><span></span><code>"arguments": {
+    "name": &lt;service_name&gt;,
+    "slug": &lt;application_slug&gt;
 }
 </code></pre></div></p>
 <h2 id="push-worker">push worker<a class="headerlink" href="#push-worker" title="Permanent link">&para;</a></h2>
@@ -8875,10 +8875,10 @@ options are:</p>
 </ul>
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;client_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcdef123123123&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;My Notification&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;My notification content.&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;priority&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;high&quot;</span>
+<span class="w">    </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abcdef123123123"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My Notification"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My notification content."</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"priority"</span><span class="p">:</span><span class="w"> </span><span class="s2">"high"</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="permissions">Permissions<a class="headerlink" href="#permissions" title="Permanent link">&para;</a></h3>
@@ -8902,21 +8902,21 @@ inside it to a directory of the VFS. The options are:</p>
 </ul>
 <h3 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;zip&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8737b5d6-51b6-11e7-9194-bf5b64b3bc9e&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;destination&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;88750a84-51b6-11e7-ba90-4f0b1cb62b7b&quot;</span>
+<span class="w">    </span><span class="nt">"zip"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8737b5d6-51b6-11e7-9194-bf5b64b3bc9e"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"destination"</span><span class="p">:</span><span class="w"> </span><span class="s2">"88750a84-51b6-11e7-ba90-4f0b1cb62b7b"</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="permissions_1">Permissions<a class="headerlink" href="#permissions_1" title="Permanent link">&para;</a></h3>
 <p>To use this worker from a client-side application, you will need to ask the
 permission. It is done by adding this to the manifest:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;permissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;unzip-to-a-directory&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Required to unzip a file inside the cozy&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;verbs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">],</span>
-<span class="w">            </span><span class="nt">&quot;selector&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;worker&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;values&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;unzip&quot;</span><span class="p">]</span>
+<span class="w">    </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"unzip-to-a-directory"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Required to unzip a file inside the cozy"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.jobs"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"verbs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"POST"</span><span class="p">],</span>
+<span class="w">            </span><span class="nt">"selector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"worker"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"values"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"unzip"</span><span class="p">]</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
@@ -8934,30 +8934,30 @@ creates a zip archive from files in the VFS. The options are:</p>
 object with <code>id</code> and <code>page</code> instead of just the file identifier.</p>
 <h3 id="example_2">Example<a class="headerlink" href="#example_2" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;files&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;selection/one.pdf&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;36abc4c0-90fe-11e9-b05b-1fa43ca781ef&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;selection/two.pdf&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;36eb54c8-90fe-11e9-aeca-03ddc3acf91c&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;selection/three.pdf&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;37284586-90fe-11e9-be6d-179f72076e43&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;selection/four.pdf&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;37655462-90fe-11e9-9059-8739e3746720&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;selection/five.pdf&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;379fedfc-90fe-11e9-849f-0bbe172eba5f&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;selection/front.pdf&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;49ca9e50-1074-013d-361a-18c04daba326&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;page&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">},</span>
-<span class="w">        </span><span class="nt">&quot;selection/back.pdf&quot;</span><span class="p">:</span><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;49ca9e50-1074-013d-361a-18c04daba326&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;page&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="nt">"files"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"selection/one.pdf"</span><span class="p">:</span><span class="w"> </span><span class="s2">"36abc4c0-90fe-11e9-b05b-1fa43ca781ef"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"selection/two.pdf"</span><span class="p">:</span><span class="w"> </span><span class="s2">"36eb54c8-90fe-11e9-aeca-03ddc3acf91c"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"selection/three.pdf"</span><span class="p">:</span><span class="w"> </span><span class="s2">"37284586-90fe-11e9-be6d-179f72076e43"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"selection/four.pdf"</span><span class="p">:</span><span class="w"> </span><span class="s2">"37655462-90fe-11e9-9059-8739e3746720"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"selection/five.pdf"</span><span class="p">:</span><span class="w"> </span><span class="s2">"379fedfc-90fe-11e9-849f-0bbe172eba5f"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"selection/front.pdf"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"49ca9e50-1074-013d-361a-18c04daba326"</span><span class="p">,</span><span class="w"> </span><span class="nt">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">"selection/back.pdf"</span><span class="p">:</span><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"49ca9e50-1074-013d-361a-18c04daba326"</span><span class="p">,</span><span class="w"> </span><span class="nt">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">}</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;dir_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3657ce9c-90fe-11e9-b40b-33baf841bcb8&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;filename&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;selection.zip&quot;</span>
+<span class="w">    </span><span class="nt">"dir_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3657ce9c-90fe-11e9-b40b-33baf841bcb8"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"filename"</span><span class="p">:</span><span class="w"> </span><span class="s2">"selection.zip"</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="permissions_2">Permissions<a class="headerlink" href="#permissions_2" title="Permanent link">&para;</a></h3>
 <p>To use this worker from a client-side application, you will need to ask the
 permission. It is done by adding this to the manifest:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;permissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;create-a-zip-archive&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Required to create a zip archive inside the cozy&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;verbs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">],</span>
-<span class="w">            </span><span class="nt">&quot;selector&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;worker&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;values&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;zip&quot;</span><span class="p">]</span>
+<span class="w">    </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"create-a-zip-archive"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Required to create a zip archive inside the cozy"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.jobs"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"verbs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"POST"</span><span class="p">],</span>
+<span class="w">            </span><span class="nt">"selector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"worker"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"values"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"zip"</span><span class="p">]</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
@@ -8999,25 +8999,25 @@ file at the root of this repository.</p>
 <h3 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1">// from mode sending mail from the user to a list of recipients</span>
 <span class="p">{</span>
-<span class="w">    </span><span class="s2">&quot;mode&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;from&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;to&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">        </span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;John Doe 1&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;email&quot;</span><span class="o">:</span><span class="s2">&quot;john1@doe&quot;</span><span class="p">},</span>
-<span class="w">        </span><span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;John Doe 2&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;email&quot;</span><span class="o">:</span><span class="s2">&quot;john2@doe&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="s2">"mode"</span><span class="o">:</span><span class="w"> </span><span class="s2">"from"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"to"</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span><span class="s2">"name"</span><span class="o">:</span><span class="w"> </span><span class="s2">"John Doe 1"</span><span class="p">,</span><span class="w"> </span><span class="s2">"email"</span><span class="o">:</span><span class="s2">"john1@doe"</span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="s2">"name"</span><span class="o">:</span><span class="w"> </span><span class="s2">"John Doe 2"</span><span class="p">,</span><span class="w"> </span><span class="s2">"email"</span><span class="o">:</span><span class="s2">"john2@doe"</span><span class="p">}</span>
 <span class="w">    </span><span class="p">],</span>
-<span class="w">    </span><span class="s2">&quot;subject&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Hey !&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;parts&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">        </span><span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="s2">&quot;text/html&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;body&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&lt;h1&gt;Hey !&lt;/h1&gt;&quot;</span><span class="p">},</span>
-<span class="w">        </span><span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="s2">&quot;text/plain&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;body&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Hey !&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="s2">"subject"</span><span class="o">:</span><span class="w"> </span><span class="s2">"Hey !"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"parts"</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span><span class="s2">"type"</span><span class="o">:</span><span class="s2">"text/html"</span><span class="p">,</span><span class="w"> </span><span class="s2">"body"</span><span class="o">:</span><span class="w"> </span><span class="s2">"&lt;h1&gt;Hey !&lt;/h1&gt;"</span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="s2">"type"</span><span class="o">:</span><span class="s2">"text/plain"</span><span class="p">,</span><span class="w"> </span><span class="s2">"body"</span><span class="o">:</span><span class="w"> </span><span class="s2">"Hey !"</span><span class="p">}</span>
 <span class="w">    </span><span class="p">]</span>
 <span class="p">}</span>
 
 <span class="c1">// noreply mode, sending a notification mail to the user</span>
 <span class="p">{</span>
-<span class="w">    </span><span class="s2">&quot;mode&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;noreply&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;subject&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;You&#39;ve got a new file !&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;parts&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">        </span><span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="s2">&quot;text/html&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;body&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&lt;h1&gt;Hey !&lt;/h1&gt;&quot;</span><span class="p">},</span>
-<span class="w">        </span><span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="o">:</span><span class="s2">&quot;text/plain&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;body&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Hey !&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="s2">"mode"</span><span class="o">:</span><span class="w"> </span><span class="s2">"noreply"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"subject"</span><span class="o">:</span><span class="w"> </span><span class="s2">"You've got a new file !"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"parts"</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span><span class="s2">"type"</span><span class="o">:</span><span class="s2">"text/html"</span><span class="p">,</span><span class="w"> </span><span class="s2">"body"</span><span class="o">:</span><span class="w"> </span><span class="s2">"&lt;h1&gt;Hey !&lt;/h1&gt;"</span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span><span class="s2">"type"</span><span class="o">:</span><span class="s2">"text/plain"</span><span class="p">,</span><span class="w"> </span><span class="s2">"body"</span><span class="o">:</span><span class="w"> </span><span class="s2">"Hey !"</span><span class="p">}</span>
 <span class="w">    </span><span class="p">]</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -9025,13 +9025,13 @@ file at the root of this repository.</p>
 <p>To use this worker from a client-side application, you will need to ask the
 permission. It is done by adding this to the manifest:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;permissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;mail-from-the-user&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Required to send mails from the user to his/her friends&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;verbs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">],</span>
-<span class="w">            </span><span class="nt">&quot;selector&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;worker&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;values&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;sendmail&quot;</span><span class="p">]</span>
+<span class="w">    </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"mail-from-the-user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Required to send mails from the user to his/her friends"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.jobs"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"verbs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"POST"</span><span class="p">],</span>
+<span class="w">            </span><span class="nt">"selector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"worker"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"values"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"sendmail"</span><span class="p">]</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
@@ -9051,9 +9051,9 @@ doctype <code>io.cozy.exports</code>.</p>
 </ul>
 <h3 id="example_3">Example<a class="headerlink" href="#example_3" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;parts_size&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">52428800</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;max_age&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">60000000000</span><span class="p">,</span><span class="w"> </span><span class="c1">// 1 minute</span>
-<span class="w">    </span><span class="nt">&quot;with_doctypes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;io.cozy.accounts&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;io.cozy.files&quot;</span><span class="p">]</span><span class="w"> </span><span class="c1">// empty or null means all doctypes</span>
+<span class="w">    </span><span class="nt">"parts_size"</span><span class="p">:</span><span class="w"> </span><span class="mi">52428800</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"max_age"</span><span class="p">:</span><span class="w"> </span><span class="mi">60000000000</span><span class="p">,</span><span class="w"> </span><span class="c1">// 1 minute</span>
+<span class="w">    </span><span class="nt">"with_doctypes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"io.cozy.accounts"</span><span class="p">,</span><span class="w"> </span><span class="s2">"io.cozy.files"</span><span class="p">]</span><span class="w"> </span><span class="c1">// empty or null means all doctypes</span>
 <span class="p">}</span>
 </code></pre></div>
 <h2 id="import">import<a class="headerlink" href="#import" title="Permanent link">&para;</a></h2>
@@ -9067,20 +9067,20 @@ import, when the instance can be accessed again.</p>
 </ul>
 <h3 id="example_4">Example<a class="headerlink" href="#example_4" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;manifest_url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://cozy.localhost:8080/move/exports/QUFBQUFGLVg5b3c0WTJNNU9HRmpPR0V4WlRnd01XVTJZMlU0T0RjeE5UaGpNVEF3TWpKbVplblFfRWZWUVAtRGJXU0lnV2tIZ3NsVHN5dUR6V0ZIdVdSeERLb196X3A0&quot;</span>
+<span class="w">  </span><span class="nt">"manifest_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://cozy.localhost:8080/move/exports/QUFBQUFGLVg5b3c0WTJNNU9HRmpPR0V4WlRnd01XVTJZMlU0T0RjeE5UaGpNVEF3TWpKbVplblFfRWZWUVAtRGJXU0lnV2tIZ3NsVHN5dUR6V0ZIdVdSeERLb196X3A0"</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="permissions_4">Permissions<a class="headerlink" href="#permissions_4" title="Permanent link">&para;</a></h3>
 <p>To use this worker from a client-side application, you will need to ask the
 permission. It is done by adding this to the manifest:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;permissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;mail-from-the-user&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Required to create a export of the user&#39;s data&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;verbs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">],</span>
-<span class="w">            </span><span class="nt">&quot;selector&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;worker&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;values&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;export&quot;</span><span class="p">]</span>
+<span class="w">    </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"mail-from-the-user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Required to create a export of the user's data"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.jobs"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"verbs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"POST"</span><span class="p">],</span>
+<span class="w">            </span><span class="nt">"selector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"worker"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"values"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"export"</span><span class="p">]</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
@@ -9160,7 +9160,7 @@ has a single option, <code>type</code>, with two supported values:</p>
 </ul>
 <h3 id="example_5">Example<a class="headerlink" href="#example_5" title="Permanent link">&para;</a></h3>
 <p>It can be launched from command-line with:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>cozy-stack<span class="w"> </span><span class="nb">jobs</span><span class="w"> </span>run<span class="w"> </span>migrations<span class="w"> </span>--domain<span class="w"> </span>example.mycozy.cloud<span class="w"> </span>--json<span class="w"> </span><span class="s1">&#39;{&quot;type&quot;: &quot;to-swift-v3&quot;}&#39;</span>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>cozy-stack<span class="w"> </span><span class="nb">jobs</span><span class="w"> </span>run<span class="w"> </span>migrations<span class="w"> </span>--domain<span class="w"> </span>example.mycozy.cloud<span class="w"> </span>--json<span class="w"> </span><span class="s1">'{"type": "to-swift-v3"}'</span>
 </code></pre></div>
 <h2 id="index">index<a class="headerlink" href="#index" title="Permanent link">&para;</a></h2>
 <p>This worker is used for sending data to a RAG. It looks at the changes feed for
@@ -9184,7 +9184,7 @@ file document with the scan result.</p>
 <h3 id="job-arguments_2">Job arguments<a class="headerlink" href="#job-arguments_2" title="Permanent link">&para;</a></h3>
 <p>The worker expects a single argument:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;file_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8737b5d6-51b6-11e7-9194-bf5b64b3bc9e&quot;</span>
+<span class="w">    </span><span class="nt">"file_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8737b5d6-51b6-11e7-9194-bf5b64b3bc9e"</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h3>

@@ -7885,22 +7885,22 @@
 
 <p>Cozy documents have a <a href="https://github.com/cozy/cozy-doctypes/tree/master/docs#document-metadata"><code>cozyMetadata</code></a> block with metadata about the document, like its schema version, its creation date, its source, etc.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;xxxx&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;cozyMetadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;doctypeVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;metadataVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;createdAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;xxxxx&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;createdByApp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;xxxx&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;createdByAppVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;xxxx&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;updatedAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;xxxxx&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;updatedByApps&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxxx"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"cozyMetadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"doctypeVersion"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"metadataVersion"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxxxx"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"createdByApp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxxx"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"createdByAppVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxxx"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxxxx"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"updatedByApps"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">      </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;xxxxx&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;xxxxx&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">        </span><span class="nt">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxxxx"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxxxx"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">],</span>
-<span class="w">    </span><span class="nt">&quot;sourceAccount&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;xxxxx&quot;</span>
+<span class="w">    </span><span class="nt">"sourceAccount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxxxx"</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -7914,8 +7914,8 @@
 </ul>
 <div class="highlight"><pre><span></span><code>const client = new CozyClient({
   appMetadata: {
-    slug: &#39;banks&#39;,
-    version: &#39;1.27.1&#39;
+    slug: 'banks',
+    version: '1.27.1'
   }
 })
 </code></pre></div>
@@ -7932,12 +7932,12 @@
 </ul>
 <div class="highlight"><pre><span></span><code>const client = new CozyClient({
   appMetadata: {
-    slug: &#39;banks&#39;,
-    version: &#39;1.27.1&#39;
+    slug: 'banks',
+    version: '1.27.1'
   },
   schema: {
     bankAccounts: {
-      doctypeVersion: &#39;1.0.0&#39;
+      doctypeVersion: '1.0.0'
     }
   }
 })
@@ -7958,9 +7958,9 @@
 <p>To save those attributes, you can pass them directly to the save method, like this:</p>
 <div class="highlight"><pre><span></span><code>const client = new client()
 client.save({
-  _type: &#39;io.cozy.files&#39;,
-  sourceAccount: &#39;12ab3c&#39;,
-  sourceAccountIdentifier: &#39;john@example.org&#39;,
+  _type: 'io.cozy.files',
+  sourceAccount: '12ab3c',
+  sourceAccountIdentifier: 'john@example.org',
   ...
 })
 </code></pre></div>

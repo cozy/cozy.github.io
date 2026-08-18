@@ -8944,11 +8944,11 @@
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">CozyClient</span><span class="p">({</span>
 <span class="w">  </span><span class="nx">schema</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">todos</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nx">doctype</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">doctype</span><span class="o">:</span><span class="w"> </span><span class="s1">'io.cozy.todos'</span><span class="p">,</span>
 <span class="w">      </span><span class="nx">relationships</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="nx">authors</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">          </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;has-many&#39;</span><span class="p">,</span>
-<span class="w">          </span><span class="nx">doctype</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;io.cozy.persons&#39;</span>
+<span class="w">          </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">'has-many'</span><span class="p">,</span>
+<span class="w">          </span><span class="nx">doctype</span><span class="o">:</span><span class="w"> </span><span class="s1">'io.cozy.persons'</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
@@ -9374,11 +9374,11 @@ a <a href="https://docs.cozy.io/en/cozy-client/api/cozy-stack-client/#DocumentCo
 <p>▸ <strong>create</strong>(<code>type</code>, <code>doc</code>, <code>references</code>, <code>options?</code>): <code>Promise</code>&lt;<code>any</code>&gt;</p>
 <p>Creates a document and saves it on the server</p>
 <p><strong><code>example</code></strong></p>
-<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nx">label</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;My todo&#39;</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><code><span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">'io.cozy.todos'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">label</span><span class="o">:</span><span class="w"> </span><span class="s1">'My todo'</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">relationships</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">authors</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="p">[{</span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="nx">_type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;io.cozy.persons&#39;</span><span class="p">}]</span>
+<span class="w">      </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="p">[{</span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="nx">_type</span><span class="o">:</span><span class="w"> </span><span class="s1">'io.cozy.persons'</span><span class="p">}]</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">})</span>
@@ -9878,11 +9878,11 @@ Has a behavior close to <Query /> or useQuery</p>
 <h3 id="getdocumentsaveplan">getDocumentSavePlan<a class="headerlink" href="#getdocumentsaveplan" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>getDocumentSavePlan</strong>(<code>document</code>, <code>referencesByName</code>): <code>any</code></p>
 <p>Creates a list of mutations to execute to create a document and its relationships.</p>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">baseDoc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">_type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;io.cozy.todo&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">label</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Go hiking&#39;</span><span class="w"> </span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">baseDoc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">_type</span><span class="o">:</span><span class="w"> </span><span class="s1">'io.cozy.todo'</span><span class="p">,</span><span class="w"> </span><span class="nx">label</span><span class="o">:</span><span class="w"> </span><span class="s1">'Go hiking'</span><span class="w"> </span><span class="p">}</span>
 <span class="c1">// relations can be arrays or single objects</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">relationships</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nx">attachments</span><span class="o">:</span><span class="w"> </span><span class="p">[{</span><span class="w"> </span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="mf">12345</span><span class="p">,</span><span class="w"> </span><span class="nx">_type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;io.cozy.files&#39;</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="mf">6789</span><span class="p">,</span><span class="w"> </span><span class="nx">_type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;io.cozy.files&#39;</span><span class="w"> </span><span class="p">}],</span>
-<span class="w">  </span><span class="nx">bills</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="mf">9999</span><span class="p">,</span><span class="w"> </span><span class="nx">_type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;io.cozy.bills&#39;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="nx">attachments</span><span class="o">:</span><span class="w"> </span><span class="p">[{</span><span class="w"> </span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="mf">12345</span><span class="p">,</span><span class="w"> </span><span class="nx">_type</span><span class="o">:</span><span class="w"> </span><span class="s1">'io.cozy.files'</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="mf">6789</span><span class="p">,</span><span class="w"> </span><span class="nx">_type</span><span class="o">:</span><span class="w"> </span><span class="s1">'io.cozy.files'</span><span class="w"> </span><span class="p">}],</span>
+<span class="w">  </span><span class="nx">bills</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="mf">9999</span><span class="p">,</span><span class="w"> </span><span class="nx">_type</span><span class="o">:</span><span class="w"> </span><span class="s1">'io.cozy.bills'</span><span class="w"> </span><span class="p">}</span>
 <span class="p">}</span>
 <span class="nx">client</span><span class="p">.</span><span class="nx">getDocumentSavePlan</span><span class="p">(</span><span class="nx">baseDoc</span><span class="p">,</span><span class="w"> </span><span class="nx">relationships</span><span class="p">)</span>
 </code></pre></div>
@@ -10656,8 +10656,8 @@ and can be accessed via this mean. A plugin class must have the attribute
 <span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">options</span>
 <span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">handleLogin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">handleLogin</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
 <span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">handleLogout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">handleLogout</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
-<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;login&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">handleLogin</span><span class="p">)</span>
-<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;logout&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">handleLogout</span><span class="p">)</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">"login"</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">handleLogin</span><span class="p">)</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">"logout"</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">handleLogout</span><span class="p">)</span>
 <span class="w">  </span><span class="p">}</span>
 
 <span class="w">  </span><span class="nx">handleLogin</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
@@ -10669,11 +10669,11 @@ and can be accessed via this mean. A plugin class must have the attribute
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 
-<span class="nx">AlertPlugin</span><span class="p">.</span><span class="nx">pluginName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;alerts&#39;</span>
+<span class="nx">AlertPlugin</span><span class="p">.</span><span class="nx">pluginName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'alerts'</span>
 
 <span class="nx">client</span><span class="p">.</span><span class="nx">registerPlugin</span><span class="p">(</span><span class="nx">AlertPlugin</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nx">onLoginAlert</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;client has logged in !&#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">onLogoutAlert</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;client has logged out !&#39;</span>
+<span class="w">  </span><span class="nx">onLoginAlert</span><span class="o">:</span><span class="w"> </span><span class="s1">'client has logged in !'</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">onLogoutAlert</span><span class="o">:</span><span class="w"> </span><span class="s1">'client has logged out !'</span>
 <span class="p">})</span>
 
 <span class="c1">// the instance of the plugin is accessible via</span>
@@ -11371,8 +11371,8 @@ There are at the moment only 2 hooks available.</p>
 <li>after:destroy, called after a document is destroyed via CozyClient::destroy</li>
 </ul>
 <p><strong><code>example</code></strong></p>
-<div class="highlight"><pre><span></span><code>CozyClient.registerHook(&#39;io.cozy.bank.accounts&#39;, &#39;before:destroy&#39;, () =&gt; {
-  console.log(&#39;A io.cozy.bank.accounts is being destroyed&#39;)
+<div class="highlight"><pre><span></span><code>CozyClient.registerHook('io.cozy.bank.accounts', 'before:destroy', () =&gt; {
+  console.log('A io.cozy.bank.accounts is being destroyed')
 })
 </code></pre></div>
 <p><em>Parameters</em></p>

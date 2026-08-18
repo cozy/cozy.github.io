@@ -8208,23 +8208,23 @@ following the JSON API spec.</p>
 <p><strong><code>description</code></strong></p>
 <div class="highlight"><pre><span></span><code>const schema = {
   todos: {
-     doctype: &#39;io.cozy.todos&#39;,
+     doctype: 'io.cozy.todos',
      relationships: {
        tasks: {
-         doctype: &#39;io.cozy.tasks&#39;,
-         type: &#39;has-many&#39;
+         doctype: 'io.cozy.tasks',
+         type: 'has-many'
        }
      }
    }
 }
 
 const todo = {
-  label: &quot;Protect people&#39;s privacy&quot;,
+  label: "Protect people's privacy",
   relationships: {
     tasks: {
       data: [
-        {_id: 1, _type: &#39;io.cozy.tasks&#39;},
-        {_id: 2, _type: &#39;io.cozy.tasks&#39;}
+        {_id: 1, _type: 'io.cozy.tasks'},
+        {_id: 2, _type: 'io.cozy.tasks'}
       ]
     }
   }

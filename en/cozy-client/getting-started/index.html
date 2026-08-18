@@ -7917,20 +7917,20 @@
 <p>⚠️ If you use Jest, you should also add a bit of configuration for imports to work properly,
 <a href="../entrypoints/">see this document for more information</a>.</p>
 <h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">CozyClient</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;cozy-client&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">CozyClient</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'cozy-client'</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">schema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nx">todos</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">doctype</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">doctype</span><span class="o">:</span><span class="w"> </span><span class="s1">'io.cozy.todos'</span><span class="p">,</span>
 <span class="w">    </span><span class="nx">attributes</span><span class="o">:</span><span class="w"> </span><span class="p">{...},</span>
 <span class="w">    </span><span class="nx">relationships</span><span class="o">:</span><span class="w"> </span><span class="p">{...}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">CozyClient</span><span class="p">({</span>
-<span class="w">  </span><span class="nx">uri</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;http://cozy.tools:8080&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">uri</span><span class="o">:</span><span class="w"> </span><span class="s1">'http://cozy.tools:8080'</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">schema</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">token</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;...&#39;</span>
+<span class="w">  </span><span class="nx">token</span><span class="o">:</span><span class="w"> </span><span class="s1">'...'</span>
 <span class="p">})</span>
 </code></pre></div>
 <p>Usually, the token and URI are provided by the stack on the DOM node <code>&lt;div role="application"&gt;</code>.
@@ -7945,17 +7945,17 @@ see <a href="https://docs.cozy.io/en/tutorials/app/#behind-the-magic">the app tu
 See <a href="https://docs.cozy.io/en/cozy-client/schema">how to use the schema features</a></p>
 <h2 id="fetch-data">Fetch data<a class="headerlink" href="#fetch-data" title="Permanent link">&para;</a></h2>
 <p>To fetch data, we first build a <a href="../api/cozy-client/classes/QueryDefinition/"><code>QueryDefinition</code></a> with the <code>Q</code> helper:</p>
-<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Q</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;cozy-client&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Q</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'cozy-client'</span>
 
-<span class="kd">const</span><span class="w"> </span><span class="nx">allTodosQuery</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Q</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">)</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">singleTodoQuery</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Q</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">).</span><span class="nx">getById</span><span class="p">(</span><span class="s1">&#39;5fcbbf2cb171b1d5c3bc6df3d4affb32&#39;</span><span class="p">)</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">allTodosQuery</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Q</span><span class="p">(</span><span class="s1">'io.cozy.todos'</span><span class="p">)</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">singleTodoQuery</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Q</span><span class="p">(</span><span class="s1">'io.cozy.todos'</span><span class="p">).</span><span class="nx">getById</span><span class="p">(</span><span class="s1">'5fcbbf2cb171b1d5c3bc6df3d4affb32'</span><span class="p">)</span>
 </code></pre></div>
 <p><code>QueryDefinition</code>s describe which documents to be fetched from CouchDB. It uses a fluent interface:</p>
-<div class="highlight"><pre><span></span><code><span class="nx">Q</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="nx">select</span><span class="p">([</span><span class="s1">&#39;title&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;checked&#39;</span><span class="p">])</span>
+<div class="highlight"><pre><span></span><code><span class="nx">Q</span><span class="p">(</span><span class="s1">'io.cozy.todos'</span><span class="p">)</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">select</span><span class="p">([</span><span class="s1">'title'</span><span class="p">,</span><span class="w"> </span><span class="s1">'checked'</span><span class="p">])</span>
 <span class="w">  </span><span class="p">.</span><span class="nx">where</span><span class="p">({</span><span class="nx">checked</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">})</span>
-<span class="w">  </span><span class="p">.</span><span class="nx">include</span><span class="p">([</span><span class="s1">&#39;dependencies&#39;</span><span class="p">])</span>
-<span class="w">  </span><span class="p">.</span><span class="nx">sortBy</span><span class="p">([{</span><span class="s1">&#39;cozyMetadata.updatedAt&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;desc&#39;</span><span class="p">}])</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">include</span><span class="p">([</span><span class="s1">'dependencies'</span><span class="p">])</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">sortBy</span><span class="p">([{</span><span class="s1">'cozyMetadata.updatedAt'</span><span class="o">:</span><span class="w"> </span><span class="s1">'desc'</span><span class="p">}])</span>
 <span class="w">  </span><span class="p">.</span><span class="nx">limitBy</span><span class="p">(</span><span class="mf">20</span><span class="p">)</span>
 </code></pre></div>
 <ul>
@@ -7968,13 +7968,13 @@ See <a href="https://docs.cozy.io/en/cozy-client/schema">how to use the schema f
 <p>By default, all fields in the <code>where()</code> are automatically indexed. You can turn off this behavior by specifying
 explicitly the list of fields to be indexed in <code>indexFields()</code>.</p>
 <p>Finally, <code>client.query()</code> will execute your query and return a promise with a <code>data</code> attribute containing the requested documents.</p>
-<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">CozyClient</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;cozy-client&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">CozyClient</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'cozy-client'</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">CozyClient</span><span class="p">({</span>
 <span class="w">  </span><span class="cm">/*...*/</span>
 <span class="p">})</span>
 
-<span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">Q</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">).</span><span class="nx">where</span><span class="p">({</span><span class="w"> </span><span class="nx">checked</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">}))</span>
+<span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">Q</span><span class="p">(</span><span class="s1">'io.cozy.todos'</span><span class="p">).</span><span class="nx">where</span><span class="p">({</span><span class="w"> </span><span class="nx">checked</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">}))</span>
 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
 </code></pre></div>
 <p>✅ Inside a React application, instead of using directly <code>client.query</code>, please use <a href="../react-integration/"><code>useQuery</code>, <code>&lt;Query /&gt;</code> or <code>queryConnect</code>
@@ -7984,7 +7984,7 @@ know more about querying with cozy-client and avoid common traps that can dramat
 <p>🚀 Cozy-client&rsquo;s <a href="https://github.com/cozy/cozy-libs/tree/master/packages/cozy-devtools">devtools</a> allows to monitor your queries data and performance.</p>
 <h2 id="mutate-the-data">Mutate the data<a class="headerlink" href="#mutate-the-data" title="Permanent link">&para;</a></h2>
 <p>An instance of <a href="../api/cozy-client/classes/CozyClient/"><code>CozyClient</code></a> allows you to query and mutate (update) data, here&rsquo;s how it looks:</p>
-<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">CozyClient</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;cozy-client&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">CozyClient</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'cozy-client'</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">CozyClient</span><span class="p">({</span>
 <span class="w">  </span><span class="cm">/*...*/</span>
@@ -7992,9 +7992,9 @@ know more about querying with cozy-client and avoid common traps that can dramat
 
 
 <span class="c1">// create a new io.cozy.todo</span>
-<span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">save</span><span class="p">({</span><span class="nx">_type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">label</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Buy bread&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">checked</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">})</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">save</span><span class="p">({</span><span class="nx">_type</span><span class="o">:</span><span class="w"> </span><span class="s1">'io.cozy.todos'</span><span class="p">,</span><span class="w"> </span><span class="nx">label</span><span class="o">:</span><span class="w"> </span><span class="s1">'Buy bread'</span><span class="p">,</span><span class="w"> </span><span class="nx">checked</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">})</span>
 
-<span class="kd">const</span><span class="w"> </span><span class="nx">qdef</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Q</span><span class="p">(</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">).</span><span class="nx">where</span><span class="p">({</span><span class="w"> </span><span class="nx">checked</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">})</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">qdef</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Q</span><span class="p">(</span><span class="s1">'io.cozy.todos'</span><span class="p">).</span><span class="nx">where</span><span class="p">({</span><span class="w"> </span><span class="nx">checked</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="p">})</span>
 <span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="nx">todos</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">qdef</span><span class="p">)</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">doc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">todos</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span>
 <span class="c1">// modify existing io.cozy.todo (will make an update if _rev is present inside the doc)</span>
@@ -8006,8 +8006,8 @@ components that depend on these queries will be re-rendered.</p>
 <h2 id="mutate-several-documents-in-batch">Mutate several documents in batch<a class="headerlink" href="#mutate-several-documents-in-batch" title="Permanent link">&para;</a></h2>
 <p>The <code>saveAll()</code> method can be used to save multiple documents in one request.</p>
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="nx">updatedDocs</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">saveAll</span><span class="p">([</span>
-<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">_type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">checked</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nx">label</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Buy milk&#39;</span><span class="w"> </span><span class="p">},</span>
-<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">_type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">checked</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nx">label</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Make dinner&#39;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">_type</span><span class="o">:</span><span class="w"> </span><span class="s1">'io.cozy.todos'</span><span class="p">,</span><span class="w"> </span><span class="nx">checked</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nx">label</span><span class="o">:</span><span class="w"> </span><span class="s1">'Buy milk'</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">_type</span><span class="o">:</span><span class="w"> </span><span class="s1">'io.cozy.todos'</span><span class="p">,</span><span class="w"> </span><span class="nx">checked</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="nx">label</span><span class="o">:</span><span class="w"> </span><span class="s1">'Make dinner'</span><span class="w"> </span><span class="p">}</span>
 <span class="p">])</span>
 </code></pre></div>
 

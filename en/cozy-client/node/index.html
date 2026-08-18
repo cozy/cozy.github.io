@@ -7807,8 +7807,8 @@
 
 <h3 id="how-to-use-the-client-on-node-environment-referenceerror-fetch-is-not-defined">How to use the client on Node environment (<code>ReferenceError: fetch is not defined</code>) ?<a class="headerlink" href="#how-to-use-the-client-on-node-environment-referenceerror-fetch-is-not-defined" title="Permanent link">&para;</a></h3>
 <p>Cozy-Client relies on the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API"><code>fetch</code></a> function included in browsers (or polyfilled). This function does not exist on Node environments so we have to provide a polyfill. An example using <a href="https://www.npmjs.com/package/node-fetch"><code>node-fetch</code></a>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">fetch</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;node-fetch&#39;</span>
-<span class="k">import</span><span class="w"> </span><span class="nx">CozyClient</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;cozy-client&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">fetch</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'node-fetch'</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">CozyClient</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'cozy-client'</span>
 
 <span class="nb">global</span><span class="p">.</span><span class="nx">fetch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">fetch</span>
 </code></pre></div>

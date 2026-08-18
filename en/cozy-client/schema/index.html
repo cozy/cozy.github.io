@@ -7794,15 +7794,15 @@
 </ul>
 <p>All attributes but the <code>doctype</code> one are entirely optional.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;doctype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;doctypeVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">45</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;unique&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">"doctype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.todos"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"doctypeVersion"</span><span class="p">:</span><span class="w"> </span><span class="mi">45</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"unique"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">},</span>
 <span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;relationships&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;tasks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;doctype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.tasks&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;has-many&quot;</span>
+<span class="w">  </span><span class="nt">"relationships"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"tasks"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"doctype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.tasks"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"has-many"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
@@ -7814,39 +7814,39 @@
 <p>Schemas are provided with a keyed object in the <code>schema</code> parameter at CozyClient initialization:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">schema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nx">todos</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">doctype</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;io.cozy.books&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">doctype</span><span class="o">:</span><span class="w"> </span><span class="s1">'io.cozy.books'</span><span class="p">,</span>
 <span class="w">    </span><span class="nx">attributes</span><span class="o">:</span><span class="w"> </span><span class="p">{},</span>
 <span class="w">    </span><span class="nx">relationships</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nx">items</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">doctype</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;io.cozy.contact&#39;</span><span class="p">,</span>
-<span class="w">        </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;has-many&#39;</span>
+<span class="w">        </span><span class="nx">doctype</span><span class="o">:</span><span class="w"> </span><span class="s1">'io.cozy.contact'</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">'has-many'</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">CozyClient</span><span class="p">({</span>
-<span class="w">  </span><span class="nx">uri</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;http://cozy.tools:8080&#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">token</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;...&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">uri</span><span class="o">:</span><span class="w"> </span><span class="s1">'http://cozy.tools:8080'</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">token</span><span class="o">:</span><span class="w"> </span><span class="s1">'...'</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">schema</span>
 <span class="p">})</span>
 </code></pre></div>
 <h2 id="adding-a-schema-to-an-already-initialized-cozyclient-instance">Adding a schema to an already initialized CozyClient instance<a class="headerlink" href="#adding-a-schema-to-an-already-initialized-cozyclient-instance" title="Permanent link">&para;</a></h2>
 <p>Provide your schemas to the <code>addSchema()</code> method, in the same form as for initialization:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">CozyClient</span><span class="p">({</span>
-<span class="w">  </span><span class="nx">uri</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;http://cozy.tools:8080&#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">token</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;...&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">uri</span><span class="o">:</span><span class="w"> </span><span class="s1">'http://cozy.tools:8080'</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">token</span><span class="o">:</span><span class="w"> </span><span class="s1">'...'</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">schema</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
 <span class="p">})</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">additionalSchema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nx">todos</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">doctype</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;io.cozy.books&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">doctype</span><span class="o">:</span><span class="w"> </span><span class="s1">'io.cozy.books'</span><span class="p">,</span>
 <span class="w">    </span><span class="nx">attributes</span><span class="o">:</span><span class="w"> </span><span class="p">{},</span>
 <span class="w">    </span><span class="nx">relationships</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nx">items</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">doctype</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;io.cozy.contact&#39;</span><span class="p">,</span>
-<span class="w">        </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;has-many&#39;</span>
+<span class="w">        </span><span class="nx">doctype</span><span class="o">:</span><span class="w"> </span><span class="s1">'io.cozy.contact'</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">'has-many'</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
@@ -7859,12 +7859,12 @@
 <p>If you provide a schema, Cozy-Client will automatically try to validate your documents when you save them. An exception will be thrown if the validation fails.</p>
 <p>You can validate a document explicitly with <code>validate()</code>. Be sure the document has a <code>_type</code> attribute with the doctype name if it has never been saved to CouchDB.</p>
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">book</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nx">_type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;io.cozy.books&#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;La horde de contrevent&#39;</span>
+<span class="w">  </span><span class="nx">_type</span><span class="o">:</span><span class="w"> </span><span class="s1">'io.cozy.books'</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'La horde de contrevent'</span>
 <span class="p">}</span>
 
 <span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">client</span><span class="p">.</span><span class="nx">validate</span><span class="p">(</span><span class="nx">book</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s1">&#39;Something is wrong with this book document&#39;</span><span class="p">)</span>
+<span class="w">  </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s1">'Something is wrong with this book document'</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
 

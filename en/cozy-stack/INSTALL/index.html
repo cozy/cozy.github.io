@@ -8042,7 +8042,7 @@ make
 <p>This will fetch the sources and build a binary in <code>$GOPATH/bin/cozy-stack</code>.</p>
 <p>Don&rsquo;t forget to add your <code>$GOPATH/bin</code> to your <code>$PATH</code> at the end of your <code>*rc</code> file so
 that you can execute the binary without entering its full path.</p>
-<div class="highlight"><pre><span></span><code>export PATH=&quot;$(go env GOPATH)/bin:$PATH&quot;
+<div class="highlight"><pre><span></span><code>export PATH="$(go env GOPATH)/bin:$PATH"
 </code></pre></div>
 <h5 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h5>
 <p>Check if you don&rsquo;t have an alias &ldquo;go&rdquo; configurated in your <code>*rc</code> file.</p>
@@ -8060,7 +8060,7 @@ comand line arguments. Assuming CouchDB is installed and running on default port
 <p>The above command will create an instance on http://cozy.localhost:8080/ with the
 passphrase <code>cozy</code>. By default this will create a <code>storage/</code> entry in your current directory, containing all your instances by their URL. An instance &ldquo;cozy.localhost:8080&rdquo; will have its stored files in <code>storage/cozy.localhost:8080/</code>. Installed apps will be found in the <code>.cozy_apps/</code> directory of each instance.</p>
 <p>Make sure the full stack is up with:</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-H<span class="w"> </span><span class="s1">&#39;Accept: application/json&#39;</span><span class="w"> </span><span class="s1">&#39;http://cozy.localhost:8080/status/&#39;</span>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-H<span class="w"> </span><span class="s1">'Accept: application/json'</span><span class="w"> </span><span class="s1">'http://cozy.localhost:8080/status/'</span>
 </code></pre></div>
 <p>You can then remove your test instance:</p>
 <div class="highlight"><pre><span></span><code>cozy-stack<span class="w"> </span>instances<span class="w"> </span>rm<span class="w"> </span>cozy.localhost:8080

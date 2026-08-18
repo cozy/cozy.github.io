@@ -8018,48 +8018,48 @@ version should be maintained when reasonable.</p>
 <span class="na">Sec-WebSocket-Version</span><span class="o">:</span> <span class="l">13</span>
 </code></pre></div>
 <p>Then messages are sent using json:</p>
-<div class="highlight"><pre><span></span><code>client &gt; {&quot;method&quot;: &quot;AUTH&quot;,
-          &quot;payload&quot;: &quot;xxAppOrAuthTokenxx=&quot;}
-client &gt; {&quot;method&quot;: &quot;SUBSCRIBE&quot;,
-          &quot;payload&quot;: {&quot;type&quot;: &quot;io.cozy.files&quot;}}
-client &gt; {&quot;method&quot;: &quot;SUBSCRIBE&quot;,
-          &quot;payload&quot;: {&quot;type&quot;: &quot;io.cozy.contacts&quot;}}
-server &gt; {&quot;event&quot;: &quot;UPDATED&quot;,
-          &quot;payload&quot;: {&quot;id&quot;: &quot;idA&quot;, &quot;rev&quot;: &quot;2-705...&quot;, &quot;type&quot;: &quot;io.cozy.contacts&quot;, &quot;doc&quot;: {embeded doc ...}}}
-server &gt; {&quot;event&quot;: &quot;DELETED&quot;,
-          &quot;payload&quot;: {&quot;id&quot;: &quot;idA&quot;, &quot;rev&quot;: &quot;3-541...&quot;, &quot;type&quot;: &quot;io.cozy.contacts&quot;}}
-client &gt; {&quot;method&quot;: &quot;UNSUBSCRIBE&quot;,
-          &quot;payload&quot;: {&quot;type&quot;: &quot;io.cozy.contacts&quot;}}
-server &gt; {&quot;event&quot;: &quot;UPDATED&quot;,
-          &quot;payload&quot;: {&quot;id&quot;: &quot;idB&quot;, &quot;rev&quot;: &quot;6-457...&quot;, &quot;type&quot;: &quot;io.cozy.files&quot;, &quot;doc&quot;: {embeded doc ...}}}
+<div class="highlight"><pre><span></span><code>client &gt; {"method": "AUTH",
+          "payload": "xxAppOrAuthTokenxx="}
+client &gt; {"method": "SUBSCRIBE",
+          "payload": {"type": "io.cozy.files"}}
+client &gt; {"method": "SUBSCRIBE",
+          "payload": {"type": "io.cozy.contacts"}}
+server &gt; {"event": "UPDATED",
+          "payload": {"id": "idA", "rev": "2-705...", "type": "io.cozy.contacts", "doc": {embeded doc ...}}}
+server &gt; {"event": "DELETED",
+          "payload": {"id": "idA", "rev": "3-541...", "type": "io.cozy.contacts"}}
+client &gt; {"method": "UNSUBSCRIBE",
+          "payload": {"type": "io.cozy.contacts"}}
+server &gt; {"event": "UPDATED",
+          "payload": {"id": "idB", "rev": "6-457...", "type": "io.cozy.files", "doc": {embeded doc ...}}}
 </code></pre></div>
 <h2 id="auth">AUTH<a class="headerlink" href="#auth" title="Permanent link">&para;</a></h2>
 <p>It must be the first command to be sent. The client gives its token with this
 command, and the stack will use it to know which are the permissions of the app.</p>
-<div class="highlight"><pre><span></span><code>{&quot;method&quot;: &quot;AUTH&quot;, &quot;payload&quot;: &quot;eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhcHAiLCJpYXQiOjE0OTg4MTY1OTEsImlzcyI6ImNvenkudG9vbHM6ODA4MCIsInN1YiI6Im1pbmkifQ.eH9DhoHz7rg8gR7noAiKfeo8eL3Q_PzyuskO_x3T8Hlh9q_IV-4zqoGtjTiO7luD6_VcLboEU-6o3XBek84VTg&quot;}
+<div class="highlight"><pre><span></span><code>{"method": "AUTH", "payload": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhcHAiLCJpYXQiOjE0OTg4MTY1OTEsImlzcyI6ImNvenkudG9vbHM6ODA4MCIsInN1YiI6Im1pbmkifQ.eH9DhoHz7rg8gR7noAiKfeo8eL3Q_PzyuskO_x3T8Hlh9q_IV-4zqoGtjTiO7luD6_VcLboEU-6o3XBek84VTg"}
 </code></pre></div>
 <h2 id="subscribe">SUBSCRIBE<a class="headerlink" href="#subscribe" title="Permanent link">&para;</a></h2>
 <p>A client can send a SUBSCRIBE request to be notified of changes. The payload is
 a selector for the events it wishes to receive For now the only possible
 selector is on type &amp; optionally id.</p>
-<div class="highlight"><pre><span></span><code>{&quot;method&quot;: &quot;SUBSCRIBE&quot;, &quot;payload&quot;: {&quot;type&quot;: &quot;[desired doctype]&quot;}}
-{&quot;method&quot;: &quot;SUBSCRIBE&quot;, &quot;payload&quot;: {&quot;type&quot;: &quot;[desired doctype]&quot;, &quot;id&quot;: &quot;idA&quot;}}
+<div class="highlight"><pre><span></span><code>{"method": "SUBSCRIBE", "payload": {"type": "[desired doctype]"}}
+{"method": "SUBSCRIBE", "payload": {"type": "[desired doctype]", "id": "idA"}}
 </code></pre></div>
 <p>In order to subscribe, a client must have permission <code>GET</code> on the passed
 selector. Otherwise an error is passed in the message feed.</p>
-<div class="highlight"><pre><span></span><code>server &gt; {&quot;event&quot;: &quot;error&quot;,
-          &quot;payload&quot;: {
-            &quot;status&quot;: &quot;403 Forbidden&quot;
-            &quot;code&quot;: &quot;forbidden&quot;
-            &quot;title&quot;:&quot;The Application can&#39;t subscribe to io.cozy.files&quot;
-            &quot;source&quot;: {&quot;method&quot;: &quot;SUBSCRIBE&quot;, &quot;payload&quot;: {&quot;type&quot;:&quot;io.cozy.files&quot;} }
+<div class="highlight"><pre><span></span><code>server &gt; {"event": "error",
+          "payload": {
+            "status": "403 Forbidden"
+            "code": "forbidden"
+            "title":"The Application can't subscribe to io.cozy.files"
+            "source": {"method": "SUBSCRIBE", "payload": {"type":"io.cozy.files"} }
           }}
 </code></pre></div>
 <h2 id="unsubscribe">UNSUBSCRIBE<a class="headerlink" href="#unsubscribe" title="Permanent link">&para;</a></h2>
 <p>A client can send an UNSUBSCRIBE request to no longer be notified of changes
 from a previous request.</p>
-<div class="highlight"><pre><span></span><code>{&quot;method&quot;: &quot;UNSUBSCRIBE&quot;, &quot;payload&quot;: {&quot;type&quot;: &quot;[desired doctype]&quot;}}
-{&quot;method&quot;: &quot;UNSUBSCRIBE&quot;, &quot;payload&quot;: {&quot;type&quot;: &quot;[desired doctype]&quot;, &quot;id&quot;: &quot;idA&quot;}}
+<div class="highlight"><pre><span></span><code>{"method": "UNSUBSCRIBE", "payload": {"type": "[desired doctype]"}}
+{"method": "UNSUBSCRIBE", "payload": {"type": "[desired doctype]", "id": "idA"}}
 </code></pre></div>
 <h2 id="response-messages">Response messages<a class="headerlink" href="#response-messages" title="Permanent link">&para;</a></h2>
 <p>A message sent by the server after a subscribe will be a JSON object with two
@@ -8087,21 +8087,21 @@ endpoint.</p>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;subtype&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;progress&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;imported&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;total&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span>
+<span class="w">  </span><span class="nt">"subtype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"progress"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"imported"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
 </code></pre></div>
 <h3 id="websocket">Websocket<a class="headerlink" href="#websocket" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>server &gt; {&quot;event&quot;: &quot;NOTIFIED&quot;,
-          &quot;payload&quot;: {&quot;id&quot;: &quot;2c577f00-145a-0138-f569-543d7eb8149c&quot;,
-                      &quot;type&quot;: &quot;io.cozy.jobs&quot;,
-                      &quot;doc&quot;: {&quot;subtype&quot;: &quot;progress&quot;,
-                              &quot;imported&quot;: 10,
-                              &quot;total&quot;: 42}}}
+<div class="highlight"><pre><span></span><code>server &gt; {"event": "NOTIFIED",
+          "payload": {"id": "2c577f00-145a-0138-f569-543d7eb8149c",
+                      "type": "io.cozy.jobs",
+                      "doc": {"subtype": "progress",
+                              "imported": 10,
+                              "total": 42}}}
 </code></pre></div>
 
 

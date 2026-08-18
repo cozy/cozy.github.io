@@ -7834,7 +7834,7 @@
 <p>cozy-stack is developped in Go language so we need to install the Go compiler to be able to compile cozy-stack sources:</p>
 <div class="highlight"><pre><span></span><code>wget -O /tmp/go1.21.3.linux-amd64.tar.gz https://go.dev/dl/go1.21.3.linux-amd64.tar.gz
 sudo rm -rf /usr/local/go &amp;&amp; sudo tar -C /usr/local -xzvf /tmp/go1.21.3.linux-amd64.tar.gz
-echo &quot;export PATH=\&quot;\$PATH:/usr/local/go/bin\&quot;&quot; | sudo tee /etc/profile.d/golang.sh &gt; /dev/null
+echo "export PATH=\"\$PATH:/usr/local/go/bin\"" | sudo tee /etc/profile.d/golang.sh &gt; /dev/null
 source /etc/profile.d/golang.sh
 </code></pre></div>
 <p>Test Go installation is fine with:</p>
@@ -7845,14 +7845,14 @@ source /etc/profile.d/golang.sh
 </code></pre></div>
 <h2 id="cozy-stack">Cozy-stack<a class="headerlink" href="#cozy-stack" title="Permanent link">&para;</a></h2>
 <p>First, add a CouchDB user and password for cozy-stack (replace COUCH_ADMIN_PWD with your previously defined CouchdDB admin password)</p>
-<div class="highlight"><pre><span></span><code>read -p &quot;Couchdb password for cozy user: &quot; -r -s COUCH_PASS
-curl -X PUT -u &quot;admin:COUCH_ADMIN_PWD&quot; &quot;http://localhost:5984/_node/couchdb@127.0.0.1/_config/admins/cozy&quot; --data &quot;\&quot;${COUCH_PASS}\&quot;&quot;
+<div class="highlight"><pre><span></span><code>read -p "Couchdb password for cozy user: " -r -s COUCH_PASS
+curl -X PUT -u "admin:COUCH_ADMIN_PWD" "http://localhost:5984/_node/couchdb@127.0.0.1/_config/admins/cozy" --data "\"${COUCH_PASS}\""
 </code></pre></div>
 <p>Install requirements:</p>
 <div class="highlight"><pre><span></span><code>sudo apt install -y imagemagick ghostscript librsvg2-bin libprotobuf-c1 fonts-lato
 </code></pre></div>
 <p>Activate PDF thumbnail generation in ImageMagick</p>
-<div class="highlight"><pre><span></span><code>sudo sed -ie &#39;s,^  \(&lt;policy domain=&quot;coder&quot; rights=&quot;none&quot; pattern=&quot;PDF&quot; /&gt;\)$,  &lt;!-- \1 --&gt;,g&#39; /etc/ImageMagick-6/policy.xml
+<div class="highlight"><pre><span></span><code>sudo sed -ie 's,^  \(&lt;policy domain="coder" rights="none" pattern="PDF" /&gt;\)$,  &lt;!-- \1 --&gt;,g' /etc/ImageMagick-6/policy.xml
 </code></pre></div>
 <p>Get the source code:</p>
 <div class="highlight"><pre><span></span><code>sudo apt install -y git
@@ -7885,7 +7885,7 @@ sudo adduser --quiet --system --home /var/lib/cozy \
 <p>And install it:</p>
 <div class="highlight"><pre><span></span><code>sudo install -o root -g root -m 0755 -T \
              $(go env GOPATH)/bin/cozy-stack /usr/bin/cozy-stack
-sudo sh -c &#39;cozy-stack completion bash &gt; /etc/bash_completion.d/cozy-stack&#39;
+sudo sh -c 'cozy-stack completion bash &gt; /etc/bash_completion.d/cozy-stack'
 source /etc/bash_completion.d/cozy-stack
 sudo install -o root -g root -m 0755 -d /etc/cozy
 sudo install -o root -g cozy -m 0750 -d /var/log/cozy
@@ -7896,8 +7896,8 @@ sudo install -o cozy-stack -g cozy -m 750 \
 sudo install -o cozy-stack -g cozy -m 750 -d /var/lib/cozy
 </code></pre></div>
 <p>And create configuration:</p>
-<div class="highlight"><pre><span></span><code>read -p &quot;Cozy stack admin password: &quot; -r -s COZY_PASS
-sudo sh -c &quot;COZY_ADMIN_PASSPHRASE=\&quot;${COZY_PASS}\&quot; cozy-stack config passwd /etc/cozy/cozy-admin-passphrase&quot;
+<div class="highlight"><pre><span></span><code>read -p "Cozy stack admin password: " -r -s COZY_PASS
+sudo sh -c "COZY_ADMIN_PASSPHRASE=\"${COZY_PASS}\" cozy-stack config passwd /etc/cozy/cozy-admin-passphrase"
 sudo chown cozy-stack:cozy /etc/cozy/cozy-admin-passphrase
 sudo cozy-stack config gen-keys /etc/cozy/vault
 sudo chown cozy-stack:cozy /etc/cozy/vault.enc /etc/cozy/vault.dec
@@ -7964,7 +7964,7 @@ sudo systemctl start cozy-stack
 </code></pre></div>
 <blockquote>
 <p>This command should give you cozy-stack installed version. For example:</p>
-<div class="highlight"><pre><span></span><code>{&quot;build_mode&quot;:&quot;production&quot;,&quot;build_time&quot;:&quot;2023-11-15T15:57:06Z&quot;,&quot;runtime_version&quot;:&quot;go1.21.3&quot;,&quot;version&quot;:&quot;1.6.14-36-ge4577c7ff&quot;}
+<div class="highlight"><pre><span></span><code>{"build_mode":"production","build_time":"2023-11-15T15:57:06Z","runtime_version":"go1.21.3","version":"1.6.14-36-ge4577c7ff"}
 </code></pre></div>
 </blockquote>
 <div style="text-align: right">

@@ -7810,11 +7810,11 @@
 <p>Basically, a connector is just a function passed to the <code>BaseKonnector</code> constructor, and which
 eventually returns a promise:</p>
 <p>To create the connector, just create a new instance of <code>BaseKonnector</code> with a function as argument:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="nx">BaseKonnector</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-konnector-libs&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="nx">BaseKonnector</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">'cozy-konnector-libs'</span><span class="p">)</span>
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">BaseKonnector</span><span class="p">(</span><span class="nx">fields</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="c1">// use fields to get user credentials and choices</span>
-<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">fields</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;fields&#39;</span><span class="p">)</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">fields</span><span class="p">,</span><span class="w"> </span><span class="s1">'fields'</span><span class="p">)</span>
 <span class="p">})</span>
 </code></pre></div>
 <h4 id="typical-workflow">Typical workflow<a class="headerlink" href="#typical-workflow" title="Permanent link">&para;</a></h4>
@@ -7844,19 +7844,19 @@ This function can then:</p>
 <li><code>USER_ACTION_NEEDED</code>: The user needs to login to the service to do manual actions (could be Terms Of Service to validate)</li>
 </ul>
 <p>You can get the list of error codes in <code>require('cozy-konnector-libs').errors</code> (<a href="https://github.com/konnectors/libs/blob/master/packages/cozy-konnector-libs/src/helpers/errors.js">source</a>)</p>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="nx">BaseKonnector</span><span class="p">,</span><span class="w"> </span><span class="nx">errors</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-konnector-libs&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="nx">BaseKonnector</span><span class="p">,</span><span class="w"> </span><span class="nx">errors</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">'cozy-konnector-libs'</span><span class="p">)</span>
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">BaseKonnector</span><span class="p">(</span><span class="nx">fields</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// Here, the following message will be displayed in cozy-home : &quot;Bad credentials. Check the konnector fields and run the connection again.&quot;</span>
+<span class="w">    </span><span class="c1">// Here, the following message will be displayed in cozy-home : "Bad credentials. Check the konnector fields and run the connection again."</span>
 <span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="nx">errors</span><span class="p">.</span><span class="nx">LOGIN_FAILED</span><span class="p">)</span>
 <span class="p">})</span>
 </code></pre></div>
 <h3 id="i-want-to-pass-secret-variables-to-my-connector-without-hardcoding-it-in-the-source-code">I want to pass secret variables to my connector without hardcoding it in the source code<a class="headerlink" href="#i-want-to-pass-secret-variables-to-my-connector-without-hardcoding-it-in-the-source-code" title="Permanent link">&para;</a></h3>
 <p><strong>COZY_PARAMETERS</strong> environment variable will help you.</p>
 <p>In standalone mode or dev mode, you can init it in konnector-dev-config.json :</p>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">&quot;COZY_PARAMETERS&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;secret&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;mySecretKey&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;s3cr3tk3y&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">"COZY_PARAMETERS"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"secret"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"mySecretKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"s3cr3tk3y"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 </code></pre></div>
@@ -7864,9 +7864,9 @@ This function can then:</p>
 <div class="highlight"><pre><span></span><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">BaseKonnector</span><span class="p">(</span><span class="nx">start</span><span class="p">)</span>
 
 <span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">start</span><span class="p">(</span><span class="nx">fields</span><span class="p">,</span><span class="w"> </span><span class="nx">cozyParameters</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;info&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">cozyParameters</span><span class="p">.</span><span class="nx">secret</span><span class="p">.</span><span class="nx">mySecretKey</span><span class="p">)</span>
+<span class="w">  </span><span class="nx">log</span><span class="p">(</span><span class="s1">'info'</span><span class="p">,</span><span class="w"> </span><span class="nx">cozyParameters</span><span class="p">.</span><span class="nx">secret</span><span class="p">.</span><span class="nx">mySecretKey</span><span class="p">)</span>
 <span class="p">}</span>
-<span class="c1">// -&gt; &quot;s3cr3tk3y&quot;</span>
+<span class="c1">// -&gt; "s3cr3tk3y"</span>
 </code></pre></div>
 <p>If you want to know how this works in a real cozy, you can find more information on <a href="https://docs.cozy.io/en/cozy-stack/konnectors-workflow/#secrets-that-are-not-oauth">Stack documentation</a></p>
 <h4 id="cozy-konnector-libs"><a href="https://github.com/konnectors/libs">cozy-konnector-libs</a><a class="headerlink" href="#cozy-konnector-libs" title="Permanent link">&para;</a></h4>

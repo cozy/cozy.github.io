@@ -7842,9 +7842,9 @@ EMAIL=your.email@email.domain
 <p>Then create the instance (you can of course adapt your language (<code>locale</code>) to choose english (<code>en</code>) or spanish (<code>es</code>) and choose another timezone (<code>tz</code>)).</p>
 <div class="highlight"><pre><span></span><code>sudo cozy-stack instances add \
                 --apps home,banks,contacts,drive,notes,passwords,photos,settings,store \
-                --email &quot;${EMAIL}&quot; \
+                --email "${EMAIL}" \
                 --locale fr \
-                --tz &quot;Europe/Paris&quot; \
+                --tz "Europe/Paris" \
                 cozy.${DOMAIN}
 </code></pre></div>
 <div class="admonition warning">
@@ -7852,7 +7852,7 @@ EMAIL=your.email@email.domain
 <p>Instance creation can take up to 30 seconds without printing anything on screen.
 Please wait during creation and avoid stopping it in the middle or your instance will miss some important bits.</p>
 <p>In case something goes wrong, you can remove the instance with the following command before trying again</p>
-<div class="highlight"><pre><span></span><code>sudo COZY_ADMIN_PASSWORD=&quot;${COZY_PASS}&quot; cozy-stack instances rm --force cozy.${DOMAIN}
+<div class="highlight"><pre><span></span><code>sudo COZY_ADMIN_PASSWORD="${COZY_PASS}" cozy-stack instances rm --force cozy.${DOMAIN}
 </code></pre></div>
 </div>
 <p>Note the “Registration token” this command returns and visit from your browser <code>https://cozy.domain.example?registerToken=&lt;registration_token&gt;</code> substituting <code>domain.example</code> with your real domain name and <code>&lt;registration_token&gt;</code> with the “Registration token” you got.

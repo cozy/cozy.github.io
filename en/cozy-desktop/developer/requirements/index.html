@@ -8071,10 +8071,10 @@ sudo usermod -aG docker $USER # Restart your session so this takes effect
 </code></pre></div>
 <h3 id="ubuntu">Ubuntu<a class="headerlink" href="#ubuntu" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-echo &quot;deb https://dl.yarnpkg.com/debian/ stable main&quot; | sudo tee /etc/apt/sources.list.d/yarn.list
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository \
- &quot;deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable&quot;
+ "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 sudo apt update
 sudo apt install git nodejs build-essential gcc transifex-client icnsutils graphicsmagick python3-pip docker-ce yarn
 sudo pip install docker-compose
@@ -8093,7 +8093,7 @@ yarn bootstrap
 yarn docker:exec apt-get install git  # So we can install cozy apps
 </code></pre></div>
 <p>You can also run any cozy-stack command with the <code>yarn cozy-stack</code> script, e.g.:</p>
-<div class="highlight"><pre><span></span><code>yarn cozy-stack apps install --domain cozy.localhost:8080 drive &#39;git://github.com/cozy/cozy-drive.git#build-drive&#39;
+<div class="highlight"><pre><span></span><code>yarn cozy-stack apps install --domain cozy.localhost:8080 drive 'git://github.com/cozy/cozy-drive.git#build-drive'
 </code></pre></div>
 <h2 id="complete-your-setup">Complete your setup<a class="headerlink" href="#complete-your-setup" title="Permanent link">&para;</a></h2>
 <p>See <a href="../setup/">./setup.md</a></p>

@@ -7999,7 +7999,7 @@
 <h3 id="dirty-details-for-developers">Dirty details for developers<a class="headerlink" href="#dirty-details-for-developers" title="Permanent link">&para;</a></h3>
 <p>The intermediary secret is built from the user passphrase and the URL of its instance with the following formula:</p>
 <div class="highlight"><pre><span></span><code>user-iterations = # from a /bitwarden/api/accounts/prelogin request
-user-salt = &quot;me@&quot; + host
+user-salt = "me@" + host
 key = pbdkf2(passphrase, salt=user-salt, iterations=user-salt, alg=SHA-256)
 secret = pbkdf2(key, salt=passphrase, iterations=1, alg=SHA-256)
 </code></pre></div>

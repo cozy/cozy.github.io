@@ -8098,14 +8098,14 @@ If missing, harvest will determine the value of the <code>identifier</code> attr
 <h3 id="mutederrors"><code>mutedErrors</code><a class="headerlink" href="#mutederrors" title="Permanent link">&para;</a></h3>
 <p>This field is used to keep track of konnector errors that have been muted by the user and shouldn&rsquo;t be featured in the UI anymore.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;account_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;example-konnector&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;auth&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;identifier&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0000000000&quot;</span>
+<span class="w">  </span><span class="nt">"account_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example-konnector"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"auth"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0000000000"</span>
 <span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;mutedErrors&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"mutedErrors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;LOGIN_FAILED&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;mutedAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2019-12-01T00:48:01.404911778Z&quot;</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LOGIN_FAILED"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"mutedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-12-01T00:48:01.404911778Z"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">]</span>
 <span class="p">}</span>
@@ -8115,11 +8115,11 @@ If missing, harvest will determine the value of the <code>identifier</code> attr
 <p>An account may have a <code>parent</code> relationship. It is used to indicate that this accounts depends on another one.
 Generally, the konnector should be able to handle by itself this kind of relationshiop, like querying the database to get the information it needs. A <code>parent</code> relationship is aimed to be an account overriden by the account it is linked to, but it can also be use as an <em>aggregator</em> account. See <a href="https://docs.cozy.io/en/cozy-stack/konnectors-workflow/#aggregator-accounts">Cozy-stack documentation about aggregator accounts</a>.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;relationships&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;parent&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;aggregator-service-account&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.accounts&quot;</span>
+<span class="w">  </span><span class="nt">"relationships"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"parent"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aggregator-service-account"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.accounts"</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
@@ -8128,12 +8128,12 @@ Generally, the konnector should be able to handle by itself this kind of relatio
 <h3 id="vault-cipher-vaultcipher">Vault Cipher <code>vaultCipher</code><a class="headerlink" href="#vault-cipher-vaultcipher" title="Permanent link">&para;</a></h3>
 <p>An account can be synced in a password manager. In that case, the <code>vaultCipher</code> relationship can be used to store data used to synchronize the document with the remote endpoint.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;relationships&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;vaultCipher&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123abc&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;com.bitwarden.ciphers&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;_protocol&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bitwarden&quot;</span>
+<span class="w">  </span><span class="nt">"relationships"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"vaultCipher"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123abc"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.bitwarden.ciphers"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"_protocol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bitwarden"</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
@@ -8150,27 +8150,27 @@ in the <code>metadata</code> key of the relationship item.</p>
 <li><code>label</code>: Label of the contract</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;relationships&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;contracts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"relationships"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"contracts"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;77b662b903f1bac7a78cf8cc12806479&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.bank.accounts&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;deletedByVendor&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;imported&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Compte chèque&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;vendorId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1337&quot;</span>
+<span class="w">          </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"77b662b903f1bac7a78cf8cc12806479"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.bank.accounts"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"deletedByVendor"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"imported"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Compte chèque"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"vendorId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1337"</span>
 <span class="w">          </span><span class="p">}</span>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;07c731e303e0d50a5407b7eca9389890&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.bank.accounts&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;deletedByVendor&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;imported&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Assurance Vie&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;vendorId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1338&quot;</span>
+<span class="w">          </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"07c731e303e0d50a5407b7eca9389890"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.bank.accounts"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"deletedByVendor"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"imported"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Assurance Vie"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"vendorId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1338"</span>
 <span class="w">          </span><span class="p">}</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">      </span><span class="p">]</span>
@@ -8181,23 +8181,23 @@ in the <code>metadata</code> key of the relationship item.</p>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <h3 id="freemobile-regular-connector-with-current-deprecation">Freemobile (regular connector, with current deprecation)<a class="headerlink" href="#freemobile-regular-connector-with-current-deprecation" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;c8ae8c7e5554f223816c71a066f1a621&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;c8ae8c7e5554f223816c71a066f1a621&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;account_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;freemobile&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;auth&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;credentials_encrypted&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;aaDtwWSWsdpbbbbbbbbbbbbbbOzp...n4Y8c=&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;login&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0612345678&quot;</span>
+<span class="w">  </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c8ae8c7e5554f223816c71a066f1a621"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c8ae8c7e5554f223816c71a066f1a621"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"account_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"freemobile"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"auth"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"credentials_encrypted"</span><span class="p">:</span><span class="w"> </span><span class="s2">"aaDtwWSWsdpbbbbbbbbbbbbbbOzp...n4Y8c="</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"login"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0612345678"</span>
 <span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;defaultFolderPath&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/Administratif/Free Mobile/0612345678&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;identifier&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;login&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;state&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;LOGIN_SUCCESS&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;cozyMetadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;createdAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2022-11-15T16:12:10.736Z&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;metadataVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;updatedAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2022-11-15T16:32:58.617Z&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;updatedByApps&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"defaultFolderPath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/Administratif/Free Mobile/0612345678"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"identifier"</span><span class="p">:</span><span class="w"> </span><span class="s2">"login"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LOGIN_SUCCESS"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"cozyMetadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-11-15T16:12:10.736Z"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"metadataVersion"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-11-15T16:32:58.617Z"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"updatedByApps"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">      </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2022-11-15T16:32:58.617Z&quot;</span>
+<span class="w">        </span><span class="nt">"date"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-11-15T16:32:58.617Z"</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">]</span>
 <span class="w">  </span><span class="p">}</span>
@@ -8206,14 +8206,14 @@ in the <code>metadata</code> key of the relationship item.</p>
 <h3 id="caisse-depargne-budget-insights-connector">Caisse d&rsquo;Épargne (Budget Insights connector)<a class="headerlink" href="#caisse-depargne-budget-insights-connector" title="Permanent link">&para;</a></h3>
 <p>The connectors based on Budget Insight API are storing specific informations into <code>data</code> attribute.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;account_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;caissedepargne1&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;auth&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;bankIds&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;1&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="nt">"account_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"caissedepargne1"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"auth"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"bankIds"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"1"</span><span class="p">]</span>
 <span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;auth&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;bi&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;connId&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1556</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"auth"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"bi"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"connId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1556</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>

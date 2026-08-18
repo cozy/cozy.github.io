@@ -7904,7 +7904,7 @@ The docker group grants root-level privileges to the user. For details on how th
 <span class="w">    </span>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-p<span class="w"> </span><span class="m">8025</span>:8025<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--name<span class="w"> </span>cozydev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/cozy/myapp&quot;</span>:/data/cozy-app<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/cozy/myapp"</span>:/data/cozy-app<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>cozy/cozy-app-dev
 </code></pre></div>
 <div class="admonition note">
@@ -7915,7 +7915,7 @@ The docker group grants root-level privileges to the user. For details on how th
 - `-p 8080:8080`: the server listens on port 8080 on the virtual machine. We forward this port to the same port on your local machine. To use another local port, for example 9090, use `-p 9090:8080`
 - `-p 8025:8025`: Cozy requires a mail server. In the development image, we don’t use a real email server, but a software that can display the sent messages. Just point your browser to `http://localhost:8025/` to display the messages sent by the server
 - `--name cozydev`: name the running virtual machine `cozydev`, so you can easily refer to it from other Docker commands. For example, if you want to connect to a shell inside the server, you can use `docker exec cozydev -it /bin/bash`
-- `-v &quot;$HOME/cozy/myapp&quot;:/data/cozy-app`: this mount the local folder, where your application leaves, inside the container. This is what make the application available on the server
+- `-v "$HOME/cozy/myapp":/data/cozy-app`: this mount the local folder, where your application leaves, inside the container. This is what make the application available on the server
 </code></pre></div>
 <h2 id="with-data-persistence">With data persistence<a class="headerlink" href="#with-data-persistence" title="Permanent link">&para;</a></h2>
 <p>If you want to persist data, you have to mount two folders from the virtual server to local folders: <code>/var/lib/couchdb</code> (database) and <code>/data/cozy-storage</code> (the virtual filesystem). This can be achieved by adding two options to the command line starting with <code>-v</code> which will store the server’s data into <code>$HOME/cozy/data/</code>.</p>
@@ -7923,9 +7923,9 @@ The docker group grants root-level privileges to the user. For details on how th
 <span class="w">    </span>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-p<span class="w"> </span><span class="m">8025</span>:8025<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--name<span class="w"> </span>cozydev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/cozy/myapp&quot;</span>:/data/cozy-app<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/cozy/data/db&quot;</span>:/var/lib/couchdb<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/cozy/data/storage&quot;</span>:/data/cozy-storage<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/cozy/myapp"</span>:/data/cozy-app<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/cozy/data/db"</span>:/var/lib/couchdb<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/cozy/data/storage"</span>:/data/cozy-storage<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>cozy/cozy-app-dev
 </code></pre></div>
 <h2 id="run-with-a-custom-stack-config-file">Run with a custom stack config file<a class="headerlink" href="#run-with-a-custom-stack-config-file" title="Permanent link">&para;</a></h2>
@@ -7934,8 +7934,8 @@ The docker group grants root-level privileges to the user. For details on how th
 <span class="w">    </span>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-p<span class="w"> </span><span class="m">8025</span>:8025<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--name<span class="w"> </span>cozydev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/cozy/myapp&quot;</span>:/data/cozy-app<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/cozy/cozy.yaml&quot;</span>:/etc/cozy/cozy.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/cozy/myapp"</span>:/data/cozy-app<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/cozy/cozy.yaml"</span>:/etc/cozy/cozy.yaml<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>cozy/cozy-app-dev
 </code></pre></div>
 <p>You can learn more about the <code>cozy-stack</code> config file in <a href="/en/cozy-stack/config/">its dedicated documentation</a></p>
@@ -7945,8 +7945,8 @@ The docker group grants root-level privileges to the user. For details on how th
 <span class="w">    </span>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-p<span class="w"> </span><span class="m">8025</span>:8025<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--name<span class="w"> </span>cozydev<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/cozy/appone&quot;</span>:/data/cozy-app/appone<span class="w"> </span><span class="se">\</span>
-<span class="w">    </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/cozy/apptwo&quot;</span>:/data/cozy-app/apptwo<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/cozy/appone"</span>:/data/cozy-app/appone<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/cozy/apptwo"</span>:/data/cozy-app/apptwo<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>cozy/cozy-app-dev
 </code></pre></div>
 <p>You’ll access the applications by connecting to <code>http://appone.cozy.localhost:8080/</code> and <code>http://apptwo.cozy.localhost:8080</code>.</p>

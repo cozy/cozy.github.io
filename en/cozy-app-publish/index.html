@@ -8602,10 +8602,10 @@ you built for beta publication</p>
 <li>If you&rsquo;re planing to run this <code>cozy-app-publish</code> on Travis, you&rsquo;ll want to <a href="https://docs.travis-ci.com/user/encrypting-files/#Automated-Encryption">encrypt that file first</a>. Run <code>travis encrypt-file id_rsa_downcloud_myapp</code> and copy the output. This command also generates a <code>id_rsa_downcloud_myapp.enc</code>.</li>
 <li>To add the key to Travis&rsquo;s ssh-agent, add the following lines in the <code>before_install</code> section of your <code>.travis.yml</code>, but don&rsquo;t forget to paste the output of <code>travis encrypt-file</code> where it&rsquo;s needed.</li>
 </ul>
-<div class="highlight"><pre><span></span><code>- if [ &quot;$TRAVIS_SECURE_ENV_VARS&quot; != &quot;false&quot; ]; then PASTE_TRAVIS_ENCRYPT_OUTPUT_HERE; fi
-- if [ &quot;$TRAVIS_SECURE_ENV_VARS&quot; != &quot;false&quot; ]; then eval &quot;$(ssh-agent -s)&quot;; fi
-- if [ &quot;$TRAVIS_SECURE_ENV_VARS&quot; != &quot;false&quot; ]; then chmod 600 id_rsa_downcloud_myapp; fi
-- if [ &quot;$TRAVIS_SECURE_ENV_VARS&quot; != &quot;false&quot; ]; then ssh-add id_rsa_downcloud_myapp; fi
+<div class="highlight"><pre><span></span><code>- if [ "$TRAVIS_SECURE_ENV_VARS" != "false" ]; then PASTE_TRAVIS_ENCRYPT_OUTPUT_HERE; fi
+- if [ "$TRAVIS_SECURE_ENV_VARS" != "false" ]; then eval "$(ssh-agent -s)"; fi
+- if [ "$TRAVIS_SECURE_ENV_VARS" != "false" ]; then chmod 600 id_rsa_downcloud_myapp; fi
+- if [ "$TRAVIS_SECURE_ENV_VARS" != "false" ]; then ssh-add id_rsa_downcloud_myapp; fi
 </code></pre></div>
 <ul>
 <li>We recommend changing the path used for the private key. You can change the <code>-out</code> argument of the command output by <code>travis encrypt-file</code> and the corresponding path&rsquo;s in the commands above. <code>/tmp/id_rsa_downcloud_myapp</code> is a good place to store this key. You mays also change the <code>-in</code> argument of the same command, and change the path of the file <code>id_rsa_downcloud_myapp.enc</code> to whatever you want. We recomend using <code>./deploy/id_rsa_downcloud_myapp.enc</code> (don&rsquo;t forget to move the file as well!).</li>

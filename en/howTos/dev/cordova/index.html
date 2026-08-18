@@ -8058,12 +8058,12 @@ As you can read there, Cozy applications are served by the Cozy server, this is 
 <h2 id="setup-indexhtml">Setup index.html<a class="headerlink" href="#setup-indexhtml" title="Permanent link">&para;</a></h2>
 <p>First thing first, add JavaScript libraries files into your <code>index.html</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
-<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">"en"</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">"utf-8"</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>mobile Cozy application with Cordova<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;cozy-client.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;cozy-bar.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"cozy-client.js"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"cozy-bar.js"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
   <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
     <span class="cm">&lt;!-- page content --&gt;</span>
@@ -8073,16 +8073,16 @@ As you can read there, Cozy applications are served by the Cozy server, this is 
 <h2 id="connect-to-cozy-server">Connect to Cozy server<a class="headerlink" href="#connect-to-cozy-server" title="Permanent link">&para;</a></h2>
 <p>When an user will start your mobile Cozy application, she/he will need to point to her/his server url to ask for permissions for her/his device.</p>
 <p>This is done by our library <code>cozy-client</code>, you just need to add a HTML form:</p>
-<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">form</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;form&quot;</span><span class="p">&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">form</span> <span class="na">id</span><span class="o">=</span><span class="s">"form"</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;</span>What is your cozy server url?
-    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;url&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;url&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">name</span><span class="o">=</span><span class="s">"url"</span> <span class="na">id</span><span class="o">=</span><span class="s">"url"</span> <span class="na">type</span><span class="o">=</span><span class="s">"text"</span> <span class="p">/&gt;</span>
   <span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span><span class="p">&gt;</span>Submit<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">"submit"</span><span class="p">&gt;</span>Submit<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">urlInput</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;url&quot;</span><span class="p">);</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">form</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;form&quot;</span><span class="p">);</span>
-<span class="nx">form</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;submit&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">registerClient</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">urlInput</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">"url"</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">form</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">"form"</span><span class="p">);</span>
+<span class="nx">form</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">"submit"</span><span class="p">,</span><span class="w"> </span><span class="nx">registerClient</span><span class="p">);</span>
 <span class="kd">function</span><span class="w"> </span><span class="nx">registerClient</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
 <span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">urlInput</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
@@ -8097,9 +8097,9 @@ As you can read there, Cozy applications are served by the Cozy server, this is 
 <h2 id="initialize-the-cozy-bar">Initialize the Cozy bar<a class="headerlink" href="#initialize-the-cozy-bar" title="Permanent link">&para;</a></h2>
 <p>The Cozy bar needs some information to be initialized and its initialization must be done in your front-end code:</p>
 <div class="highlight"><pre><span></span><code><span class="nx">cozy</span><span class="p">.</span><span class="nx">bar</span><span class="p">.</span><span class="nx">init</span><span class="p">({</span>
-<span class="w">  </span><span class="nx">appName</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;App Name&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">iconPath</span><span class="o">:</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./assets/app-icon.svg&quot;</span><span class="p">),</span>
-<span class="w">  </span><span class="nx">lang</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;en-US&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">appName</span><span class="o">:</span><span class="w"> </span><span class="s2">"App Name"</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">iconPath</span><span class="o">:</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s2">"./assets/app-icon.svg"</span><span class="p">),</span>
+<span class="w">  </span><span class="nx">lang</span><span class="o">:</span><span class="w"> </span><span class="s2">"en-US"</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">replaceTitleOnMobile</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span>
 <span class="p">})</span>
 </code></pre></div>
@@ -8132,13 +8132,13 @@ Look at the <a href="https://cordova.apache.org/docs/en/latest/guide/cli/index.h
 <h4 id="webpack-configuration">webpack configuration<a class="headerlink" href="#webpack-configuration" title="Permanent link">&para;</a></h4>
 <p>As <a href="http://stateofjs.com/2016/buildtools/">Webpack is the most used build tool</a> we will show you how to configure it with cordova:</p>
 <p>Create a <code>webpack.config.js</code> on the root folder of your project with:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">'path'</span><span class="p">);</span>
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nx">entry</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;./src/app.js&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">entry</span><span class="o">:</span><span class="w"> </span><span class="s1">'./src/app.js'</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">output</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">filename</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;bundle.js&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;www&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">filename</span><span class="o">:</span><span class="w"> </span><span class="s1">'bundle.js'</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span><span class="w"> </span><span class="s1">'www'</span><span class="p">)</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -8149,7 +8149,7 @@ Look at the <a href="https://cordova.apache.org/docs/en/latest/guide/cli/index.h
   <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
     ...
-    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;bundle.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">"bundle.js"</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
   <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
 </code></pre></div>

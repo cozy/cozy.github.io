@@ -8228,7 +8228,7 @@ URL of RAG must be filled in cozy-stack configuration file (in <code>rag</code>)
 manually on the Cozy:</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nv">COZY</span><span class="o">=</span>cozy.localhost:8080
 $<span class="w"> </span><span class="nv">TOKEN</span><span class="o">=</span><span class="k">$(</span>cozy-stack<span class="w"> </span>instances<span class="w"> </span>token-cli<span class="w"> </span><span class="nv">$COZY</span><span class="w"> </span>io.cozy.triggers<span class="k">)</span>
-$<span class="w"> </span>curl<span class="w"> </span><span class="s2">&quot;http://</span><span class="si">${</span><span class="nv">COZY</span><span class="si">}</span><span class="s2">/jobs/triggers&quot;</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">&quot;Authorization: Bearer </span><span class="nv">$TOKEN</span><span class="s2">&quot;</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{ &quot;data&quot;: { &quot;attributes&quot;: { &quot;type&quot;: &quot;@event&quot;, &quot;arguments&quot;: &quot;io.cozy.files&quot;, &quot;debounce&quot;: &quot;1m&quot;, &quot;worker&quot;: &quot;rag-index&quot;, &quot;message&quot;: {&quot;doctype&quot;: &quot;io.cozy.files&quot;} } } }&#39;</span>
+$<span class="w"> </span>curl<span class="w"> </span><span class="s2">"http://</span><span class="si">${</span><span class="nv">COZY</span><span class="si">}</span><span class="s2">/jobs/triggers"</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="nv">$TOKEN</span><span class="s2">"</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">'{ "data": { "attributes": { "type": "@event", "arguments": "io.cozy.files", "debounce": "1m", "worker": "rag-index", "message": {"doctype": "io.cozy.files"} } } }'</span>
 </code></pre></div>
 <p>It can also be a good idea to start a first indexation with:</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>cozy-stack<span class="w"> </span>triggers<span class="w"> </span>launch<span class="w"> </span>--domain<span class="w"> </span><span class="nv">$COZY</span><span class="w"> </span><span class="nv">$TRIGGER_ID</span>
@@ -8253,10 +8253,10 @@ Note the JSON-API format is not used here as we follow the openRAG format.</p>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;messages&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Hello there, what&#39;s in your mind?&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="nt">"messages"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="p">,</span><span class="w"> </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello there, what's in your mind?"</span><span class="w"> </span><span class="p">}</span>
 <span class="w">  </span><span class="p">],</span>
-<span class="w">  </span><span class="nt">&quot;temperature&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.3</span>
+<span class="w">  </span><span class="nt">"temperature"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.3</span>
 <span class="p">}</span>
 </code></pre></div>
 <h4 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h4>
@@ -8264,33 +8264,33 @@ Note the JSON-API format is not used here as we follow the openRAG format.</p>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;chatcmpl-43036e48fbac40fead606e8692a7b408&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;created&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1763657211</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;object&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;chat.completion&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;system_fingerprint&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;choices&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"chatcmpl-43036e48fbac40fead606e8692a7b408"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"created"</span><span class="p">:</span><span class="w"> </span><span class="mi">1763657211</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"model"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"object"</span><span class="p">:</span><span class="w"> </span><span class="s2">"chat.completion"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"system_fingerprint"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"choices"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;finish_reason&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;stop&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;index&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;As an artificial intelligence language model, I don&#39;t have personal thoughts or emotions like humans do. My purpose is to assist and provide information to the best of my abilities based on the data I have been trained on. Is there something specific you would like to know or discuss?&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;assistant&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;tool_calls&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;function_call&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span>
+<span class="w">      </span><span class="nt">"finish_reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"stop"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"index"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"As an artificial intelligence language model, I don't have personal thoughts or emotions like humans do. My purpose is to assist and provide information to the best of my abilities based on the data I have been trained on. Is there something specific you would like to know or discuss?"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"assistant"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"tool_calls"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"function_call"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">],</span>
-<span class="w">  </span><span class="nt">&quot;usage&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;completion_tokens&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">56</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;prompt_tokens&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">28</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;total_tokens&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">84</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;completion_tokens_details&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;prompt_tokens_details&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span>
+<span class="w">  </span><span class="nt">"usage"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"completion_tokens"</span><span class="p">:</span><span class="w"> </span><span class="mi">56</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"prompt_tokens"</span><span class="p">:</span><span class="w"> </span><span class="mi">28</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"total_tokens"</span><span class="p">:</span><span class="w"> </span><span class="mi">84</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"completion_tokens_details"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"prompt_tokens_details"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span>
 <span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">&quot;service_tier&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;prompt_logprobs&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;extra&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;{\&quot;sources\&quot;: []}&quot;</span>
+<span class="w">  </span><span class="nt">"service_tier"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"prompt_logprobs"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"extra"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{\"sources\": []}"</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="post-aiv1toolsexecute">POST /ai/v1/tools/execute<a class="headerlink" href="#post-aiv1toolsexecute" title="Permanent link">&para;</a></h3>
@@ -8299,15 +8299,15 @@ Note the JSON-API format is not used here as we follow the openRAG format.</p>
 <p>POST /ai/v1/tools/execute HTTP/1.1
 Content-Type: multipart/form-data</p>
 <div class="highlight"><pre><span></span><code>file=&lt;file content&gt;
-tool={&quot;name&quot;: &quot;extractText&quot;}
-metadata={&quot;mime&quot;:&quot;application/pdf&quot;,&quot;name&quot;:&quot;myfile.pdf&quot;}
+tool={"name": "extractText"}
+metadata={"mime":"application/pdf","name":"myfile.pdf"}
 </code></pre></div>
 <h4 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Some file content&quot;</span>
+<span class="w">  </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Some file content"</span>
 <span class="p">}</span>
 </code></pre></div>
 <h2 id="assistant-chat">Assistant chat<a class="headerlink" href="#assistant-chat" title="Permanent link">&para;</a></h2>
@@ -8327,11 +8327,11 @@ response. The client must use the real-time websocket and subscribe to
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;q&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Why the sky is blue?&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;stream&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;websearch&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;assistantID&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abc123&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;attachmentIDs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;827f0fbb928b375cc457c732a4013aa7&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;9a3b1c2d3e4f5a6b7c8d9e0f1a2b3c4d&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="nt">"q"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Why the sky is blue?"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"stream"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"websearch"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"assistantID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abc123"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"attachmentIDs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"827f0fbb928b375cc457c732a4013aa7"</span><span class="p">,</span><span class="w"> </span><span class="s2">"9a3b1c2d3e4f5a6b7c8d9e0f1a2b3c4d"</span><span class="p">]</span>
 <span class="p">}</span>
 </code></pre></div>
 <ul>
@@ -8347,34 +8347,34 @@ response. The client must use the real-time websocket and subscribe to
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.ai.chat.conversations&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;e21dce8058b9013d800a18c04daba326&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;rev&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1-23456&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;messages&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.ai.chat.conversations"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e21dce8058b9013d800a18c04daba326"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"rev"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1-23456"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"messages"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">        </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eb17c3205bf1013ddea018c04daba326&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;content&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Why the sky is blue?&quot;</span><span class="p">,</span>
-<span class="w">          </span><span class="nt">&quot;attachmentIDs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;827f0fbb928b375cc457c732a4013aa7&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;9a3b1c2d3e4f5a6b7c8d9e0f1a2b3c4d&quot;</span><span class="p">],</span>
-<span class="w">          </span><span class="nt">&quot;createdAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-09-24T13:24:07.576Z&quot;</span>
+<span class="w">          </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eb17c3205bf1013ddea018c04daba326"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Why the sky is blue?"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"attachmentIDs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"827f0fbb928b375cc457c732a4013aa7"</span><span class="p">,</span><span class="w"> </span><span class="s2">"9a3b1c2d3e4f5a6b7c8d9e0f1a2b3c4d"</span><span class="p">],</span>
+<span class="w">          </span><span class="nt">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-09-24T13:24:07.576Z"</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">      </span><span class="p">],</span>
-<span class="w">      </span><span class="nt">&quot;relationships&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;assistant&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">          </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="s2">&quot;b2e1a4144c123ec694697d996102983a&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="s2">&quot;io.cozy.ai.chat.assistants&quot;</span>
+<span class="w">      </span><span class="nt">"relationships"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"assistant"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"id"</span><span class="p">:</span><span class="s2">"b2e1a4144c123ec694697d996102983a"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"type"</span><span class="p">:</span><span class="s2">"io.cozy.ai.chat.assistants"</span>
 <span class="w">          </span><span class="p">}</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;cozyMetadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;createdAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-09-24T13:24:07.576Z&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;createdOn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://cozy.localhost:8080/&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;doctypeVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;metadataVersion&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;updatedAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-09-24T13:24:07.576Z&quot;</span>
+<span class="w">      </span><span class="nt">"cozyMetadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-09-24T13:24:07.576Z"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"createdOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://cozy.localhost:8080/"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"doctypeVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"metadataVersion"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-09-24T13:24:07.576Z"</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
@@ -8382,34 +8382,34 @@ response. The client must use the real-time websocket and subscribe to
 </code></pre></div>
 <h3 id="real-time-via-websockets">Real-time via websockets<a class="headerlink" href="#real-time-via-websockets" title="Permanent link">&para;</a></h3>
 <h4 id="messages-flow-example">Messages flow example<a class="headerlink" href="#messages-flow-example" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code>client &gt; {&quot;method&quot;: &quot;AUTH&quot;, &quot;payload&quot;: &quot;token&quot;}
-client &gt; {&quot;method&quot;: &quot;SUBSCRIBE&quot;,
-          &quot;payload&quot;: {&quot;type&quot;: &quot;io.cozy.ai.chat.events&quot;}}
-server &gt; {&quot;event&quot;: &quot;CREATED&quot;,
-          &quot;payload&quot;: {&quot;id&quot;: &quot;eb17c3205bf1013ddea018c04daba326&quot;,
-                      &quot;type&quot;: &quot;io.cozy.ai.chat.events&quot;,
-                      &quot;doc&quot;: {&quot;object&quot;: &quot;delta&quot;, &quot;content&quot;: &quot;The &quot;, &quot;position&quot;: 0}}}
-server &gt; {&quot;event&quot;: &quot;CREATED&quot;,
-          &quot;payload&quot;: {&quot;id&quot;: &quot;eb17c3205bf1013ddea018c04daba326&quot;,
-                      &quot;type&quot;: &quot;io.cozy.ai.chat.events&quot;,
-                      &quot;doc&quot;: {&quot;object&quot;: &quot;delta&quot;, &quot;content&quot;: &quot;sky &quot;, &quot;position&quot;: 1}}}
+<div class="highlight"><pre><span></span><code>client &gt; {"method": "AUTH", "payload": "token"}
+client &gt; {"method": "SUBSCRIBE",
+          "payload": {"type": "io.cozy.ai.chat.events"}}
+server &gt; {"event": "CREATED",
+          "payload": {"id": "eb17c3205bf1013ddea018c04daba326",
+                      "type": "io.cozy.ai.chat.events",
+                      "doc": {"object": "delta", "content": "The ", "position": 0}}}
+server &gt; {"event": "CREATED",
+          "payload": {"id": "eb17c3205bf1013ddea018c04daba326",
+                      "type": "io.cozy.ai.chat.events",
+                      "doc": {"object": "delta", "content": "sky ", "position": 1}}}
 [...]
-server &gt; {&quot;event&quot;: &quot;CREATED&quot;,
-          &quot;payload&quot;: {&quot;id&quot;: &quot;eb17c3205bf1013ddea018c04daba326&quot;,
-                      &quot;type&quot;: &quot;io.cozy.ai.chat.events&quot;,
-                      &quot;doc&quot;: {&quot;object&quot;: &quot;sources&quot;, &quot;content&quot;: [{&quot;id&quot;: &quot;827f0fbb928b375cc457c732a4013aa7&quot;, &quot;doctype&quot;: &quot;io.cozy.files&quot;}]}}}
-server &gt; {&quot;event&quot;: &quot;CREATED&quot;,
-          &quot;payload&quot;: {&quot;id&quot;: &quot;eb17c3205bf1013ddea018c04daba326&quot;,
-                      &quot;type&quot;: &quot;io.cozy.ai.chat.events&quot;,
-                      &quot;doc&quot;: {&quot;object&quot;: &quot;done&quot;}}}
+server &gt; {"event": "CREATED",
+          "payload": {"id": "eb17c3205bf1013ddea018c04daba326",
+                      "type": "io.cozy.ai.chat.events",
+                      "doc": {"object": "sources", "content": [{"id": "827f0fbb928b375cc457c732a4013aa7", "doctype": "io.cozy.files"}]}}}
+server &gt; {"event": "CREATED",
+          "payload": {"id": "eb17c3205bf1013ddea018c04daba326",
+                      "type": "io.cozy.ai.chat.events",
+                      "doc": {"object": "done"}}}
 </code></pre></div>
 <h4 id="error-message">Error message<a class="headerlink" href="#error-message" title="Permanent link">&para;</a></h4>
 <p>If an error occurs while processing the AI response (e.g. the LLM is
 unavailable), an error event is sent instead:</p>
-<div class="highlight"><pre><span></span><code>server &gt; {&quot;event&quot;: &quot;CREATED&quot;,
-          &quot;payload&quot;: {&quot;id&quot;: &quot;eb17c3205bf1013ddea018c04daba326&quot;,
-                      &quot;type&quot;: &quot;io.cozy.ai.chat.events&quot;,
-                      &quot;doc&quot;: {&quot;object&quot;: &quot;error&quot;, &quot;message&quot;: &quot;I don&#39;t want to talk today&quot;}}}
+<div class="highlight"><pre><span></span><code>server &gt; {"event": "CREATED",
+          "payload": {"id": "eb17c3205bf1013ddea018c04daba326",
+                      "type": "io.cozy.ai.chat.events",
+                      "doc": {"object": "error", "message": "I don't want to talk today"}}}
 </code></pre></div>
 
 

@@ -7766,11 +7766,11 @@ make this possible.</p>
 notification on your mobile.</p>
 <h2 id="test">Test<a class="headerlink" href="#test" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>COZY_DOMAIN=recette.cozy.works &amp;&amp; \
-curl -X POST &quot;https://$COZY_DOMAIN/jobs/queue/push&quot; \
-  -H &quot;Authorization: Bearer $(cozy-stack instances token-cli $COZY_DOMAIN io.cozy.jobs)&quot; \
-  -H &quot;Accept: text/event-stream&quot; \
-  -H &quot;Content-Type: application-json&quot; \
-  -d&#39;{&quot;data&quot;:{&quot;attributes&quot;:{&quot;arguments&quot;:{&quot;platform&quot;: &quot;firebase&quot;, &quot;source&quot;: &quot;toto&quot;, &quot;title&quot;: &quot;Mon Titre&quot;, &quot;message&quot;: &quot;Mon message !!!&quot;, &quot;data&quot;: {&quot;foo&quot;: &quot;bar&quot;}}}}}&#39;
+curl -X POST "https://$COZY_DOMAIN/jobs/queue/push" \
+  -H "Authorization: Bearer $(cozy-stack instances token-cli $COZY_DOMAIN io.cozy.jobs)" \
+  -H "Accept: text/event-stream" \
+  -H "Content-Type: application-json" \
+  -d'{"data":{"attributes":{"arguments":{"platform": "firebase", "source": "toto", "title": "Mon Titre", "message": "Mon message !!!", "data": {"foo": "bar"}}}}}'
 </code></pre></div>
 <h2 id="how-to-test-push-notifications">How to test push notifications<a class="headerlink" href="#how-to-test-push-notifications" title="Permanent link">&para;</a></h2>
 <ol>
@@ -7781,17 +7781,17 @@ curl -X POST &quot;https://$COZY_DOMAIN/jobs/queue/push&quot; \
 <span class="w">  </span><span class="nt">dev</span><span class="p">:</span>
 <span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">...</span>
 <span class="nt">notifications</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">android_api_key</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;fake_android_api_key&quot;</span>
-<span class="w">  </span><span class="nt">fcm_server</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;http://localhost:3001&quot;</span>
+<span class="w">  </span><span class="nt">android_api_key</span><span class="p">:</span><span class="w"> </span><span class="s">"fake_android_api_key"</span>
+<span class="w">  </span><span class="nt">fcm_server</span><span class="p">:</span><span class="w"> </span><span class="s">"http://localhost:3001"</span>
 </code></pre></div></p>
 <ol start="2">
 <li>In Fauxton - &hellip;/io-cozy-oauth-clients doctype</li>
 </ol>
 <p>Edit a document and add the fields: <code>notification_platform</code> and <code>notification_device_token</code>:
 <div class="highlight"><pre><span></span><code><span class="err">...</span>
-<span class="nt">&quot;software_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">,</span>
-<span class="nt">&quot;notification_platform&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;android&quot;</span><span class="p">,</span>
-<span class="nt">&quot;notification_device_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;fake-token&quot;</span><span class="p">,</span>
+<span class="nt">"software_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">,</span>
+<span class="nt">"notification_platform"</span><span class="p">:</span><span class="w"> </span><span class="s2">"android"</span><span class="p">,</span>
+<span class="nt">"notification_device_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fake-token"</span><span class="p">,</span>
 <span class="err">...</span>
 </code></pre></div></p>
 <ol start="3">
@@ -7815,17 +7815,17 @@ $<span class="w"> </span>node<span class="w"> </span>build/onOperationOrBillCrea
 </code></pre></div></p>
 <p>You should receive your notification :
 <div class="highlight"><pre><span></span><code>Received<span class="w"> </span>push<span class="w"> </span>notification<span class="w"> </span><span class="o">{</span>
-<span class="w">  </span>to:<span class="w"> </span><span class="s1">&#39;fake-token&#39;</span>,
+<span class="w">  </span>to:<span class="w"> </span><span class="s1">'fake-token'</span>,
 <span class="w">  </span>content_available:<span class="w"> </span>true,
 <span class="w">  </span>notification:<span class="w"> </span><span class="o">{</span>
-<span class="w">    </span>title:<span class="w"> </span><span class="s1">&#39;Transaction greater than 10€&#39;</span>,
-<span class="w">    </span>body:<span class="w"> </span><span class="s1">&#39;SNCF: +300EUR&#39;</span>
+<span class="w">    </span>title:<span class="w"> </span><span class="s1">'Transaction greater than 10€'</span>,
+<span class="w">    </span>body:<span class="w"> </span><span class="s1">'SNCF: +300EUR'</span>
 <span class="w">  </span><span class="o">}</span>,
 <span class="w">  </span>data:<span class="w"> </span><span class="o">{</span>
-<span class="w">    </span>body:<span class="w"> </span><span class="s1">&#39;SNCF: +300EUR&#39;</span>,
+<span class="w">    </span>body:<span class="w"> </span><span class="s1">'SNCF: +300EUR'</span>,
 <span class="w">    </span>notId:<span class="w"> </span><span class="m">149956241</span>,
-<span class="w">    </span>route:<span class="w"> </span><span class="s1">&#39;/balances/461ef7bdb566ef19d28d976a230162d8/details&#39;</span>,
-<span class="w">    </span>title:<span class="w"> </span><span class="s1">&#39;1 Transaction greater than 10€&#39;</span>
+<span class="w">    </span>route:<span class="w"> </span><span class="s1">'/balances/461ef7bdb566ef19d28d976a230162d8/details'</span>,
+<span class="w">    </span>title:<span class="w"> </span><span class="s1">'1 Transaction greater than 10€'</span>
 <span class="w">  </span><span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></p>

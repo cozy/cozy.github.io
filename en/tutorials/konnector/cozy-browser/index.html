@@ -7776,7 +7776,7 @@ It is a wrapper around jsdom to make it easier for scraping.</p>
 <div class="highlight"><pre><span></span><code>yarn add zombie
 </code></pre></div>
 <p>And use our wrapper with proper defaults for connectors :</p>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">Browser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-konnector-libs/dist/CozyBrowser&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">Browser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">'cozy-konnector-libs/dist/CozyBrowser'</span><span class="p">)</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">browser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Browser</span><span class="p">()</span>
 </code></pre></div>
 <p>Then you can use the zombie API to run HTTP requests to the targeted website.</p>
@@ -7789,7 +7789,7 @@ It is a wrapper around jsdom to make it easier for scraping.</p>
 <li><code>getCookieJar</code> : can export the current cookie session in a cookie jar object</li>
 <li><code>loadCookieJar</code> : can import a cookie jar object as the new cookie session of the browser</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">requestFactory</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-konnector-libs&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">requestFactory</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">'cozy-konnector-libs'</span><span class="p">)</span>
 <span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">browser</span><span class="p">.</span><span class="nx">getCookieJar</span><span class="p">()</span>
 <span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">requestFactory</span><span class="p">({</span>
 <span class="w">    </span><span class="nx">jar</span><span class="o">:</span><span class="w"> </span><span class="nx">j</span>
@@ -7801,7 +7801,7 @@ It is a wrapper around jsdom to make it easier for scraping.</p>
 <h2 id="i-prefer-to-use-cheerio-to-parse-data-even-with-zombie">I prefer to use cheerio to parse data, even with zombie<a class="headerlink" href="#i-prefer-to-use-cheerio-to-parse-data-even-with-zombie" title="Permanent link">&para;</a></h2>
 <p>It is still possible to access the html of the current page with zombie and you can then load it in
 a cheerio object :</p>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">cheerio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cheerio&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">cheerio</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">'cheerio'</span><span class="p">)</span>
 <span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">$</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">cheerio</span><span class="p">(</span><span class="k">await</span><span class="w"> </span><span class="nx">browser</span><span class="p">.</span><span class="nx">html</span><span class="p">())</span>
 </code></pre></div>
 

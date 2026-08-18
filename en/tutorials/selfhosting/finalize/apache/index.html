@@ -7751,11 +7751,11 @@ and configuration instructions and assume you have already managed to configure 
 </code></pre></div>
 <p>We will first define some variables that will make life easier when issuing our SSL certificate and configuring apache (adjust the DOMAIN variable on the first line to your real domain name)</p>
 <div class="highlight"><pre><span></span><code>DOMAIN=domain.example
-EMAIL=&quot;&lt;your email address&gt;&quot;
+EMAIL="&lt;your email address&gt;"
 </code></pre></div>
 <p>Each application in your Cozy will use a different sub-domain and so you need a certificate which include all needed domains.
 Generate SSL certificate with certbot:</p>
-<div class="highlight"><pre><span></span><code>sudo certbot certonly --email &quot;${EMAIL}&quot; --non-interactive --agree-tos --webroot -w /var/www/html -d cozy.${DOMAIN} $(printf -- &quot; -d %s.cozy.${DOMAIN}&quot; home banks contacts drive notes passwords photos settings store mespapiers)
+<div class="highlight"><pre><span></span><code>sudo certbot certonly --email "${EMAIL}" --non-interactive --agree-tos --webroot -w /var/www/html -d cozy.${DOMAIN} $(printf -- " -d %s.cozy.${DOMAIN}" home banks contacts drive notes passwords photos settings store mespapiers)
 </code></pre></div>
 <p>Create apache reload script for your certificate to be reloaded each time it is automatically refreshed, every 3 months:</p>
 <div class="highlight"><pre><span></span><code>cat &lt;&lt;EOF | sudo tee /etc/letsencrypt/renewal-hooks/deploy/reload-apache.sh &gt; /dev/null
@@ -7766,7 +7766,7 @@ sudo chmod 0755 /etc/letsencrypt/renewal-hooks/deploy/reload-apache.sh
 </code></pre></div>
 <p>We will first define some variables that will make life easier when issuing our SSL certificate and configuring apache (adjust the DOMAIN variable on the first line to your real domain name)</p>
 <div class="highlight"><pre><span></span><code>DOMAIN=domain.example
-EMAIL=&quot;&lt;your email address&gt;&quot;
+EMAIL="&lt;your email address&gt;"
 </code></pre></div>
 <p>Configure apache:</p>
 <div class="highlight"><pre><span></span><code>cat &lt;&lt;EOF | sudo tee /etc/apache2/sites-available/cozy.${DOMAIN}.conf &gt; /dev/null
@@ -7801,7 +7801,7 @@ EMAIL=&quot;&lt;your email address&gt;&quot;
     SSLEngine on
     SSLCertificateFile /etc/letsencrypt/live/cozy.${DOMAIN}/fullchain.pem
     SSLCertificateKeyFile /etc/letsencrypt/live/cozy.${DOMAIN}/privkey.pem
-    Header always set Strict-Transport-Security &quot;max-age=31536000; includeSubDomains;&quot;
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains;"
 
     LimitRequestBody  1073741824
 

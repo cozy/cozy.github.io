@@ -7811,14 +7811,14 @@ If you need to see those logs, you need to tell minilog to show them, they are f
 default. Each lib has a different namespace that can be enabled/disabled.</p>
 <p>For example if you want to allow <code>cozy-pouch-link</code> logs at <code>debug</code> level, you can do:</p>
 <div class="highlight"><pre><span></span><code>// In your app, make sure to attach minilog to window for cozy-client to use it
-import minilog from &#39;minilog&#39;
+import minilog from 'minilog'
 window.minilog = minilog
 minilog.enable()
 // You can enable/disable loggers via minilog filters
-require(&#39;minilog&#39;).suggest.allow(&#39;cozy-pouch-link&#39;, &#39;debug&#39;)
+require('minilog').suggest.allow('cozy-pouch-link', 'debug')
 </code></pre></div>
 <p>If you want to see everything :</p>
-<div class="highlight"><pre><span></span><code>require(&#39;minilog&#39;).suggest.clear()
+<div class="highlight"><pre><span></span><code>require('minilog').suggest.clear()
 </code></pre></div>
 <p>More info on <a href="http://mixu.net/minilog/filter.html#filters">minilog docs</a>.</p>
 

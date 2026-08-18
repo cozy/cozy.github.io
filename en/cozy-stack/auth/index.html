@@ -9864,9 +9864,9 @@ OAuth dance (which can be awkward for the user).</p>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;passphrase&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;4f58133ea0f415424d0a856e0d3d2e0cd28e4358fce7e333cb524729796b2791&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;client_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;client_secret&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eyJpc3Mi[...omitted for brevity...]&quot;</span>
+<span class="w">  </span><span class="nt">"passphrase"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4f58133ea0f415424d0a856e0d3d2e0cd28e4358fce7e333cb524729796b2791"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"client_secret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJpc3Mi[...omitted for brevity...]"</span>
 <span class="p">}</span>
 </code></pre></div>
 <h4 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h4>
@@ -9874,10 +9874,10 @@ OAuth dance (which can be awkward for the user).</p>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;access_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OWY0MjNjMGEtOTNmNi0xMWVjLWIyZGItN2I5YjgwNmRjYzBiCg&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;token_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bearer&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;refresh_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;YTUwMjcyYjgtOTNmNi0xMWVjLWE4YTQtZWJhMzlmMTAwMWJiCg&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;scope&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;*&quot;</span>
+<span class="w">  </span><span class="nt">"access_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OWY0MjNjMGEtOTNmNi0xMWVjLWIyZGItN2I5YjgwNmRjYzBiCg"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"token_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bearer"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"refresh_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"YTUwMjcyYjgtOTNmNi0xMWVjLWE4YTQtZWJhMzlmMTAwMWJiCg"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"*"</span>
 <span class="p">}</span>
 </code></pre></div>
 <p><strong>Note:</strong> if two-factor authentication is enabled on the Cozy, an email
@@ -9886,26 +9886,26 @@ will be sent to the user with a code, and this request will return:</p>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;two_factor_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123123123123&quot;</span>
+<span class="w">  </span><span class="nt">"two_factor_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123123123123"</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Then, the client can retry by sending the two-factor token and code:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;passphrase&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;4f58133ea0f415424d0a856e0d3d2e0cd28e4358fce7e333cb524729796b2791&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;client_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;client_secret&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eyJpc3Mi[...omitted for brevity...]&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;two_factor_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123123123123&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;two_factor_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123456&quot;</span>
+<span class="w">  </span><span class="nt">"passphrase"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4f58133ea0f415424d0a856e0d3d2e0cd28e4358fce7e333cb524729796b2791"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"client_secret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJpc3Mi[...omitted for brevity...]"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"two_factor_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123123123123"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"two_factor_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456"</span>
 <span class="p">}</span>
 </code></pre></div>
 <p><strong>Note:</strong> if the two-factor authentication is enabled, and the cloudery has
 already verified the email address, a parameter <code>email_verified_code</code> can be sent
 to skip another 2FA code sent by mail.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;passphrase&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;4f58133ea0f415424d0a856e0d3d2e0cd28e4358fce7e333cb524729796b2791&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;client_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;client_secret&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eyJpc3Mi[...omitted for brevity...]&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;email_verified_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;987456321&quot;</span>
+<span class="w">  </span><span class="nt">"passphrase"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4f58133ea0f415424d0a856e0d3d2e0cd28e4358fce7e333cb524729796b2791"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"client_secret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJpc3Mi[...omitted for brevity...]"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"email_verified_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"987456321"</span>
 <span class="p">}</span>
 </code></pre></div>
 <p><strong>Note:</strong> if the OAuth client has not been certified as the flagship app,
@@ -9914,7 +9914,7 @@ this request will return:</p>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;session_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ZmY4ODI3NGMtOTY1Yy0xMWVjLThkMDgtMmI5M2&quot;</span>
+<span class="w">  </span><span class="nt">"session_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ZmY4ODI3NGMtOTY1Yy0xMWVjLThkMDgtMmI5M2"</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>The <code>session_code</code> can be put in the query string while opening the OAuth
@@ -9961,9 +9961,9 @@ user). It requires a code sent by email to the user.</p>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;magic_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ODFhNzkxYTAtYjZiYi0wMTNiLTE1YzQtMThjMDRkYWJhMzI2&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;client_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;client_secret&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eyJpc3Mi[...omitted for brevity...]&quot;</span>
+<span class="w">  </span><span class="nt">"magic_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ODFhNzkxYTAtYjZiYi0wMTNiLTE1YzQtMThjMDRkYWJhMzI2"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"client_secret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJpc3Mi[...omitted for brevity...]"</span>
 <span class="p">}</span>
 </code></pre></div>
 <h4 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h4>
@@ -9971,10 +9971,10 @@ user). It requires a code sent by email to the user.</p>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;access_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;OWY0MjNjMGEtOTNmNi0xMWVjLWIyZGItN2I5YjgwNmRjYzBiCg&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;token_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bearer&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;refresh_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;YTUwMjcyYjgtOTNmNi0xMWVjLWE4YTQtZWJhMzlmMTAwMWJiCg&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;scope&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;*&quot;</span>
+<span class="w">  </span><span class="nt">"access_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OWY0MjNjMGEtOTNmNi0xMWVjLWIyZGItN2I5YjgwNmRjYzBiCg"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"token_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bearer"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"refresh_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"YTUwMjcyYjgtOTNmNi0xMWVjLWE4YTQtZWJhMzlmMTAwMWJiCg"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"*"</span>
 <span class="p">}</span>
 </code></pre></div>
 <p><strong>Note:</strong> if two-factor authentication is enabled on the Cozy, an email
@@ -9983,15 +9983,15 @@ will be sent to the user with a code, and this request will return:</p>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;passphrase is required as second authentication factor&quot;</span>
+<span class="w">  </span><span class="nt">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"passphrase is required as second authentication factor"</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Then, the client can retry by sending the two-factor token and code:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;magic_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ODFhNzkxYTAtYjZiYi0wMTNiLTE1YzQtMThjMDRkYWJhMzI2&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;client_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;client_secret&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eyJpc3Mi[...omitted for brevity...]&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;passphrase&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;4f58133ea0f415424d0a856e0d3d2e0cd28e4358fce7e333cb524729796b2791&quot;</span>
+<span class="w">  </span><span class="nt">"magic_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ODFhNzkxYTAtYjZiYi0wMTNiLTE1YzQtMThjMDRkYWJhMzI2"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"client_secret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJpc3Mi[...omitted for brevity...]"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"passphrase"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4f58133ea0f415424d0a856e0d3d2e0cd28e4358fce7e333cb524729796b2791"</span>
 <span class="p">}</span>
 </code></pre></div>
 <p><strong>Note:</strong> if the OAuth client has not been certified as the flagship app,
@@ -10000,7 +10000,7 @@ this request will return:</p>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;session_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ZmY4ODI3NGMtOTY1Yy0xMWVjLThkMDgtMmI5M2&quot;</span>
+<span class="w">  </span><span class="nt">"session_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ZmY4ODI3NGMtOTY1Yy0xMWVjLThkMDgtMmI5M2"</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>The <code>session_code</code> can be put in the query string while opening the OAuth
@@ -10146,13 +10146,13 @@ calling <code>POST /auth/confirm/code</code> (see below).</p>
 </code></pre></div>
 <h4 id="real-time-via-websockets">Real-time via websockets<a class="headerlink" href="#real-time-via-websockets" title="Permanent link">&para;</a></h4>
 <p>If it succeeds, a real-time event will be sent:</p>
-<div class="highlight"><pre><span></span><code>client &gt; {&quot;method&quot;: &quot;AUTH&quot;,
-          &quot;payload&quot;: &quot;xxAppOrAuthTokenxx=&quot;}
-client &gt; {&quot;method&quot;: &quot;SUBSCRIBE&quot;,
-          &quot;payload&quot;: {&quot;type&quot;: &quot;io.cozy.auth.confirmations&quot;}}
-server &gt; {&quot;event&quot;: &quot;CREATED&quot;,
-          &quot;payload&quot;: {&quot;id&quot;: &quot;51814f30-5818-0139-9348-543d7eb8149c&quot;,
-                      &quot;type&quot;: &quot;io.cozy.auth.confirmations&quot;}}
+<div class="highlight"><pre><span></span><code>client &gt; {"method": "AUTH",
+          "payload": "xxAppOrAuthTokenxx="}
+client &gt; {"method": "SUBSCRIBE",
+          "payload": {"type": "io.cozy.auth.confirmations"}}
+server &gt; {"event": "CREATED",
+          "payload": {"id": "51814f30-5818-0139-9348-543d7eb8149c",
+                      "type": "io.cozy.auth.confirmations"}}
 </code></pre></div>
 <h3 id="get-authconfirmcode">GET /auth/confirm/:code<a class="headerlink" href="#get-authconfirmcode" title="Permanent link">&para;</a></h3>
 <p>Send the code from the URL to check that the user has really confirmed their
@@ -10210,34 +10210,34 @@ for the details.</p>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;redirect_uris&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;https://client.example.org/oauth/callback&quot;</span><span class="p">],</span>
-<span class="w">    </span><span class="nt">&quot;client_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Client&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;software_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;github.com/example/client&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;software_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2.0.1&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;client_kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;web&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;client_uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://client.example.org/&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;logo_uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://client.example.org/logo.svg&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;policy_uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://client/example.org/policy&quot;</span>
+<span class="w">    </span><span class="nt">"redirect_uris"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"https://client.example.org/oauth/callback"</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">"client_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"software_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"github.com/example/client"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"software_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0.1"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"client_kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"web"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"client_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://client.example.org/"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"logo_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://client.example.org/logo.svg"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"policy_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://client/example.org/policy"</span>
 <span class="p">}</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">201</span> <span class="ne">Created</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;client_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;client_secret&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eyJpc3Mi[...omitted for brevity...]&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;client_secret_expires_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;registration_access_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;J9l-ZhwP[...omitted for brevity...]&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;grant_types&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;authorization_code&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;refresh_token&quot;</span><span class="p">],</span>
-<span class="w">    </span><span class="nt">&quot;response_types&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;code&quot;</span><span class="p">],</span>
-<span class="w">    </span><span class="nt">&quot;redirect_uris&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;https://client.example.org/oauth/callback&quot;</span><span class="p">],</span>
-<span class="w">    </span><span class="nt">&quot;client_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Client&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;software_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;github.com/example/client&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;software_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2.0.1&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;client_kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;web&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;client_uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://client.example.org/&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;logo_uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://client.example.org/logo.svg&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;policy_uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://client/example.org/policy&quot;</span>
+<span class="w">    </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"client_secret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJpc3Mi[...omitted for brevity...]"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"client_secret_expires_at"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"registration_access_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"J9l-ZhwP[...omitted for brevity...]"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"grant_types"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"authorization_code"</span><span class="p">,</span><span class="w"> </span><span class="s2">"refresh_token"</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">"response_types"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"code"</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">"redirect_uris"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"https://client.example.org/oauth/callback"</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">"client_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"software_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"github.com/example/client"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"software_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0.1"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"client_kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"web"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"client_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://client.example.org/"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"logo_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://client.example.org/logo.svg"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"policy_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://client/example.org/policy"</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="post-authregisterfromwebapp">POST /auth/registerFromWebApp<a class="headerlink" href="#post-authregisterfromwebapp" title="Permanent link">&para;</a></h3>
@@ -10288,19 +10288,19 @@ for more details.</p>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;client_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;client_secret&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eyJpc3Mi[...omitted for brevity...]&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;client_secret_expires_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;grant_types&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;authorization_code&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;refresh_token&quot;</span><span class="p">],</span>
-<span class="w">    </span><span class="nt">&quot;response_types&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;code&quot;</span><span class="p">],</span>
-<span class="w">    </span><span class="nt">&quot;redirect_uris&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;https://client.example.org/oauth/callback&quot;</span><span class="p">],</span>
-<span class="w">    </span><span class="nt">&quot;client_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Client&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;software_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;github.com/example/client&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;software_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2.0.1&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;client_kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;web&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;client_uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://client.example.org/&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;logo_uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://client.example.org/logo.svg&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;policy_uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://client/example.org/policy&quot;</span>
+<span class="w">    </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"client_secret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJpc3Mi[...omitted for brevity...]"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"client_secret_expires_at"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"grant_types"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"authorization_code"</span><span class="p">,</span><span class="w"> </span><span class="s2">"refresh_token"</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">"response_types"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"code"</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">"redirect_uris"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"https://client.example.org/oauth/callback"</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">"client_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"software_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"github.com/example/client"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"software_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0.1"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"client_kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"web"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"client_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://client.example.org/"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"logo_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://client.example.org/logo.svg"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"policy_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://client/example.org/policy"</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="put-authregisterclient-id">PUT /auth/register/:client-id<a class="headerlink" href="#put-authregisterclient-id" title="Permanent link">&para;</a></h3>
@@ -10317,37 +10317,37 @@ send the current <code>client_secret</code>, and the server will respond with th
 <span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer J9l-ZhwP...</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;client_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;client_secret&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eyJpc3Mi[...omitted for brevity...]&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;redirect_uris&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;https://client.example.org/oauth/callback&quot;</span><span class="p">],</span>
-<span class="w">    </span><span class="nt">&quot;client_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Client&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;software_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;github.com/example/client&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;software_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2.0.2&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;client_kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;web&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;client_uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://client.example.org/&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;logo_uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://client.example.org/client-logo.svg&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;policy_uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://client/example.org/policy&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;notification_platform&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;android&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;notification_device_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXXXxxxx...&quot;</span>
+<span class="w">    </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"client_secret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJpc3Mi[...omitted for brevity...]"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"redirect_uris"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"https://client.example.org/oauth/callback"</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">"client_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"software_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"github.com/example/client"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"software_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0.2"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"client_kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"web"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"client_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://client.example.org/"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"logo_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://client.example.org/client-logo.svg"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"policy_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://client/example.org/policy"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"notification_platform"</span><span class="p">:</span><span class="w"> </span><span class="s2">"android"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"notification_device_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXXXxxxx..."</span>
 <span class="p">}</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;client_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;client_secret&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;IFais2Ah[...omitted for brevity...]&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;client_secret_expires_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;grant_types&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;authorization_code&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;refresh_token&quot;</span><span class="p">],</span>
-<span class="w">    </span><span class="nt">&quot;response_types&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;code&quot;</span><span class="p">],</span>
-<span class="w">    </span><span class="nt">&quot;redirect_uris&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;https://client.example.org/oauth/callback&quot;</span><span class="p">],</span>
-<span class="w">    </span><span class="nt">&quot;client_name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Client&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;software_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;github.com/example/client&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;software_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2.0.2&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;client_kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;web&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;client_uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://client.example.org/&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;logo_uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://client.example.org/client-logo.svg&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;policy_uri&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://client/example.org/policy&quot;</span>
+<span class="w">    </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"client_secret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IFais2Ah[...omitted for brevity...]"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"client_secret_expires_at"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"grant_types"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"authorization_code"</span><span class="p">,</span><span class="w"> </span><span class="s2">"refresh_token"</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">"response_types"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"code"</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">"redirect_uris"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"https://client.example.org/oauth/callback"</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">"client_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Client"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"software_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"github.com/example/client"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"software_version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0.2"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"client_kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"web"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"client_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://client.example.org/"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"logo_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://client.example.org/client-logo.svg"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"policy_uri"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://client/example.org/policy"</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="delete-authregisterclient-id">DELETE /auth/register/:client-id<a class="headerlink" href="#delete-authregisterclient-id" title="Permanent link">&para;</a></h3>
@@ -10373,7 +10373,7 @@ used in the certificate.</p>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;nonce&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MmE3OTM1ZDItNWY0ZC0xMWVjLTg3NT&quot;</span>
+<span class="w">  </span><span class="nt">"nonce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MmE3OTM1ZDItNWY0ZC0xMWVjLTg3NT"</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="post-authclientsclient-idattestation">POST /auth/clients/:client-id/attestation<a class="headerlink" href="#post-authclientsclient-idattestation" title="Permanent link">&para;</a></h3>
@@ -10385,9 +10385,9 @@ its attestation.</p>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;platform&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;android&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;challenge&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;MmE3OTM1ZDItNWY0ZC0xMWVjLTg3NT&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;attestation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eyJ0eXAiOiJKV1QiLA0KICJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ.dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk&quot;</span>
+<span class="w">  </span><span class="nt">"platform"</span><span class="p">:</span><span class="w"> </span><span class="s2">"android"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"challenge"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MmE3OTM1ZDItNWY0ZC0xMWVjLTg3NT"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"attestation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJ0eXAiOiJKV1QiLA0KICJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ.dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk"</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Note: the <code>platform</code> parameter can be <code>"android"</code> or <code>"ios"</code>. For <code>ios</code>, a
@@ -10494,7 +10494,7 @@ the data in the Cozy before importing data from another Cozy.</p>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;redirect&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://move.cozycloud.cc/callback/target?code=543d7eb8149c&amp;used=123456&amp;quota=5000000&amp;state=8d560d60&amp;vault=true&quot;</span>
+<span class="w">  </span><span class="nt">"redirect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://move.cozycloud.cc/callback/target?code=543d7eb8149c&amp;used=123456&amp;quota=5000000&amp;state=8d560d60&amp;vault=true"</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="post-authaccess_token">POST /auth/access_token<a class="headerlink" href="#post-authaccess_token" title="Permanent link">&para;</a></h3>
@@ -10521,10 +10521,10 @@ for an <code>access_token</code>. It can use this route with the <code>code</cod
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;access_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ooch1Yei&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;token_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bearer&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;refresh_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ui0Ohch8&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;scope&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.files:GET io.cozy.contacts&quot;</span>
+<span class="w">  </span><span class="nt">"access_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ooch1Yei"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"token_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bearer"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"refresh_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ui0Ohch8"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.files:GET io.cozy.contacts"</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="post-authtoken_exchange">POST /auth/token_exchange<a class="headerlink" href="#post-authtoken_exchange" title="Permanent link">&para;</a></h3>
@@ -10573,14 +10573,14 @@ scope is derived from the configured linked app manifest, for example
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
 
 <span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;id_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eyJhbGciOiJSUzI1NiIsImtpZCI6InRva2VuLWV4Y2hhbmdlIn0...&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;scope&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.files&quot;</span>
+<span class="w">  </span><span class="nt">"id_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJSUzI1NiIsImtpZCI6InRva2VuLWV4Y2hhbmdlIn0..."</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.files"</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Example app exchange:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;id_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eyJhbGciOiJSUzI1NiIsImtpZCI6InRva2VuLWV4Y2hhbmdlIn0...&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;exchange_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;app&quot;</span>
+<span class="w">  </span><span class="nt">"id_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJSUzI1NiIsImtpZCI6InRva2VuLWV4Y2hhbmdlIn0..."</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"exchange_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"app"</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Response:</p>
@@ -10590,13 +10590,13 @@ scope is derived from the configured linked app manifest, for example
 <span class="na">Pragma</span><span class="o">:</span> <span class="l">no-cache</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;access_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eyJhbGciOiJS&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;token_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bearer&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;refresh_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;eyJhbGciOiJS&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;scope&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;client_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;client_secret&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Oung7oi5&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;registration_access_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;reg123&quot;</span>
+<span class="w">  </span><span class="nt">"access_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJS"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"token_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bearer"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"refresh_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJhbGciOiJS"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"scope"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.files"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"client_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"64ce5cb0-bd4c-11e6-880e-b3b7dfda89d3"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"client_secret"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Oung7oi5"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"registration_access_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"reg123"</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>The returned OAuth client is a normal Cozy OAuth client:</p>
@@ -10632,9 +10632,9 @@ require the password for that.</p>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;passphrase&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hashed&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;two_factor_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123123123123&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;two_factor_passcode&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;678678&quot;</span>
+<span class="w">  </span><span class="nt">"passphrase"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hashed"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"two_factor_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123123123123"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"two_factor_passcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"678678"</span>
 <span class="p">}</span>
 </code></pre></div>
 <h4 id="response_2">Response<a class="headerlink" href="#response_2" title="Permanent link">&para;</a></h4>
@@ -10642,7 +10642,7 @@ require the password for that.</p>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;session_code&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;HzEFM3JREpIB6532fQc1FP2t4YJKt3gI&quot;</span>
+<span class="w">  </span><span class="nt">"session_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HzEFM3JREpIB6532fQc1FP2t4YJKt3gI"</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>The flagship will then be able to open a webview for
@@ -10653,8 +10653,8 @@ require the password for that.</p>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;two factor needed&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;two_factor_token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123123123123&quot;</span>
+<span class="w">  </span><span class="nt">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"two factor needed"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"two_factor_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123123123123"</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="faq">FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h3>
@@ -10745,7 +10745,7 @@ token.</p>
 <div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">201</span> <span class="ne">Created</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="s2">&quot;OWY0MjNjMGEtOTNmNi0xMWVjLWIyZGItN2I5YjgwNmRjYzBiCg&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="s2">"OWY0MjNjMGEtOTNmNi0xMWVjLWIyZGItN2I5YjgwNmRjYzBiCg"</span>
 </code></pre></div>
 <h3 id="post-authshare-by-linkpassword">POST /auth/share-by-link/password<a class="headerlink" href="#post-authshare-by-linkpassword" title="Permanent link">&para;</a></h3>
 <p>This route is used when a share by link is protected by password. The password
@@ -10764,7 +10764,7 @@ sharecode and access the shared page.</p>
 <span class="na">Set-Cookie</span><span class="o">:</span> <span class="l">pass123...</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ok&quot;</span>
+<span class="w">  </span><span class="nt">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="faq_1">FAQ<a class="headerlink" href="#faq_1" title="Permanent link">&para;</a></h3>

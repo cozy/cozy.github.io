@@ -10021,30 +10021,30 @@ timeout.</p>
 <h2 id="jobs-api">Jobs API<a class="headerlink" href="#jobs-api" title="Permanent link">&para;</a></h2>
 <p>Example and description of the attributes of a <code>io.cozy.jobs</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="s2">&quot;domain&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;me.cozy.localhost&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="s2">&quot;worker&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;sendmail&quot;</span><span class="p">,</span><span class="w">    </span><span class="c1">// worker type name</span>
-<span class="w">  </span><span class="s2">&quot;options&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="s2">&quot;timeout&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">60</span><span class="p">,</span><span class="w">         </span><span class="c1">// timeout value in seconds</span>
-<span class="w">    </span><span class="s2">&quot;max_exec_count&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">3</span><span class="p">,</span><span class="w">   </span><span class="c1">// maximum number of time the job should be executed (including retries)</span>
+<span class="w">  </span><span class="s2">"domain"</span><span class="o">:</span><span class="w"> </span><span class="s2">"me.cozy.localhost"</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">"worker"</span><span class="o">:</span><span class="w"> </span><span class="s2">"sendmail"</span><span class="p">,</span><span class="w">    </span><span class="c1">// worker type name</span>
+<span class="w">  </span><span class="s2">"options"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="s2">"timeout"</span><span class="o">:</span><span class="w"> </span><span class="mf">60</span><span class="p">,</span><span class="w">         </span><span class="c1">// timeout value in seconds</span>
+<span class="w">    </span><span class="s2">"max_exec_count"</span><span class="o">:</span><span class="w"> </span><span class="mf">3</span><span class="p">,</span><span class="w">   </span><span class="c1">// maximum number of time the job should be executed (including retries)</span>
 <span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="s2">&quot;arguments&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w">           </span><span class="c1">// the arguments will be given to the worker (if you look in CouchDB, it is called message there)</span>
-<span class="w">    </span><span class="s2">&quot;mode&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;noreply&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;template_name&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;new_registration&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="s2">&quot;template_values&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="s2">&quot;DevicesLink&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;http://me.cozy.localhost/#/connectedDevices&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">"arguments"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w">           </span><span class="c1">// the arguments will be given to the worker (if you look in CouchDB, it is called message there)</span>
+<span class="w">    </span><span class="s2">"mode"</span><span class="o">:</span><span class="w"> </span><span class="s2">"noreply"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"template_name"</span><span class="o">:</span><span class="w"> </span><span class="s2">"new_registration"</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">"template_values"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="s2">"DevicesLink"</span><span class="o">:</span><span class="w"> </span><span class="s2">"http://me.cozy.localhost/#/connectedDevices"</span><span class="p">,</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="s2">&quot;state&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;running&quot;</span><span class="p">,</span><span class="w">      </span><span class="c1">// queued, running, done, errored</span>
-<span class="w">  </span><span class="s2">&quot;queued_at&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span><span class="w">  </span><span class="c1">// time of the queuing</span>
-<span class="w">  </span><span class="s2">&quot;started_at&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// time of first execution</span>
-<span class="w">  </span><span class="s2">&quot;error&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w">             </span><span class="c1">// error message if any</span>
+<span class="w">  </span><span class="s2">"state"</span><span class="o">:</span><span class="w"> </span><span class="s2">"running"</span><span class="p">,</span><span class="w">      </span><span class="c1">// queued, running, done, errored</span>
+<span class="w">  </span><span class="s2">"queued_at"</span><span class="o">:</span><span class="w"> </span><span class="s2">"2016-09-19T12:35:08Z"</span><span class="p">,</span><span class="w">  </span><span class="c1">// time of the queuing</span>
+<span class="w">  </span><span class="s2">"started_at"</span><span class="o">:</span><span class="w"> </span><span class="s2">"2016-09-19T12:35:08Z"</span><span class="p">,</span><span class="w"> </span><span class="c1">// time of first execution</span>
+<span class="w">  </span><span class="s2">"error"</span><span class="o">:</span><span class="w"> </span><span class="s2">""</span><span class="w">             </span><span class="c1">// error message if any</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Example and description of a job creation options — as you can see, the options
 are replicated in the <code>io.cozy.jobs</code> attributes:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="s2">&quot;timeout&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">60</span><span class="p">,</span><span class="w">         </span><span class="c1">// timeout value in seconds</span>
-<span class="w">  </span><span class="s2">&quot;max_exec_count&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">3</span><span class="p">,</span><span class="w">   </span><span class="c1">// maximum number of retry</span>
+<span class="w">  </span><span class="s2">"timeout"</span><span class="o">:</span><span class="w"> </span><span class="mf">60</span><span class="p">,</span><span class="w">         </span><span class="c1">// timeout value in seconds</span>
+<span class="w">  </span><span class="s2">"max_exec_count"</span><span class="o">:</span><span class="w"> </span><span class="mf">3</span><span class="p">,</span><span class="w">   </span><span class="c1">// maximum number of retry</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="get-jobsjob-id">GET /jobs/:job-id<a class="headerlink" href="#get-jobsjob-id" title="Permanent link">&para;</a></h3>
@@ -10055,23 +10055,23 @@ are replicated in the <code>io.cozy.jobs</code> attributes:</p>
 </code></pre></div>
 <h4 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123123&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;me.cozy.localhost&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;worker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sendmail&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;options&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;max_exec_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.jobs"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123123"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"domain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"me.cozy.localhost"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"worker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sendmail"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"options"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"timeout"</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"max_exec_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
 <span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;state&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;running&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;queued_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;started_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="w">      </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"running"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"queued_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-19T12:35:08Z"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"started_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-19T12:35:08Z"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;links&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;self&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/jobs/123123&quot;</span>
+<span class="w">    </span><span class="nt">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/jobs/123123"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
@@ -10088,37 +10088,37 @@ arguments will be given in the <code>process.env['COZY_FIELDS']</code> variable.
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;manual&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;options&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;max_exec_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"manual"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"options"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"timeout"</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"max_exec_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
 <span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;arguments&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w"> </span><span class="c1">// any json value used as arguments for the job</span>
+<span class="w">      </span><span class="nt">"arguments"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w"> </span><span class="c1">// any json value used as arguments for the job</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 <h4 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123123&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;me.cozy.localhost&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;worker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sendmail&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;options&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;max_exec_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.jobs"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123123"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"domain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"me.cozy.localhost"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"worker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sendmail"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"options"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"timeout"</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"max_exec_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
 <span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;state&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;running&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;queued_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;started_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="w">      </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"running"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"queued_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-19T12:35:08Z"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"started_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-19T12:35:08Z"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;links&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;self&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/jobs/123123&quot;</span>
+<span class="w">    </span><span class="nt">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/jobs/123123"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
@@ -10129,13 +10129,13 @@ arguments will be given in the <code>process.env['COZY_FIELDS']</code> variable.
 to specific worker(s), like this (a global permission on the doctype is not
 allowed):</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;permissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;mail-from-the-user&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Required to send mails from the user to his/her friends&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;verbs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">],</span>
-<span class="w">      </span><span class="nt">&quot;selector&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;worker&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;values&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;sendmail&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"mail-from-the-user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Required to send mails from the user to his/her friends"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.jobs"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"verbs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"POST"</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">"selector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"worker"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"values"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"sendmail"</span><span class="p">]</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
@@ -10151,11 +10151,11 @@ transition from sending manually a mail to the support via the sendmail queue).<
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;arguments&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;subject&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Cozy is so cool!&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;body&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;I really love Cozy. Thank you so much!&quot;</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"arguments"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"subject"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cozy is so cool!"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"body"</span><span class="p">:</span><span class="w"> </span><span class="s2">"I really love Cozy. Thank you so much!"</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
@@ -10175,14 +10175,14 @@ attributes).</p>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;arguments&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;subject&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Checkout the new cool stuff!&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;parts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"arguments"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"subject"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Checkout the new cool stuff!"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"parts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">          </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;body&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;So many new features to check out!&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;text/plain&quot;</span>
+<span class="w">            </span><span class="nt">"body"</span><span class="p">:</span><span class="w"> </span><span class="s2">"So many new features to check out!"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"text/plain"</span>
 <span class="w">          </span><span class="p">}</span>
 <span class="w">        </span><span class="p">]</span>
 <span class="w">      </span><span class="p">}</span>
@@ -10198,13 +10198,13 @@ attributes).</p>
 <code>io.cozy.jobs</code> for the verb <code>POST</code> and the <code>sendmail</code> worker.
 This can be defined like so:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;permissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;campaign-emails&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Required to send campaign emails to the user&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;verbs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">],</span>
-<span class="w">      </span><span class="nt">&quot;selector&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;worker&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;values&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;sendmail&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"campaign-emails"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Required to send campaign emails to the user"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.jobs"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"verbs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"POST"</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">"selector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"worker"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"values"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"sendmail"</span><span class="p">]</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
@@ -10217,28 +10217,28 @@ This can be defined like so:</p>
 </code></pre></div>
 <h4 id="response_4">Response<a class="headerlink" href="#response_4" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cozy.localhost:8080&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;options&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;queued_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2017-09-29T15:32:31.953878568+02:00&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;started_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0001-01-01T00:00:00Z&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;state&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;queued&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;worker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;log&quot;</span>
+<span class="w">      </span><span class="nt">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"domain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cozy.localhost:8080"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"options"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"queued_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-29T15:32:31.953878568+02:00"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"started_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0001-01-01T00:00:00Z"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"queued"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"worker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"log"</span>
 <span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;77689bca9634b4fb08d6ca3d1643de5f&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;links&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;self&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/jobs/log/77689bca9634b4fb08d6ca3d1643de5f&quot;</span>
+<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"77689bca9634b4fb08d6ca3d1643de5f"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/jobs/log/77689bca9634b4fb08d6ca3d1643de5f"</span>
 <span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;meta&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;rev&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1-f823bcd2759103a5ad1a98f4bf083b36&quot;</span>
+<span class="w">      </span><span class="nt">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"rev"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1-f823bcd2759103a5ad1a98f4bf083b36"</span>
 <span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.jobs&quot;</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.jobs"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">],</span>
-<span class="w">  </span><span class="nt">&quot;meta&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="nt">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"count"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -10247,13 +10247,13 @@ This can be defined like so:</p>
 <code>io.cozy.jobs</code> for the verb <code>GET</code>. In most cases, the application will restrict
 its permission to only one worker, like this:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;permissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;mail-from-the-user&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Required to know the number of jobs in the sendmail queues&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;verbs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">],</span>
-<span class="w">      </span><span class="nt">&quot;selector&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;worker&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;values&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;sendmail&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"mail-from-the-user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Required to know the number of jobs in the sendmail queues"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.jobs"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"verbs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"GET"</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">"selector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"worker"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"values"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"sendmail"</span><span class="p">]</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
@@ -10266,12 +10266,12 @@ client, not on the server) to update the status.</p>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;022368c07dc701396403543d7eb8149c&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;state&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;errored&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;LOGIN_FAILED&quot;</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.jobs"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"022368c07dc701396403543d7eb8149c"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"errored"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LOGIN_FAILED"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
@@ -10281,21 +10281,21 @@ client, not on the server) to update the status.</p>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;022368c07dc701396403543d7eb8149c&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;me.cozy.localhost&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;worker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sendmail&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;options&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
-<span class="w">      </span><span class="nt">&quot;state&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;errored&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;LOGIN_FAILED&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;queued_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-04-12T12:34:56Z&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;started_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-04-12T12:34:56Z&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;finished_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2021-04-12T12:38:59Z&quot;</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.jobs"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"022368c07dc701396403543d7eb8149c"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"domain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"me.cozy.localhost"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"worker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sendmail"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"options"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">      </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"errored"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LOGIN_FAILED"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"queued_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-04-12T12:34:56Z"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"started_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-04-12T12:34:56Z"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"finished_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-04-12T12:38:59Z"</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;links&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;self&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/jobs/022368c07dc701396403543d7eb8149c&quot;</span>
+<span class="w">    </span><span class="nt">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/jobs/022368c07dc701396403543d7eb8149c"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
@@ -10317,16 +10317,16 @@ one understood by go&rsquo;s <a href="https://golang.org/pkg/time/#ParseDuration
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;@event&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;arguments&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.invitations&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;debounce&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;10m&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;worker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sendmail&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
-<span class="w">      </span><span class="nt">&quot;options&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;max_exec_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@event"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"arguments"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.invitations"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"debounce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10m"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"worker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sendmail"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">      </span><span class="nt">"options"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"timeout"</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"max_exec_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
@@ -10336,21 +10336,21 @@ one understood by go&rsquo;s <a href="https://golang.org/pkg/time/#ParseDuration
 latter version still works but is deprecated, you should use <code>message</code> instead.</p>
 <h4 id="response_6">Response<a class="headerlink" href="#response_6" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.triggers&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123123&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;@every&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;arguments&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;30m10s&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;debounce&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;10m&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;worker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sendmail&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;options&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;max_exec_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.triggers"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123123"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@every"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"arguments"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30m10s"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"debounce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10m"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"worker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sendmail"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"options"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"timeout"</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"max_exec_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;links&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;self&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/jobs/triggers/123123&quot;</span>
+<span class="w">    </span><span class="nt">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/jobs/triggers/123123"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
@@ -10360,13 +10360,13 @@ latter version still works but is deprecated, you should use <code>message</code
 <code>io.cozy.triggers</code> for the verb <code>POST</code>. In most cases, the application will
 restrict its permission to only one worker, like this:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;permissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;mail-from-the-user&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Required to send regularly mails from the user to his/her friends&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.triggers&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;verbs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;POST&quot;</span><span class="p">],</span>
-<span class="w">      </span><span class="nt">&quot;selector&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;worker&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;values&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;sendmail&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"mail-from-the-user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Required to send regularly mails from the user to his/her friends"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.triggers"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"verbs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"POST"</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">"selector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"worker"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"values"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"sendmail"</span><span class="p">]</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
@@ -10379,32 +10379,32 @@ restrict its permission to only one worker, like this:</p>
 </code></pre></div>
 <h4 id="response_7">Response<a class="headerlink" href="#response_7" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.triggers&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123123&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;@every&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;arguments&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;30m10s&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;worker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sendmail&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;options&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;max_exec_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.triggers"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123123"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@every"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"arguments"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30m10s"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"worker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sendmail"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"options"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"timeout"</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"max_exec_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
 <span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;current_state&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;done&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;last_success&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2017-11-20T13:31:09.01641731&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;last_successful_job_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcde&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;last_execution&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2017-11-20T13:31:09.01641731&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;last_executed_job_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcde&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;last_failure&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2017-11-20T13:31:09.01641731&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;last_failed_job_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcde&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;last_error&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;error value&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;last_manual_execution&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2017-11-20T13:31:09.01641731&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;last_manual_job_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcde&quot;</span>
+<span class="w">      </span><span class="nt">"current_state"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"done"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"last_success"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-20T13:31:09.01641731"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"last_successful_job_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abcde"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"last_execution"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-20T13:31:09.01641731"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"last_executed_job_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abcde"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"last_failure"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-20T13:31:09.01641731"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"last_failed_job_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abcde"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"last_error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error value"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"last_manual_execution"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-20T13:31:09.01641731"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"last_manual_job_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abcde"</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;links&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;self&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/jobs/triggers/123123&quot;</span>
+<span class="w">    </span><span class="nt">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/jobs/triggers/123123"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
@@ -10429,20 +10429,20 @@ Accept: application/vnd.api+json
 </code></pre></div>
 <h4 id="response_8">Response<a class="headerlink" href="#response_8" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.triggers.state&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123123&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;done&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;last_success&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2017-11-20T13:31:09.01641731&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;last_successful_job_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcde&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;last_execution&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2017-11-20T13:31:09.01641731&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;last_executed_job_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcde&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;last_failure&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2017-11-20T13:31:09.01641731&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;last_failed_job_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcde&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;last_error&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;error value&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;last_manual_execution&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2017-11-20T13:31:09.01641731&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;last_manual_job_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcde&quot;</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.triggers.state"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123123"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"done"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"last_success"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-20T13:31:09.01641731"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"last_successful_job_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abcde"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"last_execution"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-20T13:31:09.01641731"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"last_executed_job_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abcde"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"last_failure"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-20T13:31:09.01641731"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"last_failed_job_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abcde"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"last_error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error value"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"last_manual_execution"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-11-20T13:31:09.01641731"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"last_manual_job_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abcde"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
@@ -10463,13 +10463,13 @@ for one of its triggers (no permission required).</p>
 </code></pre></div>
 <h4 id="response_9">Response<a class="headerlink" href="#response_9" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123123&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
-<span class="w">      </span><span class="nt">&quot;links&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;self&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/jobs/123123&quot;</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.jobs"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123123"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">      </span><span class="nt">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/jobs/123123"</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">]</span>
@@ -10484,30 +10484,30 @@ trigger, or the message of any trigger.</p>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;@cron&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;arguments&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0 0 0 * * 0&quot;</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@cron"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"arguments"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0 0 0 * * 0"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 <h4 id="response_10">Response<a class="headerlink" href="#response_10" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.triggers&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123123&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;@cron&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;arguments&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0 0 0 * * 0&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;worker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sendmail&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;options&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;timeout&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;max_exec_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.triggers"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123123"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@cron"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"arguments"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0 0 0 * * 0"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"worker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sendmail"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"options"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"timeout"</span><span class="p">:</span><span class="w"> </span><span class="mi">60</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"max_exec_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;links&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;self&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/jobs/triggers/123123&quot;</span>
+<span class="w">    </span><span class="nt">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/jobs/triggers/123123"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
@@ -10527,20 +10527,20 @@ must call <code>PATCH /jobs/:job-id</code> when the job is completed (success or
 </code></pre></div>
 <h4 id="response_11">Response<a class="headerlink" href="#response_11" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.jobs&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123123&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;me.cozy.localhost&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;worker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sendmail&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;options&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
-<span class="w">      </span><span class="nt">&quot;state&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;running&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;queued_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;started_at&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2016-09-19T12:35:08Z&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.jobs"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123123"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"domain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"me.cozy.localhost"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"worker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sendmail"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"options"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">      </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"running"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"queued_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-19T12:35:08Z"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"started_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2016-09-19T12:35:08Z"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">&quot;links&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;self&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/jobs/123123&quot;</span>
+<span class="w">    </span><span class="nt">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/jobs/123123"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
@@ -10576,34 +10576,34 @@ and you&rsquo;ll need to query <code>/jobs/triggers/:trigger-id</code> to have i
 </code></pre></div>
 <h4 id="response_12">Response<a class="headerlink" href="#response_12" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.triggers&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123123&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;arguments&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0 40 0 * * *&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;current_state&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;last_error&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;LOGIN_FAILED&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;last_executed_job_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abc&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;last_execution&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2019-01-07T08:23:22.069902888Z&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;last_failed_job_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;abcd&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;last_failure&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2019-01-07T08:23:22.069902888Z&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;last_manual_execution&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2019-01-07T08:23:22.069902888Z&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;last_manual_job_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;azer&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;errored&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;trigger_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123123&quot;</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.triggers"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123123"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"arguments"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0 40 0 * * *"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"current_state"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"last_error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LOGIN_FAILED"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"last_executed_job_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abc"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"last_execution"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-01-07T08:23:22.069902888Z"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"last_failed_job_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abcd"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"last_failure"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-01-07T08:23:22.069902888Z"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"last_manual_execution"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-01-07T08:23:22.069902888Z"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"last_manual_job_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"azer"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"errored"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"trigger_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123123"</span>
 <span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;debounce&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;xxx.mycozy.cloud&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;konnector&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;slug&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;account&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;XXX&quot;</span>
+<span class="w">      </span><span class="nt">"debounce"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"domain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxx.mycozy.cloud"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"konnector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"slug"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"account"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XXX"</span>
 <span class="w">      </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;options&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;@cron&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;worker&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;konnector&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;123123&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;links&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;self&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/jobs/triggers/123123&quot;</span>
+<span class="w">      </span><span class="nt">"options"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@cron"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"worker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"konnector"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123123"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/jobs/triggers/123123"</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">]</span>
@@ -10627,7 +10627,7 @@ is interactive. It will give it an higher priority in the queues.</p>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;account_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0672e560&quot;</span>
+<span class="w">  </span><span class="nt">"account_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0672e560"</span>
 <span class="p">}</span>
 </code></pre></div>
 <h4 id="response_13">Response<a class="headerlink" href="#response_13" title="Permanent link">&para;</a></h4>
@@ -10666,7 +10666,7 @@ Some parameters can be given to this route:</p>
 </code></pre></div>
 <h4 id="response_15">Response<a class="headerlink" href="#response_15" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;deleted&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span>
+<span class="w">  </span><span class="nt">"deleted"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span>
 <span class="p">}</span>
 </code></pre></div>
 <h4 id="permissions_10">Permissions<a class="headerlink" href="#permissions_10" title="Permanent link">&para;</a></h4>

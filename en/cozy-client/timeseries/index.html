@@ -7835,22 +7835,22 @@
 <h2 id="save-time-series">Save time series<a class="headerlink" href="#save-time-series" title="Permanent link">&para;</a></h2>
 <p>This example shows how to save a time series of an electrical consumption:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">electricalConsumption</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nx">dataType</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;electricity&#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">startDate</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2021-02-14T00:30:00+01:00&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">endDate</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2021-02-14T02:30:00+01:00&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">source</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;enedis.fr&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">theme</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;energy&quot;</span>
+<span class="w">  </span><span class="nx">dataType</span><span class="o">:</span><span class="w"> </span><span class="s1">'electricity'</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">startDate</span><span class="o">:</span><span class="w"> </span><span class="s2">"2021-02-14T00:30:00+01:00"</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">endDate</span><span class="o">:</span><span class="w"> </span><span class="s2">"2021-02-14T02:30:00+01:00"</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">source</span><span class="o">:</span><span class="w"> </span><span class="s2">"enedis.fr"</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">theme</span><span class="o">:</span><span class="w"> </span><span class="s2">"energy"</span>
 <span class="w">  </span><span class="nx">series</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nx">date</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2021-02-14T00:30:00+01:00&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">date</span><span class="o">:</span><span class="w"> </span><span class="s2">"2021-02-14T00:30:00+01:00"</span><span class="p">,</span>
 <span class="w">      </span><span class="nx">consumption</span><span class="o">:</span><span class="w"> </span><span class="mf">474</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nx">date</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2021-02-14T01:30:00+01:00&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">date</span><span class="o">:</span><span class="w"> </span><span class="s2">"2021-02-14T01:30:00+01:00"</span><span class="p">,</span>
 <span class="w">      </span><span class="nx">consumption</span><span class="o">:</span><span class="w"> </span><span class="mf">184</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nx">date</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2021-02-14T02:30:00+01:00&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">date</span><span class="o">:</span><span class="w"> </span><span class="s2">"2021-02-14T02:30:00+01:00"</span><span class="p">,</span>
 <span class="w">      </span><span class="nx">consumption</span><span class="o">:</span><span class="w"> </span><span class="mf">152</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">]</span>
@@ -7861,10 +7861,10 @@
 <p>This example shows how to fetch time series of an electrical consumption,
 for a specific time interval and data source:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nx">dataType</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;electricity&#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">startDate</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2021-02-14&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">endDate</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2021-02-15&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">source</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;enedis.fr&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">dataType</span><span class="o">:</span><span class="w"> </span><span class="s1">'electricity'</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">startDate</span><span class="o">:</span><span class="w"> </span><span class="s2">"2021-02-14"</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">endDate</span><span class="o">:</span><span class="w"> </span><span class="s2">"2021-02-15"</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">source</span><span class="o">:</span><span class="w"> </span><span class="s2">"enedis.fr"</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">limit</span><span class="o">:</span><span class="w"> </span><span class="mf">100</span>
 <span class="p">}</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">electricalConsumption</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetchTimeSerieByIntervalAndSource</span><span class="p">(</span><span class="nx">client</span><span class="p">,</span><span class="w"> </span><span class="nx">params</span><span class="p">)</span><span class="w"> </span>

@@ -7976,7 +7976,7 @@
 <h3 id="get-your-service-logs-in-a-isolated-file">Get your service logs in a isolated file<a class="headerlink" href="#get-your-service-logs-in-a-isolated-file" title="Permanent link">&para;</a></h3>
 <p>Edit your <code>~/.cozy/konnector-node-run.sh</code> by adding a tee output.</p>
 <div class="highlight"><pre><span></span><code><span class="nb">set</span><span class="w"> </span>-o<span class="w"> </span>pipefail
-node<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">arg</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>~/.cozy/services.log
+node<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">arg</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>~/.cozy/services.log
 </code></pre></div>
 <p>Now you can <code>tail -f ~/.cozy/services.log</code> to watch logs in real time.</p>
 <h3 id="avoid-automatic-relaunch-when-errored">Avoid automatic relaunch when errored<a class="headerlink" href="#avoid-automatic-relaunch-when-errored" title="Permanent link">&para;</a></h3>

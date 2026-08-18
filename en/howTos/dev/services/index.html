@@ -8099,16 +8099,16 @@
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">CozyClient</span><span class="p">.</span><span class="nx">fromEnv</span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">schema</span><span class="w"> </span><span class="p">})</span>
 </code></pre></div>
 <p>You may need to add this line to your service to use the <code>fetch</code> for node:
-<div class="highlight"><pre><span></span><code><span class="nb">global</span><span class="p">.</span><span class="nx">fetch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;node-fetch&#39;</span><span class="p">).</span><span class="k">default</span>
+<div class="highlight"><pre><span></span><code><span class="nb">global</span><span class="p">.</span><span class="nx">fetch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">'node-fetch'</span><span class="p">).</span><span class="k">default</span>
 </code></pre></div></p>
 <h2 id="service-declaration">Service declaration<a class="headerlink" href="#service-declaration" title="Permanent link">&para;</a></h2>
 <p>The service must be declared in the app <a href="https://docs.cozy.io/en/tutorials/app/#read-the-application-manifest">manifest</a>. For example:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">&quot;services&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;onOperationCreate&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;node&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;file&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;onOperationCreate.js&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;trigger&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;@event io.cozy.bank.operations:CREATED&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;debounce&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3m&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="nt">"services"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">"onOperationCreate"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"node"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"file"</span><span class="p">:</span><span class="w"> </span><span class="s2">"onOperationCreate.js"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"trigger"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@event io.cozy.bank.operations:CREATED"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"debounce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3m"</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -8145,7 +8145,7 @@
 <h3 id="get-your-service-logs-in-a-isolated-file">Get your service logs in a isolated file<a class="headerlink" href="#get-your-service-logs-in-a-isolated-file" title="Permanent link">&para;</a></h3>
 <p>Edit your <code>~/.cozy/konnector-node-run.sh</code> by adding a tee output.</p>
 <div class="highlight"><pre><span></span><code><span class="nb">set</span><span class="w"> </span>-o<span class="w"> </span>pipefail
-node<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">arg</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>~/.cozy/services.log
+node<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">arg</span><span class="si">}</span><span class="s2">"</span><span class="w"> </span><span class="m">2</span>&gt;<span class="p">&amp;</span><span class="m">1</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>~/.cozy/services.log
 </code></pre></div>
 <p>Now you can <code>tail -f ~/.cozy/services.log</code> to watch logs in real time.</p>
 <h2 id="install-your-app">Install your app<a class="headerlink" href="#install-your-app" title="Permanent link">&para;</a></h2>
@@ -8172,14 +8172,14 @@ However, you can force its execution thanks to the <code>cozy-konnector-dev</cod
 <p>If your <code>mybuiltservice.js</code> is not executable and not recognize by node, you may need this script in your app folder to fix that. Just change the <code>target</code> path.</p>
 <div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
 
-<span class="nv">target</span><span class="o">=</span><span class="s2">&quot;build/services/sync-index-displayName/contacts.js&quot;</span>
+<span class="nv">target</span><span class="o">=</span><span class="s2">"build/services/sync-index-displayName/contacts.js"</span>
 <span class="nv">firstChar</span><span class="o">=</span><span class="k">$(</span>head<span class="w"> </span>-c<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="nv">$target</span><span class="k">)</span>
 
 chmod<span class="w"> </span>+x<span class="w"> </span><span class="nv">$target</span>
 <span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$firstChar</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="se">\#</span>*<span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<span class="w">  </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w"> </span><span class="s1">&#39;1i\</span>
+<span class="w">  </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">''</span><span class="w"> </span><span class="s1">'1i\</span>
 <span class="s1">  #!/usr/bin/env node</span>
-<span class="s1">  &#39;</span><span class="w"> </span><span class="nv">$target</span>
+<span class="s1">  '</span><span class="w"> </span><span class="nv">$target</span>
 <span class="k">fi</span>
 cozy-konnector-dev<span class="w"> </span>-m<span class="w"> </span>manifest.webapp<span class="w"> </span><span class="nv">$target</span>
 </code></pre></div>

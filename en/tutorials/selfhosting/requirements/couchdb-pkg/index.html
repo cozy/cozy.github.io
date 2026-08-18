@@ -7717,7 +7717,7 @@
 <p>Configure CouchDB package repository:</p>
 <div class="highlight"><pre><span></span><code>sudo apt update &amp;&amp; sudo apt install -y curl apt-transport-https gnupg
 curl -fsSL https://couchdb.apache.org/repo/keys.asc | gpg --dearmor | sudo tee /usr/share/keyrings/couchdb-archive-keyring.gpg &gt;/dev/null 2&gt;&amp;1
-echo &quot;deb [signed-by=/usr/share/keyrings/couchdb-archive-keyring.gpg] https://apache.jfrog.io/artifactory/couchdb-deb/ $(lsb_release -sc) main&quot; | sudo tee /etc/apt/sources.list.d/couchdb.list &gt;/dev/null
+echo "deb [signed-by=/usr/share/keyrings/couchdb-archive-keyring.gpg] https://apache.jfrog.io/artifactory/couchdb-deb/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/couchdb.list &gt;/dev/null
 </code></pre></div>
 <p>Install Couchdb:</p>
 <div class="highlight"><pre><span></span><code>sudo apt update
@@ -7736,7 +7736,7 @@ sudo apt install -y couchdb
 </code></pre></div>
 <blockquote>
 <p>The above command should give you something like</p>
-<div class="highlight"><pre><span></span><code>   {&quot;couchdb&quot;:&quot;Welcome&quot;,&quot;version&quot;:&quot;3.2.1&quot;,&quot;git_sha&quot;:&quot;244d428af&quot;,&quot;uuid&quot;:&quot;f7b83554fa2eb43778963d18a1f92211&quot;,&quot;features&quot;:[&quot;access-ready&quot;,&quot;partitioned&quot;,&quot;pluggable-storage-engines&quot;,&quot;reshard&quot;,&quot;scheduler&quot;],&quot;vendor&quot;:{&quot;name&quot;:&quot;The Apache Software Foundation&quot;}}
+<div class="highlight"><pre><span></span><code>   {"couchdb":"Welcome","version":"3.2.1","git_sha":"244d428af","uuid":"f7b83554fa2eb43778963d18a1f92211","features":["access-ready","partitioned","pluggable-storage-engines","reshard","scheduler"],"vendor":{"name":"The Apache Software Foundation"}}
 </code></pre></div>
 </blockquote>
 <div style="text-align: right">

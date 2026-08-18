@@ -7943,9 +7943,9 @@ route (and query parameters):</p>
 <h3 id="easy-part-1-dbdoctype-on-stack-and-remote-no-binaries">Easy part: 1 db/doctype on stack AND remote, no binaries<a class="headerlink" href="#easy-part-1-dbdoctype-on-stack-and-remote-no-binaries" title="Permanent link">&para;</a></h3>
 <p>We <em>just</em> need to implement the routes described above by proxying to the
 underlying couchdb database.</p>
-<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">PouchDB</span><span class="p">(</span><span class="s2">&quot;my-local-contacts&quot;</span><span class="p">);</span>
-<span class="nx">db</span><span class="p">.</span><span class="nx">replicate</span><span class="p">.</span><span class="kr">from</span><span class="p">(</span><span class="s2">&quot;https://bob.cozycloud.cc/data/contacts&quot;</span><span class="p">);</span>
-<span class="nx">db</span><span class="p">.</span><span class="nx">replicate</span><span class="p">.</span><span class="nx">to</span><span class="p">(</span><span class="s2">&quot;https://bob.cozycloud.cc/data/contacts&quot;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span><span class="w"> </span><span class="nx">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">PouchDB</span><span class="p">(</span><span class="s2">"my-local-contacts"</span><span class="p">);</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">replicate</span><span class="p">.</span><span class="kr">from</span><span class="p">(</span><span class="s2">"https://bob.cozycloud.cc/data/contacts"</span><span class="p">);</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">replicate</span><span class="p">.</span><span class="nx">to</span><span class="p">(</span><span class="s2">"https://bob.cozycloud.cc/data/contacts"</span><span class="p">);</span>
 </code></pre></div>
 <p>To suport this we need to:</p>
 <ul>

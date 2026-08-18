@@ -7855,7 +7855,7 @@ Banks application.</p>
 <p>You can manually create an app token and launch the built service.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Watch services</span>
 $<span class="w"> </span>yarn<span class="w"> </span>watch
-$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">COZY_URL</span><span class="o">=</span><span class="s1">&#39;http://cozy.localhost:8080&#39;</span>
+$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">COZY_URL</span><span class="o">=</span><span class="s1">'http://cozy.localhost:8080'</span>
 $<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">COZY_CREDENTIALS</span><span class="o">=</span><span class="k">$(</span>cozy-stack<span class="w"> </span>instances<span class="w"> </span>token-app<span class="w"> </span>cozy.localhost:8080<span class="w"> </span>banks<span class="k">)</span>
 $<span class="w"> </span>node<span class="w"> </span>build/services/budgetAlerts/banks.js
 </code></pre></div>
@@ -7934,7 +7934,7 @@ straightforward is to add <code>toCategorize: true</code> to the <code>io.cozy.b
 your konnector creates, save these documents and then call the <code>categorization</code>
 service.</p>
 <p>Here is an example:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">cozyClient</span><span class="p">,</span><span class="w"> </span><span class="nx">BaseKonnector</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-konnector-libs&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">cozyClient</span><span class="p">,</span><span class="w"> </span><span class="nx">BaseKonnector</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">'cozy-konnector-libs'</span><span class="p">)</span>
 
 <span class="kd">class</span><span class="w"> </span><span class="nx">MyKonnector</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nx">BaseKonnector</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">async</span><span class="w"> </span><span class="nx">saveTransactions</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
@@ -7943,9 +7943,9 @@ service.</p>
 
 <span class="w">    </span><span class="c1">// save `transactions`</span>
 
-<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">cozyClient</span><span class="p">.</span><span class="nx">jobs</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">&#39;service&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;categorization&#39;</span><span class="p">,</span>
-<span class="w">      </span><span class="nx">slug</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;banks&#39;</span>
+<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">cozyClient</span><span class="p">.</span><span class="nx">jobs</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">'service'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'categorization'</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">slug</span><span class="o">:</span><span class="w"> </span><span class="s1">'banks'</span>
 <span class="w">    </span><span class="p">})</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
@@ -7953,10 +7953,10 @@ service.</p>
 <p>Finally, you will need a permission to create <code>io.cozy.jobs</code> document. Add the
 following permission to your <code>manifest.konnector</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;permissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;jobs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Required to run applications services&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.jobs&quot;</span>
+<span class="w">  </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"jobs"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Required to run applications services"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.jobs"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>

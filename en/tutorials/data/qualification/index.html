@@ -7810,20 +7810,20 @@
 <p>To know more about the qualification format and a description of the qualification attributes with examples, see the <a href="https://github.com/cozy/cozy-doctypes/blob/master/docs/io.cozy.files_metadata.md">metadata documentation</a>.</p>
 <h2 id="qualify-with-cozy-client">Qualify with cozy-client<a class="headerlink" href="#qualify-with-cozy-client" title="Permanent link">&para;</a></h2>
 <p>This snippet shows how to qualify an health invoice with <a href="https://github.com/cozy/cozy-client/">cozy-client</a>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">models</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;cozy-client&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">models</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'cozy-client'</span>
 <span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Qualification</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nb">document</span>
 <span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">saveFileQualification</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">models</span><span class="p">.</span><span class="nx">file</span>
 
-<span class="kd">const</span><span class="w"> </span><span class="nx">qualification</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Qualification</span><span class="p">.</span><span class="nx">getByLabel</span><span class="p">(</span><span class="s1">&#39;health_invoice&#39;</span><span class="p">)</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">qualification</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Qualification</span><span class="p">.</span><span class="nx">getByLabel</span><span class="p">(</span><span class="s1">'health_invoice'</span><span class="p">)</span>
 <span class="k">await</span><span class="w"> </span><span class="nx">saveFileQualification</span><span class="p">(</span><span class="nx">client</span><span class="p">,</span><span class="w"> </span><span class="nx">file</span><span class="p">,</span><span class="w"> </span><span class="nx">qualification</span><span class="p">)</span>
 </code></pre></div>
 <p>Then, then file metadata will include the following qualification:
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;qualification&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;label&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;health_invoice&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;purpose&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;invoice&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;sourceCategory&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;health&quot;</span>
+<span class="w">  </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"qualification"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"health_invoice"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"purpose"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invoice"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"sourceCategory"</span><span class="p">:</span><span class="w"> </span><span class="s2">"health"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>

@@ -7911,28 +7911,28 @@
 <p>You can see these steps in the <code>src/index.js</code> in the <a href="https://github.com/konnectors/cozy-konnector-template/blob/master/src/index.js">konnectors/template</a>:</p>
 <div class="highlight"><pre><span></span><code><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="nx">start</span><span class="p">(</span><span class="nx">fields</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="c1">// step 1.</span>
-<span class="w">  </span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;info&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Authenticating ...&#39;</span><span class="p">)</span>
+<span class="w">  </span><span class="nx">log</span><span class="p">(</span><span class="s1">'info'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Authenticating ...'</span><span class="p">)</span>
 <span class="w">  </span><span class="k">await</span><span class="w"> </span><span class="nx">authenticate</span><span class="p">(</span><span class="nx">fields</span><span class="p">.</span><span class="nx">login</span><span class="p">,</span><span class="w"> </span><span class="nx">fields</span><span class="p">.</span><span class="nx">password</span><span class="p">)</span>
-<span class="w">  </span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;info&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Successfully logged in&#39;</span><span class="p">)</span>
+<span class="w">  </span><span class="nx">log</span><span class="p">(</span><span class="s1">'info'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Successfully logged in'</span><span class="p">)</span>
 
 <span class="w">  </span><span class="c1">// step 2.</span>
 <span class="w">  </span><span class="c1">// The BaseKonnector instance expects a Promise as return of the function</span>
-<span class="w">  </span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;info&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Fetching the list of documents&#39;</span><span class="p">)</span>
+<span class="w">  </span><span class="nx">log</span><span class="p">(</span><span class="s1">'info'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Fetching the list of documents'</span><span class="p">)</span>
 <span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">$</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">request</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">baseUrl</span><span class="si">}</span><span class="sb">/index.html`</span><span class="p">)</span>
 
 <span class="w">  </span><span class="c1">// step 3.</span>
-<span class="w">  </span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;info&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Parsing list of documents&#39;</span><span class="p">)</span>
+<span class="w">  </span><span class="nx">log</span><span class="p">(</span><span class="s1">'info'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Parsing list of documents'</span><span class="p">)</span>
 <span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">documents</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">parseDocuments</span><span class="p">(</span><span class="nx">$</span><span class="p">)</span>
 
 <span class="w">  </span><span class="c1">// step 4.</span>
 <span class="w">  </span><span class="c1">// here we use the saveBills function even if what we fetch are not bills, but this is the most</span>
 <span class="w">  </span><span class="c1">// common case in connectors</span>
-<span class="w">  </span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;info&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Saving data to Cozy&#39;</span><span class="p">)</span>
+<span class="w">  </span><span class="nx">log</span><span class="p">(</span><span class="s1">'info'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Saving data to Cozy'</span><span class="p">)</span>
 <span class="w">  </span><span class="k">await</span><span class="w"> </span><span class="nx">saveBills</span><span class="p">(</span><span class="nx">documents</span><span class="p">,</span><span class="w"> </span><span class="nx">fields</span><span class="p">.</span><span class="nx">folderPath</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// this is a bank identifier which will be used to link bills to bank operations. These</span>
 <span class="w">    </span><span class="c1">// identifiers should be at least a word found in the title of a bank operation related to this</span>
 <span class="w">    </span><span class="c1">// bill. It is not case sensitive.</span>
-<span class="w">    </span><span class="nx">identifiers</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;books&#39;</span><span class="p">]</span>
+<span class="w">    </span><span class="nx">identifiers</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">'books'</span><span class="p">]</span>
 <span class="w">  </span><span class="p">})</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -7950,25 +7950,25 @@ The very first step is to be able to authenticate to the remote service, this is
 </ul>
 <p><em>note: if the remote service exposes an API, you should use classical <a href="https://github.com/request/request-promise">request</a> call.</em></p>
 <p>Let&rsquo;s say the remote service exposes a simple classical form like <a href="https://www.trainline.eu/signin">https://www.trainline.eu/signin</a>:</p>
-<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">form</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;signin-form&quot;</span> <span class="na">novalidate</span><span class="o">=</span><span class="s">&quot;&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;signin__form&quot;</span> <span class="na">data-ember-action</span><span class="o">=</span><span class="s">&quot;&quot;</span> <span class="na">data-ember-action-680</span><span class="o">=</span><span class="s">&quot;680&quot;</span><span class="p">&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">form</span> <span class="na">id</span><span class="o">=</span><span class="s">"signin-form"</span> <span class="na">novalidate</span><span class="o">=</span><span class="s">""</span> <span class="na">class</span><span class="o">=</span><span class="s">"signin__form"</span> <span class="na">data-ember-action</span><span class="o">=</span><span class="s">""</span> <span class="na">data-ember-action-680</span><span class="o">=</span><span class="s">"680"</span><span class="p">&gt;</span>
 
-  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;email&quot;</span> <span class="na">autocomplete</span><span class="o">=</span><span class="s">&quot;on&quot;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&quot;Email Address&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;ember691&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;ember-text-field textfield ember-view&quot;</span>
-    <span class="na">data-enpass</span><span class="err">.</span><span class="na">usermodified</span><span class="o">=</span><span class="s">&quot;yes&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;email&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">name</span><span class="o">=</span><span class="s">"email"</span> <span class="na">autocomplete</span><span class="o">=</span><span class="s">"on"</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">"Email Address"</span> <span class="na">id</span><span class="o">=</span><span class="s">"ember691"</span> <span class="na">class</span><span class="o">=</span><span class="s">"ember-text-field textfield ember-view"</span>
+    <span class="na">data-enpass</span><span class="err">.</span><span class="na">usermodified</span><span class="o">=</span><span class="s">"yes"</span> <span class="na">type</span><span class="o">=</span><span class="s">"email"</span><span class="p">&gt;</span>
 
-  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;password&quot;</span> <span class="na">autocomplete</span><span class="o">=</span><span class="s">&quot;on&quot;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&quot;Password&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;ember696&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;ember-text-field textfield ember-view&quot;</span>
-    <span class="na">data-enpass</span><span class="err">.</span><span class="na">usermodified</span><span class="o">=</span><span class="s">&quot;yes&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;password&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">name</span><span class="o">=</span><span class="s">"password"</span> <span class="na">autocomplete</span><span class="o">=</span><span class="s">"on"</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">"Password"</span> <span class="na">id</span><span class="o">=</span><span class="s">"ember696"</span> <span class="na">class</span><span class="o">=</span><span class="s">"ember-text-field textfield ember-view"</span>
+    <span class="na">data-enpass</span><span class="err">.</span><span class="na">usermodified</span><span class="o">=</span><span class="s">"yes"</span> <span class="na">type</span><span class="o">=</span><span class="s">"password"</span><span class="p">&gt;</span>
 
-  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;signin__forgot&quot;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-ember-action</span><span class="o">=</span><span class="s">&quot;&quot;</span> <span class="na">data-ember-action-697</span><span class="o">=</span><span class="s">&quot;697&quot;</span><span class="p">&gt;</span>
-      <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/password&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;ember698&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;ember-view&quot;</span><span class="p">&gt;</span> Forgot your password?
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"signin__forgot"</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-ember-action</span><span class="o">=</span><span class="s">""</span> <span class="na">data-ember-action-697</span><span class="o">=</span><span class="s">"697"</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">"/password"</span> <span class="na">id</span><span class="o">=</span><span class="s">"ember698"</span> <span class="na">class</span><span class="o">=</span><span class="s">"ember-view"</span><span class="p">&gt;</span> Forgot your password?
       <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
     <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
   <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 
-  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;signin__buttons &quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"signin__buttons "</span><span class="p">&gt;</span>
 
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;signin__buttons-block&quot;</span><span class="p">&gt;</span>
-      <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;signin__button&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"signin__buttons-block"</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">"submit"</span> <span class="na">class</span><span class="o">=</span><span class="s">"signin__button"</span><span class="p">&gt;</span>
         Sign In
       <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
     <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
@@ -7982,7 +7982,7 @@ Find the <code>name</code> of the input tags used to host user&rsquo;s credentia
 <div class="highlight"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">authenticate</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span><span class="w"> </span><span class="nx">password</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">signin</span><span class="p">({</span>
 <span class="w">    </span><span class="nx">url</span><span class="o">:</span><span class="w"> </span><span class="sb">`https://www.trainline.eu/signin`</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">formSelector</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;form#signin-form&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">formSelector</span><span class="o">:</span><span class="w"> </span><span class="s1">'form#signin-form'</span><span class="p">,</span>
 <span class="w">    </span><span class="nx">formData</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">email</span><span class="o">:</span><span class="w"> </span><span class="nx">username</span><span class="p">,</span><span class="w"> </span><span class="nx">password</span><span class="w"> </span><span class="p">},</span>
 <span class="w">    </span><span class="nx">validate</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">statusCode</span><span class="p">,</span><span class="w"> </span><span class="nx">$</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="c1">// write some code to validate the form submission</span>
@@ -8002,22 +8002,22 @@ Here it is clear, on incorrect credentials, the response have a status code <cod
 <div class="highlight"><pre><span></span><code><span class="kd">function</span><span class="w"> </span><span class="nx">authenticate</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span><span class="w"> </span><span class="nx">password</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">signin</span><span class="p">({</span>
 <span class="w">    </span><span class="nx">url</span><span class="o">:</span><span class="w"> </span><span class="sb">`https://www.trainline.eu/signin`</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">formSelector</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;form#signin-form&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">formData</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">email</span><span class="o">:</span><span class="w"> </span><span class="nx">username</span><span class="p">,</span><span class="w"> </span><span class="nx">password</span><span class="w"> </span><span class="p">},</span><span class="w">  </span><span class="c1">// &quot;email&quot; and &quot;password&quot; correspond to the `name` attribute of the HTML inputs</span>
+<span class="w">    </span><span class="nx">formSelector</span><span class="o">:</span><span class="w"> </span><span class="s1">'form#signin-form'</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">formData</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">email</span><span class="o">:</span><span class="w"> </span><span class="nx">username</span><span class="p">,</span><span class="w"> </span><span class="nx">password</span><span class="w"> </span><span class="p">},</span><span class="w">  </span><span class="c1">// "email" and "password" correspond to the `name` attribute of the HTML inputs</span>
 <span class="w">    </span><span class="nx">validate</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">statusCode</span><span class="p">,</span><span class="w"> </span><span class="nx">$</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">statusCode</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">200</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Invalid credentials&#39;</span><span class="p">)</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="nx">statusCode</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="mf">200</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">log</span><span class="p">(</span><span class="s1">'error'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Invalid credentials'</span><span class="p">)</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">})</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>However if the target website doesn&rsquo;t use <code>statusCode</code> correctly you can also use <code>fullResponse.request.uri.href</code> to check if there is a redirection to a page that requires to be logged in:</p>
 <div class="highlight"><pre><span></span><code><span class="nx">validate</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">statusCode</span><span class="p">,</span><span class="w"> </span><span class="nx">$</span><span class="p">,</span><span class="w"> </span><span class="nx">fullResponse</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">fullResponse</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">uri</span><span class="p">.</span><span class="nx">href</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;https://example.com/account&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Invalid credentials&#39;</span><span class="p">)</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">fullResponse</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">uri</span><span class="p">.</span><span class="nx">href</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">'https://example.com/account'</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">log</span><span class="p">(</span><span class="s1">'error'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Invalid credentials'</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>It is also possible to use Cheerio to check if an HTML element is present in the web page or not :</p>
 <div class="highlight"><pre><span></span><code><span class="nx">validate</span><span class="o">:</span><span class="w"> </span><span class="p">(</span><span class="nx">statusCode</span><span class="p">,</span><span class="w"> </span><span class="nx">$</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;a[href=&quot;https://example.com/logout&quot;]&#39;</span><span class="p">).</span><span class="nx">length</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">1</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.error&#39;</span><span class="p">).</span><span class="nx">text</span><span class="p">())</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">$</span><span class="p">(</span><span class="s1">'a[href="https://example.com/logout"]'</span><span class="p">).</span><span class="nx">length</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">1</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">log</span><span class="p">(</span><span class="s1">'error'</span><span class="p">,</span><span class="w"> </span><span class="nx">$</span><span class="p">(</span><span class="s1">'.error'</span><span class="p">).</span><span class="nx">text</span><span class="p">())</span>
 <span class="p">}</span>
 </code></pre></div>
 <h4 id="request-data">Request data<a class="headerlink" href="#request-data" title="Permanent link">&para;</a></h4>
@@ -8028,14 +8028,14 @@ So to request data, we fetch the target webpage that contains invoices list.</p>
 JSON is easier to parse than full HTML webpages.</p>
 <p>For the purpose of this guide, let&rsquo;s consider we are in the case of a full HTML webpage, like the service given as an example in the template: <a href="http://books.toscrape.com">http://books.toscrape.com</a></p>
 <p>This is the easiest part, just fetch the webpage:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">$</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">request</span><span class="p">(</span><span class="s1">&#39;http://books.toscrape.com/index.html&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">$</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">request</span><span class="p">(</span><span class="s1">'http://books.toscrape.com/index.html'</span><span class="p">)</span>
 </code></pre></div>
 <p>The <code>$</code> variable is set to a <a href="https://cheerio.js.org/">cheerio</a> object with <a href="https://github.com/request/request-promise#crawl-a-webpage-better">useful API to crawl the webpage</a>.</p>
 <p>You can name this variable as you want and create as many as you want Cheerio variables such as : <code>$doc</code> or <code>$page</code>.</p>
 <p>That object will be very useful for the next step.</p>
 <h4 id="parse-the-document">Parse the document<a class="headerlink" href="#parse-the-document" title="Permanent link">&para;</a></h4>
 <p>We want to get every <code>&lt;article /&gt;</code> of the page in a JavaScript Array:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">articles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[].</span><span class="nx">map</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;article&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">node</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">node</span><span class="p">))</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">articles</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[].</span><span class="nx">map</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">'article'</span><span class="p">,</span><span class="w"> </span><span class="nx">node</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">node</span><span class="p">))</span>
 </code></pre></div>
 <p>For every book, we want to catch the title attribute of this tag <code>article h3 a</code>.
 This is a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document_object_model/Locating_DOM_elements_using_selectors">CSS Selector</a> that <a href="https://cheerio.js.org/">cheerio</a> understands to select some part of the tree.</p>
@@ -8044,30 +8044,30 @@ This is a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document_obj
 <span class="w">  </span><span class="nx">$</span><span class="p">,</span>
 <span class="w">  </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nx">sel</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;h3 a&#39;</span><span class="p">,</span>
-<span class="w">      </span><span class="nx">attr</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;title&#39;</span>
+<span class="w">      </span><span class="nx">sel</span><span class="o">:</span><span class="w"> </span><span class="s1">'h3 a'</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">attr</span><span class="o">:</span><span class="w"> </span><span class="s1">'title'</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="nx">amount</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nx">sel</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;.price_color&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">sel</span><span class="o">:</span><span class="w"> </span><span class="s1">'.price_color'</span><span class="p">,</span>
 <span class="w">      </span><span class="nx">parse</span><span class="o">:</span><span class="w"> </span><span class="nx">normalizePrice</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="nx">url</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nx">sel</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;h3 a&#39;</span><span class="p">,</span>
-<span class="w">      </span><span class="nx">attr</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;href&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">sel</span><span class="o">:</span><span class="w"> </span><span class="s1">'h3 a'</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">attr</span><span class="o">:</span><span class="w"> </span><span class="s1">'href'</span><span class="p">,</span>
 <span class="w">      </span><span class="nx">parse</span><span class="o">:</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="sb">`</span><span class="si">${</span><span class="nx">baseUrl</span><span class="si">}</span><span class="sb">/</span><span class="si">${</span><span class="nx">url</span><span class="si">}</span><span class="sb">`</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="nx">fileurl</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nx">sel</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;img&#39;</span><span class="p">,</span>
-<span class="w">      </span><span class="nx">attr</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;src&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">sel</span><span class="o">:</span><span class="w"> </span><span class="s1">'img'</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">attr</span><span class="o">:</span><span class="w"> </span><span class="s1">'src'</span><span class="p">,</span>
 <span class="w">      </span><span class="nx">parse</span><span class="o">:</span><span class="w"> </span><span class="nx">src</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="sb">`</span><span class="si">${</span><span class="nx">baseUrl</span><span class="si">}</span><span class="sb">/</span><span class="si">${</span><span class="nx">src</span><span class="si">}</span><span class="sb">`</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="nx">filename</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nx">sel</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;h3 a&#39;</span><span class="p">,</span>
-<span class="w">      </span><span class="nx">attr</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;title&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">sel</span><span class="o">:</span><span class="w"> </span><span class="s1">'h3 a'</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">attr</span><span class="o">:</span><span class="w"> </span><span class="s1">'title'</span><span class="p">,</span>
 <span class="w">      </span><span class="nx">parse</span><span class="o">:</span><span class="w"> </span><span class="nx">title</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="sb">`</span><span class="si">${</span><span class="nx">title</span><span class="si">}</span><span class="sb">.jpg`</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">},</span>
-<span class="w">  </span><span class="s1">&#39;article&#39;</span>
+<span class="w">  </span><span class="s1">'article'</span>
 <span class="p">)</span>
 </code></pre></div>
 <blockquote>
@@ -8075,41 +8075,41 @@ This is a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document_obj
 </blockquote>
 <p>This code will loop on <code>&lt;article /&gt;</code> and for each item will create a JSON object with the selector <code>sel</code> and the value of attribute <code>attr</code> if specified, otherwise it takes the value of the child node, this value can be edited with the <code>parse</code> function.
 Here is a sample for the following markup from <a href="http://books.toscrape.com">http://books.toscrape.com</a>:</p>
-<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">article</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;product_pod&quot;</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;image_container&quot;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;catalogue/a-light-in-the-attic_1000/index.html&quot;</span><span class="p">&gt;</span>
-      <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;media/cache/2c/da/2cdad67c44b002e7ead0cc35693c0e8b.jpg&quot;</span> <span class="na">alt</span><span class="o">=</span><span class="s">&quot;A Light in the Attic&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;thumbnail&quot;</span><span class="p">&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">article</span> <span class="na">class</span><span class="o">=</span><span class="s">"product_pod"</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"image_container"</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">"catalogue/a-light-in-the-attic_1000/index.html"</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">"media/cache/2c/da/2cdad67c44b002e7ead0cc35693c0e8b.jpg"</span> <span class="na">alt</span><span class="o">=</span><span class="s">"A Light in the Attic"</span> <span class="na">class</span><span class="o">=</span><span class="s">"thumbnail"</span><span class="p">&gt;</span>
     <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
   <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;star-rating Three&quot;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">i</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;icon-star&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">i</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;icon-star&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">i</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;icon-star&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">i</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;icon-star&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">i</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;icon-star&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">"star-rating Three"</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">i</span> <span class="na">class</span><span class="o">=</span><span class="s">"icon-star"</span><span class="p">&gt;&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">i</span> <span class="na">class</span><span class="o">=</span><span class="s">"icon-star"</span><span class="p">&gt;&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">i</span> <span class="na">class</span><span class="o">=</span><span class="s">"icon-star"</span><span class="p">&gt;&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">i</span> <span class="na">class</span><span class="o">=</span><span class="s">"icon-star"</span><span class="p">&gt;&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">i</span> <span class="na">class</span><span class="o">=</span><span class="s">"icon-star"</span><span class="p">&gt;&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>
   <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;catalogue/a-light-in-the-attic_1000/index.html&quot;</span> <span class="na">title</span><span class="o">=</span><span class="s">&quot;A Light in the Attic&quot;</span><span class="p">&gt;</span>A Light in the ...<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">"catalogue/a-light-in-the-attic_1000/index.html"</span> <span class="na">title</span><span class="o">=</span><span class="s">"A Light in the Attic"</span><span class="p">&gt;</span>A Light in the ...<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
   <span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;product_price&quot;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;price_color&quot;</span><span class="p">&gt;</span>£51.77<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;instock availability&quot;</span><span class="p">&gt;</span>
-      <span class="p">&lt;</span><span class="nt">i</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;icon-ok&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">"product_price"</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">"price_color"</span><span class="p">&gt;</span>£51.77<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span> <span class="na">class</span><span class="o">=</span><span class="s">"instock availability"</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">i</span> <span class="na">class</span><span class="o">=</span><span class="s">"icon-ok"</span><span class="p">&gt;&lt;/</span><span class="nt">i</span><span class="p">&gt;</span>
       In stock
     <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">form</span><span class="p">&gt;</span>
-      <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-primary btn-block&quot;</span> <span class="na">data-loading-text</span><span class="o">=</span><span class="s">&quot;Adding...&quot;</span><span class="p">&gt;</span>Add to basket<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">"submit"</span> <span class="na">class</span><span class="o">=</span><span class="s">"btn btn-primary btn-block"</span> <span class="na">data-loading-text</span><span class="o">=</span><span class="s">"Adding..."</span><span class="p">&gt;</span>Add to basket<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
     <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
   <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">article</span><span class="p">&gt;</span>
 </code></pre></div>
 <p>And we will get the following JSON object:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A Light in the Attic&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;amount&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">51.77</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;fileurl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;http://books.toscrape.com/media/cache/2c/da/2cdad67c44b002e7ead0cc35693c0e8b.jpg&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;filename&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A Light in the Attic.jpg&quot;</span>
+<span class="w">  </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A Light in the Attic"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">51.77</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"fileurl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://books.toscrape.com/media/cache/2c/da/2cdad67c44b002e7ead0cc35693c0e8b.jpg"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"filename"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A Light in the Attic.jpg"</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>The code sample includes some other function to manipulate the result object, but we have the idea.
@@ -8134,8 +8134,8 @@ But there is a bunch of functions available depending on what you want:</p>
 </ul>
 <p>For example, to save bills to Cozy you have to start by recovering all required fields for a data type <a href="https://docs.cozy.io/en/cozy-doctypes/docs/io.cozy.bills/">io.cozy.bills</a> using the <code>scrape</code> function, and then you can use the function <code>saveBills</code> to save your docs to Cozy Stack as shown below:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">await</span><span class="w"> </span><span class="n">saveBills</span><span class="p">(</span><span class="n">documents</span><span class="p">,</span><span class="w"> </span><span class="n">fields</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nl">idenditifiers:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;vendor&#39;</span><span class="p">],</span><span class="w"> </span><span class="c1">// name of the target website</span>
-<span class="w">  </span><span class="nl">contentType:</span><span class="w"> </span><span class="s1">&#39;application/pdf&#39;</span>
+<span class="w">  </span><span class="nl">idenditifiers:</span><span class="w"> </span><span class="p">[</span><span class="s1">'vendor'</span><span class="p">],</span><span class="w"> </span><span class="c1">// name of the target website</span>
+<span class="w">  </span><span class="nl">contentType:</span><span class="w"> </span><span class="s1">'application/pdf'</span>
 <span class="p">})</span>
 </code></pre></div>
 <p><em><code>documents</code> is the list of bills returned by the function <code>parseDocuments</code> after the page scraping</em>.</p>

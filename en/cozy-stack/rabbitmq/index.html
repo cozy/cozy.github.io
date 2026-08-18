@@ -8333,11 +8333,11 @@ struct in <code>pkg/rabbitmq/contracts.go</code>.</p>
 bulk migration. The payload is the <code>NextcloudMigrationRequestedMessage</code>
 struct in <code>pkg/rabbitmq/contracts.go</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;migrationId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;d4e5f6a7b8c94d0ea1b2c3d4e5f6a7b8&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;workplaceFqdn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;alice.cozy.example.com&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;accountId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;a1b2c3d4e5f6&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;sourcePath&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1712563200</span>
+<span class="w">  </span><span class="nt">"migrationId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d4e5f6a7b8c94d0ea1b2c3d4e5f6a7b8"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"workplaceFqdn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"alice.cozy.example.com"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"accountId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a1b2c3d4e5f6"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"sourcePath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1712563200</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Credentials are never in the payload: they live in the <code>io.cozy.accounts</code>
@@ -8362,57 +8362,57 @@ messages; if no queue is bound when the Stack publishes, the user receives
 </ul>
 <p>Message schemas are JSON and validated in the handler. Example payload for <code>user.password.updated</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;twakeId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;iterations&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100000</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;hash&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;base64&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;publicKey&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;base64&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;privateKey&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cipherString&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cipherString&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1726040000</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;example.cozy.cloud&quot;</span>
+<span class="w">  </span><span class="nt">"twakeId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"iterations"</span><span class="p">:</span><span class="w"> </span><span class="mi">100000</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"base64"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"publicKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"base64"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"privateKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cipherString"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cipherString"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1726040000</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"domain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example.cozy.cloud"</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Example payload for <code>user.created</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;twakeId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;mobile&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;internalEmail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;iterations&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">100000</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;hash&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;base64&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;publicKey&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;base64&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;privateKey&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cipherString&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cipherString&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1726040000</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;workplaceFqdn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;alice.example.twake.app&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;organizationId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;org-uuid-123&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;organizationDomain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;example.com&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;canUpgrade&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">  </span><span class="nt">"twakeId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"mobile"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"internalEmail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"iterations"</span><span class="p">:</span><span class="w"> </span><span class="mi">100000</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"base64"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"publicKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"base64"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"privateKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cipherString"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cipherString"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1726040000</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"workplaceFqdn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"alice.example.twake.app"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"organizationId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"org-uuid-123"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"organizationDomain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example.com"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"canUpgrade"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>Example payload for <code>b2b/domain.user.deleted</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;emitter&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;admin-panel&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user.deleted&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;workplaceFqdn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;alice.example.twake.app&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;internalEmail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;alice@example.com&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;reason&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user deleted&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;organizationId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;org-uuid-123&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;userId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;alice&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;example.com&quot;</span>
+<span class="w">  </span><span class="nt">"emitter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"admin-panel"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user.deleted"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"workplaceFqdn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"alice.example.twake.app"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"internalEmail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"alice@example.com"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user deleted"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"organizationId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"org-uuid-123"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"alice"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"domain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example.com"</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>The delete handler removes the single matching contact found by <code>internalEmail</code>
 when <code>metadata.external</code> is true. </p>
 <p>Example payload for <code>b2b.group.created</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-06-16T10:30:00.000Z&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;organizationId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;org123&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;engineering&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;engineering&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Engineering team&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;color&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;#3366FF&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;createdAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-06-16T10:30:00.000Z&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;members&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
+<span class="w">  </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-06-16T10:30:00.000Z"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"organizationId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"org123"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"engineering"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"engineering"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Engineering team"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"#3366FF"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-06-16T10:30:00.000Z"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"members"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>The Stack consumes <code>b2b.group.created</code>, <code>b2b.group.updated</code>,
@@ -8424,10 +8424,10 @@ managed <code>io.cozy.contacts.groups</code> documents in every instance with th
 by matching email or Cozy URL.</p>
 <p>Example payload for <code>user.phone.updated</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;twakeId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;mobile&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;+33123456789&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;internalEmail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;string&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;workplaceFqdn&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;example.twake.app&quot;</span>
+<span class="w">  </span><span class="nt">"twakeId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"mobile"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+33123456789"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"internalEmail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"workplaceFqdn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example.twake.app"</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="lifecycle">Lifecycle<a class="headerlink" href="#lifecycle" title="Permanent link">&para;</a></h3>
@@ -8447,9 +8447,9 @@ by matching email or Cozy URL.</p>
 <p>Create a handler type that implements the <code>Handle(ctx, d)</code> method and an accompanying message struct.</p>
 <div class="highlight"><pre><span></span><code><span class="c1">// Example message payload consumed from the queue</span>
 <span class="kd">type</span><span class="w"> </span><span class="nx">ExampleEvent</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">ID</span><span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;id&quot;`</span>
-<span class="w">    </span><span class="nx">Action</span><span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:&quot;action&quot;`</span>
-<span class="w">    </span><span class="nx">Timestamp</span><span class="w"> </span><span class="kt">int64</span><span class="w">  </span><span class="s">`json:&quot;timestamp&quot;`</span>
+<span class="w">    </span><span class="nx">ID</span><span class="w">        </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:"id"`</span>
+<span class="w">    </span><span class="nx">Action</span><span class="w">    </span><span class="kt">string</span><span class="w"> </span><span class="s">`json:"action"`</span>
+<span class="w">    </span><span class="nx">Timestamp</span><span class="w"> </span><span class="kt">int64</span><span class="w">  </span><span class="s">`json:"timestamp"`</span>
 <span class="p">}</span>
 
 <span class="c1">// ExampleHandler processes ExampleEvent messages</span>
@@ -8460,10 +8460,10 @@ by matching email or Cozy URL.</p>
 <span class="kd">func</span><span class="w"> </span><span class="p">(</span><span class="nx">h</span><span class="w"> </span><span class="o">*</span><span class="nx">ExampleHandler</span><span class="p">)</span><span class="w"> </span><span class="nx">Handle</span><span class="p">(</span><span class="nx">ctx</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">d</span><span class="w"> </span><span class="nx">amqp</span><span class="p">.</span><span class="nx">Delivery</span><span class="p">)</span><span class="w"> </span><span class="kt">error</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">msg</span><span class="w"> </span><span class="nx">ExampleEvent</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">Unmarshal</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">Body</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">msg</span><span class="p">);</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;example: invalid payload: %w&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">"example: invalid payload: %w"</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="p">)</span>
 <span class="w">    </span><span class="p">}</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">msg</span><span class="p">.</span><span class="nx">ID</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;example: missing id&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">msg</span><span class="p">.</span><span class="nx">ID</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">""</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">"example: missing id"</span><span class="p">)</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">    </span><span class="c1">// TODO: implement business logic</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="c1">// ack</span>
@@ -8472,8 +8472,8 @@ by matching email or Cozy URL.</p>
 <p>2) Register the handler for a queue name</p>
 <p>Map the queue name to the handler so the manager knows which handler to use. This usually happens where queues are built from config.</p>
 <div class="highlight"><pre><span></span><code><span class="k">switch</span><span class="w"> </span><span class="nx">configQueue</span><span class="p">.</span><span class="nx">Name</span><span class="w"> </span><span class="p">{</span>
-<span class="k">case</span><span class="w"> </span><span class="s">&quot;example.queue&quot;</span><span class="p">:</span>
-<span class="w">    </span><span class="nx">handler</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">NewExampleHandler</span><span class="p">()</span>
+<span class="k">case</span><span class="w"> </span><span class="s">"example.queue"</span><span class="p">:</span>
+<span class="w">    </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">NewExampleHandler</span><span class="p">()</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>3) Configure the exchange and queue in <code>cozy.yaml</code></p>
@@ -8499,13 +8499,13 @@ by matching email or Cozy URL.</p>
 </code></pre></div>
 <p>4) Publish a message (example)</p>
 <div class="highlight"><pre><span></span><code><span class="nx">ch</span><span class="p">.</span><span class="nx">PublishWithContext</span><span class="p">(</span><span class="nx">ctx</span><span class="p">,</span>
-<span class="w">    </span><span class="s">&quot;auth&quot;</span><span class="p">,</span><span class="w">            </span><span class="c1">// exchange</span>
-<span class="w">    </span><span class="s">&quot;example.created&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// routing key</span>
+<span class="w">    </span><span class="s">"auth"</span><span class="p">,</span><span class="w">            </span><span class="c1">// exchange</span>
+<span class="w">    </span><span class="s">"example.created"</span><span class="p">,</span><span class="w"> </span><span class="c1">// routing key</span>
 <span class="w">    </span><span class="kc">false</span><span class="p">,</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
 <span class="w">    </span><span class="nx">amqp</span><span class="p">.</span><span class="nx">Publishing</span><span class="p">{</span>
 <span class="w">        </span><span class="nx">DeliveryMode</span><span class="p">:</span><span class="w"> </span><span class="nx">amqp</span><span class="p">.</span><span class="nx">Persistent</span><span class="p">,</span>
-<span class="w">        </span><span class="nx">ContentType</span><span class="p">:</span><span class="w">  </span><span class="s">&quot;application/json&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nx">Body</span><span class="p">:</span><span class="w">         </span><span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">`{&quot;id&quot;:&quot;123&quot;,&quot;action&quot;:&quot;created&quot;,&quot;timestamp&quot;:1726040000}`</span><span class="p">),</span>
+<span class="w">        </span><span class="nx">ContentType</span><span class="p">:</span><span class="w">  </span><span class="s">"application/json"</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">Body</span><span class="p">:</span><span class="w">         </span><span class="p">[]</span><span class="kt">byte</span><span class="p">(</span><span class="s">`{"id":"123","action":"created","timestamp":1726040000}`</span><span class="p">),</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="p">)</span>
 </code></pre></div>

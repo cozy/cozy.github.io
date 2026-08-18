@@ -8115,10 +8115,10 @@
 * <code>_id</code>:  the id of the referenced document.</p>
 <p>For instance, a book -&gt; authors relationship might be represented like this:
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="s2">&quot;_id&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;mobydick&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="s2">&quot;relationships&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="s2">&quot;authors&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="s2">&quot;data&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[{</span><span class="w"> </span><span class="s2">&quot;_id&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;hermanmelville&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;_type&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.contacts&quot;</span><span class="w"> </span><span class="p">}]</span>
+<span class="w">  </span><span class="s2">"_id"</span><span class="o">:</span><span class="w"> </span><span class="s2">"mobydick"</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">"relationships"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="s2">"authors"</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="s2">"data"</span><span class="o">:</span><span class="w"> </span><span class="p">[{</span><span class="w"> </span><span class="s2">"_id"</span><span class="o">:</span><span class="w"> </span><span class="s2">"hermanmelville"</span><span class="p">,</span><span class="w"> </span><span class="s2">"_type"</span><span class="o">:</span><span class="w"> </span><span class="s2">"io.cozy.contacts"</span><span class="w"> </span><span class="p">}]</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
@@ -8128,20 +8128,20 @@
 <p>Cozy-client knows how to handle these relations thanks to the schema you provide at initialization:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">schema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nx">books</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">doctype</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;io.cozy.books&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">doctype</span><span class="o">:</span><span class="w"> </span><span class="s1">'io.cozy.books'</span><span class="p">,</span>
 <span class="w">    </span><span class="nx">attributes</span><span class="o">:</span><span class="w"> </span><span class="p">{},</span>
 <span class="w">    </span><span class="nx">relationships</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nx">authors</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">doctype</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;io.cozy.contacts&#39;</span><span class="p">,</span>
-<span class="w">        </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;has-many&#39;</span>
+<span class="w">        </span><span class="nx">doctype</span><span class="o">:</span><span class="w"> </span><span class="s1">'io.cozy.contacts'</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">'has-many'</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">CozyClient</span><span class="p">({</span>
-<span class="w">  </span><span class="nx">uri</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;http://cozy.tools:8080&#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">token</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;...&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">uri</span><span class="o">:</span><span class="w"> </span><span class="s1">'http://cozy.tools:8080'</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">token</span><span class="o">:</span><span class="w"> </span><span class="s1">'...'</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">schema</span>
 <span class="p">})</span>
 </code></pre></div>
@@ -8169,43 +8169,43 @@
 <p>With these relations, instead of using the <code>relationships</code> attribute, you reference directly the ids of linked documents at the root of your data:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">schema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nx">books</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">doctype</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;io.cozy.books&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">doctype</span><span class="o">:</span><span class="w"> </span><span class="s1">'io.cozy.books'</span><span class="p">,</span>
 <span class="w">    </span><span class="nx">attributes</span><span class="o">:</span><span class="w"> </span><span class="p">{},</span>
 <span class="w">    </span><span class="nx">relationships</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nx">authors</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nx">doctype</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;io.cozy.contacts&#39;</span><span class="p">,</span>
-<span class="w">        </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;has-many-in-place&#39;</span>
+<span class="w">        </span><span class="nx">doctype</span><span class="o">:</span><span class="w"> </span><span class="s1">'io.cozy.contacts'</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">'has-many-in-place'</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">book</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="s2">&quot;_id&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;mobydick&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="s2">&quot;authors&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">&quot;hermanmelville&quot;</span><span class="w"> </span><span class="p">]</span>
+<span class="w">  </span><span class="s2">"_id"</span><span class="o">:</span><span class="w"> </span><span class="s2">"mobydick"</span><span class="p">,</span>
+<span class="w">  </span><span class="s2">"authors"</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">"hermanmelville"</span><span class="w"> </span><span class="p">]</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="metadata">Metadata<a class="headerlink" href="#metadata" title="Permanent link">&para;</a></h3>
 <p>It is possible to assign metadatas to relationships. You need to modify the content of the document relationships somehow and save the modified document.</p>
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">doc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;mobydick&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="s2">"mobydick"</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">relationships</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">authors</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="p">[{</span>
-<span class="w">        </span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;hermanmelville&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nx">_type</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.contacts&quot;</span>
+<span class="w">        </span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="s2">"hermanmelville"</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">_type</span><span class="o">:</span><span class="w"> </span><span class="s2">"io.cozy.contacts"</span>
 <span class="w">      </span><span class="p">}]</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
-<span class="nx">doc</span><span class="p">.</span><span class="nx">relationships</span><span class="p">.</span><span class="nx">authors</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">metadata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">addressId</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;123&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="nx">doc</span><span class="p">.</span><span class="nx">relationships</span><span class="p">.</span><span class="nx">authors</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="mf">0</span><span class="p">].</span><span class="nx">metadata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">addressId</span><span class="o">:</span><span class="w"> </span><span class="s2">"123"</span><span class="w"> </span><span class="p">}</span>
 <span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">save</span><span class="p">(</span><span class="nx">doc</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
 <h3 id="include-relations-in-your-query">Include relations in your query<a class="headerlink" href="#include-relations-in-your-query" title="Permanent link">&para;</a></h3>
 <p>Relations are not loaded eagerly by default. If you want your query to load your relations for you, you will have to name them in an <code>include()</code> request.</p>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Q</span><span class="p">(</span><span class="s1">&#39;io.cozy.books&#39;</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="nx">include</span><span class="p">([</span><span class="s1">&#39;authors&#39;</span><span class="p">])</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">Q</span><span class="p">(</span><span class="s1">'io.cozy.books'</span><span class="p">)</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">include</span><span class="p">([</span><span class="s1">'authors'</span><span class="p">])</span>
 <span class="w">  </span><span class="p">.</span><span class="nx">limitBy</span><span class="p">(</span><span class="mf">20</span><span class="p">)</span>
 </code></pre></div>
 <p>You will then find your relations under the <code>data</code> attribute:</p>
@@ -8216,20 +8216,20 @@
 </code></pre></div>
 <h3 id="add-a-relation-to-an-existing-document">Add a relation to an existing document<a class="headerlink" href="#add-a-relation-to-an-existing-document" title="Permanent link">&para;</a></h3>
 <p>When the relationship is a <code>has-many</code> type, you can call the <code>add(docs)</code> to create the relationship:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">otherAuthors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[{</span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Rivest&#39;</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Shamir&#39;</span><span class="p">}]</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">otherAuthors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[{</span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="s1">'Rivest'</span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="s1">'Shamir'</span><span class="p">}]</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">query</span><span class="p">)</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">docs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">data</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">firstDoc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">docs</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span>
 <span class="nx">firstDoc</span><span class="p">.</span><span class="nx">authors</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">otherAuthors</span><span class="p">)</span>
 </code></pre></div>
 <p><code>add</code> also accepts single document:</p>
-<div class="highlight"><pre><span></span><code><span class="nx">firstDoc</span><span class="p">.</span><span class="nx">authors</span><span class="p">.</span><span class="nx">add</span><span class="p">({</span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Adleman&#39;</span><span class="p">})</span>
+<div class="highlight"><pre><span></span><code><span class="nx">firstDoc</span><span class="p">.</span><span class="nx">authors</span><span class="p">.</span><span class="nx">add</span><span class="p">({</span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="s1">'Adleman'</span><span class="p">})</span>
 </code></pre></div>
 <p>Likewise, when the relationship is a <code>has-one</code>, use <code>add(doc)</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">printer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;abc123&#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">_type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;io.cozy.company&#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Harper &amp; Brothers&#39;</span>
+<span class="w">  </span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="s1">'abc123'</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">_type</span><span class="o">:</span><span class="w"> </span><span class="s1">'io.cozy.company'</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'Harper &amp; Brothers'</span>
 <span class="p">}</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">query</span><span class="p">)</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">docs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">data</span>
@@ -8238,7 +8238,7 @@
 </code></pre></div>
 <h3 id="remove-a-relation-to-an-existing-document">Remove a relation to an existing document<a class="headerlink" href="#remove-a-relation-to-an-existing-document" title="Permanent link">&para;</a></h3>
 <p>For <code>has-many</code> relationships, use the <code>remove(docs)</code> method:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">wrongAuthors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[{</span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;James Wrong&#39;</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Henry Mistake&#39;</span><span class="p">}]</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">wrongAuthors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[{</span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="s1">'James Wrong'</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="p">{</span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="s1">'Henry Mistake'</span><span class="p">}]</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">query</span><span class="p">)</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">docs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">data</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">firstDoc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">docs</span><span class="p">[</span><span class="mf">0</span><span class="p">]</span>
@@ -8253,10 +8253,10 @@
 </code></pre></div>
 <h3 id="create-a-new-file-with-existing-relations">Create a new file with existing relations<a class="headerlink" href="#create-a-new-file-with-existing-relations" title="Permanent link">&para;</a></h3>
 <p>Simply pass the reference to your file as a third parameter to <code>create()</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">photo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;sunset.jpg&quot;</span><span class="w"> </span><span class="p">}</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">reference</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;1324&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">_type</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.photos.albums&quot;</span><span class="w"> </span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">photo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="s2">"sunset.jpg"</span><span class="w"> </span><span class="p">}</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">reference</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="s2">"1324"</span><span class="p">,</span><span class="w"> </span><span class="nx">_type</span><span class="o">:</span><span class="w"> </span><span class="s2">"io.cozy.photos.albums"</span><span class="w"> </span><span class="p">}</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">albumReference</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">albums</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="nx">albumReference</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="p">}</span>
-<span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">&#39;io.cozy.files&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">photo</span><span class="p">,</span><span class="w"> </span><span class="nx">albumReference</span><span class="p">)</span>
+<span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">'io.cozy.files'</span><span class="p">,</span><span class="w"> </span><span class="nx">photo</span><span class="p">,</span><span class="w"> </span><span class="nx">albumReference</span><span class="p">)</span>
 </code></pre></div>
 
 

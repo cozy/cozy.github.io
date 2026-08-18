@@ -7844,11 +7844,11 @@
 <p>First field to declare is <code>accept_from_flagship</code>. It should be set to <code>true</code> to make the cozy-app visible in the list of elligible cozy-apps</p>
 <p>Example:
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Drive&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;name_prefix&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Cozy&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drive&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Drive"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"name_prefix"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cozy"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"drive"</span><span class="p">,</span>
 <span class="w">  </span><span class="c1">//...</span>
-<span class="w">  </span><span class="nt">&quot;accept_from_flagship&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"accept_from_flagship"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 <span class="w">  </span><span class="c1">//...</span>
 <span class="p">}</span>
 </code></pre></div></p>
@@ -7861,9 +7861,9 @@
 <p>Example of a cozy-app accepting PDF, and pictures:
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="c1">//...</span>
-<span class="w">  </span><span class="nt">&quot;accept_from_flagship&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;accept_documents_from_flagship&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;accepted_mime_types&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;application/pdf&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;image/jpeg&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;image/png&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">"accept_from_flagship"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"accept_documents_from_flagship"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"accepted_mime_types"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"application/pdf"</span><span class="p">,</span><span class="w"> </span><span class="s2">"image/jpeg"</span><span class="p">,</span><span class="w"> </span><span class="s2">"image/png"</span><span class="p">],</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></p>
@@ -7871,9 +7871,9 @@
 <p>Example of a cozy-app accepting all types of documents:
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="c1">//...</span>
-<span class="w">  </span><span class="nt">&quot;accept_from_flagship&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;accept_documents_from_flagship&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;accepted_mime_types&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;*/*&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">"accept_from_flagship"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"accept_documents_from_flagship"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"accepted_mime_types"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"*/*"</span><span class="p">],</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></p>
@@ -7882,18 +7882,18 @@
 <p>Example of a cozy-app accepting only 1 document at a time:
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="c1">//...</span>
-<span class="w">  </span><span class="nt">&quot;accept_from_flagship&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;accept_documents_from_flagship&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;max_number_of_files&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"accept_from_flagship"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"accept_documents_from_flagship"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"max_number_of_files"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></p>
 <p>Example of a cozy-app accepting up to 10 documents at a time:
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="c1">//...</span>
-<span class="w">  </span><span class="nt">&quot;accept_from_flagship&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;accept_documents_from_flagship&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;max_number_of_files&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"accept_from_flagship"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"accept_documents_from_flagship"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"max_number_of_files"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></p>
@@ -7905,9 +7905,9 @@
 <p>Example of a cozy-app accepting documents up to 10MB:
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="c1">//...</span>
-<span class="w">  </span><span class="nt">&quot;accept_from_flagship&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;accept_documents_from_flagship&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;max_size_per_file_in_MB&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"accept_from_flagship"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"accept_documents_from_flagship"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"max_size_per_file_in_MB"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></p>
@@ -7918,25 +7918,25 @@
 <p>Example:
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="c1">//...</span>
-<span class="w">  </span><span class="nt">&quot;accept_from_flagship&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;accept_documents_from_flagship&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;route_to_upload&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/#/upload?fromFlagshipUpload=true&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"accept_from_flagship"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"accept_documents_from_flagship"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"route_to_upload"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/#/upload?fromFlagshipUpload=true"</span><span class="p">,</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div></p>
 <h4 id="the-complete-manifest">The complete manifest<a class="headerlink" href="#the-complete-manifest" title="Permanent link">&para;</a></h4>
 <p>Here is an example of a <code>manifest.webapp</code> file for an app accepting only up to 10 picture files, with a maximum of 10MB:
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Drive&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;name_prefix&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Cozy&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;drive&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Drive"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"name_prefix"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cozy"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"drive"</span><span class="p">,</span>
 <span class="w">  </span><span class="c1">//...</span>
-<span class="w">  </span><span class="nt">&quot;accept_from_flagship&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;accept_documents_from_flagship&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;accepted_mime_types&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;image/jpeg&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;image/png&quot;</span><span class="p">],</span>
-<span class="w">    </span><span class="nt">&quot;max_number_of_files&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;max_size_per_file_in_MB&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;route_to_upload&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/#/upload?fromFlagshipUpload=true&quot;</span>
+<span class="w">  </span><span class="nt">"accept_from_flagship"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"accept_documents_from_flagship"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"accepted_mime_types"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"image/jpeg"</span><span class="p">,</span><span class="w"> </span><span class="s2">"image/png"</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">"max_number_of_files"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"max_size_per_file_in_MB"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"route_to_upload"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/#/upload?fromFlagshipUpload=true"</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="w">  </span><span class="c1">//...</span>
 <span class="p">}</span>

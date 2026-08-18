@@ -8517,16 +8517,16 @@ the bridge.</p>
 <p>To connect a container in bridge mode :</p>
 <p>On the host create the file /etc/rkt/net.d/10-containers.conf</p>
 <div class="highlight"><pre><span></span><code>{
-    &quot;name&quot;: &quot;bridge&quot;,
-    &quot;type&quot;: &quot;bridge&quot;,
-    &quot;bridge&quot;: &quot;rkt-bridge-nat&quot;,
-    &quot;ipMasq&quot;: true,
-    &quot;isGateway&quot;: true,
-    &quot;ipam&quot;: {
-        &quot;type&quot;: &quot;host-local&quot;,
-        &quot;subnet&quot;: &quot;10.2.0.0/24&quot;,
-        &quot;routes&quot;: [
-               { &quot;dst&quot;: &quot;0.0.0.0/0&quot; }
+    "name": "bridge",
+    "type": "bridge",
+    "bridge": "rkt-bridge-nat",
+    "ipMasq": true,
+    "isGateway": true,
+    "ipam": {
+        "type": "host-local",
+        "subnet": "10.2.0.0/24",
+        "routes": [
+               { "dst": "0.0.0.0/0" }
         ]
     }
 }
@@ -8576,11 +8576,11 @@ independently from each konnector. The one once used by the email application
 seems to be a good candidate : io.cozy.accounts</p>
 <p>Here is an example document with this doctype :</p>
 <div class="highlight"><pre><span></span><code>{
-    _id: &quot;ojpiojpoij&quot;,
-    name: &quot;user decided name for the account&quot;,
-    accountType: &quot;google&quot;,
-    login: &quot;mylogin&quot;,
-    password: &quot;123456&quot;
+    _id: "ojpiojpoij",
+    name: "user decided name for the account",
+    accountType: "google",
+    login: "mylogin",
+    password: "123456"
 }
 </code></pre></div>
 <p>Any attribute needed for the account may be added : email, etc&hellip;</p>
@@ -8592,27 +8592,27 @@ will be the type of account, related to the accountType field in the new account
 docType.</p>
 <p>Ex:</p>
 <div class="highlight"><pre><span></span><code>module.exports = baseKonnector.createNew({
-  name: &#39;Trainline&#39;,
-  vendorLink: &#39;www.captaintrain.com&#39;,
-  category: &#39;transport&#39;,
+  name: 'Trainline',
+  vendorLink: 'www.captaintrain.com',
+  category: 'transport',
   color: {
-    hex: &#39;#48D5B5&#39;,
-    css: &#39;#48D5B5&#39;
+    hex: '#48D5B5',
+    css: '#48D5B5'
   },
   fields: {
     login: {
-      type: &#39;text&#39;
+      type: 'text'
     },
     password: {
-      type: &#39;password&#39;
+      type: 'password'
     },
     folderPath: {
-      type: &#39;folder&#39;,
+      type: 'folder',
       advanced: true
     },
-    accountType: &quot;trainline&quot;
+    accountType: "trainline"
   },
-  dataType: [&#39;bill&#39;],
+  dataType: ['bill'],
   models: [Bill],
   fetchOperations: [
     ...

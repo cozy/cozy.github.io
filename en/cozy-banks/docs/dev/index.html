@@ -8166,7 +8166,7 @@ components to make responsive email templates. Behind the scene, it uses <code>R
 to implement custom components, and <a href="https://github.com/Automattic/juice">juice</a>
 to inline the CSS into the HTML. The <a href="https://github.com/shannonmoeller/handlebars-layouts">handlebars-layouts</a> plugin is used to provide an easy way to extend a base template (à la <code>jinja</code>)</p>
 <p>Other templates :</p>
-<div class="highlight"><pre><span></span><code>nodemon --exec &quot;node transactions-notification.js&quot; -e js,css,hbs,json
+<div class="highlight"><pre><span></span><code>nodemon --exec "node transactions-notification.js" -e js,css,hbs,json
 </code></pre></div>
 <h4 id="assets">Assets<a class="headerlink" href="#assets" title="Permanent link">&para;</a></h4>
 <p>Assets in <code>assets/</code> are uploaded to <code>https://downcloud.cozycloud.cc</code> on every deployment on CI. It can also be done manually with the <code>yarn uploadStaticFiles</code> script.</p>
@@ -8175,20 +8175,20 @@ to inline the CSS into the HTML. The <a href="https://github.com/shannonmoeller/
 launch it with <code>cozy-run-dev</code>.</p>
 <p>⚠️ You have to temporarily add <code>io.cozy.accounts</code> to your manifest so that you can
 create a dev account to test the service.</p>
-<div class="highlight"><pre><span></span><code><span class="w"> </span>      &quot;type&quot;: &quot;io.cozy.notifications&quot;,
-<span class="w"> </span>      &quot;verbs&quot;: [&quot;POST&quot;]
+<div class="highlight"><pre><span></span><code><span class="w"> </span>      "type": "io.cozy.notifications",
+<span class="w"> </span>      "verbs": ["POST"]
 <span class="w"> </span>    },
-<span class="gi">+    &quot;account&quot;: {</span>
-<span class="gi">+      &quot;description&quot;: &quot;Used to send notifications&quot;,</span>
-<span class="gi">+      &quot;type&quot;: &quot;io.cozy.accounts&quot;,</span>
-<span class="gi">+      &quot;verbs&quot;: [&quot;POST&quot;]</span>
+<span class="gi">+    "account": {</span>
+<span class="gi">+      "description": "Used to send notifications",</span>
+<span class="gi">+      "type": "io.cozy.accounts",</span>
+<span class="gi">+      "verbs": ["POST"]</span>
 <span class="gi">+    },</span>
-<span class="w"> </span>    &quot;bank.settings&quot;: {
-<span class="w"> </span>      &quot;description&quot;: &quot;Used to manage your bank settings&quot;,
-<span class="w"> </span>      &quot;type&quot;: &quot;io.cozy.bank.settings&quot;,
+<span class="w"> </span>    "bank.settings": {
+<span class="w"> </span>      "description": "Used to manage your bank settings",
+<span class="w"> </span>      "type": "io.cozy.bank.settings",
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>yarn<span class="w"> </span>watch:services<span class="w"> </span><span class="c1"># will continuously build `build/notifications.js`</span>
-$<span class="w"> </span>nodemon<span class="w"> </span>--delay<span class="w"> </span><span class="m">1</span><span class="w"> </span>-w<span class="w"> </span>build/notifications.js<span class="w"> </span>--exec<span class="w"> </span><span class="s2">&quot;cozy-konnector-dev -t /tmp/token.json -m manifest.webapp build/notifications.js&quot;</span><span class="w"> </span><span class="c1"># will launch build/notifications.js (and relaunch it when it changes) with the right COZY_CREDENTIALS, /tmp/token.json is where the token will be stored</span>
+$<span class="w"> </span>nodemon<span class="w"> </span>--delay<span class="w"> </span><span class="m">1</span><span class="w"> </span>-w<span class="w"> </span>build/notifications.js<span class="w"> </span>--exec<span class="w"> </span><span class="s2">"cozy-konnector-dev -t /tmp/token.json -m manifest.webapp build/notifications.js"</span><span class="w"> </span><span class="c1"># will launch build/notifications.js (and relaunch it when it changes) with the right COZY_CREDENTIALS, /tmp/token.json is where the token will be stored</span>
 </code></pre></div>
 <h4 id="emails">Emails<a class="headerlink" href="#emails" title="Permanent link">&para;</a></h4>
 <p>To see the emails that the stack sends, launch a MailHog instance :</p>
@@ -8204,8 +8204,8 @@ locally.</p>
 </code></pre></div>
 <p>To configure the stack, edit your <code>cozy.yml</code> config file:</p>
 <div class="highlight"><pre><span></span><code>+ notifications:
-+   android_api_key: &#39;fake_android_api_key&#39;
-+   fcm_server: &#39;http://localhost:3001&#39;
++   android_api_key: 'fake_android_api_key'
++   fcm_server: 'http://localhost:3001'
 </code></pre></div>
 <p>https://github.com/cozy/cozy-banks/tree/master/src/ducks/notifications/html</p>
 <h3 id="when-creating-a-notification">When creating a notification<a class="headerlink" href="#when-creating-a-notification" title="Permanent link">&para;</a></h3>
@@ -8244,8 +8244,8 @@ it uses a fake server that will receive push notifications.</p>
 <li>Add this to your <a href="https://docs.cozy.io/en/cozy-stack/config/">stack config file</a>:</li>
 </ul>
 <div class="highlight"><pre><span></span><code>notifications:
-   android_api_key: &#39;fake_android_api_key&#39;
-   fcm_server: &#39;http://localhost:3001&#39;
+   android_api_key: 'fake_android_api_key'
+   fcm_server: 'http://localhost:3001'
 </code></pre></div>
 <h5 id="manual-insertion-test">Manual insertion test<a class="headerlink" href="#manual-insertion-test" title="Permanent link">&para;</a></h5>
 <p>To test on a real Cozy, a script can insert fake transactions on accounts corresponding
@@ -8262,11 +8262,11 @@ yarn test:e2e:alerts-existing-cozy --url https://mydemocozy.mycozy.cloud cleanup
 <p>If you want activate Pouch on web app, you need:
 - a token
 - launch your build with <code>FORCE_POUCH</code></p>
-<div class="highlight"><pre><span></span><code>cozy-stack instances token-cli cozy.tools:8080 $(cat manifest.webapp | jq -r &#39;[.permissions[] | .type] | join(&quot; &quot;)&#39;)
+<div class="highlight"><pre><span></span><code>cozy-stack instances token-cli cozy.tools:8080 $(cat manifest.webapp | jq -r '[.permissions[] | .type] | join(" ")')
 env FORCE_POUCH=true yarn start
 </code></pre></div>
 <p>Launch your web application and in console javascript fill in the token and refresh the page:</p>
-<div class="highlight"><pre><span></span><code>flag(&#39;cozyToken&#39;, &lt;your token&gt;)
+<div class="highlight"><pre><span></span><code>flag('cozyToken', &lt;your token&gt;)
 </code></pre></div>
 <p>Now you can play with replication:</p>
 <div class="highlight"><pre><span></span><code>cozyClient.links[0].startReplication()

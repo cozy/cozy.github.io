@@ -7805,11 +7805,11 @@
 <p>We suppose that in the most cases, we will face to entries provinding their own <code>id</code> attribute. The idea is to store it as synchronization data to be able to easily retrieve them later.
 To store synchronization data, we are using a <code>sync</code> attribute in document <code>metadata</code> attribute. Example:</p>
 <p><div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;sync&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;7ee401e841c94159addb47f190903139&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;konnector&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;trainline&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;last_sync&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Mon, 12 Feb 2018 16:25:34 GMT&quot;</span>
+<span class="w">  </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"sync"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7ee401e841c94159addb47f190903139"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"konnector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"trainline"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"last_sync"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mon, 12 Feb 2018 16:25:34 GMT"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
@@ -7840,11 +7840,11 @@ The expected information to be save is:</p>
 <h3 id="by-multiple-attributes">By multiple attributes<a class="headerlink" href="#by-multiple-attributes" title="Permanent link">&para;</a></h3>
 <p>If the external service does not provide any <code>id</code> attribute, we may need to use instead a list of attributes, for example <code>firstname</code>, <code>lastname</code>, <code>dateofbirth</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;sync&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;firstname&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Claude&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;lastname&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Causi&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;dateofbirth&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;06/12/1980&quot;</span>
+<span class="w">  </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"sync"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"firstname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Claude"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"lastname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Causi"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"dateofbirth"</span><span class="p">:</span><span class="w"> </span><span class="s2">"06/12/1980"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
@@ -7854,9 +7854,9 @@ The expected information to be save is:</p>
 <p>When the external service does not provide any identifier, we have to use a custom method to generate one.
 It could be for example the filename or a hash generated with the document content.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;sync&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;id:&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;customhash34FED5465645ABF54656FCB&quot;</span>
+<span class="w">  </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"sync"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"id:"</span><span class="p">:</span><span class="w"> </span><span class="s2">"customhash34FED5465645ABF54656FCB"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
@@ -7977,12 +7977,12 @@ It could be for example the filename or a hash generated with the document conte
 <span class="sb">#### String</span>
 <span class="sb">Name of the id attribute in entry. Default is `</span><span class="nx">id</span><span class="sb">`. If we want to use another name, we may use:</span>
 <span class="sb">```</span><span class="nx">js</span>
-<span class="nx">saveFiles</span><span class="p">(</span><span class="nx">files</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">idAttribute</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;uuid&#39;</span><span class="p">})</span>
+<span class="nx">saveFiles</span><span class="p">(</span><span class="nx">files</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">idAttribute</span><span class="o">:</span><span class="w"> </span><span class="s1">'uuid'</span><span class="p">})</span>
 </code></pre></div>
 <h4 id="array">Array<a class="headerlink" href="#array" title="Permanent link">&para;</a></h4>
 <p>This attribute may also be an array of string, defining each entry attribute which must be used for identifier.</p>
 <h5 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h5>
-<div class="highlight"><pre><span></span><code><span class="nx">saveFiles</span><span class="p">(</span><span class="nx">files</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">idAttribute</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;author&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;date&#39;</span><span class="p">]})</span>
+<div class="highlight"><pre><span></span><code><span class="nx">saveFiles</span><span class="p">(</span><span class="nx">files</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="nx">idAttribute</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">'name'</span><span class="p">,</span><span class="w"> </span><span class="s1">'author'</span><span class="p">,</span><span class="w"> </span><span class="s1">'date'</span><span class="p">]})</span>
 </code></pre></div>
 <p>In this case, all fields are used in synchronization data.</p>
 <h4 id="function">function<a class="headerlink" href="#function" title="Permanent link">&para;</a></h4>
@@ -8035,8 +8035,8 @@ When calling this function, it is assumed that <code>cozy-konnector-libs</code> 
   getSyncData: (file) =&gt; ({
     fileName: file.name
   }),
-  idAttribute: &#39;uuid&#39;,
-  konnector: &#39;myservice&#39;,
+  idAttribute: 'uuid',
+  konnector: 'myservice',
   shouldSave: (file) =&gt; {
     // For whatever reason we only save files created after 2010
     return Promise.resolve(moment(file.creationDate).year().isAfter(2010))
@@ -8049,12 +8049,12 @@ When calling this function, it is assumed that <code>cozy-konnector-libs</code> 
 </code></pre></div>
 Every synchronized document will contain:
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;sync&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;konnector&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;myservice&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;entry_id&gt;&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;last_sync&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;now&gt;&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;fileName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;fileName&gt;&quot;</span>
+<span class="w">  </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"sync"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"konnector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"myservice"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;entry_id&gt;"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"last_sync"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;now&gt;"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"fileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;fileName&gt;"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>

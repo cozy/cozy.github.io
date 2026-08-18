@@ -15105,7 +15105,7 @@ files associated to a specific document</p>
 <h3 id="filecollectionaddreferencedbydocument-documents-promisedata-meta">fileCollection.addReferencedBy(document, documents) ⇒ <code>Promise.&lt;{data, meta}&gt;</code><a class="headerlink" href="#filecollectionaddreferencedbydocument-documents-promisedata-meta" title="Permanent link">&para;</a></h3>
 <p>Add referenced_by documents to a file — see https://docs.cozy.io/en/cozy-stack/references-docs-in-vfs/#post-filesfile-idrelationshipsreferenced_by</p>
 <p>For example, to have an album referenced by a file:
-<div class="highlight"><pre><span></span><code>addReferencedBy({_id: 123, _type: &quot;io.cozy.files&quot;, name: &quot;cozy.jpg&quot;}, [{_id: 456, _type: &quot;io.cozy.photos.albums&quot;, name: &quot;Happy Cloud&quot;}])
+<div class="highlight"><pre><span></span><code>addReferencedBy({_id: 123, _type: "io.cozy.files", name: "cozy.jpg"}, [{_id: 456, _type: "io.cozy.photos.albums", name: "Happy Cloud"}])
 </code></pre></div></p>
 <p><strong>Kind</strong>: instance method of <a href="#FileCollection"><code>FileCollection</code></a><br />
 <strong>Returns</strong>: <code>Promise.&lt;{data, meta}&gt;</code> - The JSON API conformant response.  </p>
@@ -15134,7 +15134,7 @@ files associated to a specific document</p>
 <h3 id="filecollectionremovereferencedbydocument-documents-promisedata-meta">fileCollection.removeReferencedBy(document, documents) ⇒ <code>Promise.&lt;{data, meta}&gt;</code><a class="headerlink" href="#filecollectionremovereferencedbydocument-documents-promisedata-meta" title="Permanent link">&para;</a></h3>
 <p>Remove referenced_by documents from a file — see https://docs.cozy.io/en/cozy-stack/references-docs-in-vfs/#delete-filesfile-idrelationshipsreferenced_by</p>
 <p>For example, to remove an album reference from a file:
-<div class="highlight"><pre><span></span><code> removeReferencedBy({_id: 123, _type: &quot;io.cozy.files&quot;, name: &quot;cozy.jpg&quot;}, [{_id: 456, _type: &quot;io.cozy.photos.albums&quot;, name: &quot;Happy Cloud&quot;}])
+<div class="highlight"><pre><span></span><code> removeReferencedBy({_id: 123, _type: "io.cozy.files", name: "cozy.jpg"}, [{_id: 456, _type: "io.cozy.photos.albums", name: "Happy Cloud"}])
 </code></pre></div></p>
 <p><strong>Kind</strong>: instance method of <a href="#FileCollection"><code>FileCollection</code></a><br />
 <strong>Returns</strong>: <code>Promise.&lt;{data, meta}&gt;</code> - The JSON API conformant response.  </p>
@@ -15163,7 +15163,7 @@ files associated to a specific document</p>
 <h3 id="filecollectionaddreferencestodocument-documents">fileCollection.addReferencesTo(document, documents)<a class="headerlink" href="#filecollectionaddreferencestodocument-documents" title="Permanent link">&para;</a></h3>
 <p>Add files references to a document — see https://docs.cozy.io/en/cozy-stack/references-docs-in-vfs/#post-datatypedoc-idrelationshipsreferences</p>
 <p>For example, to add a photo to an album:
-<div class="highlight"><pre><span></span><code> addReferencesTo({_id: 456, _type: &quot;io.cozy.photos.albums&quot;, name: &quot;Happy Cloud&quot;}, [{_id: 123, _type: &quot;io.cozy.files&quot;, name: &quot;cozy.jpg&quot;}])
+<div class="highlight"><pre><span></span><code> addReferencesTo({_id: 456, _type: "io.cozy.photos.albums", name: "Happy Cloud"}, [{_id: 123, _type: "io.cozy.files", name: "cozy.jpg"}])
 </code></pre></div></p>
 <p><strong>Kind</strong>: instance method of <a href="#FileCollection"><code>FileCollection</code></a>  </p>
 <table>
@@ -15191,7 +15191,7 @@ files associated to a specific document</p>
 <h3 id="filecollectionremovereferencestodocument-documents">fileCollection.removeReferencesTo(document, documents)<a class="headerlink" href="#filecollectionremovereferencestodocument-documents" title="Permanent link">&para;</a></h3>
 <p>Remove files references to a document — see https://docs.cozy.io/en/cozy-stack/references-docs-in-vfs/#delete-datatypedoc-idrelationshipsreferences</p>
 <p>For example, to remove a photo from an album:
-<div class="highlight"><pre><span></span><code> removeReferencesTo({_id: 456, _type: &quot;io.cozy.photos.albums&quot;, name: &quot;Happy Cloud&quot;}, [{_id: 123, _type: &quot;io.cozy.files&quot;, name: &quot;cozy.jpg&quot;}])
+<div class="highlight"><pre><span></span><code> removeReferencesTo({_id: 456, _type: "io.cozy.photos.albums", name: "Happy Cloud"}, [{_id: 123, _type: "io.cozy.files", name: "cozy.jpg"}])
 </code></pre></div></p>
 <p><strong>Kind</strong>: instance method of <a href="#FileCollection"><code>FileCollection</code></a>  </p>
 <table>
@@ -15859,7 +15859,7 @@ You should use <code>createFile</code></p>
 <h3 id="filecollectionaddnotsynchronizeddirectoriesoauthclient-directories">fileCollection.addNotSynchronizedDirectories(oauthClient, directories)<a class="headerlink" href="#filecollectionaddnotsynchronizeddirectoriesoauthclient-directories" title="Permanent link">&para;</a></h3>
 <p>Add directory synchronization exclusions to an OAuth client — see https://docs.cozy.io/en/cozy-stack/not-synchronized-vfs/#post-datatypedoc-idrelationshipsnot_synchronizing</p>
 <p>For example, to exclude directory <code>/Photos</code> from <code>My Computer</code>&rsquo;s desktop synchronization:
-<div class="highlight"><pre><span></span><code>addNotSynchronizedDirectories({_id: 123, _type: &quot;io.cozy.oauth.clients&quot;, clientName: &quot;Cozy Drive (My Computer)&quot;, clientKind: &quot;desktop&quot;}, [{_id: 456, _type: &quot;io.cozy.files&quot;, name: &quot;Photos&quot;, path: &quot;/Photos&quot;}])
+<div class="highlight"><pre><span></span><code>addNotSynchronizedDirectories({_id: 123, _type: "io.cozy.oauth.clients", clientName: "Cozy Drive (My Computer)", clientKind: "desktop"}, [{_id: 456, _type: "io.cozy.files", name: "Photos", path: "/Photos"}])
 </code></pre></div></p>
 <p><strong>Kind</strong>: instance method of <a href="#FileCollection"><code>FileCollection</code></a>  </p>
 <table>
@@ -15887,7 +15887,7 @@ You should use <code>createFile</code></p>
 <h3 id="filecollectionremovenotsynchronizeddirectoriesoauthclient-directories">fileCollection.removeNotSynchronizedDirectories(oauthClient, directories)<a class="headerlink" href="#filecollectionremovenotsynchronizeddirectoriesoauthclient-directories" title="Permanent link">&para;</a></h3>
 <p>Remove directory synchronization exclusions from an OAuth client — see https://docs.cozy.io/en/cozy-stack/not-synchronized-vfs/#delete-datatypedoc-idrelationshipsnot_synchronizing</p>
 <p>For example, to re-include directory <code>/Photos</code> into <code>My Computer</code>&rsquo;s desktop synchronization:
-<div class="highlight"><pre><span></span><code> removeNotSynchronizedDirectories({_id: 123, _type: &quot;io.cozy.oauth.clients&quot;, clientName: &quot;Cozy Drive (My Computer)&quot;, clientKind: &quot;desktop&quot;}, [{_id: 456, _type: &quot;io.cozy.files&quot;, name: &quot;Photos&quot;, path: &quot;/Photos&quot;}])
+<div class="highlight"><pre><span></span><code> removeNotSynchronizedDirectories({_id: 123, _type: "io.cozy.oauth.clients", clientName: "Cozy Drive (My Computer)", clientKind: "desktop"}, [{_id: 456, _type: "io.cozy.files", name: "Photos", path: "/Photos"}])
 </code></pre></div></p>
 <p><strong>Kind</strong>: instance method of <a href="#FileCollection"><code>FileCollection</code></a>  </p>
 <table>
@@ -16733,16 +16733,16 @@ It can also associates one or more codes to it, via the codes parameter</p>
 </tbody>
 </table>
 <p><strong>Example</strong><br />
-<div class="highlight"><pre><span></span><code>const permissions = await client.collection(&#39;io.cozy.permissions&#39;).add(
+<div class="highlight"><pre><span></span><code>const permissions = await client.collection('io.cozy.permissions').add(
   konnector,
   {
     folder: {
-      type: &#39;io.cozy.files&#39;,
-      verbs: [&#39;GET&#39;, &#39;PUT&#39;],
+      type: 'io.cozy.files',
+      verbs: ['GET', 'PUT'],
       values: [`io.cozy.files.bc57b60eb2954537b0dcdc6ebd8e9d23`]
     }
   },
-  { expiresAt: &#39;2100-01-01T00:00:00Z&#39;, password: &#39;password&#39; }
+  { expiresAt: '2100-01-01T00:00:00Z', password: 'password' }
 )
 </code></pre></div>
 <a name="PermissionCollection+findLinksByIds"></a></p>

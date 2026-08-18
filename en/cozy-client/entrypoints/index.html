@@ -7743,14 +7743,14 @@ It is implemented by using fields in <code>package.json</code>: </p>
 Jest does not support the <code>browser</code> field (contrary to webpack).</p>
 <p>⚠️ If you use react APIs, you should configure Jest with the <a href="https://jest-bot.github.io/jest/docs/configuration.html#browser-boolean"><code>browser</code> option</a>
 in your <code>package.json</code> or <code>jest.config.js</code>:</p>
-<div class="highlight"><pre><span></span><code>   &quot;jest&quot;: {
-+    &quot;browser&quot;: true
+<div class="highlight"><pre><span></span><code>   "jest": {
++    "browser": true
    }
 </code></pre></div>
 <p>There can be some problems since the <code>browser</code> field can clash with other node detection mechanism in other libraries 
 (for example <code>iconv-lite</code>, see this <a href="https://github.com/ashtuchkin/iconv-lite/pull/222">PR</a>), an alternative is to use the <code>moduleNameMapper</code> option to point Jest to the correct entrypoint only for <code>cozy-client</code>.</p>
-<div class="highlight"><pre><span></span><code>&quot;moduleNameMapper&quot;: {
-  &quot;^cozy-client$&quot;: &quot;cozy-client/dist/index&quot;
+<div class="highlight"><pre><span></span><code>"moduleNameMapper": {
+  "^cozy-client$": "cozy-client/dist/index"
 }
 </code></pre></div>
 <p>This will force Jest to use the browser entry point.</p>

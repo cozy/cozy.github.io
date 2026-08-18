@@ -7818,10 +7818,10 @@
 <h4 id="manifest">Manifest<a class="headerlink" href="#manifest" title="Permanent link">&para;</a></h4>
 <p>Cozy home allow you to create / update / delete an account on a konnector</p>
 <p>This is defined in the <a href="https://github.com/cozy/cozy-home/blob/master/manifest.webapp"><code>manifest.webapp</code></a></p>
-<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">&quot;intents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span>
-<span class="w">    </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;CREATE&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;io.cozy.accounts&quot;</span><span class="p">],</span>
-<span class="w">    </span><span class="nt">&quot;href&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/services&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="w">  </span><span class="nt">"intents"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span>
+<span class="w">    </span><span class="nt">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CREATE"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"io.cozy.accounts"</span><span class="p">],</span>
+<span class="w">    </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/services"</span>
 <span class="p">}]</span>
 </code></pre></div>
 <p>(See <a href="https://github.com/cozy/cozy-stack/blob/master/docs/intents.md#1-manifest">cozy stack intent manifest</a> section for more informations)</p>
@@ -7839,8 +7839,8 @@
 <span class="w">  </span><span class="nx">componentDidMount</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">action</span><span class="p">,</span><span class="w"> </span><span class="nx">docType</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">closeModal</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">props</span>
 <span class="w">    </span><span class="nx">cozy</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">intents</span>
-<span class="w">      </span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">&#39;CREATE&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;io.cozy.accounts&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
-<span class="w">          </span><span class="nx">dataType</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;bill&#39;</span>
+<span class="w">      </span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">'CREATE'</span><span class="p">,</span><span class="w"> </span><span class="s1">'io.cozy.accounts'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nx">dataType</span><span class="o">:</span><span class="w"> </span><span class="s1">'bill'</span>
 <span class="w">      </span><span class="p">})</span>
 <span class="w">      </span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">intentViewer</span><span class="p">)</span>
 <span class="w">  </span><span class="p">}</span>
@@ -7848,8 +7848,8 @@
 <span class="w">  </span><span class="nx">render</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span>
 <span class="w">      </span><span class="o">&lt;</span><span class="nx">div</span>
-<span class="w">        </span><span class="nx">id</span><span class="o">=</span><span class="s2">&quot;intentViewer&quot;</span>
-<span class="w">        </span><span class="nx">className</span><span class="o">=</span><span class="p">{</span><span class="nx">classNames</span><span class="p">(</span><span class="nx">styles</span><span class="p">[</span><span class="s1">&#39;intentViewer&#39;</span><span class="p">])}</span>
+<span class="w">        </span><span class="nx">id</span><span class="o">=</span><span class="s2">"intentViewer"</span>
+<span class="w">        </span><span class="nx">className</span><span class="o">=</span><span class="p">{</span><span class="nx">classNames</span><span class="p">(</span><span class="nx">styles</span><span class="p">[</span><span class="s1">'intentViewer'</span><span class="p">])}</span>
 <span class="w">        </span><span class="nx">ref</span><span class="o">=</span><span class="p">{</span><span class="nx">intentViewer</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">intentViewer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">intentViewer</span><span class="p">)}</span>
 <span class="w">      </span><span class="o">/&gt;</span>
 <span class="w">    </span><span class="p">)</span>

@@ -8149,13 +8149,13 @@ tree of this document.</p>
 <p>Let&rsquo;s assume the following document with the revision history <code>[1-abc, 2-def]</code>
 saved in database:</p>
 <div class="highlight"><pre><span></span><code>{
-  &quot;_id&quot;: foo,
-  &quot;_rev&quot;: 2-def,
-  &quot;bar&quot;: &quot;tender&quot;,
-  &quot;_revisions&quot;: {
-    &quot;ids&quot;: [
-      &quot;def&quot;,
-      &quot;abc&quot;
+  "_id": foo,
+  "_rev": 2-def,
+  "bar": "tender",
+  "_revisions": {
+    "ids": [
+      "def",
+      "abc"
     ]
   }
 }
@@ -8166,16 +8166,16 @@ For instance, in <code>2-def</code>, <code>2</code> is called the &ldquo;generat
 <p>We update the document with a <code>POST /bulk_docs</code> query, with the following
 content:</p>
 <div class="highlight"><pre><span></span><code>{
-    &quot;docs&quot;: [
+    "docs": [
         {
-            &quot;_id&quot;: &quot;foo&quot;,
-            &quot;_rev&quot;: &quot;3-ghi&quot;,
-            &quot;_revisions&quot;: { &quot;start&quot;: 3, &quot;ids&quot;: [&quot;ghi&quot;, &quot;xyz&quot;, &quot;abc&quot;] }
+            "_id": "foo",
+            "_rev": "3-ghi",
+            "_revisions": { "start": 3, "ids": ["ghi", "xyz", "abc"] }
             ,
-            &quot;bar&quot;: &quot;racuda&quot;
+            "bar": "racuda"
         }
     ],
-    &quot;new_edits&quot;: false
+    "new_edits": false
 }
 </code></pre></div>
 <p>This produces a conflict bewteen <code>2-def</code> and <code>2-xyz</code>: the former was first saved

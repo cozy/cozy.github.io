@@ -7809,15 +7809,15 @@
 <h3 id="configuration">Configuration 🛠<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h3>
 <p>On the web, the server pass the token and the domain to the page directly through template variables. This is not possible on mobile as there is no server to serve the page. <code>CozyClient</code> supports connecting to a Cozy via OAtuh.</p>
 <p>To get started, configure the OAuth settings when creating the client:</p>
-<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">CozyClient</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;cozy-client&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">CozyClient</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'cozy-client'</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">CozyClient</span><span class="p">({</span>
-<span class="w">  </span><span class="nx">uri</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;http://cozy.tools:8080&#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">scope</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;io.cozy.mydoctype&#39;</span><span class="p">],</span>
+<span class="w">  </span><span class="nx">uri</span><span class="o">:</span><span class="w"> </span><span class="s1">'http://cozy.tools:8080'</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">scope</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">'io.cozy.mydoctype'</span><span class="p">],</span>
 <span class="w">  </span><span class="nx">oauth</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">clientName</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;MyClient&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">softwareID</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;MyAppId&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">redirectURI</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;http://localhost&#39;</span>
+<span class="w">    </span><span class="nx">clientName</span><span class="o">:</span><span class="w"> </span><span class="s1">'MyClient'</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">softwareID</span><span class="o">:</span><span class="w"> </span><span class="s1">'MyAppId'</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">redirectURI</span><span class="o">:</span><span class="w"> </span><span class="s1">'http://localhost'</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">})</span>
 </code></pre></div>
@@ -7832,15 +7832,15 @@
 <h3 id="starting-the-oauth-flow">Starting the OAuth flow 🏄‍♂️<a class="headerlink" href="#starting-the-oauth-flow" title="Permanent link">&para;</a></h3>
 <p>Before you can start making requests to the server, you will need to get a token. <code>cozy-client</code> will provide a URL to a page where the user is shown what data you want to access, and asking for his or her permission. After the user accepts these permissions, he or she is redirected to the <code>oauth.redirectURI</code> that you declared earlier. You will then have to give this redirected URL back to <code>cozy-client</code> as it contains a code, that will be exchanged for the token.</p>
 <p>To get started, you call <code>client.startOAuthFlow</code> like this:</p>
-<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">CozyClient</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;cozy-client&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">CozyClient</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'cozy-client'</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">CozyClient</span><span class="p">({</span>
-<span class="w">  </span><span class="nx">uri</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;http://cozy.tools:8080&#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">scope</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;io.cozy.mydoctype&#39;</span><span class="p">],</span>
+<span class="w">  </span><span class="nx">uri</span><span class="o">:</span><span class="w"> </span><span class="s1">'http://cozy.tools:8080'</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">scope</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">'io.cozy.mydoctype'</span><span class="p">],</span>
 <span class="w">  </span><span class="nx">oauth</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">clientName</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;MyClient&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">softwareID</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;MyAppId&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">redirectURI</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;http://localhost&#39;</span>
+<span class="w">    </span><span class="nx">clientName</span><span class="o">:</span><span class="w"> </span><span class="s1">'MyClient'</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">softwareID</span><span class="o">:</span><span class="w"> </span><span class="s1">'MyAppId'</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">redirectURI</span><span class="o">:</span><span class="w"> </span><span class="s1">'http://localhost'</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">})</span>
 
@@ -7848,10 +7848,10 @@
 </code></pre></div>
 <p>The <code>openURL</code> parameter is a callback. It will receive the URL to the page as a parameter, and it must return a <code>Promise</code> that resolves with the redirected URL. How exactly you do this depends on your environment — for a mobile app you may use a WebView, in a browser maybe a new tab… Here is an example that uses the browser&rsquo;s console and an experienced user:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">openURL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Please visit the following URL, accept the permissions and copy the URL you are redirected to, then come back here. you have 10 seconds.&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="p">)</span>
+<span class="w">  </span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Please visit the following URL, accept the permissions and copy the URL you are redirected to, then come back here. you have 10 seconds.'</span><span class="p">,</span><span class="w"> </span><span class="nx">url</span><span class="p">)</span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">setTimeout</span><span class="p">(</span><span class="k">async</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">returnUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">prompt</span><span class="p">(</span><span class="s1">&#39;Paste the new URL here.&#39;</span><span class="p">)</span>
+<span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">returnUrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">prompt</span><span class="p">(</span><span class="s1">'Paste the new URL here.'</span><span class="p">)</span>
 <span class="w">      </span><span class="nx">resolve</span><span class="p">(</span><span class="nx">returnUrl</span><span class="p">)</span>
 <span class="w">    </span><span class="p">},</span><span class="w"> </span><span class="mf">10000</span><span class="p">)</span>
 <span class="w">  </span><span class="p">})</span>
@@ -7860,41 +7860,41 @@
 <p>And that&rsquo;s it! After the promise is resolved, <code>cozy-client</code> finishes the OAuth flow and you can start using it.</p>
 <h3 id="how-to-restore-a-previous-token">How to restore a previous token ?<a class="headerlink" href="#how-to-restore-a-previous-token" title="Permanent link">&para;</a></h3>
 <p>Nobody likes to enter passwords, and you don&rsquo;t want to make your user go through this whole process every time your app starts. In order to restore the client from a previous version, you need to give it a token and some extra information about itself. Both of these are returned by the <code>openURL</code> function, so you can store them wherever you see fit — in this example we&rsquo;ll use the <code>localStorage</code> API.</p>
-<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">CozyClient</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;cozy-client&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">CozyClient</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'cozy-client'</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">CozyClient</span><span class="p">({</span>
-<span class="w">  </span><span class="nx">uri</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;http://cozy.tools:8080&#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">scope</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;io.cozy.mydoctype&#39;</span><span class="p">],</span>
+<span class="w">  </span><span class="nx">uri</span><span class="o">:</span><span class="w"> </span><span class="s1">'http://cozy.tools:8080'</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">scope</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">'io.cozy.mydoctype'</span><span class="p">],</span>
 <span class="w">  </span><span class="nx">oauth</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">clientName</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;MyClient&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">softwareID</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;MyAppId&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">redirectURI</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;http://localhost&#39;</span>
+<span class="w">    </span><span class="nx">clientName</span><span class="o">:</span><span class="w"> </span><span class="s1">'MyClient'</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">softwareID</span><span class="o">:</span><span class="w"> </span><span class="s1">'MyAppId'</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">redirectURI</span><span class="o">:</span><span class="w"> </span><span class="s1">'http://localhost'</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">})</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="nx">token</span><span class="p">,</span><span class="w"> </span><span class="nx">infos</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">startOAuthFlow</span><span class="p">(</span><span class="nx">openURL</span><span class="p">)</span>
-<span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">&#39;token&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">token</span><span class="p">)</span>
-<span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">&#39;infos&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">infos</span><span class="p">))</span>
+<span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">'token'</span><span class="p">,</span><span class="w"> </span><span class="nx">token</span><span class="p">)</span>
+<span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">'infos'</span><span class="p">,</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">infos</span><span class="p">))</span>
 </code></pre></div>
 <p>Next time your app starts, you can pass these informations to the constructor. Here is a complete example of the OAuth client initilisation:</p>
-<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">storedToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;token&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="kc">null</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">storedInfos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">&#39;infos&#39;</span><span class="p">))</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nx">clientName</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;MyClient&#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">softwareID</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;MyAppId&#39;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">redirectURI</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;http://localhost&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">storedToken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">'token'</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="kc">null</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">storedInfos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s1">'infos'</span><span class="p">))</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">clientName</span><span class="o">:</span><span class="w"> </span><span class="s1">'MyClient'</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">softwareID</span><span class="o">:</span><span class="w"> </span><span class="s1">'MyAppId'</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">redirectURI</span><span class="o">:</span><span class="w"> </span><span class="s1">'http://localhost'</span>
 <span class="p">}</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">CozyClient</span><span class="p">({</span>
-<span class="w">  </span><span class="nx">uri</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;http://cozy.tools:8080&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">uri</span><span class="o">:</span><span class="w"> </span><span class="s1">'http://cozy.tools:8080'</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">oauth</span><span class="o">:</span><span class="w"> </span><span class="nx">storedInfos</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">token</span><span class="o">:</span><span class="w"> </span><span class="nx">storedToken</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">scope</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;io.cozy.mydoctype&#39;</span><span class="p">]</span>
+<span class="w">  </span><span class="nx">scope</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">'io.cozy.mydoctype'</span><span class="p">]</span>
 <span class="p">});</span>
 
 <span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">storedToken</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="nx">token</span><span class="p">,</span><span class="w"> </span><span class="nx">infos</span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">startOAuthFlow</span><span class="p">(</span><span class="nx">openURL</span><span class="p">)</span>
-<span class="w">  </span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">&#39;token&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">token</span><span class="p">)</span>
-<span class="w">  </span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">&#39;infos&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">infos</span><span class="p">))</span>
+<span class="w">  </span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">'token'</span><span class="p">,</span><span class="w"> </span><span class="nx">token</span><span class="p">)</span>
+<span class="w">  </span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s1">'infos'</span><span class="p">,</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">infos</span><span class="p">))</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="how-to-logout-the-client">How to logout the client ?<a class="headerlink" href="#how-to-logout-the-client" title="Permanent link">&para;</a></h3>
@@ -7905,7 +7905,7 @@ remove all user data. You can just use <code>cozyClient.logout()</code>.</p>
 further and store some documents locally so you can retrieve them even while
 being offline.</p>
 <p>Currently, you have a code like this one :</p>
-<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">CozyClient</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">StackLink</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;cozy-client&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">CozyClient</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">StackLink</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'cozy-client'</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">stackLink</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">StackLink</span><span class="p">()</span>
 
@@ -7926,12 +7926,12 @@ First, let&rsquo;s install it :</p>
 <p>Then, we will create a new instance of this link and give it the list of
 doctypes that we want to access offline. We have to put the <code>PouchLink</code> first, so
 it is reached first when we query the link chain :</p>
-<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">CozyClient</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">StackLink</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;cozy-client&#39;</span>
-<span class="k">import</span><span class="w"> </span><span class="nx">PouchLink</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;cozy-pouch-link&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">CozyClient</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">StackLink</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'cozy-client'</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">PouchLink</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'cozy-pouch-link'</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">stackLink</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">StackLink</span><span class="p">()</span>
 
-<span class="kd">const</span><span class="w"> </span><span class="nx">offlineDoctypes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">]</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">offlineDoctypes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s1">'io.cozy.todos'</span><span class="p">]</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">pouchLink</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">PouchLink</span><span class="p">({</span>
 <span class="w">  </span><span class="nx">doctypes</span><span class="o">:</span><span class="w"> </span><span class="nx">offlineDoctypes</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">initialSync</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="c1">// whether you want to trigger the synchronization on login or not</span>
@@ -7948,16 +7948,16 @@ the <code>PouchLink</code> will be passed to the next link in the chain (in the 
 example, the <code>StackLink</code>).</p>
 <p>Additionally, it is possible to replicate some doctypes only in a specific direction:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">pouchLink</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">PouchLink</span><span class="p">({</span>
-<span class="w">  </span><span class="nx">doctypes</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;io.cozy.files&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;io.cozy.localtype&#39;</span><span class="p">],</span>
+<span class="w">  </span><span class="nx">doctypes</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">'io.cozy.todos'</span><span class="p">,</span><span class="w"> </span><span class="s1">'io.cozy.files'</span><span class="p">,</span><span class="w"> </span><span class="s1">'io.cozy.localtype'</span><span class="p">],</span>
 <span class="w">  </span><span class="nx">doctypesReplicationOptions</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nx">strategy</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;sync&#39;</span><span class="w"> </span><span class="c1">// default, replicate both ways</span>
+<span class="w">    </span><span class="s1">'io.cozy.todos'</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">strategy</span><span class="o">:</span><span class="w"> </span><span class="s1">'sync'</span><span class="w"> </span><span class="c1">// default, replicate both ways</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="s1">&#39;io.cozy.files&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nx">strategy</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;fromRemote&#39;</span><span class="w"> </span><span class="c1">// replicate changes from the remote locally, but don&#39;t push any changes</span>
+<span class="w">    </span><span class="s1">'io.cozy.files'</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">strategy</span><span class="o">:</span><span class="w"> </span><span class="s1">'fromRemote'</span><span class="w"> </span><span class="c1">// replicate changes from the remote locally, but don't push any changes</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="s1">&#39;io.cozy.localtype&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nx">strategy</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;toRemote&#39;</span><span class="w"> </span><span class="c1">// push changes to remote, but don&#39;t replicate changes from it</span>
+<span class="w">    </span><span class="s1">'io.cozy.localtype'</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nx">strategy</span><span class="o">:</span><span class="w"> </span><span class="s1">'toRemote'</span><span class="w"> </span><span class="c1">// push changes to remote, but don't replicate changes from it</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="w">  </span><span class="nx">initialSync</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span>
@@ -7971,24 +7971,24 @@ executed by CozyClient during the PouchLink&rsquo;s instanciation, but CozyClien
 PouchDB only if those queries have been resolved at least one time.</p>
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">buildRecentQuery</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">({</span>
 <span class="w">  </span><span class="nx">definition</span><span class="o">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span>
-<span class="w">    </span><span class="nx">Q</span><span class="p">(</span><span class="s1">&#39;io.cozy.files&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">Q</span><span class="p">(</span><span class="s1">'io.cozy.files'</span><span class="p">)</span>
 <span class="w">      </span><span class="p">.</span><span class="nx">where</span><span class="p">({</span>
-<span class="w">        </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;file&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">'file'</span><span class="p">,</span>
 <span class="w">        </span><span class="nx">trashed</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
 <span class="w">        </span><span class="nx">updated_at</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">          </span><span class="nx">$gt</span><span class="o">:</span><span class="w"> </span><span class="kc">null</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">      </span><span class="p">})</span>
 <span class="w">  </span><span class="nx">options</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kr">as</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;recent-view-query&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="kr">as</span><span class="o">:</span><span class="w"> </span><span class="s1">'recent-view-query'</span><span class="p">,</span>
 <span class="w">    </span><span class="nx">fetchPolicy</span><span class="o">:</span><span class="w"> </span><span class="nx">defaultFetchPolicy</span><span class="p">,</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">})</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">pouchLink</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">PouchLink</span><span class="p">({</span>
-<span class="w">  </span><span class="nx">doctypes</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;io.cozy.todos&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;io.cozy.files&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;io.cozy.localtype&#39;</span><span class="p">],</span>
+<span class="w">  </span><span class="nx">doctypes</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">'io.cozy.todos'</span><span class="p">,</span><span class="w"> </span><span class="s1">'io.cozy.files'</span><span class="p">,</span><span class="w"> </span><span class="s1">'io.cozy.localtype'</span><span class="p">],</span>
 <span class="w">  </span><span class="nx">doctypesReplicationOptions</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="s1">&#39;io.cozy.files&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="s1">'io.cozy.files'</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nx">warmupQueries</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">        </span><span class="nx">buildRecentQuery</span><span class="p">()</span>
 <span class="w">      </span><span class="p">]</span>

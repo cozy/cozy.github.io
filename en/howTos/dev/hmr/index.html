@@ -7999,15 +7999,15 @@ You can use this config by running your stack in another terminal like:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># in your app root directory</span>
 docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-it
 <span class="w">  </span>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span>-p<span class="w"> </span><span class="m">5984</span>:5984
-<span class="w">  </span>-v<span class="w"> </span><span class="se">\&quot;</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/build<span class="se">\&quot;</span>:/data/cozy-app/app
-<span class="w">  </span>-v<span class="w"> </span><span class="se">\&quot;</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/node_modules/cozy-scripts/stack/disableCSP.yaml<span class="se">\&quot;</span>:/etc/cozy/cozy.yaml
+<span class="w">  </span>-v<span class="w"> </span><span class="se">\"</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/build<span class="se">\"</span>:/data/cozy-app/app
+<span class="w">  </span>-v<span class="w"> </span><span class="se">\"</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>/node_modules/cozy-scripts/stack/disableCSP.yaml<span class="se">\"</span>:/etc/cozy/cozy.yaml
 <span class="w">  </span>cozy/cozy-app-dev
 </code></pre></div>
 <h2 id="make-hmr-available-in-my-application">Make HMR available in my application<a class="headerlink" href="#make-hmr-available-in-my-application" title="Permanent link">&para;</a></h2>
 <h3 id="for-a-react-application">For a React application<a class="headerlink" href="#for-a-react-application" title="Permanent link">&para;</a></h3>
 <p>You have to use <a href="https://github.com/gaearon/react-hot-loader"><code>react-hot-loader</code></a> inside your main App component like this:</p>
-<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">React</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;react&#39;</span>
-<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">hot</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;react-hot-loader&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">React</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'react'</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">hot</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'react-hot-loader'</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">App</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">(</span>
 <span class="w">  </span><span class="p">...</span>
@@ -8018,20 +8018,20 @@ docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </
 <p>That&rsquo;s it. Then, just use the last version of cozy-scripts to run your application with HMR.</p>
 <h3 id="for-a-vue-application">For a Vue application<a class="headerlink" href="#for-a-vue-application" title="Permanent link">&para;</a></h3>
 <p>Inside your entry point <code>index.js</code> (in <code>src/targets/&lt;target&gt;</code>), you have to add this part related to <code>module.hot</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">Vue</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;vue&#39;</span>
-<span class="k">import</span><span class="w"> </span><span class="nx">store</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;lib/store&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">Vue</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'vue'</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">store</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'lib/store'</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">renderApp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">App</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;components/App&#39;</span><span class="p">).</span><span class="k">default</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">App</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">'components/App'</span><span class="p">).</span><span class="k">default</span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Vue</span><span class="p">({</span>
 <span class="w">    </span><span class="nx">store</span><span class="p">,</span><span class="w"> </span><span class="c1">// inject store to all children</span>
-<span class="w">    </span><span class="nx">el</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;[role=application]&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">el</span><span class="o">:</span><span class="w"> </span><span class="s1">'[role=application]'</span><span class="p">,</span>
 <span class="w">    </span><span class="nx">render</span><span class="o">:</span><span class="w"> </span><span class="nx">h</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">h</span><span class="p">(</span><span class="nx">App</span><span class="p">)</span>
 <span class="w">  </span><span class="p">})</span>
 <span class="p">}</span>
 
 <span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">module</span><span class="p">.</span><span class="nx">hot</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nx">module</span><span class="p">.</span><span class="nx">hot</span><span class="p">.</span><span class="nx">accept</span><span class="p">(</span><span class="s1">&#39;components/App&#39;</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">module</span><span class="p">.</span><span class="nx">hot</span><span class="p">.</span><span class="nx">accept</span><span class="p">(</span><span class="s1">'components/App'</span><span class="p">,</span><span class="w"> </span><span class="kd">function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">renderApp</span><span class="p">()</span>
 <span class="w">  </span><span class="p">})</span>
 <span class="p">}</span>

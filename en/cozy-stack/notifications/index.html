@@ -7962,17 +7962,17 @@ several organizations. In that case, it is possible to tell the stack to use a
 particular key for a given app by creating a CouchDB document inside the
 <code>secrets/io-cozy-account_types</code> database, like this:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;myapp&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;myapp&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;fcm_credentials&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;service_account&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;etc.&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"myapp"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"myapp"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"fcm_credentials"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"service_account"</span><span class="p">,</span><span class="w"> </span><span class="nt">"etc."</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>And we can go further to restrict this to a context, by prefixing the <code>_id</code>
 with the context name and <code>/</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mycontext/myapp&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;myapp&quot;</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">&quot;fcm_credentials&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;service_account&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;etc.&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">}</span>
+<span class="w">    </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mycontext/myapp"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"myapp"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"fcm_credentials"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"service_account"</span><span class="p">,</span><span class="w"> </span><span class="nt">"etc."</span><span class="p">:</span><span class="w"> </span><span class="s2">"..."</span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 <h2 id="declare-applications-notifications">Declare application&rsquo;s notifications<a class="headerlink" href="#declare-applications-notifications" title="Permanent link">&para;</a></h2>
@@ -8001,15 +8001,15 @@ notifications, with the following properties:</p>
 <p>In this documentation, we take the example of an application with the following
 notification:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;notifications&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;account-balance&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Alert the user when its account balance is negative&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;collapsible&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="c1">// only interested in the last value of the notification</span>
-<span class="w">            </span><span class="nt">&quot;multiple&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="c1">// require sub-categories for each account</span>
-<span class="w">            </span><span class="nt">&quot;stateful&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="c1">// piece of state to distinguish notifications</span>
-<span class="w">            </span><span class="nt">&quot;default_priority&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;high&quot;</span><span class="p">,</span><span class="w"> </span><span class="c1">// high priority for this notification</span>
-<span class="w">            </span><span class="nt">&quot;templates&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="nt">&quot;mail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;file:./notifications/account-balance-mail.tpl&quot;</span>
+<span class="w">    </span><span class="nt">"notifications"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"account-balance"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Alert the user when its account balance is negative"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"collapsible"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="c1">// only interested in the last value of the notification</span>
+<span class="w">            </span><span class="nt">"multiple"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="c1">// require sub-categories for each account</span>
+<span class="w">            </span><span class="nt">"stateful"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="c1">// piece of state to distinguish notifications</span>
+<span class="w">            </span><span class="nt">"default_priority"</span><span class="p">:</span><span class="w"> </span><span class="s2">"high"</span><span class="p">,</span><span class="w"> </span><span class="c1">// high priority for this notification</span>
+<span class="w">            </span><span class="nt">"templates"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">"mail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"file:./notifications/account-balance-mail.tpl"</span>
 <span class="w">            </span><span class="p">}</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
@@ -8055,18 +8055,18 @@ of the message cannot be longer than 160 characters. </p>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;category&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;account-balance&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;category_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my-bank&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Your account balance is not OK&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Warning: we have detected a negative balance in your my-bank&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;priority&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;high&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;state&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;-1&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;preferred_channels&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;mobile&quot;</span><span class="p">],</span>
-<span class="w">            </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="nt">&quot;key1&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;value1&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;key2&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;value2&quot;</span>
+<span class="w">    </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"account-balance"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"category_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my-bank"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Your account balance is not OK"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Warning: we have detected a negative balance in your my-bank"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"priority"</span><span class="p">:</span><span class="w"> </span><span class="s2">"high"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-1"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"preferred_channels"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"mobile"</span><span class="p">],</span>
+<span class="w">            </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">"key1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"value1"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"key2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"value2"</span>
 <span class="w">            </span><span class="p">}</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
@@ -8077,25 +8077,25 @@ of the message cannot be longer than 160 characters. </p>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.notifications&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;c57a548c-7602-11e7-933b-6f27603d27da&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;meta&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;rev&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1-1f2903f9a867&quot;</span>
+<span class="w">    </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.notifications"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"c57a548c-7602-11e7-933b-6f27603d27da"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"rev"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1-1f2903f9a867"</span>
 <span class="w">        </span><span class="p">},</span>
-<span class="w">        </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;source_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;cozy/app/bank/account-balance/my-bank&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;originator&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;app&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;bank&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;category&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;account-balance&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;category_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;my-bank&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Your account balance is not OK&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Warning: we have detected a negative balance in your my-bank&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;priority&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;high&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;state&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;-1&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="nt">&quot;key1&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;value1&quot;</span><span class="p">,</span>
-<span class="w">                </span><span class="nt">&quot;key2&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;value2&quot;</span>
+<span class="w">        </span><span class="nt">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"source_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cozy/app/bank/account-balance/my-bank"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"originator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"app"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bank"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"account-balance"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"category_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my-bank"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Your account balance is not OK"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Warning: we have detected a negative balance in your my-bank"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"priority"</span><span class="p">:</span><span class="w"> </span><span class="s2">"high"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-1"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">"key1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"value1"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"key2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"value2"</span>
 <span class="w">            </span><span class="p">}</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>

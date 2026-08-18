@@ -7809,23 +7809,23 @@ Our Cloudery will onboard the user throught differents steps to gather required 
 You need to have a public token to authenticate you on those endpoints.</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
 
-<span class="n">token</span> <span class="o">=</span> <span class="s1">&#39;xxxx&#39;</span>
-<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;Authorization&#39;</span><span class="p">:</span> <span class="s1">&#39;Bearer &#39;</span> <span class="o">+</span> <span class="n">token</span> <span class="p">}</span>
+<span class="n">token</span> <span class="o">=</span> <span class="s1">'xxxx'</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">'Authorization'</span><span class="p">:</span> <span class="s1">'Bearer '</span> <span class="o">+</span> <span class="n">token</span> <span class="p">}</span>
 
-<span class="n">base_url</span> <span class="o">=</span> <span class="s1">&#39;https://manager.cozycloud.cc/api&#39;</span>
-<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">base_url</span> <span class="o">+</span> <span class="s1">&#39;/v1/instances&#39;</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span>
-                            <span class="s1">&#39;offer&#39;</span><span class="p">:</span> <span class="s1">&#39;some_offer&#39;</span><span class="p">,</span>
-                            <span class="s1">&#39;email&#39;</span><span class="p">:</span> <span class="s1">&#39;foo@example.org&#39;</span><span class="p">,</span>
-                            <span class="s1">&#39;slug&#39;</span><span class="p">:</span> <span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="s1">&#39;domain&#39;</span><span class="p">:</span> <span class="s1">&#39;example.org&#39;</span>
+<span class="n">base_url</span> <span class="o">=</span> <span class="s1">'https://manager.cozycloud.cc/api'</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">base_url</span> <span class="o">+</span> <span class="s1">'/v1/instances'</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="p">{</span>
+                            <span class="s1">'offer'</span><span class="p">:</span> <span class="s1">'some_offer'</span><span class="p">,</span>
+                            <span class="s1">'email'</span><span class="p">:</span> <span class="s1">'foo@example.org'</span><span class="p">,</span>
+                            <span class="s1">'slug'</span><span class="p">:</span> <span class="s1">'foo'</span><span class="p">,</span> <span class="s1">'domain'</span><span class="p">:</span> <span class="s1">'example.org'</span>
                         <span class="p">})</span>
 <span class="n">response</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-<span class="n">workflow</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;workflow&#39;</span><span class="p">]</span>
+<span class="n">workflow</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s1">'workflow'</span><span class="p">]</span>
 
 <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">base_url</span> <span class="o">+</span> <span class="s1">&#39;/v1/workflows/&#39;</span> <span class="o">+</span> <span class="n">workflow</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">base_url</span> <span class="o">+</span> <span class="s1">'/v1/workflows/'</span> <span class="o">+</span> <span class="n">workflow</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
     <span class="n">response</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-    <span class="n">status</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">status</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;succeeded&#39;</span><span class="p">,</span> <span class="s1">&#39;failed&#39;</span><span class="p">,</span> <span class="s1">&#39;stopped&#39;</span><span class="p">]:</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="n">response</span><span class="p">[</span><span class="s1">'status'</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">status</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'succeeded'</span><span class="p">,</span> <span class="s1">'failed'</span><span class="p">,</span> <span class="s1">'stopped'</span><span class="p">]:</span>
         <span class="k">break</span>
 </code></pre></div>
 <p>In case of success, your user will receive an email to continue the onboarding after he clicks on the activation link on it to go on the initial passphrase definition.</p>

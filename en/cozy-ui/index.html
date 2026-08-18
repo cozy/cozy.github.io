@@ -8561,8 +8561,8 @@ ln<span class="w"> </span>-s<span class="w"> </span>/absolute/path/to/cozy-ui/sk
 <div class="highlight"><pre><span></span><code>yarn<span class="w"> </span>add<span class="w"> </span>cozy-ui
 </code></pre></div>
 <p>If you use the transpiled components (from <code>cozy-ui/transpiled/react</code>), you need to import the stylesheet (once):</p>
-<div class="highlight"><pre><span></span><code>import Button from &#39;cozy-ui/transpiled/react/Buttons&#39;
-import &#39;cozy-ui/transpiled/react/stylesheet.css&#39;
+<div class="highlight"><pre><span></span><code>import Button from 'cozy-ui/transpiled/react/Buttons'
+import 'cozy-ui/transpiled/react/stylesheet.css'
 
 &lt;Button /&gt;
 </code></pre></div>
@@ -8570,11 +8570,11 @@ import &#39;cozy-ui/transpiled/react/stylesheet.css&#39;
 <h3 id="utility-classes">Utility classes<a class="headerlink" href="#utility-classes" title="Permanent link">&para;</a></h3>
 <p>React components only come with the needed style, nothing more, but you may need some more utility classes to build your apps.</p>
 <p>To do so you have at your disposal a special CSS build <code>cozy-ui.utils.min.css</code> that you can add like this:</p>
-<div class="highlight"><pre><span></span><code>import &#39;cozy-ui/dist/cozy-ui.utils.min.css&#39;
+<div class="highlight"><pre><span></span><code>import 'cozy-ui/dist/cozy-ui.utils.min.css'
 </code></pre></div>
 <h3 id="as-a-vanilla-css-library-deprecated">As a vanilla CSS library (deprecated)<a class="headerlink" href="#as-a-vanilla-css-library-deprecated" title="Permanent link">&para;</a></h3>
 <p>The entire library is also available as a good ol’ CSS library. You can simply add it to your app by linking the distributed minified file.</p>
-<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">link</span> <span class="na">media</span><span class="o">=</span><span class="s">&quot;all&quot;</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">“cozy-ui/dist/cozy-ui.min.css&quot;</span> <span class="p">/&gt;</span>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">link</span> <span class="na">media</span><span class="o">=</span><span class="s">"all"</span> <span class="na">rel</span><span class="o">=</span><span class="s">"stylesheet"</span> <span class="na">href</span><span class="o">=</span><span class="s">“cozy-ui/dist/cozy-ui.min.css"</span> <span class="p">/&gt;</span>
 </code></pre></div>
 <h3 id="about-tests-in-your-application">About tests in your application<a class="headerlink" href="#about-tests-in-your-application" title="Permanent link">&para;</a></h3>
 <p>If you use <code>Jest</code> in your application, you may need add <code>transformIgnorePatterns: ['node_modules/(?!cozy-ui)']</code> in the jest config file to avoid parsing errors.</p>
@@ -8652,9 +8652,9 @@ it pushes to test for what the user sees.</p>
 <div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nx">getCloseButton</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">getAllDialogs</span><span class="p">,</span>
-<span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;cozy-ui/transpiled/react/CozyDialogs/testing&quot;</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">"cozy-ui/transpiled/react/CozyDialogs/testing"</span><span class="p">;</span>
 
-<span class="nx">it</span><span class="p">(</span><span class="s2">&quot;should close dialog&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="nx">it</span><span class="p">(</span><span class="s2">"should close dialog"</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">onClose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">jest</span><span class="p">.</span><span class="nx">fn</span><span class="p">();</span>
 <span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">root</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">render</span><span class="p">(&lt;</span><span class="nt">MyApp</span><span class="w"> </span><span class="na">onCloseDialog</span><span class="o">=</span><span class="p">{</span><span class="nx">onClose</span><span class="p">}</span><span class="w"> </span><span class="p">/&gt;);</span>
 <span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">dialog</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">getDialog</span><span class="p">(</span><span class="nx">root</span><span class="p">);</span>
@@ -8669,7 +8669,7 @@ for each PR, each component is screenshotted and compared to the master version 
 regression (thanks <a href="https://github.com/argos-ci/argos">Argos</a> !).</p>
 <p>Before launching commands, you may need to change <code>executablePath</code> in <code>scripts/screenshots/prepares.js</code> to <code>/Applications/Chrome.app/Contents/MacOS/Chrome</code> or <code>/Applications/Chromium.app/Contents/MacOS/Chromium</code> depends on your system.</p>
 <p>Then you have to install dependencies:</p>
-<div class="highlight"><pre><span></span><code>yarn<span class="w"> </span>add<span class="w"> </span>puppeteer@<span class="s2">&quot;22.15.0&quot;</span><span class="w"> </span>--dev<span class="w"> </span>--exact
+<div class="highlight"><pre><span></span><code>yarn<span class="w"> </span>add<span class="w"> </span>puppeteer@<span class="s2">"22.15.0"</span><span class="w"> </span>--dev<span class="w"> </span>--exact
 </code></pre></div>
 <p>Before creating any screenshots, make sure you have built everything:</p>
 <div class="highlight"><pre><span></span><code>yarn<span class="w"> </span>build:all

@@ -7782,7 +7782,7 @@ See <a href="https://docs.cozy.io/en/cozy-stack/settings/#get-settingsflags">the
 <li>initializes flags on client&rsquo;s login</li>
 <li>resets them on client&rsquo;s logout</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">flag</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;cozy-flags&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">flag</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'cozy-flags'</span>
 <span class="nx">client</span><span class="p">.</span><span class="nx">registerPlugin</span><span class="p">(</span><span class="nx">flag</span><span class="p">.</span><span class="nx">plugin</span><span class="p">)</span>
 </code></pre></div>
 <p>ℹ️ It will fetch server flags for consumption by the app</p>
@@ -7792,26 +7792,26 @@ See <a href="https://docs.cozy.io/en/cozy-stack/settings/#get-settingsflags">the
 </ul>
 <h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h3>
 <p>⚠️ Make sure you have registered the flag plugin before using the flags.</p>
-<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">flag</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;cozy-flags&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">flag</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'cozy-flags'</span>
 
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">flag</span><span class="p">(</span><span class="s1">&#39;my-feature&#39;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">flag</span><span class="p">(</span><span class="s1">'my-feature'</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nx">enableMyFeature</span><span class="p">()</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>The <code>FlagSwitcher</code> shows all flags in use and displays all
 flags in use.</p>
-<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">flag</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;cozy-flags&#39;</span>
-<span class="k">import</span><span class="w"> </span><span class="nx">FlagSwitcher</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;cozy-flags/dist/FlagSwitcher&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">flag</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'cozy-flags'</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">FlagSwitcher</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'cozy-flags/dist/FlagSwitcher'</span>
 
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="s1">&#39;production&#39;</span>
-<span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">flag</span><span class="p">(</span><span class="s1">&#39;switcher&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">flag</span><span class="p">(</span><span class="s1">&#39;switcher&#39;</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="c1">// set default flag in dev mode</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">NODE_ENV</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="s1">'production'</span>
+<span class="w">    </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">flag</span><span class="p">(</span><span class="s1">'switcher'</span><span class="p">)</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="kc">null</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">flag</span><span class="p">(</span><span class="s1">'switcher'</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span><span class="w"> </span><span class="c1">// set default flag in dev mode</span>
 <span class="p">}</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">App</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span>
-<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nx">flag</span><span class="p">(</span><span class="s1">&#39;switcher&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">FlagSwitcher</span><span class="w"> </span><span class="o">/&gt;</span><span class="w"> </span><span class="p">}</span>
+<span class="w">      </span><span class="p">{</span><span class="w"> </span><span class="nx">flag</span><span class="p">(</span><span class="s1">'switcher'</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">FlagSwitcher</span><span class="w"> </span><span class="o">/&gt;</span><span class="w"> </span><span class="p">}</span>
 <span class="w">      </span><span class="o">&lt;</span><span class="nx">MyApp</span><span class="w"> </span><span class="o">/&gt;</span>
 <span class="w">    </span><span class="o">&lt;</span><span class="err">/div&gt;</span>
 <span class="w">  </span><span class="p">)</span>

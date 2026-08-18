@@ -8692,36 +8692,36 @@ handle:</p>
 <p>These informations must be provided in the manifest of the application, inside
 the <code>intents</code> key.</p>
 <p>Here is a very simple example:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">&quot;intents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<div class="highlight"><pre><span></span><code><span class="nt">"intents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PICK&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;io.cozy.files&quot;</span><span class="p">],</span>
-<span class="w">        </span><span class="nt">&quot;href&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/pick&quot;</span>
+<span class="w">        </span><span class="nt">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PICK"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"io.cozy.files"</span><span class="p">],</span>
+<span class="w">        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/pick"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">]</span>
 </code></pre></div>
 <p>When this service is called, it will load the page
 <code>https://service.domain.example.com/pick?intent=123abc</code>.</p>
 <p>Here is an example of an app that supports multiple data types:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">&quot;intents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<div class="highlight"><pre><span></span><code><span class="nt">"intents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PICK&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;image/*&quot;</span><span class="p">],</span>
-<span class="w">        </span><span class="nt">&quot;href&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/pick&quot;</span>
+<span class="w">        </span><span class="nt">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PICK"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"io.cozy.files"</span><span class="p">,</span><span class="w"> </span><span class="s2">"image/*"</span><span class="p">],</span>
+<span class="w">        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/pick"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">]</span>
 </code></pre></div>
 <p>Finally, here is an example of an app that supports several intent types:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">&quot;intents&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<div class="highlight"><pre><span></span><code><span class="nt">"intents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PICK&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;image/*&quot;</span><span class="p">],</span>
-<span class="w">        </span><span class="nt">&quot;href&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/pick&quot;</span>
+<span class="w">        </span><span class="nt">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PICK"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"io.cozy.files"</span><span class="p">,</span><span class="w"> </span><span class="s2">"image/*"</span><span class="p">],</span>
+<span class="w">        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/pick"</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;VIEW&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;image/gif&quot;</span><span class="p">],</span>
-<span class="w">        </span><span class="nt">&quot;href&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/viewer&quot;</span>
+<span class="w">        </span><span class="nt">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VIEW"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"image/gif"</span><span class="p">],</span>
+<span class="w">        </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/viewer"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">]</span>
 </code></pre></div>
@@ -8758,48 +8758,48 @@ other Cozy Documents (such as an album referencing photos or a playlist
 referencing music files), the permissions should be granted for the referenced
 documents too, whenever possible.</p>
 <p>Here is an example of what the API could look like:</p>
-<div class="highlight"><pre><span></span><code><span class="c1">// &quot;Let the user pick a file&quot;</span>
-<span class="nx">cozy</span><span class="p">.</span><span class="nx">intents</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="s1">&#39;PICK&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;io.cozy.files&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="c1">// "Let the user pick a file"</span>
+<span class="nx">cozy</span><span class="p">.</span><span class="nx">intents</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="s1">'PICK'</span><span class="p">,</span><span class="w"> </span><span class="s1">'io.cozy.files'</span><span class="p">)</span>
 <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nb">document</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// document is a JSON representation of the picked file</span>
 <span class="p">});</span>
 
-<span class="c1">// &quot;Create a contact, with some information already filled out&quot;</span>
-<span class="nx">cozy</span><span class="p">.</span><span class="nx">intents</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="s1">&#39;CREATE&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;io.cozy.contacts&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;John Johnsons&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">tel</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;+12345678&#39;</span>
-<span class="w">    </span><span class="nx">email</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;john@johnsons.com&#39;</span>
+<span class="c1">// "Create a contact, with some information already filled out"</span>
+<span class="nx">cozy</span><span class="p">.</span><span class="nx">intents</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="s1">'CREATE'</span><span class="p">,</span><span class="w"> </span><span class="s1">'io.cozy.contacts'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'John Johnsons'</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">tel</span><span class="o">:</span><span class="w"> </span><span class="s1">'+12345678'</span>
+<span class="w">    </span><span class="nx">email</span><span class="o">:</span><span class="w"> </span><span class="s1">'john@johnsons.com'</span>
 <span class="p">})</span>
 <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nb">document</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// document is a JSON representation of the contact that was created</span>
 <span class="p">});</span>
 
-<span class="c1">// &quot;Save this file somewhere&quot;</span>
-<span class="nx">cozy</span><span class="p">.</span><span class="nx">intents</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="s1">&#39;CREATE&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;io.cozy.files&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">content</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;data:application/zip;base64,UEsDB...&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;photos.zip&#39;</span>
+<span class="c1">// "Save this file somewhere"</span>
+<span class="nx">cozy</span><span class="p">.</span><span class="nx">intents</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="s1">'CREATE'</span><span class="p">,</span><span class="w"> </span><span class="s1">'io.cozy.files'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">content</span><span class="o">:</span><span class="w"> </span><span class="s1">'data:application/zip;base64,UEsDB...'</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">name</span><span class="o">:</span><span class="w"> </span><span class="s1">'photos.zip'</span>
 <span class="p">});</span>
 
-<span class="c1">// &quot;Create a new note, and give me read-only access to it&quot;</span>
-<span class="nx">cozy</span><span class="p">.</span><span class="nx">intents</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="s1">&#39;CREATE&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;io.cozy.notes&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{},</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="c1">// "Create a new note, and give me read-only access to it"</span>
+<span class="nx">cozy</span><span class="p">.</span><span class="nx">intents</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="s1">'CREATE'</span><span class="p">,</span><span class="w"> </span><span class="s1">'io.cozy.notes'</span><span class="p">,</span><span class="w"> </span><span class="p">{},</span><span class="w"> </span><span class="p">[</span><span class="s1">'GET'</span><span class="p">])</span>
 <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nb">document</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// document is a JSON representation of the note that was created.</span>
 <span class="w">    </span><span class="c1">// Additionally, this note can now be retrieved through the API since we have read access on it.</span>
 <span class="p">});</span>
 
-<span class="c1">// &quot;Create an event based on the provided data, and give me full access to it&quot;</span>
-<span class="nx">cozy</span><span class="p">.</span><span class="nx">intents</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="s1">&#39;CREATE&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;io.cozy.events&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">date</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;2017/06/24&#39;</span><span class="p">,</span>
-<span class="w">    </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Beach day&#39;</span>
-<span class="p">},</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;ALL&#39;</span><span class="p">])</span>
+<span class="c1">// "Create an event based on the provided data, and give me full access to it"</span>
+<span class="nx">cozy</span><span class="p">.</span><span class="nx">intents</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="s1">'CREATE'</span><span class="p">,</span><span class="w"> </span><span class="s1">'io.cozy.events'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">date</span><span class="o">:</span><span class="w"> </span><span class="s1">'2017/06/24'</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s1">'Beach day'</span>
+<span class="p">},</span><span class="w"> </span><span class="p">[</span><span class="s1">'ALL'</span><span class="p">])</span>
 <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nb">document</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// document is a JSON representation of the note that was created.</span>
 <span class="w">    </span><span class="c1">// Additionally, this note can now be retrieved through the API since we have read access on it.</span>
 <span class="p">});</span>
 
-<span class="c1">// &quot;Crop this picture&quot;</span>
-<span class="nx">cozy</span><span class="p">.</span><span class="nx">intents</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="s1">&#39;EDIT&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;image/png&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">content</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;data:image/png;base64,iVBORw...&#39;</span><span class="p">,</span>
+<span class="c1">// "Crop this picture"</span>
+<span class="nx">cozy</span><span class="p">.</span><span class="nx">intents</span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="s1">'EDIT'</span><span class="p">,</span><span class="w"> </span><span class="s1">'image/png'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">content</span><span class="o">:</span><span class="w"> </span><span class="s1">'data:image/png;base64,iVBORw...'</span><span class="p">,</span>
 <span class="w">    </span><span class="nx">width</span><span class="o">:</span><span class="w"> </span><span class="mf">50</span><span class="p">,</span>
 <span class="w">    </span><span class="nx">height</span><span class="o">:</span><span class="w"> </span><span class="mf">50</span>
 <span class="p">})</span>
@@ -8910,12 +8910,12 @@ Content-Type: application/vnd.api+json
 Accept: application/vnd.api+json
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.intents&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PICK&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;permissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">]</span>
+<span class="w">    </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.intents"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PICK"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.files"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"GET"</span><span class="p">]</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
@@ -8925,30 +8925,30 @@ Accept: application/vnd.api+json
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;77bcc42c-0fd8-11e7-ac95-8f605f6e8338&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.intents&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PICK&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;permissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">],</span>
-<span class="w">            </span><span class="nt">&quot;client&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://contacts.cozy.example.net&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;services&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"77bcc42c-0fd8-11e7-ac95-8f605f6e8338"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.intents"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PICK"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.files"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"GET"</span><span class="p">],</span>
+<span class="w">            </span><span class="nt">"client"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://contacts.cozy.example.net"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"services"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;files&quot;</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">&quot;href&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://files.cozy.example.net/pick?intent=77bcc42c-0fd8-11e7-ac95-8f605f6e8338&quot;</span>
+<span class="w">                    </span><span class="nt">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"files"</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://files.cozy.example.net/pick?intent=77bcc42c-0fd8-11e7-ac95-8f605f6e8338"</span>
 <span class="w">                </span><span class="p">}</span>
 <span class="w">            </span><span class="p">],</span>
-<span class="w">            </span><span class="nt">&quot;availableApps&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="nt">"availableApps"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;myapp&quot;</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;My App&quot;</span>
+<span class="w">                    </span><span class="nt">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"myapp"</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My App"</span>
 <span class="w">                </span><span class="p">}</span>
 <span class="w">            </span><span class="p">]</span>
 <span class="w">        </span><span class="p">},</span>
-<span class="w">        </span><span class="nt">&quot;links&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;self&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/intents/77bcc42c-0fd8-11e7-ac95-8f605f6e8338&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;permissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/permissions/a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot;</span>
+<span class="w">        </span><span class="nt">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/intents/77bcc42c-0fd8-11e7-ac95-8f605f6e8338"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/permissions/a340d5e0-d647-11e6-b66c-5fc9ce1e17c6"</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
@@ -8968,30 +8968,30 @@ Accept: application/vnd.api+json
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;77bcc42c-0fd8-11e7-ac95-8f605f6e8338&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.intents&quot;</span><span class="p">,</span>
-<span class="w">        </span><span class="nt">&quot;attributes&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;action&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;PICK&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;io.cozy.files&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;permissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">],</span>
-<span class="w">            </span><span class="nt">&quot;client&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://contacts.cozy.example.net&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;services&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"77bcc42c-0fd8-11e7-ac95-8f605f6e8338"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.intents"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PICK"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.files"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"GET"</span><span class="p">],</span>
+<span class="w">            </span><span class="nt">"client"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://contacts.cozy.example.net"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"services"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;files&quot;</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">&quot;href&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://files.cozy.example.net/pick?intent=77bcc42c-0fd8-11e7-ac95-8f605f6e8338&quot;</span>
+<span class="w">                    </span><span class="nt">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"files"</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">"href"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://files.cozy.example.net/pick?intent=77bcc42c-0fd8-11e7-ac95-8f605f6e8338"</span>
 <span class="w">                </span><span class="p">}</span>
 <span class="w">            </span><span class="p">],</span>
-<span class="w">            </span><span class="nt">&quot;availableApps&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">            </span><span class="nt">"availableApps"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">                </span><span class="p">{</span>
-<span class="w">                    </span><span class="nt">&quot;slug&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;myapp&quot;</span><span class="p">,</span>
-<span class="w">                    </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;My App&quot;</span>
+<span class="w">                    </span><span class="nt">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"myapp"</span><span class="p">,</span>
+<span class="w">                    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My App"</span>
 <span class="w">                </span><span class="p">}</span>
 <span class="w">            </span><span class="p">]</span>
 <span class="w">        </span><span class="p">},</span>
-<span class="w">        </span><span class="nt">&quot;links&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">&quot;self&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/intents/77bcc42c-0fd8-11e7-ac95-8f605f6e8338&quot;</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">&quot;permissions&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/permissions/a340d5e0-d647-11e6-b66c-5fc9ce1e17c6&quot;</span>
+<span class="w">        </span><span class="nt">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/intents/77bcc42c-0fd8-11e7-ac95-8f605f6e8338"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/permissions/a340d5e0-d647-11e6-b66c-5fc9ce1e17c6"</span>
 <span class="w">        </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
@@ -9008,7 +9008,7 @@ the WebView by reusing the existing <code>session_code</code> mechanism.</p>
 [create intent]    ──POST /intents  (Bearer app token)────▶
                    ◀── intent doc: id + service href ────
 [mint session_code]──POST /auth/session_code (Bearer app token)──▶
-                   ◀── {&quot;session_code&quot;: &quot;&lt;code&gt;&quot;} ────
+                   ◀── {"session_code": "&lt;code&gt;"} ────
 [open WebView]     ── load https://&lt;service&gt;.&lt;inst&gt;/?intent=&lt;id&gt;&amp;session_code=&lt;code&gt; ────▶
                                                     ServeAppFile:
                                                     1. CheckAndClearSessionCode → ok

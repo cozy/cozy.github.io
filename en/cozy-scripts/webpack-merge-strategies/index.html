@@ -7766,8 +7766,8 @@ This merge kind also handle strategies explained in the next part. You can find 
 <p>Let&rsquo;s take a case where you want to use the <code>webpack.bundle.default</code> but you want to replace the stylus loader (from <code>webpack.config.cozy-ui.js</code>) which doesn&rsquo;t use <code>css-modules</code> by default to use them. Here is the configuration that you must provide:</p>
 <div class="highlight"><pre><span></span><code><span class="c1">// app.config.js</span>
 
-<span class="kd">const</span><span class="w"> </span><span class="nx">configs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;cozy-scripts/config/webpack.bundle.default.js&#39;</span><span class="p">)</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">MiniCssExtractPlugin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;mini-css-extract-plugin&#39;</span><span class="p">)</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">configs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">'cozy-scripts/config/webpack.bundle.default.js'</span><span class="p">)</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">MiniCssExtractPlugin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">'mini-css-extract-plugin'</span><span class="p">)</span>
 
 <span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="nx">configs</span><span class="p">,</span>
 <span class="w">  </span><span class="p">{</span>
@@ -7778,7 +7778,7 @@ This merge kind also handle strategies explained in the next part. You can find 
 <span class="w">      </span><span class="nx">strategy</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="c1">// webpack config properties here like `entry`, `output`...</span>
 
-<span class="w">        </span><span class="s1">&#39;module.loaders&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;replace&#39;</span><span class="w"> </span><span class="c1">// replace | append | prepend</span>
+<span class="w">        </span><span class="s1">'module.loaders'</span><span class="o">:</span><span class="w"> </span><span class="s1">'replace'</span><span class="w"> </span><span class="c1">// replace | append | prepend</span>
 <span class="w">        </span><span class="c1">// loaders !== rules, we want to replace loader properties not rules directly</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">},</span>
@@ -7790,31 +7790,31 @@ This merge kind also handle strategies explained in the next part. You can find 
 <span class="w">          </span><span class="c1">// you want to replace</span>
 <span class="w">          </span><span class="nx">exclude</span><span class="o">:</span><span class="w"> </span><span class="sr">/(node_modules|cozy-ui\/react)/</span><span class="p">,</span>
 <span class="w">          </span><span class="nx">loader</span><span class="o">:</span><span class="w"> </span><span class="nx">extractor</span><span class="p">.</span><span class="nx">extract</span><span class="p">({</span>
-<span class="w">            </span><span class="nx">fallback</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;style-loader&#39;</span><span class="p">,</span>
+<span class="w">            </span><span class="nx">fallback</span><span class="o">:</span><span class="w"> </span><span class="s1">'style-loader'</span><span class="p">,</span>
 <span class="w">            </span><span class="nx">use</span><span class="o">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">              </span><span class="nx">MiniCssExtractPlugin</span><span class="p">.</span><span class="nx">loader</span><span class="p">,</span>
 <span class="w">              </span><span class="p">{</span>
-<span class="w">                </span><span class="nx">loader</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;css-loader&#39;</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">loader</span><span class="o">:</span><span class="w"> </span><span class="s1">'css-loader'</span><span class="p">,</span>
 <span class="w">                </span><span class="nx">options</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">                  </span><span class="nx">sourceMap</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 <span class="w">                  </span><span class="nx">importLoaders</span><span class="o">:</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span>
 <span class="w">                  </span><span class="nx">modules</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
-<span class="w">                  </span><span class="nx">localIdentName</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;[local]--[hash:base64:5]&#39;</span>
+<span class="w">                  </span><span class="nx">localIdentName</span><span class="o">:</span><span class="w"> </span><span class="s1">'[local]--[hash:base64:5]'</span>
 <span class="w">                </span><span class="p">}</span>
 <span class="w">              </span><span class="p">},</span>
 <span class="w">              </span><span class="p">{</span>
-<span class="w">                </span><span class="nx">loader</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;postcss-loader&#39;</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">loader</span><span class="o">:</span><span class="w"> </span><span class="s1">'postcss-loader'</span><span class="p">,</span>
 <span class="w">                </span><span class="nx">options</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">                  </span><span class="nx">sourceMap</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 <span class="w">                  </span><span class="nx">plugins</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                    </span><span class="k">return</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;autoprefixer&#39;</span><span class="p">)({</span><span class="w"> </span><span class="nx">browsers</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;last 2 versions&#39;</span><span class="p">]</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">]</span>
+<span class="w">                    </span><span class="k">return</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="nx">require</span><span class="p">(</span><span class="s1">'autoprefixer'</span><span class="p">)({</span><span class="w"> </span><span class="nx">browsers</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s1">'last 2 versions'</span><span class="p">]</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">]</span>
 <span class="w">                  </span><span class="p">}</span>
 <span class="w">                </span><span class="p">}</span>
 <span class="w">              </span><span class="p">},</span>
 <span class="w">              </span><span class="p">{</span>
-<span class="w">                </span><span class="nx">loader</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;stylus-loader&#39;</span><span class="p">,</span>
+<span class="w">                </span><span class="nx">loader</span><span class="o">:</span><span class="w"> </span><span class="s1">'stylus-loader'</span><span class="p">,</span>
 <span class="w">                </span><span class="nx">options</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                  </span><span class="nx">preferPathResolver</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;webpack&#39;</span>
+<span class="w">                  </span><span class="nx">preferPathResolver</span><span class="o">:</span><span class="w"> </span><span class="s1">'webpack'</span>
 <span class="w">                </span><span class="p">}</span>
 <span class="w">              </span><span class="p">}</span>
 <span class="w">            </span><span class="p">]</span>

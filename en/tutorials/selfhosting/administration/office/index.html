@@ -8058,7 +8058,7 @@ This password will be used when creating a database user for Onlyoffice.
 <li>The <code>EMAIL</code> variable should contain your email address (it will be used when generating the https certificate)</li>
 </ul>
 <div class="highlight"><pre><span></span><code>DOMAIN=domain.example
-EMAIL=&quot;your.email@email.domain&quot;
+EMAIL="your.email@email.domain"
 </code></pre></div>
 <h2 id="onlyoffice">Onlyoffice<a class="headerlink" href="#onlyoffice" title="Permanent link">&para;</a></h2>
 <p>Onlyoffice requires PostgreSQL and RabbitMQ so we will start by installing them.</p>
@@ -8068,16 +8068,16 @@ EMAIL=&quot;your.email@email.domain&quot;
 sudo apt install -y postgresql
 </code></pre></div>
 <p>Create database and user for onlyoffice.</p>
-<div class="highlight"><pre><span></span><code>sudo -i -u postgres psql -c &quot;CREATE DATABASE onlyoffice;&quot;
-sudo -i -u postgres psql -c &quot;CREATE USER onlyoffice WITH password &#39;${OO_DB_PASS}&#39;;&quot;
-sudo -i -u postgres psql -c &quot;GRANT ALL privileges ON DATABASE onlyoffice TO onlyoffice;&quot;
+<div class="highlight"><pre><span></span><code>sudo -i -u postgres psql -c "CREATE DATABASE onlyoffice;"
+sudo -i -u postgres psql -c "CREATE USER onlyoffice WITH password '${OO_DB_PASS}';"
+sudo -i -u postgres psql -c "GRANT ALL privileges ON DATABASE onlyoffice TO onlyoffice;"
 </code></pre></div>
 <p>Check the version of PostgreSQL that is installed on your system.</p>
 <div class="highlight"><pre><span></span><code>psql --version
 </code></pre></div>
 <p>If you are using <strong>PostgreSQL 15 or above</strong> (on Debian 12 for example), you need to grant
 onlyoffice user the permission to create tables in the <code>public</code> schema</p>
-<div class="highlight"><pre><span></span><code>sudo -i -u postgres psql -c &quot;GRANT CREATE ON SCHEMA public TO onlyoffice;&quot; onlyoffice
+<div class="highlight"><pre><span></span><code>sudo -i -u postgres psql -c "GRANT CREATE ON SCHEMA public TO onlyoffice;" onlyoffice
 </code></pre></div>
 <h3 id="install-rabbitmq">Install RabbitMQ<a class="headerlink" href="#install-rabbitmq" title="Permanent link">&para;</a></h3>
 <p>If you are installing onlyoffice on the same server as couchdb, stop couchdb before installing rabbitmq to avoid any interaction between CouchDB and rabbitMQ&rsquo;s installation scripts. Once rabbitMQ is installed, you can restart CouchDB without any problem.</p>
@@ -8105,7 +8105,7 @@ sudo apt update
 <h3 id="install-onlyoffice-documentserver">Install Onlyoffice Documentserver<a class="headerlink" href="#install-onlyoffice-documentserver" title="Permanent link">&para;</a></h3>
 <p>Configure package repository</p>
 <div class="highlight"><pre><span></span><code>curl -fsSL https://download.onlyoffice.com/GPG-KEY-ONLYOFFICE | sudo gpg --dearmor -o /usr/share/keyrings/onlyoffice.gpg
-echo &quot;deb [signed-by=/usr/share/keyrings/onlyoffice.gpg] https://download.onlyoffice.com/repo/debian squeeze main&quot; | sudo tee /etc/apt/sources.list.d/onlyoffice.list
+echo "deb [signed-by=/usr/share/keyrings/onlyoffice.gpg] https://download.onlyoffice.com/repo/debian squeeze main" | sudo tee /etc/apt/sources.list.d/onlyoffice.list
 sudo apt update
 </code></pre></div>
 <p>Install OnlyOffice Documentserver</p>
@@ -8121,18 +8121,18 @@ This should be configured in the DNS server for your domain. For example:</p>
 <div class="highlight"><pre><span></span><code>onlyoffice     1h     IN         A     &lt;your_server_IP&gt;
 </code></pre></div>
 <p>Generate SSL certificate:</p>
-<div class="highlight"><pre><span></span><code>sudo bash /usr/bin/documentserver-letsencrypt.sh &quot;${EMAIL}&quot; &quot;onlyoffice.${DOMAIN}&quot;
+<div class="highlight"><pre><span></span><code>sudo bash /usr/bin/documentserver-letsencrypt.sh "${EMAIL}" "onlyoffice.${DOMAIN}"
 </code></pre></div>
 <p>Configure onlyoffice:</p>
 <div class="highlight"><pre><span></span><code>sudo cp -f /etc/onlyoffice/documentserver/nginx/ds-ssl.conf.tmpl /etc/onlyoffice/documentserver/nginx/ds.conf
 </code></pre></div>
 <p>Add certificate path in file <code>/etc/onlyoffice/documentserver/nginx/ds.conf</code></p>
-<div class="highlight"><pre><span></span><code>sudo sed -ie &#39;s,{{SSL_CERTIFICATE_PATH}},/etc/letsencrypt/live/onlyoffice.&#39;${DOMAIN}&#39;/fullchain.pem,&#39; /etc/onlyoffice/documentserver/nginx/ds.conf
-sudo sed -ie &#39;s,{{SSL_KEY_PATH}},/etc/letsencrypt/live/onlyoffice.&#39;${DOMAIN}&#39;/privkey.pem,&#39; /etc/onlyoffice/documentserver/nginx/ds.conf
+<div class="highlight"><pre><span></span><code>sudo sed -ie 's,{{SSL_CERTIFICATE_PATH}},/etc/letsencrypt/live/onlyoffice.'${DOMAIN}'/fullchain.pem,' /etc/onlyoffice/documentserver/nginx/ds.conf
+sudo sed -ie 's,{{SSL_KEY_PATH}},/etc/letsencrypt/live/onlyoffice.'${DOMAIN}'/privkey.pem,' /etc/onlyoffice/documentserver/nginx/ds.conf
 </code></pre></div>
 <h3 id="configure-onlyoffice-for-cozy-stack">Configure OnlyOffice for cozy-stack<a class="headerlink" href="#configure-onlyoffice-for-cozy-stack" title="Permanent link">&para;</a></h3>
 <p>Then configure onlyoffice to work with cozy-stack</p>
-<div class="highlight"><pre><span></span><code>sudo cat /etc/onlyoffice/documentserver/local.json | jq &#39;. | .services.CoAuthoring.token.enable.browser=false | del(.storage) | .services.CoAuthoring.&quot;request-filtering-agent&quot;.allowPrivateIPAddress=true | .services.CoAuthoring.&quot;request-filtering-agent&quot;.allowMetaIPAddress=true&#39; &gt; /tmp/oolocal.json
+<div class="highlight"><pre><span></span><code>sudo cat /etc/onlyoffice/documentserver/local.json | jq '. | .services.CoAuthoring.token.enable.browser=false | del(.storage) | .services.CoAuthoring."request-filtering-agent".allowPrivateIPAddress=true | .services.CoAuthoring."request-filtering-agent".allowMetaIPAddress=true' &gt; /tmp/oolocal.json
 cat /tmp/oolocal.json | sudo tee /etc/onlyoffice/documentserver/local.json &gt; /dev/null
 rm /tmp/oolocal.json
 </code></pre></div>
@@ -8147,17 +8147,17 @@ office:
   default:
     onlyoffice_url: https://onlyoffice.${DOMAIN}/
 EOF
-INBOX_SECRET=&quot;$(sudo cat /etc/onlyoffice/documentserver/local.json | jq -r .services.CoAuthoring.secret.inbox.string)&quot;
-if [ &quot;${INBOX_SECRET}&quot; != &quot;null&quot; ]; then echo &quot;    onlyoffice_inbox_secret: \&quot;${INBOX_SECRET}\&quot;&quot; | sudo tee -a /etc/cozy/cozy.yml.local &gt; /dev/null; fi
-OUTBOX_SECRET=&quot;$(sudo cat /etc/onlyoffice/documentserver/local.json | jq -r .services.CoAuthoring.secret.outbox.string)&quot;
-if [ &quot;${OUTBOX_SECRET}&quot; != &quot;null&quot; ]; then echo &quot;    onlyoffice_outbox_secret: \&quot;${OUTBOX_SECRET}\&quot;&quot; | sudo tee -a /etc/cozy/cozy.yml.local &gt; /dev/null; fi
+INBOX_SECRET="$(sudo cat /etc/onlyoffice/documentserver/local.json | jq -r .services.CoAuthoring.secret.inbox.string)"
+if [ "${INBOX_SECRET}" != "null" ]; then echo "    onlyoffice_inbox_secret: \"${INBOX_SECRET}\"" | sudo tee -a /etc/cozy/cozy.yml.local &gt; /dev/null; fi
+OUTBOX_SECRET="$(sudo cat /etc/onlyoffice/documentserver/local.json | jq -r .services.CoAuthoring.secret.outbox.string)"
+if [ "${OUTBOX_SECRET}" != "null" ]; then echo "    onlyoffice_outbox_secret: \"${OUTBOX_SECRET}\"" | sudo tee -a /etc/cozy/cozy.yml.local &gt; /dev/null; fi
 </code></pre></div>
 <p>Restart cozy-stack:</p>
 <div class="highlight"><pre><span></span><code>sudo systemctl restart cozy-stack
 </code></pre></div>
 <p>Activate functionality (give cozy-stack admin password when asked):</p>
-<div class="highlight"><pre><span></span><code>read -p &quot;Cozy stack admin password: &quot; -r -s COZY_PASS
-sudo COZY_ADMIN_PASSWORD=&quot;${COZY_PASS}&quot; cozy-stack features defaults &#39;{&quot;drive.office&quot;: {&quot;enabled&quot;: true, &quot;write&quot;: true}}&#39;
+<div class="highlight"><pre><span></span><code>read -p "Cozy stack admin password: " -r -s COZY_PASS
+sudo COZY_ADMIN_PASSWORD="${COZY_PASS}" cozy-stack features defaults '{"drive.office": {"enabled": true, "write": true}}'
 </code></pre></div>
 <p>You can now upload an office document in cozy-drive and start editing it online by clicking on it or start a new empty document from the &ldquo;New document&rdquo; menu.</p>
 <h2 id="futher-information">Futher information<a class="headerlink" href="#futher-information" title="Permanent link">&para;</a></h2>
@@ -8182,15 +8182,15 @@ sudo COZY_ADMIN_PASSWORD=&quot;${COZY_PASS}&quot; cozy-stack features defaults &
 
 <p>Example :</p>
 <div class="highlight"><pre><span></span><code>{
-    &quot;enabled&quot;: true,
-    &quot;write&quot;: true,
-    &quot;defaultMode&quot;: &quot;view&quot;
-    &quot;touchScreen&quot;: {
-        &quot;enabled&quot;: true
-        &quot;readOnly&quot;: false
+    "enabled": true,
+    "write": true,
+    "defaultMode": "view"
+    "touchScreen": {
+        "enabled": true
+        "readOnly": false
     },
-    &quot;mobile&quot;: {
-        &quot;defaultMode&quot;: &quot;view&quot;
+    "mobile": {
+        "defaultMode": "view"
     }
 }
 </code></pre></div>

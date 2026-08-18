@@ -8726,12 +8726,12 @@ This is the right place to <strong>initialize logic tied to the page lifecycle</
 <p><strong>Example</strong></p>
 <div class="highlight"><pre><span></span><code><span class="nx">onWorkerReady</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="c1">// Example: re-attach a click listener every time the page reloads</span>
-<span class="w">  </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">&quot;#login-btn&quot;</span><span class="p">)</span><span class="o">?</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="k">this</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;info&#39;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Login button clicked!&quot;</span><span class="p">);</span>
-<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">login</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;#login&#39;</span><span class="p">)</span><span class="o">?</span><span class="p">.</span><span class="nx">value</span>
-<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;#password&#39;</span><span class="p">)</span><span class="o">?</span><span class="p">.</span><span class="nx">value</span>
-<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">bridge</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;workerEvent&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nx">event</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;loginSubmit&#39;</span><span class="p">,</span>
+<span class="w">  </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s2">"#login-btn"</span><span class="p">)</span><span class="o">?</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">"click"</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="k">this</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'info'</span><span class="p">,</span><span class="w"> </span><span class="s2">"Login button clicked!"</span><span class="p">);</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">login</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">'#login'</span><span class="p">)</span><span class="o">?</span><span class="p">.</span><span class="nx">value</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">password</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">'#password'</span><span class="p">)</span><span class="o">?</span><span class="p">.</span><span class="nx">value</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">bridge</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">'workerEvent'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nx">event</span><span class="o">:</span><span class="w"> </span><span class="s1">'loginSubmit'</span><span class="p">,</span>
 <span class="w">            </span><span class="nx">payload</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">login</span><span class="p">,</span><span class="w"> </span><span class="nx">password</span><span class="w"> </span><span class="p">}</span>
 <span class="w">          </span><span class="p">})</span>
 <span class="w">  </span><span class="p">});</span>
@@ -8750,8 +8750,8 @@ Use this method to <strong>listen and react</strong> to events emitted by the wo
 <p><strong>Example</strong></p>
 <div class="highlight"><pre><span></span><code><span class="nx">onWorkerEvent</span><span class="p">({</span><span class="nx">event</span><span class="p">,</span><span class="w"> </span><span class="nx">payload</span><span class="p">})</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="c1">// Example: handle a login submit event sent by the worker</span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">&quot;loginSubmit&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;info&#39;</span><span class="p">,</span><span class="w"> </span><span class="sb">`Login submit sent with payload : </span><span class="si">${</span><span class="nx">payload</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">event</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">"loginSubmit"</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'info'</span><span class="p">,</span><span class="w"> </span><span class="sb">`Login submit sent with payload : </span><span class="si">${</span><span class="nx">payload</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -8770,7 +8770,7 @@ Worker</p>
 <p><strong>Example</strong></p>
 <div class="highlight"><pre><span></span><code><span class="k">async</span><span class="w"> </span><span class="nx">checkAuthenticated</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="c1">// Example : check if logout button is present (e.g. meaning the user is logged)</span>
-<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nb">Boolean</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;#logout-btn&#39;</span><span class="p">));</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nb">Boolean</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">'#logout-btn'</span><span class="p">));</span>
 <span class="p">}</span>
 </code></pre></div>
 <h4 id="waitforauthenticatedoptions">waitForAuthenticated(options = {})<a class="headerlink" href="#waitforauthenticatedoptions" title="Permanent link">&para;</a></h4>
@@ -8790,7 +8790,7 @@ Worker</p>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c1">// Call this method with `runInWorkerUntilTrue</span>
-<span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">runInWorkerUntilTrue</span><span class="p">({</span><span class="w"> </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;waitForAuthenticated&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">timeout</span><span class="o">:</span><span class="w"> </span><span class="mf">30000</span><span class="p">,</span><span class="w"> </span><span class="nx">interval</span><span class="o">:</span><span class="w"> </span><span class="mf">500</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">});</span>
+<span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">runInWorkerUntilTrue</span><span class="p">({</span><span class="w"> </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s2">"waitForAuthenticated"</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">timeout</span><span class="o">:</span><span class="w"> </span><span class="mf">30000</span><span class="p">,</span><span class="w"> </span><span class="nx">interval</span><span class="o">:</span><span class="w"> </span><span class="mf">500</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">});</span>
 </code></pre></div>
 <h4 id="waitfordomready">waitForDomReady()<a class="headerlink" href="#waitfordomready" title="Permanent link">&para;</a></h4>
 <p><strong>Description</strong><br />
@@ -8827,7 +8827,7 @@ Worker</p>
 <p><strong>Example</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c1">// Example: wait up to 10s for the user to be logged out</span>
 <span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">runInWorkerUntilTrue</span><span class="p">({</span>
-<span class="w">  </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;waitForNotAuthenticated&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s2">"waitForNotAuthenticated"</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">timeout</span><span class="o">:</span><span class="w"> </span><span class="mf">30000</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">interval</span><span class="o">:</span><span class="w"> </span><span class="mf">500</span><span class="p">,</span>
 <span class="p">});</span>
@@ -8848,7 +8848,7 @@ Pilot</p>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c1">// Example: wait up to 15s for the login request to be intercepted</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">waitForRequestInterception</span><span class="p">(</span><span class="s2">&quot;loginRequest&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">waitForRequestInterception</span><span class="p">(</span><span class="s2">"loginRequest"</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nx">timeout</span><span class="o">:</span><span class="w"> </span><span class="mf">15000</span><span class="p">,</span>
 <span class="p">});</span>
 </code></pre></div>
@@ -8866,8 +8866,8 @@ Pilot</p>
 <li>Useful for delegating tasks to the worker without direct DOM access.</li>
 </ul>
 <p><strong>Example</strong></p>
-<div class="highlight"><pre><span></span><code><span class="c1">// Example: call worker method &quot;checkAuthenticated&quot; from the pilot</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">isAuth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">runInWorker</span><span class="p">(</span><span class="s2">&quot;checkAuthenticated&quot;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="c1">// Example: call worker method "checkAuthenticated" from the pilot</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">isAuth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">runInWorker</span><span class="p">(</span><span class="s2">"checkAuthenticated"</span><span class="p">);</span>
 </code></pre></div>
 <h4 id="runinworkeruntiltrueoptions">runInWorkerUntilTrue(options)<a class="headerlink" href="#runinworkeruntiltrueoptions" title="Permanent link">&para;</a></h4>
 <p><strong>Description</strong><br />
@@ -8888,7 +8888,7 @@ Pilot</p>
 <p><strong>Example</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c1">// Example: wait up to 10s until the worker reports user is authenticated</span>
 <span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">runInWorkerUntilTrue</span><span class="p">({</span>
-<span class="w">  </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;checkAuthenticated&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s2">"checkAuthenticated"</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">timeout</span><span class="o">:</span><span class="w"> </span><span class="mf">10000</span><span class="p">,</span>
 <span class="p">});</span>
 </code></pre></div>
@@ -8911,13 +8911,13 @@ Pilot</p>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c1">// Example: wait up to 10s for the login button to appear in the worker</span>
-<span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">waitForElementInWorker</span><span class="p">(</span><span class="s2">&quot;#login-btn&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">waitForElementInWorker</span><span class="p">(</span><span class="s2">"#login-btn"</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nx">timeout</span><span class="o">:</span><span class="w"> </span><span class="mf">10000</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">includesText</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Se connecter&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">includesText</span><span class="o">:</span><span class="w"> </span><span class="s2">"Se connecter"</span><span class="p">,</span>
 <span class="p">});</span>
 
 <span class="c1">// Chained selectors example :</span>
-<span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">waitForElementInWorker</span><span class="p">(</span><span class="s2">&quot;#login-btn, #logout-btn, #homePage&quot;</span><span class="p">);</span>
+<span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">waitForElementInWorker</span><span class="p">(</span><span class="s2">"#login-btn, #logout-btn, #homePage"</span><span class="p">);</span>
 </code></pre></div>
 <h4 id="iselementinworkerselector-options">isElementInWorker(selector, options = {})<a class="headerlink" href="#iselementinworkerselector-options" title="Permanent link">&para;</a></h4>
 <p><strong>Description</strong><br />
@@ -8935,7 +8935,7 @@ Pilot</p>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c1">// Example: check if logout button is currently present in the worker</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">exists</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">isElementInWorker</span><span class="p">(</span><span class="s2">&quot;#logout-btn&quot;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">exists</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">isElementInWorker</span><span class="p">(</span><span class="s2">"#logout-btn"</span><span class="p">);</span>
 </code></pre></div>
 <h4 id="waitforelementnoreloadselector-options">waitForElementNoReload(selector, options = {})<a class="headerlink" href="#waitforelementnoreloadselector-options" title="Permanent link">&para;</a></h4>
 <p><strong>Description</strong><br />
@@ -8954,7 +8954,7 @@ Worker</p>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c1">// Example: wait for the login form (without handling reloads)</span>
-<span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">waitForElementNoReload</span><span class="p">(</span><span class="s2">&quot;#login-form&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">includesText</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Sign in&quot;</span><span class="w"> </span><span class="p">});</span>
+<span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">waitForElementNoReload</span><span class="p">(</span><span class="s2">"#login-form"</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">includesText</span><span class="o">:</span><span class="w"> </span><span class="s2">"Sign in"</span><span class="w"> </span><span class="p">});</span>
 </code></pre></div>
 <h4 id="checkforelementselector-options">checkForElement(selector, options = {})<a class="headerlink" href="#checkforelementselector-options" title="Permanent link">&para;</a></h4>
 <p><strong>Description</strong><br />
@@ -8972,7 +8972,7 @@ Worker</p>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c1">// Example: check if the logout button is present right now</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">isPresent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">checkForElement</span><span class="p">(</span><span class="s2">&quot;#logout-btn&quot;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">isPresent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">checkForElement</span><span class="p">(</span><span class="s2">"#logout-btn"</span><span class="p">);</span>
 </code></pre></div>
 <h4 id="selectelementselector-options">selectElement(selector, options = {})<a class="headerlink" href="#selectelementselector-options" title="Permanent link">&para;</a></h4>
 <p><strong>Description</strong><br />
@@ -8989,8 +8989,8 @@ Worker</p>
 <li>Does <strong>not wait</strong> for the element — use <code>waitForElementNoReload()</code> if waiting is needed.</li>
 </ul>
 <p><strong>Example</strong></p>
-<div class="highlight"><pre><span></span><code><span class="c1">// Example: select a button containing the text &quot;Submit&quot;</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">button</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">selectElement</span><span class="p">(</span><span class="s2">&quot;button&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">includesText</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Submit&quot;</span><span class="w"> </span><span class="p">});</span>
+<div class="highlight"><pre><span></span><code><span class="c1">// Example: select a button containing the text "Submit"</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">button</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">selectElement</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">includesText</span><span class="o">:</span><span class="w"> </span><span class="s2">"Submit"</span><span class="w"> </span><span class="p">});</span>
 </code></pre></div>
 <h4 id="clickselector-options">click(selector, options = {})<a class="headerlink" href="#clickselector-options" title="Permanent link">&para;</a></h4>
 <p><strong>Description</strong><br />
@@ -9009,10 +9009,10 @@ Worker</p>
 <p><strong>Example</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c1">// Example: click the login button</span>
 <span class="c1">// From worker context :</span>
-<span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="s2">&quot;button&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">includesText</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Sign in&quot;</span><span class="w"> </span><span class="p">});</span>
+<span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="s2">"button"</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">includesText</span><span class="o">:</span><span class="w"> </span><span class="s2">"Sign in"</span><span class="w"> </span><span class="p">});</span>
 
 <span class="c1">// Example using this function from pilot context</span>
-<span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">runInWorker</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;#logout-btn&quot;</span><span class="p">);</span>
+<span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">runInWorker</span><span class="p">(</span><span class="s2">"click"</span><span class="p">,</span><span class="w"> </span><span class="s2">"#logout-btn"</span><span class="p">);</span>
 </code></pre></div>
 <h4 id="clickandwaitelementtoclick-elementtowait">clickAndWait(elementToClick, elementToWait)<a class="headerlink" href="#clickandwaitelementtoclick-elementtowait" title="Permanent link">&para;</a></h4>
 <p><strong>Description</strong><br />
@@ -9033,7 +9033,7 @@ Pilot</p>
 <p><strong>Example</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c1">// Example: click login button and wait for dashboard element to load</span>
 
-<span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">clickAndWait</span><span class="p">(</span><span class="s2">&quot;#login-btn&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;#dashboard&quot;</span><span class="p">);</span>
+<span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">clickAndWait</span><span class="p">(</span><span class="s2">"#login-btn"</span><span class="p">,</span><span class="w"> </span><span class="s2">"#dashboard"</span><span class="p">);</span>
 </code></pre></div>
 <h4 id="filltextselector-text">fillText(selector, text)<a class="headerlink" href="#filltextselector-text" title="Permanent link">&para;</a></h4>
 <p><strong>Description</strong><br />
@@ -9054,10 +9054,10 @@ Worker</p>
 <div class="highlight"><pre><span></span><code><span class="c1">// Example: fill the username field</span>
 
 <span class="c1">// From worker context :</span>
-<span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">fillText</span><span class="p">(</span><span class="s2">&quot;#username&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">login</span><span class="p">);</span>
+<span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">fillText</span><span class="p">(</span><span class="s2">"#username"</span><span class="p">,</span><span class="w"> </span><span class="nx">login</span><span class="p">);</span>
 
 <span class="c1">// From pilot context :</span>
-<span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">runInWorker</span><span class="p">(</span><span class="s2">&quot;fillText&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;#username&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">login</span><span class="p">);</span>
+<span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">runInWorker</span><span class="p">(</span><span class="s2">"fillText"</span><span class="p">,</span><span class="w"> </span><span class="s2">"#username"</span><span class="p">,</span><span class="w"> </span><span class="nx">login</span><span class="p">);</span>
 </code></pre></div>
 <h4 id="downloadfileinworkerentry">downloadFileInWorker(entry)<a class="headerlink" href="#downloadfileinworkerentry" title="Permanent link">&para;</a></h4>
 <p><strong>Description</strong><br />
@@ -9084,8 +9084,8 @@ Worker</p>
 <p><strong>Example</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c1">// Example: download a PDF and get it as base64 string</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">base64File</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">downloadFileInWorker</span><span class="p">({</span>
-<span class="w">  </span><span class="nx">fileurl</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;https://example.com/document.pdf&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">requestOptions</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Authorization</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Bearer token&quot;</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="nx">fileurl</span><span class="o">:</span><span class="w"> </span><span class="s2">"https://example.com/document.pdf"</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">requestOptions</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">Authorization</span><span class="o">:</span><span class="w"> </span><span class="s2">"Bearer token"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span>
 <span class="p">});</span>
 </code></pre></div>
 <h4 id="savefilesentries-options">saveFiles(entries, options)<a class="headerlink" href="#savefilesentries-options" title="Permanent link">&para;</a></h4>
@@ -9106,9 +9106,9 @@ Pilot</p>
 <div class="highlight"><pre><span></span><code><span class="c1">// Example: save bunch of files with fileIdAttributes, contentType and qualification label</span>
 <span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">saveFiles</span><span class="p">(</span><span class="nx">selectedDocuments</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nx">context</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">fileIdAttributes</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;vendorId&quot;</span><span class="p">],</span>
-<span class="w">  </span><span class="nx">contentType</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;application/pdf&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nx">qualificationLabel</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;pay_sheet&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">fileIdAttributes</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"vendorId"</span><span class="p">],</span>
+<span class="w">  </span><span class="nx">contentType</span><span class="o">:</span><span class="w"> </span><span class="s2">"application/pdf"</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">qualificationLabel</span><span class="o">:</span><span class="w"> </span><span class="s2">"pay_sheet"</span><span class="p">,</span>
 <span class="p">});</span>
 </code></pre></div>
 <h4 id="getcredentials">getCredentials()<a class="headerlink" href="#getcredentials" title="Permanent link">&para;</a></h4>
@@ -9127,7 +9127,7 @@ Pilot</p>
 <p><strong>Example</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c1">// Example: retrieve credentials from the launcher</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">creds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">getCredentials</span><span class="p">();</span>
-<span class="k">this</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;info&quot;</span><span class="p">,</span><span class="w"> </span><span class="sb">`Retrived credentials : </span><span class="si">${</span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">creds</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
+<span class="k">this</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"info"</span><span class="p">,</span><span class="w"> </span><span class="sb">`Retrived credentials : </span><span class="si">${</span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">creds</span><span class="p">)</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
 </code></pre></div>
 <h4 id="savecredentialscredentials">saveCredentials(credentials)<a class="headerlink" href="#savecredentialscredentials" title="Permanent link">&para;</a></h4>
 <p><strong>Description</strong><br />
@@ -9182,7 +9182,7 @@ Pilot</p>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c1">// Example: open the login page in the worker and make it visible</span>
-<span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">setWorkerState</span><span class="p">({</span><span class="w"> </span><span class="nx">url</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;https://example.com/login&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">visible</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">});</span>
+<span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">setWorkerState</span><span class="p">({</span><span class="w"> </span><span class="nx">url</span><span class="o">:</span><span class="w"> </span><span class="s2">"https://example.com/login"</span><span class="p">,</span><span class="w"> </span><span class="nx">visible</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">});</span>
 </code></pre></div>
 <h4 id="gotourl">goto(url)<a class="headerlink" href="#gotourl" title="Permanent link">&para;</a></h4>
 <p><strong>Description</strong><br />
@@ -9199,7 +9199,7 @@ Pilot</p>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c1">// Example: navigate the worker to the homepage</span>
-<span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="kr">goto</span><span class="p">(</span><span class="s2">&quot;https://example.com/home&quot;</span><span class="p">);</span>
+<span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="kr">goto</span><span class="p">(</span><span class="s2">"https://example.com/home"</span><span class="p">);</span>
 </code></pre></div>
 <h4 id="blockworkerinteractions">blockWorkerInteractions()<a class="headerlink" href="#blockworkerinteractions" title="Permanent link">&para;</a></h4>
 <p><strong>Description</strong><br />
@@ -9267,7 +9267,7 @@ Worker</p>
 </ul>
 <p><strong>Example</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c1">// Example: evaluate a function string that gets the page URL</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">evaluate</span><span class="p">(</span><span class="s2">&quot;() =&gt; document.location.href&quot;</span><span class="p">);</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">evaluate</span><span class="p">(</span><span class="s2">"() =&gt; document.location.href"</span><span class="p">);</span>
 </code></pre></div>
 <blockquote>
 <p>Note :
@@ -9290,21 +9290,21 @@ Worker</p>
 <p><strong>Example</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c1">// Example: minimal override using the standard flow</span>
 <span class="k">async</span><span class="w"> </span><span class="nx">ensureAuthenticated</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="kr">goto</span><span class="p">(</span><span class="s2">&quot;https://example.com/home&quot;</span><span class="p">);</span>
-<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">waitForElementInWorker</span><span class="p">(</span><span class="s1">&#39;#logout-btn, #email&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="kr">goto</span><span class="p">(</span><span class="s2">"https://example.com/home"</span><span class="p">);</span>
+<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">waitForElementInWorker</span><span class="p">(</span><span class="s1">'#logout-btn, #email'</span><span class="p">)</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">checkAuthenticated</span><span class="p">())</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
 <span class="w">    </span><span class="c1">// Open login page and perform login steps</span>
-<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">runInWorker</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;#loginPageLink&#39;</span><span class="p">);</span>
-<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">waitForelementInWorker</span><span class="p">(</span><span class="s1">&#39;#email&#39;</span><span class="p">)</span>
-<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">runInWorker</span><span class="p">(</span><span class="s1">&#39;fillText&#39;</span><span class="p">,</span><span class="s1">&#39;#email&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">credentials</span><span class="p">.</span><span class="nx">username</span><span class="p">);</span>
-<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">runInWorker</span><span class="p">(</span><span class="s1">&#39;fillText&#39;</span><span class="p">,</span><span class="s1">&#39;#password&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">credentials</span><span class="p">.</span><span class="nx">password</span><span class="p">);</span>
-<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">runInWorker</span><span class="p">(</span><span class="s1">&#39;click&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;#submit&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">runInWorker</span><span class="p">(</span><span class="s1">'click'</span><span class="p">,</span><span class="w"> </span><span class="s1">'#loginPageLink'</span><span class="p">);</span>
+<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">waitForelementInWorker</span><span class="p">(</span><span class="s1">'#email'</span><span class="p">)</span>
+<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">runInWorker</span><span class="p">(</span><span class="s1">'fillText'</span><span class="p">,</span><span class="s1">'#email'</span><span class="p">,</span><span class="w"> </span><span class="nx">credentials</span><span class="p">.</span><span class="nx">username</span><span class="p">);</span>
+<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">runInWorker</span><span class="p">(</span><span class="s1">'fillText'</span><span class="p">,</span><span class="s1">'#password'</span><span class="p">,</span><span class="w"> </span><span class="nx">credentials</span><span class="p">.</span><span class="nx">password</span><span class="p">);</span>
+<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">runInWorker</span><span class="p">(</span><span class="s1">'click'</span><span class="p">,</span><span class="w"> </span><span class="s1">'#submit'</span><span class="p">);</span>
 
 <span class="w">    </span><span class="c1">// Wait until authenticated</span>
-<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">runInWorkerUntilTrue</span><span class="p">({</span><span class="w"> </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;waitForAuthenticated&#39;</span><span class="w"> </span><span class="p">})</span>
-<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">auth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">runInWorker</span><span class="p">(</span><span class="s1">&#39;checkAuthenticated&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">runInWorkerUntilTrue</span><span class="p">({</span><span class="w"> </span><span class="nx">method</span><span class="o">:</span><span class="w"> </span><span class="s1">'waitForAuthenticated'</span><span class="w"> </span><span class="p">})</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">auth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">runInWorker</span><span class="p">(</span><span class="s1">'checkAuthenticated'</span><span class="p">)</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">auth</span><span class="p">){</span>
-<span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s1">&#39;LOGIN_FAILED&#39;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="ne">Error</span><span class="p">(</span><span class="s1">'LOGIN_FAILED'</span><span class="p">);</span>
 <span class="w">    </span><span class="p">}</span>
 
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
@@ -9328,7 +9328,7 @@ Worker</p>
 <span class="k">async</span><span class="w"> </span><span class="nx">ensureNotAuthenticated</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">checkAuthenticated</span><span class="p">()))</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
 
-<span class="w">  </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="s1">&#39;#logout&#39;</span><span class="p">);</span>
+<span class="w">  </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">click</span><span class="p">(</span><span class="s1">'#logout'</span><span class="p">);</span>
 <span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">ok</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">waitForNotAuthenticated</span><span class="p">({</span><span class="w"> </span><span class="nx">timeout</span><span class="o">:</span><span class="w"> </span><span class="mf">10000</span><span class="w"> </span><span class="p">});</span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nx">ok</span><span class="p">;</span>
 <span class="p">}</span>
@@ -9349,7 +9349,7 @@ Pilot</p>
 <p><strong>Example</strong></p>
 <div class="highlight"><pre><span></span><code><span class="c1">// Example: override to return account-specific metadata</span>
 <span class="k">async</span><span class="w"> </span><span class="nx">getUserDataFromWebsite</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">sourceAccountIdentifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">runInWorker</span><span class="p">(</span><span class="s1">&#39;getUserData&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">sourceAccountIdentifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">runInWorker</span><span class="p">(</span><span class="s1">'getUserData'</span><span class="p">)</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="nx">sourceAccountIdentifier</span>
 <span class="w">    </span><span class="p">}</span>
@@ -9420,12 +9420,12 @@ Pilot</p>
 <div class="highlight"><pre><span></span><code><span class="c1">// Example: minimal override of fetch()</span>
 <span class="k">async</span><span class="w"> </span><span class="nx">fetch</span><span class="p">({</span><span class="w"> </span><span class="nx">context</span><span class="w"> </span><span class="p">})</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">navigateToBillsPage</span><span class="p">()</span>
-<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">runInWorker</span><span class="p">(</span><span class="s2">&quot;scrapeInvoices&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">runInWorker</span><span class="p">(</span><span class="s2">"scrapeInvoices"</span><span class="p">);</span>
 <span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">navigateUserInfosPage</span><span class="p">()</span>
 <span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">userIdentity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">getUserIdentity</span><span class="p">()</span>
 <span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">saveFiles</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">context</span><span class="w"> </span><span class="p">});</span>
 <span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="nx">saveIdentity</span><span class="p">(</span><span class="nx">userIdentity</span><span class="p">)</span>
-<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;info&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Execution finished !&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">this</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'info'</span><span class="p">,</span><span class="w"> </span><span class="s1">'Execution finished !'</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
 

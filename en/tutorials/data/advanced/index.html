@@ -8086,19 +8086,19 @@ In each node, a key has two children: the left child has all its keys inferior t
 <p>At indexing time, CouchDB evaluates if a new document should be indexed by checking if its fields match an existing index. It means that <strong>all the indexed fields must exist in the document</strong> to index it. It can be problematic for queries that need to check if a particular field exists or not.</p>
 <p>For example, this query won’t work:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">queryDef</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">client</span>
-<span class="w">  </span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">"io.cozy.todos"</span><span class="p">)</span>
 <span class="w">  </span><span class="p">.</span><span class="nx">where</span><span class="p">({</span>
 <span class="w">    </span><span class="nx">category</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nx">$exists</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">  </span><span class="p">})</span>
-<span class="w">  </span><span class="p">.</span><span class="nx">indexFields</span><span class="p">([</span><span class="s2">&quot;category&quot;</span><span class="p">]);</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">indexFields</span><span class="p">([</span><span class="s2">"category"</span><span class="p">]);</span>
 </code></pre></div>
 <p>Here, we want to get all the todos without a <code>category</code> field. However, those documents will never be indexed, precisely because the field is missing.</p>
 <p>Hence, think carefully about your data before hand and do not use queries with <code>$exists: false</code> whenever possible. If a field is missing, it might be better to add a <code>null</code> value so that your documents do not have any missing fields. If this is not possible for some reasons, here is another possible solution - yet not very efficient:</p>
 <p>⚠️ Not efficient workaround</p>
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">queryDef</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">client</span>
-<span class="w">  </span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">"io.cozy.todos"</span><span class="p">)</span>
 <span class="w">  </span><span class="p">.</span><span class="nx">where</span><span class="p">({</span>
 <span class="w">    </span><span class="nx">_id</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nx">$gt</span><span class="o">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
@@ -8107,7 +8107,7 @@ In each node, a key has two children: the left child has all its keys inferior t
 <span class="w">      </span><span class="nx">$exists</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">  </span><span class="p">})</span>
-<span class="w">  </span><span class="p">.</span><span class="nx">indexFields</span><span class="p">([</span><span class="s2">&quot;_id&quot;</span><span class="p">]);</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">indexFields</span><span class="p">([</span><span class="s2">"_id"</span><span class="p">]);</span>
 </code></pre></div>
 <p>Here, we force an index on the <code>_id</code>, which always exists in any CouchDB document, and ask all the documents with <code>"_id": { "$gt": null }</code>. The <code>category</code> is not indexed so the documents without this field will enter the index.
 This is not efficient as it implies that the <code>"category": { "$exists": false }</code> condition will be evaluated in memory by CouchDB for all the documents of the database, thus making a full index scan.</p>
@@ -8115,15 +8115,15 @@ This is not efficient as it implies that the <code>"category": { "$exists": fals
 <p>When designing indexes on several fields, one should keep in mind that they are actually B+ Tree, as explained in this <a href="#indexes-concepts">section</a>. This can be helpful to design efficient queries and avoid performance traps.</p>
 <p>To illustrate this, let’s assume you have declared this query, to get all the &ldquo;work&rdquo; todos created in 2019:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">queryDef</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">client</span>
-<span class="w">  </span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">"io.cozy.todos"</span><span class="p">)</span>
 <span class="w">  </span><span class="p">.</span><span class="nx">where</span><span class="p">({</span>
 <span class="w">    </span><span class="nx">created_at</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nx">$ge</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2019-01-01&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nx">$lt</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;2020-01-01&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">$ge</span><span class="o">:</span><span class="w"> </span><span class="s2">"2019-01-01"</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">$lt</span><span class="o">:</span><span class="w"> </span><span class="s2">"2020-01-01"</span><span class="p">,</span>
 <span class="w">    </span><span class="p">},</span>
-<span class="w">    </span><span class="nx">category</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;work&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">category</span><span class="o">:</span><span class="w"> </span><span class="s2">"work"</span><span class="p">,</span>
 <span class="w">  </span><span class="p">})</span>
-<span class="w">  </span><span class="p">.</span><span class="nx">indexFields</span><span class="p">([</span><span class="s2">&quot;created_at&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;category&quot;</span><span class="p">]);</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">indexFields</span><span class="p">([</span><span class="s2">"created_at"</span><span class="p">,</span><span class="w"> </span><span class="s2">"category"</span><span class="p">]);</span>
 </code></pre></div>
 <p>⚠️ This query is actually sub-optimal. To understand this, let’s represent some sample data:</p>
 <table>
@@ -8242,24 +8242,24 @@ If you are interested about this, you can learn more <a href="https://use-the-in
 <p>In CouchDB, a document is indexed only if its fields matches an existing index. As a consequence, it is not possible to perform efficient queries on non-existing fields.</p>
 <p>For instance, the query below does not work, because it searches for document without the <code>category</code> field, but the absence of this field will cause such documents to never be indexed, as previously explained <a href="#indexes-why-is-my-document-not-being-retrieved">here</a>:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">queryDef</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">client</span>
-<span class="w">  </span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">"io.cozy.todos"</span><span class="p">)</span>
 <span class="w">  </span><span class="p">.</span><span class="nx">where</span><span class="p">({</span>
 <span class="w">    </span><span class="nx">category</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nx">$exists</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">  </span><span class="p">})</span>
-<span class="w">  </span><span class="p">.</span><span class="nx">indexFields</span><span class="p">([</span><span class="s2">&quot;category&quot;</span><span class="p">]);</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">indexFields</span><span class="p">([</span><span class="s2">"category"</span><span class="p">]);</span>
 </code></pre></div>
 <p>In the same manner, queries implying non-contiguous rows in the B+ Tree are sub-optimal. Typically, queries with a non-egal operator, <code>$ne</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">queryDef</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">client</span>
-<span class="w">  </span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">"io.cozy.todos"</span><span class="p">)</span>
 <span class="w">  </span><span class="p">.</span><span class="nx">where</span><span class="p">({</span>
-<span class="w">    </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Exercices&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s2">"Exercices"</span><span class="p">,</span>
 <span class="w">    </span><span class="nx">category</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nx">$ne</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;sport&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">$ne</span><span class="o">:</span><span class="w"> </span><span class="s2">"sport"</span><span class="p">,</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">  </span><span class="p">})</span>
-<span class="w">  </span><span class="p">.</span><span class="nx">indexFields</span><span class="p">([</span><span class="s2">&quot;title&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;category&quot;</span><span class="p">]);</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">indexFields</span><span class="p">([</span><span class="s2">"title"</span><span class="p">,</span><span class="w"> </span><span class="s2">"category"</span><span class="p">]);</span>
 </code></pre></div>
 <p>As the <code>$ne</code> operator cannot guarantee contiguous rows, it needs to scan all the index on documents with the <code>"title": "Exercices"</code> to find those that are not in the sport <code>category</code>.</p>
 <p><a href="https://docs.couchdb.org/en/3.2.2/api/database/find.html#find-partial-indexes">Partial indexes</a> are a way to circumvent this issue. They allow to define a partial selector condition that will be evaluated at the indexing time, and will add the document in the index if it matches the condition.
@@ -8267,16 +8267,16 @@ Thanks to this, it becomes possible to tell CouchDB at indexing time to exlude d
 <p>Hence, the produced index will only include documents that already matched the partial filter selector, making it possible to query them, as this selector enforces contiguous rows or documents with missing fields.</p>
 <p>You can declare a partial index in cozy-client like this:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">queryDef</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">client</span>
-<span class="w">  </span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s2">"io.cozy.todos"</span><span class="p">)</span>
 <span class="w">  </span><span class="p">.</span><span class="nx">where</span><span class="p">({</span>
-<span class="w">    </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Exercices&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nx">title</span><span class="o">:</span><span class="w"> </span><span class="s2">"Exercices"</span><span class="p">,</span>
 <span class="w">  </span><span class="p">})</span>
 <span class="w">  </span><span class="p">.</span><span class="nx">partialIndex</span><span class="p">({</span>
 <span class="w">    </span><span class="nx">category</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nx">$ne</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;sport&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">$ne</span><span class="o">:</span><span class="w"> </span><span class="s2">"sport"</span><span class="p">,</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">  </span><span class="p">})</span>
-<span class="w">  </span><span class="p">.</span><span class="nx">indexFields</span><span class="p">([</span><span class="s2">&quot;title&quot;</span><span class="p">]);</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">indexFields</span><span class="p">([</span><span class="s2">"title"</span><span class="p">]);</span>
 </code></pre></div>
 <p><code>partialIndex</code> supports the same syntax than the <code>where</code>, so you can easily move inefficient selectors into partial indexes.</p>
 <p>Note in this example, it is no longer necessary to index the <code>category</code> field, as the field is now evaluated at indexing time, rather than during the query. Hence, a partial index is also useful to design less heavy indexes.</p>
@@ -8289,7 +8289,7 @@ Thanks to this, it becomes possible to tell CouchDB at indexing time to exlude d
 <span class="kd">let</span><span class="w"> </span><span class="nx">resp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">next</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="o">:</span><span class="w"> </span><span class="p">[]</span><span class="w"> </span><span class="p">};</span>
 <span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nx">resp</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">next</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nx">resp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span>
-<span class="w">    </span><span class="nx">Q</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">).</span><span class="nx">limitBy</span><span class="p">(</span><span class="mf">200</span><span class="p">).</span><span class="nx">offset</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">Q</span><span class="p">(</span><span class="s2">"io.cozy.todos"</span><span class="p">).</span><span class="nx">limitBy</span><span class="p">(</span><span class="mf">200</span><span class="p">).</span><span class="nx">offset</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span>
 <span class="w">  </span><span class="p">);</span>
 <span class="w">  </span><span class="nx">docs</span><span class="p">.</span><span class="nx">push</span><span class="p">(...</span><span class="nx">resp</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
 <span class="p">}</span>
@@ -8301,7 +8301,7 @@ Thanks to this, it becomes possible to tell CouchDB at indexing time to exlude d
 <span class="kd">let</span><span class="w"> </span><span class="nx">resp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">next</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">};</span>
 <span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nx">resp</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">resp</span><span class="p">.</span><span class="nx">next</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nx">resp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span>
-<span class="w">    </span><span class="nx">Q</span><span class="p">(</span><span class="s2">&quot;io.cozy.todos&quot;</span><span class="p">).</span><span class="nx">limitBy</span><span class="p">(</span><span class="mf">200</span><span class="p">).</span><span class="nx">offsetBookmark</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">bookmark</span><span class="p">)</span>
+<span class="w">    </span><span class="nx">Q</span><span class="p">(</span><span class="s2">"io.cozy.todos"</span><span class="p">).</span><span class="nx">limitBy</span><span class="p">(</span><span class="mf">200</span><span class="p">).</span><span class="nx">offsetBookmark</span><span class="p">(</span><span class="nx">resp</span><span class="p">.</span><span class="nx">bookmark</span><span class="p">)</span>
 <span class="w">  </span><span class="p">);</span>
 <span class="w">  </span><span class="nx">docs</span><span class="p">.</span><span class="nx">push</span><span class="p">(...</span><span class="nx">resp</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
 <span class="p">}</span>
@@ -8342,26 +8342,26 @@ As with _all_or_nothing, this mode can create conflicts; in fact, this is where 
 Here is an example of a CouchDB conflict.
 Let&rsquo;s assume the following document with the revision history <code>[1-abc, 2-def]</code> saved in database:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;foo&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;_rev&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2-def&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;bar&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tender&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;_revisions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nt">&quot;ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;def&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;abc&quot;</span><span class="p">]</span>
+<span class="w">  </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"foo"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"_rev"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2-def"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"bar"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tender"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"_revisions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"ids"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"def"</span><span class="p">,</span><span class="w"> </span><span class="s2">"abc"</span><span class="p">]</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>The <code>_revisions</code> block is returned when passing <code>revs=true</code> to the query and gives all the revision ids, which the revision part after the dash. For instance, in <code>2-def</code>, <code>2</code> is called the &ldquo;generation&rdquo; and <code>def</code> the &ldquo;id&rdquo;.
 We update the document with a <code>POST /bulk_docs</code> query, with the following content:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;docs&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">  </span><span class="nt">"docs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;foo&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;_rev&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3-ghi&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;_revisions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;start&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;ghi&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;xyz&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;abc&quot;</span><span class="p">]</span><span class="w"> </span><span class="p">},</span>
-<span class="w">      </span><span class="nt">&quot;bar&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;racuda&quot;</span>
+<span class="w">      </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"foo"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"_rev"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3-ghi"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"_revisions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"start"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="nt">"ids"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"ghi"</span><span class="p">,</span><span class="w"> </span><span class="s2">"xyz"</span><span class="p">,</span><span class="w"> </span><span class="s2">"abc"</span><span class="p">]</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">"bar"</span><span class="p">:</span><span class="w"> </span><span class="s2">"racuda"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">],</span>
-<span class="w">  </span><span class="nt">&quot;new_edits&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">  </span><span class="nt">"new_edits"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>This produces a conflict bewteen <code>2-def</code> and <code>2-xyz</code>: the former was first saved in database, but we forced the latter to be a new child of <code>1-abc</code>. Hence, this document will have two revisions branches: <code>1-abc, 2-def</code> and <code>1-abc, 2-xyz, 3-ghi</code>.</p>
@@ -8372,10 +8372,10 @@ In the <a href="https://docs.cozy.io/en/cozy-stack/sharing-design/">sharing prot
 <p>The document insertion is performed in bulk, by batch of 100K documents maximum.</p>
 <p>Each doc has the following structure:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;xxx&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;_rev&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;yyy&quot;</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;count1&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">x</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">&quot;count2&quot;</span><span class="p">:</span><span class="w"> </span><span class="err">x</span>
+<span class="w">  </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxx"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"_rev"</span><span class="p">:</span><span class="w"> </span><span class="s2">"yyy"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"count1"</span><span class="p">:</span><span class="w"> </span><span class="err">x</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"count2"</span><span class="p">:</span><span class="w"> </span><span class="err">x</span>
 <span class="p">}</span>
 </code></pre></div>
 <p><code>count1</code> is indexed by a Mango index and a JavaScript view, while <code>count2</code> is indexed by an Erlang view. Both of those fields are incremented at each document insertion.</p>

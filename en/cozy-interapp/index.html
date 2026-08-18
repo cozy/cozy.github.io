@@ -7962,20 +7962,20 @@
 stack: either a <code>cozy-client</code> instance or a <code>fetch</code> function managing authentication.</p>
 <h3 id="initialization">Initialization<a class="headerlink" href="#initialization" title="Permanent link">&para;</a></h3>
 <p>With <code>cozy-client</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">CozyClient</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;cozy-client&#39;</span>
-<span class="k">import</span><span class="w"> </span><span class="nx">Intents</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;cozy-interapp&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">CozyClient</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'cozy-client'</span>
+<span class="k">import</span><span class="w"> </span><span class="nx">Intents</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'cozy-interapp'</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">CozyClient</span><span class="p">({</span><span class="w"> </span><span class="nx">uri</span><span class="p">,</span><span class="w"> </span><span class="nx">token</span><span class="w"> </span><span class="p">})</span>
 <span class="kd">const</span><span class="w"> </span><span class="nx">intents</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Intents</span><span class="p">({</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="p">})</span>
 </code></pre></div>
 <p>Without <code>cozy-client</code>, pass a <code>fetch</code> function with the following signature:</p>
-<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">Intents</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">&#39;cozy-interapp&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nx">Intents</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'cozy-interapp'</span>
 
 <span class="kd">const</span><span class="w"> </span><span class="nx">fetchJSON</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">(</span><span class="nx">method</span><span class="p">,</span><span class="w"> </span><span class="nx">path</span><span class="p">,</span><span class="w"> </span><span class="nx">body</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="sb">`</span><span class="si">${</span><span class="nx">WORKSPACE_URL</span><span class="si">}${</span><span class="nx">path</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nx">method</span><span class="p">,</span>
 <span class="w">    </span><span class="nx">headers</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="s1">'Content-Type'</span><span class="o">:</span><span class="w"> </span><span class="s1">'application/json'</span><span class="p">,</span>
 <span class="w">      </span><span class="nx">Authorization</span><span class="o">:</span><span class="w"> </span><span class="sb">`Bearer </span><span class="si">${</span><span class="nx">TOKEN</span><span class="si">}</span><span class="sb">`</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="nx">body</span><span class="o">:</span><span class="w"> </span><span class="nx">body</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kc">undefined</span>
@@ -8025,14 +8025,14 @@ stack: either a <code>cozy-client</code> instance or a <code>fetch</code> functi
     Client-&gt;&gt;Stack: POST /intents { action, type, data, permissions }
     Stack--&gt;&gt;Client: intent { id, attributes.services[] }
     Client-&gt;&gt;Client: insert iframe service.href
-    Service-&gt;&gt;Client: postMessage { type: &quot;intent-{id}:ready&quot; }
+    Service-&gt;&gt;Client: postMessage { type: "intent-{id}:ready" }
     Client-&gt;&gt;Service: postMessage(data)  (raw intent data, no envelope)
-    Service-&gt;&gt;Client: postMessage { type: &quot;intent-{id}:readyToUse&quot; }
+    Service-&gt;&gt;Client: postMessage { type: "intent-{id}:readyToUse" }
     Note over Client,Service: Intent is usable (optional messages can happen here)
-    Service-&gt;&gt;Client: postMessage { type: &quot;intent-{id}:done&quot;, document } OR
-    Service-&gt;&gt;Client: postMessage { type: &quot;intent-{id}:exposeFrameRemoval&quot;, document } OR
-    Service-&gt;&gt;Client: postMessage { type: &quot;intent-{id}:cancel&quot; } OR
-    Service-&gt;&gt;Client: postMessage { type: &quot;intent-{id}:error&quot;, error }
+    Service-&gt;&gt;Client: postMessage { type: "intent-{id}:done", document } OR
+    Service-&gt;&gt;Client: postMessage { type: "intent-{id}:exposeFrameRemoval", document } OR
+    Service-&gt;&gt;Client: postMessage { type: "intent-{id}:cancel" } OR
+    Service-&gt;&gt;Client: postMessage { type: "intent-{id}:error", error }
     Client-&gt;&gt;Client: use and the result and remove iframe
 </code></pre></div>
 <h3 id="messages">Messages<a class="headerlink" href="#messages" title="Permanent link">&para;</a></h3>
@@ -8152,19 +8152,19 @@ stack: either a <code>cozy-client</code> instance or a <code>fetch</code> functi
 <p>Once the intent process is terminated by service, the iframe is removed from DOM.</p>
 <p>You can also use <code>.then</code> to run some code after the intents is terminated like following:</p>
 <h4 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="nx">intents</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">&#39;CREATE&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;io.cozy.apps&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="nx">intents</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">'CREATE'</span><span class="p">,</span><span class="w"> </span><span class="s1">'io.cozy.apps'</span><span class="p">)</span>
 <span class="w">  </span><span class="p">.</span><span class="nx">start</span><span class="p">()</span>
 <span class="w">  </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">intent</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="c1">// do something with the result of the intent</span>
 <span class="w">    </span><span class="c1">// intent = {</span>
-<span class="w">    </span><span class="c1">//    id: &#39;1337&#39;,</span>
+<span class="w">    </span><span class="c1">//    id: '1337',</span>
 <span class="w">    </span><span class="c1">//    attributes: {...}</span>
 <span class="w">    </span><span class="c1">// }</span>
 <span class="w">  </span><span class="p">})</span>
 </code></pre></div>
 <p>Example to use <code>removeIntentFrame()</code> method (by passing the flag <code>exposeIntentFrameRemoval</code> flag):</p>
-<div class="highlight"><pre><span></span><code><span class="nx">intents</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">&#39;EDIT&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;io.cozy.apps&#39;</span><span class="p">)</span>
-<span class="w">  </span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;intent-service-wrapper&#39;</span><span class="p">))</span>
+<div class="highlight"><pre><span></span><code><span class="nx">intents</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">'EDIT'</span><span class="p">,</span><span class="w"> </span><span class="s1">'io.cozy.apps'</span><span class="p">)</span>
+<span class="w">  </span><span class="p">.</span><span class="nx">start</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'intent-service-wrapper'</span><span class="p">))</span>
 <span class="w">  </span><span class="p">.</span><span class="nx">then</span><span class="p">({</span><span class="nx">removeIntentFrame</span><span class="p">,</span><span class="w"> </span><span class="nx">doc</span><span class="p">}</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// after service.terminate(doc)</span>
 <span class="w">      </span><span class="c1">// Code to be run before removing the terminated intent iframe</span>
 <span class="w">      </span><span class="nx">removeIntentFrame</span><span class="p">()</span>
@@ -8179,7 +8179,7 @@ stack: either a <code>cozy-client</code> instance or a <code>fetch</code> functi
 <li><code>compose(action, doctype, data)</code>: request the client to make a second intent. This returns a promise fulfilled with the second intent result.</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="c1">// ...</span>
-<span class="kd">const</span><span class="w"> </span><span class="nx">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">compose</span><span class="p">(</span><span class="s1">&#39;INSTALL&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;io.cozy.apps&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">slug</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;drive&#39;</span><span class="w"> </span><span class="p">})</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">compose</span><span class="p">(</span><span class="s1">'INSTALL'</span><span class="p">,</span><span class="w"> </span><span class="s1">'io.cozy.apps'</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">slug</span><span class="o">:</span><span class="w"> </span><span class="s1">'drive'</span><span class="w"> </span><span class="p">})</span>
 </code></pre></div>
 <ul>
 <li><code>getData()</code>: returns the data passed to the service by the client.</li>
@@ -8189,10 +8189,10 @@ stack: either a <code>cozy-client</code> instance or a <code>fetch</code> functi
 <div class="highlight"><pre><span></span><code><span class="c1">// resize the client ot 300 pixels max height</span>
 <span class="nx">service</span><span class="p">.</span><span class="nx">resizeClient</span><span class="p">({</span>
 <span class="w">   </span><span class="nx">maxHeight</span><span class="o">:</span><span class="w"> </span><span class="mf">300</span>
-<span class="p">},</span><span class="w"> </span><span class="s1">&#39;.2s linear&#39;</span><span class="p">)</span><span class="w"> </span><span class="c1">// will be in css -&gt; transition: .2s linear;</span>
+<span class="p">},</span><span class="w"> </span><span class="s1">'.2s linear'</span><span class="p">)</span><span class="w"> </span><span class="c1">// will be in css -&gt; transition: .2s linear;</span>
 <span class="c1">// or</span>
 <span class="nx">service</span><span class="p">.</span><span class="nx">resizeClient</span><span class="p">({</span>
-<span class="w">   </span><span class="nx">element</span><span class="o">:</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;.class&#39;</span><span class="p">)</span>
+<span class="w">   </span><span class="nx">element</span><span class="o">:</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">'.class'</span><span class="p">)</span>
 <span class="p">})</span>
 </code></pre></div>
 <blockquote>
@@ -8216,7 +8216,7 @@ stack: either a <code>cozy-client</code> instance or a <code>fetch</code> functi
 </li>
 </ul>
 <h4 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h4>
-<div class="highlight"><pre><span></span><code><span class="nx">intents</span><span class="p">.</span><span class="nx">createService</span><span class="p">(</span><span class="s1">&#39;77bcc42c-0fd8-11e7-ac95-8f605f6e8338&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">window</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="nx">intents</span><span class="p">.</span><span class="nx">createService</span><span class="p">(</span><span class="s1">'77bcc42c-0fd8-11e7-ac95-8f605f6e8338'</span><span class="p">,</span><span class="w"> </span><span class="nb">window</span><span class="p">)</span>
 <span class="w">  </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">service</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">service</span><span class="p">.</span><span class="nx">getData</span><span class="p">()</span>
 
@@ -8225,7 +8225,7 @@ stack: either a <code>cozy-client</code> instance or a <code>fetch</code> functi
 <span class="w">    </span><span class="c1">// [...]</span>
 
 <span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">resultingDoc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;io.cozy.photos&#39;</span><span class="p">,</span>
+<span class="w">      </span><span class="nx">type</span><span class="o">:</span><span class="w"> </span><span class="s1">'io.cozy.photos'</span><span class="p">,</span>
 <span class="w">      </span><span class="nx">width</span><span class="o">:</span><span class="w"> </span><span class="mf">100</span><span class="p">,</span>
 <span class="w">      </span><span class="nx">height</span><span class="o">:</span><span class="w"> </span><span class="mf">100</span>
 <span class="w">    </span><span class="p">}</span>
@@ -8237,10 +8237,10 @@ stack: either a <code>cozy-client</code> instance or a <code>fetch</code> functi
 <p><code>intents.getRedirectionURL(doctype, data)</code> retrieves a redirection URL for a given doctype, with specified data. It relies internally on a regular intent mechanism, which creates an intent for the <code>REDIRECT</code> action. It then build the redirection URL from URL sent by the stack and returns it. This URL can be used as link <code>href</code> for example, to show the doctype or the document in an application able to handle it.</p>
 <h4 id="example_2">Example<a class="headerlink" href="#example_2" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">myFolder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nx">folder</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;4bce4649-e7b7-4226-d82e-6b87dbb684e7&#39;</span>
+<span class="w">    </span><span class="nx">folder</span><span class="o">:</span><span class="w"> </span><span class="s1">'4bce4649-e7b7-4226-d82e-6b87dbb684e7'</span>
 <span class="w">  </span><span class="p">}</span>
 
-<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">intents</span><span class="p">.</span><span class="nx">getRedirectionURL</span><span class="p">(</span><span class="s1">&#39;io.cozy.files&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">myFolder</span><span class="p">)</span>
+<span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">intents</span><span class="p">.</span><span class="nx">getRedirectionURL</span><span class="p">(</span><span class="s1">'io.cozy.files'</span><span class="p">,</span><span class="w"> </span><span class="nx">myFolder</span><span class="p">)</span>
 <span class="w">  </span><span class="c1">// url is http://domain-app.cozy.rocks/#/files?folder=4bce4649-e7b7-4226-d82e-6b87dbb684e7</span>
 </code></pre></div>
 <h3 id="intentsredirect"><code>intents.redirect()</code><a class="headerlink" href="#intentsredirect" title="Permanent link">&para;</a></h3>

@@ -7745,8 +7745,8 @@
 <p>You can refer to <a href="https://github.com/nodesource/distributions/blob/master/README.md#manual-installation">NodeJS installation documentation</a> or simply follow the instructions below.</p>
 <p>Add NodeJS 20 package repository to your system:</p>
 <div class="highlight"><pre><span></span><code>KEYRING=/usr/share/keyrings/nodesource.gpg
-curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o &quot;$KEYRING&quot;
-echo &quot;deb [signed-by=$KEYRING] https://deb.nodesource.com/node_20.x nodistro main&quot; | sudo tee /etc/apt/sources.list.d/nodesource.list &gt;/dev/null
+curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o "$KEYRING"
+echo "deb [signed-by=$KEYRING] https://deb.nodesource.com/node_20.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list &gt;/dev/null
 cat &lt;&lt;EOF | sudo tee /etc/apt/preferences.d/nodejs.pref &gt; /dev/null
 Package: *
 Pin: origin deb.nodesource.com
