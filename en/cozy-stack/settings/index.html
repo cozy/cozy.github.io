@@ -7705,6 +7705,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#note-about-matrix_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Note about matrix_id
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -10369,6 +10380,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#note-about-matrix_id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Note about matrix_id
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -11628,6 +11650,13 @@ and the id <code>io.cozy.settings.passphrase</code>.</p>
 <p>This attribute will only be present if a manager is associated with the
 instance and the instance was created on behalf of a partner with a defined
 legal notice.</p>
+<h5 id="note-about-matrix_id">Note about <code>matrix_id</code><a class="headerlink" href="#note-about-matrix_id" title="Permanent link">&para;</a></h5>
+<p>This attribute is only present when the <code>user.created</code> RabbitMQ message carried
+a <code>matrixId</code>. It is read-only: like <code>email</code>, it is restored from the stored
+document on <code>PUT /settings/instance</code>, so a client can neither change it nor
+erase it with a partial update. When it is absent, the Matrix ID sent to the
+common settings API is derived from the email local part and the instance
+domain.</p>
 <h3 id="post-settingsinstancedeletion">POST /settings/instance/deletion<a class="headerlink" href="#post-settingsinstancedeletion" title="Permanent link">&para;</a></h3>
 <p>The settings application can use this route if the user wants to delete their
 Cozy instance.</p>

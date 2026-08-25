@@ -8386,9 +8386,14 @@ messages; if no queue is bound when the Stack publishes, the user receives
 <span class="w">  </span><span class="nt">"workplaceFqdn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"alice.example.twake.app"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"organizationId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"org-uuid-123"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"organizationDomain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example.com"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"canUpgrade"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="w">  </span><span class="nt">"canUpgrade"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"matrixId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@alice:example.twake.app"</span>
 <span class="p">}</span>
 </code></pre></div>
+<p><code>matrixId</code> is optional. When it is present and well-formed, it is saved as
+<code>matrix_id</code> in the instance settings document and sent to the common settings
+API as the account&rsquo;s Matrix identity; otherwise the Matrix ID is derived from
+the email local part and the instance domain.</p>
 <p>Example payload for <code>b2b/domain.user.deleted</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"emitter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"admin-panel"</span><span class="p">,</span>
