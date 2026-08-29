@@ -1,0 +1,807 @@
+{
+  "$comment": "Shared contract vectors for io.cozy.banners. Every client implementing the doctype runs these and must produce `expected` from `input`. Published with the doctype in cozy-doctypes, alongside docs/io.cozy.banners.md.",
+  "now": "2026-07-22T12:00:00Z",
+  "expectedShape": "An ordered list of the banners a client displays, each reduced to the values that rendering depends on: bannerId, the severity and surface actually used after any fallback, and whether a call to action is shown.",
+  "cases": [
+    {
+      "name": "no documents renders nothing",
+      "input": [],
+      "expected": []
+    },
+    {
+      "name": "higher priority renders first",
+      "input": [
+        {
+          "_id": "doc001",
+          "_rev": "1-aaa",
+          "bannerId": "b.low",
+          "category": "quota",
+          "severity": "info",
+          "surface": "banner",
+          "text": "Message.",
+          "lang": "en",
+          "dismissible": true,
+          "dismissedAt": null,
+          "priority": 10,
+          "startsAt": "2026-07-01T00:00:00Z",
+          "endsAt": null,
+          "source": {
+            "trigger": "test",
+            "at": "2026-07-01T00:00:00Z"
+          },
+          "cozyMetadata": {
+            "createdAt": "2026-07-01T00:00:00Z",
+            "createdByApp": "stack",
+            "doctypeVersion": "1",
+            "metadataVersion": 1,
+            "updatedAt": "2026-07-01T00:00:00Z"
+          }
+        },
+        {
+          "_id": "doc002",
+          "_rev": "1-aaa",
+          "bannerId": "a.high",
+          "category": "quota",
+          "severity": "info",
+          "surface": "banner",
+          "text": "Message.",
+          "lang": "en",
+          "dismissible": true,
+          "dismissedAt": null,
+          "priority": 100,
+          "startsAt": "2026-07-01T00:00:00Z",
+          "endsAt": null,
+          "source": {
+            "trigger": "test",
+            "at": "2026-07-01T00:00:00Z"
+          },
+          "cozyMetadata": {
+            "createdAt": "2026-07-01T00:00:00Z",
+            "createdByApp": "stack",
+            "doctypeVersion": "1",
+            "metadataVersion": 1,
+            "updatedAt": "2026-07-01T00:00:00Z"
+          }
+        }
+      ],
+      "expected": [
+        {
+          "bannerId": "a.high",
+          "severity": "info",
+          "surface": "banner",
+          "cta": false,
+          "secondaryCta": false
+        },
+        {
+          "bannerId": "b.low",
+          "severity": "info",
+          "surface": "banner",
+          "cta": false,
+          "secondaryCta": false
+        }
+      ]
+    },
+    {
+      "name": "equal priority breaks on bannerId, compared by code unit rather than locale",
+      "input": [
+        {
+          "_id": "doc003",
+          "_rev": "1-aaa",
+          "bannerId": "a.lower",
+          "category": "quota",
+          "severity": "info",
+          "surface": "banner",
+          "text": "Message.",
+          "lang": "en",
+          "dismissible": true,
+          "dismissedAt": null,
+          "priority": 50,
+          "startsAt": "2026-07-01T00:00:00Z",
+          "endsAt": null,
+          "source": {
+            "trigger": "test",
+            "at": "2026-07-01T00:00:00Z"
+          },
+          "cozyMetadata": {
+            "createdAt": "2026-07-01T00:00:00Z",
+            "createdByApp": "stack",
+            "doctypeVersion": "1",
+            "metadataVersion": 1,
+            "updatedAt": "2026-07-01T00:00:00Z"
+          }
+        },
+        {
+          "_id": "doc004",
+          "_rev": "1-aaa",
+          "bannerId": "B.upper",
+          "category": "quota",
+          "severity": "info",
+          "surface": "banner",
+          "text": "Message.",
+          "lang": "en",
+          "dismissible": true,
+          "dismissedAt": null,
+          "priority": 50,
+          "startsAt": "2026-07-01T00:00:00Z",
+          "endsAt": null,
+          "source": {
+            "trigger": "test",
+            "at": "2026-07-01T00:00:00Z"
+          },
+          "cozyMetadata": {
+            "createdAt": "2026-07-01T00:00:00Z",
+            "createdByApp": "stack",
+            "doctypeVersion": "1",
+            "metadataVersion": 1,
+            "updatedAt": "2026-07-01T00:00:00Z"
+          }
+        }
+      ],
+      "expected": [
+        {
+          "bannerId": "B.upper",
+          "severity": "info",
+          "surface": "banner",
+          "cta": false,
+          "secondaryCta": false
+        },
+        {
+          "bannerId": "a.lower",
+          "severity": "info",
+          "surface": "banner",
+          "cta": false,
+          "secondaryCta": false
+        }
+      ]
+    },
+    {
+      "name": "a window that has not started is hidden",
+      "input": [
+        {
+          "_id": "doc005",
+          "_rev": "1-aaa",
+          "bannerId": "future",
+          "category": "quota",
+          "severity": "info",
+          "surface": "banner",
+          "text": "Message.",
+          "lang": "en",
+          "dismissible": true,
+          "dismissedAt": null,
+          "priority": 50,
+          "startsAt": "2026-07-23T00:00:00Z",
+          "endsAt": null,
+          "source": {
+            "trigger": "test",
+            "at": "2026-07-01T00:00:00Z"
+          },
+          "cozyMetadata": {
+            "createdAt": "2026-07-01T00:00:00Z",
+            "createdByApp": "stack",
+            "doctypeVersion": "1",
+            "metadataVersion": 1,
+            "updatedAt": "2026-07-01T00:00:00Z"
+          }
+        }
+      ],
+      "expected": []
+    },
+    {
+      "name": "startsAt is inclusive",
+      "input": [
+        {
+          "_id": "doc006",
+          "_rev": "1-aaa",
+          "bannerId": "starting",
+          "category": "quota",
+          "severity": "info",
+          "surface": "banner",
+          "text": "Message.",
+          "lang": "en",
+          "dismissible": true,
+          "dismissedAt": null,
+          "priority": 50,
+          "startsAt": "2026-07-22T12:00:00Z",
+          "endsAt": null,
+          "source": {
+            "trigger": "test",
+            "at": "2026-07-01T00:00:00Z"
+          },
+          "cozyMetadata": {
+            "createdAt": "2026-07-01T00:00:00Z",
+            "createdByApp": "stack",
+            "doctypeVersion": "1",
+            "metadataVersion": 1,
+            "updatedAt": "2026-07-01T00:00:00Z"
+          }
+        }
+      ],
+      "expected": [
+        {
+          "bannerId": "starting",
+          "severity": "info",
+          "surface": "banner",
+          "cta": false,
+          "secondaryCta": false
+        }
+      ]
+    },
+    {
+      "name": "endsAt is exclusive",
+      "input": [
+        {
+          "_id": "doc007",
+          "_rev": "1-aaa",
+          "bannerId": "ending",
+          "category": "quota",
+          "severity": "info",
+          "surface": "banner",
+          "text": "Message.",
+          "lang": "en",
+          "dismissible": true,
+          "dismissedAt": null,
+          "priority": 50,
+          "startsAt": "2026-07-01T00:00:00Z",
+          "endsAt": "2026-07-22T12:00:00Z",
+          "source": {
+            "trigger": "test",
+            "at": "2026-07-01T00:00:00Z"
+          },
+          "cozyMetadata": {
+            "createdAt": "2026-07-01T00:00:00Z",
+            "createdByApp": "stack",
+            "doctypeVersion": "1",
+            "metadataVersion": 1,
+            "updatedAt": "2026-07-01T00:00:00Z"
+          }
+        }
+      ],
+      "expected": []
+    },
+    {
+      "name": "a window still open is visible",
+      "input": [
+        {
+          "_id": "doc008",
+          "_rev": "1-aaa",
+          "bannerId": "open",
+          "category": "quota",
+          "severity": "info",
+          "surface": "banner",
+          "text": "Message.",
+          "lang": "en",
+          "dismissible": true,
+          "dismissedAt": null,
+          "priority": 50,
+          "startsAt": "2026-07-01T00:00:00Z",
+          "endsAt": "2026-07-23T00:00:00Z",
+          "source": {
+            "trigger": "test",
+            "at": "2026-07-01T00:00:00Z"
+          },
+          "cozyMetadata": {
+            "createdAt": "2026-07-01T00:00:00Z",
+            "createdByApp": "stack",
+            "doctypeVersion": "1",
+            "metadataVersion": 1,
+            "updatedAt": "2026-07-01T00:00:00Z"
+          }
+        }
+      ],
+      "expected": [
+        {
+          "bannerId": "open",
+          "severity": "info",
+          "surface": "banner",
+          "cta": false,
+          "secondaryCta": false
+        }
+      ]
+    },
+    {
+      "name": "a null endsAt is open ended",
+      "input": [
+        {
+          "_id": "doc009",
+          "_rev": "1-aaa",
+          "bannerId": "openended",
+          "category": "quota",
+          "severity": "info",
+          "surface": "banner",
+          "text": "Message.",
+          "lang": "en",
+          "dismissible": true,
+          "dismissedAt": null,
+          "priority": 50,
+          "startsAt": "2026-07-01T00:00:00Z",
+          "endsAt": null,
+          "source": {
+            "trigger": "test",
+            "at": "2026-07-01T00:00:00Z"
+          },
+          "cozyMetadata": {
+            "createdAt": "2026-07-01T00:00:00Z",
+            "createdByApp": "stack",
+            "doctypeVersion": "1",
+            "metadataVersion": 1,
+            "updatedAt": "2026-07-01T00:00:00Z"
+          }
+        }
+      ],
+      "expected": [
+        {
+          "bannerId": "openended",
+          "severity": "info",
+          "surface": "banner",
+          "cta": false,
+          "secondaryCta": false
+        }
+      ]
+    },
+    {
+      "name": "an absent endsAt means the same as null",
+      "input": [
+        {
+          "_id": "doc010",
+          "_rev": "1-aaa",
+          "bannerId": "absentend",
+          "category": "quota",
+          "severity": "info",
+          "surface": "banner",
+          "text": "Message.",
+          "lang": "en",
+          "dismissible": true,
+          "dismissedAt": null,
+          "priority": 50,
+          "startsAt": "2026-07-01T00:00:00Z",
+          "source": {
+            "trigger": "test",
+            "at": "2026-07-01T00:00:00Z"
+          },
+          "cozyMetadata": {
+            "createdAt": "2026-07-01T00:00:00Z",
+            "createdByApp": "stack",
+            "doctypeVersion": "1",
+            "metadataVersion": 1,
+            "updatedAt": "2026-07-01T00:00:00Z"
+          }
+        }
+      ],
+      "expected": [
+        {
+          "bannerId": "absentend",
+          "severity": "info",
+          "surface": "banner",
+          "cta": false,
+          "secondaryCta": false
+        }
+      ]
+    },
+    {
+      "name": "an unparseable startsAt hides the banner",
+      "input": [
+        {
+          "_id": "doc011",
+          "_rev": "1-aaa",
+          "bannerId": "badstart",
+          "category": "quota",
+          "severity": "info",
+          "surface": "banner",
+          "text": "Message.",
+          "lang": "en",
+          "dismissible": true,
+          "dismissedAt": null,
+          "priority": 50,
+          "startsAt": "not a date",
+          "endsAt": null,
+          "source": {
+            "trigger": "test",
+            "at": "2026-07-01T00:00:00Z"
+          },
+          "cozyMetadata": {
+            "createdAt": "2026-07-01T00:00:00Z",
+            "createdByApp": "stack",
+            "doctypeVersion": "1",
+            "metadataVersion": 1,
+            "updatedAt": "2026-07-01T00:00:00Z"
+          }
+        }
+      ],
+      "expected": []
+    },
+    {
+      "name": "an unparseable endsAt hides the banner",
+      "input": [
+        {
+          "_id": "doc012",
+          "_rev": "1-aaa",
+          "bannerId": "badend",
+          "category": "quota",
+          "severity": "info",
+          "surface": "banner",
+          "text": "Message.",
+          "lang": "en",
+          "dismissible": true,
+          "dismissedAt": null,
+          "priority": 50,
+          "startsAt": "2026-07-01T00:00:00Z",
+          "endsAt": "22/07/2026",
+          "source": {
+            "trigger": "test",
+            "at": "2026-07-01T00:00:00Z"
+          },
+          "cozyMetadata": {
+            "createdAt": "2026-07-01T00:00:00Z",
+            "createdByApp": "stack",
+            "doctypeVersion": "1",
+            "metadataVersion": 1,
+            "updatedAt": "2026-07-01T00:00:00Z"
+          }
+        }
+      ],
+      "expected": []
+    },
+    {
+      "name": "a dismissed banner is hidden",
+      "input": [
+        {
+          "_id": "doc013",
+          "_rev": "1-aaa",
+          "bannerId": "dismissed",
+          "category": "quota",
+          "severity": "info",
+          "surface": "banner",
+          "text": "Message.",
+          "lang": "en",
+          "dismissible": true,
+          "dismissedAt": "2026-07-21T08:00:00Z",
+          "priority": 50,
+          "startsAt": "2026-07-01T00:00:00Z",
+          "endsAt": null,
+          "source": {
+            "trigger": "test",
+            "at": "2026-07-01T00:00:00Z"
+          },
+          "cozyMetadata": {
+            "createdAt": "2026-07-01T00:00:00Z",
+            "createdByApp": "stack",
+            "doctypeVersion": "1",
+            "metadataVersion": 1,
+            "updatedAt": "2026-07-01T00:00:00Z"
+          }
+        }
+      ],
+      "expected": []
+    },
+    {
+      "name": "a dismissal recorded while dismissible wins over dismissible false",
+      "input": [
+        {
+          "_id": "doc014",
+          "_rev": "1-aaa",
+          "bannerId": "locked",
+          "category": "quota",
+          "severity": "info",
+          "surface": "banner",
+          "text": "Message.",
+          "lang": "en",
+          "dismissible": false,
+          "dismissedAt": "2026-07-21T08:00:00Z",
+          "priority": 50,
+          "startsAt": "2026-07-01T00:00:00Z",
+          "endsAt": null,
+          "source": {
+            "trigger": "test",
+            "at": "2026-07-01T00:00:00Z"
+          },
+          "cozyMetadata": {
+            "createdAt": "2026-07-01T00:00:00Z",
+            "createdByApp": "stack",
+            "doctypeVersion": "1",
+            "metadataVersion": 1,
+            "updatedAt": "2026-07-01T00:00:00Z"
+          }
+        }
+      ],
+      "expected": []
+    },
+    {
+      "name": "an unknown category still renders",
+      "input": [
+        {
+          "_id": "doc015",
+          "_rev": "1-aaa",
+          "bannerId": "unknowncat",
+          "category": "weather",
+          "severity": "info",
+          "surface": "banner",
+          "text": "Message.",
+          "lang": "en",
+          "dismissible": true,
+          "dismissedAt": null,
+          "priority": 50,
+          "startsAt": "2026-07-01T00:00:00Z",
+          "endsAt": null,
+          "source": {
+            "trigger": "test",
+            "at": "2026-07-01T00:00:00Z"
+          },
+          "cozyMetadata": {
+            "createdAt": "2026-07-01T00:00:00Z",
+            "createdByApp": "stack",
+            "doctypeVersion": "1",
+            "metadataVersion": 1,
+            "updatedAt": "2026-07-01T00:00:00Z"
+          }
+        }
+      ],
+      "expected": [
+        {
+          "bannerId": "unknowncat",
+          "severity": "info",
+          "surface": "banner",
+          "cta": false,
+          "secondaryCta": false
+        }
+      ]
+    },
+    {
+      "name": "an unknown severity renders as warning",
+      "input": [
+        {
+          "_id": "doc016",
+          "_rev": "1-aaa",
+          "bannerId": "unknownsev",
+          "category": "quota",
+          "severity": "critical",
+          "surface": "banner",
+          "text": "Message.",
+          "lang": "en",
+          "dismissible": true,
+          "dismissedAt": null,
+          "priority": 50,
+          "startsAt": "2026-07-01T00:00:00Z",
+          "endsAt": null,
+          "source": {
+            "trigger": "test",
+            "at": "2026-07-01T00:00:00Z"
+          },
+          "cozyMetadata": {
+            "createdAt": "2026-07-01T00:00:00Z",
+            "createdByApp": "stack",
+            "doctypeVersion": "1",
+            "metadataVersion": 1,
+            "updatedAt": "2026-07-01T00:00:00Z"
+          }
+        }
+      ],
+      "expected": [
+        {
+          "bannerId": "unknownsev",
+          "severity": "warning",
+          "surface": "banner",
+          "cta": false,
+          "secondaryCta": false
+        }
+      ]
+    },
+    {
+      "name": "an unknown surface renders as banner",
+      "input": [
+        {
+          "_id": "doc017",
+          "_rev": "1-aaa",
+          "bannerId": "unknownsurface",
+          "category": "quota",
+          "severity": "info",
+          "surface": "toast",
+          "text": "Message.",
+          "lang": "en",
+          "dismissible": true,
+          "dismissedAt": null,
+          "priority": 50,
+          "startsAt": "2026-07-01T00:00:00Z",
+          "endsAt": null,
+          "source": {
+            "trigger": "test",
+            "at": "2026-07-01T00:00:00Z"
+          },
+          "cozyMetadata": {
+            "createdAt": "2026-07-01T00:00:00Z",
+            "createdByApp": "stack",
+            "doctypeVersion": "1",
+            "metadataVersion": 1,
+            "updatedAt": "2026-07-01T00:00:00Z"
+          }
+        }
+      ],
+      "expected": [
+        {
+          "bannerId": "unknownsurface",
+          "severity": "info",
+          "surface": "banner",
+          "cta": false,
+          "secondaryCta": false
+        }
+      ]
+    },
+    {
+      "name": "an https call to action renders",
+      "input": [
+        {
+          "_id": "doc018",
+          "_rev": "1-aaa",
+          "bannerId": "withcta",
+          "category": "quota",
+          "severity": "info",
+          "surface": "banner",
+          "text": "Message.",
+          "lang": "en",
+          "cta": {
+            "label": "Upgrade",
+            "url": "https://example.org/plans"
+          },
+          "dismissible": true,
+          "dismissedAt": null,
+          "priority": 50,
+          "startsAt": "2026-07-01T00:00:00Z",
+          "endsAt": null,
+          "source": {
+            "trigger": "test",
+            "at": "2026-07-01T00:00:00Z"
+          },
+          "cozyMetadata": {
+            "createdAt": "2026-07-01T00:00:00Z",
+            "createdByApp": "stack",
+            "doctypeVersion": "1",
+            "metadataVersion": 1,
+            "updatedAt": "2026-07-01T00:00:00Z"
+          }
+        }
+      ],
+      "expected": [
+        {
+          "bannerId": "withcta",
+          "severity": "info",
+          "surface": "banner",
+          "cta": true,
+          "secondaryCta": false
+        }
+      ]
+    },
+    {
+      "name": "a null call to action renders no button",
+      "input": [
+        {
+          "_id": "doc020",
+          "_rev": "1-aaa",
+          "bannerId": "nullcta",
+          "category": "quota",
+          "severity": "info",
+          "surface": "banner",
+          "text": "Message.",
+          "lang": "en",
+          "cta": null,
+          "dismissible": true,
+          "dismissedAt": null,
+          "priority": 50,
+          "startsAt": "2026-07-01T00:00:00Z",
+          "endsAt": null,
+          "source": {
+            "trigger": "test",
+            "at": "2026-07-01T00:00:00Z"
+          },
+          "cozyMetadata": {
+            "createdAt": "2026-07-01T00:00:00Z",
+            "createdByApp": "stack",
+            "doctypeVersion": "1",
+            "metadataVersion": 1,
+            "updatedAt": "2026-07-01T00:00:00Z"
+          }
+        }
+      ],
+      "expected": [
+        {
+          "bannerId": "nullcta",
+          "severity": "info",
+          "surface": "banner",
+          "cta": false,
+          "secondaryCta": false
+        }
+      ]
+    },
+    {
+      "name": "a secondary call to action renders alongside the primary one",
+      "input": [
+        {
+          "_id": "doc019",
+          "_rev": "1-aaa",
+          "bannerId": "withsecondary",
+          "category": "billing",
+          "severity": "warning",
+          "surface": "modal",
+          "text": "Message.",
+          "lang": "en",
+          "cta": {
+            "label": "Update payment method",
+            "url": "https://example.org/billing"
+          },
+          "dismissible": false,
+          "dismissedAt": null,
+          "priority": 50,
+          "startsAt": "2026-07-01T00:00:00Z",
+          "endsAt": null,
+          "source": {
+            "trigger": "test",
+            "at": "2026-07-01T00:00:00Z"
+          },
+          "cozyMetadata": {
+            "createdAt": "2026-07-01T00:00:00Z",
+            "createdByApp": "stack",
+            "doctypeVersion": "1",
+            "metadataVersion": 1,
+            "updatedAt": "2026-07-01T00:00:00Z"
+          },
+          "secondaryCta": {
+            "label": "Contact support",
+            "url": "https://example.org/support"
+          }
+        }
+      ],
+      "expected": [
+        {
+          "bannerId": "withsecondary",
+          "severity": "warning",
+          "surface": "modal",
+          "cta": true,
+          "secondaryCta": true
+        }
+      ]
+    },
+    {
+      "name": "a secondary call to action without a primary one is ignored",
+      "input": [
+        {
+          "_id": "doc020",
+          "_rev": "1-aaa",
+          "bannerId": "orphansecondary",
+          "category": "billing",
+          "severity": "warning",
+          "surface": "modal",
+          "text": "Message.",
+          "lang": "en",
+          "cta": null,
+          "dismissible": true,
+          "dismissedAt": null,
+          "priority": 50,
+          "startsAt": "2026-07-01T00:00:00Z",
+          "endsAt": null,
+          "source": {
+            "trigger": "test",
+            "at": "2026-07-01T00:00:00Z"
+          },
+          "cozyMetadata": {
+            "createdAt": "2026-07-01T00:00:00Z",
+            "createdByApp": "stack",
+            "doctypeVersion": "1",
+            "metadataVersion": 1,
+            "updatedAt": "2026-07-01T00:00:00Z"
+          },
+          "secondaryCta": {
+            "label": "Contact support",
+            "url": "https://example.org/support"
+          }
+        }
+      ],
+      "expected": [
+        {
+          "bannerId": "orphansecondary",
+          "severity": "warning",
+          "surface": "modal",
+          "cta": false,
+          "secondaryCta": false
+        }
+      ]
+    }
+  ]
+}

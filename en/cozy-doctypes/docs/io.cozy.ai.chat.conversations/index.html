@@ -18,7 +18,7 @@
         <link rel="prev" href="../io.cozy.accounts/">
       
       
-        <link rel="next" href="../io.cozy.apps/">
+        <link rel="next" href="../io.cozy.ai.chat.assistants/">
       
       
         
@@ -3277,6 +3277,34 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../io.cozy.ai.chat.assistants/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assistants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -7902,10 +7930,47 @@ conversations with an assistant (AI).</p>
 <ul>
 <li><code>messages</code>: {array} An array of the messages of a conversation</li>
 <li><code>id</code>: {string} Identifier of the message</li>
-<li><code>role</code>: {string} Can be <code>user</code> or <code>assistant</code></li>
+<li><code>role</code>: {string} Can be <code>user</code>, <code>assistant</code> or <code>system</code></li>
 <li><code>content</code>: {string} What was said by the user or the assistant</li>
 <li><code>createdAt</code>: {date} When the message was published</li>
+<li><code>attachmentIDs?</code>: {array} Identifiers of the <code>io.cozy.files</code> attached to a
+    user message</li>
+<li><code>sources?</code>: {array} On an <code>assistant</code> message, the documents and web pages
+    used to build the answer. Each entry is an object:<ul>
+<li><code>sourceType</code>: {string} Can be <code>document</code> or <code>web</code></li>
+<li>On a <code>document</code> source:</li>
+<li><code>id</code>: {string} Identifier of the source document</li>
+<li><code>doctype</code>: {string} Doctype of the source document, like <code>io.cozy.files</code>
+    or <code>com.linagora.email</code></li>
+<li><code>filename?</code>: {string} Name of the file</li>
+<li><code>page?</code>: {int} Page of the file the extract comes from</li>
+<li><code>fileUrl?</code>: {string} URL of the source file</li>
+<li><code>chunkUrl?</code>: {string} URL of the extract of the file used for the answer</li>
+<li><code>datetime?</code>: {date} Date of the source document</li>
+<li><code>email.subject?</code>: {string} Subject of the mail</li>
+<li><code>email.preview?</code>: {string} Preview of the content of the mail</li>
+<li><code>parent_id?</code>: {string} Identifier of the parent of the source document</li>
+<li><code>relationship_id?</code>: {string} Identifier of the relationship of the
+    source document</li>
+<li>On a <code>web</code> source:</li>
+<li><code>doctype</code>: {string} Always <code>io.cozy.urls</code></li>
+<li><code>url</code>: {string} URL of the web page</li>
+<li><code>title</code>: {string} Title of the web page</li>
+<li><code>snippet</code>: {string} Extract of the web page used for the answer</li>
 </ul>
+</li>
+<li><code>relationships.assistant?</code>: {object} The
+  <a href="../io.cozy.ai.chat.assistants/"><code>io.cozy.ai.chat.assistants</code></a> document bound
+  to the conversation, as <code>{ "data": { "_id": ..., "_type":
+  "io.cozy.ai.chat.assistants" } }</code>. It is set by the stack when the
+  conversation is created with an <code>assistantID</code>, and it drives both the
+  knowledge base scoping and the LLM configuration of every query of that
+  conversation.</li>
+</ul>
+<p>A <code>system</code> message is not written by the clients: it is added by the stack when
+the conversation is created with an assistant that has a prompt, see
+<a href="../io.cozy.ai.chat.assistants/"><code>io.cozy.ai.chat.assistants</code></a>. Clients should
+not render it as a regular conversation turn.</p>
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e21dce8058b9013d800a18c04daba326"</span><span class="p">,</span>
@@ -7928,9 +7993,43 @@ conversations with an assistant (AI).</p>
 <span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0192756f2428758abe0aec7ecefc0c60"</span><span class="p">,</span>
 <span class="w">      </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The sky appears blue because of a phenomenon called Rayleigh scattering."</span><span class="p">,</span>
 <span class="w">      </span><span class="nt">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-09-24T13:24:08.987Z"</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"assistant"</span>
+<span class="w">      </span><span class="nt">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"assistant"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"sources"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"sourceType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"document"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"doctype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.files"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa17b7c5d1e013e9c2a18c04daba326"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"filename"</span><span class="p">:</span><span class="w"> </span><span class="s2">"why-is-the-sky-blue.pdf"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"fileUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://cozy.localhost:8080/files/3fa17b7c5d1e013e9c2a18c04daba326"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"chunkUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://cozy.localhost:8080/files/3fa17b7c5d1e013e9c2a18c04daba326#page=2"</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"sourceType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"document"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"doctype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"com.linagora.email"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d90a1f4e2b73013e9c2a18c04daba327"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"email.subject"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Physics newsletter"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"email.preview"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This month, we look at why the sky is blue…"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"datetime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-09-20T08:12:00.000Z"</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"sourceType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"web"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"doctype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.urls"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://en.wikipedia.org/wiki/Rayleigh_scattering"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rayleigh scattering"</span><span class="p">,</span>
+<span class="w">          </span><span class="nt">"snippet"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rayleigh scattering is the scattering of light by particles much smaller than the wavelength."</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">]</span>
 <span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">]</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">"relationships"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"assistant"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e21dce8058b9013d800a18c04daba326"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.ai.chat.assistants"</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="iocozyaichatevents"><code>io.cozy.ai.chat.events</code><a class="headerlink" href="#iocozyaichatevents" title="Permanent link">&para;</a></h3>

@@ -3203,6 +3203,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../io.cozy.ai.chat.assistants/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Assistants
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../io.cozy.apps/" class="md-nav__link">
         
   
@@ -3396,6 +3424,17 @@
     <span class="md-ellipsis">
       
         Versioning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#contract-vectors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contract vectors
       
     </span>
   </a>
@@ -7935,6 +7974,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#contract-vectors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Contract vectors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#example" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -7987,7 +8037,6 @@
 <p>The <code>io.cozy.banners</code> doctype holds the platform messages to display to the user, one document per banner: storage nearly full, subscription or trial state, an action required on the account, a maintenance announcement.</p>
 <p>Documents are written by the stack when the state that drives them changes, so the applications never evaluate anything: they read the documents, sort them by priority, drop the ones outside their validity window or already dismissed, and render what is left. The text is stored already localized, so a client displays it as it is.</p>
 <p>The only field a client writes is <code>dismissedAt</code>. Because the documents live in the user&rsquo;s own database, a banner dismissed in one application is dismissed in all of them.</p>
-<p>Permissions scope by doctype and verb, never by field, so an application allowed to record a dismissal is also able to rewrite <code>text</code>, <code>cta</code> and <code>priority</code> on the same document. Every other field is set by the stack and the platform cannot enforce that, so a client treats a document whose <code>cozyMetadata.createdByApp</code> is not the stack as untrusted.</p>
 <p>A banner describes the instance owner&rsquo;s own state, so clients do not read or render one in a context where the reader is not the owner, such as a share by link or a preview.</p>
 <h3 id="fields">Fields<a class="headerlink" href="#fields" title="Permanent link">&para;</a></h3>
 <ul>
@@ -7995,21 +8044,25 @@
 <li><strong><code>category</code></strong>: {string} What the banner is about: <code>quota</code>, <code>billing</code>, <code>trial</code>, <code>account</code> or <code>system</code>. Set by the stack. A client that does not know a category ignores the category and still renders the banner.</li>
 <li><strong><code>severity</code></strong>: {string} <code>info</code>, <code>warning</code> or <code>error</code>. Set by the stack. Clients map it to their own alert styles, and treat a severity they do not know as <code>warning</code>.</li>
 <li><strong><code>surface</code></strong>: {string} Where the banner is meant to be displayed: <code>banner</code> for a full-width message at the top of the application, <code>modal</code> for a blocking dialog. Set by the stack. A client that does not know a surface, or that has no host for it, renders the banner as <code>banner</code> rather than dropping it. Adding a surface keeps the version, so a value is only introduced once a client renders it.</li>
+<li><strong><code>title</code></strong>: {string} Optional heading, <code>null</code> or absent when there is none. Set by the stack. Meaningful on the <code>modal</code> surface, where a message needs a heading above its body; a plain banner carries none. Plain text, localized as <code>text</code> is.</li>
 <li><strong><code>text</code></strong>: {string} The message, in the language given by <code>lang</code>. Set by the stack. It is plain text: clients escape it and never interpret markup in it.</li>
-<li><strong><code>lang</code></strong>: {string} BCP 47 tag of the language <code>text</code> and <code>cta.label</code> are written in, the instance language at materialization time. Set by the stack, which re-materializes the live banners of an instance when that language changes.</li>
+<li><strong><code>lang</code></strong>: {string} BCP 47 tag of the language <code>text</code>, <code>cta.label</code> and <code>secondaryCta.label</code> are written in, the instance language at materialization time. Set by the stack, which re-materializes the live banners of an instance when that language changes.</li>
 <li><strong><code>cta</code></strong>: {object} Optional call to action, <code>null</code> or absent when there is none. Set by the stack.</li>
 <li><strong><code>label</code></strong>: {string} The label, plain text, localized as <code>text</code> is.</li>
-<li><strong><code>url</code></strong>: {string} Absolute <code>https://</code> URL the label points to. The stack restricts the hosts it writes here. A client that reads any other scheme drops the call to action and renders the rest of the banner.</li>
+<li><strong><code>url</code></strong>: {string} Absolute <code>https://</code> URL the label points to. The stack restricts the hosts it writes here.</li>
+<li><strong><code>secondaryCta</code></strong>: {object} Optional second call to action, of the same shape as <code>cta</code>, <code>null</code> or absent when there is none. Set by the stack. It is the lesser action, so a client renders it less prominently than <code>cta</code> and never on its own: a document carrying a <code>secondaryCta</code> and no <code>cta</code> is malformed, and a client ignores the secondary one rather than promoting it.</li>
+<li><strong><code>label</code></strong>: {string} The label, plain text, localized as <code>text</code> is.</li>
+<li><strong><code>url</code></strong>: {string} Absolute <code>https://</code> URL the label points to. The stack restricts the hosts it writes here.</li>
 <li><strong><code>dismissible</code></strong>: {boolean} Whether the client offers a control to dismiss the banner. It is a rendering instruction, not an access control: anything that must actually block the user is enforced elsewhere. A non dismissible banner on the <code>modal</code> surface carries a <code>cta</code>, so the user is never left without a way out. When a document carries <code>dismissible: false</code> and a <code>dismissedAt</code> recorded while it was still dismissible, the dismissal wins and the banner stays hidden.</li>
 <li><strong><code>dismissedAt</code></strong>: {date} When the user dismissed this banner, <code>null</code> while it is active. The only field written by a client. The stack preserves it when it re-materializes the same <code>bannerId</code>; only a new <code>bannerId</code> clears it.</li>
-<li><strong><code>priority</code></strong>: {number} Sort order, highest first, when several banners apply at once. An integer. Equal priorities break on <code>bannerId</code> ascending, so every client orders identically.</li>
+<li><strong><code>priority</code></strong>: {number} Sort order, highest first, when several banners apply at once. An integer. Equal priorities break on <code>bannerId</code> ascending, compared code unit by code unit rather than with a locale aware collation, so every client orders identically whatever its runtime locale.</li>
 <li><strong><code>startsAt</code></strong>: {date} Start of the validity window, inclusive.</li>
 <li><strong><code>endsAt</code></strong>: {date} End of the validity window, exclusive, <code>null</code> when it is open ended.</li>
 <li><strong><code>source</code></strong>: {object} What produced the document, so a displayed banner can be explained after the fact. Set by the stack.</li>
 <li><strong><code>trigger</code></strong>: {string} The input that caused the last materialization.</li>
 <li><strong><code>at</code></strong>: {date} When it was materialized.</li>
 </ul>
-<p><code>cta</code>, <code>dismissedAt</code> and <code>endsAt</code> are the only fields that may be missing, and for them a <code>null</code> value and an absent key mean the same thing. A client checks for both, including before reading <code>cta.label</code> or <code>cta.url</code>. Every other field is always present.</p>
+<p><code>title</code>, <code>cta</code>, <code>secondaryCta</code>, <code>dismissedAt</code> and <code>endsAt</code> are the only fields that may be missing, and for them a <code>null</code> value and an absent key mean the same thing. A client checks for both, including before reading <code>cta.label</code> or <code>cta.url</code>. Every other field is always present.</p>
 <h3 id="dates">Dates<a class="headerlink" href="#dates" title="Permanent link">&para;</a></h3>
 <p><code>startsAt</code>, <code>endsAt</code>, <code>dismissedAt</code> and <code>source.at</code> are ISO 8601 timestamps with an explicit UTC offset and at least second precision, as in <code>2026-07-22T09:14:02Z</code>. The date only form that the <a href="../#date-format">generic model</a> also allows is not used here, since these values are compared against a clock rather than displayed. The validity window is evaluated against the client&rsquo;s clock.</p>
 <p>A client null checks a date before building one from it, because <code>new Date(null)</code> is the Unix epoch rather than &ldquo;no date&rdquo;, which would mark every open ended banner expired and every active banner dismissed.</p>
@@ -8022,8 +8075,10 @@
 <li>Where a shell and the application it embeds both implement this contract, only the shell renders, so a document is never painted twice and only one writer touches <code>dismissedAt</code>.</li>
 </ul>
 <h3 id="versioning">Versioning<a class="headerlink" href="#versioning" title="Permanent link">&para;</a></h3>
-<p>The shape of the document is versioned with <code>cozyMetadata.doctypeVersion</code>, like every other doctype in the <a href="../#document-metadata">generic model</a>. Adding a field or a category keeps the version, and clients ignore what they do not understand. Renaming or removing one bumps it, and both versions are then materialized under the same <code>bannerId</code> until the oldest deployed clients are gone.</p>
-<p>So a client reads <code>doctypeVersion</code>, skips a document whose version is higher than the version it was written against, and keeps only the highest version it does support for a given <code>bannerId</code>. Without that filter the migration renders every banner twice. A dismissal is written to every version of a <code>bannerId</code>, so dismissing in one client is not undone by another still reading the older version.</p>
+<p>The shape of the document is versioned with <code>cozyMetadata.doctypeVersion</code>, like every other doctype in the <a href="../#document-metadata">generic model</a>. It is a string, as it is for every doctype the stack writes.</p>
+<p>Adding a field, a category, a severity or a surface keeps the version: a client renders a value it does not know rather than dropping the banner, so a new one needs no client release. Renaming or removing a field bumps it.</p>
+<h3 id="contract-vectors">Contract vectors<a class="headerlink" href="#contract-vectors" title="Permanent link">&para;</a></h3>
+<p><a href="../../fixtures/io.cozy.banners.json"><code>fixtures/io.cozy.banners.json</code></a> holds the cases every client is expected to reproduce: ordering and its tie-break, the validity window bounds, dismissal, the fallbacks for an unknown severity or surface, the call to action scheme check, a secondary call to action, and the version filter. Each case gives <code>input</code> documents and the <code>expected</code> list a client displays, so two implementations can be checked against the same data rather than against each other.</p>
 <h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e21dce8058b9013d800a18c04daba326"</span><span class="p">,</span>
@@ -8031,11 +8086,12 @@
 <span class="w">  </span><span class="nt">"cozyMetadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-07-22T09:14:02Z"</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">"createdByApp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"stack"</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">"doctypeVersion"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"doctypeVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">"metadataVersion"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">"updatedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-07-22T09:14:02Z"</span>
 <span class="w">  </span><span class="p">},</span>
 <span class="w">  </span><span class="nt">"bannerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"quota.exceeded:2026-07-22T09:14:02Z"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"quota"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"severity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"surface"</span><span class="p">:</span><span class="w"> </span><span class="s2">"banner"</span><span class="p">,</span>
@@ -8063,8 +8119,8 @@
 <li><strong><code>_rev</code></strong>: {string} Revision identifier of the document.</li>
 <li><strong><code>cozyMetadata</code></strong>: {object} Metadata related to the document&rsquo;s lifecycle in Cozy.</li>
 <li><strong><code>createdAt</code></strong>: {date} When the document was created.</li>
-<li><strong><code>createdByApp</code></strong>: {string} What wrote the document. Anything other than the stack is not to be trusted.</li>
-<li><strong><code>doctypeVersion</code></strong>: {number} Version of the document shape, see <a href="#versioning">Versioning</a>.</li>
+<li><strong><code>createdByApp</code></strong>: {string} What wrote the document, always the stack.</li>
+<li><strong><code>doctypeVersion</code></strong>: {string} Version of the document shape, see <a href="#versioning">Versioning</a>.</li>
 <li><strong><code>metadataVersion</code></strong>: {number} Version number of the metadata format.</li>
 <li><strong><code>updatedAt</code></strong>: {date} When the document was last updated, by the stack or by a client recording a dismissal.</li>
 </ul>
