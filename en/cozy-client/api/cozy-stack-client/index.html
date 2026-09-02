@@ -4630,6 +4630,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#sharingcollectionfetcheffectiverecipientsfileid-options-promisedata-arrayeffectiverecipient-meta-file_id-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sharingCollection.fetchEffectiveRecipients(fileId, [options]) ⇒ Promise.&lt;{data: Array.&lt;EffectiveRecipient&gt;, meta: {file_id: string}}&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#sharingcollectionrevokegroupsharing-groupindex" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5978,6 +5989,28 @@
     <span class="md-ellipsis">
       
         RelationshipItem : object
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recipientsource-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RecipientSource : object
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#effectiverecipient-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EffectiveRecipient : object
       
     </span>
   </a>
@@ -12394,6 +12427,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#sharingcollectionfetcheffectiverecipientsfileid-options-promisedata-arrayeffectiverecipient-meta-file_id-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sharingCollection.fetchEffectiveRecipients(fileId, [options]) ⇒ Promise.&lt;{data: Array.&lt;EffectiveRecipient&gt;, meta: {file_id: string}}&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#sharingcollectionrevokegroupsharing-groupindex" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -13749,6 +13793,28 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#recipientsource-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RecipientSource : object
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#effectiverecipient-object" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EffectiveRecipient : object
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cozystackclient-object" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -14161,6 +14227,12 @@ not.</p>
 </dd>
 <dt><a href="#RelationshipItem">RelationshipItem</a> : <code>object</code></dt>
 <dd><p>Define a recipient that can be used as target of a sharing</p>
+</dd>
+<dt><a href="#RecipientSource">RecipientSource</a> : <code>object</code></dt>
+<dd><p>Describes one sharing scope through which an EffectiveRecipient has access to a target</p>
+</dd>
+<dt><a href="#EffectiveRecipient">EffectiveRecipient</a> : <code>object</code></dt>
+<dd><p>A deduplicated person who can access a file or folder, either directly or through an inherited ancestor share</p>
 </dd>
 <dt><a href="#CozyStackClient">CozyStackClient</a> : <code>object</code></dt>
 <dd></dd>
@@ -17083,6 +17155,7 @@ Serves to dedupe equal queries requested at the same time</p>
 <li><a href="#SharingCollection+revokeRecipient">.revokeRecipient(sharing, recipientIndex)</a></li>
 <li><a href="#SharingCollection+setReadOnly">.setReadOnly(sharing, recipientIndex)</a></li>
 <li><a href="#SharingCollection+setReadWrite">.setReadWrite(sharing, recipientIndex)</a></li>
+<li><a href="#SharingCollection+fetchEffectiveRecipients">.fetchEffectiveRecipients(fileId, [options])</a> ⇒ <code>Promise.&lt;{data: Array.&lt;EffectiveRecipient&gt;, meta: {file_id: string}}&gt;</code></li>
 <li><a href="#SharingCollection+revokeGroup">.revokeGroup(sharing, groupIndex)</a></li>
 <li><a href="#SharingCollection+revokeSelf">.revokeSelf(sharing)</a></li>
 <li><a href="#SharingCollection+revokeAllRecipients">.revokeAllRecipients(sharing)</a></li>
@@ -17424,6 +17497,41 @@ Serves to dedupe equal queries requested at the same time</p>
 <td>recipientIndex</td>
 <td><code>number</code></td>
 <td>Index of this recipient in the members array of the sharing</td>
+</tr>
+</tbody>
+</table>
+<p><a name="SharingCollection+fetchEffectiveRecipients"></a></p>
+<h3 id="sharingcollectionfetcheffectiverecipientsfileid-options-promisedata-arrayeffectiverecipient-meta-file_id-string">sharingCollection.fetchEffectiveRecipients(fileId, [options]) ⇒ <code>Promise.&lt;{data: Array.&lt;EffectiveRecipient&gt;, meta: {file_id: string}}&gt;</code><a class="headerlink" href="#sharingcollectionfetcheffectiverecipientsfileid-options-promisedata-arrayeffectiverecipient-meta-file_id-string" title="Permanent link">&para;</a></h3>
+<p>Fetch the combined list of people who can access a file or folder,
+including access inherited from parent shared folders.</p>
+<p>Wraps <code>GET /sharings/recipients/:file-id</code>, or its shared-drive
+equivalent <code>GET /sharings/drives/:driveId/recipients/:file-id</code> when
+<code>options.driveId</code> is given.</p>
+<p><strong>Kind</strong>: instance method of <a href="#SharingCollection"><code>SharingCollection</code></a><br />
+<strong>Returns</strong>: <code>Promise.&lt;{data: Array.&lt;EffectiveRecipient&gt;, meta: {file_id: string}}&gt;</code> - The effective recipients, JSON-API normalized  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fileId</td>
+<td><code>string</code></td>
+<td>Id of the target file or folder</td>
+</tr>
+<tr>
+<td>[options]</td>
+<td><code>object</code></td>
+<td>Options</td>
+</tr>
+<tr>
+<td>[options.driveId]</td>
+<td><code>string</code></td>
+<td>Id of the shared drive to scope the request to</td>
 </tr>
 </tbody>
 </table>
@@ -20025,6 +20133,113 @@ not.</p>
 <td>type</td>
 <td><code>string</code></td>
 <td>Reciptient&rsquo;s type (should be &lsquo;io.cozy.contacts&rsquo;)</td>
+</tr>
+</tbody>
+</table>
+<p><a name="RecipientSource"></a></p>
+<h2 id="recipientsource-object">RecipientSource : <code>object</code><a class="headerlink" href="#recipientsource-object" title="Permanent link">&para;</a></h2>
+<p>Describes one sharing scope through which an EffectiveRecipient has access to a target</p>
+<p><strong>Kind</strong>: global typedef<br />
+<strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sharing_id</td>
+<td><code>string</code></td>
+<td>Id of the sharing granting the access</td>
+</tr>
+<tr>
+<td>root_id</td>
+<td><code>string</code></td>
+<td>Id of the shared root (the target itself, or an ancestor folder)</td>
+</tr>
+<tr>
+<td>root_name</td>
+<td><code>string</code></td>
+<td>Name of the shared root</td>
+</tr>
+<tr>
+<td>kind</td>
+<td><code>&#x27;self&#x27;</code> | <code>&#x27;ancestor&#x27;</code></td>
+<td>Whether the source is the target&rsquo;s own share or an inherited ancestor share</td>
+</tr>
+<tr>
+<td>member_index</td>
+<td><code>number</code></td>
+<td>Index of this recipient in the members array of the sharing</td>
+</tr>
+<tr>
+<td>read_only</td>
+<td><code>boolean</code></td>
+<td>Whether this source grants read-only access</td>
+</tr>
+<tr>
+<td>manageable</td>
+<td><code>boolean</code></td>
+<td>Whether this source can be managed (revoked, promoted/demoted) from the target&rsquo;s share modal</td>
+</tr>
+</tbody>
+</table>
+<p><a name="EffectiveRecipient"></a></p>
+<h2 id="effectiverecipient-object">EffectiveRecipient : <code>object</code><a class="headerlink" href="#effectiverecipient-object" title="Permanent link">&para;</a></h2>
+<p>A deduplicated person who can access a file or folder, either directly or through an inherited ancestor share</p>
+<p><strong>Kind</strong>: global typedef<br />
+<strong>Properties</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td><code>string</code></td>
+<td></td>
+</tr>
+<tr>
+<td>name</td>
+<td><code>string</code></td>
+<td></td>
+</tr>
+<tr>
+<td>email</td>
+<td><code>string</code></td>
+<td></td>
+</tr>
+<tr>
+<td>instance</td>
+<td><code>string</code></td>
+<td></td>
+</tr>
+<tr>
+<td>status</td>
+<td><code>string</code></td>
+<td></td>
+</tr>
+<tr>
+<td>read_only</td>
+<td><code>boolean</code></td>
+<td>Merged across sources: read-write wins over read-only</td>
+</tr>
+<tr>
+<td>can_edit_here</td>
+<td><code>boolean</code></td>
+<td>True when at least one source is the target&rsquo;s own share</td>
+</tr>
+<tr>
+<td>sources</td>
+<td><a href="#RecipientSource"><code>Array.&lt;RecipientSource&gt;</code></a></td>
+<td></td>
 </tr>
 </tbody>
 </table>
