@@ -678,7 +678,11 @@ describe('CozyRealtime', () => {
         const handler = jest.fn()
         realtime.subscribe(event, type, undefined, handler)
 
-        // wait until the retry manager is in a waiting state (≥2 failures, wait > 0)
+        // Force retry manager into waiting state instead of relying on timing
+        realtime.retryManager.onFailure()
+        realtime.retryManager.onFailure()
+
+        // Verify it's in waiting state
         await waitFor(() => expect(realtime.retryManager.waiting).toBeTruthy())
 
         const server = createSocketServer()
