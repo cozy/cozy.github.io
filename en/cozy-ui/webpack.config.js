@@ -21,7 +21,8 @@ module.exports = {
         test: /\.(js|jsx|ts|tsx)$/,
         exclude: filepath =>
           /node_modules/.test(filepath) &&
-          !filepath.includes('@linagora/twake-icons'),
+          !filepath.includes('@linagora/twake-icons') &&
+          !filepath.includes('@react-spring'),
         loader: 'babel-loader'
       },
       {
