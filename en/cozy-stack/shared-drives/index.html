@@ -9771,6 +9771,73 @@ and add them later.</p>
 <h2 id="files-and-directories">Files and directories<a class="headerlink" href="#files-and-directories" title="Permanent link">&para;</a></h2>
 <p>Unless stated otherwise, a permission on the whole <code>io.cozy.files</code> doctype is
 required to use the following routes.</p>
+<p>Authorization is resolved against the <strong>effective access</strong> of the target file
+or folder, not only the membership of the route&rsquo;s shared drive. The effective
+access combines every sharing scope applying to the target (the sharing of
+the route, plus any nested shared folder on its path) where the caller is a
+member:</p>
+<ul>
+<li>read routes targeting a file or folder by its ID (<code>GET</code>/<code>HEAD
+  .../:file-id</code>, download, thumbnails) require effective read on the target;</li>
+<li><code>GET /sharings/drives/:id/metadata</code> requires effective read on the folder
+  or file resolved from its <code>Path</code> query parameter, and answers
+  <code>404 Not Found</code> when the path resolves outside every sharing scope of the
+  caller (so that the existence of paths outside the drive is not revealed);</li>
+<li>write, update and delete routes (<code>POST</code>, <code>PUT</code>, <code>PATCH</code>, <code>DELETE</code>) require
+  effective write on the target file or folder;</li>
+<li>creation and upload routes require effective write on the destination
+  folder;</li>
+<li><code>PATCH</code> (metadata update, rename) requires effective write on the source
+  item; a move (the <code>parent</code> relationship) additionally requires effective
+  write on the destination folder;</li>
+<li><code>POST /sharings/drives/:id/:file-id/copy</code> requires effective read on the
+  source file and effective write on the destination folder;</li>
+<li>open routes (<code>GET /sharings/drives/:id/notes/:file-id/open</code>, <code>GET
+  /sharings/drives/:id/office/:file-id/open</code>, <code>GET
+  /sharings/drives/:id/editor/:file-id/open</code>) require effective read on the
+  target file. The opening is <strong>forced read-only</strong> when the member lacks
+  effective write on the target: the share-interact token carries ALL verbs
+  (including write), so the read-only restriction is enforced at the
+  application layer by rewriting the <code>ReadOnly</code> query parameter to <code>true</code>
+  before delegating to the note/office/editor handler. A member with
+  effective write access opens the file in read-write mode (unless they
+  explicitly pass <code>ReadOnly=true</code>); in that case the returned sharecode is
+  minted from the nearest sharing scope that grants the effective write (e.g.
+  a nested drive), never from the drive whose route was called when that
+  drive only grants read: the share-interact permission set covers the whole
+  drive, and a code scoped beyond the member&rsquo;s effective write would let them
+  write files they cannot write;</li>
+<li>trash routes (<code>POST</code>/<code>DELETE /sharings/drives/:id/trash/:file-id</code>) target
+  files outside every sharing scope: restore and destroy require effective
+  write on the folder the file would be restored to (or on its first
+  existing ancestor when the original folder hierarchy was deleted, as the
+  restore recreates it there);</li>
+<li>temporary download links (<code>POST /sharings/drives/:id/downloads</code> and <code>POST
+  /sharings/drives/:id/archive</code>) require effective read on every target
+  before minting the link. A target outside every sharing scope of the
+  caller is answered <code>404 Not Found</code>. The resulting <code>:secret</code> URL is not
+  authenticated (by design, so browsers can use it directly), so the link
+  should be treated as a capability: anyone holding it can download the
+  prepared content until it expires.</li>
+</ul>
+<p><code>GET /sharings/drives/:id/_changes</code> is not resolved per target: it returns
+the changes of the whole drive to every member. In the additive access mode,
+every member of the drive can read every file of the drive anyway, so no
+per-line filtering is needed.</p>
+<p>A typical consequence: a member who is read-only on the drive root but has
+write access on a nested shared folder can write inside that folder through
+the drive routes, and is answered <code>403 Forbidden</code> elsewhere.</p>
+<p>Known limitation: write routes without a file target (<code>POST
+/sharings/drives/:id/</code>, <code>POST /sharings/drives/:id/upload/metadata</code>, <code>POST
+/sharings/drives/:id/notes</code>) are authorized against the effective write
+access on the <strong>drive root</strong>, not on the actual destination folder declared
+in the request body (<code>dir_id</code>). As a consequence, a member who is read-only
+on the drive root but has write access on a nested shared folder cannot use
+these routes to target that folder: they get a <code>403 Forbidden</code> false
+negative. Clients in that situation should use a targeted route instead
+(<code>POST /sharings/drives/:id/:file-id</code> with the destination folder ID), which
+is checked against the effective access of the destination folder. This
+limitation will be lifted with <code>limited_access</code> support.</p>
 <p>For file-root shared drives (<code>drive_root_type = file</code>), iteration 1 currently
 supports only file-shaped routes. Directory-only routes return
 <code>422 Unprocessable Entity</code>. <code>_changes</code> and realtime are available with exact
@@ -9782,6 +9849,7 @@ See there for request and response examples</p>
 <h3 id="post-sharingsdrivesiddownloads">POST /sharings/drives/:id/downloads<a class="headerlink" href="#post-sharingsdrivesiddownloads" title="Permanent link">&para;</a></h3>
 <p>Two-step download of a single file: creates a short-lived secret link (valid 10 minutes) pointing back to the shared drive download endpoint. Useful when the client cannot set an <code>Authorization</code> header on the eventual GET (e.g. a plain <code>&lt;a&gt;</code> tag).</p>
 <p>Identical call to <a href="../files/#post-filesdownloads"><code>POST /files/downloads</code></a> but over a shared drive. The <code>links.related</code> in the response will point to <code>/sharings/drives/:id/downloads/:secret/:filename</code> instead of <code>/files/downloads/...</code>.</p>
+<p>Drive tokens (share-interact) are checked against the member&rsquo;s effective read access on the target file; a target outside every sharing scope of the caller is answered <code>404 Not Found</code>.</p>
 <h3 id="get-sharingsdrivesiddownloadssecretfake-name">GET /sharings/drives/:id/downloads/:secret/:fake-name<a class="headerlink" href="#get-sharingsdrivesiddownloadssecretfake-name" title="Permanent link">&para;</a></h3>
 <p>Download the file prepared by the <code>POST /sharings/drives/:id/downloads</code> call above. The <code>:fake-name</code> segment is ignored by the server — it exists solely so browsers use it as the suggested save-as filename.</p>
 <p>Does not require an <code>Authorization</code> header (the secret acts as the credential).</p>
@@ -9790,6 +9858,7 @@ See there for request and response examples</p>
 <p>This route is supported only for directory-root shared drives. File-root shared
 drives return <code>422 Unprocessable Entity</code>.</p>
 <p>The request body follows the same format as <a href="../files/#post-filesarchive"><code>POST /files/archive</code></a>. The <code>links.related</code> in the response points to <code>/sharings/drives/:id/archive/:secret/:name.zip</code> instead of <code>/files/archive/...</code>.</p>
+<p>Drive tokens (share-interact) are checked against the member&rsquo;s effective read access on every target (<code>ids</code> and <code>files</code> entries); any target outside every sharing scope of the caller fails the whole request with <code>404 Not Found</code>. The <code>/</code> and <code>/files</code> pseudo-entries are governed by the VFS permission check only (they cover the whole account, outside any drive scope).</p>
 <h4 id="request_2">Request<a class="headerlink" href="#request_2" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="nf">POST</span> <span class="nn">/sharings/drives/aae62886e79611ef8381fb83ff72e425/archive</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer token</span>
@@ -10209,6 +10278,9 @@ shared drive:</p>
 <li><code>PATCH /sharings/drives/:id/permissions/:perm-id</code></li>
 <li><code>DELETE /sharings/drives/:id/permissions/:perm-id</code></li>
 </ul>
+<p>On every route, the targeted file or folder must be <strong>effectively readable</strong>
+by the caller (see the effective access rules in
+<a href="#files-and-directories">Files and directories</a>).</p>
 <h3 id="get-sharingsdrivesidpermissionsids">GET /sharings/drives/:id/permissions?ids=&hellip;<a class="headerlink" href="#get-sharingsdrivesidpermissionsids" title="Permanent link">&para;</a></h3>
 <p>Lists the share-by-link permissions for the requested file or folder IDs inside
 the shared drive.</p>
@@ -10367,18 +10439,18 @@ drives return <code>422 Unprocessable Entity</code>.</p>
 <h3 id="get-sharingsdrivesidnotesfile-idopen">GET /sharings/drives/:id/notes/:file-id/open<a class="headerlink" href="#get-sharingsdrivesidnotesfile-idopen" title="Permanent link">&para;</a></h3>
 <p>Return the parameters to build the URL where the note can be opened.
 Identical to <a href="../notes/#get-notesidopen"><code>GET /notes/:file-id/open</code></a>.</p>
+<p>Drive tokens (share-interact) are checked against the member&rsquo;s effective read access on the target; a target outside every sharing scope of the caller is answered <code>404 Not Found</code>. The opening is forced read-only (the sharecode resolves to a <code>share-preview</code> permission) when the member lacks effective write access on the target. Otherwise the sharecode is minted from the nearest sharing scope that grants the effective write.</p>
 <h2 id="office">Office<a class="headerlink" href="#office" title="Permanent link">&para;</a></h2>
 <h3 id="get-sharingsdrivesidofficefile-idopen">GET /sharings/drives/:id/office/:file-id/open<a class="headerlink" href="#get-sharingsdrivesidofficefile-idopen" title="Permanent link">&para;</a></h3>
 <p>Returns the parameters to open an office document. Identical to
 <a href="../office/#get-officeidopen"><code>GET /office/:file-id/open</code></a>.</p>
+<p>Drive tokens are checked and the opening forced read-only the same way as the notes open route.</p>
 <h2 id="editors">Editors<a class="headerlink" href="#editors" title="Permanent link">&para;</a></h2>
 <h3 id="get-sharingsdrivesideditorfile-idopen">GET /sharings/drives/:id/editor/:file-id/open<a class="headerlink" href="#get-sharingsdrivesideditorfile-idopen" title="Permanent link">&para;</a></h3>
 <p>Return the parameters to open a file from a shared drive with an editor.
 Identical to <a href="../files/#get-editorfile-idopen"><code>GET /editor/:file-id/open</code></a>, but
 scoped to the shared drive.</p>
-<p>Recipients are resolved through the shared-drive owner instance, so the returned
-<code>instance</code>, <code>file_id</code>, and <code>sharecode</code> are the values to use for opening the
-file on that owner instance.</p>
+<p>Drive tokens are checked and the opening forced read-only the same way as the notes open route.</p>
 <h2 id="shortcuts">Shortcuts<a class="headerlink" href="#shortcuts" title="Permanent link">&para;</a></h2>
 <h3 id="get-sharingsdrivesidshortcutsfile-id">GET /sharings/drives/:id/shortcuts/:file-id<a class="headerlink" href="#get-sharingsdrivesidshortcutsfile-id" title="Permanent link">&para;</a></h3>
 <p>Get information about a shortcut inside a shared drive. Identical to
