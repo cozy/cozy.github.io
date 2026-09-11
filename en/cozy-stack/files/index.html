@@ -11902,7 +11902,10 @@ rename/move it. The difference is the first one uses an id to identify the
 file/directory to update, and the second one uses the path.</p>
 <p>Some specific attributes of the patch can be used:</p>
 <ul>
-<li><code>dir_id</code> attribute can be updated to move a file or directory</li>
+<li><code>dir_id</code> attribute can be updated to move a file or directory. Moving
+  requires POST permission on the destination directory, and moving a file or
+  directory from or into a shared drive is rejected: such moves must use
+  <code>POST /sharings/drives/move</code> instead</li>
 <li><code>move_to_trash</code> boolean to specify that the file needs to be moved to the
   trash</li>
 <li><code>permanent_delete</code> boolean to specify that the files needs to be deleted
@@ -11939,11 +11942,14 @@ file/directory (optional).</p>
 <li>200 OK, when the file or directory metadata has been successfully updated</li>
 <li>400 Bad Request, when a the directory is asked to move to one of its
   sub-directories</li>
-<li>404 Not Found, when the file/directory wasn&rsquo;t existing</li>
+<li>403 Forbidden, when the permission does not allow PATCH on the target, or
+  POST on the destination directory of a move</li>
+<li>404 Not Found, when the file/directory wasn&rsquo;t existing, or when the
+  destination parent doesn&rsquo;t exist</li>
 <li>412 Precondition Failed, when the <code>If-Match</code> header is set and doesn&rsquo;t match
   the last revision of the file/directory</li>
-<li>422 Unprocessable Entity, when the sent data is invalid (for example, the
-  parent doesn&rsquo;t exist)</li>
+<li>422 Unprocessable Entity, when the sent data is invalid, or when the move
+  crosses a shared drive boundary</li>
 </ul>
 <h4 id="response_14">Response<a class="headerlink" href="#response_14" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
