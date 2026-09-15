@@ -8283,6 +8283,23 @@
 <span class="w">          </span><span class="nt">delivery_limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
 <span class="w">          </span><span class="nt">bindings</span><span class="p">:</span>
 <span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app.installation.requested</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">platform</span>
+<span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">topic</span>
+<span class="w">      </span><span class="nt">durable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">declare_exchange</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">queues</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack.banner.commands</span>
+<span class="w">          </span><span class="nt">declare</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">declare_dlx</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">declare_dlq</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">dlx_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack.platform.dlx</span>
+<span class="w">          </span><span class="nt">dlq_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack.dead.letter.banner.commands</span>
+<span class="w">          </span><span class="nt">dl_routing_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">banner.commands.dead</span>
+<span class="w">          </span><span class="nt">prefetch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+<span class="w">          </span><span class="nt">delivery_limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">          </span><span class="nt">bindings</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">banner.materialize</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">banner.clear</span>
 </code></pre></div>
 <h3 id="dead-letter-exchange-dlx-and-dead-letter-queue-dlq">Dead Letter Exchange (DLX) and Dead Letter Queue (DLQ)<a class="headerlink" href="#dead-letter-exchange-dlx-and-dead-letter-queue-dlq" title="Permanent link">&para;</a></h3>
 <p>The RabbitMQ integration supports Dead Letter Exchange (DLX) and Dead Letter Queue (DLQ) functionality for handling failed messages:</p>
@@ -8381,12 +8398,18 @@ messages; if no queue is bound when the Stack publishes, the user receives
 <span class="p">}</span>
 </code></pre></div>
 <p>Returning <code>nil</code> acknowledges the message. Returning a non-nil error causes the message to be requeued (subject to broker policies and delivery limits).</p>
+<p>A handler does not classify its errors. Every failure is nacked with requeue,
+and the queue&rsquo;s <code>delivery_limit</code> is what bounds the retries: once it is reached
+the broker dead letters the message. So a payload that does not parse costs a
+few redeliveries before it lands in the dead letter queue, and a storage failure
+gets those same attempts to succeed.</p>
 <p>Queue names are mapped to handlers in the stack. For example:</p>
 <ul>
 <li><code>user.password.updated</code> → updates an instance passphrase when a <code>user.password.updated</code> routing key is received.</li>
 <li><code>user.created</code> → validates and processes user creation events.</li>
 <li><code>user.phone.updated</code> → updates the phone number stored in user settings.</li>
 <li><code>domain.user.deleted</code> on the <code>b2b</code> exchange → removes externally managed organization contacts.</li>
+<li><code>banner.materialize</code> and <code>banner.clear</code> on the <code>platform</code> exchange → materializes or clears a platform banner, see <a href="../banners/">Banners</a>.</li>
 </ul>
 <p>Message schemas are JSON and validated in the handler. Example payload for <code>user.password.updated</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>

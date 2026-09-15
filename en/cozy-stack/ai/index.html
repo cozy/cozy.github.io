@@ -6012,6 +6012,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#operator-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operator tools
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#post-aiindexstatus" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8078,6 +8089,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#operator-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operator tools
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#post-aiindexstatus" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8342,18 +8364,46 @@ a classical pattern in the AI world. Here, it is specific to each Cozy.</p>
 <p>First of all, the RAG server must be installed with its dependencies. It is
 not mandatory to install them on the same servers as the cozy-stack. And the
 URL of RAG must be filled in cozy-stack configuration file (in <code>rag</code>).</p>
-<p>For the moment, the feature is experimental, and a trigger must be created
-manually on the Cozy:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nv">COZY</span><span class="o">=</span>cozy.localhost:8080
-$<span class="w"> </span><span class="nv">TOKEN</span><span class="o">=</span><span class="k">$(</span>cozy-stack<span class="w"> </span>instances<span class="w"> </span>token-cli<span class="w"> </span><span class="nv">$COZY</span><span class="w"> </span>io.cozy.triggers<span class="k">)</span>
-$<span class="w"> </span>curl<span class="w"> </span><span class="s2">"http://</span><span class="si">${</span><span class="nv">COZY</span><span class="si">}</span><span class="s2">/jobs/triggers"</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="nv">$TOKEN</span><span class="s2">"</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">'{ "data": { "attributes": { "type": "@event", "arguments": "io.cozy.files", "debounce": "1m", "worker": "rag-index", "message": {"doctype": "io.cozy.files"} } } }'</span>
+<p>The indexing follows the assistants: every <code>io.cozy.ai.chat.assistants</code>
+document whose <code>knowledgeBase</code> has an <code>io.cozy.files</code> entry defines a folder
+to index. The files of that folder (recursively) are sent to the openRAG
+server and attached to the workspace named after the folder id; the
+assistant&rsquo;s retrieval is scoped to that workspace.</p>
+<p>openRAG indexes an upload asynchronously: while the task runs, it still
+answers 404 on the file but refuses a second POST with a 409. The worker then
+sends the file again with a PUT, which re-indexes the content, instead of
+failing on the conflict.</p>
+<p>openRAG also deduplicates by content: a partition holds one document per
+distinct content, and an upload whose content is already indexed under
+another file id is refused with a 409 <code>DOCUMENT_CONTENT_EXISTS</code>. The worker
+logs that file once (with the id of the document already holding the content)
+and skips it for good: it is not indexed, and not attached to any workspace,
+so a search hit points at the other copy. A reconcile of its folder does not
+change that — the second copy is refused again, and only counted in the
+summary of the walk.</p>
+<p>The <code>rag-index</code> worker does all of this in one job per instance, reading the
+changes feed of <code>io.cozy.files</code> from a checkpoint. It is woken up by two
+<code>@event</code> triggers, created by the app in charge of the assistants (the worker
+is not reserved, an app token with the <code>io.cozy.triggers</code> permission is
+enough):</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@event"</span><span class="p">,</span><span class="w"> </span><span class="nt">"arguments"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.files"</span><span class="p">,</span><span class="w"> </span><span class="nt">"debounce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30s"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"worker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rag-index"</span><span class="p">,</span><span class="w"> </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"doctype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.files"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div>
-<p>It can also be a good idea to start a first indexation with:</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>cozy-stack<span class="w"> </span>triggers<span class="w"> </span>launch<span class="w"> </span>--domain<span class="w"> </span><span class="nv">$COZY</span><span class="w"> </span><span class="nv">$TRIGGER_ID</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="w"> </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"@event"</span><span class="p">,</span><span class="w"> </span><span class="nt">"arguments"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.ai.chat.assistants"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"worker"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rag-index"</span><span class="p">,</span><span class="w"> </span><span class="nt">"message"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"doctype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.files"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div>
-<p>In practice, when files are uploaded/modified/deleted, the trigger will create
-a job for the index worker (with debounce). The index worker will look at the
-changed feed, and will call the RAG for each entry in the changes feed.</p>
+<p>The second trigger only wakes the worker when an assistant is created,
+modified or deleted: the worker then creates the workspace of a new folder
+and pushes a job that walks its subtree (in that order: nothing is indexed
+into a workspace that does not exist, and a workspace whose job could not be
+pushed is deleted again, so the next run retries both), or removes the
+workspace of a folder no assistant uses any more (its files are deleted from
+openRAG when no other folder contains them).</p>
+<p>A chat on an assistant whose folder has no workspace yet (the job did not run
+since the assistant was created) fails with an error event saying the
+knowledge base is not indexed; it works once the job ran.</p>
 <p>By default, only text-based files are indexed. Images, videos, and audio files
 can be indexed by enabling the following feature flags:</p>
 <ul>
@@ -8361,6 +8411,45 @@ can be indexed by enabling the following feature flags:</p>
 <li><code>rag.index.video.enabled</code></li>
 <li><code>rag.index.audio.enabled</code></li>
 </ul>
+<h3 id="operator-tools">Operator tools<a class="headerlink" href="#operator-tools" title="Permanent link">&para;</a></h3>
+<p>The admin API exposes them (see <a href="../admin/">admin.md</a> for the details):</p>
+<ul>
+<li><code>POST /instances/:domain/rag/reset</code> deletes the checkpoint and launches the
+  indexing: the whole changes feed is scanned again. It is the recovery when
+  changes were skipped for good, i.e. when a batch was given up on after too
+  many attempts (typically after a long openRAG outage) and the files it held
+  did not change since, and the way to launch the indexing right after a purge.</li>
+<li><code>POST /instances/:domain/rag/reconcile?dir_id=&lt;id&gt;</code> re-indexes the subtree
+  of one knowledge base folder (without <code>dir_id</code>, of all of them).</li>
+<li><code>POST /instances/:domain/rag/prune</code> deletes from openRAG the files no
+  knowledge base folder claims and the workspaces of folders no assistant uses.</li>
+<li><code>POST /instances/:domain/rag/purge</code> deletes everything openRAG holds for the
+  instance (files, workspaces, partition) and the checkpoint.</li>
+</ul>
+<p>A reconcile job skips the files openRAG refuses for good (an unsupported
+format, say); a file whose content is missing from the storage is skipped as
+well, since it will not come back: each one is logged and the walk goes on,
+so only transient errors (network, 5xx) fail the job and have the worker walk
+the folder again.
+A skipped file stays unindexed until it changes, or until an operator re-walks
+its folder with <code>POST /instances/:domain/rag/reconcile?dir_id=&lt;id&gt;</code>.</p>
+<p>None of these routes is called by the stack itself: they are for an operator
+(the jobs pushed by the triggers, and the workspace reconciliation they start
+with, cover the normal course of things).</p>
+<p>Recovery: an initial indexing that did not finish (the job of a very large
+folder, a whole-Drive assistant typically, hit the worker timeout) is
+restarted with <code>POST /instances/:domain/rag/reconcile?dir_id=&lt;id&gt;</code>; nothing
+else replays it, since the files of the folder did not change. Removing a
+whole-Drive workspace is also much cheaper with the prune route, which
+makes one pass over openRAG&rsquo;s file list, than through the automatic detach of
+the workspace diff, which walks the subtree file by file. Note that prune and
+purge do not take the lock the indexing jobs use: run them when no rag-index
+job is running.</p>
+<p>A trigger can still be created by hand with a CLI token:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nv">COZY</span><span class="o">=</span>cozy.localhost:8080
+$<span class="w"> </span><span class="nv">TOKEN</span><span class="o">=</span><span class="k">$(</span>cozy-stack<span class="w"> </span>instances<span class="w"> </span>token-cli<span class="w"> </span><span class="nv">$COZY</span><span class="w"> </span>io.cozy.triggers<span class="k">)</span>
+$<span class="w"> </span>curl<span class="w"> </span><span class="s2">"http://</span><span class="si">${</span><span class="nv">COZY</span><span class="si">}</span><span class="s2">/jobs/triggers"</span><span class="w"> </span>-H<span class="w"> </span><span class="s2">"Authorization: Bearer </span><span class="nv">$TOKEN</span><span class="s2">"</span><span class="w"> </span>-d<span class="w"> </span><span class="s1">'{ "data": { "attributes": { "type": "@event", "arguments": "io.cozy.files", "debounce": "30s", "worker": "rag-index", "message": {"doctype": "io.cozy.files"} } } }'</span>
+</code></pre></div>
 <h3 id="post-aiindexstatus">POST /ai/index/status<a class="headerlink" href="#post-aiindexstatus" title="Permanent link">&para;</a></h3>
 <p>The RAG indexer reports the indexation status of a document on this route. The
 status is saved on an <code>io.cozy.ai.chat.rag</code> document whose identifier is the
@@ -8378,6 +8467,7 @@ identifier of the document it describes. Only files are indexed for now.</p>
 <span class="w">  </span><span class="nt">"metadata"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"doc_rev"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3-6a1b0b8a51a4e0e0a3b7f0f1d2c3b4a5"</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">"datetime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-08-20T08:12:00.000Z"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2026-08-20T08:12:03.512Z"</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">"doctype"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.files"</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
@@ -8494,7 +8584,11 @@ response. The client must use the real-time websocket and subscribe to
 <li><code>stream</code> enables streaming the response via SSE deltas (defaults to <code>true</code>).</li>
 <li><code>websearch</code> enables web search for the query (defaults to <code>false</code>).</li>
 <li><code>assistantID</code> (optional) associates the conversation with an <code>io.cozy.ai.chat.assistants</code>
-  document. When set, the response includes a <code>relationships</code> block.</li>
+  document. When set, the response includes a <code>relationships</code> block.
+  When the assistant has a knowledge base folder, the retrieval is scoped to
+  that folder&rsquo;s workspace. The assistant&rsquo;s folder must have been indexed at
+  least once by the <code>rag-index</code> worker; otherwise the query fails with an
+  error event saying the knowledge base is not indexed.</li>
 <li><code>attachmentIDs</code> (optional) array of ids, specifying which documents should be leveraged by the RAG.</li>
 </ul>
 <h4 id="response_3">Response<a class="headerlink" href="#response_3" title="Permanent link">&para;</a></h4>

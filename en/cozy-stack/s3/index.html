@@ -7742,6 +7742,28 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#separate-or-mixed-buckets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Separate or mixed buckets
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bucket-provisioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bucket provisioning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#local-development-with-minio" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -7758,52 +7780,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#bucket-strategy" class="md-nav__link">
+  <a href="#storage-namespaces" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Bucket strategy
+        Storage namespaces
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Bucket strategy">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#design-rationale" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Design rationale
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#bucket-naming" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Bucket naming
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#dedicated-buckets-for-secondary-storage" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Dedicated buckets for secondary storage
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -7925,18 +7908,25 @@
 <h1 id="s3-storage-backend">S3 Storage Backend<a class="headerlink" href="#s3-storage-backend" title="Permanent link">&para;</a></h1>
 <p>cozy-stack supports S3-compatible object storage as a file system backend,
 alongside the existing local filesystem (afero) and OpenStack Swift backends.
-It has been designed to work with any S3-compatible provider (OVH, MinIO,
-Scaleway, etc.) and does not depend on the AWS SDK.</p>
+It supports S3-compatible providers such as OVH, MinIO and Scaleway.</p>
 <h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
-<p>The S3 backend is configured via the <code>fs.url</code> parameter using the <code>s3://</code>
-scheme. All connection parameters are passed as query parameters:</p>
+<p>Set <code>fs.url</code> to the default S3 connection and configure destinations in
+<code>fs.s3.buckets</code>. Each entry contains a bucket <code>name</code> and an optional <code>url</code>.
+Bucket names are never generated from prefixes or organization IDs.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">fs</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">s3://s3.rbx.io.cloud.ovh.net?access_key=ACCESS&amp;secret_key=SECRET&amp;region=rbx&amp;bucket_prefix=cozy&amp;use_ssl=true</span>
+<span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">s3://s3.example.net?access_key=ACCESS&amp;secret_key=SECRET&amp;region=gra</span>
+<span class="w">  </span><span class="nt">s3</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">buckets</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">default</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">company-storage</span>
 </code></pre></div>
+<p>This stores everything in one bucket, with separate object paths for each
+storage type. All organizations share the files bucket; each instance has
+its own path beneath <code>files/</code>.</p>
 <table>
 <thead>
 <tr>
-<th>Parameter</th>
+<th>URL parameter</th>
 <th>Description</th>
 <th>Default</th>
 </tr>
@@ -7954,23 +7944,69 @@ scheme. All connection parameters are passed as query parameters:</p>
 </tr>
 <tr>
 <td><code>region</code></td>
-<td>S3 region</td>
-<td>—</td>
-</tr>
-<tr>
-<td><code>bucket_prefix</code></td>
-<td>Prefix for all bucket names</td>
-<td><code>cozy</code></td>
+<td>Region for requests and bucket creation</td>
+<td>SDK discovery/default</td>
 </tr>
 <tr>
 <td><code>use_ssl</code></td>
-<td>Use HTTPS for S3 connections</td>
+<td>Use HTTPS</td>
 <td><code>true</code></td>
 </tr>
 </tbody>
 </table>
-<p>The host part of the URL is the S3 endpoint (e.g. <code>s3.rbx.io.cloud.ovh.net</code>
-for OVH, <code>localhost:9000</code> for MinIO).</p>
+<p>URL-encode credentials containing reserved query characters. Specify <code>region</code>
+in every connection URL to avoid location discovery requests.</p>
+<h3 id="separate-or-mixed-buckets">Separate or mixed buckets<a class="headerlink" href="#separate-or-mixed-buckets" title="Permanent link">&para;</a></h3>
+<p>Configure a bucket name and connection together for each storage type:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">fs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">s3://s3.example.net?access_key=DEFAULT_KEY&amp;secret_key=DEFAULT_SECRET&amp;region=gra</span>
+<span class="w">  </span><span class="nt">s3</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">auto_create_buckets</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">buckets</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">default</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">company-storage</span>
+<span class="w">      </span><span class="nt">files</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">company-files</span>
+<span class="w">        </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">s3://files.example.net?access_key=FILES_KEY&amp;secret_key=FILES_SECRET&amp;region=rbx</span>
+<span class="w">      </span><span class="nt">exports</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">company-backups</span>
+</code></pre></div>
+<p>The supported types are <code>files</code>, <code>apps_web</code>, <code>apps_konnectors</code>, <code>assets</code>,
+<code>previews</code>, and <code>exports</code>. Types without an entry use the complete <code>default</code>
+entry. To use only separate destinations, omit <code>default</code> and specify all six
+types. Several types can use the same bucket name and URL.</p>
+<p>Every entry requires <code>name</code>. Its optional <code>url</code> supplies the endpoint,
+credentials, region and TLS setting; omitting it uses <code>fs.url</code>. An explicit
+entry does not inherit fields from <code>default</code>. Entries with the same URL reuse
+one connection, and each bucket on that connection is initialized once.
+The same bucket name can also be used on different connections.
+Copies between different connections stream through the stack.</p>
+<p>Invalid names, unknown storage types, missing destinations and invalid
+connection URLs cause startup errors. Configuration errors do not print
+connection credentials.</p>
+<h3 id="bucket-provisioning">Bucket provisioning<a class="headerlink" href="#bucket-provisioning" title="Permanent link">&para;</a></h3>
+<p><code>auto_create_buckets</code> defaults to <code>true</code>: startup creates each distinct bucket
+once, using its connection&rsquo;s region. Existing buckets are accepted. Credentials
+must allow bucket creation; bucket enumeration is not used.</p>
+<p>With <code>auto_create_buckets: false</code>, create the configured buckets before starting
+the stack. Startup checks each distinct bucket with <code>HeadBucket</code>, without listing
+or creating buckets. Missing or inaccessible buckets fail startup with a
+bucket-specific error. All startup bucket operations have a 30-second timeout.
+Loading or initializing an instance does not probe S3.</p>
+<p>Credentials must allow <code>HeadBucket</code> on each configured bucket and the object
+operations used by the stack, including listing, reads, writes, deletes and
+multipart uploads. Consult your storage provider&rsquo;s documentation for the
+corresponding permissions. Permission to enumerate or create buckets is not
+required when creation is disabled. Dynamic asset health checks also use
+<code>HeadBucket</code> and honor shorter caller deadlines.</p>
+<p>Environment variables override YAML:</p>
+<ul>
+<li><code>COZY_FS_S3_BUCKETS_DEFAULT_NAME</code> sets the default bucket name.</li>
+<li><code>COZY_FS_S3_BUCKETS_FILES_NAME</code> and <code>COZY_FS_S3_BUCKETS_FILES_URL</code> configure
+  the files destination; the other types follow the same pattern, such as
+  <code>COZY_FS_S3_BUCKETS_APPS_WEB_NAME</code>.</li>
+<li><code>COZY_FS_S3_AUTO_CREATE_BUCKETS=false</code> disables creation; <code>true</code> enables it.</li>
+</ul>
 <h3 id="local-development-with-minio">Local development with MinIO<a class="headerlink" href="#local-development-with-minio" title="Permanent link">&para;</a></h3>
 <p>This tutorial explains how to set up a local S3 backend using MinIO for
 development and testing.</p>
@@ -7980,7 +8016,7 @@ development and testing.</p>
 <span class="w">  </span>-p<span class="w"> </span><span class="m">9001</span>:9001<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-e<span class="w"> </span><span class="nv">MINIO_ROOT_USER</span><span class="o">=</span>minioadmin<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-e<span class="w"> </span><span class="nv">MINIO_ROOT_PASSWORD</span><span class="o">=</span>minioadmin<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>minio/minio<span class="w"> </span>server<span class="w"> </span>/data<span class="w"> </span>--console-address<span class="w"> </span><span class="s2">":9001"</span>
+<span class="w">  </span>quay.io/minio/minio:RELEASE.2025-02-28T09-55-16Z<span class="w"> </span>server<span class="w"> </span>/data<span class="w"> </span>--console-address<span class="w"> </span><span class="s2">":9001"</span>
 </code></pre></div>
 <p>MinIO is now running:
 - S3 API: <code>http://localhost:9000</code>
@@ -7990,7 +8026,11 @@ development and testing.</p>
 is needed.</p>
 <p>Edit your <code>~/.cozy/cozy.yaml</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">fs</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">s3://localhost:9000?access_key=minioadmin&amp;secret_key=minioadmin&amp;bucket_prefix=cozy&amp;use_ssl=false</span>
+<span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">s3://localhost:9000?access_key=minioadmin&amp;secret_key=minioadmin&amp;use_ssl=false</span>
+<span class="w">  </span><span class="nt">s3</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">buckets</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">default</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">company-storage</span>
 </code></pre></div>
 <p><strong>3. Build and start:</strong></p>
 <div class="highlight"><pre><span></span><code>go<span class="w"> </span>build<span class="w"> </span>-o<span class="w"> </span>~/go/bin/cozy-stack<span class="w"> </span>.
@@ -8009,7 +8049,7 @@ cozy-stack<span class="w"> </span>apps<span class="w"> </span>install<span class
 </code></pre></div>
 <p><strong>5. Verify:</strong></p>
 <p>Check that objects appear in MinIO:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>minio<span class="w"> </span>mc<span class="w"> </span>ls<span class="w"> </span>--recursive<span class="w"> </span>local/cozy-apps-web/
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>minio<span class="w"> </span>mc<span class="w"> </span>ls<span class="w"> </span>--recursive<span class="w"> </span>local/company-storage/apps-web/
 </code></pre></div>
 <p>Upload a file via the Drive UI or the API:</p>
 <div class="highlight"><pre><span></span><code><span class="nv">TOKEN</span><span class="o">=</span><span class="k">$(</span>cozy-stack<span class="w"> </span>instances<span class="w"> </span>token-cli<span class="w"> </span>your.domain.localhost:8080<span class="w"> </span>io.cozy.files<span class="k">)</span>
@@ -8020,89 +8060,78 @@ curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </spa
 <span class="w">  </span>-d<span class="w"> </span><span class="s2">"Hello S3!"</span>
 </code></pre></div>
 <p>Verify the file is in MinIO:</p>
-<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>minio<span class="w"> </span>mc<span class="w"> </span>ls<span class="w"> </span>--recursive<span class="w"> </span>local/cozy-default/
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>minio<span class="w"> </span>mc<span class="w"> </span>ls<span class="w"> </span>--recursive<span class="w"> </span>local/company-storage/files/
 </code></pre></div>
 <p><strong>6. Switching back to local filesystem:</strong></p>
 <p>Comment out the S3 URL in your config and restart cozy-stack:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">fs</span><span class="p">:</span>
-<span class="w">  </span><span class="c1"># url: s3://localhost:9000?access_key=minioadmin&amp;secret_key=minioadmin&amp;bucket_prefix=cozy&amp;use_ssl=false</span>
+<span class="w">  </span><span class="c1"># url: s3://localhost:9000?access_key=minioadmin&amp;secret_key=minioadmin&amp;use_ssl=false</span>
 </code></pre></div>
 <p>Note: files uploaded to S3 won&rsquo;t be accessible when using the local
 filesystem backend, and vice versa. Each backend has its own storage.</p>
-<h2 id="bucket-strategy">Bucket strategy<a class="headerlink" href="#bucket-strategy" title="Permanent link">&para;</a></h2>
-<h3 id="design-rationale">Design rationale<a class="headerlink" href="#design-rationale" title="Permanent link">&para;</a></h3>
-<p>Swift uses one container per instance (<code>cozy-v3-&lt;DBPrefix&gt;</code>). This doesn&rsquo;t
-scale well for S3 where bucket creation can be limited (AWS limits to 100
-buckets per account by default, OVH to 100 as well). Instead, the S3 backend
-uses a <strong>shared bucket per organization</strong> with <strong>key prefixes per instance</strong>.</p>
-<h3 id="bucket-naming">Bucket naming<a class="headerlink" href="#bucket-naming" title="Permanent link">&para;</a></h3>
-<p>Each bucket name is derived from the instance&rsquo;s <code>OrgID</code> field:</p>
-<div class="highlight"><pre><span></span><code>&lt;bucket_prefix&gt;-&lt;sanitized_org_id&gt;
-</code></pre></div>
-<ul>
-<li>If <code>OrgID</code> is empty, <code>"default"</code> is used as fallback</li>
-<li>The org ID is sanitized: lowercased, underscores/dots replaced by hyphens,
-  non-alphanumeric characters stripped, consecutive hyphens collapsed,
-  truncated to respect the 63-character S3 bucket name limit</li>
-<li>Examples: <code>cozy-default</code>, <code>cozy-acme-corp</code>, <code>cozy-org-12345</code></li>
-</ul>
-<h3 id="dedicated-buckets-for-secondary-storage">Dedicated buckets for secondary storage<a class="headerlink" href="#dedicated-buckets-for-secondary-storage" title="Permanent link">&para;</a></h3>
-<p>In addition to the main VFS bucket, the S3 backend uses dedicated buckets for
-other storage needs:</p>
+<h2 id="storage-namespaces">Storage namespaces<a class="headerlink" href="#storage-namespaces" title="Permanent link">&para;</a></h2>
+<p>The same object paths are used whether types share a bucket or use separate
+buckets. Every list and deletion is restricted to its type or instance path.</p>
 <table>
 <thead>
 <tr>
-<th>Bucket</th>
+<th>Storage type</th>
+<th>Object prefix</th>
 <th>Content</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>&lt;prefix&gt;-&lt;orgId&gt;</code></td>
-<td>Main VFS data (files, versions)</td>
+<td><code>files</code></td>
+<td><code>files/&lt;DBPrefix&gt;/</code></td>
+<td>Files, versions, avatars and thumbnails</td>
 </tr>
 <tr>
-<td><code>&lt;prefix&gt;-apps-web</code></td>
-<td>Web application assets (drive, etc.)</td>
+<td><code>apps_web</code></td>
+<td><code>apps-web/</code></td>
+<td>Installed web applications, markers and tarballs</td>
 </tr>
 <tr>
-<td><code>&lt;prefix&gt;-apps-konnectors</code></td>
-<td>Konnector assets</td>
+<td><code>apps_konnectors</code></td>
+<td><code>apps-konnectors/</code></td>
+<td>Installed konnectors, markers and tarballs</td>
 </tr>
 <tr>
-<td><code>&lt;prefix&gt;-assets</code></td>
-<td>Dynamic assets</td>
+<td><code>assets</code></td>
+<td><code>assets/</code></td>
+<td>Dynamic assets, grouped by context</td>
 </tr>
 <tr>
-<td><code>&lt;prefix&gt;-previews</code></td>
-<td>PDF preview and icon cache</td>
+<td><code>previews</code></td>
+<td><code>previews/</code></td>
+<td>PDF previews and icons</td>
 </tr>
 <tr>
-<td><code>&lt;prefix&gt;-exports</code></td>
-<td>Instance export archives</td>
+<td><code>exports</code></td>
+<td><code>exports/</code></td>
+<td>Instance export archives, grouped by domain</td>
 </tr>
 </tbody>
 </table>
-<p>Buckets are created automatically on first use.</p>
 <h2 id="object-key-structure">Object key structure<a class="headerlink" href="#object-key-structure" title="Permanent link">&para;</a></h2>
 <p>Within a bucket, each instance&rsquo;s data is isolated by a key prefix derived
 from <code>DBPrefix()</code> (typically the instance domain or a CouchDB prefix).</p>
 <h3 id="vfs-files">VFS files<a class="headerlink" href="#vfs-files" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>&lt;DBPrefix&gt;/&lt;docID_part1&gt;/&lt;docID_part2&gt;/&lt;docID_part3&gt;/&lt;internalID&gt;
+<div class="highlight"><pre><span></span><code>files/&lt;DBPrefix&gt;/&lt;docID_part1&gt;/&lt;docID_part2&gt;/&lt;docID_part3&gt;/&lt;internalID&gt;
 </code></pre></div>
 <p>The document ID (a 32-character UUID v7 hex string) is split into virtual
 subfolders to avoid flat hierarchies:</p>
-<div class="highlight"><pre><span></span><code>cozy218def.../019d35b1-9dc3-78ec-994d-f5/44336/7f1b6/e0AbCdEfGh123456
-              ^^^^^^^^^^^^^^^^^^^^^^       ^^^^^  ^^^^^  ^^^^^^^^^^^^^^^^
-              first 22 chars               5 ch   5 ch   16-char internalID
+<div class="highlight"><pre><span></span><code>files/cozy218def.../019d35b1-9dc3-78ec-994d-f5/44336/7f1b6/e0AbCdEfGh123456
+                    ^^^^^^^^^^^^^^^^^^^^^^       ^^^^^  ^^^^^  ^^^^^^^^^^^^^^^^
+                    first 22 chars               5 ch   5 ch   16-char internalID
 </code></pre></div>
 <p>This structure mirrors the Swift V3 layout (<code>MakeObjectNameV3</code>).</p>
 <h3 id="thumbnails">Thumbnails<a class="headerlink" href="#thumbnails" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>&lt;DBPrefix&gt;/thumbs/&lt;docID_split&gt;-&lt;format&gt;
+<div class="highlight"><pre><span></span><code>files/&lt;DBPrefix&gt;/thumbs/&lt;docID_split&gt;-&lt;format&gt;
 </code></pre></div>
 <p>Formats: <code>small</code>, <code>medium</code>, <code>large</code>.</p>
 <h3 id="avatar">Avatar<a class="headerlink" href="#avatar" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>&lt;DBPrefix&gt;/avatar
+<div class="highlight"><pre><span></span><code>files/&lt;DBPrefix&gt;/avatar
 </code></pre></div>
 <h2 id="memory-consumption">Memory consumption<a class="headerlink" href="#memory-consumption" title="Permanent link">&para;</a></h2>
 <p>The S3 backend is designed to have comparable memory usage to Swift:</p>
@@ -8186,7 +8215,10 @@ with a MinIO container that is started automatically.</p>
 <span class="w">  </span>go<span class="w"> </span><span class="nb">test</span><span class="w"> </span>./model/vfs/<span class="w"> </span>-run<span class="w"> </span>TestVfs<span class="w"> </span>-v<span class="w"> </span>-count<span class="o">=</span><span class="m">1</span><span class="w"> </span>-timeout<span class="w"> </span>300s
 
 <span class="c1"># Run naming unit tests (no external deps)</span>
-go<span class="w"> </span><span class="nb">test</span><span class="w"> </span>./model/vfs/vfss3/<span class="w"> </span>-run<span class="w"> </span><span class="s2">"TestSanitize|TestBucketName|TestMakeObjectKey|TestMakeDocID"</span><span class="w"> </span>-v
+go<span class="w"> </span><span class="nb">test</span><span class="w"> </span>./model/vfs/vfss3/<span class="w"> </span>-run<span class="w"> </span><span class="s2">"TestMakeObjectKey|TestMakeDocID"</span><span class="w"> </span>-v
+
+<span class="c1"># Exercise all storage types in one bucket (requires Docker, no CouchDB)</span>
+go<span class="w"> </span><span class="nb">test</span><span class="w"> </span>./model/move/<span class="w"> </span>-run<span class="w"> </span>TestS3SharedStorage<span class="w"> </span>-v<span class="w"> </span>-count<span class="o">=</span><span class="m">1</span><span class="w"> </span>-timeout<span class="w"> </span>2m
 </code></pre></div>
 
 
