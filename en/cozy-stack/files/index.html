@@ -6348,6 +6348,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#magic-folders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Magic folders
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#post-filesdir-id" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -9172,6 +9183,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#magic-folders" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Magic folders
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#post-filesdir-id" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -10534,6 +10556,29 @@ sensitive.</p>
 <code>io.cozy.files.root-dir</code>.</p>
 <p>You can use it in any request where you would use a directory, except you cannot
 delete it.</p>
+<h3 id="magic-folders">Magic folders<a class="headerlink" href="#magic-folders" title="Permanent link">&para;</a></h3>
+<p>These endpoints accept a magic folder ID in the directory path parameter:</p>
+<ul>
+<li><code>POST /files/:dir-id</code> with <code>Type=file</code> or <code>Type=directory</code></li>
+<li><code>GET /files/:dir-id</code></li>
+<li><code>GET /files/:dir-id/relationships/contents</code></li>
+<li><code>GET /files/:dir-id/size</code></li>
+</ul>
+<p>The supported IDs are <code>io.cozy.apps/mail</code>, <code>io.cozy.apps/notes</code>, and
+<code>io.cozy.files.shared-drives-dir</code> (the container for shared drives).
+Encode the slash in application IDs, for example:</p>
+<div class="highlight"><pre><span></span><code><span class="nf">POST</span> <span class="nn">/files/io.cozy.apps%2Fmail?Type=file&amp;Name=attachment.txt</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</code></pre></div>
+<p>The stack resolves application IDs through the matching <code>referenced_by</code>, even
+after a rename or move. It uses the first match. If none exists, or the directory
+is trashed, it creates a directory at the root with a translated name, or reuses
+an existing directory with that name. Trashed directories are left untouched.
+The Shared Drives container is created with its fixed ID if missing.</p>
+<p>Requests must be authenticated. Creating a missing magic folder does not
+require directory-creation permission; the requested operation still requires
+its usual permissions on the resolved directory. Response resource IDs and
+stored parent IDs use concrete directory IDs. Other IDs follow the usual lookup
+behavior.</p>
 <h3 id="post-filesdir-id">POST /files/:dir-id<a class="headerlink" href="#post-filesdir-id" title="Permanent link">&para;</a></h3>
 <p>Create a new directory. The <code>dir-id</code> parameter is optional. When it&rsquo;s not given,
 the directory is created at the root of the virtual file system.</p>
@@ -11198,6 +11243,7 @@ file/directory (optional).</p>
 <p>A file is a binary content with some metadata.</p>
 <h3 id="post-filesdir-id_1">POST /files/:dir-id<a class="headerlink" href="#post-filesdir-id_1" title="Permanent link">&para;</a></h3>
 <p>Upload a file in the directory identified by <code>:dir-id</code>.</p>
+<p>The <code>:dir-id</code> can be a <a href="#magic-folders">magic folder ID</a>.</p>
 <p>The <code>created_at</code> field will be the first valid value in this list:</p>
 <ul>
 <li>the datetime extracted from the EXIF for a photo</li>

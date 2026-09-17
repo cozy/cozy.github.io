@@ -12,7 +12,7 @@
         <meta name="author" content="CozyCloud - https://cozy.io">
       
       
-        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/cli/cozy-stack_instances/">
+        <link rel="canonical" href="https://docs.cozy.io/cozy-stack/cli/cozy-stack_instances_migrate-storage/">
       
       
       
@@ -25,7 +25,7 @@
     
     
       
-        <title>Cozy stack instances - Cozy Developer Documentation</title>
+        <title>Cozy stack instances migrate storage - Cozy Developer Documentation</title>
       
     
     
@@ -85,7 +85,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#cozy-stack-instances" class="md-skip">
+        <a href="#cozy-stack-instances-migrate-storage" class="md-skip">
           Skip to content
         </a>
       
@@ -119,7 +119,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Cozy stack instances
+              Cozy stack instances migrate storage
             
           </span>
         </div>
@@ -7728,15 +7728,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#cozy-stack-instances" class="md-nav__link">
+  <a href="#cozy-stack-instances-migrate-storage" class="md-nav__link">
     <span class="md-ellipsis">
       
-        cozy-stack instances
+        cozy-stack instances migrate-storage
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="cozy-stack instances">
+    <nav class="md-nav" aria-label="cozy-stack instances migrate-storage">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -7808,21 +7808,23 @@
   
 
 
-  <h1>Cozy stack instances</h1>
+  <h1>Cozy stack instances migrate storage</h1>
 
-<h2 id="cozy-stack-instances">cozy-stack instances<a class="headerlink" href="#cozy-stack-instances" title="Permanent link">&para;</a></h2>
-<p>Manage instances of a stack</p>
+<h2 id="cozy-stack-instances-migrate-storage">cozy-stack instances migrate-storage<a class="headerlink" href="#cozy-stack-instances-migrate-storage" title="Permanent link">&para;</a></h2>
+<p>Migrate an instance&rsquo;s file storage to another backend (e.g. s3)</p>
 <h3 id="synopsis">Synopsis<a class="headerlink" href="#synopsis" title="Permanent link">&para;</a></h3>
-<p>cozy-stack instances allows to manage the instances of this stack</p>
-<p>An instance is a logical space owned by one user and identified by a domain.
-For example, bob.cozycloud.cc is the instance of Bob. A single cozy-stack
-process can manage several instances.</p>
-<p>Each instance has a separate space for storing files and a prefix used to
-create its CouchDB databases.</p>
-<div class="highlight"><pre><span></span><code>cozy-stack instances &lt;command&gt; [flags]
+<p>cozy-stack instances migrate-storage copies an instance&rsquo;s files, file
+versions and avatar to another storage backend and switches the instance to it.
+The source data is kept unless &ndash;purge-source is given.</p>
+<div class="highlight"><pre><span></span><code>cozy-stack instances migrate-storage &lt;domain&gt; [flags]
 </code></pre></div>
 <h3 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code>  -h, --help   help for instances
+<div class="highlight"><pre><span></span><code>      --dry-run        Preview source content without copying, blocking, or switching
+      --flag-only      Switch the backend pointer without copying (rollback to a retained source)
+      --force          Required with --flag-only; writes since cutover are lost
+  -h, --help           help for migrate-storage
+      --purge-source   Delete source objects after a successful switch
+      --to string      Target storage scheme (default "s3")
 </code></pre></div>
 <h3 id="options-inherited-from-parent-commands">Options inherited from parent commands<a class="headerlink" href="#options-inherited-from-parent-commands" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>      --admin-host string   administration server host (default "localhost")
@@ -7833,32 +7835,7 @@ create its CouchDB databases.</p>
 </code></pre></div>
 <h3 id="see-also">SEE ALSO<a class="headerlink" href="#see-also" title="Permanent link">&para;</a></h3>
 <ul>
-<li><a href="../cozy-stack/">cozy-stack</a>    - cozy-stack is the main command</li>
-<li><a href="../cozy-stack_instances_add/">cozy-stack instances add</a>    - Manage instances of a stack</li>
-<li><a href="../cozy-stack_instances_auth-mode/">cozy-stack instances auth-mode</a>    - Set instance auth-mode</li>
-<li><a href="../cozy-stack_instances_clean-sessions/">cozy-stack instances clean-sessions</a>  - Remove the io.cozy.sessions and io.cozy.sessions.logins bases</li>
-<li><a href="../cozy-stack_instances_client-oauth/">cozy-stack instances client-oauth</a>  - Register a new OAuth client</li>
-<li><a href="../cozy-stack_instances_count/">cozy-stack instances count</a>    - Count the instances</li>
-<li><a href="../cozy-stack_instances_debug/">cozy-stack instances debug</a>    - Activate or deactivate debugging of the instance</li>
-<li><a href="../cozy-stack_instances_destroy/">cozy-stack instances destroy</a>    - Remove instance</li>
-<li><a href="../cozy-stack_instances_export/">cozy-stack instances export</a>  - Export an instance</li>
-<li><a href="../cozy-stack_instances_find-oauth-client/">cozy-stack instances find-oauth-client</a>    - Find an OAuth client</li>
-<li><a href="../cozy-stack_instances_fsck/">cozy-stack instances fsck</a>  - Check a vfs</li>
-<li><a href="../cozy-stack_instances_import/">cozy-stack instances import</a>  - Import data from an export link</li>
-<li><a href="../cozy-stack_instances_ls/">cozy-stack instances ls</a>  - List instances</li>
-<li><a href="../cozy-stack_instances_migrate-storage/">cozy-stack instances migrate-storage</a>    - Migrate an instance&rsquo;s file storage to another backend (e.g. s3)</li>
-<li><a href="../cozy-stack_instances_modify/">cozy-stack instances modify</a>  - Modify the instance properties</li>
-<li><a href="../cozy-stack_instances_refresh-token-oauth/">cozy-stack instances refresh-token-oauth</a>    - Generate a new OAuth refresh token</li>
-<li><a href="../cozy-stack_instances_set-disk-quota/">cozy-stack instances set-disk-quota</a>  - Change the disk-quota of the instance</li>
-<li><a href="../cozy-stack_instances_set-passphrase/">cozy-stack instances set-passphrase</a>  - Change the passphrase of the instance</li>
-<li><a href="../cozy-stack_instances_show/">cozy-stack instances show</a>  - Show the instance of the specified domain</li>
-<li><a href="../cozy-stack_instances_show-app-version/">cozy-stack instances show-app-version</a>  - Show instances that have a particular app version</li>
-<li><a href="../cozy-stack_instances_show-db-prefix/">cozy-stack instances show-db-prefix</a>  - Show the instance DB prefix of the specified domain</li>
-<li><a href="../cozy-stack_instances_show-swift-prefix/">cozy-stack instances show-swift-prefix</a>    - Show the instance swift prefix of the specified domain</li>
-<li><a href="../cozy-stack_instances_token-app/">cozy-stack instances token-app</a>    - Generate a new application token</li>
-<li><a href="../cozy-stack_instances_token-cli/">cozy-stack instances token-cli</a>    - Generate a new CLI access token (global access)</li>
-<li><a href="../cozy-stack_instances_token-konnector/">cozy-stack instances token-konnector</a>    - Generate a new konnector token</li>
-<li><a href="../cozy-stack_instances_token-oauth/">cozy-stack instances token-oauth</a>    - Generate a new OAuth access token</li>
+<li><a href="../cozy-stack_instances/">cozy-stack instances</a>    - Manage instances of a stack</li>
 </ul>
 
 

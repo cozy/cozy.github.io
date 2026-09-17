@@ -7780,6 +7780,78 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#migrating-an-instance-from-swift-to-s3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Migrating an instance from Swift to S3
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Migrating an instance from Swift to S3">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-configure-the-migration-target" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Configure the migration target
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-run-the-migration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Run the migration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-roll-back-if-needed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Roll back if needed
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-reclaim-the-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Reclaim the source
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-switch-the-global-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Switch the global default
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#storage-namespaces" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8069,6 +8141,101 @@ curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </spa
 </code></pre></div>
 <p>Note: files uploaded to S3 won&rsquo;t be accessible when using the local
 filesystem backend, and vice versa. Each backend has its own storage.</p>
+<h2 id="migrating-an-instance-from-swift-to-s3">Migrating an instance from Swift to S3<a class="headerlink" href="#migrating-an-instance-from-swift-to-s3" title="Permanent link">&para;</a></h2>
+<p>Instances can be moved from Swift to S3 one at a time, without changing the
+storage backend for the rest of the fleet. This is useful to validate S3 on
+a few instances before committing the whole platform to it.</p>
+<h3 id="1-configure-the-migration-target">1. Configure the migration target<a class="headerlink" href="#1-configure-the-migration-target" title="Permanent link">&para;</a></h3>
+<p>Set <code>fs.migration_target</code> to the S3 URL, keeping <code>fs.url</code> on <code>swift://</code>.
+Configure the target buckets in <code>fs.s3.buckets</code>. Both connections (Swift and S3)
+are then initialized at startup. Bucket entries without their own <code>url</code> use
+<code>fs.migration_target</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">fs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">swift://openstack/?UserName=...</span>
+<span class="w">  </span><span class="nt">migration_target</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">s3://s3.example.net?access_key=ACCESS&amp;secret_key=SECRET&amp;region=rbx</span>
+<span class="w">  </span><span class="nt">s3</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">auto_create_buckets</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">buckets</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">default</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">company-storage</span>
+</code></pre></div>
+<p>With <code>auto_create_buckets: false</code>, create the configured buckets before
+starting the stack. See <a href="../config/#storage-backend-migration"><code>fs.migration_target</code></a>
+in the configuration documentation for details on this key.</p>
+<h3 id="2-run-the-migration">2. Run the migration<a class="headerlink" href="#2-run-the-migration" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>cozy-stack<span class="w"> </span>instances<span class="w"> </span>migrate-storage<span class="w"> </span>&lt;domain&gt;<span class="w"> </span>--to<span class="w"> </span>s3
+</code></pre></div>
+<p>Use <code>--dry-run</code> to preview file and version counts, their combined byte size,
+and avatar presence. It does not copy data, create target containers, block the
+instance, or switch backends. This also applies with <code>--flag-only --force</code>.
+The instance remains active, so these counts can change before migration.
+Target verification happens only during an actual migration.</p>
+<p>Without <code>--dry-run</code>, the command:</p>
+<ul>
+<li>blocks HTTP access to the instance for the duration of the migration;</li>
+<li>compares the file and version databases&rsquo; <code>update_seq</code> values across a
+  five-second quiet period, aborting before copying if either changes;</li>
+<li>holds the instance&rsquo;s VFS write lock through copying, verification, backend
+  switching and optional source cleanup;</li>
+<li>copies the files, file versions, and the user&rsquo;s avatar to the S3 target
+  (thumbnails and installed apps are not copied; they regenerate on the
+  target backend);</li>
+<li>verifies the copied objects against the source;</li>
+<li>flips the instance&rsquo;s storage backend to S3 and restores its previous block state.</li>
+</ul>
+<p>By default the Swift source is kept as-is after a successful migration, so
+it stays available for a rollback.</p>
+<p>The CLI waits for completion without the usual 30-minute admin-client timeout.
+Follow the stack logs for the instance domain and the <code>storagemigration</code> namespace
+to see each phase and the final success or error. During copying, completed file,
+version and byte counts are logged when an object finishes and at least 30 seconds
+have passed since the last progress update. A single large object can therefore
+take longer without a progress update.</p>
+<p>Inspect the instance in another terminal:</p>
+<div class="highlight"><pre><span></span><code>cozy-stack<span class="w"> </span>instances<span class="w"> </span>show<span class="w"> </span>&lt;domain&gt;
+</code></pre></div>
+<p>The output includes <code>fs_scheme</code>, <code>blocked</code> and <code>blocking_reason</code> when set. A missing
+<code>fs_scheme</code> means the global <code>fs.url</code> scheme is used. A switch to the target means
+copy verification and cutover succeeded; optional source cleanup or block-state
+restoration may still be pending or have failed. <code>blocking_reason: "MOVING"</code> marks
+the migration block, but is not proof that the operation is still running.</p>
+<p>If the CLI disconnects, the server can continue migrating. Check the logs and
+instance state before retrying, unblocking the instance, or purging source data.
+Migration progress is not persisted as a job and cannot resume after a server
+restart.</p>
+<p><strong>Known limitations:</strong> the quiet-period check cannot detect uploads that are still
+streaming or avatar changes. The VFS lock only protects operations that use it;
+an upload already in progress can finalize against the source after it is released.
+Run migrations during low-activity periods until this is addressed.</p>
+<h3 id="3-roll-back-if-needed">3. Roll back if needed<a class="headerlink" href="#3-roll-back-if-needed" title="Permanent link">&para;</a></h3>
+<p>If something looks wrong shortly after the switch, before any real write
+has landed on the S3 target, flip the instance back to the retained Swift
+source instantly, without copying anything back:</p>
+<div class="highlight"><pre><span></span><code>cozy-stack<span class="w"> </span>instances<span class="w"> </span>migrate-storage<span class="w"> </span>&lt;domain&gt;<span class="w"> </span>--to<span class="w"> </span>swift<span class="w"> </span>--flag-only<span class="w"> </span>--force
+</code></pre></div>
+<p><code>--force</code> is required with <code>--flag-only</code> because any writes made against S3
+since the cutover are lost.</p>
+<p>If real data now lives on S3 and needs to be preserved, run a full
+migration back to Swift instead, which copies the data:</p>
+<div class="highlight"><pre><span></span><code>cozy-stack<span class="w"> </span>instances<span class="w"> </span>migrate-storage<span class="w"> </span>&lt;domain&gt;<span class="w"> </span>--to<span class="w"> </span>swift
+</code></pre></div>
+<h3 id="4-reclaim-the-source">4. Reclaim the source<a class="headerlink" href="#4-reclaim-the-source" title="Permanent link">&para;</a></h3>
+<p>Once confident the instance is stable on its new backend, delete the
+retained source objects:</p>
+<div class="highlight"><pre><span></span><code>cozy-stack<span class="w"> </span>instances<span class="w"> </span>migrate-storage<span class="w"> </span>&lt;domain&gt;<span class="w"> </span>--to<span class="w"> </span>s3<span class="w"> </span>--purge-source
+</code></pre></div>
+<p>Since the instance already uses <code>s3</code>, this runs in purge-only mode: nothing
+is copied, verified, or flipped, and the previously retained Swift data is
+simply deleted. The instance is not blocked for this step. Running the same
+command again is safe and is the way to retry a purge that failed right
+after an earlier switch.</p>
+<p>(<code>--purge-source</code> can also be supplied on the initial migration if no
+rollback window is needed.)</p>
+<h3 id="5-switch-the-global-default">5. Switch the global default<a class="headerlink" href="#5-switch-the-global-default" title="Permanent link">&para;</a></h3>
+<p>After the whole fleet has been migrated to S3, change the global <code>fs.url</code>
+to the S3 URL and remove <code>fs.migration_target</code>. From then on, the
+per-instance backend flag set by earlier migrations simply matches the
+global default.</p>
 <h2 id="storage-namespaces">Storage namespaces<a class="headerlink" href="#storage-namespaces" title="Permanent link">&para;</a></h2>
 <p>The same object paths are used whether types share a bucket or use separate
 buckets. Every list and deletion is restricted to its type or instance path.</p>

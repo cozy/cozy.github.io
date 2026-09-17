@@ -5372,6 +5372,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#storage-backend-migration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Storage backend migration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#multiple-couchdb-clusters" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8037,6 +8048,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#storage-backend-migration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Storage backend migration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#multiple-couchdb-clusters" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8242,6 +8264,35 @@ scrypt<span class="nv">$16384$8$1$936</span>bd62faf633b5f946f653c21161a9b<span c
 Magick, konnectors and services for example). And they can take several GB for
 the case of importing a Cozy. If needed, it is possible to configure the
 directory where they will be created via the <code>TMPDIR</code> environment variable.</p>
+<h2 id="storage-backend-migration">Storage backend migration<a class="headerlink" href="#storage-backend-migration" title="Permanent link">&para;</a></h2>
+<p>The <code>fs.url</code> parameter configures the storage backend (<code>file://</code>,
+<code>swift://</code> or <code>s3://</code>) used by all instances, as shown in
+<a href="https://github.com/cozy/cozy-stack/blob/master/cozy.example.yaml">cozy.example.yaml</a>
+and detailed in the <a href="../s3/">S3 storage backend</a> documentation.</p>
+<p>To move instances to a different backend one at a time, without changing
+the backend used by the rest of the fleet, an optional <code>fs.migration_target</code>
+key can be set to a second storage URL. Its connection is initialized
+alongside the default one at startup, so instances can be migrated to it
+while <code>fs.url</code> keeps pointing at the previous backend:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">fs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">swift://openstack/?UserName={{ .Env.OS_USERNAME }}&amp;Password={{ .Env.OS_PASSWORD }}</span>
+<span class="w">  </span><span class="nt">migration_target</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">s3://s3.example.net?access_key=ACCESS&amp;secret_key=SECRET&amp;region=rbx</span>
+<span class="w">  </span><span class="nt">s3</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">auto_create_buckets</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">buckets</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">default</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">company-storage</span>
+</code></pre></div>
+<p>As with <code>fs.url</code>, S3 credentials are passed as <code>access_key</code> and <code>secret_key</code>
+query parameters of the URL. Configure the target buckets in <code>fs.s3.buckets</code>.
+During migration, entries without their own <code>url</code> use <code>fs.migration_target</code>.
+Bucket provisioning follows <code>fs.s3.auto_create_buckets</code>; with the setting above,
+create the buckets before starting the stack.</p>
+<p>Once <code>fs.migration_target</code> is set, the
+<a href="../cli/cozy-stack_instances_migrate-storage/"><code>cozy-stack instances migrate-storage</code></a>
+command can move individual instances to it. See
+<a href="../s3/#migrating-an-instance-from-swift-to-s3">Migrating an instance from Swift to S3</a>
+for the full procedure, including rollback.</p>
 <h2 id="multiple-couchdb-clusters">Multiple CouchDB clusters<a class="headerlink" href="#multiple-couchdb-clusters" title="Permanent link">&para;</a></h2>
 <p>With a large number of instances, a single CouchDB cluster may not be enough.
 Most cozy-stack administrators can ignore this section, but if you need this

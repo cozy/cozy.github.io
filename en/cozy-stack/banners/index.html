@@ -7824,18 +7824,15 @@ for the platform design.</p>
 <span class="w">      </span><span class="nt">command_categories</span><span class="p">:</span>
 <span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">billing</span>
 <span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">trial</span>
-<span class="w">      </span><span class="nt">cta_hosts</span><span class="p">:</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">manager.example.org</span>
 </code></pre></div>
-<p>Set <code>command_categories</code> to <code>["*"]</code> to allow every category except <code>quota</code>.
-<code>cta_hosts</code> has no wildcard.</p>
+<p>Set <code>command_categories</code> to <code>["*"]</code> to allow every category except <code>quota</code>.</p>
 <p>Broker credentials, permissions and bindings control who can publish. Each
 category must have one owner and one addressing mode: the stack keeps one
 revision per instance and category, shared by <code>orgId</code> and <code>workplaceFqdn</code>
 commands, so never address a category both ways. <code>quota</code> is reserved for the
 stack&rsquo;s rules.</p>
 <p>Instances that disable banners are skipped. Instances whose context does not
-list the category or a CTA host are skipped with a warning log. Other eligible
+list the category are skipped with a warning log. Other eligible
 recipients still receive the command. Skipping an instance leaves its existing
 documents and recorded revision unchanged. An error on one instance
 does not stop processing the others. The stack returns all failures after
@@ -7939,7 +7936,7 @@ and <a href="../model/banner/testdata">shared fixtures</a> for complete examples
 <tr>
 <td><code>cta</code>, <code>secondaryCta</code></td>
 <td>no</td>
-<td>Each has a locale-map <code>label</code> (nonempty <code>en</code>, at most 128 bytes per locale) and an absolute <code>https</code> <code>url</code> (at most 2048 bytes) whose host is in <code>banner.cta_hosts</code>. A secondary CTA requires a primary one.</td>
+<td>Each has a locale-map <code>label</code> (nonempty <code>en</code>, at most 128 bytes per locale) and an absolute <code>https</code> <code>url</code> (at most 2048 bytes). A secondary CTA requires a primary one.</td>
 </tr>
 <tr>
 <td><code>dismissible</code></td>
