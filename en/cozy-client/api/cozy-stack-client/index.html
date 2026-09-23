@@ -3719,10 +3719,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#filecollectionfetchfilecontentbyidid" class="md-nav__link">
+  <a href="#filecollectionfetchfilecontentbyidid-fetchoptions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        fileCollection.fetchFileContentById(id)
+        fileCollection.fetchFileContentById(id, [fetchOptions])
       
     </span>
   </a>
@@ -11499,10 +11499,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#filecollectionfetchfilecontentbyidid" class="md-nav__link">
+  <a href="#filecollectionfetchfilecontentbyidid-fetchoptions" class="md-nav__link">
     <span class="md-ellipsis">
       
-        fileCollection.fetchFileContentById(id)
+        fileCollection.fetchFileContentById(id, [fetchOptions])
       
     </span>
   </a>
@@ -15036,7 +15036,7 @@ files associated to a specific document</p>
 <li><a href="#FileCollection+create">.create(attributes, [options])</a></li>
 <li><a href="#FileCollection+updateFile">.updateFile(data, params, options)</a> ⇒ <a href="#FileAttributes"><code>Promise.&lt;FileAttributes&gt;</code></a></li>
 <li><a href="#FileCollection+download">.download(file, versionId, filename)</a></li>
-<li><a href="#FileCollection+fetchFileContentById">.fetchFileContentById(id)</a></li>
+<li><a href="#FileCollection+fetchFileContentById">.fetchFileContentById(id, [fetchOptions])</a></li>
 <li><a href="#FileCollection+getBeautifulSize">.getBeautifulSize(file, decimal)</a></li>
 <li><a href="#FileCollection+downloadArchive">.downloadArchive(fileIds, [notSecureFilename], [options])</a></li>
 <li>~~<a href="#FileCollection+getArchiveLinkByIds">.getArchiveLinkByIds()</a>~~</li>
@@ -15598,7 +15598,7 @@ files associated to a specific document</p>
 </tbody>
 </table>
 <p><a name="FileCollection+fetchFileContentById"></a></p>
-<h3 id="filecollectionfetchfilecontentbyidid">fileCollection.fetchFileContentById(id)<a class="headerlink" href="#filecollectionfetchfilecontentbyidid" title="Permanent link">&para;</a></h3>
+<h3 id="filecollectionfetchfilecontentbyidid-fetchoptions">fileCollection.fetchFileContentById(id, [fetchOptions])<a class="headerlink" href="#filecollectionfetchfilecontentbyidid-fetchoptions" title="Permanent link">&para;</a></h3>
 <p>Fetch the binary of a file or a specific version of a file
 Useful for instance when you can&rsquo;t download the file directly
 (via a content-disposition attachement header) and need to store
@@ -15617,6 +15617,11 @@ it before doing an operation.</p>
 <td>id</td>
 <td><code>string</code></td>
 <td>Id of the io.cozy.files or io.cozy.files.version</td>
+</tr>
+<tr>
+<td>[fetchOptions]</td>
+<td><code>object</code></td>
+<td>Options passed to fetch, e.g. <code>{ cache: 'no-store' }</code> to bypass the browser cache, as the stack does not send Cache-Control on this route</td>
 </tr>
 </tbody>
 </table>
