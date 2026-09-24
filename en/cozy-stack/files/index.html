@@ -10564,8 +10564,7 @@ delete it.</p>
 <li><code>GET /files/:dir-id/relationships/contents</code></li>
 <li><code>GET /files/:dir-id/size</code></li>
 </ul>
-<p>The supported IDs are <code>io.cozy.apps/mail</code>, <code>io.cozy.apps/notes</code>, and
-<code>io.cozy.files.shared-drives-dir</code> (the container for shared drives).
+<p>The supported IDs are <code>io.cozy.apps/mail</code> and <code>io.cozy.apps/notes</code>.
 Encode the slash in application IDs, for example:</p>
 <div class="highlight"><pre><span></span><code><span class="nf">POST</span> <span class="nn">/files/io.cozy.apps%2Fmail?Type=file&amp;Name=attachment.txt</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 </code></pre></div>
@@ -10573,7 +10572,8 @@ Encode the slash in application IDs, for example:</p>
 after a rename or move. It uses the first match. If none exists, or the directory
 is trashed, it creates a directory at the root with a translated name, or reuses
 an existing directory with that name. Trashed directories are left untouched.
-The Shared Drives container is created with its fixed ID if missing.</p>
+The legacy <code>io.cozy.files.shared-drives-dir</code> is an ordinary directory ID.
+Reading it does not create a missing directory.</p>
 <p>Requests must be authenticated. Creating a missing magic folder does not
 require directory-creation permission; the requested operation still requires
 its usual permissions on the resolved directory. Response resource IDs and
@@ -10700,8 +10700,10 @@ the directory is created at the root of the virtual file system.</p>
 <p><strong>Note</strong>: see <a href="../not-synchronized-vfs/">not synchronized directories</a> for
 more informations about the <code>not_synchronized_on</code> field.</p>
 <h3 id="post-filesshared-drives">POST /files/shared-drives<a class="headerlink" href="#post-filesshared-drives" title="Permanent link">&para;</a></h3>
-<p>This endpoint returns the information about the Shared Drives directory. If the
-directory does not exist, it is created.</p>
+<p>This legacy endpoint finds or creates an ordinary directory named Drives
+(translated to the instance locale) at the root. New directories have generated
+IDs; clients must use the returned ID. Existing directories retain their IDs.
+Federated sharing creation and recipient shortcuts no longer use this container.</p>
 <h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="err">POST /files/shared-drives</span>
 <span class="err">Accept: application/vnd.api+json</span>
@@ -10713,7 +10715,7 @@ directory does not exist, it is created.</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.files"</span><span class="p">,</span>
-<span class="w">    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.files.shared-drives-dir"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"92e29140-2b19-4a91-91a0-756c2a680091"</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nt">"rev"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1-e4abdb5a"</span>
 <span class="w">    </span><span class="p">},</span>
@@ -10744,7 +10746,7 @@ directory does not exist, it is created.</p>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="nt">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/files/io.cozy.files.shared-drives-dir"</span>
+<span class="w">      </span><span class="nt">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/files/92e29140-2b19-4a91-91a0-756c2a680091"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>

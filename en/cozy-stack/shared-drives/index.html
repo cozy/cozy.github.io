@@ -9452,15 +9452,14 @@ automatically.</p>
 <p>To create a shared drive manually (typically on the organization Cozy), follow
 these steps:</p>
 <ol>
-<li>Ensure that the <code>/Drives</code> folder exists in the cozy instance with the
-   <a href="https://docs.cozy.io/en/cozy-stack/files/#post-filesshared-drives"><code>POST /files/shared-drives</code></a>
-   route.</li>
-<li>Create the root resource to share:
-   - either a folder inside it, with the name of shared drive
+<li>Create the root resource to share in the desired parent directory:
+   - either a folder with the name of the shared drive
    - or a file that will become the root of the shared drive</li>
 <li>Create a sharing with the <code>drive: true</code> attribute, and one rule for
    the shared root (with <code>none</code> for <code>add</code>, <code>update</code> and <code>remove</code> attributes).</li>
 </ol>
+<p>New recipient shortcuts are created at the instance root. Updating an existing
+shortcut preserves its ID and location.</p>
 <h2 id="managing-shared-drives">Managing shared drives<a class="headerlink" href="#managing-shared-drives" title="Permanent link">&para;</a></h2>
 <h3 id="get-sharingsdrives">GET /sharings/drives<a class="headerlink" href="#get-sharingsdrives" title="Permanent link">&para;</a></h3>
 <p>The <code>GET /sharings/drives</code> route returns the list of shared drives.</p>
@@ -9536,7 +9535,7 @@ modes:</p>
 <ul>
 <li>pass <code>folder_id</code> to convert an existing file or directory into a shared drive</li>
 <li>pass <code>file_id</code> to convert an existing file or directory into a shared drive</li>
-<li>pass <code>name</code> to create a new directory under the Shared Drives root and share
+<li>pass <code>name</code> to create a new directory at the instance root and share
   it</li>
 </ul>
 <p>If the target Cozy is an organization instance, the created sharing is also
@@ -9554,7 +9553,7 @@ is exposed back as <code>drive_root_type</code>.</p>
 <p>Additional rules for directory roots:</p>
 <ul>
 <li>Must not be a system folder (<code>root</code>, <code>trash</code>, <code>shared-with-me</code>,
-  <code>shared-drives</code>, <code>no-longer-shared</code>)</li>
+  <code>no-longer-shared</code>)</li>
 <li>Must not be inside the trash</li>
 <li>Must not contain any subfolder that already has a sharing</li>
 </ul>
@@ -9635,7 +9634,7 @@ is exposed back as <code>drive_root_type</code>.</p>
 <tr>
 <td><code>name</code></td>
 <td>No</td>
-<td>The name of the directory to create under Shared Drives for a new directory-root shared drive</td>
+<td>The name of the directory to create at the instance root for a new directory-root shared drive</td>
 </tr>
 <tr>
 <td><code>description</code></td>
@@ -9745,7 +9744,7 @@ and add them later.</p>
 <tr>
 <td>409</td>
 <td>Conflict</td>
-<td>The root already has a sharing, is inside a shared folder, contains a shared subfolder, or the new <code>name</code> already exists in Shared Drives</td>
+<td>The root already has a sharing, is inside a shared folder, contains a shared subfolder, or the new <code>name</code> already exists at the instance root</td>
 </tr>
 <tr>
 <td>400</td>
