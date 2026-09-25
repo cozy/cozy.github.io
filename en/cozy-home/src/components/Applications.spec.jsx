@@ -13,40 +13,34 @@ jest.mock('cozy-flags', () => {
   return jest.fn().mockReturnValue(null)
 })
 
-const setup = ({ queries } = {}) => {
-  if (!queries) {
-    const client = createMockClient({
-      queries: {
-        'io.cozy.apps': {
-          lastUpdate: new Date(),
-          data: [],
-          doctype: 'io.cozy.apps',
-          hasMore: false
-        }
+const setup = ({ queries, shortcuts } = {}) => {
+  const client = createMockClient({
+    queries: queries || {
+      'io.cozy.apps': {
+        lastUpdate: new Date(),
+        data: [],
+        doctype: 'io.cozy.apps',
+        hasMore: false
       }
-    })
+    }
+  })
 
-    const root = render(
-      <AppLike client={client} store={client.store}>
-        <CozyTheme>
-          <Applications />
-        </CozyTheme>
-      </AppLike>
-    )
-    return { root }
-  } else {
-    const client = createMockClient({
-      queries
+  if (shortcuts) {
+    // useFetchHomeShortcuts reads the shortcuts from the included files
+    // of the /Settings/Home folder.
+    client.collection = jest.fn().mockReturnValue({
+      statByPath: jest.fn().mockResolvedValue({ included: shortcuts })
     })
-    const root = render(
-      <AppLike client={client} store={client.store}>
-        <CozyTheme>
-          <Applications />
-        </CozyTheme>
-      </AppLike>
-    )
-    return { root }
   }
+
+  const root = render(
+    <AppLike client={client} store={client.store}>
+      <CozyTheme>
+        <Applications />
+      </CozyTheme>
+    </AppLike>
+  )
+  return { root }
 }
 
 describe('Applications', () => {
@@ -66,23 +60,12 @@ describe('Applications', () => {
 
   it('displays retrieved shortcuts', async () => {
     const shortcuts = [
-      { id: '1', name: 'toto.txt' },
-      { id: '2', name: 'tata.txt' }
+      { id: '1', name: 'toto.txt', class: 'shortcut' },
+      { id: '2', name: 'tata.txt', class: 'shortcut' }
     ]
     const { root } = setup({
+      shortcuts,
       queries: {
-        'io.cozy.files/path/Settings/Home': {
-          lastUpdate: new Date(),
-          data: [{ id: 'folderId' }],
-          doctype: 'io.cozy.files',
-          hasMore: false
-        },
-        'io.cozy.files/dir_id/folderId/class/shortcut': {
-          lastUpdate: new Date(),
-          data: shortcuts,
-          doctype: 'io.cozy.files',
-          hasMore: false
-        },
         'io.cozy.apps': {
           lastUpdate: new Date(),
           data: [],
