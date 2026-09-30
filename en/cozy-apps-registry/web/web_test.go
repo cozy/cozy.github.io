@@ -148,6 +148,10 @@ func TestVersionIconFromVirtualSpace(t *testing.T) {
 func TestMain(m *testing.M) {
 	config.SetDefaults()
 	viper.Set("spaces", []string{"__default__", allAppsSpace, allKonnectorsSpace})
+	// The universal link endpoint resolves the space from the request host.
+	viper.Set("domain_space", map[string]string{
+		universalLinkHost: allAppsSpace,
+	})
 	viper.Set("virtual_spaces", map[string]interface{}{
 		myAppsSpace: map[string]interface{}{
 			"source": allAppsSpace,

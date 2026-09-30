@@ -8535,9 +8535,12 @@ Note the JSON-API format is not used here as we follow the openRAG format.</p>
 <span class="w">  </span><span class="p">},</span>
 <span class="w">  </span><span class="nt">"service_tier"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"prompt_logprobs"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"extra"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{\"sources\": []}"</span>
+<span class="w">  </span><span class="nt">"extra"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"sources"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w"> </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+<p>The response is openRAG&rsquo;s own: up to openRAG v2.2.0 (legacy), <code>extra</code> is a
+JSON-encoded string (<code>"{\"sources\": []}"</code>) and the metadata of a document
+source is flat instead of nested under <code>chunk</code>.</p>
 <h3 id="post-aiv1toolsexecute">POST /ai/v1/tools/execute<a class="headerlink" href="#post-aiv1toolsexecute" title="Permanent link">&para;</a></h3>
 <p>This route directly calls the <a href="https://github.com/linagora/openrag">openRAG</a> tools API.</p>
 <h4 id="request_2">Request<a class="headerlink" href="#request_2" title="Permanent link">&para;</a></h4>
@@ -8588,7 +8591,13 @@ response. The client must use the real-time websocket and subscribe to
   When the assistant has a knowledge base folder, the retrieval is scoped to
   that folder&rsquo;s workspace. The assistant&rsquo;s folder must have been indexed at
   least once by the <code>rag-index</code> worker; otherwise the query fails with an
-  error event saying the knowledge base is not indexed.</li>
+  error event saying the knowledge base is not indexed.
+  When the assistant has a <code>prompt</code>, it is sent to openRAG with every query
+  of the conversation, as a leading <code>system</code> message that openRAG splices
+  into its own system prompt (flagged as untrusted instructions). The prompt
+  is read from the assistant document at query time, not saved in the
+  conversation: editing it on the assistant applies to its existing
+  conversations as well.</li>
 <li><code>attachmentIDs</code> (optional) array of ids, specifying which documents should be leveraged by the RAG.</li>
 </ul>
 <h4 id="response_3">Response<a class="headerlink" href="#response_3" title="Permanent link">&para;</a></h4>

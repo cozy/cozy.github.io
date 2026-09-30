@@ -17,7 +17,6 @@ import (
 	"github.com/cozy/cozy-apps-registry/base"
 	"github.com/cozy/cozy-apps-registry/space"
 	"github.com/go-kivik/kivik/v3"
-	"github.com/ncw/swift"
 	"github.com/sirupsen/logrus"
 )
 
@@ -114,7 +113,7 @@ func FindAppAttachment(c *space.Space, appSlug, filename string, channel Channel
 }
 
 func FindVersionAttachment(c *space.Space, version *Version, filename string) (*Attachment, error) {
-	var headers swift.Headers
+	var headers map[string]string
 	var shasum, contentType string
 	var fileContent []byte
 
@@ -133,7 +132,7 @@ func FindVersionAttachment(c *space.Space, version *Version, filename string) (*
 			return nil, err
 		}
 	} else {
-		// If we cannot find it, we try from the app swift container as a fallback
+		// If we cannot find it, we try from the app container as a fallback
 		prefix := c.GetPrefix()
 		if contentBuffer, headers, err = base.Storage.Get(prefix, fp); err != nil {
 			return nil, err

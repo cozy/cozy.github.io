@@ -149,13 +149,19 @@ func exportSwiftContainer(writer *tar.Writer, prefix string, container base.Pref
 	for i := 0; i < numReaders; i++ {
 		g.Go(func() error {
 			for entry := range toRead {
-				reader, _, err := base.Storage.Get(container, entry.name)
+				reader, headers, err := base.Storage.Get(container, entry.name)
 				if err != nil {
 					return err
 				}
 				content, err := io.ReadAll(reader)
 				if err != nil {
 					return err
+				}
+				// Walk only reports the content type on a best-effort basis:
+				// listing objects on S3 cannot return it. Get always can, so
+				// it is the reliable source here.
+				if entry.contentType == "" {
+					entry.contentType = headers["Content-Type"]
 				}
 				entry.content = content
 				toWrite <- entry

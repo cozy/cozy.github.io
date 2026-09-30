@@ -18,14 +18,18 @@ func Status(c echo.Context) error {
 	check := map[string]interface{}{}
 	global = "ok"
 
-	// Swift
-	swift := entry{Status: "ok"}
+	// Storage
+	storage := entry{Status: "ok"}
 	if err := base.Storage.Status(); err != nil {
-		swift.Status = "failed"
-		swift.Reason = err.Error()
+		storage.Status = "failed"
+		storage.Reason = err.Error()
 		global = "failed"
 	}
-	check["swift"] = swift
+	check["storage"] = storage
+	// The storage is not necessarily Swift anymore, but monitoring reads this
+	// key. It is a deprecated alias of "storage" and can go once the consumers
+	// have moved.
+	check["swift"] = storage
 
 	// CouchDB
 	couchDB := entry{Status: "ok"}

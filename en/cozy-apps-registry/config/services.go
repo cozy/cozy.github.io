@@ -15,6 +15,9 @@ import (
 	"github.com/go-kivik/couchdb/v3/chttp"
 	"github.com/go-kivik/kivik/v3"
 	"github.com/go-redis/redis/v7"
+	"github.com/minio/minio-go/v7"
+	"github.com/minio/minio-go/v7/pkg/credentials"
+	"github.com/minio/minio-go/v7/pkg/s3utils"
 	"github.com/ncw/swift"
 	"github.com/spf13/viper"
 )
@@ -42,16 +45,77 @@ func SetupServices() error {
 		}
 	}
 
-	if dir := viper.GetString("fs"); dir != "" {
-		base.Storage = storage.NewFS(dir)
-	} else {
+	if err := configureStorage(); err != nil {
+		return err
+	}
+	return nil
+}
+
+// configureStorage selects the storage backend from the fs configuration
+// parameter: an s3:// URL for an S3-compatible object store, any other
+// non-empty value for a directory of the local file system, and nothing at all
+// for Swift.
+func configureStorage() error {
+	fs := viper.GetString("fs")
+	if fs == "" {
 		sc, err := initSwiftConnection()
 		if err != nil {
 			return fmt.Errorf("Cannot access to swift: %s", err)
 		}
 		base.Storage = storage.NewSwift(sc)
+		return nil
 	}
+
+	// A plain path parses as a URL with no scheme, which is how local
+	// directories keep working.
+	if u, err := url.Parse(fs); err == nil && u.Scheme == "s3" {
+		s3, err := initS3Storage(u)
+		if err != nil {
+			return err
+		}
+		base.Storage = s3
+		return nil
+	}
+
+	base.Storage = storage.NewFS(fs)
 	return nil
+}
+
+// initS3Storage builds the S3 storage from the connection URL and the s3
+// configuration section.
+//
+// The errors it returns never include the connection URL nor the error
+// reported by the provider, as both can carry the credentials.
+func initS3Storage(u *url.URL) (base.VirtualStorage, error) {
+	q := u.Query()
+	client, err := minio.New(u.Host, &minio.Options{
+		Creds:  credentials.NewStaticV4(q.Get("access_key"), q.Get("secret_key"), ""),
+		Secure: q.Get("use_ssl") != "false",
+		Region: q.Get("region"),
+	})
+	if err != nil {
+		return nil, fmt.Errorf("Cannot create the S3 client: invalid connection parameters")
+	}
+
+	bucket := viper.GetString("s3.bucket")
+	if bucket == "" {
+		return nil, fmt.Errorf("Missing s3.bucket in the configuration")
+	}
+	if err := s3utils.CheckValidBucketNameStrict(bucket); err != nil {
+		return nil, fmt.Errorf("Invalid s3.bucket %q: %s", bucket, err)
+	}
+
+	// Creating the bucket is the default, as the registry already creates the
+	// Swift containers it needs.
+	autoCreate := true
+	if viper.IsSet("s3.auto_create_bucket") {
+		autoCreate = viper.GetBool("s3.auto_create_bucket")
+	}
+	if err := storage.PrepareBucket(client, bucket, q.Get("region"), autoCreate); err != nil {
+		return nil, err
+	}
+
+	return storage.NewS3(client, bucket, viper.GetString("s3.prefix")), nil
 }
 
 // SetupForTests can be used to setup the services with in-memory implementations

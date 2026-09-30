@@ -40,10 +40,29 @@ redis:
   # idle_check_frequency: 1m
   # read_only_slave: false
 
-# Storage - you should use swift in production, but for local development, it
-# can easier to use the local file system. If present, the fs configuration
-# parameter allows to use a directory for the storage (and will skip Swift).
+# Storage - in production, use either Swift or an S3-compatible object store.
+# For local development, the local file system is easier. The fs parameter
+# selects the backend:
+#   - an s3:// URL       an S3-compatible object store, see the s3 section below
+#   - any other value    that directory of the local file system
+#   - absent or empty    OpenStack Swift, see the swift section below
 fs: .storage
+
+# S3 configuration, used when fs is an s3:// URL. The endpoint, the credentials
+# and the region go in that URL, as query parameters:
+#   fs: s3://s3.gra.io.cloud.ovh.net?access_key=ACCESS&secret_key=SECRET&region=gra
+# Supported parameters are access_key, secret_key, region and use_ssl (which
+# defaults to true). URL-encode any value containing reserved characters.
+# s3:
+#   # Bucket holding every space. Required.
+#   bucket: cozy-registry
+#   # Optional key prefix, to share the bucket with another use. When it is
+#   # empty, a space named foo has its files under the foo/ prefix.
+#   prefix: registry
+#   # Create the bucket at start-up if it does not exist yet (default true).
+#   # When false, start-up only checks that the bucket is reachable and fails
+#   # if it is not.
+#   auto_create_bucket: true
 
 # Swift configuration
 swift:

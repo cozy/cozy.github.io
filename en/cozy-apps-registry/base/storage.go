@@ -23,14 +23,17 @@ const DefaultSpacePrefix Prefix = "__default__"
 type VirtualStorage interface {
 	// Status check if the storage is up, and returns an error if it is not.
 	Status() error
-	// EnsureExists makes sure that the Swift container or local directory
-	// exists.
+	// EnsureExists makes sure that the container holding the files exists: a
+	// Swift container, or a local directory. On S3 there is nothing to create,
+	// as a single bucket holds every container as a key prefix, so this does
+	// nothing and Create accepts a container that was never declared.
 	EnsureExists(prefix Prefix) error
-	// EnsureEmpty makes sure that the Swift container or local directory
-	// exists and does not contain any files.
+	// EnsureEmpty makes sure that the container exists and does not contain
+	// any file.
 	EnsureEmpty(prefix Prefix) error
-	// EnsureDeleted makes sure that the Swift container or local directory
-	// does no longer exist.
+	// EnsureDeleted makes sure that the container no longer exists. On S3,
+	// where the container is only a key prefix, this is the same as
+	// EnsureEmpty.
 	EnsureDeleted(prefix Prefix) error
 	// Create adds a file to the given container/directory.
 	Create(prefix Prefix, name, contentType string, content io.Reader) error
@@ -39,7 +42,9 @@ type VirtualStorage interface {
 	// Remove deletes a file from the given container/directory.
 	Remove(prefix Prefix, name string) error
 	// Walk is a function to iterate on all object names of a given
-	// container/directory.
+	// container/directory. The content type it reports is best-effort and can
+	// be empty: on S3, listing objects cannot return it. Callers that need it
+	// for sure must take it from Get.
 	Walk(prefix Prefix, fn WalkFn) error
 	// FindByPrefix returns a list of object names that starts with the given
 	// string.

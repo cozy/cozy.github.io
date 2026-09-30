@@ -7086,6 +7086,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#using-an-s3-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using an S3 storage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using an S3 storage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#migrating-from-swift-to-s3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Migrating from Swift to S3
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#publish-your-application-on-the-registry" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8421,6 +8449,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#using-an-s3-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using an S3 storage
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using an S3 storage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#migrating-from-swift-to-s3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Migrating from Swift to S3
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#publish-your-application-on-the-registry" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8885,6 +8941,10 @@
 <li><a href="#5-configure-cozy-stack-with-the-registry">5) Configure <code>cozy-stack</code> with the registry</a></li>
 </ul>
 </li>
+<li><a href="#using-an-s3-storage">Using an S3 storage</a><ul>
+<li><a href="#migrating-from-swift-to-s3">Migrating from Swift to S3</a></li>
+</ul>
+</li>
 <li><a href="#publish-your-application-on-the-registry">Publish your application on the registry</a><ul>
 <li><a href="#1-define-your-application-manifest">1) Define your application manifest</a><ul>
 <li><a href="#properties-meaning-reference">Properties meaning (reference)</a></li>
@@ -8935,14 +8995,19 @@ API</a>
 described to work with the <a href="https://github.com/cozy/cozy-stack">cozy-stack</a>.</p>
 <p>To work properly, it requires:</p>
 <ul>
-<li>Go &gt;= 1.18</li>
+<li>Go &gt;= 1.21 (the <code>go.mod</code> requires Go 1.25, which <code>GOTOOLCHAIN=auto</code> fetches on its own)</li>
 <li>Couchdb &gt;= 3.2</li>
 <li>Redis</li>
-<li>Openstack Object Storage (Swift)</li>
+<li>Openstack Object Storage (Swift), or an S3-compatible object store</li>
 </ul>
 <h2 id="how-to-develop-with-a-cozy-apps-registry-working-in-local-environment">How to develop with a <code>cozy-apps-registry</code> working in local environment<a class="headerlink" href="#how-to-develop-with-a-cozy-apps-registry-working-in-local-environment" title="Permanent link">&para;</a></h2>
 <p>Before starting, you will need to have a couchdb running already. That can be the one used by the local <code>cozy-stack</code> if you have one. For this tutorial, couchdb will be running on the default port 5984.</p>
-<p>You also must have redis and an OpenStack Object Storage (Swift) up and running. You can follow install instructions on <a href="https://docs.openstack.org/swift/latest/install/index.html">the official website</a></p>
+<p>You also must have redis and a storage up and running. For the storage, pick one of:</p>
+<ul>
+<li>OpenStack Object Storage (Swift), following the install instructions on <a href="https://docs.openstack.org/swift/latest/install/index.html">the official website</a></li>
+<li>an S3-compatible object store, see <a href="#using-an-s3-storage">Using an S3 storage</a> below</li>
+<li>a plain directory of the local file system, which is the easiest for development: set <code>fs</code> to that path</li>
+</ul>
 <h3 id="1-install-and-configure-the-local-cozy-apps-registry">1) Install and configure the local <code>cozy-apps-registry</code><a class="headerlink" href="#1-install-and-configure-the-local-cozy-apps-registry" title="Permanent link">&para;</a></h3>
 <p>Since this is a golang project, you can install it using <code>go</code> with the followed command:</p>
 <div class="highlight"><pre><span></span><code>go<span class="w"> </span>get<span class="w"> </span>-u<span class="w"> </span>github.com/cozy/cozy-apps-registry
@@ -9034,6 +9099,71 @@ cozy-apps-registry<span class="w"> </span>gen-token<span class="w"> </span>--mas
 <span class="nn">...</span>
 </code></pre></div>
 <p>Now restart your local <code>cozy-stack</code> to take this new configuration in consideration (stop and run again <code>cozy-stack serve</code>) and you&rsquo;re ready to work with the <code>cozy-apps-registry</code>!</p>
+<h2 id="using-an-s3-storage">Using an S3 storage<a class="headerlink" href="#using-an-s3-storage" title="Permanent link">&para;</a></h2>
+<p>The registry can store its files in any S3-compatible object store (OVH,
+Scaleway, MinIO) instead of Swift. A deployment uses one or the other: the <code>fs</code>
+configuration parameter selects the backend, and an <code>s3://</code> URL selects S3.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">fs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">s3://s3.gra.io.cloud.ovh.net?access_key=ACCESS&amp;secret_key=SECRET&amp;region=gra</span>
+
+<span class="nt">s3</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">bucket</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cozy-registry</span>
+<span class="w">  </span><span class="nt">prefix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">registry</span><span class="w">           </span><span class="c1"># optional</span>
+<span class="w">  </span><span class="nt">auto_create_bucket</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">   </span><span class="c1"># default</span>
+</code></pre></div>
+<p>The endpoint, the credentials and the region go in the URL as query parameters:
+<code>access_key</code>, <code>secret_key</code>, <code>region</code> and <code>use_ssl</code> (which defaults to <code>true</code>).
+URL-encode any value containing reserved characters such as <code>!</code>, <code>&amp;</code>, <code>+</code>, <code>/</code>
+or <code>=</code>, otherwise authentication fails with an unhelpful signature error.</p>
+<p>A single bucket holds every space. Each container becomes a key prefix, so a
+space named <code>myspace</code> has its files under <code>myspace/</code>, the default space under
+<code>__default__/</code> and the shared assets under <code>__assets__/</code>. The optional <code>prefix</code>
+nests all of them under a common path, which lets the bucket be shared with
+another use.</p>
+<p><code>auto_create_bucket</code> creates the bucket at start-up when it does not exist. With
+<code>auto_create_bucket: false</code>, create it beforehand; start-up then only checks
+that it is reachable and fails if it is not.</p>
+<p>The credentials must allow <code>HeadBucket</code> on the bucket, plus listing, reads,
+writes, deletes and multipart uploads on its objects. Permission to create
+buckets is only needed when <code>auto_create_bucket</code> is left on.</p>
+<p>Two behaviours differ from Swift, both harmless for normal use:</p>
+<ul>
+<li>Writing to a space that was never declared succeeds instead of failing, since
+  there is no container to be missing.</li>
+<li>Listing objects does not report their content type, because the S3 list
+  response has no such field. Exports remain faithful: they read it from the
+  object itself.</li>
+</ul>
+<p>For local development, MinIO is enough. Note the image: the upstream Quay one no
+longer allows anonymous pulls, and <code>minio/minio</code> has no tags left on Docker Hub,
+so this is the mirror cozy-stack settled on.</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>minio<span class="w"> </span>-p<span class="w"> </span><span class="m">9000</span>:9000<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">MINIO_ROOT_USER</span><span class="o">=</span>minioadmin<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">MINIO_ROOT_PASSWORD</span><span class="o">=</span>minioadmin<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>pgsty/minio:RELEASE.2026-08-04T00-00-00Z<span class="w"> </span>server<span class="w"> </span>/data
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">fs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">s3://localhost:9000?access_key=minioadmin&amp;secret_key=minioadmin&amp;use_ssl=false</span>
+<span class="nt">s3</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">bucket</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cozy-registry</span>
+</code></pre></div>
+<p>The storage tests use the same server, and skip when nothing answers on
+<code>localhost:9000</code>. <code>MINIO_ENDPOINT</code>, <code>MINIO_ACCESS_KEY</code> and <code>MINIO_SECRET_KEY</code>
+override where they look.</p>
+<h3 id="migrating-from-swift-to-s3">Migrating from Swift to S3<a class="headerlink" href="#migrating-from-swift-to-s3" title="Permanent link">&para;</a></h3>
+<p>There is no read fallback from S3 to Swift, so the files must be copied before
+the switch, and no write must happen in between.</p>
+<ol>
+<li>Create the bucket, or let <code>auto_create_bucket</code> do it.</li>
+<li>Stop the registry, so that nothing is written during the copy.</li>
+<li>Copy each container to its key prefix, for <code>__assets__</code>, <code>__default__</code> and
+   every named space:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>rclone<span class="w"> </span>copy<span class="w"> </span>swift:__assets__<span class="w"> </span>s3:cozy-registry/__assets__
+rclone<span class="w"> </span>copy<span class="w"> </span>swift:__default__<span class="w"> </span>s3:cozy-registry/__default__
+rclone<span class="w"> </span>copy<span class="w"> </span>swift:myspace<span class="w"> </span>s3:cozy-registry/myspace
+</code></pre></div>
+<p>With a <code>prefix</code> configured, target <code>s3:cozy-registry/&lt;prefix&gt;/&lt;container&gt;</code>.
+4. Switch <code>fs</code> to the <code>s3://</code> URL, add the <code>s3</code> section, and start the registry.
+5. Check <code>/status</code> and download an application attachment.</p>
 <h2 id="publish-your-application-on-the-registry">Publish your application on the registry<a class="headerlink" href="#publish-your-application-on-the-registry" title="Permanent link">&para;</a></h2>
 <p>If you need more details about the registry you can go to <a href="https://docs.cozy.io/en/cozy-stack/registry/">the official registry documentation</a></p>
 <p><strong><img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/26a0.svg" title=":warning:" /> Important:</strong> In this whole documentation, by the term <code>application</code>, we mean a web application or a konnector. Indeed, for the registry, all entities are applications and they can be either <code>webapp</code> or <code>konnector</code> type.</p>
@@ -9790,17 +9920,19 @@ curl<span class="w"> </span>-XPUT<span class="w"> </span><span class="se">\</spa
 <span class="w">  </span>https://apps-registry.cozycloud.cc/registry/maintenance/bank/deactivate
 </code></pre></div>
 <h2 id="importexport">Import/export<a class="headerlink" href="#importexport" title="Permanent link">&para;</a></h2>
-<p>CouchDB &amp; Swift can be exported into a single archive with <code>cozy-apps-registry export &lt;dump.tar.gz&gt;</code>.
+<p>CouchDB &amp; the storage can be exported into a single archive with <code>cozy-apps-registry export &lt;dump.tar.gz&gt;</code>.
 Registry data are exported as below:</p>
 <ul>
 <li><code>registry/couchdb/{db}/{uuid}.json</code>: CouchDB document exported as JSON</li>
-<li><code>registry/swift/{file/path}</code>: Swift document, with the following tar custom metadata<ul>
+<li><code>registry/swift/{file/path}</code>: stored file, with the following tar custom metadata<ul>
 <li><code>COZY.content-type</code>: associated content type</li>
 </ul>
 </li>
 </ul>
+<p>The <code>swift</code> path is kept whatever the storage backend is, so that archives stay
+readable across a Swift to S3 migration.</p>
 <p>The generated archive can be imported with <code>cozy-apps-registry import -d &lt;dump.tar.gz&gt;</code>.
-The <code>-d</code> option will drop CouchDB databases and Swift containers related to declared spaces on the registry configuration.</p>
+The <code>-d</code> option will drop CouchDB databases and storage containers related to declared spaces on the registry configuration.</p>
 <h2 id="application-confidence-grade-labelling">Application confidence grade / labelling<a class="headerlink" href="#application-confidence-grade-labelling" title="Permanent link">&para;</a></h2>
 <p>The confidence grade of an applications can be specified by specifying the
 <code>data_usage_commitment</code> and <code>data_usage_commitment_by</code> fields of the
@@ -9844,6 +9976,20 @@ application document.</p>
 <p>For the <code>foobar</code> space and file <code>apple-app-site-association</code>, the file has to be named
 <code>universallink/apple-app-site-association</code> and placed in the <code>foobar</code> container</p>
 </blockquote>
+<p>On an S3 storage there is no container to place the file in: the space is a key
+prefix inside the single bucket, so the object key is
+<code>foobar/universallink/apple-app-site-association</code>, nested under the configured
+<code>s3.prefix</code> when there is one.</p>
+<p><strong>Set the content type explicitly when uploading to S3.</strong> The endpoint serves
+back whatever content type the stored object carries, and
+<code>apple-app-site-association</code> has no file extension, so a plain
+<code>aws s3 cp</code> stores it as <code>binary/octet-stream</code> and iOS gets the wrong type:</p>
+<div class="highlight"><pre><span></span><code>aws<span class="w"> </span>s3<span class="w"> </span>cp<span class="w"> </span>apple-app-site-association<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>s3://cozy-registry/foobar/universallink/apple-app-site-association<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--content-type<span class="w"> </span>application/json
+</code></pre></div>
+<p>Copying an existing Swift container with <code>rclone</code> carries the content types
+over, so a migration needs nothing special here.</p>
 <h3 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h3>
 <p>The following endpoint is available to get any file:</p>
 <blockquote>
