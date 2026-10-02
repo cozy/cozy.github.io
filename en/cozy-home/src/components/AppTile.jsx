@@ -33,7 +33,7 @@ const AppTileWrapper = ({ app }) => {
 // AppTile is responsible for rendering the app icon with a link to the app
 const AppTile = ({ app, lang }) => {
   const displayName = applications.getAppDisplayName(app, lang)
-  const appHref = app?.links?.related || app.links?.related
+  const appHref = applications.getUrl(app)
   const isErrored = app.state === 'errored'
 
   return (

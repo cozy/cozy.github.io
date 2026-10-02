@@ -83,6 +83,21 @@ describe('<AppTile />', () => {
     expect(queryByText('Chargement')).not.toBeInTheDocument()
   })
 
+  it('links to the app url when app is in ready state', () => {
+    render(
+      <AppLike client={mockClient}>
+        <CozyTheme>
+          <AppTileWrapper app={mockAppReady} lang="en" />
+        </CozyTheme>
+      </AppLike>
+    )
+
+    expect(screen.getByRole('link')).toHaveAttribute(
+      'href',
+      mockAppReady.links.related
+    )
+  })
+
   it('updates app state from installing to ready and fetches app info', async () => {
     const { rerender } = render(
       <AppLike client={mockClient}>
