@@ -10636,6 +10636,15 @@ scope is derived from the configured linked app manifest, for example
 </ul>
 <p>The created OAuth client is bound to the upstream OIDC session so it can be
 revoked by OIDC backchannel logout.</p>
+<p>Repeated exchanges reuse an existing client when the OIDC provider/context,
+instance, session (<code>sid</code>), and software ID match, including across allowed
+origins. The client ID and secret remain the same, while each response contains
+tokens with the scope validated for that request. Revoking this client revokes
+all tokens issued through it. Different sessions and applications keep separate
+clients.</p>
+<p>Reuse relies on the existing OIDC session bindings. If a binding is lost or
+expires (after 31 days without renewal in Redis), another client can be created.
+Existing duplicate clients are not automatically deleted by token exchange.</p>
 <h3 id="post-authsession_code">POST /auth/session_code<a class="headerlink" href="#post-authsession_code" title="Permanent link">&para;</a></h3>
 <p>This endpoint can be used by the flagship application in order to create a
 session code: this code can be added to the URL of a cozy application (in the
