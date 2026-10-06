@@ -1,5 +1,3 @@
-const fetch = require('node-fetch')
-
 const { DEFAULT_SPACE_NAME } = require('./constants')
 
 const getFullRegistryUrl = (baseRegistryUrl, spaceName, appSlug) => {

@@ -8855,6 +8855,30 @@ the intent.</p>
 </ul>
 <p>Finally, the service URL is suffixed with <code>?intent=</code> followed by the intent&rsquo;s
 id, and then sent to the client.</p>
+<p>The service URL opens the app&rsquo;s frontend page that handles the intent. By
+default, this page is on the app&rsquo;s cozy subdomain. To host it elsewhere, the
+app declares <code>service_url_flag</code> in its manifest. This names a feature flag
+containing the external base URL, optionally with a path prefix. The stack
+appends the intent&rsquo;s <code>href</code> and the intent ID.</p>
+<p>For example, a Calendar manifest with <code>"service_url_flag": "calendar_service_url"</code>
+and an intent whose <code>href</code> is <code>/open-event</code>, with that flag set to
+<code>https://calendar.example.com</code>, produces:</p>
+<div class="highlight"><pre><span></span><code>https://calendar.example.com/open-event?intent=abc
+</code></pre></div>
+<p>The calling app opens this page in an iframe. Calendar must implement the
+<code>/open-event</code> page, which retrieves the intent details from the stack&rsquo;s
+<code>GET /intents/abc</code> API using an OAuth token linked to Calendar
+(<code>software_id: registry://calendar</code>). The frontend route can have any name;
+the <code>/intents</code> API remains on the stack.</p>
+<p>Only <code>http</code> and <code>https</code> URLs with an ASCII host (letters, digits, dots and
+dashes, with an optional port) and no userinfo are accepted. Missing or
+invalid flag values, and values pointing to the app&rsquo;s cozy host, fall back
+to the cozy subdomain. For valid external URLs, the stack drops the query
+and fragment from the base URL while keeping its host and path prefix.</p>
+<p>The stack adds the origin of such external services to the <code>frame-src</code>
+directive of the Content Security Policy of every app, so that any client app
+can open them. The external host must itself allow the client apps in its
+<code>frame-ancestors</code> directive.</p>
 <h3 id="4-available-apps">4. Available apps<a class="headerlink" href="#4-available-apps" title="Permanent link">&para;</a></h3>
 <p>In addition to the services that manage intents, a list of available (but not
 installed) applications of the instance that handles the intent is returned.
@@ -8983,7 +9007,10 @@ Accept: application/vnd.api+json
 </code></pre></div>
 <h3 id="get-intentsid">GET /intents/:id<a class="headerlink" href="#get-intentsid" title="Permanent link">&para;</a></h3>
 <p>Get all the informations about the intent</p>
-<p><strong>Note</strong>: only the service can access this route (no permission involved).</p>
+<p><strong>Note</strong>: only the service can access this route: the request must be
+authenticated as one of the apps listed in the <code>services</code> of the intent,
+either with a token of the app itself or with an OAuth token of a client
+linked to the app (<code>software_id</code> <code>registry://&lt;slug&gt;</code>).</p>
 <h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="nf">GET</span> <span class="nn">/intents/77bcc42c-0fd8-11e7-ac95-8f605f6e8338</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.net</span>
@@ -9066,6 +9093,9 @@ the WebView by reusing the existing <code>session_code</code> mechanism.</p>
    The stack consumes the code, creates a session cookie, and redirects (code
    stripped). The WebView now has a full user session for the instance domain.</li>
 </ol>
+<p>When the intent is created with <code>force_session_id=true</code>, the services hosted
+on an external origin (see <code>service_url_flag</code>) do not receive a
+<code>session_code</code> in their href; they must authenticate on their own.</p>
 <h3 id="security">Security<a class="headerlink" href="#security" title="Permanent link">&para;</a></h3>
 <ul>
 <li>The <code>session_code</code> is single-use (atomic delete in Redis on read) with a 7-day TTL.</li>

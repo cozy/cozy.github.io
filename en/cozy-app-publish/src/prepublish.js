@@ -1,7 +1,5 @@
 const crypto = require('crypto')
 
-const request = require('request')
-
 const runHooks = require('./runhooks')
 const logger = require('./utils/logger')
 
@@ -75,21 +73,15 @@ const check = options => {
   return options
 }
 
-const shasum256FromURL = url =>
-  new Promise((resolve, reject) => {
-    const hasher = crypto.createHash('sha256').setEncoding('hex')
-    const req = request(url)
-      .on('error', reject)
-      .pipe(hasher)
-      .on('error', reject)
-      .on('finish', () => {
-        resolve(hasher.read())
-      })
-
-    req.on('error', e => {
-      reject(e)
-    })
-  })
+const shasum256FromURL = async url => {
+  const res = await fetch(url)
+  if (!res.ok) {
+    throw new Error(`Cannot download ${url}: ${res.status}`)
+  }
+  const hash = crypto.createHash('sha256')
+  for await (const chunk of res.body) hash.update(chunk)
+  return hash.digest('hex')
+}
 
 const shasum = async options => {
   const { appBuildUrl } = options

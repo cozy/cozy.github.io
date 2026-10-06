@@ -1,4 +1,5 @@
 const fetch = require('jest-fetch-mock')
+global.fetch = fetch.mockResponse({ status: 201 })
 
 const publish = require('./publish')
 
