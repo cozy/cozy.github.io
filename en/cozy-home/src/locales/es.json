@@ -1,24 +1,7 @@
 {
-  "assistant": {
-    "search": {
-      "placeholder": "¿Tiene alguna pregunta?",
-      "send": "Enviar",
-      "result": "Pregunte al asistente"
-    },
-    "dialog": {
-      "close": "Cerrar"
-    },
-    "name":"Asistente Cozy",
-    "sources":"%{smart_count} fuente |||| %{smart_count} fuentes",
-    "suggestions": {
-      "find_file": "Buscar un fichero",
-      "reimbursements": "Comprobar mis reembolsos",
-      "reorganise_files": "Reorganizar mis archivos"
-    }
-  },
   "app": {
     "logo": {
-      "alt": "%{name} logo"
+      "alt": "Logotipo de %{name}"
     }
   },
   "date": {
@@ -28,17 +11,17 @@
   "manifest": {
     "name": "Inicio",
     "short_description": "Cozy Home es la aplicación que le ayuda a recopilar todos sus datos personales que están en Cozy.",
-    "long_description": "Con Cozy Home, usted puede facilmente:\n* Descargar documentos de todos sus proveedores\n* Establecer la frecuencia con la que Cozy recopilará sus facturas\n* Acceder directoamente a los documentos recopilados por su Cozy",
-    "changes": "Seguro ya se ha dado cuenta, el Store ha llegado a su Cozy\nAprovechamos para mejorar Collect:\n*Adaptación a Store.\n*Fusión de fichas: cuando se tienen diversas cuentas en un proveedor, la primera se fusiona baja la ficha del proveedor.\n*Mejora de algunas páginas de Conectores."
+    "long_description": "Con Cozy Home, puede fácilmente:\n * Descargar documentos de todos sus proveedores\n * Establecer la frecuencia con la que Cozy recopilará sus facturas\n * Acceder directamente a los documentos recopilados por su Cozy",
+    "changes": "Seguramente ya lo ha notado: ¡el Store ha llegado a su Cozy!\nHemos aprovechado para mejorar Collect:\n * Adaptación al Store.\n * Fusión de fichas: cuando tiene varias cuentas en un mismo proveedor, ahora se agrupan bajo la ficha del proveedor.\n * Mejora de algunas páginas de conectores."
   },
   "add_service": "Añadir",
   "fix_konnector_error": "Arreglar ahora",
   "logout": "Cerrar sesión",
   "account": {
     "config": {
-      "default_folder": "/Administrative/%{name}",
+      "default_folder": "/Administrativo/%{name}",
       "optional": "(Opcional)",
-      "title": "Conecte su cuenta %{name} ",
+      "title": "Conecte su cuenta %{name}",
       "data": {
         "title": "Datos recopilados:",
         "service": {
@@ -60,9 +43,9 @@
       "label": {
         "firstname": "Nombre",
         "lastname": "Apellido",
-        "login": "Login",
-        "consumerKey": "Clave del usuario",
-        "consumerSecret": "Secreto del usuario",
+        "login": "Usuario",
+        "consumerKey": "Clave de consumidor",
+        "consumerSecret": "Secreto de consumidor",
         "appKey": "Clave de la aplicación",
         "appSecret": "Secreto de la aplicación",
         "tricountUrl": "URL Tricount",
@@ -70,15 +53,15 @@
         "dob": "Fecha de nacimiento",
         "password": "Contraseña",
         "email": "Email",
-        "bank_identifier": "Identificante bancario (opcional)",
+        "bank_identifier": "Identificador bancario (opcional)",
         "profileName": "Nombre del perfil",
         "identifier": "Identificador",
         "new_identifier": "Identificador",
         "secret": "Contraseña",
         "answer": "Respuesta secreta",
         "access_token": "Token de acceso",
-        "accessTokenSecret": "Token de acceso secreto",
-        "apikey": "Clave Api",
+        "accessTokenSecret": "Secreto del token de acceso",
+        "apikey": "Clave API",
         "phoneNumber": "Número de teléfono",
         "folderPath": "Ruta de la carpeta",
         "namePath": "Nombre de la carpeta",
@@ -87,16 +70,16 @@
         "loginUrl": "URL de acceso",
         "token": "Token",
         "agreement": "Acepto",
-        "refreshToken": "Recargar el token",
+        "refreshToken": "Token de actualización",
         "timeout": "Retardo (ms)",
-        "branchName": "Oficina",
+        "branchName": "Sucursal",
         "code": "Código confidencial"
       },
       "placeholder": {
         "password": "La contraseña que usted usa para acceder al servicio",
         "update_password": "Actualizar la contraseña",
         "accountName": "Ejemplo: Cuenta personal",
-        "namePath": "Ejemplo: Facturas de Camille. La ruta de nombre predeterminado es su login."
+        "namePath": "Ejemplo: Facturas de Camille. Por defecto, el nombre de la carpeta es su usuario."
       },
       "button": {
         "connect": "Conectar",
@@ -117,10 +100,10 @@
       "changePath": "cambiar la ruta de acceso",
       "error": "Oops, algo salió mal. No se asuste, sus archivos siguen ahí, por favor vuelva a intentarlo más tarde.",
       "close": "cerrar",
-      "warning": "Usted cambia su ruta de acceso",
-      "oldFiles": "Todas sus facturas serán trasladadas a su nueva ruta de acceso",
-      "newFiles": "Sus nuevas facturas serán descargadas a su nueva ruta de acceso",
-      "newPath": "Todo salió bien, el nuevo camino de acceso para su cuenta %{name} es:",
+      "warning": "Está cambiando la ruta de la carpeta",
+      "oldFiles": "Todas sus facturas antiguas se trasladarán a la nueva ruta.",
+      "newFiles": "Sus nuevas facturas se descargarán en la nueva ruta.",
+      "newPath": "Todo ha ido bien, la nueva ruta de su cuenta %{name} es:",
       "placeholder": {
         "administrative": "Administrativa",
         "photos": "Fotos"
@@ -128,7 +111,7 @@
     },
     "success": {
       "title": {
-        "connect": "Configuración correcta!",
+        "connect": "¡Configuración correcta!",
         "update": "¡Su cuenta %{name} ha sido actualizada!"
       },
       "banksLinkText": "Ver mis cuentas en %{appName}",
@@ -142,11 +125,11 @@
       },
       "success": {
         "connect": "Sus datos estarán disponibles en su Cozy en pocos minutos y a partir de ese momento, los siguientes lo estarán automáticamente.",
-        "update": "¡Su cuenta %{name} ha sido actualizada exitosamente.",
-        "delete": "Cuenta suprimida exitosamente."
+        "update": "Su cuenta %{name} se ha actualizado correctamente.",
+        "delete": "Cuenta eliminada correctamente."
       },
       "syncing": {
-        "bill": "Sus facturas están sincronizándose y estarán disponibles en la siguiente dirección:"
+        "bill": "Sus facturas se están sincronizando y estarán disponibles en la siguiente ruta:"
       },
       "synced": {
         "title": "Sincronización de sus datos",
@@ -156,20 +139,20 @@
         "cron_weekly": "una vez por semana",
         "cron_monthly": "una vez por mes",
         "cron_undefined": "manualmente",
-        "syncing": "ejecutándose...",
+        "syncing": "en curso…",
         "unknown": "desconocido",
         "last_sync": "Última sincronización: **%{date}**",
-        "date_format": "LLLL D[,] yyyy [a las] HH[:]mm",
-        "bill": "Encuentre sus datos en la aplicación Drive en este sitio:"
+        "date_format": "D [de] MMMM [de] yyyy [a las] HH[:]mm",
+        "bill": "Encuentre sus datos en la aplicación Drive en esta ubicación:"
       },
       "error": {
-        "server": "Discúlpenos, nuestro servidor tuvo un contratiempo, le importaría arrancar de nuevo?",
-        "bad_credentials": "Lo siento, uste ha escrito un login o una contraseña incorrectos.",
-        "delete": "Discúlpenos, nuestro servidor tuvo un contratiempo, le importaría arrancar de nuevo?"
+        "server": "Lo sentimos, nuestro servidor ha tenido un problema. ¿Puede volver a intentarlo?",
+        "bad_credentials": "Lo sentimos, ha introducido un usuario o una contraseña incorrectos.",
+        "delete": "Lo sentimos, nuestro servidor ha tenido un problema. ¿Puede volver a intentarlo?"
       }
     },
-    "forceConnection": "Vuelva a ejecutar",
-    "editor_detail": "Servicio desarrolado por %{editor}"
+    "forceConnection": "Volver a ejecutar ahora",
+    "editor_detail": "Servicio desarrollado por %{editor}"
   },
   "account_picker": {
     "add_account_button": {
@@ -182,84 +165,84 @@
   },
   "connection": {
     "CTA": {
-      "twofa_failed": "Vuelva a ejecutar"
+      "twofa_failed": "Volver a ejecutar ahora"
     },
     "error": {
       "default": {
         "title": "Ha ocurrido un error",
-        "description": "Desafortunadamente, algo salió mal al intentar conectar con %{name}. Por favor, controle otra vez la información de su cuenta, visite nuestra ayuda en línea o contáctenos en contact@cozycloud.cc."
+        "description": "Lamentablemente, se ha producido un error al intentar conectarse a %{name}. Compruebe de nuevo la información de su cuenta, visite nuestra ayuda en línea o contáctenos en contact@cozycloud.cc."
       },
       "DISK_QUOTA_EXCEEDED": {
-        "title": "El amacenamiento de Cozy está lleno",
-        "description": "Este servicio no puede recuperar sus documentos ahora. Por favor, borre algunos archivos o vaya a \"Ajustes > Almacenamiento** para obtener más espacio libre."
+        "title": "Almacenamiento de Cozy lleno",
+        "description": "Este servicio no puede recuperar sus documentos en este momento. Elimine algunos archivos o vaya a **Ajustes > Almacenamiento** para obtener más espacio libre."
       },
       "CHALLENGE_ASKED": {
-        "title": "Se requiere Challenge",
-        "description": "Parece que el sitio web requiere un segundo factor de autenticación que aún no está disponible. Puede intentar resolver el problema en el sitio web[%{name}](%{link}) antes de volver a intentarlo."
+        "title": "Se requiere una verificación",
+        "description": "Parece que el sitio web requiere un segundo factor de autenticación que aún no admitimos. Puede intentar resolver el problema en el sitio web [%{name}](%{link}) antes de volver a intentarlo."
       },
       "LOGIN_FAILED": {
-        "title": "Malas credenciales",
-        "description": "Malas credenciales. Controle los campos de su conector y vuelva a ejecutarlo."
+        "title": "Credenciales incorrectas",
+        "description": "Credenciales incorrectas. Compruebe los campos del conector y vuelva a ejecutar la conexión."
       },
       "LOGIN_FAILED.NEEDS_SECRET": {
-        "title": "Secreto exigido",
-        "description": "Se debe llenar un campo adicional antes de controlar sus credenciales."
+        "title": "Se requiere un dato secreto",
+        "description": "Debe rellenar un campo adicional antes de que se comprueben sus credenciales."
       },
       "LOGIN_FAILED.TOO_MANY_ATTEMPTS": {
         "title": "Bloqueado temporalmente",
-        "description": "Se hicieron demasiados intentos. Por favor, actualice sus credenciales en el sitio web[%{name}](%{link}) y actualice el conector más tarde."
+        "description": "Se han realizado demasiados intentos. Actualice sus credenciales en el sitio web [%{name}](%{link}) y actualice el conector más tarde."
       },
       "MAINTENANCE": {
         "title": "Sitio web no disponible",
-        "description": "Parece que el sitio web [%{name}](%{link}) no está disponible o que el konnector debe actualizarse. Vuelva a ejecutar el conector más tarde o visite nuestra ayuda en línea."
+        "description": "Parece que el sitio web [%{name}](%{link}) no está disponible o que el conector debe actualizarse. Vuelva a ejecutar el conector más tarde o visite nuestra ayuda en línea."
       },
       "NOT_EXISTING_DIRECTORY": {
         "title": "Falta la carpeta de destino",
-        "description": "Parece que la carpeta de destino de esta cuenta ha sido borrada. Por favor desconéctese de la cuenta, restáurela y vuelva a conectarse."
+        "description": "Parece que la carpeta de destino de esta cuenta se ha eliminado. Para restaurarla, desconecte esta cuenta y vuelva a conectarla."
       },
       "UNKNOWN_ERROR": {
         "title": "Error de conexión",
-        "description": "Ha ocurrido un error no identificado."
+        "description": "Se ha producido un error desconocido."
       },
       "USER_ACTION_NEEDED": {
         "title": "Acción necesaria con el proveedor",
-        "description": "Parece que el sitio web[%{name}](%{link}) requiere que inicie sesión y realice una acción específica. Vuelva a ejecutar el conector una vez que haya resuelto el problema en la página web."
+        "description": "Parece que el sitio web [%{name}](%{link}) requiere que inicie sesión y realice una acción específica. Vuelva a ejecutar el conector una vez resuelto el problema en el sitio web."
       },
       "USER_ACTION_NEEDED.OAUTH_OUTDATED": {
-        "title": "Se requiere volver a acceder",
-        "description": "El servicio [%{name}](%{link}) requiere que usted vuelva a acceder. Por favor desconecte y reconecte su cuenta %{name} a esta aplicación. No se perderá ningún dato."
+        "title": "Se requiere renovar el acceso",
+        "description": "El servicio [%{name}](%{link}) requiere que vuelva a autorizar el acceso. Desconecte y vuelva a conectar su cuenta %{name} a esta aplicación. No se perderá ningún dato."
       },
       "USER_ACTION_NEEDED.ACCOUNT_REMOVED": {
         "title": "Cuenta no disponible",
-        "description": "Parece que su cuenta no está activa. Compruebe su cuenta en[%{name}](%{link}) antes de volver a intentarlo."
+        "description": "Parece que su cuenta ya no está activa. Compruebe su cuenta en [%{name}](%{link}) antes de volver a intentarlo."
       },
       "USER_ACTION_NEEDED.CHANGE_PASSWORD": {
         "title": "Se requiere actualizar la contraseña",
-        "description": "Parece que el sitio web[%{name}](%{link}) requiere que inicie sesión y actualice su contraseña. Por favor, vuelva a ejecutar el conector una vez que haya resuelto el problema en la página web."
+        "description": "Parece que el sitio web [%{name}](%{link}) requiere que inicie sesión y actualice su contraseña. Vuelva a ejecutar el conector una vez resuelto el problema en el sitio web."
       },
       "USER_ACTION_NEEDED.PERMISSIONS_CHANGED": {
-        "title": "Se necesitan nuevos permisos de validación",
-        "description": "Su conector fue actualizado y los permisos cambiados. Por favor, valídelos antes de volver a lanzar el conector."
+        "title": "Es necesario validar los nuevos permisos",
+        "description": "Su conector se ha actualizado y sus permisos han cambiado. Valídelos antes de volver a ejecutar el conector."
       },
       "USER_ACTION_NEEDED.TWOFA_EXPIRED": {
-        "title": "Relanzar la conexión al servicio para recuperar sus datos",
-        "description": "La última conexión al servicio ha fallado; por favor, láncela de nuevo. Es posible que tenga que proporcionar un código de validación."
+        "title": "Vuelva a ejecutar la conexión al servicio para recuperar sus datos",
+        "description": "La última conexión al servicio ha fallado; vuelva a ejecutarla. Es posible que tenga que proporcionar un código de validación."
       },
       "USER_ACTION_NEEDED.WRONG_TWOFA_CODE": {
-        "title": "Código suministrado para dos factores es equivocado",
-        "description": "El código para dos factores suministrado esta errado, ensaye de nuevo por favor."
+        "title": "Código de doble factor incorrecto",
+        "description": "El código de doble factor introducido es incorrecto. Vuelva a intentarlo."
       },
       "VENDOR_DOWN": {
         "title": "Servicio no disponible",
-        "description": "Parece que el servicio[%{name}](%{link}) no está disponible en este momento. Por favor, vuelva a ejecutar el conector más tarde."
+        "description": "Parece que el servicio [%{name}](%{link}) no está disponible en este momento. Vuelva a ejecutar el conector más tarde."
       },
       "VENDOR_DOWN.BANK_DOWN": {
         "title": "Sitio web no disponible",
-        "description": "Parece que el sitio web [%{name}](%{link}) no está disponible en este momento. Por favor, vuelva a ejecutar el conector más tarde."
+        "description": "Parece que el sitio web [%{name}](%{link}) no está disponible en este momento. Vuelva a ejecutar el conector más tarde."
       },
       "VENDOR_DOWN.LINXO_DOWN": {
         "title": "Servicio no disponible",
-        "description": "Parece que en este momento estamos experimentando una sobrecarga con nuestros conectores bancarios. Por favor, vuelva a ejecutar el conector más tarde."
+        "description": "Parece que nuestros conectores bancarios están sobrecargados en este momento. Vuelva a ejecutar el conector más tarde."
       }
     }
   },
@@ -279,8 +262,8 @@
         }
       },
       "error": {
-        "initialization": "El servicio ha fallado al inicializarse. Sentimos los inconvenientes.",
-        "creation": "Imposible crear una cuenta, ha ocurrido un error.",
+        "initialization": "No se ha podido inicializar el servicio. Disculpe las molestias.",
+        "creation": "No se ha podido crear la cuenta, se ha producido un error.",
         "cause": "Causa: %{error}"
       },
       "cancel": "Cancelar",
@@ -300,7 +283,7 @@
     }
   },
   "nav": {
-    "services": "Servicios instalados"
+    "services": "Mis servicios"
   },
   "category": {
     "all": "Todas las categorías",
@@ -310,9 +293,9 @@
     "education": "Educación",
     "energy": "Energía",
     "health": "Salud",
-    "host_provider": "Huésped",
+    "host_provider": "Alojamiento",
     "insurance": "Seguros",
-    "isp": "PSI",
+    "isp": "Móvil e Internet",
     "online_services": "Servicios en línea",
     "others": "Otros",
     "mes_infos": "Experimentación MesInfos",
@@ -322,42 +305,42 @@
     "ptnb": "Experimentación PTNB",
     "public_service": "Servicios Públicos",
     "shopping": "Compras",
-    "social": "Social",
+    "social": "Redes sociales",
     "telecom": "Telecom",
     "transport": "Transporte",
     "pro": "Trabajo",
     "tech": "Tecnología",
-    "clouds": "Nubes y bóvedas",
+    "clouds": "Nubes y cajas fuertes",
     "finance": "Empleo y finanzas"
   },
   "loading": {
-    "initial": "Cargando cuentas...",
+    "initial": "Cargando cuentas…",
     "working": "Cargando"
   },
   "validation": {
-    "exact_length": "Debe estar compuesto de %{length} caracteres exactamente.",
-    "max_length": "La longitud máxima es de %{length}  caracteres.",
+    "exact_length": "Debe tener exactamente %{length} caracteres.",
+    "max_length": "La longitud máxima es de %{length} caracteres.",
     "min_length": "Debe contener al menos %{length} caracteres.",
-    "pattern": "El valor debe coincidir con un patrón específico: %{pattern}.\n"
+    "pattern": "El valor debe coincidir con un patrón específico: %{pattern}"
   },
   "update": {
-    "title": "Está disponible una actualización de este servicio.",
-    "regular": "Actualice esta versión para seguir obteniendo sus datos y disponer de las últimas mejoras.",
-    "blocking": "Actualícela para seguir obteniendo sus datos",
+    "title": "Hay una actualización disponible para este servicio.",
+    "regular": "Realice esta actualización para seguir recuperando sus datos y disponer de las últimas funciones",
+    "blocking": "Actualícelo para seguir obteniendo sus datos",
     "CTA": "Actualizar"
   },
   "error": {
-    "initial": "Algo ocurrió al recolectar sus colectores y sus datos. por favor, vuelva a cargar la página.",
-    "LOGIN_FAILED": "Malas credenciales. Controle los campos de su conector y vuelva a ejecutarlo.",
+    "initial": "Se ha producido un error al recuperar sus conectores y su información. Vuelva a cargar la página.",
+    "LOGIN_FAILED": "Credenciales incorrectas. Compruebe los campos del conector y vuelva a ejecutar la conexión.",
     "UNKNOWN_ERROR": "Algo inesperado ha ocurrido al ejecutar el conector",
     "JOB_TIMEOUT": "La ejecución del conector ha tardado mucho",
     "button": {
-      "reload": "Volver a cargar la página ahora"
+      "reload": "Actualizar ahora"
     }
   },
   "move_modal": {
-    "title": "Traslado terminado",
-    "text": "El traslado de sus datos desde %{de} ha sido exitoso.",
+    "title": "Traslado completado",
+    "text": "El traslado de sus datos desde %{from} se ha realizado correctamente.",
     "button": "Acceder a mi Cozy"
   },
   "maintenance": {
@@ -367,203 +350,215 @@
     "title": "¿Qué sucede?"
   },
   "connector": {
-    "mute": "Error desconocido",
+    "title": "Mis servicios conectados",
+    "mute": "Silenciar el error",
     "debug": {
-      "successMessage": "Este konnector es sólo para fines de debug, este es un mensaje habitual adicional de éxito."
+      "successMessage": "Este conector es solo para depuración; este es un mensaje de éxito personalizado adicional."
     },
     "empty": {
       "title": "¡Empiece a recopilar sus datos!",
-      "text": "Sincronice sus cuentas con su Cozy para recuperar automáticamente sus datos (facturas, reembolsos, gastos...)"
+      "text": "Sincronice sus proveedores con su Cozy para recuperar automáticamente sus datos (facturas, reembolsos, gastos…)"
     },
-    "silenced": "%{name} no se sugerirá más. Siempre puede encontrar un proveedor haciendo clic en el botón \"Añadir\".",
-    "noAccount": "Cuenta inexistente",
+    "silenced": "%{name} ya no se le sugerirá. Siempre puede encontrar un proveedor haciendo clic en el botón \"Añadir\".",
+    "noAccount": "Ninguna cuenta",
     "add": "Añadir un servicio",
     "update": "Actualización disponible",
     "logo": {
-      "alt": "%{name} logo\n"
+      "alt": "Logotipo de %{name}"
     },
     "enedis": {
       "description": {
-        "service": "Recupere sus datos de Linky conectandose a su cuenta de Enedis. Debe tener un medidor Linky y haber creado antes su cuenta de Enedis [en el sitio web de Enedis] (https://espace-client-connexion.enedis.fr/auth/UI/Login?realm=particuliers). Fing proporciona este conector para el proyecto MesInfos. Recupera los datos de su contrato de electricidad y descarga su consumo de electricidad del día anterior. Este conector se ejecuta en su Cozy y Fing no tendrá acceso a estos datos."
+        "service": "Recupere sus datos de Linky conectando su cuenta de Enedis. Debe tener un contador Linky y haber creado previamente su cuenta de Enedis (en el [sitio web de Enedis](https://espace-client-connexion.enedis.fr/auth/UI/Login?realm=particuliers). Fing proporciona este conector para el proyecto MesInfos. Recupera los datos de su contrato de electricidad y descarga su consumo eléctrico del día anterior. Este conector se ejecuta en su Cozy y Fing no tendrá acceso a estos datos."
       }
     },
     "orange": {
       "message": {
-        "delay": "Una vez conectado, se envía al sistema de información de Orange una solicitud para extraer sus datos. Estos datos son válidos durante 15 días. Sus datos se actualizan automáticamente cada quince días."
+        "delay": "Una vez conectado, se enviará al sistema de información de Orange una solicitud de extracción de sus datos. Estos datos estarán disponibles en un plazo de 15 días. Sus datos se actualizarán automáticamente cada 15 días."
       }
     },
     "orangemobile": {
       "description": {
-        "connector": "En el contexto de 'MesInfos', Orange le permite localizar permanentemente su teléfono.\n\n**La recopilación de datos exige su acuerdo previo**\n\nHaciendo clic en \"Apruebo\", usted consiente que se recopile la posición de su teléfono, cada 30 minutos. La información recopilada será la siguiente:\nFecha y hora de la ubicación.\nDatos de la ubicación de la antena más cercana en el momento de la recopimación.\nLos datos recopilados por Orange después de su aceptación estarán disponibles sólo en el Cozy que usted ha asignado en el contexto de 'MesInfos'. Se añadirán a sus datos de ubicación almacenados en su registro de llamadas.",
-        "service": "Este conector carga datos de su cuenta Orange a su Cozy. Carga automáticamente los registros de llamadas de su teléfono. Estos registros de llamadas incluyen su número de teléfono, el número de teléfono de su corresponsal, fecha, duración de la llamada  y datos sobre la localización de la antena radio más cercana en el momento de la recopilación.\n\nUsted podrá utilizar esos datos en diferentes aplicaciones de su Cozy, por ejemplo \"Mapeando Mi Vida\" (pronto disponible en el Cozy Store).",
+        "connector": "En el contexto de 'MesInfos', Orange le permite localizar su teléfono con regularidad.\n\n**La recopilación de datos requiere su consentimiento expreso**\n\nEste consentimiento puede revocarse en cualquier momento mediante este conector de datos.\n\nAl hacer clic en \"Acepto\", usted consiente que se recopile la posición de su teléfono cada 30 minutos. La información recopilada será únicamente:\n<ul><li>La fecha y la hora de la localización.</li><li>Los datos de ubicación de la antena de radio más cercana en el momento de la recopilación.</li></ul>Los datos recopilados por Orange tras su consentimiento estarán disponibles únicamente en el Cozy que se le ha asignado en el contexto de « Mes Infos ». Se añadirán a los datos de ubicación ya almacenados en los registros de llamadas.",
+        "service": "Este conector descargará en su Cozy los datos de su cuenta Orange. Descargará automáticamente los registros de llamadas de su teléfono. Estos registros incluyen su número de teléfono, el número de su interlocutor, la fecha y la hora de la llamada y los datos de ubicación de la antena de radio más cercana en el momento de la recopilación.\n\nPodrá utilizar estos datos en diferentes aplicaciones de su Cozy, por ejemplo \"Mapping My Life\" (pronto disponible en el Cozy Store).",
         "field": {
-          "agreement": "¿En el contexto de \"Mes infos\", aprueba usted que Orange localice regularmente su teléfono ?"
+          "agreement": "¿Acepta que Orange localice regularmente su teléfono en el contexto de « Mes Infos »?"
         }
       }
     },
     "orangevideos": {
       "description": {
-        "service": "Este conector carga datos de su cuenta Orange a su Cozy. Carga automáticamente la lista de las películas que usted ha descargado gratis (TV Replay) o pagando VOD desde em 01/01/2015 (no se incluyen películos con contenido para adultos°.\\n\\nUsted podrá utilizar esos datos en diferentes aplicaciones de su Cozy, por ejemplo \"My Movies Music\" (pronto disponible en el Cozy Store)."
+        "service": "Este conector descargará en su Cozy los datos de su cuenta Orange. Descargará automáticamente la lista de películas que ha descargado gratis (TV Replay) o en VOD de pago desde el 01/01/2015 (no se incluyen los contenidos para adultos).\n\nPodrá utilizar estos datos en diferentes aplicaciones de su Cozy, por ejemplo \"My Movies Music\" (pronto disponible en el Cozy Store)."
       }
     },
     "axabanque102": {
       "description": {
-        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información en] (https://support.cozy.io/article/147-linxo)."
+        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información](https://support.cozy.io/article/147-linxo)."
       }
     },
     "banquepopulaire": {
       "description": {
-        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información en] (https://support.cozy.io/article/147-linxo)."
+        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información](https://support.cozy.io/article/147-linxo)."
       }
     },
     "barclays136": {
       "description": {
-        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información en] (https://support.cozy.io/article/147-linxo)."
+        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información](https://support.cozy.io/article/147-linxo)."
       }
     },
     "bforbank97": {
       "description": {
-        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información en] (https://support.cozy.io/article/147-linxo)."
+        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información](https://support.cozy.io/article/147-linxo)."
       }
     },
     "bnpparibas82": {
       "description": {
-        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información en] (https://support.cozy.io/article/147-linxo)."
+        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información](https://support.cozy.io/article/147-linxo)."
       }
     },
     "boursorama83": {
       "description": {
-        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información en] (https://support.cozy.io/article/147-linxo)."
+        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información](https://support.cozy.io/article/147-linxo)."
       }
     },
     "bred": {
       "description": {
-        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información en] (https://support.cozy.io/article/147-linxo)."
+        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información](https://support.cozy.io/article/147-linxo)."
       }
     },
     "caatlantica3": {
       "description": {
-        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información en] (https://support.cozy.io/article/147-linxo)."
+        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información](https://support.cozy.io/article/147-linxo)."
       }
     },
     "caissedepargne1": {
       "description": {
-        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información en] (https://support.cozy.io/article/147-linxo)."
+        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información](https://support.cozy.io/article/147-linxo)."
       }
     },
     "carrefour159": {
       "description": {
-        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información en] (https://support.cozy.io/article/147-linxo)."
+        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información](https://support.cozy.io/article/147-linxo)."
       }
     },
     "casden173": {
       "description": {
-        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información en] (https://support.cozy.io/article/147-linxo)."
+        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información](https://support.cozy.io/article/147-linxo)."
       }
     },
     "cdngroup109": {
       "description": {
-        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información en] (https://support.cozy.io/article/147-linxo)."
+        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información](https://support.cozy.io/article/147-linxo)."
       }
     },
     "cdngroup88": {
       "description": {
-        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información en] (https://support.cozy.io/article/147-linxo)."
+        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información](https://support.cozy.io/article/147-linxo)."
       }
     },
     "cic45": {
       "description": {
-        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información en] (https://support.cozy.io/article/147-linxo)."
+        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información](https://support.cozy.io/article/147-linxo)."
       }
     },
     "cic63": {
       "description": {
-        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información en] (https://support.cozy.io/article/147-linxo)."
+        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información](https://support.cozy.io/article/147-linxo)."
       }
     },
     "comptenickel168": {
       "description": {
-        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información en] (https://support.cozy.io/article/147-linxo)."
+        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información](https://support.cozy.io/article/147-linxo)."
       }
     },
     "creditcooperatif148": {
       "description": {
-        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información en] (https://support.cozy.io/article/147-linxo)."
+        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información](https://support.cozy.io/article/147-linxo)."
       }
     },
     "creditmaritime": {
       "description": {
-        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información en] (https://support.cozy.io/article/147-linxo)."
+        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información](https://support.cozy.io/article/147-linxo)."
       }
     },
     "fortuneo84": {
       "description": {
-        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información en] (https://support.cozy.io/article/147-linxo)."
+        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información](https://support.cozy.io/article/147-linxo)."
       }
     },
     "hellobank145": {
       "description": {
-        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información en] (https://support.cozy.io/article/147-linxo)."
+        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información](https://support.cozy.io/article/147-linxo)."
       }
     },
     "hsbc119": {
       "description": {
-        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información en] (https://support.cozy.io/article/147-linxo).",
-        "connector": "La respuesta secreta es [pregunta por HSBC](https://www.hsbc.fr/1/2/hsbc-france/particuliers/connexion) cuando usted se conecta sin doble autenticación. Ejemplo: ¿Cómo se llama su mascota?"
+        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información](https://support.cozy.io/article/147-linxo).",
+        "connector": "La respuesta secreta es la que [pide HSBC](https://www.hsbc.fr/1/2/hsbc-france/particuliers/connexion) cuando se conecta sin doble autenticación. Ejemplo: ¿cómo se llama su mascota?"
       }
     },
     "ingdirect95": {
       "description": {
-        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información en] (https://support.cozy.io/article/147-linxo)."
+        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información](https://support.cozy.io/article/147-linxo)."
       }
     },
     "labanquepostale44": {
       "description": {
-        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información en] (https://support.cozy.io/article/147-linxo)."
+        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información](https://support.cozy.io/article/147-linxo)."
       }
     },
     "lcl143": {
       "description": {
-        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información en] (https://support.cozy.io/article/147-linxo)."
+        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información](https://support.cozy.io/article/147-linxo)."
       }
     },
     "lcl144": {
       "description": {
-        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información en] (https://support.cozy.io/article/147-linxo)."
+        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información](https://support.cozy.io/article/147-linxo)."
       }
     },
     "lcl146": {
       "description": {
-        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información en] (https://support.cozy.io/article/147-linxo)."
+        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información](https://support.cozy.io/article/147-linxo)."
       }
     },
     "monabanq96": {
       "description": {
-        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información en] (https://support.cozy.io/article/147-linxo)."
+        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información](https://support.cozy.io/article/147-linxo)."
       }
     },
     "societegenerale": {
       "description": {
-        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información en] (https://support.cozy.io/article/147-linxo)."
+        "service": "La conexión con su banco la opera y asegura nuestro asociado: Linxo. [Más información](https://support.cozy.io/article/147-linxo)."
       }
     }
   },
+  "shortcut": {
+    "edit": "Modificar el acceso directo",
+    "delete": "Eliminar"
+  },
+  "folder": {
+    "default_name": "Carpeta",
+    "name_placeholder": "Nombre de la carpeta",
+    "dissolve": "Deshacer la carpeta",
+    "remove_item": "Quitar de la carpeta",
+    "actions": "Acciones de la carpeta"
+  },
   "Queue": {
-    "header": "Sincronizando cuentas",
+    "header": "Sincronizando cuentas:",
     "header_mobile": "%{done} de %{total}",
-    "header_done": "Sincronizado %{done}  de %{total}",
+    "header_done": "Sincronizadas %{done} de %{total}",
     "item": {
       "pending": "Pendiente"
     },
     "close": "Cerrar"
   },
   "services": {
-    "title": "Servicios instalados"
+    "title": "Mis servicios"
   },
   "status": {
-    "interrupted": "SEVICIO INTERRUMPIDO",
+    "interrupted": "SERVICIO INTERRUMPIDO",
     "edf": {
-      "maintenance": "El sistema de información de EDF ha cambiado y el acceso a los datos relacionados no funciona. Este konnector no puede recuperar actualmente sus datos de EDF. Estamos tratando de restaurar la situación y le notificaremos cuando se arregle. [Más información en](%{supportLink})",
+      "maintenance": "El sistema de información de EDF ha cambiado y el acceso a los datos correspondientes ya no funciona. Actualmente, este conector no puede recuperar sus datos de EDF. Estamos intentando resolver la situación y le avisaremos cuando esté solucionada. [Más información](%{supportLink})",
       "support_link": "https://support.cozy.io/article/123-le-connecteur-edf-ne-fonctionne-pas"
     }
   },
@@ -574,12 +569,43 @@
       }
     }
   },
+  "defaultRedirection": {
+    "snackbar": {
+      "description": "¿Definir esta página como pantalla de inicio de su aplicación móvil?",
+      "refuse": "No, gracias",
+      "accept": "Aceptar"
+    }
+  },
+  "backup": {
+    "backupInProgress": "Copia de seguridad en curso",
+    "confirmStopBackupModal": {
+      "title": "¿Detener la copia de seguridad?",
+      "description": "Su copia de seguridad aún no ha terminado. ¿Realmente desea detenerla? Las fotos ya guardadas permanecerán en su Cozy y podrá reanudar la copia de seguridad más adelante.",
+      "cancel": "Cancelar",
+      "stop": "Detener"
+    },
+    "appHighlightAlert": {
+      "description": "¡Guarde sus fotos de forma segura en su Cozy para protegerlas de pérdidas o robos!"
+    }
+  },
+  "appHighlightAlert": {
+    "geolocationTracking": {
+      "defaultDescription": "Siga sus desplazamientos y su huella de carbono con el Coach CO2",
+      "bikegoalSourceEmployerDescription": "Su %{sourceType} %{sourceName} le invita a participar en la mejora de su territorio y a beneficiarse de la \"prime vélo\". ¡Esta aplicación le ayudará a medir su progreso, y mucho más!",
+      "bikegoalSourceDefaultDescription": "Su %{sourceType} %{sourceName} le invita a contribuir a la mejora de su región. ¡Registre y analice sus desplazamientos!"
+    }
+  },
   "sections": {
-    "label_compact": "Mosaico Compacto",
-    "label_detailed": "Lista Detallada",
-    "label_grouped": "Agrupado en Carpeta"
+    "label_compact": "Mosaico compacto",
+    "label_detailed": "Lista detallada",
+    "label_grouped": "Agrupado en carpeta"
+  },
+  "AnnouncementsDialogContent": {
+    "dateFormat": "dd/LL/yyyy",
+    "skip": "Entendido"
   },
   "wallpaper": {
-    "import": "Importar"
+    "import": "Importar",
+    "close_dialog": "Cerrar el cuadro de diálogo de personalización del fondo de pantalla"
   }
 }

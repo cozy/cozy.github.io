@@ -4,6 +4,8 @@ import flag from 'cozy-flags'
 
 import { renderApp } from './renderApp'
 
+import '@/lib/pdfjsWorker'
+
 // Uncomment to activate why-did-you-render
 // https://github.com/welldone-software/why-did-you-render
 // import './wdyr'

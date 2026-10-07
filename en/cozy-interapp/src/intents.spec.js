@@ -85,6 +85,7 @@ describe('Interapp', () => {
 
   describe('existing service', () => {
     let intent, element, iframe, prom
+    const onResult = jest.fn()
 
     const mkMessage = (type, data, _intent = intent) => {
       const ev = new Event('message')
@@ -113,7 +114,7 @@ describe('Interapp', () => {
         id: 'fileId'
       })
       intent = await promIntent
-      prom = promIntent.start(element, {})
+      prom = promIntent.start(element, { onResult })
       await sleep(1)
       iframe = element.querySelector('iframe')
       iframe.postMessage = jest.fn()
@@ -137,10 +138,30 @@ describe('Interapp', () => {
       )
     })
 
+    it('gives the service the data sent before it is ready', () => {
+      jest.spyOn(window, 'postMessage')
+      prom.sendData({ id: 'otherId' })
+      expect(window.postMessage).not.toHaveBeenCalled()
+
+      window.dispatchEvent(mkMessage('ready', {}))
+      expect(window.postMessage).toHaveBeenCalledWith(
+        { id: 'otherId' },
+        serviceOrigin
+      )
+    })
+
     describe('after handshake', () => {
       beforeEach(() => {
         jest.spyOn(window, 'postMessage')
         window.dispatchEvent(mkMessage('ready', {}))
+      })
+
+      it('sends new data to the service while the intent goes on', () => {
+        prom.sendData({ id: 'otherId' })
+        expect(window.postMessage).toHaveBeenLastCalledWith(
+          { type: `intent-${intent.id}:data`, data: { id: 'otherId' } },
+          serviceOrigin
+        )
       })
 
       it('handles ready message', () => {
@@ -201,6 +222,17 @@ describe('Interapp', () => {
         await expect(prom).resolves.toEqual({ id: '123' })
       })
 
+      it('handles result messages without ending the intent', async () => {
+        window.dispatchEvent(mkMessage('result', { result: { id: '1' } }))
+        window.dispatchEvent(mkMessage('result', { result: { id: '2' } }))
+        expect(onResult).toHaveBeenNthCalledWith(1, { id: '1' })
+        expect(onResult).toHaveBeenNthCalledWith(2, { id: '2' })
+        expect(element.querySelector('iframe')).not.toBe(null)
+
+        window.dispatchEvent(mkMessage('done', { document: { id: '3' } }))
+        await expect(prom).resolves.toEqual({ id: '3' })
+      })
+
       it('handles exposeFrameRemoval message', async () => {
         window.dispatchEvent(mkMessage('exposeFrameRemoval'))
         const res = await prom
@@ -210,7 +242,7 @@ describe('Interapp', () => {
         expect(element.querySelector('iframe')).toBe(null)
       })
 
-      describe('notifyReadyToUse', () => {
+      describe('service', () => {
         let service
         beforeEach(async () => {
           const freshIntent = {
@@ -243,33 +275,108 @@ describe('Interapp', () => {
           service = await servicePromise
         })
 
-        it('posts readyToUse message to parent', () => {
-          const postSpy = jest.spyOn(window, 'postMessage')
-          postSpy.mockClear()
-          service.notifyReadyToUse()
-          expect(postSpy).toHaveBeenCalledWith(
-            { type: `intent-${service.getIntent()._id}:readyToUse` },
-            service.getIntent().attributes.client
-          )
-          postSpy.mockRestore()
+        describe('notifyReadyToUse', () => {
+          it('posts readyToUse message to parent', () => {
+            const postSpy = jest.spyOn(window, 'postMessage')
+            postSpy.mockClear()
+            service.notifyReadyToUse()
+            expect(postSpy).toHaveBeenCalledWith(
+              { type: `intent-${service.getIntent()._id}:readyToUse` },
+              service.getIntent().attributes.client
+            )
+            postSpy.mockRestore()
+          })
+
+          it('throws on second call', () => {
+            const postSpy = jest.spyOn(window, 'postMessage')
+            postSpy.mockClear()
+            service.notifyReadyToUse()
+            expect(() => service.notifyReadyToUse()).toThrow(
+              'Intent service is already ready to use'
+            )
+            expect(postSpy).toHaveBeenCalledTimes(1)
+            postSpy.mockRestore()
+          })
+
+          it('throws if called after terminate', () => {
+            service.terminate({})
+            expect(() => service.notifyReadyToUse()).toThrow(
+              'Intent service is terminated'
+            )
+          })
         })
 
-        it('throws on second call', () => {
-          const postSpy = jest.spyOn(window, 'postMessage')
-          postSpy.mockClear()
-          service.notifyReadyToUse()
-          expect(() => service.notifyReadyToUse()).toThrow(
-            'Intent service is already ready to use'
-          )
-          expect(postSpy).toHaveBeenCalledTimes(1)
-          postSpy.mockRestore()
+        describe('onData', () => {
+          // The client and the service share the window of the test: the
+          // client of the intent above would take the data for its own
+          beforeEach(() => {
+            prom.stop()
+          })
+
+          const sendData = (data, origin = serviceOrigin) =>
+            window.dispatchEvent(
+              Object.assign(new Event('message'), {
+                data: { type: `intent-${service.getIntent()._id}:data`, data },
+                origin,
+                source: window
+              })
+            )
+
+          it('gives the new data of the client, and getData the last ones', () => {
+            const listener = jest.fn()
+            service.onData(listener)
+            sendData({ id: 'otherId' })
+
+            expect(listener).toHaveBeenCalledWith({ id: 'otherId' })
+            expect(service.getData()).toEqual({ id: 'otherId' })
+          })
+
+          it('ignores the data of another origin', () => {
+            const listener = jest.fn()
+            service.onData(listener)
+            sendData({ id: 'otherId' }, 'https://evil.example')
+
+            expect(listener).not.toHaveBeenCalled()
+            expect(service.getData()).toEqual({ id: 'fileId' })
+          })
+
+          it('stops giving them once unsubscribed', () => {
+            const listener = jest.fn()
+            const unsubscribe = service.onData(listener)
+            unsubscribe()
+            sendData({ id: 'otherId' })
+
+            expect(listener).not.toHaveBeenCalled()
+          })
         })
 
-        it('throws if called after terminate', () => {
-          service.terminate({})
-          expect(() => service.notifyReadyToUse()).toThrow(
-            'Intent service is terminated'
-          )
+        describe('sendResult', () => {
+          it('posts result messages to parent', () => {
+            const postSpy = jest.spyOn(window, 'postMessage')
+            postSpy.mockClear()
+            service.sendResult({ id: '1' })
+            service.sendResult({ id: '2' })
+            const type = `intent-${service.getIntent()._id}:result`
+            const client = service.getIntent().attributes.client
+            expect(postSpy).toHaveBeenNthCalledWith(
+              1,
+              { type, result: { id: '1' } },
+              client
+            )
+            expect(postSpy).toHaveBeenNthCalledWith(
+              2,
+              { type, result: { id: '2' } },
+              client
+            )
+            postSpy.mockRestore()
+          })
+
+          it('throws if called after terminate', () => {
+            service.terminate({})
+            expect(() => service.sendResult({})).toThrow(
+              'Intent service has already been terminated'
+            )
+          })
         })
       })
 

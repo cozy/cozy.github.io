@@ -1,14 +1,20 @@
 import get from 'lodash/get'
 
+import deLocale from './locales/de.json'
 import enLocale from './locales/en.json'
+import esLocale from './locales/es.json'
 import frLocale from './locales/fr.json'
+import itLocale from './locales/it.json'
 import { renderMJML } from './mjmlUtils'
 import { renderer } from './templates'
 import { generateUniversalLink, generateWebLink } from './urls'
 
 const builtInLocales = {
+  de: deLocale,
   en: enLocale,
-  fr: frLocale
+  es: esLocale,
+  fr: frLocale,
+  it: itLocale
 }
 
 const result = (fn, defaultValue, ...args) => {

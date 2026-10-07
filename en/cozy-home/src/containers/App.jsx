@@ -1,15 +1,15 @@
 import cx from 'classnames'
-import React, { useMemo, useState } from 'react'
-import { Link, Navigate, Outlet, Route, useLocation } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Navigate, Outlet, Route, useLocation } from 'react-router-dom'
 
-import { BarComponent, BarLeft, BarProvider } from 'cozy-bar'
+import { BarCenter, BarComponent, BarProvider } from 'cozy-bar'
 import { useQuery } from 'cozy-client'
 import { isFlagshipApp } from 'cozy-device-helper'
 import flag from 'cozy-flags'
 import { useWebviewIntent } from 'cozy-intent'
 import minilog from 'cozy-minilog'
-import { AiText, AssistantView, SearchDialog } from 'cozy-search'
-import AppTitle from 'cozy-ui/transpiled/react/AppTitle'
+import { AssistantView, SearchDialog } from 'cozy-search'
+import BarTitle from 'cozy-ui/transpiled/react/BarTitle'
 import { Layout } from 'cozy-ui/transpiled/react/Layout'
 import Spinner from 'cozy-ui/transpiled/react/Spinner'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
@@ -46,7 +46,9 @@ import styles from '../styles/app.styl'
 import IconCozyHome from '@/components/Icons/IconCozyHome'
 import WorkplaceText from '@/components/Icons/WorkplaceText'
 
-import { Sprite } from '@linagora/twake-icons'
+import { Ai, AiText, Sprite } from '@linagora/twake-icons'
+
+const ASSISTANT_APP_NAME = 'AI'
 
 window.flag = window.flag || flag
 window.minilog = minilog
@@ -112,15 +114,6 @@ const App = () => {
 
   const isNewAssistantView = pathname.startsWith('/connected/assistant/')
 
-  const assistantBarLeft = useMemo(
-    () => (
-      <Link to="/connected" className="coz-nav-apps-btns-home">
-        <AppTitle appIcon={IconCozyHome} appTextIcon={AiText} />
-      </Link>
-    ),
-    []
-  )
-
   return (
     <BarProvider>
       {/* u-bg-white avoids mix-blend-mode from home-custom-background to be linked to the background color of the body. Must not be responsive to the theme. */}
@@ -130,7 +123,7 @@ const App = () => {
       >
         <BarComponent
           searchOptions={{ enabled: isNewAssistantView }}
-          appIcon={IconCozyHome}
+          appIcon={isNewAssistantView ? Ai : IconCozyHome}
           appTextIcon={
             isNewAssistantView
               ? AiText
@@ -143,10 +136,16 @@ const App = () => {
                 'u-bg-transparent': !isNewAssistantView,
                 [styles['topbar-border']]: isNewAssistantView
               })
-            }
+            },
+            BarLeft: { noCozyHome: !isNewAssistantView && !isMobile },
+            BarSearch: { disabledAssistantButton: isNewAssistantView }
           }}
         />
-        {isNewAssistantView && <BarLeft>{assistantBarLeft}</BarLeft>}
+        {isNewAssistantView && isMobile && (
+          <BarCenter>
+            <BarTitle>{ASSISTANT_APP_NAME}</BarTitle>
+          </BarCenter>
+        )}
         {!isNewAssistantView && <BackgroundContainer />}
         <ReloadFocus />
         <MainView isFullHeight={isNewAssistantView}>
@@ -191,7 +190,13 @@ const App = () => {
                   >
                     <Route
                       path="assistant/:conversationId"
-                      element={<AssistantView />}
+                      element={
+                        <AssistantView
+                          hasCompactPrompt={flag(
+                            'cozy.assistant.compact-prompt.enabled'
+                          )}
+                        />
+                      }
                     />
                     <Route path="search" element={<SearchDialog />} />
 

@@ -20,6 +20,12 @@ const extractOrigin = url => {
  */
 export function start(createIntent, intent, element, data, options = {}) {
   let receiver, iframe
+  // Set when the service sends `ready`: messages sent before would be lost
+  let serviceWindow = null
+  // The data to give the service at the handshake; sendData() replaces them until then
+  let currentData = data
+  const service = pickService(intent, options.filterServices)
+  const serviceOrigin = extractOrigin(service.href)
 
   const destroy = () => {
     iframe && dom.remove(iframe)
@@ -31,7 +37,6 @@ export function start(createIntent, intent, element, data, options = {}) {
   }
 
   let prom = new Promise((resolve, reject) => {
-    const service = pickService(intent, options.filterServices)
     iframe = dom.insertIntentIframe(
       intent,
       element,
@@ -39,18 +44,21 @@ export function start(createIntent, intent, element, data, options = {}) {
       options.onReady
     )
 
-    const serviceOrigin = extractOrigin(service.href)
-
     receiver = new IntentListener({
       intentId: intent.id,
       origin: serviceOrigin,
 
       onReady: event => {
-        event.source.postMessage(data, event.origin)
+        serviceWindow = event.source
+        event.source.postMessage(currentData, event.origin)
       },
 
       onReadyToUse: () => {
         if (options.onReadyToUse) options.onReadyToUse()
+      },
+
+      onResult: event => {
+        if (options.onResult) options.onResult(event.data.result)
       },
 
       onDone: event => {
@@ -119,5 +127,16 @@ export function start(createIntent, intent, element, data, options = {}) {
   })
 
   prom.destroy = destroy
+  // New data for the service while the intent goes on. Before the service is
+  // ready, they take the place of the first ones.
+  prom.sendData = newData => {
+    currentData = newData
+    if (serviceWindow) {
+      serviceWindow.postMessage(
+        { type: `intent-${intent.id}:data`, data: newData },
+        serviceOrigin
+      )
+    }
+  }
   return prom
 }

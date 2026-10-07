@@ -85,6 +85,31 @@ describe('[Interapp] Request', () => {
     })
   })
 
+  describe('post', () => {
+    it('should create the intent with correct arguments', async () => {
+      cozyClient.stackClient.fetchJSON.mockReturnValue(
+        Promise.resolve({ data: { id: 'intent-1' } })
+      )
+
+      const intent = await request.post('PICK', 'io.cozy.files', ['GET'])
+      expect(cozyClient.stackClient.fetchJSON).toHaveBeenCalledWith(
+        'POST',
+        '/intents',
+        {
+          data: {
+            type: 'io.cozy.intents',
+            attributes: {
+              action: 'PICK',
+              type: 'io.cozy.files',
+              permissions: ['GET']
+            }
+          }
+        }
+      )
+      expect(intent.id).toBe('intent-1')
+    })
+  })
+
   describe('fromDOM', () => {
     it('should return undefined when element does not exist', () => {
       const result = request.fromDOM()

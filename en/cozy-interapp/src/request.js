@@ -17,14 +17,13 @@ class Request {
     })
   }
 
-  post(action, type, data, permissions) {
+  post(action, type, permissions) {
     return this.fetchJSON('POST', '/intents', {
       data: {
         type: 'io.cozy.intents',
         attributes: {
           action: action,
           type: type,
-          data: data,
           permissions: permissions
         }
       }

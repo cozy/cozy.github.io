@@ -4,6 +4,7 @@ import React from 'react'
 import { Icon, Cross } from '@linagora/twake-icons'
 import { useClient } from 'cozy-client'
 import IconButton from 'cozy-ui/transpiled/react/IconButton'
+import { useI18n } from 'twake-i18n'
 
 import styles from './Personalization.styl'
 import { ThemeSwitcher } from './ThemeSwitcher'
@@ -15,6 +16,7 @@ export const PersonalizationModal = ({
   onClose = undefined
 }) => {
   const client = useClient()
+  const { t } = useI18n()
   const headerSwitcherClassname = showCloseButton
     ? styles['personalize-header-switcher']
     : undefined
@@ -34,7 +36,7 @@ export const PersonalizationModal = ({
             <IconButton
               className="u-ml-half"
               onClick={onClose}
-              aria-label="Close wallpaper personalization dialog"
+              aria-label={t('wallpaper.close_dialog')}
               size="small"
             >
               <Icon icon={Cross} size={16} />

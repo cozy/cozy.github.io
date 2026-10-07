@@ -54,10 +54,14 @@ export const start = request => (intentIdArg, serviceWindowArg) => {
       serviceWindow.parent.postMessage(message, intent.attributes.client)
     }
 
+    const dataType = `intent-${intent._id}:data`
+    const isDataUpdate = event => event.data && event.data.type === dataType
+
     const compose = (action, doctype, data) =>
       new Promise(resolve => {
         const composeEventListener = event => {
           if (event.origin !== intent.attributes.client) return
+          if (isDataUpdate(event)) return
           serviceWindow.removeEventListener('message', composeEventListener)
           return resolve(event.data)
         }
@@ -115,10 +119,24 @@ export const start = request => (intentIdArg, serviceWindowArg) => {
       if (!terminated) cancel()
     })
 
-    return listenClientData(intent, serviceWindow).then(data => {
+    return listenClientData(intent, serviceWindow).then(firstData => {
+      let data = firstData
+      const dataListeners = new Set()
+      // The client may send new data while the intent goes on
+      serviceWindow.addEventListener('message', event => {
+        if (event.origin !== intent.attributes.client) return
+        if (!isDataUpdate(event)) return
+        data = event.data.data
+        dataListeners.forEach(listener => listener(data))
+      })
+
       return {
         compose: compose,
         getData: () => data,
+        onData: listener => {
+          dataListeners.add(listener)
+          return () => dataListeners.delete(listener)
+        },
         getIntent: () => intent,
         terminate: doc => {
           const eventName =
@@ -148,7 +166,12 @@ export const start = request => (intentIdArg, serviceWindowArg) => {
           }
           notifiedReadyToUse = true
           sendMessage({ type: `intent-${intent._id}:readyToUse` })
-        }
+        },
+        sendResult: result =>
+          sendMessage({
+            type: `intent-${intent._id}:result`,
+            result
+          })
       }
     })
   })

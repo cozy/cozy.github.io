@@ -25,7 +25,7 @@ class Intents {
     if (!type)
       throw new Error(`Misformed intent, "type" property must be provided`)
 
-    const createPromise = this.request.post(action, type, data, permissions)
+    const createPromise = this.request.post(action, type, permissions)
 
     createPromise.start = (element, options = {}) => {
       const opts = {
@@ -33,19 +33,32 @@ class Intents {
         onReady: options.onReady,
         onHideCross: options.onHideCross,
         onShowCross: options.onShowCross,
-        onReadyToUse: options.onReadyToUse
+        onReadyToUse: options.onReadyToUse,
+        onResult: options.onResult
       }
 
       delete data.filteredServices
 
       let intentManager
+      let currentData = data
       const prom = createPromise.then(intent => {
-        intentManager = client.start(this.create, intent, element, data, opts)
+        intentManager = client.start(
+          this.create,
+          intent,
+          element,
+          currentData,
+          opts
+        )
         return intentManager
       })
 
       prom.stop = () => {
         intentManager && intentManager.destroy()
+      }
+
+      prom.sendData = newData => {
+        currentData = newData
+        intentManager && intentManager.sendData(newData)
       }
 
       return prom

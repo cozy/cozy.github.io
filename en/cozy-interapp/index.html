@@ -8057,6 +8057,8 @@ stack: either a <code>cozy-client</code> instance or a <code>fetch</code> functi
     Client-&gt;&gt;Service: postMessage(data)  (raw intent data, no envelope)
     Service-&gt;&gt;Client: postMessage { type: "intent-{id}:readyToUse" }
     Note over Client,Service: Intent is usable (optional messages can happen here)
+    Service-&gt;&gt;Client: postMessage { type: "intent-{id}:result", result }  (any number of times)
+    Client-&gt;&gt;Service: postMessage { type: "intent-{id}:data", data }  (any number of times)
     Service-&gt;&gt;Client: postMessage { type: "intent-{id}:done", document } OR
     Service-&gt;&gt;Client: postMessage { type: "intent-{id}:exposeFrameRemoval", document } OR
     Service-&gt;&gt;Client: postMessage { type: "intent-{id}:cancel" } OR
@@ -8088,7 +8090,7 @@ stack: either a <code>cozy-client</code> instance or a <code>fetch</code> functi
 <td>Client → Service</td>
 <td><em>(raw <code>data</code>, no envelope)</em></td>
 <td>whatever was passed to <code>intents.create(action, type, data, ...)</code></td>
-<td>Sent immediately after <code>ready</code>. The service reads it via <code>service.getData()</code>.</td>
+<td>Sent immediately after <code>ready</code>. The service reads it via <code>service.getData()</code>. This is the only way the data travel: they are not sent to the cozy-stack when the intent is created.</td>
 </tr>
 <tr>
 <td>Service → Client</td>
@@ -8158,6 +8160,18 @@ stack: either a <code>cozy-client</code> instance or a <code>fetch</code> functi
 <td>Ask the client to show its close button. Fires <code>onShowCross</code>.</td>
 </tr>
 <tr>
+<td>Client → Service</td>
+<td><code>intent-{id}:data</code></td>
+<td><code>data</code></td>
+<td>New data for a service that stays open, sent with <code>sendData(data)</code> on the started intent. The service reads them with <code>getData()</code>, and gets them with <code>onData(listener)</code>.</td>
+</tr>
+<tr>
+<td>Service → Client</td>
+<td><code>intent-{id}:result</code></td>
+<td><code>result</code></td>
+<td>The service hands a result to the client without ending the intent. Fires <code>onResult(result)</code>. May be sent any number of times before the intent terminates.</td>
+</tr>
+<tr>
 <td>Service → Client</td>
 <td><code>intent-{id}:compose</code></td>
 <td><code>action</code>, <code>doctype</code>, <code>data</code></td>
@@ -8174,6 +8188,7 @@ stack: either a <code>cozy-client</code> instance or a <code>fetch</code> functi
 <li><code>onReady</code> — called when the intent iframe has finished loading (iframe <code>onload</code>). Useful for running client code once the iframe is ready.</li>
 <li><code>onHideCross</code> / <code>onShowCross</code> — called when the service asks the client to hide/show the close button.</li>
 <li><code>onReadyToUse</code> — called when the service signals it is <strong>truly ready</strong> (UI rendered and initial data loaded), via <code>service.notifyReadyToUse()</code>. Distinct from <code>onReady</code>, which only signals the iframe loaded. See <code>intents.createService()</code> below.</li>
+<li><code>onResult</code> — called with each result the service hands over with <code>service.sendResult(result)</code>, while the intent goes on. For a service that stays open and gives several results, where <code>terminate(doc)</code> gives one and ends the intent.</li>
 </ul>
 </blockquote>
 <p>An intent has to be created everytime an app need to perform an action over a doctype for wich it does not have permission. For example, the Cozy Drive app should create an intent to <code>pick</code> a <code>io.cozy.contacts</code> document. The cozy-stack will determines which app can offer a service to resolve the intent. It&rsquo;s this service&rsquo;s URL that will be passed to the iframe <code>src</code> property.</p>
@@ -8241,6 +8256,12 @@ stack: either a <code>cozy-client</code> instance or a <code>fetch</code> functi
 </li>
 <li>
 <p><code>notifyReadyToUse()</code>: tells the client the service UI is rendered and its initial data has loaded. A service may call this only once; a second call is a no-op with a warning. Throws if called after <code>terminate()</code>. The client receives it via the <code>onReadyToUse</code> option of <code>start()</code>.</p>
+</li>
+<li>
+<p><code>onData(listener)</code>: calls <code>listener</code> with the new data the client sends while the intent goes on (<code>sendData()</code> of the started intent). <code>getData()</code> then gives them too. Returns a function that stops the calls.</p>
+</li>
+<li>
+<p><code>sendResult(result)</code>: passes a <code>result</code> to the client without ending the intent process, any number of times. Throws if called after the service is terminated. The client receives it via the <code>onResult</code> option of <code>start()</code>.</p>
 </li>
 </ul>
 <h4 id="example_1">Example<a class="headerlink" href="#example_1" title="Permanent link">&para;</a></h4>

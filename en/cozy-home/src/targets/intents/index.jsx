@@ -9,6 +9,7 @@ import { KonnectorRoutes } from './KonnectorRoutes'
 import AppWrapper, { AppContext } from '@/components/AppWrapper'
 import IntentHandler from '@/containers/IntentHandler'
 import '@/styles/intents.styl'
+import '@/lib/pdfjsWorker'
 
 import React from 'react'
 import { Route, Routes, HashRouter } from 'react-router-dom'

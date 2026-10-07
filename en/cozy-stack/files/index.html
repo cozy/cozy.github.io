@@ -11280,6 +11280,10 @@ then the <code>updated_at</code> will be set with the value of the <code>created
 <td>the file name</td>
 </tr>
 <tr>
+<td>SourceURL</td>
+<td>optional HTTP(S) URL to download instead of the request body</td>
+</tr>
+<tr>
 <td>Size</td>
 <td>the file size (when <code>Content-Length</code> can&rsquo;t be used)</td>
 </tr>
@@ -11321,6 +11325,14 @@ then the <code>updated_at</code> will be set with the value of the <code>created
 </tr>
 </tbody>
 </table>
+<p>When <code>SourceURL</code> is non-empty, the Stack streams the response into the file after
+checking write permissions. The URL must be accessible without credentials;
+caller headers and cookies are never forwarded. Redirects, network restrictions
+and the 10-second download timeout use the Stack&rsquo;s safe HTTP client. The source
+must return HTTP 200. Its content length (or the streamed byte count when unknown)
+determines the file size; the upload request&rsquo;s body and size are ignored.
+<code>Name</code> remains required, and the existing MIME-type and name-conflict rules apply.
+An invalid URL returns 422; a failed download request or non-200 response returns 502.</p>
 <h4 id="http-headers_2">HTTP headers<a class="headerlink" href="#http-headers_2" title="Permanent link">&para;</a></h4>
 <table>
 <thead>

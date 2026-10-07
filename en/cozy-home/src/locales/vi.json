@@ -19,7 +19,7 @@
   "logout": "Đăng xuất",
   "account": {
     "config": {
-      "default_folder": "/Administrative/%{name}",
+      "default_folder": "/Hành chính/%{name}",
       "optional": "(Tùy chọn)",
       "title": "Kết nối tài khoản %{name} của bạn",
       "data": {
@@ -44,11 +44,11 @@
         "firstname": "Tên",
         "lastname": "Họ",
         "login": "Đăng nhập",
-        "consumerKey": "Consumer Key",
-        "consumerSecret": "Consumer Secret",
-        "appKey": "Application Key",
-        "appSecret": "Application Secret",
-        "tricountUrl": "Tricount URL",
+        "consumerKey": "Khóa khách hàng",
+        "consumerSecret": "Mã bí mật khách hàng",
+        "appKey": "Khóa ứng dụng",
+        "appSecret": "Mã bí mật ứng dụng",
+        "tricountUrl": "URL Tricount",
         "cardNumber": "Số thẻ",
         "dob": "Ngày sinh",
         "password": "Mật khẩu",
@@ -59,9 +59,9 @@
         "new_identifier": "Mã định danh",
         "secret": "Mật khẩu",
         "answer": "Câu trả lời bí mật",
-        "access_token": "Access token",
-        "accessTokenSecret": "Access token secret",
-        "apikey": "Api key",
+        "access_token": "Mã truy cập",
+        "accessTokenSecret": "Mã bí mật của mã truy cập",
+        "apikey": "Khóa API",
         "phoneNumber": "Số điện thoại",
         "folderPath": "Đường dẫn thư mục",
         "namePath": "Tên thư mục",
@@ -70,7 +70,7 @@
         "loginUrl": "URL đăng nhập",
         "token": "Token",
         "agreement": "Tôi đồng ý",
-        "refreshToken": "Refresh Token",
+        "refreshToken": "Mã làm mới",
         "timeout": "Độ trễ (ms)",
         "branchName": "Chi nhánh",
         "code": "Mã bí mật"
@@ -121,10 +121,10 @@
     "message": {
       "folder": {
         "title": "Thư mục",
-        "link": "Mở thư mục trên cozy drive"
+        "link": "Mở thư mục trong Cozy Drive"
       },
       "success": {
-        "connect": "Dữ liệu của bạn sẽ có sẵn trong Cozy của bạn trong vài phút và những dữ liệu tiếp theo sẽ theo một cách tự động.",
+        "connect": "Dữ liệu của bạn sẽ có sẵn trong Cozy sau vài phút và các dữ liệu tiếp theo sẽ được cập nhật tự động.",
         "update": "Tài khoản %{name} của bạn đã được cập nhật thành công.",
         "delete": "Tài khoản đã được xóa thành công."
       },
@@ -177,7 +177,7 @@
         "description": "Dịch vụ này không thể tìm nạp tài liệu của bạn ngay bây giờ. Vui lòng xóa một số tệp hoặc đi đến **Cài đặt > Lưu trữ** để có thêm không gian trống."
       },
       "CHALLENGE_ASKED": {
-        "title": "Yêu cầu thách thức",
+        "title": "Yêu cầu xác minh",
         "description": "Có vẻ như trang web yêu cầu yếu tố xác thực thứ hai mà chúng tôi chưa hỗ trợ. Bạn có thể thử giải quyết vấn đề trên trang web [%{name}](%{link}) trước khi thử lại."
       },
       "LOGIN_FAILED": {
@@ -185,7 +185,7 @@
         "description": "Thông tin đăng nhập sai. Kiểm tra các trường konnector và chạy kết nối lại."
       },
       "LOGIN_FAILED.NEEDS_SECRET": {
-        "title": "Cần mật khẩu bí mật",
+        "title": "Cần thông tin bí mật",
         "description": "Một trường bổ sung phải được điền trước khi kiểm tra thông tin đăng nhập của bạn."
       },
       "LOGIN_FAILED.TOO_MANY_ATTEMPTS": {
@@ -205,7 +205,7 @@
         "description": "Đã xảy ra lỗi không xác định."
       },
       "USER_ACTION_NEEDED": {
-        "title": "Cần hành động trên nhà cung cấp",
+        "title": "Cần thao tác trên trang của nhà cung cấp",
         "description": "Có vẻ như trang web [%{name}](%{link}) yêu cầu bạn đăng nhập và thực hiện một hành động cụ thể. Vui lòng chạy lại connector sau khi bạn đã giải quyết vấn đề trên trang web."
       },
       "USER_ACTION_NEEDED.OAUTH_OUTDATED": {
@@ -229,7 +229,7 @@
         "description": "Kết nối cuối cùng với dịch vụ đã thất bại; vui lòng khởi chạy lại. Bạn có thể phải cung cấp mã xác thực."
       },
       "USER_ACTION_NEEDED.WRONG_TWOFA_CODE": {
-        "title": "Mã xác thực hai yếu tố sai được cung cấp",
+        "title": "Mã xác thực hai yếu tố không đúng",
         "description": "Mã xác thực hai yếu tố được cung cấp là sai, vui lòng bắt đầu lại."
       },
       "VENDOR_DOWN": {
@@ -255,7 +255,7 @@
       }
     },
     "service": {
-      "return": "Quay lại danh sách connectors",
+      "return": "Quay lại danh sách connector",
       "success": {
         "button": {
           "label": "Đóng"
@@ -293,7 +293,7 @@
     "education": "Giáo dục",
     "energy": "Năng lượng",
     "health": "Sức khỏe",
-    "host_provider": "Máy chủ",
+    "host_provider": "Lưu trữ web",
     "insurance": "Bảo hiểm",
     "isp": "Di động và Internet",
     "online_services": "Dịch vụ trực tuyến",
@@ -330,7 +330,7 @@
     "CTA": "Cập nhật"
   },
   "error": {
-    "initial": "Đã xảy ra sự cố khi tìm nạp connectors và thông tin của bạn. Vui lòng làm mới trang.",
+    "initial": "Đã xảy ra sự cố khi tải các connector và thông tin của bạn. Vui lòng làm mới trang.",
     "LOGIN_FAILED": "Thông tin đăng nhập sai. Kiểm tra các trường konnector và chạy kết nối lại.",
     "UNKNOWN_ERROR": "Đã xảy ra điều gì đó bất ngờ khi chạy connector",
     "JOB_TIMEOUT": "Việc thực thi connector quá lâu",
@@ -351,13 +351,13 @@
   },
   "connector": {
     "title": "Dịch vụ đã kết nối của tôi",
-    "mute": "Tắt tiếng lỗi",
+    "mute": "Ẩn lỗi",
     "debug": {
       "successMessage": "Konnector này chỉ dành cho mục đích gỡ lỗi, đây là thông báo thành công tùy chỉnh bổ sung."
     },
     "empty": {
       "title": "Bắt đầu thu thập dữ liệu của bạn!",
-      "text": "Đồng bộ hóa các thương hiệu của bạn với Cozy để tự động truy xuất dữ liệu của bạn (hóa đơn, hoàn tiền, chi phí…)"
+      "text": "Đồng bộ hóa các nhà cung cấp của bạn với Cozy để tự động truy xuất dữ liệu (hóa đơn, khoản hoàn tiền, chi phí…)"
     },
     "silenced": "%{name} sẽ không được đề xuất nữa. Bạn luôn có thể tìm thấy nhà cung cấp bằng cách nhấp vào nút \"Thêm\".",
     "noAccount": "Không có tài khoản",
@@ -379,7 +379,7 @@
     "orangemobile": {
       "description": {
         "connector": "Trong bối cảnh 'MesInfos', Orange cho phép bạn định vị điện thoại của mình thường xuyên.\n\n**Thu thập dữ liệu cần sự đồng ý rõ ràng của bạn**\n\nSự đồng ý này có thể được thu hồi bất cứ lúc nào bởi connector dữ liệu này.\n\nBằng cách nhấp vào \"Đồng ý\", bạn đồng ý thu thập vị trí điện thoại của mình, mỗi 30 phút. Thông tin thu thập sẽ chỉ là: \n<ul><li>Ngày và giờ của vị trí này.</li><li>Dữ liệu vị trí của anten radio gần nhất tại thời điểm thu thập.</li></ul>Dữ liệu được Orange thu thập sau khi bạn đồng ý sẽ chỉ có sẵn trong Cozy mà bạn đã được chỉ định trong bối cảnh « Mes Infos ». Chúng sẽ được thêm vào dữ liệu vị trí đã được lưu trữ trong nhật ký cuộc gọi.",
-        "service": "Connector này sẽ tải xuống dữ liệu từ tài khoản Orange của bạn trên Cozy của bạn. Nó sẽ tự động tải xuống nhật ký cuộc gọi từ điện thoại của bạn. Do đó nhật ký cuộc gọi bao gồm số điện thoại của bạn, số điện thoại tương ứng của bạn, ngày và giờ của cuộc gọi này và dữ liệu vị trí của anten radio gần nhất tại thời điểm thu thập.\n\nBạn sẽ có thể sử dụng những dữ liệu này trong các ứng dụng khác nhau trong Cozy của mình, ví dụ \"Mapping My Life\" (sẽ có sẵn sớm trên Cozy Store).",
+        "service": "Connector này sẽ tải dữ liệu từ tài khoản Orange của bạn về Cozy. Nó sẽ tự động tải xuống nhật ký cuộc gọi từ điện thoại của bạn. Nhật ký cuộc gọi bao gồm số điện thoại của bạn, số điện thoại của người liên lạc, ngày giờ cuộc gọi và dữ liệu vị trí của ăng-ten vô tuyến gần nhất tại thời điểm thu thập.\n\nBạn sẽ có thể sử dụng những dữ liệu này trong các ứng dụng khác nhau trong Cozy của mình, ví dụ \"Mapping My Life\" (sắp có trên Cozy Store).",
         "field": {
           "agreement": "Bạn có đồng ý để Orange định vị thường xuyên điện thoại của bạn trong bối cảnh « Mes Infos » không?"
         }
@@ -536,6 +536,13 @@
     "edit": "Chỉnh sửa lối tắt",
     "delete": "Xóa"
   },
+  "folder": {
+    "default_name": "Thư mục",
+    "name_placeholder": "Tên thư mục",
+    "dissolve": "Giải tán thư mục",
+    "remove_item": "Xóa khỏi thư mục",
+    "actions": "Thao tác với thư mục"
+  },
   "Queue": {
     "header": "Đang đồng bộ tài khoản:",
     "header_mobile": "%{done} trên %{total}",
@@ -589,15 +596,16 @@
     }
   },
   "sections": {
-    "label_compact": "Ghép nối Compact",
-    "label_detailed": "Danh sách Chi tiết",
-    "label_grouped": "Nhóm trong Thư mục"
+    "label_compact": "Lưới thu gọn",
+    "label_detailed": "Danh sách chi tiết",
+    "label_grouped": "Nhóm trong thư mục"
   },
   "AnnouncementsDialogContent": {
     "dateFormat": "dd/MM/yyyy",
     "skip": "Đã hiểu"
   },
   "wallpaper": {
-    "import": "Nhập"
+    "import": "Nhập",
+    "close_dialog": "Đóng hộp thoại tùy chỉnh hình nền"
   }
 }
