@@ -6551,6 +6551,39 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#invalid_drive_root" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        invalid_drive_root
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#missing_matching_root_doc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        missing_matching_root_doc
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trashed_root_doc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        trashed_root_doc
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#missing_sharing_for_member" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6577,6 +6610,17 @@
     <span class="md-ellipsis">
       
         missing_matching_docs_for_member
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#invalid_access_token" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        invalid_access_token
       
     </span>
   </a>
@@ -10754,6 +10798,39 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#invalid_drive_root" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        invalid_drive_root
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#missing_matching_root_doc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        missing_matching_root_doc
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trashed_root_doc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        trashed_root_doc
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#missing_sharing_for_member" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -10780,6 +10857,17 @@
     <span class="md-ellipsis">
       
         missing_matching_docs_for_member
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#invalid_access_token" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        invalid_access_token
       
     </span>
   </a>
@@ -12232,8 +12320,20 @@ instance.
 The <code>parent_sharing</code> attribute will contain the parent sharing ID.</p>
 <h5 id="missing_matching_docs_for_owner">missing_matching_docs_for_owner<a class="headerlink" href="#missing_matching_docs_for_owner" title="Permanent link">&para;</a></h5>
 <p>This will be raised if the shared files and folders associated with the sharing
-could not be fetched on the owner&rsquo;s instance.
+could not be fetched on the owner&rsquo;s instance (for replicated sharings).
 The request error will be returned in the <code>error</code> attribute.
+No further consistency checks will be run on this sharing.</p>
+<h5 id="invalid_drive_root">invalid_drive_root<a class="headerlink" href="#invalid_drive_root" title="Permanent link">&para;</a></h5>
+<p>This will be raised if the shared-drive root ID cannot be read from the sharing
+rule. The reason will be returned in the <code>error</code> attribute.
+No further consistency checks will be run on this sharing.</p>
+<h5 id="missing_matching_root_doc">missing_matching_root_doc<a class="headerlink" href="#missing_matching_root_doc" title="Permanent link">&para;</a></h5>
+<p>This will be raised if the shared-drive root file or folder cannot be fetched
+on the owner&rsquo;s instance. The request error will be returned in the <code>error</code>
+attribute. No further consistency checks will be run on this sharing.</p>
+<h5 id="trashed_root_doc">trashed_root_doc<a class="headerlink" href="#trashed_root_doc" title="Permanent link">&para;</a></h5>
+<p>This will be raised if the shared-drive root file or folder is in the trash
+on the owner&rsquo;s instance. The reason will be returned in the <code>error</code> attribute.
 No further consistency checks will be run on this sharing.</p>
 <h5 id="missing_sharing_for_member">missing_sharing_for_member<a class="headerlink" href="#missing_sharing_for_member" title="Permanent link">&para;</a></h5>
 <p>This will be raised when the associated <code>io.cozy.sharing</code> document cannot be
@@ -12248,10 +12348,17 @@ The member&rsquo;s domain will be available in the <code>member</code> attribute
 No further consistency checks will be run for this member.</p>
 <h5 id="missing_matching_docs_for_member">missing_matching_docs_for_member<a class="headerlink" href="#missing_matching_docs_for_member" title="Permanent link">&para;</a></h5>
 <p>This will be raised if the shared files and folders associated with the sharing
-could not be fetched on a member&rsquo;s instance.
+could not be fetched on a member&rsquo;s instance (for replicated sharings), or if the
+drive shortcut document could not be fetched on the member&rsquo;s instance (for
+shared drives).
 The request error will be returned in the <code>error</code> attribute and the member&rsquo;s
 domain in the <code>member</code> attribute. No further consistency checks will be run for
 this member.</p>
+<h5 id="invalid_access_token">invalid_access_token<a class="headerlink" href="#invalid_access_token" title="Permanent link">&para;</a></h5>
+<p>This will be raised if a member&rsquo;s <code>drive_token</code> is present but cannot be
+validated by the owner. The member&rsquo;s domain will be returned in the <code>member</code>
+attribute. An empty token is reported as <code>missing_access_token</code> instead.
+No further consistency checks will be run for this member.</p>
 <h5 id="disk_quota_exceeded">disk_quota_exceeded<a class="headerlink" href="#disk_quota_exceeded" title="Permanent link">&para;</a></h5>
 <p>This will be raised if a file is outdated or missing on an instance and its size
 is larger than the available space on this instance. If the file was created or
@@ -12317,7 +12424,9 @@ missing owner document in <code>ownerDoc</code>.</p>
 <code>invalid_number_of_credentials</code> and <code>missing_inbound_client_id</code>.</p>
 <p>When checking for files and folders inconsistencies, sharings will be skipped
 when inactive, not initialized, read-only or not about <code>io.cozy.files</code>
-documents.
+documents. Shared drives (<code>drive: true</code>) are not replicated to members; their
+consistency check verifies the owner drive root, the member&rsquo;s credentials
+(<code>drive_token</code>), and the recipient&rsquo;s shortcut document.
 Also, for each instance, only the sharings owned by said instance will be
 checked. Other sharings will be checked via their owner instance.</p>
 <h4 id="request_24">Request<a class="headerlink" href="#request_24" title="Permanent link">&para;</a></h4>

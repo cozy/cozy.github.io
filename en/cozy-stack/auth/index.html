@@ -10530,6 +10530,9 @@ the data in the Cozy before importing data from another Cozy.</p>
 for an <code>access_token</code>. It can use this route with the <code>code</code> given above.</p>
 <p>This endpoint is also used to refresh the access token, by sending the
 <code>refresh_token</code> instead of the <code>code</code>.</p>
+<p>The origins allowed for <a href="#post-authtoken_exchange"><code>POST /auth/token_exchange</code></a>
+get CORS headers on this endpoint, so that an application holding a token from
+<code>token_exchange</code> can refresh it from its own origin.</p>
 <p>The parameters are:</p>
 <ul>
 <li><code>grant_type</code>, with <code>authorization_code</code> or <code>refresh_token</code> as value</li>
