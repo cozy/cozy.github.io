@@ -6213,6 +6213,45 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#post-aichatconversationsidcancel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /ai/chat/conversations/:id/cancel
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="POST /ai/chat/conversations/:id/cancel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Response
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#real-time-via-websockets" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8290,6 +8329,45 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#post-aichatconversationsidcancel" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        POST /ai/chat/conversations/:id/cancel
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="POST /ai/chat/conversations/:id/cancel">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Response
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#real-time-via-websockets" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8655,6 +8733,21 @@ response. The client must use the real-time websocket and subscribe to
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
+</code></pre></div>
+<h3 id="post-aichatconversationsidcancel">POST /ai/chat/conversations/:id/cancel<a class="headerlink" href="#post-aichatconversationsidcancel" title="Permanent link">&para;</a></h3>
+<p>Stops the answer to the last message of the conversation, when the user
+stops it. The query stops openRAG, which closes its connection, publishes a
+<code>done</code> event and saves no answer. It works whatever stack server runs the
+job, through the cache of the stack (Redis when there are several servers).
+It has no effect when the last message already has its answer, so that it
+cannot stop a later message. The question that got no answer stays in the
+conversation, but is not sent to the LLM with the next ones. It needs the
+permission to POST on <code>io.cozy.ai.chat.conversations</code>.</p>
+<h4 id="request_4">Request<a class="headerlink" href="#request_4" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="nf">POST</span> <span class="nn">/ai/chat/conversations/e21dce8058b9013d800a18c04daba326/cancel</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</code></pre></div>
+<h4 id="response_4">Response<a class="headerlink" href="#response_4" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">204</span> <span class="ne">No Content</span>
 </code></pre></div>
 <h3 id="real-time-via-websockets">Real-time via websockets<a class="headerlink" href="#real-time-via-websockets" title="Permanent link">&para;</a></h3>
 <h4 id="messages-flow-example">Messages flow example<a class="headerlink" href="#messages-flow-example" title="Permanent link">&para;</a></h4>
