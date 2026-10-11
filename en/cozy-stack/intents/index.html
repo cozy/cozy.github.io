@@ -8879,6 +8879,17 @@ and fragment from the base URL while keeping its host and path prefix.</p>
 directive of the Content Security Policy of every app, so that any client app
 can open them. The external host must itself allow the client apps in its
 <code>frame-ancestors</code> directive.</p>
+<p>The stack cannot set the <code>frame-ancestors</code> of a page it does not serve. For a
+service it serves, it allows the client app only: its client URL and, when it
+is hosted elsewhere (<code>client_url_flag</code>), its cozy subdomain, which can frame
+it. The intent gives these origins in <code>frameAncestors</code>, so that an external
+service can check who frames it, for example by comparing them with
+<code>location.ancestorOrigins</code> in browsers that have it. They are serialized as
+browsers serialize origins: host in lower case, internationalized domain
+names in punycode, no default port. The field is in the answers of
+<code>POST /intents</code> and <code>GET /intents/:id</code>, and in the intent inlined in the page
+of a service the stack serves. It is absent when the client is not a webapp
+(a konnector, an OAuth client not linked to an app).</p>
 <h3 id="4-available-apps">4. Available apps<a class="headerlink" href="#4-available-apps" title="Permanent link">&para;</a></h3>
 <p>In addition to the services that manage intents, a list of available (but not
 installed) applications of the instance that handles the intent is returned.
@@ -8985,6 +8996,7 @@ Accept: application/vnd.api+json
 <span class="w">            </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.files"</span><span class="p">,</span>
 <span class="w">            </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"GET"</span><span class="p">],</span>
 <span class="w">            </span><span class="nt">"client"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://contacts.cozy.example.net"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"frameAncestors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"https://contacts.cozy.example.net"</span><span class="p">],</span>
 <span class="w">            </span><span class="nt">"services"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">                </span><span class="p">{</span>
 <span class="w">                    </span><span class="nt">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"files"</span><span class="p">,</span>
@@ -9031,6 +9043,7 @@ linked to the app (<code>software_id</code> <code>registry://&lt;slug&gt;</code>
 <span class="w">            </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.files"</span><span class="p">,</span>
 <span class="w">            </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"GET"</span><span class="p">],</span>
 <span class="w">            </span><span class="nt">"client"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://contacts.cozy.example.net"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"frameAncestors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"https://contacts.cozy.example.net"</span><span class="p">],</span>
 <span class="w">            </span><span class="nt">"services"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
 <span class="w">                </span><span class="p">{</span>
 <span class="w">                    </span><span class="nt">"slug"</span><span class="p">:</span><span class="w"> </span><span class="s2">"files"</span><span class="p">,</span>

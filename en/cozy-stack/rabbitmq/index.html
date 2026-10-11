@@ -8300,6 +8300,22 @@
 <span class="w">          </span><span class="nt">bindings</span><span class="p">:</span>
 <span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">banner.materialize</span>
 <span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">banner.clear</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">twake:contacts:common</span>
+<span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fanout</span>
+<span class="w">      </span><span class="nt">durable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">declare_exchange</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">      </span><span class="nt">queues</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack.contacts.common</span>
+<span class="w">          </span><span class="nt">declare</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">declare_dlx</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">declare_dlq</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">dlx_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack.contacts.dlx</span>
+<span class="w">          </span><span class="nt">dlq_name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stack.dead.letter.contacts.common</span>
+<span class="w">          </span><span class="nt">dl_routing_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">contacts.common.dead</span>
+<span class="w">          </span><span class="nt">prefetch</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8</span>
+<span class="w">          </span><span class="nt">delivery_limit</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">          </span><span class="nt">bindings</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">""</span>
 </code></pre></div>
 <h3 id="dead-letter-exchange-dlx-and-dead-letter-queue-dlq">Dead Letter Exchange (DLX) and Dead Letter Queue (DLQ)<a class="headerlink" href="#dead-letter-exchange-dlx-and-dead-letter-queue-dlq" title="Permanent link">&para;</a></h3>
 <p>The RabbitMQ integration supports Dead Letter Exchange (DLX) and Dead Letter Queue (DLQ) functionality for handling failed messages:</p>
@@ -8410,6 +8426,7 @@ gets those same attempts to succeed.</p>
 <li><code>user.phone.updated</code> → updates the phone number stored in user settings.</li>
 <li><code>domain.user.deleted</code> on the <code>b2b</code> exchange → removes externally managed organization contacts.</li>
 <li><code>banner.materialize</code> and <code>banner.clear</code> on the <code>platform</code> exchange → materializes or clears a platform banner, see <a href="../banners/">Banners</a>.</li>
+<li>every message of the <code>twake:contacts:common</code> fanout exchange → writes a contact, see below.</li>
 </ul>
 <p>Message schemas are JSON and validated in the handler. Example payload for <code>user.password.updated</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
@@ -8486,6 +8503,33 @@ by matching email or Cozy URL.</p>
 <span class="w">  </span><span class="nt">"workplaceFqdn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example.twake.app"</span>
 <span class="p">}</span>
 </code></pre></div>
+<p>Example message on <code>twake:contacts:common</code>, published by the contacts side
+service (<a href="https://github.com/linagora/twake-workplace-private/pull/1608">ADR 043</a>):</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"audience"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"domain"</span><span class="p">:</span><span class="w"> </span><span class="s2">"acme.com"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ADD"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"addressbooks/6740b0e4e0c5c1001f2ef9d1/domain-members/a1b2c3.vcf"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a1b2c3"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"payload"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"@type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Card"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"full"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Alice Doe"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">"emails"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"e1"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"alice@acme.com"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">"vCardProps"</span><span class="p">:</span><span class="w"> </span><span class="p">[[</span><span class="s2">"x-twake-workplace-fqdn"</span><span class="p">,</span><span class="w"> </span><span class="p">{},</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w"> </span><span class="s2">"alice.twake.app"</span><span class="p">]]</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The feed carries every user and domain. The Stack writes a <code>domain</code> audience on
+the organization instance whose <code>org_domain</code> matches, and a <code>user</code> audience on
+the instance whose <code>email</code> matches. A message for no instance, for
+an instance whose context does not set <code>common_contacts</code>, or that is malformed
+(invalid JSON, no path, no payload, unknown action), is acked and dropped.</p>
+<p>The contact is found by its CardDAV <code>path</code>, stored as <code>carddavPath</code>. A contact
+the Stack wrote before the feed knew it (<code>metadata.external</code>, like a member
+copied by the organization directory) is found by email and takes the path. A
+contact typed by hand is never taken over: the feed writes its own beside it. <code>ADD</code> and <code>UPDATE</code> overwrite the name, emails and phones, and
+keep the fields that belong to the Stack (<code>cozy</code>, <code>trustedForSharing</code>, the
+groups). <code>x-twake-workplace-fqdn</code> fills <code>cozy</code> when it is empty. A message that
+changes nothing writes nothing. <code>DELETE</code> removes the document.</p>
 <h3 id="lifecycle">Lifecycle<a class="headerlink" href="#lifecycle" title="Permanent link">&para;</a></h3>
 <p>On startup, if <code>rabbitmq.enabled</code> is true:</p>
 <ol>
