@@ -6275,6 +6275,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#reasoning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reasoning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#error-message" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8391,6 +8402,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#reasoning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reasoning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#error-message" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8443,10 +8465,21 @@ a classical pattern in the AI world. Here, it is specific to each Cozy.</p>
 not mandatory to install them on the same servers as the cozy-stack. And the
 URL of RAG must be filled in cozy-stack configuration file (in <code>rag</code>).</p>
 <p>The indexing follows the assistants: every <code>io.cozy.ai.chat.assistants</code>
-document whose <code>knowledgeBase</code> has an <code>io.cozy.files</code> entry defines a folder
-to index. The files of that folder (recursively) are sent to the openRAG
-server and attached to the workspace named after the folder id; the
-assistant&rsquo;s retrieval is scoped to that workspace.</p>
+document with an <code>io.cozy.files</code> entry in its <code>knowledgeBase</code> relationship
+defines a folder to index. The files of that folder (recursively) are sent to
+the openRAG server and attached to the workspace named after the folder id;
+the assistant&rsquo;s retrieval is scoped to that workspace.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"relationships"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"knowledgeBase"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w"> </span><span class="nt">"_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6c36a9ee"</span><span class="p">,</span><span class="w"> </span><span class="nt">"_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.files"</span><span class="w"> </span><span class="p">}]</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The deprecated <code>knowledgeBase</code> attribute
+(<code>[{ "doctype": "io.cozy.files", "dirId": "6c36a9ee" }]</code>) is still read when
+the relationship has no <code>io.cozy.files</code> entry.</p>
 <p>openRAG indexes an upload asynchronously: while the task runs, it still
 answers 404 on the file but refuses a second POST with a 409. The worker then
 sends the file again with a PUT, which re-indexes the content, instead of
@@ -8771,6 +8804,16 @@ server &gt; {"event": "CREATED",
           "payload": {"id": "eb17c3205bf1013ddea018c04daba326",
                       "type": "io.cozy.ai.chat.events",
                       "doc": {"object": "done"}}}
+</code></pre></div>
+<h4 id="reasoning">Reasoning<a class="headerlink" href="#reasoning" title="Permanent link">&para;</a></h4>
+<p>When the LLM is a reasoning model, what it thinks before it answers comes
+first, in <code>reasoning</code> events, with their own positions. It is not a part of
+the answer: it is saved apart, in the <code>reasoning</code> field of the assistant
+message of the conversation, and is not sent back to the LLM.</p>
+<div class="highlight"><pre><span></span><code>server &gt; {"event": "CREATED",
+          "payload": {"id": "eb17c3205bf1013ddea018c04daba326",
+                      "type": "io.cozy.ai.chat.events",
+                      "doc": {"object": "reasoning", "content": "The user asks", "position": 0}}}
 </code></pre></div>
 <h4 id="error-message">Error message<a class="headerlink" href="#error-message" title="Permanent link">&para;</a></h4>
 <p>If an error occurs while processing the AI response (e.g. the LLM is

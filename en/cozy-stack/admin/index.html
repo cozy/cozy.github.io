@@ -7233,6 +7233,45 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#get-toolspprofgoroutine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /tools/pprof/goroutine
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GET /tools/pprof/goroutine">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_36" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Response
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -11480,6 +11519,45 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#get-toolspprofgoroutine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /tools/pprof/goroutine
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GET /tools/pprof/goroutine">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#request_36" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_34" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Response
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -12094,7 +12172,7 @@ job, so the whole changes feed is scanned again by the RAG indexer.</p>
 of the folder and indexes every file it holds. With the <code>dir_id</code> query
 parameter, only that folder is reconciled. It is how an initial indexing that
 did not finish is restarted. <code>dir_id</code> is the folder id, the one the
-assistant&rsquo;s <code>knowledgeBase</code> carries (<code>io.cozy.files.root-dir</code> for the whole
+assistant&rsquo;s <code>knowledgeBase</code> relationship carries (<code>io.cozy.files.root-dir</code> for the whole
 Drive), not the id of its openRAG workspace.</p>
 <h4 id="request_16">Request<a class="headerlink" href="#request_16" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="nf">POST</span> <span class="nn">/instances/alice.cozy.localhost/rag/reconcile?dir_id=6c36a9ee</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
@@ -12715,6 +12793,18 @@ have been deleted.</p>
 <div class="highlight"><pre><span></span><code><span class="nf">GET</span> <span class="nn">/tools/pprof/heap</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 </code></pre></div>
 <h4 id="response_33">Response<a class="headerlink" href="#response_33" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+</code></pre></div>
+<h3 id="get-toolspprofgoroutine">GET /tools/pprof/goroutine<a class="headerlink" href="#get-toolspprofgoroutine" title="Permanent link">&para;</a></h3>
+<p>Return the stack traces of all current goroutines as pprof format or text format.</p>
+<p>An optional <code>debug</code> query parameter can be provided:
+- <code>debug=0</code> (default): returns the binary pprof profile (as <code>application/octet-stream</code>).
+- <code>debug=1</code>: returns human-readable stack traces with function names and comments (as <code>text/plain</code>).
+- <code>debug=2</code>: returns stack traces in Go panic format (as <code>text/plain</code>).</p>
+<h4 id="request_36">Request<a class="headerlink" href="#request_36" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="nf">GET</span> <span class="nn">/tools/pprof/goroutine</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</code></pre></div>
+<h4 id="response_34">Response<a class="headerlink" href="#response_34" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 </code></pre></div>
 
