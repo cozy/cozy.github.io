@@ -10900,6 +10900,10 @@ The default limit is 30 entries.</p>
 <h3 id="get-filesfile-idsize">GET /files/:file-id/size<a class="headerlink" href="#get-filesfile-idsize" title="Permanent link">&para;</a></h3>
 <p>This endpoint returns the size taken by the files in a directory, including
 those in subdirectories.</p>
+<p>The <code>files_count</code> attribute is the number of files in the directory, including
+those in subdirectories (directories are not counted). If the directory has
+more than 10 000 subdirectories, only the first 10 000 are taken into account
+for <code>size</code> and <code>files_count</code>.</p>
 <h4 id="request_3">Request<a class="headerlink" href="#request_3" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="nf">GET</span> <span class="nn">/files/fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81/size</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
@@ -10913,7 +10917,8 @@ those in subdirectories.</p>
 <span class="w">    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.files.sizes"</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fce1a6c0-dfc5-11e5-8d1a-1f854d4aaf81"</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">"size"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span>
+<span class="w">      </span><span class="nt">"size"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"files_count"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="nt">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span>
 <span class="w">  </span><span class="p">}</span>

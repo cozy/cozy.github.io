@@ -8530,6 +8530,21 @@ contact typed by hand is never taken over: the feed writes its own beside it. <c
 keep the fields that belong to the Stack (<code>cozy</code>, <code>trustedForSharing</code>, the
 groups). <code>x-twake-workplace-fqdn</code> fills <code>cozy</code> when it is empty. A message that
 changes nothing writes nothing. <code>DELETE</code> removes the document.</p>
+<p>When a sharing by email creates a contact, and <code>common_contacts</code> is set, the
+Stack publishes it on the <code>twake:contacts:collected</code> fanout exchange. The
+request does not wait: it pushes a job for the <code>share-collected-contacts</code>
+worker, which retries a failed publish. The contacts created by a request go
+in a single message, even when the request fails after creating them, since
+they stay on the instance. Each one comes back on <code>twake:contacts:common</code> and
+takes its path. Only contacts created by the sharing are published: a contact
+that already exists locally is not backfilled.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"userEmail"</span><span class="p">:</span><span class="w"> </span><span class="s2">"alice@acme.com"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"collectedContacts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">"@type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Card"</span><span class="p">,</span><span class="w"> </span><span class="nt">"emails"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"e1"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"dave@example.org"</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
 <h3 id="lifecycle">Lifecycle<a class="headerlink" href="#lifecycle" title="Permanent link">&para;</a></h3>
 <p>On startup, if <code>rabbitmq.enabled</code> is true:</p>
 <ol>

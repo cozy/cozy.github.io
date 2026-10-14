@@ -10971,6 +10971,11 @@ application can create a sharing on the documents for whose it has a permission.
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+<p>A recipient can also be given by email, with
+<code>{"type": "io.cozy.contacts", "email": "bob@example.net"}</code>. The stack looks the
+email up in the contacts of the organization instance, then in the contacts of
+the instance, and creates the contact there when nothing matches. The routes
+that add recipients accept it too.</p>
 <h4 id="response">Response<a class="headerlink" href="#response" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>

@@ -6286,10 +6286,93 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#action-message" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Action message
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#error-message" class="md-nav__link">
     <span class="md-ellipsis">
       
         Error message
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chat-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chat actions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chat actions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-a-message-is-answered" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How a message is answered
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fallbacks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fallbacks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calls-to-openrag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Calls to openRAG
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-protects-an-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What protects an action
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saved-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Saved action
       
     </span>
   </a>
@@ -8413,10 +8496,93 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#action-message" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Action message
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#error-message" class="md-nav__link">
     <span class="md-ellipsis">
       
         Error message
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chat-actions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chat actions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Chat actions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-a-message-is-answered" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How a message is answered
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fallbacks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fallbacks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#calls-to-openrag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Calls to openRAG
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-protects-an-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What protects an action
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saved-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Saved action
       
     </span>
   </a>
@@ -8692,7 +8858,23 @@ response. The client must use the real-time websocket and subscribe to
 <span class="w">  </span><span class="nt">"documents"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"instructions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The answer is put in a document as it is: no introduction, no comment."</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"assistantID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"abc123"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"attachmentIDs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"827f0fbb928b375cc457c732a4013aa7"</span><span class="p">,</span><span class="w"> </span><span class="s2">"9a3b1c2d3e4f5a6b7c8d9e0f1a2b3c4d"</span><span class="p">]</span>
+<span class="w">  </span><span class="nt">"attachmentIDs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"827f0fbb928b375cc457c732a4013aa7"</span><span class="p">,</span><span class="w"> </span><span class="s2">"9a3b1c2d3e4f5a6b7c8d9e0f1a2b3c4d"</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">"actions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"create_note"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"write a note in the user's Notes app: a summary of the conversation, a list of tasks, a short text on a subject."</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"examples"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Make a note of it"</span><span class="p">],</span>
+<span class="w">      </span><span class="nt">"parameters"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w"> </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"the title of the note"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">          </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w"> </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"the note itself, in Markdown, without its title"</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"title"</span><span class="p">,</span><span class="w"> </span><span class="s2">"content"</span><span class="p">]</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">"instructions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A note is concise: organize it with short \"##\" sections or lists."</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
 <span class="p">}</span>
 </code></pre></div>
 <ul>
@@ -8705,7 +8887,8 @@ response. The client must use the real-time websocket and subscribe to
   that gives the LLM all it needs in the message, like a text to translate or
   to fix. <code>websearch</code> still applies. It cannot be used with <code>attachmentIDs</code>,
   which are read from the documents: the message is rejected with a
-  <code>400 Bad Request</code>.</li>
+  <code>400 Bad Request</code>. An action is made the same way, see
+  <a href="#chat-actions">chat actions</a>.</li>
 <li><code>instructions</code> (optional, at most 2000 characters) tell the LLM how to
   answer in this client, e.g. that the answer is put in a document as it is.
   They are sent as a <code>system</code> message with the answer, after the prompt of
@@ -8728,6 +8911,9 @@ response. The client must use the real-time websocket and subscribe to
   conversation: editing it on the assistant applies to its existing
   conversations as well.</li>
 <li><code>attachmentIDs</code> (optional) array of ids, specifying which documents should be leveraged by the RAG.</li>
+<li><code>actions</code> (optional) the definitions of the <a href="#chat-actions">chat actions</a>
+  the client can run. Without it, the message is answered as usual, without
+  a router. Invalid definitions are rejected with a <code>400 Bad Request</code>.</li>
 </ul>
 <h4 id="response_3">Response<a class="headerlink" href="#response_3" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">202</span> <span class="ne">Accepted</span>
@@ -8815,6 +9001,30 @@ message of the conversation, and is not sent back to the LLM.</p>
                       "type": "io.cozy.ai.chat.events",
                       "doc": {"object": "reasoning", "content": "The user asks", "position": 0}}}
 </code></pre></div>
+<h4 id="action-message">Action message<a class="headerlink" href="#action-message" title="Permanent link">&para;</a></h4>
+<p>When the stack proposes a <a href="#chat-actions">chat action</a>, an <code>action</code> event
+comes before the <code>done</code> one. <code>message_id</code> is the id of the assistant message
+the action is saved on. The message is saved right after the <code>done</code> event, as
+without an action: a client that does not find it in the conversation yet
+waits for the conversation to be updated. The events of a message are, in
+order:</p>
+<ul>
+<li>a search: <code>reasoning</code> events if any, <code>delta</code> events, <code>sources</code> if any, <code>done</code>;</li>
+<li>an action: <code>sources</code> if any, when its params are filled with the documents,
+  then <code>action</code>, <code>done</code>.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>server &gt; {"event": "CREATED",
+          "payload": {"id": "eb17c3205bf1013ddea018c04daba326",
+                      "type": "io.cozy.ai.chat.events",
+                      "doc": {"object": "action",
+                              "message_id": "0192f0a5-4d8b-7c1e-9a3f-1b2c3d4e5f60",
+                              "action": {"name": "draft_email",
+                                         "params": {"to": ["Paul"], "subject": "Groceries", "body": "Hi Paul, ..."}}}}}
+server &gt; {"event": "CREATED",
+          "payload": {"id": "eb17c3205bf1013ddea018c04daba326",
+                      "type": "io.cozy.ai.chat.events",
+                      "doc": {"object": "done"}}}
+</code></pre></div>
 <h4 id="error-message">Error message<a class="headerlink" href="#error-message" title="Permanent link">&para;</a></h4>
 <p>If an error occurs while processing the AI response (e.g. the LLM is
 unavailable), an error event is sent instead:</p>
@@ -8823,6 +9033,300 @@ unavailable), an error event is sent instead:</p>
                       "type": "io.cozy.ai.chat.events",
                       "doc": {"object": "error", "message": "I don't want to talk today"}}}
 </code></pre></div>
+<h3 id="chat-actions">Chat actions<a class="headerlink" href="#chat-actions" title="Permanent link">&para;</a></h3>
+<p>The assistant can propose an action of the client instead of a plain answer,
+like writing a note or drafting an email. The client defines its actions in
+the request; the stack knows nothing of them but these definitions. It never
+runs an action: the client shows it to the user, who can edit it, and runs it
+once the user has confirmed it.</p>
+<p>An action definition has:</p>
+<ul>
+<li><code>name</code> (required): the identifier of the action, which also names the JSON
+  schema of its params for the LLM: 1 to 64 letters, digits, <code>_</code> or <code>-</code>, the
+  rule of the OpenAI API for such a name. <code>search</code> is reserved, whatever the
+  case.</li>
+<li><code>description</code> (required): what the action does, and when to pick it. It is
+  given to the router, and to the LLM that fills the params.</li>
+<li><code>examples</code> (optional): messages for which the router picks the action.</li>
+<li><code>parameters</code> (optional): the JSON schema of the params the LLM fills, like
+  the <code>parameters</code> of a tool for function calling: an <code>object</code> whose
+  <code>properties</code> are strings, or arrays of strings, with a <code>description</code>. The
+  other keywords of JSON schema are ignored. Every param of the schema is
+  present in the action, <code>""</code> or <code>[]</code> when unknown. An action without
+  parameters is proposed as soon as the router picks it, without a call to
+  the LLM. <code>required</code> lists the params without which the action is not
+  proposed. <code>facts_missing</code> is reserved. A property with
+  <code>"x-user-written": true</code> keeps only the values found, as whole words and
+  whatever the case, in the messages of the user, as the user wrote them, so
+  that the content of a document cannot add one, like the recipient of an
+  email. A document pasted in a message counts as written by the user. The
+  other params carry what the conversation and the documents say, links
+  included: the client shows them to the user for review.</li>
+<li><code>instructions</code> (optional): how to fill the params, like the format of a
+  text.</li>
+</ul>
+<p>A note or a document is an action like any other, with params like <code>title</code>
+and <code>content</code>, the content in the format the client asks for in the
+instructions, like Markdown.</p>
+<p>The stack sets no limit of its own on the number or the size of the
+definitions. They go into the prompts of the LLM with every message: the
+longer they are, the slower the router. When they do not fit the context of
+the model, openRAG refuses the query and the message is answered as a search.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"draft_email"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"prepare an email for the user to review and send: a reply, a message to someone, a summary to share."</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"examples"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"Write an email to the team about the delivery delay"</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">"parameters"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"properties"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"to"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"array"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"the recipients, as the user named them (names or email addresses)"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"x-user-written"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">"subject"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w"> </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"the subject of the email"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">"body"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w"> </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"the text of the email"</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">"required"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"subject"</span><span class="p">,</span><span class="w"> </span><span class="s2">"body"</span><span class="p">]</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">"instructions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The body is plain text, ready to send, with a greeting and a sign-off."</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="how-a-message-is-answered">How a message is answered<a class="headerlink" href="#how-a-message-is-answered" title="Permanent link">&para;</a></h4>
+<p>Two things decide what happens to a message with <code>actions</code>, and nothing else
+is guessed:</p>
+<ul>
+<li><strong>The user chooses the documents.</strong> <code>documents</code> (<code>true</code> by default) says
+  whether the answer uses the user&rsquo;s documents. With them, the stack goes
+  through openRAG, which retrieves what the conversation needs, or nothing
+  when its query step finds the turn conversational. Without them, it asks
+  the LLM behind openRAG alone. The params of an action are filled exactly
+  the way the answer would have been made.</li>
+<li><strong>The router chooses the intent.</strong> The LLM of the assistant is asked,
+  without retrieval and with a JSON schema, one closed question: is the last
+  message a <code>search</code>, or one of the actions? It reads the last message and
+  the exchange before it, which a message like &ldquo;make a note of it&rdquo; refers
+  to.</li>
+</ul>
+<p>The router is not asked whether the documents are needed: a small LLM cannot
+tell, and makes up the facts of the user&rsquo;s organization when it writes
+without them, while a search of the documents to check it matches any message
+sharing a word with one of them. openRAG already decides the retrieval of
+every answer.</p>
+<p>The answer starts at the same time as the router and is held back until the
+router has decided, which is usually before its first token. The router has
+45 seconds, since the answer waits for it: a reasoning LLM thinks before it
+decides. For a search, the answer is
+released. For an action, the answer is cancelled, which stops it on openRAG
+with <code>stream: true</code> (the default; without streaming, openRAG finishes it for
+nobody), and the params of the action are filled:</p>
+<div class="highlight"><pre><span></span><code>flowchart TD
+    Q[Query of the rag-query job] --&gt; HAS{actions in the request?}
+    HAS -- No --&gt; ANS[Answer: openRAG with the documents,&lt;br&gt;or the LLM alone without them]
+    ANS --&gt; SAVE
+    HAS -- Yes --&gt; PAR[Start the answer and the router together:&lt;br&gt;the answer is held back until the router decides]
+    PAR --&gt; ROUTE{Router, 45 s at most}
+    ROUTE -- search, error, timeout,&lt;br&gt;unknown intent --&gt; REL[Release the answer]
+    REL --&gt; SAVE
+    REL -- error --&gt; ERR[error event]
+    ROUTE -- action --&gt; CANCEL[Cancel the answer: openRAG stops]
+    CANCEL --&gt; PARAMS{parameters?}
+    PARAMS -- No --&gt; ACT
+    PARAMS -- Yes --&gt; FILL[Fill the params as a JSON object&lt;br&gt;following the schema]
+    FILL --&gt; CHECK{types, x-user-written,&lt;br&gt;required params?}
+    CHECK -- ok --&gt; ACT[sources event if any, then action event]
+    CHECK -- missing --&gt; ANS
+    FILL -- error, or facts missing&lt;br&gt;without the documents --&gt; ANS
+    ACT --&gt; SAVE
+    SAVE[done event, then save the message&lt;br&gt;on a fresh read of the conversation]
+</code></pre></div>
+<p>Below, &ldquo;openRAG&rdquo; means <code>POST /v1/chat/completions</code> with the partition of the
+instance as the model: retrieval in the workspace of the assistant or in the
+attachments, then the LLM with the retrieved chunks. &ldquo;The LLM alone&rdquo; means the
+same route without a model: no retrieval, the messages as they are. The events
+of each case are listed in <a href="#action-message">Action message</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Router says</th>
+<th><code>documents</code></th>
+<th>What is made, by whom</th>
+<th>Saved message</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>search</code></td>
+<td>true</td>
+<td>The answer, by openRAG</td>
+<td>content = the answer, its sources</td>
+</tr>
+<tr>
+<td><code>search</code></td>
+<td>false</td>
+<td>The answer, by the LLM alone</td>
+<td>content = the answer</td>
+</tr>
+<tr>
+<td>an action</td>
+<td>true</td>
+<td>The params, by openRAG: the conversation with the fill instructions as a last leading system message, after the prompt of the assistant and the instructions of the client, and the schema of the params as <code>response_format</code></td>
+<td>content empty, the sources of the documents used, action = <code>{params}</code></td>
+</tr>
+<tr>
+<td>an action</td>
+<td>false</td>
+<td>The params, by the LLM alone: the fill instructions, the quoted transcript of the conversation, the schema</td>
+<td>content empty, action = <code>{params}</code></td>
+</tr>
+</tbody>
+</table>
+<p>The fill instructions give the LLM the description and the instructions of
+the action, the params with their descriptions, today&rsquo;s date, and rules: <code>""</code>
+or <code>[]</code> for a field it cannot fill, no fact, name or email address of the
+user&rsquo;s organization that the conversation or the documents do not give, no
+placeholder like <code>[Name]</code>, but what it knows of a general subject, like a
+method or a notion.</p>
+<p>Without the documents, the LLM is told that it does not know the user&rsquo;s
+organization, and it fills a <code>facts_missing</code> boolean with the params: true
+when they need facts of the user&rsquo;s organization or work, like its projects,
+decisions, clients, contacts or rules, that the conversation does not give.
+The message is then answered instead, by the LLM alone. A schema forces the
+LLM to fill the params, and without this way out, it invents such facts. The
+stack removes <code>facts_missing</code> from the params. With the documents, openRAG
+gives the LLM what they say of the subject, and the field is not asked.</p>
+<p>The router is given the last exchange, and the params made without the
+documents the whole conversation, quoted message by message, and nothing
+else. The prompt of the assistant, the <code>instructions</code> of the client,
+<code>websearch</code> and <code>attachmentIDs</code> go with the answer, and with the params made
+with the documents. When both the knowledge base of the assistant and
+<code>attachmentIDs</code> are set, openRAG searches the workspace and ignores the
+attachments. With <code>documents: false</code>, <code>attachmentIDs</code> are rejected
+(<code>400 Bad Request</code>) and the knowledge base of the assistant is not searched.</p>
+<h4 id="fallbacks">Fallbacks<a class="headerlink" href="#fallbacks" title="Permanent link">&para;</a></h4>
+<p>Every failure degrades to the answer the user would have had without actions:</p>
+<table>
+<thead>
+<tr>
+<th>Failure</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The router fails, times out or names an unknown intent</td>
+<td>A search: the held back answer is released</td>
+</tr>
+<tr>
+<td>The params cannot be filled (error, a required param empty or not written by the user)</td>
+<td>The message is answered as a search, with a new query</td>
+</tr>
+<tr>
+<td>Without the documents, the LLM says that the conversation does not give the facts the params need</td>
+<td>The message is answered by the LLM alone, with a new query</td>
+</tr>
+<tr>
+<td>The conversation changed while the answer was made, like the outcome of an action written by the client</td>
+<td>The answer is saved on a fresh read of the conversation, in 3 attempts at most</td>
+</tr>
+</tbody>
+</table>
+<p>A search costs nothing more than the wait for the router. An action costs its
+cancelled answer. When the save fails after 3 conflicts, the job fails: the
+client got the <code>done</code> event and, for an action, a <code>message_id</code> that never
+appears in the conversation.</p>
+<h4 id="calls-to-openrag">Calls to openRAG<a class="headerlink" href="#calls-to-openrag" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Model</th>
+<th>Messages</th>
+<th>Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Router</td>
+<td>none</td>
+<td>the router prompt, the quoted transcript of the last message and the exchange before it</td>
+<td>JSON schema <code>{intent}</code>, the intents as an enum</td>
+</tr>
+<tr>
+<td>Answer</td>
+<td>partition</td>
+<td>the conversation, after the prompt of the assistant and the instructions of the client</td>
+<td>streamed text</td>
+</tr>
+<tr>
+<td>Params, documents</td>
+<td>partition</td>
+<td>the conversation, plus the fill instructions as a leading system message</td>
+<td>JSON schema of the params, every field required; openRAG drops its citations for a structured output and gives the sources it used</td>
+</tr>
+<tr>
+<td>Params, no documents</td>
+<td>none</td>
+<td>the fill instructions, the quoted transcript of the whole conversation</td>
+<td>same schema</td>
+</tr>
+</tbody>
+</table>
+<p>The stack sets no limit of its own on what it sends nor on what it gets:</p>
+<ul>
+<li><strong>The size of a query</strong> is bounded by the context of the model. openRAG
+  checks it before calling its LLM and refuses a query too long with a <code>413</code>:
+  the router then fails and the message is a search; params that cannot be
+  filled give the answer instead, which the same conversation may not fit
+  either.</li>
+<li><strong>The size of an output</strong> is bounded by the output budget openRAG
+  configures for its LLM.</li>
+<li><strong>The time</strong> is bounded by the HTTP client of the stack (5 minutes to get
+  the headers of a response), and for the router by 45 seconds.</li>
+</ul>
+<p>The prompts are text templates in <code>model/rag/prompts</code>.</p>
+<p>openRAG takes the leading system messages of a query as a custom prompt that
+it splices into its own answer prompt, in a block it tells the LLM to trust
+less than its own rules. The schema still forces the shape of the params, but
+the fill instructions are followed less strictly with the documents than
+without them. And in the <code>develop</code> branch of openRAG, the custom prompt is
+spliced only when openRAG retrieves documents: a turn its query step finds
+conversational would lose the fill instructions.</p>
+<h4 id="what-protects-an-action">What protects an action<a class="headerlink" href="#what-protects-an-action" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>The transcript is data.</strong> The conversation is given to the LLM alone as a
+  transcript where each message is a quoted string, so that a document quoted
+  in an answer cannot pass for a turn; the prompts say that instructions
+  found in it are not addressed to the LLM.</li>
+<li><strong><code>x-user-written</code> params</strong> keep the user&rsquo;s own spelling: a document cannot
+  add a recipient, nor a look-alike address. An email address is not whole
+  when the punctuation of a local part precedes it or a character of a domain
+  follows it: <code>claire@example.com</code> is not written in
+  <code>marie-claire@example.com</code>. Lists are deduplicated.</li>
+<li><strong>The user confirms.</strong> The stack never runs an action.</li>
+<li><strong>A proposed action is in the history</strong> as <code>(Proposed to the user: name
+  {params})</code>, so that &ldquo;change the title&rdquo; has its context.</li>
+</ul>
+<h4 id="saved-action">Saved action<a class="headerlink" href="#saved-action" title="Permanent link">&para;</a></h4>
+<p>The proposed action is saved in the <code>action</code> field of the assistant message
+of the conversation, with the sources of the documents its params were filled
+with. The <code>content</code> of the message is empty:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0192f0a5-4d8b-7c1e-9a3f-1b2c3d4e5f60"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"assistant"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"action"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"create_note"</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Groceries"</span><span class="p">,</span><span class="w"> </span><span class="nt">"content"</span><span class="p">:</span><span class="w"> </span><span class="s2">"- milk\n- bread"</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-09-24T13:24:09.123Z"</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Once the user has handled the action, the client writes its outcome in the
+<code>action</code> of the message: <code>status</code> is <code>done</code>, with the <code>url</code> of what it
+created if any, or <code>cancelled</code>. The stack keeps this outcome: it reads the
+conversation again before saving a later answer.</p>
 
 
 

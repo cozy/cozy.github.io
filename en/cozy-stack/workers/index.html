@@ -6854,6 +6854,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#share-collected-contacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Share-collected-contacts
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -8704,6 +8715,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#share-collected-contacts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Share-collected-contacts
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -9132,13 +9154,14 @@ asynchronously. The behavior is not the same for all the VFS:</p>
 the trash for too long. The threshold for deletion is configurable per context
 in the config file, via the <code>fs.auto_clean_trashed_after</code> parameter.</p>
 <h2 id="share-workers">share workers<a class="headerlink" href="#share-workers" title="Permanent link">&para;</a></h2>
-<p>The stack have 5 workers to power the sharings (internal usage only):</p>
+<p>The stack have 6 workers to power the sharings (internal usage only):</p>
 <ol>
 <li><code>share-group</code>, to add/remove members to a sharing</li>
 <li><code>share-track</code>, to update the <code>io.cozy.shared</code> database</li>
 <li><code>share-replicate</code>, to start a replicator for most documents</li>
 <li><code>share-upload</code>, to upload files</li>
 <li><code>share-autoaccept</code>, to automatically accept a sharing for trusted members</li>
+<li><code>share-collected-contacts</code>, to publish the contacts created by a sharing</li>
 </ol>
 <h3 id="share-group">Share-group<a class="headerlink" href="#share-group" title="Permanent link">&para;</a></h3>
 <p>When a contact is added to or removed from a group, the change should be
@@ -9158,6 +9181,11 @@ recipient. When the job runs on the recipient Cozy it calls the owner&rsquo;s
 sharing credentials payload in
 <a href="../sharing/#put-sharingssharing-id">PUT /sharings/:sharing-id</a>) to perform the
 acceptance flow without user interaction.</p>
+<h3 id="share-collected-contacts">Share-collected-contacts<a class="headerlink" href="#share-collected-contacts" title="Permanent link">&para;</a></h3>
+<p>The message is composed of the emails for which a sharing created a contact.
+The worker publishes them on the <code>twake:contacts:collected</code> exchange (see
+<a href="../rabbitmq/">RabbitMQ</a>), and is retried when the publish fails, except when
+RabbitMQ is not configured.</p>
 <h2 id="notes-save">notes-save<a class="headerlink" href="#notes-save" title="Permanent link">&para;</a></h2>
 <p>This is another worker for the interal usage of the stack. It allows to write
 to the VFS a note in an asynchronous way. Writing to the VFS after each tiny
