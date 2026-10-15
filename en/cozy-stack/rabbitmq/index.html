@@ -6886,6 +6886,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#activity-exchange" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        activity exchange
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -6899,6 +6910,23 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Handlers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#organization-drives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Organization drives
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -8070,6 +8098,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#activity-exchange" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        activity exchange
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -8083,6 +8122,23 @@
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Handlers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#organization-drives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Organization drives
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -8407,6 +8463,13 @@ migration ID for cross-system tracing. The consuming service is responsible
 for declaring its queue, binding it to this exchange, and processing the
 messages; if no queue is bound when the Stack publishes, the user receives
 <code>503</code> and the tracking document is marked <code>failed</code>.</p>
+<h4 id="activity-exchange"><code>activity</code> exchange<a class="headerlink" href="#activity-exchange" title="Permanent link">&para;</a></h4>
+<p>CloudEvents read by other apps, with the event type as routing key and
+<code>source</code> <code>twake://drive</code>:</p>
+<ul>
+<li><code>com.twake.drive.org_drive.ready.v1</code>: the reply to <code>drive.org_drive.ensure</code>,
+  see below.</li>
+</ul>
 <h3 id="handlers">Handlers<a class="headerlink" href="#handlers" title="Permanent link">&para;</a></h3>
 <p>Handlers implement a simple interface:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">type</span><span class="w"> </span><span class="nx">Handler</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span>
@@ -8414,11 +8477,11 @@ messages; if no queue is bound when the Stack publishes, the user receives
 <span class="p">}</span>
 </code></pre></div>
 <p>Returning <code>nil</code> acknowledges the message. Returning a non-nil error causes the message to be requeued (subject to broker policies and delivery limits).</p>
-<p>A handler does not classify its errors. Every failure is nacked with requeue,
-and the queue&rsquo;s <code>delivery_limit</code> is what bounds the retries: once it is reached
-the broker dead letters the message. So a payload that does not parse costs a
-few redeliveries before it lands in the dead letter queue, and a storage failure
-gets those same attempts to succeed.</p>
+<p>A failure is nacked with requeue, and the queue&rsquo;s <code>delivery_limit</code> is what
+bounds the retries: once it is reached the broker dead letters the message. A
+handler can return an error wrapping <code>rabbitmq.ErrMalformed</code> for a message no
+redelivery can fix: it is nacked without requeue, and goes to the dead letter
+queue at once.</p>
 <p>Queue names are mapped to handlers in the stack. For example:</p>
 <ul>
 <li><code>user.password.updated</code> → updates an instance passphrase when a <code>user.password.updated</code> routing key is received.</li>
@@ -8427,6 +8490,7 @@ gets those same attempts to succeed.</p>
 <li><code>domain.user.deleted</code> on the <code>b2b</code> exchange → removes externally managed organization contacts.</li>
 <li><code>banner.materialize</code> and <code>banner.clear</code> on the <code>platform</code> exchange → materializes or clears a platform banner, see <a href="../banners/">Banners</a>.</li>
 <li>every message of the <code>twake:contacts:common</code> fanout exchange → writes a contact, see below.</li>
+<li><code>drive.org_drive.ensure</code> on the <code>drive</code> exchange → creates or updates a shared drive on an organization instance, see below.</li>
 </ul>
 <p>Message schemas are JSON and validated in the handler. Example payload for <code>user.password.updated</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
@@ -8545,6 +8609,39 @@ that already exists locally is not backfilled.</p>
 <span class="w">  </span><span class="p">]</span>
 <span class="p">}</span>
 </code></pre></div>
+<h4 id="organization-drives">Organization drives<a class="headerlink" href="#organization-drives" title="Permanent link">&para;</a></h4>
+<p>Another app keeps a shared drive on an organization instance in sync with one
+of its objects by sending <code>drive.org_drive.ensure</code> on the <code>drive</code> exchange
+(<a href="../adr/009-adr-org-drive-provisioning/">ADR 009</a>):</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"organizationId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"org123"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"reference"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"twake-space"</span><span class="p">,</span><span class="w"> </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3b9e2c71-5d4a-4f0e-9c8b-1a2d6e7f8091"</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">"revision"</span><span class="p">:</span><span class="w"> </span><span class="mi">1791106503000</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"created"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Product launch"</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>The drive is created on the instance whose slug is <code>organizationId</code>, as a
+  folder at its root named after <code>name</code> (&ldquo;Name (2)&rdquo; when the name is taken),
+  and the reference is stored on its sharing.</li>
+<li>Provisioning is locked per organization and reference. Multiple active
+  drives for one reference fail the command without changing any drive or
+  publishing a reply; the error lists the conflicting sharing ids.</li>
+<li>A command with a higher revision than the drive&rsquo;s renames it. A command with
+  the same revision changes nothing, and an older one is ignored.</li>
+<li>A drive whose sharing was revoked or whose folder was trashed is replaced by
+  a new one. Its old sharing stays inactive and retains the reference and
+  revision, including after the folder is permanently deleted. An active
+  sharing whose folder is missing is marked inactive before its replacement
+  is created.</li>
+<li>After a created command, the Stack replies on the <code>activity</code> exchange with
+  <code>com.twake.drive.org_drive.ready.v1</code>, carrying the reference, the revision
+  and the drive id (<code>data.drive.id</code>, the sharing id). A command with the same
+  revision gets the same reply again. A failed publish fails the delivery.</li>
+<li>A malformed command (no reference, no revision, unknown state or role) goes
+  to the dead letter queue at once.</li>
+</ul>
 <h3 id="lifecycle">Lifecycle<a class="headerlink" href="#lifecycle" title="Permanent link">&para;</a></h3>
 <p>On startup, if <code>rabbitmq.enabled</code> is true:</p>
 <ol>
@@ -8589,6 +8686,14 @@ that already exists locally is not backfilled.</p>
 <div class="highlight"><pre><span></span><code><span class="k">switch</span><span class="w"> </span><span class="nx">configQueue</span><span class="p">.</span><span class="nx">Name</span><span class="w"> </span><span class="p">{</span>
 <span class="k">case</span><span class="w"> </span><span class="s">"example.queue"</span><span class="p">:</span>
 <span class="w">    </span><span class="nx">handler</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">NewExampleHandler</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>A package that <code>pkg/rabbitmq</code> cannot import registers its handler from <code>init</code>
+instead. The factory gets the Stack&rsquo;s publisher, for handlers that reply:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">func</span><span class="w"> </span><span class="nx">init</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nx">rabbitmq</span><span class="p">.</span><span class="nx">RegisterHandler</span><span class="p">(</span><span class="s">"example.queue"</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">p</span><span class="w"> </span><span class="nx">rabbitmq</span><span class="p">.</span><span class="nx">Publisher</span><span class="p">)</span><span class="w"> </span><span class="nx">rabbitmq</span><span class="p">.</span><span class="nx">Handler</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">NewExampleHandler</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span>
+<span class="w">    </span><span class="p">})</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>3) Configure the exchange and queue in <code>cozy.yaml</code></p>

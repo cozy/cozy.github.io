@@ -7808,6 +7808,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#locked-drives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Locked drives
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#applying-a-removed-command" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -7910,9 +7921,10 @@
 <ul>
 <li>The stack consumes one command, <code>drive.org_drive.ensure</code>, that states what a drive should look like: its name, its members and groups with their rights, and whether it exists at all. It knows nothing about the app sending it.</li>
 <li>The app names the drive with a <code>reference</code> (<code>source</code> and <code>id</code>). The stack stores it on the drive sharing and finds the drive by it, so the same command can be sent any number of times.</li>
-<li>Each command carries a <code>revision</code>. The stack ignores a command whose revision is lower than the one it last applied, and only replies again to one with the same revision.</li>
+<li>Each command carries a <code>revision</code>. The stack ignores a command whose revision is lower than the one it last applied, and applies one with the same revision again, so a redelivery after a failure finishes the work.</li>
 <li>After applying a command, the stack replies on the <code>activity</code> exchange with the reference and the drive id. The app maps the reference back to its own object.</li>
 <li>Removal is the same command with <code>state: removed</code>. The stack cuts access in one write, then revokes members and cleans up in a background job, in pages.</li>
+<li>Only the app&rsquo;s commands delete, move or rename its drives. The stack refuses these API calls on a drive that has a reference, whoever makes them.</li>
 <li>TwakeSpace sends the command from the space events it already consumes. The stack does not consume space events.</li>
 <li>For Drive, this replaces what <a href="https://github.com/linagora/twake-space-architecture/blob/d8b85ecbe0cfffba446a410ab999e49ba949d621/ADR005.md">ADR 005</a> asks of each app: consuming the space events, the <code>twake.space.synced</code> reconciliation and <code>com.twake.drive.space.provisioned.v1</code>. Its other rules still hold: 30 days of retention after removal, and no activity on a drive before its reply is confirmed.</li>
 </ul>
@@ -7933,7 +7945,7 @@
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"organizationId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"org123"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"reference"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"twake-space"</span><span class="p">,</span><span class="w"> </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3b9e2c71-5d4a-4f0e-9c8b-1a2d6e7f8091"</span><span class="w"> </span><span class="p">},</span>
-<span class="w">  </span><span class="nt">"revision"</span><span class="p">:</span><span class="w"> </span><span class="mi">1791106503000</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"revision"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"created"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Product launch"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"members"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
@@ -7949,7 +7961,7 @@
 <ul>
 <li><code>organizationId</code>: the organization. The drive lives on its organization instance, the instance whose slug is the organization id.</li>
 <li><code>reference</code>: required. <code>source</code> names the app, <code>id</code> is the app&rsquo;s own id. The pair is unique per organization.</li>
-<li><code>revision</code>: required, a positive number that increases for each reference.</li>
+<li><code>revision</code>: required, a positive number that increases for each reference. It is a counter the app keeps per reference, not a timestamp. Clocks differ between machines, and with events out of order, the time of the event behind a command can be lower than a revision already applied, so the stack would drop the command and its change.</li>
 <li><code>state</code>: <code>created</code> or <code>removed</code>.</li>
 <li><code>name</code>: required when <code>state</code> is <code>created</code>.</li>
 <li><code>members</code>, <code>groups</code>: optional, <code>role</code> is <code>read</code> or <code>write</code>. Together they are the complete list: a member or group on the drive that is in neither is removed.</li>
@@ -7965,9 +7977,7 @@
   S-&gt;&gt;O: find the drive sharing by reference
   alt revision lower than the stored one
     S-&gt;&gt;R: ack, nothing to do
-  else same revision
-    S-&gt;&gt;R: activity exchange, the same ready reply again
-  else newer revision
+  else same or newer revision
     opt no drive
       S-&gt;&gt;O: folder at the root, drive sharing with the reference
     end
@@ -7983,8 +7993,17 @@
 <li>Groups are looked up among the organization&rsquo;s groups the stack already replicates from <code>b2b.group.*</code>. The drive is shared with the group, so people joining or leaving the group join or leave the drive without a new command, as for any group sharing.</li>
 <li>A member or group that cannot be added (unknown email or group, several matches) is skipped. The others still get the drive, and the reply lists the skipped ones.</li>
 <li>Members can&rsquo;t change who is on the drive from the Drive app: the next command would undo it. Their right to create links and invitations stays under the drive&rsquo;s sharing policy (<a href="../003-adr-org-drive-sharing-policy/">ADR 003</a>).</li>
-<li>If the drive was lost (its sharing revoked from elsewhere, its folder trashed), the command creates a new drive, and the reply carries its new id.</li>
+<li>If the drive was lost all the same (its sharing or its folder removed by an operator), the command creates a new drive, and the reply carries its new id.</li>
 </ul>
+<h3 id="locked-drives">Locked drives<a class="headerlink" href="#locked-drives" title="Permanent link">&para;</a></h3>
+<p>A drive with a reference belongs to the app that sent it. The stack answers 403 to:</p>
+<ul>
+<li>trash, delete, move or rename its root folder, through <code>/files</code> on the organization instance or <code>/sharings/drives/:id</code> for a member</li>
+<li>change the description of its sharing, or revoke the whole sharing, through <code>/sharings/:id</code></li>
+</ul>
+<p>The files and folders inside the drive stay editable, under each member&rsquo;s rights.</p>
+<p>The stack sets the reference only from a command. It drops a <code>reference</code> sent to <code>POST /sharings</code> or <code>PUT /sharings/:id</code>, and <code>/data</code> already refuses <code>io.cozy.sharings</code>.</p>
+<p>Without the lock, trashing the root folder revokes the sharing and deletes its document, so the stored revision goes with it and a late command creates the drive again. A rename would only last until the next command.</p>
 <h3 id="applying-a-removed-command">Applying a <code>removed</code> command<a class="headerlink" href="#applying-a-removed-command" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>sequenceDiagram
   participant R as RabbitMQ
@@ -8008,7 +8027,7 @@
 </code></pre></div>
 <ul>
 <li>Revoking a drive sharing in one call costs one HTTP call and one full sharing write per member, then one update per shared file. For a large drive that does not fit in a delivery, hence the job.</li>
-<li>Marking the drive inactive cuts every member&rsquo;s access at once, because the drive routes refuse an inactive sharing. The handler does nothing else, so it finishes quickly whatever the size of the drive.</li>
+<li>Marking the drive inactive cuts every member&rsquo;s access at once, because the drive routes refuse an inactive sharing, also when the organization and the member are on the same stack. The handler does nothing else, so it finishes quickly whatever the size of the drive.</li>
 <li>The job saves its progress in the sharing at the end of each page. A job that crashes starts again from the next page.</li>
 <li>The folder goes to the trash, and an <code>@in</code> trigger set by the job deletes it 30 days after the removal, whatever the trash cleanup setting of the context. Nothing deletes the files inline.</li>
 <li>When a whole organization goes, each drive is its own command and its own job. The queue prefetch and the job workers cap how much runs at once.</li>
@@ -8026,7 +8045,7 @@
 <span class="w">  </span><span class="nt">"twakeorg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"org123"</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="nt">"reference"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"twake-space"</span><span class="p">,</span><span class="w"> </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3b9e2c71-5d4a-4f0e-9c8b-1a2d6e7f8091"</span><span class="w"> </span><span class="p">},</span>
-<span class="w">    </span><span class="nt">"revision"</span><span class="p">:</span><span class="w"> </span><span class="mi">1791106503000</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">"revision"</span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span>
 <span class="w">    </span><span class="nt">"drive"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a1f0c3e2d4b5"</span><span class="w"> </span><span class="p">},</span>
 <span class="w">    </span><span class="nt">"skipped"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w"> </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"carol@example.com"</span><span class="p">,</span><span class="w"> </span><span class="nt">"reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"not in the organization directory"</span><span class="w"> </span><span class="p">}]</span>
 <span class="w">  </span><span class="p">}</span>
@@ -8040,30 +8059,30 @@
 <li>Malformed command, or unknown <code>state</code> or <code>role</code>: sent to the dead letter queue at once.</li>
 <li>No organization instance, or CouchDB unavailable: the message is redelivered up to the queue&rsquo;s <code>delivery_limit</code>, then dead-lettered.</li>
 <li>A crash after the drive was created but before the reply: the redelivery finds the drive by its reference, so no second drive is created.</li>
-<li>Commands out of order: the revision check drops the older one.</li>
+<li>Commands out of order: the revision check drops the older one, once the reference has a drive (see the open questions for a <code>removed</code> that comes first).</li>
 <li>Replies are published after the work is saved. A failed publish fails the delivery, and the redelivery publishes the same reply again. The app must accept a reply twice.</li>
 </ul>
 <h3 id="what-twakespace-needs-to-do">What TwakeSpace needs to do<a class="headerlink" href="#what-twakespace-needs-to-do" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Publish <code>drive.org_drive.ensure</code> with the space&rsquo;s full state after each space event it handles (created, updated, member and group changes, deleted), once its own transaction is committed.</li>
 <li>On <code>twake.space.synced</code>, send <code>ensure</code> for the space, and on <code>twake.space.sync.completed</code>, send <code>state: removed</code> for the drives of the spaces that are not listed.</li>
+<li>Keep a revision per space in a row that is never deleted, increment it in the transaction that applies each change to the space, and send the new value as <code>revision</code>, for <code>removed</code> too. The row lock makes the handlers of one space take turns, so a higher revision always carries a newer state.</li>
 <li>Map <code>viewer</code> to <code>read</code>, and <code>editor</code> and <code>admin</code> to <code>write</code>.</li>
 <li>Consume <code>com.twake.drive.org_drive.ready.v1</code> and <code>removed.v1</code>, and map <code>reference.id</code> back to the space.</li>
 </ul>
 <h2 id="consequences">Consequences<a class="headerlink" href="#consequences" title="Permanent link">&para;</a></h2>
 <ul>
 <li>No app-specific code in the stack. A new app gets drives by choosing a <code>reference.source</code>.</li>
-<li>Renames, member changes and removal come from the same command, and redeliveries and reordering are safe.</li>
+<li>Renames, member changes and removal come from the same command, and redeliveries and reordering are safe, apart from the <code>removed</code> that comes first in the open questions.</li>
 <li>Removing a large drive does not block a delivery, and its cost is spread over a job.</li>
 <li>The app is the source of truth for who is on the drive. Members and groups added or removed from the Drive app are overwritten by the next command.</li>
 <li>Apps depend on the stack&rsquo;s reply to learn the drive id, and must handle duplicates.</li>
 </ul>
 <h2 id="open-questions">Open questions<a class="headerlink" href="#open-questions" title="Permanent link">&para;</a></h2>
 <ul>
-<li>What does TwakeSpace use as <code>revision</code>? It keeps a timestamp per changed key, not a counter. Is the space&rsquo;s latest change time, in milliseconds, increasing enough?</li>
 <li>Is the group id TwakeSpace receives with <code>twake.space.group.linked</code> the same id <code>b2b.group.*</code> events carry?</li>
 <li>A person can be both a member and in a group with another role. Which role wins, the higher one?</li>
-<li>The drive routes take a shortcut when the organization and the member are on the same stack, and that shortcut checks only the member&rsquo;s copy of the sharing, not the organization&rsquo;s. It needs that check for &ldquo;mark inactive&rdquo; to cut access on the same stack.</li>
+<li>A <code>removed</code> command for a reference that has no drive yet stores nothing, so a <code>created</code> with a lower revision that arrives after it creates the drive. Should the stack keep the last revision and state of each reference in a document of its own, never deleted? Its id, derived from the reference, would also stop two stacks from applying commands for the same reference at once.</li>
 <li>Should the command also carry the drive&rsquo;s sharing policy (<a href="../003-adr-org-drive-sharing-policy/">ADR 003</a>), or does the organization admin set it from the Drive app?</li>
 </ul>
 
