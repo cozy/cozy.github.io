@@ -8618,7 +8618,9 @@ of its objects by sending <code>drive.org_drive.ensure</code> on the <code>drive
 <span class="w">  </span><span class="nt">"reference"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"source"</span><span class="p">:</span><span class="w"> </span><span class="s2">"twake-space"</span><span class="p">,</span><span class="w"> </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3b9e2c71-5d4a-4f0e-9c8b-1a2d6e7f8091"</span><span class="w"> </span><span class="p">},</span>
 <span class="w">  </span><span class="nt">"revision"</span><span class="p">:</span><span class="w"> </span><span class="mi">1791106503000</span><span class="p">,</span>
 <span class="w">  </span><span class="nt">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"created"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Product launch"</span>
+<span class="w">  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Product launch"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"members"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w"> </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"alice@example.net"</span><span class="p">,</span><span class="w"> </span><span class="nt">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"write"</span><span class="w"> </span><span class="p">}],</span>
+<span class="w">  </span><span class="nt">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w"> </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"marketing"</span><span class="p">,</span><span class="w"> </span><span class="nt">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"read"</span><span class="w"> </span><span class="p">}]</span>
 <span class="p">}</span>
 </code></pre></div>
 <ul>
@@ -8628,8 +8630,17 @@ of its objects by sending <code>drive.org_drive.ensure</code> on the <code>drive
 <li>Provisioning is locked per organization and reference. Multiple active
   drives for one reference fail the command without changing any drive or
   publishing a reply; the error lists the conflicting sharing ids.</li>
-<li>A command with a higher revision than the drive&rsquo;s renames it. A command with
-  the same revision changes nothing, and an older one is ignored.</li>
+<li>A command with a higher revision than the drive&rsquo;s renames it. An older one
+  is ignored.</li>
+<li>The members and groups of the drive are made to match the lists: a member is
+  the contact of the organization directory with this email, and a group is
+  the directory group with this id. Those who are no longer listed are
+  revoked. Direct member roles use the existing read-only update methods.
+  Adding members and groups uses the same conflict checks as the sharing API;
+  conflicting roles are rejected, not combined. Changing the role of an already
+  attached group is also rejected by the existing model. Each command is applied,
+  even with the same revision, so a redelivery finishes what a failure left
+  undone, invitations included.</li>
 <li>A drive whose sharing was revoked or whose folder was trashed is replaced by
   a new one. Its old sharing stays inactive and retains the reference and
   revision, including after the folder is permanently deleted. An active
@@ -8637,8 +8648,20 @@ of its objects by sending <code>drive.org_drive.ensure</code> on the <code>drive
   is created.</li>
 <li>After a created command, the Stack replies on the <code>activity</code> exchange with
   <code>com.twake.drive.org_drive.ready.v1</code>, carrying the reference, the revision
-  and the drive id (<code>data.drive.id</code>, the sharing id). A command with the same
-  revision gets the same reply again. A failed publish fails the delivery.</li>
+  and the drive id (<code>data.drive.id</code>, the sharing id). <code>data.skipped</code> lists the
+  members (<code>email</code>) and groups (<code>group_id</code>) that could not be put on the
+  drive, with a <code>reason</code>: not in the organization directory, several contacts
+  in it, or too many members. A command with the same revision gets a reply
+  again. Failed invitations fail the delivery before the reply is published;
+  redelivery retries the unsent invitations. A failed publish also fails the
+  delivery.</li>
+<li>A command with <code>"state": "removed"</code> (no name, members or groups needed)
+  closes the drives of the reference at once: their routes answer 403. A
+  background job calls <code>Sharing.Revoke()</code>, moves the folder to the trash, and
+  replies with <code>com.twake.drive.org_drive.removed.v1</code> (reference and
+  revision). The normal trash-retention policy applies, through the context
+  setting <code>fs.auto_clean_trashed_after</code>; without it, there is no automatic purge.
+  An older revision is ignored, and a reference without a drive still gets the reply.</li>
 <li>A malformed command (no reference, no revision, unknown state or role) goes
   to the dead letter queue at once.</li>
 </ul>

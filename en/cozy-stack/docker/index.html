@@ -5654,6 +5654,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#optional-enable-jwt-authentication-locally" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional: Enable JWT authentication locally
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#enable-feature-flag" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8003,6 +8014,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#optional-enable-jwt-authentication-locally" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional: Enable JWT authentication locally
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#enable-feature-flag" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8130,6 +8152,52 @@ See <code>scripts/docker/cozy-app-dev/release.sh</code> for details.</p>
 <span class="w">    </span><span class="nt">onlyoffice_inbox_secret</span><span class="p">:</span><span class="w"> </span><span class="s">""</span>
 <span class="w">    </span><span class="nt">onlyoffice_outbox_secret</span><span class="p">:</span><span class="w"> </span><span class="s">""</span>
 </code></pre></div>
+<h3 id="optional-enable-jwt-authentication-locally">Optional: Enable JWT authentication locally<a class="headerlink" href="#optional-enable-jwt-authentication-locally" title="Permanent link">&para;</a></h3>
+<p>JWT authentication is <strong>optional for local development</strong>. The default setup
+above works without it; skip this section unless you need to test the
+authenticated flow used in production.</p>
+<p>To enable JWT, OnlyOffice and cozy-stack must share the same secret. This
+setup was tested with Document Server 9.4.</p>
+<p>Generate a secret <strong>once</strong> and store it outside the repository:</p>
+<div class="highlight"><pre><span></span><code><span class="o">(</span><span class="nb">umask</span><span class="w"> </span><span class="m">077</span><span class="p">;</span><span class="w"> </span><span class="nb">printf</span><span class="w"> </span><span class="s1">'JWT_SECRET=%s\n'</span><span class="w"> </span><span class="s2">"</span><span class="k">$(</span>openssl<span class="w"> </span>rand<span class="w"> </span>-hex<span class="w"> </span><span class="m">32</span><span class="k">)</span><span class="s2">"</span><span class="w"> </span>&gt;<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.cozy/onlyoffice.env"</span><span class="o">)</span>
+</code></pre></div>
+<p>In your local <code>scripts/start-oo.sh</code>, replace <code>-e JWT_ENABLED=false</code> with:</p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span>-e<span class="w"> </span><span class="nv">JWT_ENABLED</span><span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-e<span class="w"> </span><span class="nv">JWT_SECRET</span><span class="o">=</span><span class="s2">"</span><span class="nv">$JWT_SECRET</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+</code></pre></div>
+<p>Do not hardcode the secret in the script or commit it. Passing the value
+explicitly also avoids relying on whether the shell variable was exported:
+<code>-e JWT_SECRET</code> alone only reads exported environment variables. Without a
+secret, OnlyOffice generates a random one when the container is recreated.</p>
+<p>In <code>~/.cozy/cozy.yaml</code>, replace the two empty secrets with the value stored
+in <code>~/.cozy/onlyoffice.env</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">office</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">default</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">onlyoffice_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http://localhost:8000/</span>
+<span class="w">    </span><span class="nt">onlyoffice_inbox_secret</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;same</span><span class="nv"> </span><span class="s">value</span><span class="nv"> </span><span class="s">as</span><span class="nv"> </span><span class="s">JWT_SECRET&gt;"</span>
+<span class="w">    </span><span class="nt">onlyoffice_outbox_secret</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;same</span><span class="nv"> </span><span class="s">value</span><span class="nv"> </span><span class="s">as</span><span class="nv"> </span><span class="s">JWT_SECRET&gt;"</span>
+</code></pre></div>
+<p>The inbox secret signs the configuration sent to the editor; the outbox
+secret verifies callbacks from OnlyOffice. Use the actual secret in the YAML,
+not <code>$JWT_SECRET</code>: the YAML value is not a shell variable reference.</p>
+<p>From the repository root, load the saved secret and recreate OnlyOffice:</p>
+<div class="highlight"><pre><span></span><code>.<span class="w"> </span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.cozy/onlyoffice.env"</span>
+<span class="nv">JWT_SECRET</span><span class="o">=</span><span class="s2">"</span><span class="nv">$JWT_SECRET</span><span class="s2">"</span><span class="w"> </span>./scripts/start-oo.sh
+</code></pre></div>
+<p>Reuse this file on subsequent restarts; do not generate a new secret unless
+you also update both YAML values. Restart cozy-stack to load the configuration,
+then reload the editor in the browser. Keep the default <code>Authorization</code> JWT
+header so cozy-stack can verify callbacks.</p>
+<p>The helper script uses <code>go run . instances ls</code> to discover instance domains.
+Running it outside the repository root can silently fall back to a
+<code>cozy.localhost</code> mapping, which does not cover instances such as
+<code>alice.localhost</code>. Verify the mapping for your actual instance:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>onlyoffice-ds<span class="w"> </span>getent<span class="w"> </span>hosts<span class="w"> </span>alice.localhost
+</code></pre></div>
+<p>The instance must resolve to the host gateway. On Linux, also ensure cozy-stack
+listens on an address reachable from Docker, for example with
+<code>cozy-stack serve --host 0.0.0.0</code>. This exposes the development server beyond
+loopback, so use it only on a trusted development network.</p>
 <h3 id="enable-feature-flag">Enable Feature Flag<a class="headerlink" href="#enable-feature-flag" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>cozy-stack<span class="w"> </span>features<span class="w"> </span>defaults<span class="w"> </span><span class="s1">'{"drive.office": {"enabled": true, "write": true}}'</span>
 </code></pre></div>

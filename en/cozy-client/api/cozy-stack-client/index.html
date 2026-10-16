@@ -3664,6 +3664,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#filecollectiongetdirectorysizeid-promisesize-number-filescount-numbernull" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        fileCollection.getDirectorySize(id) ⇒ Promise.&lt;{size: number, filesCount: (number|null)}&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#filecollectiondeletefilepermanentlyid-options-promisedata" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4546,6 +4557,17 @@
     <span class="md-ellipsis">
       
         sharingCollection.fetchSharedDrives() ⇒ Promise.&lt;{data: Array.&lt;Sharing&gt;}&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sharingcollectionacceptshareddrivesharing-promisedata-sharing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sharingCollection.acceptSharedDrive(sharing) ⇒ Promise.&lt;{data: Sharing}&gt;
       
     </span>
   </a>
@@ -11444,6 +11466,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#filecollectiongetdirectorysizeid-promisesize-number-filescount-numbernull" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        fileCollection.getDirectorySize(id) ⇒ Promise.&lt;{size: number, filesCount: (number|null)}&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#filecollectiondeletefilepermanentlyid-options-promisedata" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -12326,6 +12359,17 @@
     <span class="md-ellipsis">
       
         sharingCollection.fetchSharedDrives() ⇒ Promise.&lt;{data: Array.&lt;Sharing&gt;}&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sharingcollectionacceptshareddrivesharing-promisedata-sharing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        sharingCollection.acceptSharedDrive(sharing) ⇒ Promise.&lt;{data: Sharing}&gt;
       
     </span>
   </a>
@@ -15031,6 +15075,7 @@ files associated to a specific document</p>
 <li><a href="#FileCollection+emptyTrash">.emptyTrash()</a> ⇒ <code>Promise.&lt;{data}&gt;</code></li>
 <li><a href="#FileCollection+restore">.restore(id)</a> ⇒ <code>Promise.&lt;{data}&gt;</code></li>
 <li><a href="#FileCollection+copy">.copy(id, [name], [dirId], [options])</a> ⇒ <code>Promise.&lt;object&gt;</code></li>
+<li><a href="#FileCollection+getDirectorySize">.getDirectorySize(id)</a> ⇒ <code>Promise.&lt;{size: number, filesCount: (number|null)}&gt;</code></li>
 <li><a href="#FileCollection+deleteFilePermanently">.deleteFilePermanently(id, [options])</a> ⇒ <code>Promise.&lt;{data}&gt;</code></li>
 <li><a href="#FileCollection+upload">.upload(data, dirPath, [options])</a> ⇒ <code>Promise.&lt;object&gt;</code></li>
 <li><a href="#FileCollection+create">.create(attributes, [options])</a></li>
@@ -15434,6 +15479,28 @@ files associated to a specific document</p>
 <td>[options]</td>
 <td><code>object</code></td>
 <td>Optionnal request options</td>
+</tr>
+</tbody>
+</table>
+<p><a name="FileCollection+getDirectorySize"></a></p>
+<h3 id="filecollectiongetdirectorysizeid-promisesize-number-filescount-numbernull">fileCollection.getDirectorySize(id) ⇒ <code>Promise.&lt;{size: number, filesCount: (number|null)}&gt;</code><a class="headerlink" href="#filecollectiongetdirectorysizeid-promisesize-number-filescount-numbernull" title="Permanent link">&para;</a></h3>
+<p>Get the size and the number of files of a directory, including those in
+its subdirectories</p>
+<p><strong>Kind</strong>: instance method of <a href="#FileCollection"><code>FileCollection</code></a><br />
+<strong>Returns</strong>: <code>Promise.&lt;{size: number, filesCount: (number|null)}&gt;</code> - The size in bytes and the number of files (null on stacks that do not return it)  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td><code>string</code></td>
+<td>The id of the directory</td>
 </tr>
 </tbody>
 </table>
@@ -17152,6 +17219,7 @@ Serves to dedupe equal queries requested at the same time</p>
 <li><a href="#SharingCollection+get">.get(id)</a> ⇒ <a href="#Sharing"><code>Sharing</code></a></li>
 <li><a href="#SharingCollection+renameSharedDrive">.renameSharedDrive(sharing, newName)</a> ⇒ <code>object</code></li>
 <li><a href="#SharingCollection+fetchSharedDrives">.fetchSharedDrives()</a> ⇒ <code>Promise.&lt;{data: Array.&lt;Sharing&gt;}&gt;</code></li>
+<li><a href="#SharingCollection+acceptSharedDrive">.acceptSharedDrive(sharing)</a> ⇒ <code>Promise.&lt;{data: Sharing}&gt;</code></li>
 <li><a href="#SharingCollection+create">.create(params)</a></li>
 <li><a href="#SharingCollection+createSharedDrive">.createSharedDrive(params)</a></li>
 <li><a href="#SharingCollection+getDiscoveryLink">.getDiscoveryLink(sharingId, sharecode, [options])</a> ⇒ <code>string</code></li>
@@ -17249,7 +17317,29 @@ Serves to dedupe equal queries requested at the same time</p>
 <p>Fetch shared drives</p>
 <p><strong>Kind</strong>: instance method of <a href="#SharingCollection"><code>SharingCollection</code></a><br />
 <strong>Returns</strong>: <code>Promise.&lt;{data: Array.&lt;Sharing&gt;}&gt;</code> - Shared drives (which are io.cozy.sharings documents)<br />
-<a name="SharingCollection+create"></a></p>
+<a name="SharingCollection+acceptSharedDrive"></a></p>
+<h3 id="sharingcollectionacceptshareddrivesharing-promisedata-sharing">sharingCollection.acceptSharedDrive(sharing) ⇒ <code>Promise.&lt;{data: Sharing}&gt;</code><a class="headerlink" href="#sharingcollectionacceptshareddrivesharing-promisedata-sharing" title="Permanent link">&para;</a></h3>
+<p>Accepts a shared drive on the recipient side, without going through
+the authorization page. Its shortcut is marked as seen.</p>
+<p><strong>Kind</strong>: instance method of <a href="#SharingCollection"><code>SharingCollection</code></a><br />
+<strong>Returns</strong>: <code>Promise.&lt;{data: Sharing}&gt;</code> - The accepted shared drive  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sharing</td>
+<td><a href="#Sharing"><code>Sharing</code></a></td>
+<td>Sharing Object</td>
+</tr>
+</tbody>
+</table>
+<p><a name="SharingCollection+create"></a></p>
 <h3 id="sharingcollectioncreateparams">sharingCollection.create(params)<a class="headerlink" href="#sharingcollectioncreateparams" title="Permanent link">&para;</a></h3>
 <p>Creates a new Sharing. See https://docs.cozy.io/en/cozy-stack/sharing/#post-sharings</p>
 <p><strong>Kind</strong>: instance method of <a href="#SharingCollection"><code>SharingCollection</code></a>  </p>
