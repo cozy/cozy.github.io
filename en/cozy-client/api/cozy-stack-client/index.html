@@ -17407,6 +17407,9 @@ the authorization page. Its shortcut is marked as seen.</p>
 <p><a name="SharingCollection+createSharedDrive"></a></p>
 <h3 id="sharingcollectioncreateshareddriveparams">sharingCollection.createSharedDrive(params)<a class="headerlink" href="#sharingcollectioncreateshareddriveparams" title="Permanent link">&para;</a></h3>
 <p>Creates a new shared drive. See https://docs.cozy.io/en/cozy-stack/shared-drives/</p>
+<p>When <code>driveId</code> is given, the creation is delegated through the shared
+drive&rsquo;s proxied route (<code>POST /sharings/drives/:driveId/:fileId/drives</code>),
+which lets a member create a nested drive on the owner&rsquo;s instance.</p>
 <p><strong>Kind</strong>: instance method of <a href="#SharingCollection"><code>SharingCollection</code></a>  </p>
 <table>
 <thead>
@@ -17430,7 +17433,7 @@ the authorization page. Its shortcut is marked as seen.</p>
 <tr>
 <td>[params.document]</td>
 <td><a href="#Sharing"><code>Sharing</code></a></td>
-<td>Existing folder to use as shared drive (mutually exclusive with name)</td>
+<td>Existing folder to use as shared drive (mutually exclusive with name, required with driveId)</td>
 </tr>
 <tr>
 <td>params.description</td>
@@ -17446,6 +17449,11 @@ the authorization page. Its shortcut is marked as seen.</p>
 <td>[params.readOnlyRecipients]</td>
 <td><a href="#Recipient"><code>Array.&lt;Recipient&gt;</code></a></td>
 <td>Recipients to add with read only access</td>
+</tr>
+<tr>
+<td>[params.driveId]</td>
+<td><code>string</code></td>
+<td>Id of the shared drive the document belongs to, to delegate the creation to its owner</td>
 </tr>
 </tbody>
 </table>
