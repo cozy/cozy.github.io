@@ -67,6 +67,9 @@ const sendMattermostMessage = options => {
         path: mattermostHookUrl.pathname
       },
       res => {
+        // The body is not needed, but an unread response keeps its socket
+        // open, and the process alive, until the server closes it (~60s)
+        res.resume()
         if (res.statusCode === 200) {
           resolve(res)
         } else {

@@ -58,6 +58,7 @@ describe('sendMattermost Post', () => {
   const httpIncomingMessage = {
     statusCode: 200,
     statusMessage: 'OK',
+    resume: jest.fn(),
     headers: {
       authorization: 'Bearer mocked token'
     }
@@ -114,6 +115,7 @@ describe('sendMattermost Post', () => {
           username: 'Travis',
           text: 'Application __banks__ version `1.6.1` has been published on space __banks__.\n\n- [Last commit: Beautiful commit title & a beautiful ampersand 😍 ](https://github.com/cozy/cozy-banks/commits/sha1deadbeef)\n- [Job](https://travis.com/cozy/cozy-banks/jobs/jobId1234)'
         })
+        expect(httpIncomingMessage.resume).toHaveBeenCalled()
         expect(https.request).toHaveBeenCalledWith(
           {
             headers: {
