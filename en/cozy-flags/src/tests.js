@@ -173,6 +173,62 @@ export default function testFlagAPI(flag) {
         expect(initializing2).not.toBe(initializing1)
         expect(util.inspect(initializing2)).toContain('pending')
       })
+
+      it.each([
+        ['succeeds', answer => answer.resolve(flagRemoteResponse)],
+        ['fails', answer => answer.reject(new Error('offline'))]
+      ])(
+        'should not finish a login cut by a logout when the read %s',
+        async (_, settle) => {
+          const warn = jest.spyOn(console, 'warn').mockImplementation(() => {})
+          const { client } = setup()
+          let answer
+          client.query = jest.fn(
+            () =>
+              new Promise((resolve, reject) => {
+                answer = { resolve, reject }
+              })
+          )
+          client.isLogged = true
+          client.registerPlugin(flag.plugin)
+          const onLogin = jest.fn()
+          client.on('plugin:flag:login', onLogin)
+          await client.plugins.flags.handleLogout()
+          settle(answer)
+          await new Promise(resolve => setTimeout(resolve, 0))
+          expect(flag.list()).toEqual([])
+          expect(onLogin).not.toHaveBeenCalled()
+          expect(util.inspect(client.plugins.flags.initializing)).toContain(
+            'pending'
+          )
+          warn.mockRestore()
+        }
+      )
+
+      it('should log in without flags when they cannot be read', async () => {
+        const warn = jest.spyOn(console, 'warn').mockImplementation(() => {})
+        const { client } = setup()
+        client.query = jest.fn().mockRejectedValue(new Error('offline'))
+        client.isLogged = true
+        client.registerPlugin(flag.plugin)
+        const onLogin = jest.fn()
+        client.on('plugin:flag:login', onLogin)
+        await client.plugins.flags.initializing
+        await expect(client.plugins.flags.refresh()).rejects.toThrow('offline')
+        expect(onLogin).toHaveBeenCalled()
+        expect(flag.list()).toEqual([])
+        warn.mockRestore()
+      })
+
+      it('should ask the stack for the flags on refresh', async () => {
+        const { client } = setup()
+        client.registerPlugin(flag.plugin)
+        await client.plugins.flags.refresh()
+        expect(client.query).toHaveBeenCalledWith(expect.anything(), {
+          forceLink: 'stack',
+          forceStack: true
+        })
+      })
     })
 
     if (typeof document !== 'undefined') {
@@ -220,10 +276,13 @@ export default function testFlagAPI(flag) {
       expect(flag('has_feature2')).toBe(false)
       expect(flag('from_remote')).toBe(true)
       expect(flag('number_of_foos')).toBe(10)
-      expect(client.query).toHaveBeenCalledWith({
-        doctype: 'io.cozy.settings',
-        id: 'io.cozy.settings.flags'
-      })
+      expect(client.query).toHaveBeenCalledWith(
+        {
+          doctype: 'io.cozy.settings',
+          id: 'io.cozy.settings.flags'
+        },
+        { forceLink: 'stack', forceStack: true }
+      )
       expect(flag('bar_config')).toEqual({ qux: 'quux' })
     })
   })

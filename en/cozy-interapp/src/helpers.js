@@ -47,3 +47,18 @@ export const buildRedirectionURL = (url, data) => {
 }
 
 export const removeQueryString = url => url.replace(/\?[^/#]*/, '')
+
+/**
+ * Origins are compared as exact strings, as browsers serialize them.
+ * `ancestorOrigins` is null when the browser does not tell them (Firefox
+ * before 148): only the handshake guards the service then.
+ */
+export const isFramedByAllowedOrigins = (frameAncestors, ancestorOrigins) => {
+  if (!Array.isArray(frameAncestors)) return false
+  if (frameAncestors.some(origin => typeof origin !== 'string')) return false
+  if (ancestorOrigins === null) return true
+  return (
+    ancestorOrigins.length > 0 &&
+    ancestorOrigins.every(origin => frameAncestors.includes(origin))
+  )
+}

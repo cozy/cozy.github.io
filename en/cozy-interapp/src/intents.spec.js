@@ -447,4 +447,84 @@ describe('Interapp', () => {
       })
     })
   })
+
+  describe('service with requireFrameAncestors', () => {
+    const client = 'https://chat.example.com'
+
+    const startService = (frameAncestors, ancestorOrigins, options) => {
+      api.respond('GET', '/intents/framed-intent-id', {
+        data: {
+          id: 'framed-intent-id',
+          attributes: { client, frameAncestors, services: [] }
+        }
+      })
+      const serviceWindow = {
+        document: window.document,
+        location: ancestorOrigins === null ? {} : { ancestorOrigins },
+        addEventListener: jest.fn(),
+        removeEventListener: jest.fn(),
+        parent: { postMessage: jest.fn() }
+      }
+      const promise = intents.createService(
+        'framed-intent-id',
+        serviceWindow,
+        options
+      )
+      return { promise, postMessage: serviceWindow.parent.postMessage }
+    }
+
+    const type = subtype => ({ type: `intent-framed-intent-id:${subtype}` })
+
+    it('cancels the intent and rejects when an ancestor is not allowed', async () => {
+      const { promise, postMessage } = startService(
+        [client],
+        [client, 'https://evil.example'],
+        { requireFrameAncestors: true }
+      )
+
+      await expect(promise).rejects.toThrow(
+        'Intent service is framed by a page the intent does not allow'
+      )
+      expect(postMessage.mock.calls).toEqual([
+        [type('ready'), client],
+        [type('cancel'), client]
+      ])
+    })
+
+    it('cancels the intent and rejects without frameAncestors', async () => {
+      const { promise, postMessage } = startService(undefined, [client], {
+        requireFrameAncestors: true
+      })
+
+      await expect(promise).rejects.toThrow(
+        'Intent service is framed by a page the intent does not allow'
+      )
+      expect(postMessage).toHaveBeenLastCalledWith(type('cancel'), client)
+    })
+
+    it('starts the handshake when every ancestor is allowed', async () => {
+      const { postMessage } = startService([client], [client], {
+        requireFrameAncestors: true
+      })
+      await sleep(1)
+
+      expect(postMessage.mock.calls).toEqual([[type('ready'), client]])
+    })
+
+    it('starts the handshake when the browser does not tell the ancestors', async () => {
+      const { postMessage } = startService([client], null, {
+        requireFrameAncestors: true
+      })
+      await sleep(1)
+
+      expect(postMessage.mock.calls).toEqual([[type('ready'), client]])
+    })
+
+    it('does not check the frame without the option', async () => {
+      const { postMessage } = startService(undefined, ['https://evil.example'])
+      await sleep(1)
+
+      expect(postMessage.mock.calls).toEqual([[type('ready'), client]])
+    })
+  })
 })

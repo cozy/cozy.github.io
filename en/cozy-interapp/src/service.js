@@ -1,4 +1,7 @@
-import { errorSerializer } from './helpers'
+import { errorSerializer, isFramedByAllowedOrigins } from './helpers'
+
+const readAncestorOrigins = ({ location }) =>
+  'ancestorOrigins' in location ? Array.from(location.ancestorOrigins) : null
 
 function listenClientData(intent, window) {
   return new Promise(resolve => {
@@ -26,7 +29,8 @@ function maximize(element) {
   }
 }
 
-export const start = request => (intentIdArg, serviceWindowArg) => {
+export const start = request => (intentIdArg, serviceWindowArg, options) => {
+  const { requireFrameAncestors } = options || {}
   const serviceWindow =
     serviceWindowArg || (typeof window !== 'undefined' && window)
   if (!serviceWindow || !serviceWindow.document) {
@@ -118,6 +122,21 @@ export const start = request => (intentIdArg, serviceWindowArg) => {
     serviceWindow.addEventListener('unload', () => {
       if (!terminated) cancel()
     })
+
+    if (
+      requireFrameAncestors &&
+      !isFramedByAllowedOrigins(
+        intent.attributes.frameAncestors,
+        readAncestorOrigins(serviceWindow)
+      )
+    ) {
+      // The client takes a cancel only after the handshake
+      sendMessage({ type: `intent-${intent._id}:ready` })
+      cancel()
+      throw new Error(
+        'Intent service is framed by a page the intent does not allow'
+      )
+    }
 
     return listenClientData(intent, serviceWindow).then(firstData => {
       let data = firstData

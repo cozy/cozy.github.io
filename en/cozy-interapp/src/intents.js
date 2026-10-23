@@ -68,8 +68,8 @@ class Intents {
   }
 
   // returns a service to communicate with intent client
-  createService(intentId, serviceWindow) {
-    return service.start(this.request)(intentId, serviceWindow)
+  createService(intentId, serviceWindow, options) {
+    return service.start(this.request)(intentId, serviceWindow, options)
   }
 
   // Redirect to an app able to handle the doctype

@@ -8215,8 +8215,18 @@ stack: either a <code>cozy-client</code> instance or a <code>fetch</code> functi
 <span class="w">  </span><span class="p">})</span>
 </code></pre></div>
 <h3 id="intentscreateservice"><code>intents.createService()</code><a class="headerlink" href="#intentscreateservice" title="Permanent link">&para;</a></h3>
-<p><code>intents.createService([intentId, window])</code> has to be used in the intent service page. It initializes communication with the parent window (remember: the service is supposed to be in an iframe).</p>
+<p><code>intents.createService([intentId, window, options])</code> has to be used in the intent service page. It initializes communication with the parent window (remember: the service is supposed to be in an iframe).</p>
 <p>If <code>intentId</code> and <code>window</code> parameters are not provided the method will try to retrieve them automatically.</p>
+<p><code>options</code>:</p>
+<ul>
+<li><code>requireFrameAncestors</code> (default <code>false</code>): cancels the intent, and rejects the returned promise, when <code>frameAncestors</code> of the intent is missing or not a list of origins, or when one of <code>location.ancestorOrigins</code> is not in it. Browsers without <code>location.ancestorOrigins</code> (Firefox before 148) only get the <code>frameAncestors</code> check.
+  Set it on a service hosted on another origin than the stack: the stack only enforces <code>frame-ancestors</code> on the services it serves.
+  It needs a stack that gives <code>frameAncestors</code> (linagora/cozy-stack#4978): on an older stack, every intent is refused.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kd">const</span><span class="w"> </span><span class="nx">service</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">intents</span><span class="p">.</span><span class="nx">createService</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="nb">window</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">requireFrameAncestors</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="p">})</span>
+</code></pre></div>
 <p>It returns a <em>service</em> object, which provides the following methods :</p>
 <ul>
 <li><code>compose(action, doctype, data)</code>: request the client to make a second intent. This returns a promise fulfilled with the second intent result.</li>
