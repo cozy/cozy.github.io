@@ -7966,7 +7966,7 @@
 <li><code>name</code>: required when <code>state</code> is <code>created</code>.</li>
 <li><code>members</code>, <code>groups</code>: optional, <code>role</code> is <code>read</code> or <code>write</code>. Together they are the complete list: a member or group on the drive that is in neither is removed.</li>
 <li><code>groups[].id</code>: the organization&rsquo;s group id, as <code>b2b.group.*</code> events carry it.</li>
-<li><code>activity</code>: optional, turns on the activity digest of <a href="010-adr-drive-activity-digest.md">ADR 010</a>.</li>
+<li><code>activity</code>: optional, turns on the activity digest of <a href="../010-adr-drive-activity-digest/">ADR 010</a>.</li>
 </ul>
 <h3 id="applying-a-created-command">Applying a <code>created</code> command<a class="headerlink" href="#applying-a-created-command" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>sequenceDiagram
@@ -8049,7 +8049,7 @@
 </code></pre></div>
 <p><code>com.twake.drive.org_drive.removed.v1</code>, when the removal job ends, with only <code>reference</code> and <code>revision</code> in <code>data</code>.</p>
 <p><code>drive.id</code> is the id of the drive sharing, the same on the organization instance and on every member&rsquo;s instance.</p>
-<p>The stack publishes the replies with publisher confirms, and stores on the sharing that <code>ready</code> was confirmed. The activity of a drive (<a href="010-adr-drive-activity-digest.md">ADR 010</a>) is dropped until then, so TwakeSpace always knows the drive before its first activity.</p>
+<p>The stack publishes the replies with publisher confirms, and stores on the sharing that <code>ready</code> was confirmed. The activity of a drive (<a href="../010-adr-drive-activity-digest/">ADR 010</a>) is dropped until then, so TwakeSpace always knows the drive before its first activity.</p>
 <h3 id="failures">Failures<a class="headerlink" href="#failures" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Malformed command, or unknown <code>state</code> or <code>role</code>: sent to the dead letter queue at once.</li>

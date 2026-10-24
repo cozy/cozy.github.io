@@ -8994,6 +8994,10 @@ response. The client must use the real-time websocket and subscribe to
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+<p>A client may write other attributes on a conversation, like the <code>name</code> the
+user gives it: the stack keeps them when it saves a message or an answer. When
+the client writes the conversation while the stack saves a message, the stack
+reads it again and saves the message on it, in 3 attempts at most.</p>
 <h3 id="post-aichatconversationsidcancel">POST /ai/chat/conversations/:id/cancel<a class="headerlink" href="#post-aichatconversationsidcancel" title="Permanent link">&para;</a></h3>
 <p>Stops the answer to the last message of the conversation, when the user
 stops it. The query stops openRAG, which closes its connection, publishes a
