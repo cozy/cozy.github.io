@@ -1,22 +1,26 @@
-import React, { useState, useRef } from 'react'
 import cx from 'classnames'
+import React, { useState, useRef } from 'react'
 
 import { useQuery } from 'cozy-client'
 import type { IOCozyKonnector } from 'cozy-client/types/types'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import { useI18n } from 'twake-i18n'
 
+import { useSections } from './SectionsContext'
+
 import AddServiceTile from '@/components/AddServiceTile'
 import KonnectorTile from '@/components/KonnectorTile'
 import { SectionHeader } from '@/components/Sections/SectionHeader'
-import { ShortcutLink } from '@/components/ShortcutLink'
-import { computeDisplayMode, computeGroupMode } from '@/components/Sections/utils'
 import {
   DisplayMode,
   GroupMode,
   SectionViewProps
 } from '@/components/Sections/SectionsTypes'
-import { useSections } from './SectionsContext'
+import {
+  computeDisplayMode,
+  computeGroupMode
+} from '@/components/Sections/utils'
+import { ShortcutLink } from '@/components/ShortcutLink'
 import { makeTriggersWithJobStatusQuery } from '@/queries'
 
 export const SectionBody = ({ section }: SectionViewProps): JSX.Element => {

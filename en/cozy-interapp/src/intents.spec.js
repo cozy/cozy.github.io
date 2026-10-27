@@ -129,6 +129,7 @@ describe('Interapp', () => {
       expect(iframe).not.toBeUndefined()
       expect(iframe.getAttribute('src')).toBe(serviceURL)
       expect(iframe.classList.contains('coz-intent')).toBe(true)
+      expect(iframe.getAttribute('allow')).toBe('clipboard-write')
     })
 
     it('cannot handle message without handshake', async () => {

@@ -7769,6 +7769,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#guideline-to-build-an-intent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Guideline to build an intent
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Guideline to build an intent">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ui-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UI lifecycle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#error-handling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error handling
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#postmessage-intent-protocol-overview" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8015,6 +8054,26 @@ stack: either a <code>cozy-client</code> instance or a <code>fetch</code> functi
 <span class="kd">const</span><span class="w"> </span><span class="nx">intents</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">Intents</span><span class="p">({</span><span class="w"> </span><span class="nx">fetch</span><span class="o">:</span><span class="w"> </span><span class="nx">fetchJSON</span><span class="w"> </span><span class="p">})</span>
 </code></pre></div>
 <p>See <a href="https://github.com/linagora/cozy-libs/tree/master/packages/cozy-ui-plus/src/Intent">cozy-ui-plus</a> for ready for use React components using cozy-interapp.</p>
+<h2 id="guideline-to-build-an-intent">Guideline to build an intent<a class="headerlink" href="#guideline-to-build-an-intent" title="Permanent link">&para;</a></h2>
+<h3 id="ui-lifecycle">UI lifecycle<a class="headerlink" href="#ui-lifecycle" title="Permanent link">&para;</a></h3>
+<p>The service app owns the UI inside the iframe, including how the user ends the intent:</p>
+<ul>
+<li>it draws its own close button (e.g. the Drive File Picker has a cross in its header) and calls <code>service.cancel()</code> when the user uses it</li>
+<li>it calls <code>service.terminate(doc)</code> when the user confirms</li>
+<li>if the client should show its own close button instead, the service sends <code>hideCross</code> / <code>showCross</code></li>
+</ul>
+<p>The client app owns the container around the iframe:</p>
+<ul>
+<li>where and how the intent is displayed: inside a modal, a bottom sheet, a card, etc.</li>
+<li>a loading state until <code>readyToUse</code>, with its own close button while the service UI is not there yet</li>
+<li>removing the iframe when the intent ends (<code>done</code>, <code>cancel</code> or <code>error</code>), or earlier with <code>stop()</code> when the client must close it itself (e.g. the user navigates away)</li>
+</ul>
+<h3 id="error-handling">Error handling<a class="headerlink" href="#error-handling" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Business errors are handled inside the service. E.g. with the File Picker: the user selects a file, but it has been deleted when they confirm. The File Picker shows an error message and lets the user select another file or cancel. These errors are not forwarded to the client, which would not know what to do with them.</li>
+<li>Technical errors (invalid data, failed initialization, unusable service) are sent to the client with <code>service.throw(error)</code> (<code>error</code> message). A service that cannot be used must not send <code>readyToUse</code>. The client decides what to do: retry, show that the service is unavailable, etc.</li>
+</ul>
+<p>The client should wait for <code>readyToUse</code> with a timeout (e.g. 20 seconds): a cross-origin iframe does not report loading errors. When the timeout is reached, the client handles it as a technical error.</p>
 <h2 id="postmessage-intent-protocol-overview">postMessage intent protocol overview<a class="headerlink" href="#postmessage-intent-protocol-overview" title="Permanent link">&para;</a></h2>
 <h3 id="roles">Roles<a class="headerlink" href="#roles" title="Permanent link">&para;</a></h3>
 <table>

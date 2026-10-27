@@ -1,6 +1,6 @@
-import { Icon, ListMin, MosaicMin } from '@linagora/twake-icons'
 import React from 'react'
 
+import { Icon, ListMin, MosaicMin } from '@linagora/twake-icons'
 import { useSettings } from 'cozy-client'
 import { Action } from 'cozy-ui/transpiled/react/ActionsMenu/Actions'
 import ActionsMenuItem from 'cozy-ui/transpiled/react/ActionsMenu/ActionsMenuItem'

@@ -203,7 +203,9 @@ describe('buildGrid', () => {
     const grid = buildGrid(
       {
         order: [],
-        folders: { 'folder:a': { name: 'G', items: ['app:drive', 'app:notes'] } }
+        folders: {
+          'folder:a': { name: 'G', items: ['app:drive', 'app:notes'] }
+        }
       },
       items
     )
@@ -268,7 +270,8 @@ describe('folder operations', () => {
       folders: { 'folder:x': { name: 'G', items: ['a', 'b'] } }
     }
     expect(
-      addToFolderAt(start, 'folder:x', 'app:notes', 99).folders['folder:x'].items
+      addToFolderAt(start, 'folder:x', 'app:notes', 99).folders['folder:x']
+        .items
     ).toEqual(['a', 'b', 'app:notes'])
   })
 
@@ -283,7 +286,10 @@ describe('folder operations', () => {
       }
     }
     const next = removeFromFolder(start, 'folder:x', 'app:drive')
-    expect(next.folders['folder:x'].items).toEqual(['app:photos', 'app:contacts'])
+    expect(next.folders['folder:x'].items).toEqual([
+      'app:photos',
+      'app:contacts'
+    ])
     expect(next.order).toEqual(['folder:x', 'app:drive', 'app:notes'])
   })
 

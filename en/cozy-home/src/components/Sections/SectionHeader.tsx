@@ -1,7 +1,7 @@
-import { Dots, Icon } from '@linagora/twake-icons'
 import cx from 'classnames'
 import React from 'react'
 
+import { Dots, Icon } from '@linagora/twake-icons'
 import ActionsMenu from 'cozy-ui/transpiled/react/ActionsMenu'
 import Button from 'cozy-ui/transpiled/react/Buttons'
 import Divider from 'cozy-ui/transpiled/react/MuiCozyTheme/Divider'

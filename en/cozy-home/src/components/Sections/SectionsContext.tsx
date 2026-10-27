@@ -1,3 +1,5 @@
+import { sortBy } from 'lodash'
+import keyBy from 'lodash/keyBy'
 import React, {
   createContext,
   useCallback,
@@ -7,7 +9,6 @@ import React, {
   useState
 } from 'react'
 
-import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
 import {
   QueryDefinition,
   useAppsInMaintenance,
@@ -23,25 +24,25 @@ import {
   IOCozyTrigger,
   QueryState
 } from 'cozy-client/types/types'
-import keyBy from 'lodash/keyBy'
-import { sortBy } from 'lodash'
+import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
+import { useI18n } from 'twake-i18n'
+
+import { formatServicesSections } from './lib/formatServicesSections'
+import { fetchAllKonnectors } from './queries/konnectors'
 
 import {
   Section,
   SectionsContextValue,
   SectionSetting
 } from '@/components/Sections/SectionsTypes'
+import { useMagicFolder } from '@/components/Sections/hooks/useMagicFolder'
+import { useShortcutsDirectories } from '@/components/Sections/hooks/useShortcutsDirectories'
 import { formatSections } from '@/components/Sections/utils'
 import {
   fetchRunningKonnectors,
   getRunningKonnectors
 } from '@/lib/konnectors_typed'
-import { useMagicFolder } from '@/components/Sections/hooks/useMagicFolder'
-import { useShortcutsDirectories } from '@/components/Sections/hooks/useShortcutsDirectories'
 import { konnectorsConn, makeAccountsQuery, makeTriggersQuery } from '@/queries'
-import { useI18n } from 'twake-i18n'
-import { fetchAllKonnectors } from './queries/konnectors'
-import { formatServicesSections } from './lib/formatServicesSections'
 
 const _makeTriggersQuery = makeTriggersQuery as {
   definition: () => QueryDefinition
@@ -102,8 +103,9 @@ export const SectionsProvider = ({
     [konnectors]
   )
 
-  const [groupedData, setGroupedData] =
-    useState<{ [key: string]: IOCozyKonnector[] }>()
+  const [groupedData, setGroupedData] = useState<{
+    [key: string]: IOCozyKonnector[]
+  }>()
 
   useEffect(() => {
     const fetchData = async (): Promise<void> => {

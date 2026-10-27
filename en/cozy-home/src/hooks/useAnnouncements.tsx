@@ -1,18 +1,19 @@
 import { useEffect, useState } from 'react'
 
-import { useI18n } from 'twake-i18n'
-import flag from 'cozy-flags'
 import { useClient } from 'cozy-client'
+import flag from 'cozy-flags'
+import { useI18n } from 'twake-i18n'
 
-import {
-  Announcement,
-  AnnouncementsConfigFlag
-} from '@/components/Announcements/types'
+import { useAnnouncementsSettings } from './useAnnouncementsSettings'
+
 import {
   getUnseenAnnouncements,
   isAnnouncement
 } from '@/components/Announcements/helpers'
-import { useAnnouncementsSettings } from './useAnnouncementsSettings'
+import {
+  Announcement,
+  AnnouncementsConfigFlag
+} from '@/components/Announcements/types'
 
 interface UseAnnouncementsProps {
   canBeDisplayed: boolean
@@ -35,6 +36,7 @@ const useAnnouncements = ({
     const fetchAnnouncements = async (): Promise<void> => {
       setFetchStatus('loading')
       try {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
         const resp = (await client?.stackClient.fetchJSON(
           'GET',
           `/remote/${config?.remoteDoctype}?lang=${lang}&channels=${config?.channels}`
@@ -49,7 +51,7 @@ const useAnnouncements = ({
 
         setRawData(resp.data)
         setFetchStatus('loaded')
-      } catch (error) {
+      } catch {
         setFetchStatus('error')
       }
     }

@@ -1,9 +1,11 @@
 import React from 'react'
+
 import flag from 'cozy-flags'
-import { SectionView } from '@/components/Sections/SectionView'
-import { ShortcutsView } from '@/components/Shortcuts/ShortcutsView'
+
 import { GroupedSectionView } from '@/components/Sections/GroupedSectionsView'
+import { SectionView } from '@/components/Sections/SectionView'
 import { useSections } from '@/components/Sections/SectionsContext'
+import { ShortcutsView } from '@/components/Shortcuts/ShortcutsView'
 
 export const Shortcuts = (): JSX.Element => {
   const { ungroupedSections, groupedSections, shortcutsDirectories } =

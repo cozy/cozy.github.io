@@ -26,12 +26,15 @@ export const _defaultLayout: Omit<SectionSetting, 'id'> = {
 const createSectionsMap = (
   layout: SectionSetting[]
 ): { [key: string]: Omit<SectionSetting, 'id'> } => {
-  return layout.reduce((map, { id, ...rest }) => {
-    if (id) {
-      map[id] = rest
-    }
-    return map
-  }, {} as { [key: string]: Omit<SectionSetting, 'id'> })
+  return layout.reduce(
+    (map, { id, ...rest }) => {
+      if (id) {
+        map[id] = rest
+      }
+      return map
+    },
+    {} as { [key: string]: Omit<SectionSetting, 'id'> }
+  )
 }
 
 // Merges a folder with its corresponding layout settings
@@ -86,8 +89,8 @@ export const formatSections = (
   const processedLayout = !layout
     ? []
     : Array.isArray(layout)
-    ? layout
-    : [layout]
+      ? layout
+      : [layout]
 
   // Handle the case where no layout is provided or layout is an empty array
   // Return folders sorted alphabetically by name, using the default layout

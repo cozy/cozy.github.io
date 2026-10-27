@@ -8927,6 +8927,13 @@ find the basic operation below.</p>
 <p>When the client receives the service URL from the stack, it starts to listen for
 messages coming from that URL. Once the listener is started, it opens an iframe
 that points to the service&rsquo;s URL.</p>
+<p>Some permissions must always be allowed on the iframe, whatever the intent.
+Today, it is <code>clipboard-write</code> (<code>&lt;iframe allow="clipboard-write"&gt;</code>): the
+service runs on another origin, and without it the browser blocks the
+Clipboard API inside the service. cozy-interapp sets it.</p>
+<p>In the future, if an intent needs a special permission, a new field may be
+introduced on the intent in the manifest, and the client opening the iframe
+must then allow what it lists.</p>
 <h4 id="service-to-client">Service to Client<a class="headerlink" href="#service-to-client" title="Permanent link">&para;</a></h4>
 <p>At this point, the service app is opened on the route that it provided in the
 <code>href</code> part of it&rsquo;s manifest. This route now also contains the intent&rsquo;s id.</p>

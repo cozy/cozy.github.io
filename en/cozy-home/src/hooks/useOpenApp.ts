@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+
 import flag from 'cozy-flags'
 /** Internals */
 declare global {

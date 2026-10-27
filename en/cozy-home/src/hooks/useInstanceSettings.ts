@@ -38,8 +38,7 @@ interface InstanceSettings {
 const shouldSetLocal = (instanceSettings: QueryState): boolean =>
   Boolean(
     instanceSettings &&
-      (instanceSettings.fetchStatus === FetchStatus.Loaded ||
-        instanceSettings.lastFetch)
+    (instanceSettings.fetchStatus === 'loaded' || instanceSettings.lastFetch)
   )
 
 const getLocalAttributes = (
@@ -89,10 +88,10 @@ export const useInstanceSettings = (client: CozyClient): InstanceSettings => {
         }
 
         const fetchedAttributes = await fetchAttributes(client)
-        fetchedAttributes && setSettings(fetchedAttributes)
+        if (fetchedAttributes) setSettings(fetchedAttributes)
 
         setFetchStatus(FetchStatus.Loaded)
-      } catch (error) {
+      } catch {
         setFetchStatus(FetchStatus.Failed)
       }
     }

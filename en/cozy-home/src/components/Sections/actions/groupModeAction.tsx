@@ -1,12 +1,13 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
+import { useSettings } from 'cozy-client'
+import { Action } from 'cozy-ui/transpiled/react/ActionsMenu/Actions'
 import ActionsMenuItem from 'cozy-ui/transpiled/react/ActionsMenu/ActionsMenuItem'
 import ListItemText from 'cozy-ui/transpiled/react/ListItemText'
 import Switch from 'cozy-ui/transpiled/react/Switch'
 import useBreakpoints from 'cozy-ui/transpiled/react/providers/Breakpoints'
-import { Action } from 'cozy-ui/transpiled/react/ActionsMenu/Actions'
 import { useI18n } from 'twake-i18n'
-import { useSettings } from 'cozy-client'
 
 import {
   GroupMode,
@@ -17,7 +18,6 @@ import {
   computeGroupMode,
   handleSectionAction
 } from '@/components/Sections/utils'
-import { useNavigate } from 'react-router-dom'
 
 export const groupModeAction = (): (() => Action) => () => ({
   name: `sectionAction_group`,

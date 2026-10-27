@@ -11,8 +11,14 @@ const SortableTileComponent = ({
   combineTarget,
   onOpenFolder
 }: SortableTileProps): JSX.Element => {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
-    useSortable({ id: item.id })
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging
+  } = useSortable({ id: item.id })
   // The dragged tile stays faded in place (the DragOverlay represents it);
   // siblings take the shuffle transform so they slide aside to make room.
   const style = {

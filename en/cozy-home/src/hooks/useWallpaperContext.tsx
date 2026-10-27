@@ -1,4 +1,5 @@
 import React from 'react'
+
 import useWallpaper from './useWallpaper'
 
 const WallPaperContext = React.createContext<

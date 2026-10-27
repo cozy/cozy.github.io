@@ -52,6 +52,7 @@ export function iframeFromIntent(intent, node, url) {
   // TODO: implement 'title' attribute
   iframe.setAttribute('id', `intent-${intent.id}`)
   iframe.setAttribute('src', url)
+  iframe.setAttribute('allow', 'clipboard-write')
   iframe.classList.add(intentClass)
   return iframe
 }

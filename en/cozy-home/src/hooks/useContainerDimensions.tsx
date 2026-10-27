@@ -30,7 +30,7 @@ export const useContainerDimensions = (
 
     window.addEventListener('resize', handleResize)
 
-    return () => {
+    return (): void => {
       window.removeEventListener('resize', handleResize)
     }
   }, [containerRef])

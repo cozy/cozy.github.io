@@ -1,8 +1,8 @@
 import memoize from 'lodash/memoize'
 
 import CozyClient, { Q } from 'cozy-client'
-
 import { IOCozyKonnector } from 'cozy-client/types/types'
+
 import { KonnectorFromRegistry } from '@/components/Sections/SectionsTypes'
 
 // Define the grouping function

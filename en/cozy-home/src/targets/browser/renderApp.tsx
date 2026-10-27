@@ -4,9 +4,10 @@ import 'cozy-ui-plus/dist/stylesheet.css'
 import 'cozy-search/dist/stylesheet.css'
 import 'cozy-viewer/dist/stylesheet.css'
 import 'cozy-bar/dist/stylesheet.css'
-import '@/styles/index.styl'
-import 'url-search-params-polyfill'
 
+import '@/styles/index.styl'
+
+import 'url-search-params-polyfill'
 import React from 'react'
 import { HashRouter } from 'react-router-dom'
 
@@ -16,6 +17,7 @@ import { WebviewIntentProvider } from 'cozy-intent'
 
 import AppWrapper from '@/components/AppWrapper'
 import { closeApp, openApp } from '@/hooks/useOpenApp'
+
 import { Root } from 'react-dom/client'
 
 import {
@@ -38,8 +40,11 @@ export const renderApp = (root?: Root): void => {
 }
 
 const App = (): JSX.Element => {
-  // eslint-disable-next-line
-  const AnimatedWrapper = require('@/components/AnimatedWrapper').default as () => JSX.Element
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const wrapperModule = require('@/components/AnimatedWrapper') as {
+    default: () => JSX.Element
+  }
+  const AnimatedWrapper = wrapperModule.default
 
   const { setBackupInfo } = useBackupData()
 

@@ -1,12 +1,12 @@
-import React, { useRef, useState } from 'react'
 import cx from 'classnames'
+import React, { useRef, useState } from 'react'
 
 import { useI18n } from 'twake-i18n'
 
-import { GroupedSectionViewProps } from '@/components/Sections/SectionsTypes'
-import { SectionHeader } from '@/components/Sections/SectionHeader'
 import AddServiceTile from '@/components/AddServiceTile'
 import GroupedSectionTile from '@/components/Sections/GroupedSectionTile'
+import { SectionHeader } from '@/components/Sections/SectionHeader'
+import { GroupedSectionViewProps } from '@/components/Sections/SectionsTypes'
 
 export const GroupedSectionView = ({
   sections

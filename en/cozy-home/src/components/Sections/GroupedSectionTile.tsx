@@ -5,8 +5,8 @@ import SquareAppIcon from 'cozy-ui-plus/dist/SquareAppIcon'
 import { useI18n } from 'twake-i18n'
 
 import SectionAppGroup from '@/components/Sections/SectionAppGroup'
-import { get4FirstItems } from '@/components/Sections/utils'
 import { GroupedSectionTileProps } from '@/components/Sections/SectionsTypes'
+import { get4FirstItems } from '@/components/Sections/utils'
 
 const GroupedSectionTile = ({
   section

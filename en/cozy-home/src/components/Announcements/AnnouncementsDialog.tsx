@@ -1,7 +1,7 @@
-import { Icon, Left, Right } from '@linagora/twake-icons'
 import React, { useState, FC } from 'react'
 import SwipeableViews from 'react-swipeable-views'
 
+import { Icon, Left, Right } from '@linagora/twake-icons'
 import {
   FixedActionsDialog,
   DialogCloseButton

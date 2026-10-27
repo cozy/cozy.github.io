@@ -41,12 +41,10 @@ export const useHomeLayout = (): UseHomeLayout => {
     data: IOCozyApp[] | null
   }
   const shortcuts = useFetchHomeShortcuts() as
-    | Parameters<typeof buildShortcutItems>[0]
-    | null
+    Parameters<typeof buildShortcutItems>[0] | null
   const maintenance = useAppsInMaintenance() as unknown as IOCozyKonnector[]
   const installedKonnectors = useSelector(getInstalledKonnectors) as
-    | IOCozyKonnector[]
-    | null
+    IOCozyKonnector[] | null
   const { data: jobData } = useQuery(
     fetchRunningKonnectors.definition,
     fetchRunningKonnectors.options

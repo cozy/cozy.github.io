@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
+
 import { useClient } from 'cozy-client'
-import { AnnouncementsConfig } from '@/components/Announcements/types'
 import flag from 'cozy-flags'
+
+import { AnnouncementsConfig } from '@/components/Announcements/types'
 
 /**
  * An hook to fetch an image from the announcements remote doctype.
@@ -27,7 +29,7 @@ const useAnnouncementsImage = (url: string | undefined): string | null => {
         )) as Response
         const blob = await fetchBinary.blob()
         setImage(URL.createObjectURL(blob))
-      } catch (error) {
+      } catch {
         setImage(null)
       }
     }

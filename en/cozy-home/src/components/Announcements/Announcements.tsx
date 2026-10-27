@@ -1,11 +1,12 @@
-import React, { FC, useEffect, useState } from 'react'
 import { differenceInHours } from 'date-fns'
+import React, { FC, useEffect, useState } from 'react'
 
 import flag from 'cozy-flags'
 
 import { AnnouncementsDialog } from './AnnouncementsDialog'
-import { useAnnouncements } from '@/hooks/useAnnouncements'
 import { AnnouncementsConfigFlag } from './types'
+
+import { useAnnouncements } from '@/hooks/useAnnouncements'
 import { useAnnouncementsSettings } from '@/hooks/useAnnouncementsSettings'
 
 const Announcements: FC = () => {

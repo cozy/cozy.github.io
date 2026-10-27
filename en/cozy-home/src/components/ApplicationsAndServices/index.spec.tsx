@@ -44,7 +44,7 @@ const setup = ({
   items = [appItem('drive'), appItem('notes')],
   layout = {
     order: [] as string[],
-    folders: {} as Record<string, { name: string; items: string[] }>
+    folders: {}
   },
   hasLoaded = true,
   isAppsLoading = false
