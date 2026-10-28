@@ -6963,6 +6963,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#independent-contacts-rollout-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Independent contacts rollout flags
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -8186,6 +8197,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#independent-contacts-rollout-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Independent contacts rollout flags
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -8509,9 +8531,9 @@ queue at once.</p>
 <p>Queue names are mapped to handlers in the stack. For example:</p>
 <ul>
 <li><code>user.password.updated</code> → updates an instance passphrase when a <code>user.password.updated</code> routing key is received.</li>
-<li><code>user.created</code> → validates and processes user creation events.</li>
+<li><code>user.created</code> → validates and processes user creation events. Writes organization contacts only on the org instance and copies no directory to new members when <code>centralized_org_directory</code> is set.</li>
 <li><code>user.phone.updated</code> → updates the phone number stored in user settings.</li>
-<li><code>domain.user.deleted</code> on the <code>b2b</code> exchange → removes externally managed organization contacts.</li>
+<li><code>domain.user.deleted</code> on the <code>b2b</code> exchange → removes externally managed organization contacts, except feed-owned contacts while <code>common_contacts</code> is enabled.</li>
 <li><code>banner.materialize</code> and <code>banner.clear</code> on the <code>platform</code> exchange → materializes or clears a platform banner, see <a href="../banners/">Banners</a>.</li>
 <li>every message of the <code>twake:contacts:common</code> fanout exchange → writes a contact, see below.</li>
 <li><code>drive.org_drive.ensure</code> on the <code>drive</code> exchange → creates or updates a shared drive on an organization instance, see below.</li>
@@ -8580,9 +8602,18 @@ when <code>metadata.external</code> is true. </p>
 <code>b2b.group.deleted</code>, <code>b2b.group.member.added</code>, and
 <code>b2b.group.member.removed</code> from one lifecycle queue. Groups are replicated as
 managed <code>io.cozy.contacts.groups</code> documents in every instance with the matching
-<code>org_id</code>. Group membership is stored on managed external contacts via
+<code>org_id</code>, and <code>b2b.group.member.added</code> creates the ones an instance is missing.
+Group membership is stored on managed external contacts via
 <code>relationships.groups.data</code>; existing generated-ID external contacts are reused
 by matching email or Cozy URL.</p>
+<p>When the context sets <code>centralized_org_directory</code>, groups are written on the
+organization instance only, independently of <code>common_contacts</code>. A member contact
+the feed already wrote keeps its fields and only gets the group. Sharing looks
+up managed B2B groups on the organization instance even while replication is
+retained. Local fallback is allowed only while replication is retained.</p>
+<p>Keep <code>centralized_org_directory: false</code> for the initial backend rollout. The
+current sharing UI still queries local contacts/groups, and group changes on the
+organization instance do not yet propagate to sharings on member instances.</p>
 <p>Example payload for <code>user.phone.updated</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
 <span class="w">  </span><span class="nt">"twakeId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span>
@@ -8816,6 +8847,18 @@ instead. The factory gets the Stack&rsquo;s publisher, for handlers that reply:<
 <span class="w">    </span><span class="p">},</span>
 <span class="p">)</span>
 </code></pre></div>
+<h3 id="independent-contacts-rollout-flags">Independent contacts rollout flags<a class="headerlink" href="#independent-contacts-rollout-flags" title="Permanent link">&para;</a></h3>
+<p>Both context settings default to false and must be consistent across an organization:</p>
+<ul>
+<li><code>common_contacts</code> enables the common-contacts service (feed and collected contacts).</li>
+<li><code>centralized_org_directory</code> stops copying the directory to member instances.
+  B2B lifecycle events still maintain the organization instance when the service is off.</li>
+</ul>
+<p>Ship organization lookup with <code>centralized_org_directory: false</code> first. This keeps
+replication for clients that query local contacts and groups. Enable centralization
+only after clients support organization lookup and group changes propagate to their
+sharings. Enabling the service alone must not stop replication. Changing either
+setting does not backfill missing contacts or restore previously deleted copies.</p>
 
 
 
