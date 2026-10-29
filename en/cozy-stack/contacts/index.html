@@ -6235,6 +6235,56 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#get-contactssuggest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /contacts/suggest
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GET /contacts/suggest">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#query-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Query-String
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Response
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -7904,6 +7954,56 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#get-contactssuggest" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /contacts/suggest
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GET /contacts/suggest">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#query-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Query-String
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#request_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Request
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#response_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Response
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -7958,6 +8058,70 @@ exist, it is recreated with some basic fields.</p>
 <span class="w">      </span><span class="nt">"rev"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1-6516671ec"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="get-contactssuggest">GET /contacts/suggest<a class="headerlink" href="#get-contactssuggest" title="Permanent link">&para;</a></h3>
+<p>This endpoint suggests the people the user can share with, for the text they
+are typing. It asks the autocomplete API of the calendar side service when the
+context enables <code>common_contacts</code> and configures <code>contacts_search</code> (see
+<code>cozy.example.yaml</code>), and looks each result up by email on the organization
+instance, then on the instance. Without <code>common_contacts</code> or <code>contacts_search</code>,
+or when the call fails or times out, it searches the names and emails of the
+contacts of both instances instead. Trashed contacts, people without an email,
+and the user, are left out. Local lookup is available in either storage mode,
+including when both feature flags are disabled.</p>
+<p>A permission on the whole <code>io.cozy.contacts</code> doctype is required.</p>
+<h4 id="query-string">Query-String<a class="headerlink" href="#query-string" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>q</td>
+<td>the text to search, with at least 3 characters</td>
+</tr>
+<tr>
+<td>limit</td>
+<td>the maximal number of results (default 20, max 256)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="nf">GET</span> <span class="nn">/contacts/suggest?q=dup</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</code></pre></div>
+<h4 id="response_1">Response<a class="headerlink" href="#response_1" title="Permanent link">&para;</a></h4>
+<p>The results keep the order of the search. <code>meta.kind</code> is <code>member</code> when the
+document was found on the organization instance, and <code>contact</code> when it was
+found on the instance. A person with no matching document comes back without
+<code>id</code> and <code>meta</code>, with their name and email: the client shares with them by
+email.</p>
+<div class="highlight"><pre><span></span><code><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.contacts"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6f2a3c0e9b1d4e5f8a7b6c5d4e3f2a1b"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"fullname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jean Dupont"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w"> </span><span class="nt">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jean.dupont@org.example"</span><span class="p">,</span><span class="w"> </span><span class="nt">"primary"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}],</span>
+<span class="w">        </span><span class="nt">"cozy"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w"> </span><span class="nt">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://jdupont.org.example"</span><span class="p">,</span><span class="w"> </span><span class="nt">"primary"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}]</span>
+<span class="w">      </span><span class="p">},</span>
+<span class="w">      </span><span class="nt">"meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"member"</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.contacts"</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">"attributes"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"fullname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Paul Dupuis"</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w"> </span><span class="nt">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"paul@friends.example"</span><span class="p">,</span><span class="w"> </span><span class="nt">"primary"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="p">}]</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
 <span class="p">}</span>
 </code></pre></div>
 
