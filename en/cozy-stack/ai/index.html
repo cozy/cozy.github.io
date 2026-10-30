@@ -9095,12 +9095,13 @@ once the user has confirmed it.</p>
 <li><code>examples</code> (optional): messages for which the router picks the action.</li>
 <li><code>parameters</code> (optional): the JSON schema of the params the LLM fills, like
   the <code>parameters</code> of a tool for function calling: an <code>object</code> whose
-  <code>properties</code> are strings, or arrays of strings, with a <code>description</code>. The
-  other keywords of JSON schema are ignored. Every param of the schema is
-  present in the action, <code>""</code> or <code>[]</code> when unknown. An action without
-  parameters is proposed as soon as the router picks it, without a call to
-  the LLM. <code>required</code> lists the params without which the action is not
-  proposed. <code>facts_missing</code> is reserved. A property with
+  <code>properties</code> are strings, numbers, integers, booleans, or arrays of
+  strings, with a <code>description</code>. The other keywords of JSON schema are
+  ignored. Every param of the schema is present in the action, <code>""</code>, <code>[]</code> or
+  <code>null</code> (for a number, an integer or a boolean) when unknown. An action without parameters is proposed as soon as the
+  router picks it, without a call to the LLM. <code>required</code> lists the params
+  without which the action is not proposed. <code>facts_missing</code> is reserved. A
+  property with
   <code>"x-user-written": true</code> keeps only the values found, as whole words and
   whatever the case, in the messages of the user, as the user wrote them, so
   that the content of a document cannot add one, like the recipient of an

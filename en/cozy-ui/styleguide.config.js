@@ -73,6 +73,8 @@ module.exports = {
         '../react/DatePicker',
         '../react/HistoryRow',
         '../react/Layout/Layout.jsx',
+        '../react/MemberList',
+        '../react/MemberRow',
         '../react/MidEllipsis',
         '../react/NavigationList',
         '../react/NestedSelect/NestedSelect.jsx',
