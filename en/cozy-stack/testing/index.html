@@ -7741,6 +7741,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#drive-web-e2e-on-demand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Drive web E2E on demand
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#load-test-lifecycle" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -7869,6 +7880,17 @@ for measurement definitions.</p>
 Keep Go tests near their packages and reuse <code>tests/testutils</code>. Keep useful Ruby
 coverage; replace brittle waits and shared state incrementally. Retire legacy
 scalability scripts only when their coverage has an identified replacement.</p>
+<h2 id="drive-web-e2e-on-demand">Drive web E2E on demand<a class="headerlink" href="#drive-web-e2e-on-demand" title="Permanent link">&para;</a></h2>
+<p>Add <code>e2e:web</code> to a same-repository PR to build its merge commit and call Drive&rsquo;s
+existing four-shard web E2E workflow. Remove and re-add the label to test a newer
+commit; pushes alone do not trigger it. Fork PRs are skipped.</p>
+<p>The existing release script publishes one mutable Docker Hub tag per PR, such
+as <code>cozy/cozy-stack:e2e-pr5119-chore-drive-web-e2e-label</code>, using the existing
+Docker Hub secrets. Rebuilds overwrite it; release tags and <code>latest</code> are unchanged.
+Tags are not automatically deleted. Use <strong>Re-run all jobs</strong> to rebuild the
+original revision, since rerunning only web jobs pulls the current tag.</p>
+<p>The <a href="../.github/workflows/drive-web-e2e.yml">caller</a> runs Drive&rsquo;s <code>master</code> workflow
+against Drive&rsquo;s <code>master</code> branch. Scribe and desktop app tests are excluded.</p>
 <h2 id="load-test-lifecycle">Load-test lifecycle<a class="headerlink" href="#load-test-lifecycle" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code>flowchart LR
     Profile --&gt; Prepare[Prepare or select fixture]
