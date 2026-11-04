@@ -73,6 +73,7 @@ module.exports = {
         '../react/DatePicker',
         '../react/HistoryRow',
         '../react/Layout/Layout.jsx',
+        '../react/MemberAutocomplete',
         '../react/MemberList',
         '../react/MemberRow',
         '../react/MidEllipsis',

@@ -2,6 +2,8 @@ package registry
 
 import (
 	"archive/tar"
+	"bytes"
+	"compress/gzip"
 	"context"
 	"crypto/sha256"
 	"encoding/hex"
@@ -23,6 +25,7 @@ import (
 	"github.com/go-kivik/kivik/v3"
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 const testSpaceName = "test-space"
@@ -487,6 +490,77 @@ func TestDownloadVersioNoManifest(t *testing.T) {
 	_, _, err = DownloadVersion(opts)
 	assert.Error(t, err)
 	assert.Contains(t, err.Error(), "does not contain a manifest")
+}
+
+// bombEntry describes a file of a bombTarball: its content, or a size of
+// zeros when the content is empty
+type bombEntry struct {
+	name    string
+	content string
+	size    int64
+}
+
+// bombTarball builds a gzipped tarball with the given entries
+func bombTarball(t *testing.T, entries ...bombEntry) *bytes.Buffer {
+	var buf bytes.Buffer
+	gw := gzip.NewWriter(&buf)
+	tw := tar.NewWriter(gw)
+	for _, e := range entries {
+		size := e.size
+		if e.content != "" {
+			size = int64(len(e.content))
+		}
+		require.NoError(t, tw.WriteHeader(&tar.Header{Name: e.name, Size: size, Mode: 0644}))
+		var err error
+		if e.content != "" {
+			_, err = tw.Write([]byte(e.content))
+		} else {
+			_, err = io.CopyN(tw, zeroReader{}, size)
+		}
+		require.NoError(t, err)
+	}
+	require.NoError(t, tw.Close())
+	require.NoError(t, gw.Close())
+	return &buf
+}
+
+func TestReadTarballVersionDecompressionBomb(t *testing.T) {
+	buf := bombTarball(t, bombEntry{name: "manifest.webapp", size: maxManifestSize + 1})
+	_, err := ReadTarballVersion(buf, "application/gzip", "bomb.tar.gz")
+	assert.Error(t, err)
+	assert.Contains(t, err.Error(), "size of the manifest is over")
+}
+
+func TestReadTarballVersionPackageJSONBomb(t *testing.T) {
+	buf := bombTarball(t,
+		bombEntry{name: "manifest.webapp", content: "{}"},
+		bombEntry{name: "package.json", size: maxPackageJSONSize + 1})
+	_, err := ReadTarballVersion(buf, "application/gzip", "bomb.tar.gz")
+	assert.Error(t, err)
+	assert.Contains(t, err.Error(), "size of package.json is over")
+}
+
+func TestHandleAssetsDecompressionBomb(t *testing.T) {
+	// The icon and the screenshot are each under the limit, but not together
+	half := int64(maxAssetsSize/2 + 1)
+	buf := bombTarball(t,
+		bombEntry{name: "manifest.webapp", content: `{"icon":"icon.png","screenshots":["shot.png"]}`},
+		bombEntry{name: "icon.png", size: half},
+		bombEntry{name: "shot.png", size: half})
+	tarball, err := ReadTarballVersion(buf, "application/gzip", "bomb.tar.gz")
+	require.NoError(t, err)
+	// Set by downloadTarball in production
+	tarball.ContentType = "application/gzip"
+	_, err = HandleAssets(tarball, &VersionOptions{})
+	assert.Error(t, err)
+	assert.Contains(t, err.Error(), "size of the icons and screenshots is over")
+}
+
+type zeroReader struct{}
+
+func (zeroReader) Read(p []byte) (int, error) {
+	clear(p)
+	return len(p), nil
 }
 
 func TestIsValidVersion(t *testing.T) {
