@@ -35,11 +35,11 @@ import (
 const (
 	maxApplicationSizeInMB = 20
 	// The compressed tarball, whatever its source
-	maxApplicationSize = maxApplicationSizeInMB * 1024 * 1024 // 20 Mo
+	MaxApplicationSize = maxApplicationSizeInMB * 1024 * 1024 // 20 Mo
 	// The icons and the screenshots, kept in memory together. The screenshots
 	// are bitmaps that gzip barely shrinks, and an SVG icon weighs a few KB,
 	// so 20MB is well above any legitimate case.
-	maxAssetsSize = maxApplicationSize
+	maxAssetsSize = MaxApplicationSize
 	// manifest.webapp or manifest.konnector, a few KB in practice
 	maxManifestSize = 1 << 20
 	// package.json, a few KB in practice
@@ -141,8 +141,13 @@ type VersionOptions struct {
 	Icon        string          `json:"icon"`
 	Partnership Partnership     `json:"partnership"`
 	Screenshots []string        `json:"screenshots"`
+	// Tarball holds an archive uploaded with the request, used instead of URL
+	Tarball     []byte `json:"-"`
 	SpacePrefix base.Prefix
 	RegistryURL *url.URL
+	// AppSlug is the application the version is published to, that the slug of
+	// the manifest must match
+	AppSlug string `json:"-"`
 }
 
 type Version struct {
@@ -228,7 +233,9 @@ func IsValidVersion(ver *VersionOptions) error {
 	}
 	if ver.URL == "" {
 		fields = append(fields, "url")
-	} else if _, err := url.Parse(ver.URL); err != nil {
+	} else if u, err := url.Parse(ver.URL); err != nil || u.Scheme == "file" {
+		// downloadRequest reads a file URL from the disk of the server, which
+		// only the tests calling DownloadVersion directly should reach.
 		fields = append(fields, "url")
 	}
 	if h, err := hex.DecodeString(ver.Sha256); err != nil || len(h) != 32 {
@@ -495,7 +502,8 @@ func DeletePendingVersion(c *space.Space, version *Version) error {
 	return err
 }
 
-func downloadRequest(rawURL string, shasum string) (reader *bytes.Reader, contentType string, err error) {
+func downloadRequest(opts *VersionOptions, rawURL string) (reader *bytes.Reader, contentType string, err error) {
+	shasum := opts.Sha256
 	url, err := url.Parse(rawURL)
 	if err != nil {
 		return nil, "", err
@@ -504,12 +512,17 @@ func downloadRequest(rawURL string, shasum string) (reader *bytes.Reader, conten
 	buf := new(bytes.Buffer)
 	var bytesRead int64
 
-	if url.Scheme == "file" {
-		f, err := os.Open(url.EscapedPath())
-		if err != nil {
-			return nil, "", err
+	if opts.Tarball != nil || url.Scheme == "file" {
+		var src io.Reader = bytes.NewReader(opts.Tarball)
+		if opts.Tarball == nil {
+			f, err := os.Open(url.EscapedPath())
+			if err != nil {
+				return nil, "", err
+			}
+			defer f.Close()
+			src = f
 		}
-		bytesRead, err = io.Copy(buf, io.LimitReader(f, maxApplicationSize))
+		bytesRead, err = io.Copy(buf, io.LimitReader(src, MaxApplicationSize))
 		if err != nil {
 			return nil, "", err
 		}
@@ -540,7 +553,7 @@ func downloadRequest(rawURL string, shasum string) (reader *bytes.Reader, conten
 			return nil, "", err
 		}
 
-		bytesRead, err = io.Copy(buf, io.LimitReader(resp.Body, maxApplicationSize))
+		bytesRead, err = io.Copy(buf, io.LimitReader(resp.Body, MaxApplicationSize))
 		if err != nil {
 			err = errshttp.NewError(http.StatusUnprocessableEntity,
 				"Could not reach version on specified url %s: %s",
@@ -551,7 +564,7 @@ func downloadRequest(rawURL string, shasum string) (reader *bytes.Reader, conten
 		contentType = resp.Header.Get("content-type")
 	}
 
-	if bytesRead >= maxApplicationSize {
+	if bytesRead >= MaxApplicationSize {
 		err = errshttp.NewError(http.StatusUnprocessableEntity,
 			"Application is larger than max allowed %dMB", maxApplicationSizeInMB)
 		return
@@ -639,12 +652,18 @@ func (t *Tarball) CheckEditor() (bool, error) {
 	return true, nil
 }
 
-// CheckEditor validates a tarball manifest slug
-func (t *Tarball) CheckSlug() (bool, error) {
+// CheckSlug validates a tarball manifest slug
+func (t *Tarball) CheckSlug(expectedSlug string) (bool, error) {
 	slug := t.Manifest.Slug
 
 	if slug == "" {
 		return false, errors.New(`The "slug" field is empty`)
+	}
+	if !validSlugReg.MatchString(slug) {
+		return false, ErrAppSlugInvalid
+	}
+	if slug != expectedSlug {
+		return false, ErrVersionSlugMismatch
 	}
 
 	return true, nil
@@ -659,10 +678,11 @@ func downloadTarball(opts *VersionOptions, url string) (*Tarball, error) {
 	tryCount := 0
 	for {
 		tryCount++
-		buf, contentType, err = downloadRequest(url, opts.Sha256)
+		buf, contentType, err = downloadRequest(opts, url)
 		if err == nil {
 			break
-		} else if tryCount <= 3 {
+		} else if opts.Tarball == nil && tryCount <= 3 {
+			// An uploaded tarball fails the same way every time
 			continue
 		} else {
 			return nil, err
@@ -704,9 +724,6 @@ func downloadVersion(opts *VersionOptions) (*Version, []*kivik.Attachment, error
 	if _, erre := tarball.CheckEditor(); erre != nil {
 		err = multierror.Append(err, erre)
 	}
-	if _, errs := tarball.CheckSlug(); errs != nil {
-		err = multierror.Append(err, errs)
-	}
 	if _, errv := tarball.CheckVersion(opts.Version); errv != nil {
 		err = multierror.Append(err, errv)
 	}
@@ -720,6 +737,12 @@ func downloadVersion(opts *VersionOptions) (*Version, []*kivik.Attachment, error
 	// If there was any error during checks, we are not going further
 	if err != nil {
 		return nil, nil, err
+	}
+
+	// The tarball is saved under its slug. This check stays out of the
+	// multierror above, which would lose its HTTP status.
+	if _, errs := tarball.CheckSlug(opts.AppSlug); errs != nil {
+		return nil, nil, errs
 	}
 
 	manifestContent := tarball.ManifestContent

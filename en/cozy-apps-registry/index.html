@@ -2833,6 +2833,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../cozy-client/contact-suggestions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contact suggestions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../cozy-client/metadata/" class="md-nav__link">
         
   
@@ -9739,6 +9767,12 @@ curl<span class="w"> </span>-X<span class="w"> </span><span class="s2">"POST"</s
 </tr>
 </tbody>
 </table>
+<p>Instead of giving a <code>url</code>, you can upload the archive with a <code>multipart/form-data</code> request: the <code>metadata</code> field holds the same JSON (without <code>url</code>) and the <code>tarball</code> field holds the archive:</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span><span class="s2">"POST"</span><span class="w"> </span><span class="s2">"http://localhost:8081/registry/collect"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>-H<span class="w"> </span><span class="s2">"Authorization: Token {{EDITOR_TOKEN}}"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>-F<span class="w"> </span><span class="s1">'metadata={"sha256": "96212bf53ab618808da0a92c7b6d9f2867b1f9487ba7c1c29606826b107041b5", "version": "1.0.1"}'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">     </span>-F<span class="w"> </span><span class="s2">"tarball=@collect-1.0.1.tar.gz"</span>
+</code></pre></div>
 <blockquote>
 <p><strong><img alt="⚠" class="twemoji" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/26a0.svg" title=":warning:" /> Important notices:</strong></p>
 <ul>

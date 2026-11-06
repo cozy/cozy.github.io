@@ -1,13 +1,17 @@
 package web
 
 import (
+	"bytes"
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"io"
+	"mime/multipart"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
 	"os"
+	"strings"
 	"testing"
 
 	"github.com/go-kivik/kivik/v3"
@@ -15,8 +19,10 @@ import (
 	"github.com/cozy/cozy-apps-registry/auth"
 	"github.com/cozy/cozy-apps-registry/base"
 	"github.com/cozy/cozy-apps-registry/config"
+	"github.com/cozy/cozy-apps-registry/errshttp"
 	"github.com/cozy/cozy-apps-registry/registry"
 	"github.com/cozy/cozy-apps-registry/space"
+	"github.com/labstack/echo/v4"
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -298,6 +304,96 @@ func createApps() error {
 	}
 
 	return registry.DeactivateMaintenanceVirtualSpace(myKonnectorsSpace, quuxKonn)
+}
+
+// newUploadRequest builds a multipart request for createVersion, with the
+// metadata JSON and the tarball content
+func newUploadRequest(t *testing.T, target, metadata string, tarball []byte) *http.Request {
+	body := &bytes.Buffer{}
+	w := multipart.NewWriter(body)
+	require.NoError(t, w.WriteField("metadata", metadata))
+	fw, err := w.CreateFormFile("tarball", "../../evil.tar.gz")
+	require.NoError(t, err)
+	_, err = fw.Write(tarball)
+	require.NoError(t, err)
+	require.NoError(t, w.Close())
+	req := httptest.NewRequest(http.MethodPost, target, body)
+	req.Header.Set(echo.HeaderContentType, w.FormDataContentType())
+	return req
+}
+
+func TestCreateVersionUpload(t *testing.T) {
+	target := server.URL + "/registry/" + keptApp
+	metadata := `{"version":"1.0.0","sha256":"abc","url":"file:///etc/passwd"}`
+	// Larger than the 100K body limit applied to the other requests
+	content := bytes.Repeat([]byte("x"), 200<<10)
+
+	c := echo.New().NewContext(newUploadRequest(t, target, metadata, content), httptest.NewRecorder())
+	opts := &registry.VersionOptions{}
+	require.NoError(t, bindUpload(c, opts))
+	assert.Equal(t, "1.0.0", opts.Version)
+	assert.Equal(t, content, opts.Tarball)
+	// Neither the url from the metadata nor the uploaded file name are used
+	assert.Equal(t, "tarball.tar.gz", opts.URL)
+
+	// The metadata comes from the body, not from the query string
+	query := url.Values{"metadata": {`{"version":"9.9.9"}`}}.Encode()
+	opts = &registry.VersionOptions{}
+	c = echo.New().NewContext(newUploadRequest(t, target+"?"+query, metadata, content), httptest.NewRecorder())
+	require.NoError(t, bindUpload(c, opts))
+	assert.Equal(t, "1.0.0", opts.Version)
+
+	// The metadata field keeps the 100K limit
+	req := newUploadRequest(t, target, strings.Repeat(" ", maxMetadataSize+1), nil)
+	err := bindUpload(echo.New().NewContext(req, httptest.NewRecorder()), &registry.VersionOptions{})
+	var httpErr *errshttp.Error
+	require.ErrorAs(t, err, &httpErr)
+	assert.Equal(t, http.StatusRequestEntityTooLarge, httpErr.StatusCode())
+
+	// A tarball over the limit is rejected as too large, not as invalid
+	req = newUploadRequest(t, target, metadata, make([]byte, registry.MaxApplicationSize+(2<<20)))
+	err = bindUpload(echo.New().NewContext(req, httptest.NewRecorder()), &registry.VersionOptions{})
+	require.ErrorAs(t, err, &httpErr)
+	assert.Equal(t, http.StatusRequestEntityTooLarge, httpErr.StatusCode())
+	assert.Contains(t, err.Error(), "bigger than")
+
+	// The route accepts large multipart bodies: it fails on auth, not on
+	// Content-Type or body size
+	req = newUploadRequest(t, target, metadata, content)
+	req.RequestURI = ""
+	res, err := http.DefaultClient.Do(req)
+	require.NoError(t, err)
+	defer res.Body.Close()
+	assert.Equal(t, http.StatusUnauthorized, res.StatusCode)
+
+	// JSON bodies keep the 100K limit
+	res2, err := http.Post(target, echo.MIMEApplicationJSON, bytes.NewReader(content))
+	require.NoError(t, err)
+	defer res2.Body.Close()
+	assert.Equal(t, http.StatusRequestEntityTooLarge, res2.StatusCode)
+}
+
+func TestCreateVersionUploadChecksPermissionsFirst(t *testing.T) {
+	// A token of another editor passes the authentication check but not the
+	// permission check: the request is rejected on permissions, before the
+	// body is read
+	base.SessionSecret = auth.GenerateMasterSecret()
+	t.Cleanup(func() { base.SessionSecret = nil })
+	stranger, err := auth.Editors.CreateEditorWithoutPublicKey("stranger", false)
+	require.NoError(t, err)
+	t.Cleanup(func() { _ = auth.Editors.DeleteEditor(stranger) })
+	token, err := stranger.GenerateEditorToken(base.SessionSecret, 0, keptApp)
+	require.NoError(t, err)
+
+	target := fmt.Sprintf("%s/%s/registry/%s", server.URL, allAppsSpace, keptApp)
+	req, err := http.NewRequest(http.MethodPost, target, strings.NewReader("not a multipart body"))
+	require.NoError(t, err)
+	req.Header.Set(echo.HeaderContentType, echo.MIMEMultipartForm+"; boundary=x")
+	req.Header.Set(echo.HeaderAuthorization, authTokenScheme+base64.StdEncoding.EncodeToString(token))
+	res, err := http.DefaultClient.Do(req)
+	require.NoError(t, err)
+	defer res.Body.Close()
+	assert.Equal(t, http.StatusUnauthorized, res.StatusCode)
 }
 
 func TestCheckRedirectIsTrusted(t *testing.T) {

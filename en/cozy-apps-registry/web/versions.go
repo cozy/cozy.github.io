@@ -1,7 +1,10 @@
 package web
 
 import (
+	"encoding/json"
+	"errors"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"path"
@@ -14,6 +17,8 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/sirupsen/logrus"
 )
+
+const maxMetadataSize = 100 << 10
 
 func createVersion(c echo.Context) (err error) {
 	if err = checkAuthorized(c); err != nil {
@@ -28,17 +33,24 @@ func createVersion(c echo.Context) (err error) {
 		return err
 	}
 
-	opts := &registry.VersionOptions{}
-	if err = c.Bind(opts); err != nil {
-		return err
-	}
-	opts.Version = stripVersion(opts.Version)
-	opts.SpacePrefix = prefix
-
+	// The body is read only once the editor is allowed to publish this app:
+	// an upload is much bigger than the global body limit
 	editor, err := checkPermissions(c, app.Editor, app.Slug, false /* = not master */)
 	if err != nil {
 		return errshttp.NewError(http.StatusUnauthorized, "%s", err)
 	}
+
+	opts := &registry.VersionOptions{}
+	if isMultipart(c) {
+		err = bindUpload(c, opts)
+	} else {
+		err = c.Bind(opts)
+	}
+	if err != nil {
+		return err
+	}
+	opts.Version = stripVersion(opts.Version)
+	opts.SpacePrefix = prefix
 
 	if err = validateVersionRequest(c, opts); err != nil {
 		return err
@@ -62,6 +74,7 @@ func createVersion(c echo.Context) (err error) {
 	}
 
 	opts.RegistryURL = buildedURL
+	opts.AppSlug = app.Slug
 
 	ver, attachments, err := registry.DownloadVersion(opts)
 	if err != nil {
@@ -103,6 +116,51 @@ func createVersion(c echo.Context) (err error) {
 
 	cleanVersion(ver)
 	return c.JSON(http.StatusCreated, ver)
+}
+
+func isMultipart(c echo.Context) bool {
+	return strings.HasPrefix(c.Request().Header.Get(echo.HeaderContentType), echo.MIMEMultipartForm)
+}
+
+// bindUpload reads a multipart/form-data request: the "metadata" field holds
+// the same JSON as a regular request (without url), and the "tarball" field
+// holds the archive itself.
+func bindUpload(c echo.Context, opts *registry.VersionOptions) error {
+	req := c.Request()
+	req.Body = http.MaxBytesReader(c.Response().Writer, req.Body, registry.MaxApplicationSize+(1<<20))
+	if err := req.ParseMultipartForm(32 << 20); err != nil {
+		var tooLarge *http.MaxBytesError
+		if errors.As(err, &tooLarge) {
+			return errshttp.NewError(http.StatusRequestEntityTooLarge,
+				"Uploaded tarball is bigger than %dMB", registry.MaxApplicationSize>>20)
+		}
+		return errshttp.NewError(http.StatusBadRequest, "Invalid multipart body: %s", err)
+	}
+	// PostFormValue ignores the query string: the metadata comes from the body
+	metadata := req.PostFormValue("metadata")
+	// The body limit is skipped for this route, but metadata is no bigger here
+	// than in a regular request
+	if len(metadata) > maxMetadataSize {
+		return errshttp.NewError(http.StatusRequestEntityTooLarge, "Metadata field is too large")
+	}
+	if err := json.Unmarshal([]byte(metadata), opts); err != nil {
+		return errshttp.NewError(http.StatusBadRequest, "Invalid metadata field: %s", err)
+	}
+	fh, err := c.FormFile("tarball")
+	if err != nil {
+		return errshttp.NewError(http.StatusBadRequest, "Missing tarball field: %s", err)
+	}
+	f, err := fh.Open()
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+	if opts.Tarball, err = io.ReadAll(f); err != nil {
+		return err
+	}
+	// The uploaded file name is not trusted: the stored tarball gets a fixed one
+	opts.URL = "tarball.tar.gz"
+	return nil
 }
 
 func getPendingVersions(c echo.Context) (err error) {

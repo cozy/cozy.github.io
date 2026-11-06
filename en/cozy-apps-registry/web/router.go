@@ -148,6 +148,18 @@ func jsonEndpoint(next echo.HandlerFunc) echo.HandlerFunc {
 	}
 }
 
+// uploadEndpoint is a jsonEndpoint that also accepts multipart/form-data bodies
+func uploadEndpoint(next echo.HandlerFunc) echo.HandlerFunc {
+	jsonNext := jsonEndpoint(next)
+	return func(c echo.Context) error {
+		if isMultipart(c) {
+			c.Set("json", true)
+			return next(c)
+		}
+		return jsonNext(c)
+	}
+}
+
 func ensureSpace(spaceName string) echo.MiddlewareFunc {
 	return func(next echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
@@ -358,7 +370,14 @@ func Router() *echo.Echo {
 	e.HTTPErrorHandler = httpErrorHandler
 
 	e.Pre(middleware.RemoveTrailingSlash())
-	e.Use(middleware.BodyLimit("100K"))
+	e.Use(middleware.BodyLimitWithConfig(middleware.BodyLimitConfig{
+		Limit: "100K",
+		// Uploaded version tarballs are limited by bindUpload instead
+		Skipper: func(c echo.Context) bool {
+			return c.Request().Method == http.MethodPost &&
+				strings.HasSuffix(c.Path(), "/registry/:app") && isMultipart(c)
+		},
+	}))
 	e.Use(middleware.Recover())
 
 	for _, c := range space.GetSpacesNames() {
@@ -372,7 +391,7 @@ func Router() *echo.Echo {
 
 		g.POST("", createApp, jsonEndpoint, middleware.Gzip())
 		g.PATCH("/:app", patchApp, jsonEndpoint, middleware.Gzip())
-		g.POST("/:app", createVersion, jsonEndpoint, middleware.Gzip())
+		g.POST("/:app", createVersion, uploadEndpoint, middleware.Gzip())
 
 		g.GET("", getAppsList, jsonEndpoint, middleware.Gzip())
 		g.GET("/slugs", getSlugsList, jsonEndpoint, middleware.Gzip())
