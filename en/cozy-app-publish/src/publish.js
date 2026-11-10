@@ -1,3 +1,6 @@
+const fs = require('fs')
+const path = require('path')
+
 const { DEFAULT_SPACE_NAME } = require('./constants')
 
 const getFullRegistryUrl = (baseRegistryUrl, spaceName, appSlug) => {
@@ -17,24 +20,33 @@ module.exports = async ({
   appSlug,
   appVersion,
   appBuildUrl,
+  appBuildFile,
   sha256Sum,
   appType
 }) => {
   const url = getFullRegistryUrl(registryUrl, spaceName, appSlug)
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Token ${registryToken}`
-    },
-    body: JSON.stringify({
-      editor: registryEditor,
-      version: appVersion,
-      url: appBuildUrl,
-      sha256: sha256Sum,
-      type: appType
-    })
+  const headers = { Authorization: `Token ${registryToken}` }
+  let body = JSON.stringify({
+    editor: registryEditor,
+    version: appVersion,
+    url: appBuildUrl,
+    sha256: sha256Sum,
+    type: appType
   })
+  if (appBuildFile) {
+    // the registry stores the uploaded archive instead of downloading it
+    const form = new FormData()
+    form.append('metadata', body)
+    form.append(
+      'tarball',
+      await fs.openAsBlob(appBuildFile),
+      path.basename(appBuildFile)
+    )
+    body = form
+  } else {
+    headers['Content-Type'] = 'application/json'
+  }
+  const response = await fetch(url, { method: 'POST', headers, body })
 
   if (response.status === 404) {
     const text = await response.text()

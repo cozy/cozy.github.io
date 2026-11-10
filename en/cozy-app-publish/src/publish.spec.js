@@ -40,6 +40,15 @@ describe('Publish script (helper)', () => {
     expect(getObjectToSnapshot(fetch)).toMatchSnapshot()
   })
 
+  it('should upload the archive if appBuildFile is provided', async () => {
+    fetch.mockResponseOnce('', { status: 201 })
+    await publish({ ...getOptions(), appBuildFile: './package.json' })
+    const { headers, body } = fetch.mock.calls[0][1]
+    expect(headers['Content-Type']).toBeUndefined()
+    expect(JSON.parse(body.get('metadata')).version).toBe('2.1.8-dev.12345')
+    expect(body.get('tarball').name).toBe('package.json')
+  })
+
   it('should work correctly if no space name provided', async () => {
     fetch.mockResponseOnce('', {
       status: 201

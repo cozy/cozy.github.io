@@ -39,6 +39,11 @@ parser.addArgument('--build-url', {
   dest: 'buildUrl',
   help: 'URL of the application archive'
 })
+parser.addArgument('--build-file', {
+  metavar: 'path',
+  dest: 'buildFile',
+  help: 'Path of the application archive to upload to the registry, instead of --build-url'
+})
 parser.addArgument('--build-commit', {
   metavar: 'commit-hash',
   dest: 'buildCommit',
@@ -117,6 +122,7 @@ async function publishApp(cliOptions) {
     appBuildUrl: cliOptions.buildUrl,
     buildCommit: cliOptions.buildCommit,
     buildDir: cliOptions.buildDir,
+    buildFile: cliOptions.buildFile,
     buildUrl: cliOptions.buildUrl,
     manualVersion: cliOptions.manualVersion,
     postpublishHook: cliOptions.postpublish,

@@ -5018,6 +5018,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#-build-file-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --build-file &lt;path&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#-build-commit-commit-hash" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8292,6 +8303,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#-build-file-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --build-file &lt;path&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#-build-commit-commit-hash" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8570,6 +8592,8 @@ you built for beta publication</p>
 <p>The path to the build folder, relative to the current directory. Since the &lsquo;standard&rsquo; Cozy application builds in the <code>build/</code> folder, <code>build</code> is the default value. This folder is mainly used to read the application manifest during publishing.</p>
 <h4 id="-build-url-url"><code>--build-url &lt;url&gt;</code><a class="headerlink" href="#-build-url-url" title="Permanent link">&para;</a></h4>
 <p>For now, the registry a build archive (.tar.gz file) from an external link to be used in the cozy-stack. In the travis script, this url is computed using the Github trick to get archives from a commit url (but it&rsquo;s overwritten if provided by this option). For the manual script, we have to provide it.</p>
+<h4 id="-build-file-path"><code>--build-file &lt;path&gt;</code><a class="headerlink" href="#-build-file-path" title="Permanent link">&para;</a></h4>
+<p>Path of a local application archive (.tar.gz file). It is uploaded to the registry with the version, so <code>--build-url</code> is not needed. Requires a registry supporting archive upload.</p>
 <h4 id="-build-commit-commit-hash"><code>--build-commit &lt;commit-hash&gt;</code><a class="headerlink" href="#-build-commit-commit-hash" title="Permanent link">&para;</a></h4>
 <p>Using the <code>travis</code> mode, the archive tarball URL is computed using github and the build commit hash. If you are not on your build branch to publish, you can specify the correct build commit hash using this parameter.</p>
 <h4 id="-manual-version-version-required-for-manual-usage-only"><code>--manual-version &lt;version&gt;</code> (required for manual usage only)<a class="headerlink" href="#-manual-version-version-required-for-manual-usage-only" title="Permanent link">&para;</a></h4>
@@ -8577,6 +8601,7 @@ you built for beta publication</p>
 <h4 id="-prepublish-script_path"><code>--prepublish &lt;script_path&gt;</code><a class="headerlink" href="#-prepublish-script_path" title="Permanent link">&para;</a></h4>
 <p>Specify custom prepublish hook to manage how the app archive is generated and uploaded. The script must export a asynchronous function which has the following signature:</p>
 <div class="highlight"><pre><span></span><code><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="p">({</span>
+<span class="w">  </span><span class="nx">appBuildFile</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">appBuildUrl</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">appSlug</span><span class="p">,</span>
 <span class="w">  </span><span class="nx">appType</span><span class="p">,</span>
@@ -8599,6 +8624,10 @@ you built for beta publication</p>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td><code>appBuildFile</code></td>
+<td>Local path of the archive to upload, when using <code>--build-file</code>.</td>
+</tr>
 <tr>
 <td><code>appBuildUrl</code></td>
 <td>The url where the build can be retrieved. For example, <code>http://github.com/cozy/cozy-foo/archives/cozy-foo.tar.gz</code></td>

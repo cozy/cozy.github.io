@@ -97,6 +97,7 @@ const publisher =
         appSlug,
         appVersion,
         appBuildUrl,
+        appBuildFile: ctx.buildFile,
         appType
       })
     } catch (error) {
