@@ -1,12 +1,8 @@
 import { useState, useEffect } from 'react'
 
-import {
-  useClient,
-  useSettings,
-  deconstructRedirectLink,
-  hasQueryBeenLoaded
-} from 'cozy-client'
+import { useClient, useSettings, hasQueryBeenLoaded } from 'cozy-client'
 
+import { getDefaultRedirectionSlug } from './getDefaultRedirectionSlug'
 import useHomeAppOpened from './useHomeAppOpened'
 import { VIEW_COUNT_THRESHOLD } from './useShouldShowDefaultRedirectionSnackbar'
 
@@ -42,7 +38,7 @@ const useIncrementDefaultRedirectionViewCount = () => {
       return
     }
 
-    const { slug } = deconstructRedirectLink(valueInstance.default_redirection)
+    const slug = getDefaultRedirectionSlug(valueInstance.default_redirection)
 
     const isDefaultRedirectionAppHomeApp = slug === 'home'
 

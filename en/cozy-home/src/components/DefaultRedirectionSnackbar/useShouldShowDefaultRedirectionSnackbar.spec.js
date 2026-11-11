@@ -38,6 +38,35 @@ describe('shouldShowDefaultRedirectionSnackbar', () => {
     expect(result.current).toBe(true)
   })
 
+  it('should not throw when default redirection is malformed', () => {
+    useSettings.mockImplementation((...args) => {
+      if (args[0] === 'instance') {
+        return {
+          values: {
+            default_redirection: 'drive/#//evil.example'
+          }
+        }
+      } else if (args[0] === 'home') {
+        return {
+          values: {
+            default_redirection_view_count: 4
+          }
+        }
+      }
+    })
+
+    hasQueryBeenLoaded.mockReturnValue(true)
+    deconstructRedirectLink.mockImplementation(() => {
+      throw new Error('Invalid redirect link')
+    })
+
+    const { result } = renderHook(() =>
+      useShouldShowDefaultRedirectionSnackbar(true)
+    )
+
+    expect(result.current).toBe(true)
+  })
+
   it('should return false when query has not been loaded', () => {
     useSettings.mockImplementation((...args) => {
       if (args[0] === 'instance') {

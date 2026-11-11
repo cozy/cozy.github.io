@@ -1,8 +1,6 @@
-import {
-  deconstructRedirectLink,
-  hasQueryBeenLoaded,
-  useSettings
-} from 'cozy-client'
+import { hasQueryBeenLoaded, useSettings } from 'cozy-client'
+
+import { getDefaultRedirectionSlug } from './getDefaultRedirectionSlug'
 
 export const VIEW_COUNT_THRESHOLD = 3
 
@@ -23,7 +21,7 @@ export const useShouldShowDefaultRedirectionSnackbar = isOpen => {
     return false
   }
 
-  const { slug } = deconstructRedirectLink(valueInstance.default_redirection)
+  const slug = getDefaultRedirectionSlug(valueInstance.default_redirection)
 
   const isDefaultRedirectionAppHomeApp = slug === 'home'
 

@@ -1,10 +1,10 @@
 /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
 
-const intentTypeRx = /intent-(.*):(.*)/
+const intentTypeRx = /^intent-(.*):(.*)$/
 
 /**
- * Listens to `message` DOM events for the specific intent and
- * forwards them to callbacks passed in options.
+ * Listens to `message` DOM events of the service frame for the specific
+ * intent and forwards them to callbacks passed in options.
  *
  * Will throw if an event is received and no ready message
  * has been received first.
@@ -17,33 +17,27 @@ export default class IntentListener {
   }
 
   handleMessage(event) {
-    if (event.origin !== this.options.origin) {
+    // Other frames of the page, of the same origin or not, are none of this
+    // intent's business: other intents, embedded apps
+    if (
+      event.origin !== this.options.origin ||
+      event.source !== this.options.getSource()
+    ) {
       return
     }
-    const eventType = event.data.type
-    if (eventType === 'load') {
-      // Safari 9.1 (At least) send a MessageEvent when the iframe loads,
-      // making the handshake fails.
-      console.warn &&
-        console.warn(
-          'Cozy Client ignored MessageEvent having data.type `load`.'
-        )
-      return
-    }
-
-    const parts = intentTypeRx.exec(eventType)
+    const { data } = event
+    const parts =
+      typeof data === 'object' &&
+      data !== null &&
+      typeof data.type === 'string' &&
+      intentTypeRx.exec(data.type)
     if (!parts) {
-      console.warn(
-        `intents: Message type ${eventType} not matching intent format`
-      )
       return
     }
     const id = parts[1]
-    assert(
-      id == this.options.intentId,
-      'Invalid event id',
-      `eventId: ${id} != listener eventId ${this.options.intentId}`
-    )
+    if (id != this.options.intentId) {
+      return
+    }
 
     const subtype = parts[2]
     if (subtype !== 'ready') {
@@ -84,11 +78,8 @@ export default class IntentListener {
   }
 }
 
-const assert = (cond, msg, extraMsg) => {
+const assert = (cond, msg) => {
   if (!cond) {
-    if (extraMsg) {
-      console.warn(extraMsg)
-    }
     throw new Error(msg)
   }
 }

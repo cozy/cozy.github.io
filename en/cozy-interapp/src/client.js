@@ -41,16 +41,23 @@ export function start(createIntent, intent, element, data, options = {}) {
       intent,
       element,
       service.href,
-      options.onReady
+      options.onReady,
+      options.title,
+      options.focus !== false
     )
 
     receiver = new IntentListener({
       intentId: intent.id,
       origin: serviceOrigin,
+      getSource: () => iframe.contentWindow,
 
       onReady: event => {
+        // A service frame that loads again does not get the data twice: an
+        // upload would store its files twice
+        if (serviceWindow) return
         serviceWindow = event.source
         event.source.postMessage(currentData, event.origin)
+        if (options.onServiceReady) options.onServiceReady()
       },
 
       onReadyToUse: () => {
@@ -82,10 +89,11 @@ export function start(createIntent, intent, element, data, options = {}) {
 
       onResize: event => {
         const { transition, dimensions } = event.data
-        dom.applyStyle(element, {
-          transition: transition,
-          ...dimensions
-        })
+        if (options.onResize) {
+          options.onResize({ dimensions, transition })
+        } else {
+          dom.applyStyle(element, { transition, ...dimensions })
+        }
       },
 
       onExposeFrameRemoval: event => {

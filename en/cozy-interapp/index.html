@@ -8154,7 +8154,7 @@ stack: either a <code>cozy-client</code> instance or a <code>fetch</code> functi
 </code></pre></div>
 <h3 id="messages">Messages<a class="headerlink" href="#messages" title="Permanent link">&para;</a></h3>
 <p>All messages from service to client are objects with a <code>type</code> field of the form <code>intent-{intentId}:{subtype}</code>.</p>
-<p>The service sends all those messages via <code>serviceWindow.parent.postMessage(message, intent.attributes.client)</code>. The client must listen via <code>window.addEventListener('message', ...)</code> and filter by <code>event.origin === serviceOrigin</code>.</p>
+<p>The service sends all those messages via <code>serviceWindow.parent.postMessage(message, intent.attributes.client)</code>. The client listens via <code>window.addEventListener('message', ...)</code> and keeps only the messages of its intent from its iframe (<code>event.origin === serviceOrigin</code> and <code>event.source === iframe.contentWindow</code>). It ignores the others, so several intents can run side by side, even from the same origin.</p>
 <p>Errors are serialized: the service sends a plain object with <code>message</code> and <code>name</code> and the client can reconstruct a <code>new Error(message)</code> with the original properties copied back onto it.</p>
 <h4 id="core-messages">Core messages<a class="headerlink" href="#core-messages" title="Permanent link">&para;</a></h4>
 <table>
@@ -8171,7 +8171,7 @@ stack: either a <code>cozy-client</code> instance or a <code>fetch</code> functi
 <td>Service → Client</td>
 <td><code>intent-{id}:ready</code></td>
 <td>—</td>
-<td>Handshake. Client responds by posting the raw intent <code>data</code> back to the service.</td>
+<td>Handshake. Client responds by posting the raw intent <code>data</code> back to the service, at the first <code>ready</code> only: a service frame that loads again does not get the data twice.</td>
 </tr>
 <tr>
 <td>Client → Service</td>
@@ -8273,6 +8273,10 @@ stack: either a <code>cozy-client</code> instance or a <code>fetch</code> functi
 <p><strong><code>start</code> options:</strong> The <code>start</code> method takes an optional second argument, an options object: <code>start(element, options)</code>. Supported keys:</p>
 <ul>
 <li><code>onReady</code> — called when the intent iframe has finished loading (iframe <code>onload</code>). Useful for running client code once the iframe is ready.</li>
+<li><code>onServiceReady</code>: called when the service sends <code>ready</code> and gets its data, once. Unlike <code>onReadyToUse</code>, every service sends it.</li>
+<li><code>title</code>: the <code>title</code> of the iframe, for assistive technologies.</li>
+<li><code>focus</code>: <code>false</code> leaves the focus where it is when the iframe is inserted, for a client that moves it itself (on <code>onReadyToUse</code>, for example). Defaults to <code>true</code>.</li>
+<li><code>onResize</code>: called with <code>{ dimensions, transition }</code> when the service asks to resize, in place of the styles the client otherwise writes on the element.</li>
 <li><code>onHideCross</code> / <code>onShowCross</code> — called when the service asks the client to hide/show the close button.</li>
 <li><code>onReadyToUse</code> — called when the service signals it is <strong>truly ready</strong> (UI rendered and initial data loaded), via <code>service.notifyReadyToUse()</code>. Distinct from <code>onReady</code>, which only signals the iframe loaded. See <code>intents.createService()</code> below.</li>
 <li><code>onResult</code> — called with each result the service hands over with <code>service.sendResult(result)</code>, while the intent goes on. For a service that stays open and gives several results, where <code>terminate(doc)</code> gives one and ends the intent.</li>

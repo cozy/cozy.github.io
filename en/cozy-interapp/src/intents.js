@@ -29,19 +29,26 @@ class Intents {
 
     createPromise.start = (element, options = {}) => {
       const opts = {
-        filteredServices: data.filteredServices,
+        filterServices: data.filteredServices,
         onReady: options.onReady,
         onHideCross: options.onHideCross,
         onShowCross: options.onShowCross,
         onReadyToUse: options.onReadyToUse,
+        onServiceReady: options.onServiceReady,
+        title: options.title,
+        focus: options.focus,
+        onResize: options.onResize,
         onResult: options.onResult
       }
 
       delete data.filteredServices
 
       let intentManager
+      let stopped = false
       let currentData = data
       const prom = createPromise.then(intent => {
+        // Stopped while the intent was being created: no iframe, no result
+        if (stopped) return new Promise(() => {})
         intentManager = client.start(
           this.create,
           intent,
@@ -53,6 +60,7 @@ class Intents {
       })
 
       prom.stop = () => {
+        stopped = true
         intentManager && intentManager.destroy()
       }
 
