@@ -5,12 +5,14 @@ import { useClient, useQuery } from 'cozy-client'
 import log from 'cozy-logger'
 import Tab from 'cozy-ui/transpiled/react/Tab'
 import Tabs from 'cozy-ui/transpiled/react/Tabs'
+import { useI18n } from 'twake-i18n'
 
 import { themeOptions } from './constants'
 import { buildSettingsInstanceQuery } from './queries'
 
 export const ThemeSwitcher = () => {
   const client = useClient()
+  const { t } = useI18n()
 
   const instanceQuery = buildSettingsInstanceQuery()
   const { data: instance } = useQuery(
@@ -56,7 +58,7 @@ export const ThemeSwitcher = () => {
             key={option.value}
             label={<Icon icon={option.icon} />}
             id={option.value}
-            arial-label={`${option.value} theme`}
+            aria-label={t(`wallpaper.theme.${option.value}`)}
           />
         ))}
       </Tabs>

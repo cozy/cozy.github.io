@@ -3408,6 +3408,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#isinapppath" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        isInAppPath
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#isqueriesloading" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8830,6 +8841,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#isinapppath" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        isInAppPath
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#isqueriesloading" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -9583,7 +9605,7 @@ This can be useful for demo in documentation (e.g. storybook)</p>
 <p><code>RedirectLinkData</code></p>
 <p>Deconstructed link</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/linagora/cozy-client/blob/master/packages/cozy-client/src/helpers/urlHelper.js#L123">packages/cozy-client/src/helpers/urlHelper.js:123</a></p>
+<p><a href="https://github.com/linagora/cozy-client/blob/master/packages/cozy-client/src/helpers/urlHelper.js#L131">packages/cozy-client/src/helpers/urlHelper.js:131</a></p>
 <hr />
 <h3 id="dehydrate">dehydrate<a class="headerlink" href="#dehydrate" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>dehydrate</strong>(<code>document</code>): <code>Object</code></p>
@@ -9810,7 +9832,7 @@ const rootCozyUrl = await fetchRegistrationDetails(new URL(userInput))
 <p><code>Promise</code>&lt;<code>RegistrationDetails</code>&gt;</p>
 <p>The root Cozy URL</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/linagora/cozy-client/blob/master/packages/cozy-client/src/helpers/urlHelper.js#L426">packages/cozy-client/src/helpers/urlHelper.js:426</a></p>
+<p><a href="https://github.com/linagora/cozy-client/blob/master/packages/cozy-client/src/helpers/urlHelper.js#L434">packages/cozy-client/src/helpers/urlHelper.js:434</a></p>
 <hr />
 <h3 id="generateweblink">generateWebLink<a class="headerlink" href="#generateweblink" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>generateWebLink</strong>(<code>options</code>): <code>string</code></p>
@@ -10032,6 +10054,37 @@ example.</p>
 <p><code>any</code></p>
 <p><em>Defined in</em></p>
 <p><a href="https://github.com/linagora/cozy-client/blob/master/packages/cozy-client/src/utils.js#L51">packages/cozy-client/src/utils.js:51</a></p>
+<hr />
+<h3 id="isinapppath">isInAppPath<a class="headerlink" href="#isinapppath" title="Permanent link">&para;</a></h3>
+<p>▸ <strong>isInAppPath</strong>(<code>path</code>): <code>boolean</code></p>
+<p>Check that a path taken from a URL (a query parameter, the hash of a
+redirect link) stays inside the app once given to a router&rsquo;s navigate()</p>
+<p>The path must start with a single &lsquo;/&rsquo;, also once dot segments are resolved,
+and contain no backslash, tab or newline: react-router 6 resolves &lsquo;//host&rsquo;
+and &lsquo;/\host&rsquo; to another origin, and URL parsing drops tabs and newlines
+(&lsquo;/\t/host&rsquo;) and resolves dot segments (&lsquo;/..//host&rsquo;, &lsquo;/%2e%2e//host&rsquo;).</p>
+<p><em>Parameters</em></p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Name</th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>path</code></td>
+<td style="text-align: left;"><code>any</code></td>
+<td style="text-align: left;">Path to check</td>
+</tr>
+</tbody>
+</table>
+<p><em>Returns</em></p>
+<p><code>boolean</code></p>
+<p>true if the path is a non-empty string that stays inside the app, false otherwise (including an empty or missing path)</p>
+<p><em>Defined in</em></p>
+<p><a href="https://github.com/linagora/cozy-client/blob/master/packages/cozy-client/src/helpers/urlHelper.js#L110">packages/cozy-client/src/helpers/urlHelper.js:110</a></p>
 <hr />
 <h3 id="isqueriesloading">isQueriesLoading<a class="headerlink" href="#isqueriesloading" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>isQueriesLoading</strong>(<code>queriesResults</code>): <code>boolean</code></p>
@@ -10294,7 +10347,7 @@ const rootCozyUrl = await rootCozyUrl(new URL(userInput))
 <p><code>Promise</code>&lt;<code>URL</code>&gt;</p>
 <p>The root Cozy URL</p>
 <p><em>Defined in</em></p>
-<p><a href="https://github.com/linagora/cozy-client/blob/master/packages/cozy-client/src/helpers/urlHelper.js#L297">packages/cozy-client/src/helpers/urlHelper.js:297</a></p>
+<p><a href="https://github.com/linagora/cozy-client/blob/master/packages/cozy-client/src/helpers/urlHelper.js#L305">packages/cozy-client/src/helpers/urlHelper.js:305</a></p>
 <hr />
 <h3 id="useapplinkwithstorefallback">useAppLinkWithStoreFallback<a class="headerlink" href="#useapplinkwithstorefallback" title="Permanent link">&para;</a></h3>
 <p>▸ <strong>useAppLinkWithStoreFallback</strong>(<code>slug</code>, <code>client</code>, <code>path?</code>): <code>Object</code></p>
