@@ -64,6 +64,18 @@ describe('Interapp', () => {
       const intent = await intents.create('EDIT', 'io.cozy.files')
       expect(intent).toBe(pickFileIntent)
     })
+
+    it('takes null data as no data', async () => {
+      api.respond('POST', '/intents', { data: pickFileIntent }, body =>
+        ['EDIT', 'REDIRECT'].includes(body.data.attributes.action)
+      )
+      await expect(intents.create('EDIT', 'io.cozy.files', null)).resolves.toBe(
+        pickFileIntent
+      )
+      await expect(
+        intents.getRedirectionURL('io.cozy.files', null)
+      ).resolves.toBe(serviceURL)
+    })
   })
 
   describe('unexisting service', () => {
@@ -171,6 +183,24 @@ describe('Interapp', () => {
       expect(element.style.height).toBe('')
     })
 
+    it('gives the client the sizes of a resize only', async () => {
+      prom.stop()
+      const onResize = jest.fn()
+      prom = intents
+        .create('EDIT', 'io.cozy.files')
+        .start(element, { onResize })
+      await sleep(1)
+      iframe = element.querySelector('iframe')
+      window.dispatchEvent(mkMessage('ready', {}))
+      window.dispatchEvent(
+        mkMessage('resize', {
+          dimensions: { height: '100px', position: 'fixed', top: 0 },
+          transition: 42
+        })
+      )
+      expect(onResize).toHaveBeenCalledWith({ dimensions: { height: 100 } })
+    })
+
     it('frames the service picked by filteredServices', async () => {
       prom.stop()
       api.reset()
@@ -197,6 +227,33 @@ describe('Interapp', () => {
       ).toBe('http://photos-mock/service')
     })
 
+    it('keeps the filter for each start of the intent', async () => {
+      prom.stop()
+      api.reset()
+      api.respond('POST', '/intents', {
+        data: {
+          ...pickFileIntent,
+          attributes: {
+            ...pickFileIntent.attributes,
+            services: [
+              { slug: 'files', href: serviceURL },
+              { slug: 'photos', href: 'http://photos-mock/service' }
+            ]
+          }
+        }
+      })
+      const data = { filteredServices: service => service.slug === 'photos' }
+      const created = intents.create('EDIT', 'io.cozy.files', data)
+      created.start(element).stop()
+      await sleep(1)
+      prom = created.start(element)
+      await sleep(1)
+      expect(element.querySelector('iframe').getAttribute('src')).toBe(
+        'http://photos-mock/service'
+      )
+      expect(data.filteredServices).toBeDefined()
+    })
+
     it('focuses the iframe it inserts', () => {
       expect(document.activeElement).toBe(iframe)
     })
@@ -215,6 +272,207 @@ describe('Interapp', () => {
       button.remove()
     })
 
+    describe('with readyTimeout', () => {
+      const startWithTimeout = async () => {
+        prom.stop()
+        jest.useFakeTimers()
+        prom = intents
+          .create('EDIT', 'io.cozy.files')
+          .start(element, { readyTimeout: 1000 })
+        await jest.advanceTimersByTimeAsync(0)
+        iframe = element.querySelector('iframe')
+      }
+
+      afterEach(() => {
+        jest.useRealTimers()
+      })
+
+      it('fails when the service does not get ready in time', async () => {
+        await startWithTimeout()
+        const failed = jest.fn()
+        prom.catch(failed)
+        await jest.advanceTimersByTimeAsync(999)
+        expect(failed).not.toHaveBeenCalled()
+        await jest.advanceTimersByTimeAsync(1)
+        await expect(prom).rejects.toThrow(
+          'The intent service did not get ready in time'
+        )
+        expect(element.querySelector('iframe')).toBe(null)
+      })
+
+      it('takes as long as needed once the service is ready', async () => {
+        await startWithTimeout()
+        window.dispatchEvent(mkMessage('ready', {}))
+        await jest.advanceTimersByTimeAsync(5000)
+        window.dispatchEvent(mkMessage('done', { document: 'mine' }))
+        await expect(prom).resolves.toBe('mine')
+      })
+    })
+
+    describe('composed intent', () => {
+      const composedIntent = {
+        id: 'composition-intent-id',
+        attributes: {
+          action: 'INSTALL',
+          type: 'io.cozy.apps',
+          services: [{ slug: 'store', href: 'http://install-apps/index.html' }]
+        }
+      }
+
+      const startAndCompose = async options => {
+        prom.stop()
+        jest.useFakeTimers()
+        prom = intents.create('EDIT', 'io.cozy.files').start(element, options)
+        await jest.advanceTimersByTimeAsync(0)
+        iframe = element.querySelector('iframe')
+        window.dispatchEvent(mkMessage('ready', {}))
+        api.respond(
+          'POST',
+          '/intents',
+          { data: composedIntent },
+          body => body.data.attributes.action === 'INSTALL'
+        )
+        // A service has no say on the iframe of the client
+        window.dispatchEvent(
+          mkMessage('compose', {
+            action: 'INSTALL',
+            doctype: 'io.cozy.apps',
+            data: { className: 'from-service-data' },
+            className: 'from-service'
+          })
+        )
+        await jest.advanceTimersByTimeAsync(0)
+        return element.querySelectorAll('iframe')[1]
+      }
+
+      afterEach(() => {
+        jest.useRealTimers()
+      })
+
+      it('takes the classes of the client, not of the service', async () => {
+        const composed = await startAndCompose({
+          className: 'u-w-100 u-bdw-0'
+        })
+        expect([...composed.classList]).toEqual([
+          'coz-intent',
+          'u-w-100',
+          'u-bdw-0'
+        ])
+      })
+
+      it('takes the title and the resize handling of the client', async () => {
+        const onResize = jest.fn()
+        const composed = await startAndCompose({ onResize, title: 'Pick' })
+        expect(composed.getAttribute('title')).toBe('Pick')
+
+        const msg = mkMessage(
+          'ready',
+          {},
+          composedIntent,
+          composed.contentWindow
+        )
+        msg.origin = 'http://install-apps'
+        window.dispatchEvent(msg)
+        const resize = mkMessage(
+          'resize',
+          { dimensions: { height: 100 } },
+          composedIntent,
+          composed.contentWindow
+        )
+        resize.origin = 'http://install-apps'
+        window.dispatchEvent(resize)
+        expect(onResize).toHaveBeenCalledWith({ dimensions: { height: 100 } })
+        expect(element.style.height).toBe('')
+      })
+
+      it('fails when the composed service does not get ready in time', async () => {
+        await startAndCompose({ readyTimeout: 1000 })
+        const failed = jest.fn()
+        prom.catch(failed)
+        expect(element.querySelectorAll('iframe').length).toBe(2)
+        await jest.advanceTimersByTimeAsync(1000)
+        expect(failed).toHaveBeenCalled()
+        await expect(prom).rejects.toThrow(
+          'The intent service did not get ready in time'
+        )
+        expect(element.querySelector('iframe')).toBe(null)
+      })
+    })
+
+    describe('in the window of an overlay of the app', () => {
+      // A page of the origin of the app, in another window
+      let host, hostWindow, frame
+
+      const startInHost = async () => {
+        prom.stop()
+        host = document.createElement('iframe')
+        document.body.appendChild(host)
+        hostWindow = host.contentWindow
+        const box = host.contentDocument.body
+        prom = intents
+          .create('EDIT', 'io.cozy.files', { id: 'fileId' })
+          .start(box)
+        await sleep(1)
+        frame = box.querySelector('iframe')
+        jest.spyOn(frame.contentWindow, 'postMessage')
+      }
+
+      const hostMessage = (type, data) => {
+        const ev = new hostWindow.Event('message')
+        Object.assign(ev, {
+          data: { type: `intent-${intent.id}:${type}`, ...data },
+          origin: serviceOrigin,
+          source: frame.contentWindow
+        })
+        hostWindow.dispatchEvent(ev)
+      }
+
+      afterEach(() => {
+        host.remove()
+      })
+
+      it('listens on that window', async () => {
+        await startInHost()
+        const removeListener = jest.spyOn(hostWindow, 'removeEventListener')
+        hostMessage('ready', {})
+        expect(frame.contentWindow.postMessage).toHaveBeenCalledWith(
+          { id: 'fileId' },
+          serviceOrigin
+        )
+        hostMessage('done', { document: 'mine' })
+        await expect(prom).resolves.toBe('mine')
+        expect(removeListener).toHaveBeenCalledWith(
+          'message',
+          expect.any(Function)
+        )
+      })
+
+      it('reads the error of the service from that window', async () => {
+        await startInHost()
+        hostMessage('ready', {})
+        hostMessage('error', {
+          error: { message: 'Error from service', status: 409 }
+        })
+        await expect(prom).rejects.toMatchObject({
+          message: 'Error from service',
+          status: 409
+        })
+      })
+    })
+
+    it('gives the iframe the classes of the client', async () => {
+      prom.stop()
+      prom = intents
+        .create('EDIT', 'io.cozy.files')
+        .start(element, { className: 'u-w-100  u-bdw-0' })
+      await sleep(1)
+      expect([...element.querySelector('iframe').classList]).toEqual([
+        'coz-intent',
+        'u-w-100',
+        'u-bdw-0'
+      ])
+    })
+
     it('titles the iframe', async () => {
       prom.stop()
       prom = intents
@@ -223,6 +481,38 @@ describe('Interapp', () => {
       await sleep(1)
       expect(element.querySelector('iframe').getAttribute('title')).toBe(
         'Pick a file'
+      )
+    })
+
+    it('takes the origin of the service as the browser serializes it', async () => {
+      prom.stop()
+      api.reset()
+      // Host in capitals, default port, userinfo: none of them is in the
+      // origin of the messages
+      api.respond('POST', '/intents', {
+        data: {
+          ...pickFileIntent,
+          attributes: {
+            ...pickFileIntent.attributes,
+            services: [
+              {
+                slug: 'files',
+                href: 'http://user:pw@SERVICE-MOCK:80/custom-service'
+              }
+            ]
+          }
+        }
+      })
+      prom = intents
+        .create('EDIT', 'io.cozy.files', { id: 'fileId' })
+        .start(element)
+      await sleep(1)
+      iframe = element.querySelector('iframe')
+      jest.spyOn(iframe.contentWindow, 'postMessage')
+      window.dispatchEvent(mkMessage('ready', {}))
+      expect(iframe.contentWindow.postMessage).toHaveBeenCalledWith(
+        { id: 'fileId' },
+        serviceOrigin
       )
     })
 
@@ -244,6 +534,31 @@ describe('Interapp', () => {
       await expect(prom).resolves.toBe('mine')
       expect(iframe.contentWindow.postMessage).toHaveBeenCalledTimes(1)
       expect(warn).not.toHaveBeenCalled()
+      other.remove()
+    })
+
+    it('takes the cancel of a service page that went away, after the handshake', async () => {
+      const other = document.createElement('iframe')
+      document.body.appendChild(other)
+      const settled = jest.fn()
+      prom.then(settled).catch(settled)
+      // Before the handshake
+      window.dispatchEvent(mkMessage('cancel', {}, intent, null))
+      await sleep(1)
+      expect(settled).not.toHaveBeenCalled()
+
+      window.dispatchEvent(mkMessage('ready', {}))
+      // From a window that still exists
+      window.dispatchEvent(mkMessage('cancel', {}, intent, other.contentWindow))
+      await sleep(1)
+      expect(settled).not.toHaveBeenCalled()
+      expect(element.querySelector('iframe')).not.toBe(null)
+
+      // From a page that went away: the browser gives it no source
+      window.dispatchEvent(mkMessage('cancel', {}, intent, null))
+      await sleep(1)
+      expect(settled).toHaveBeenCalledWith(null)
+      expect(element.querySelector('iframe')).toBe(null)
       other.remove()
     })
 
@@ -320,6 +635,22 @@ describe('Interapp', () => {
         'Unexpected handshake message from intent service'
       )
     })
+
+    it.each([[['a', 'b']], [new Date(0)]])(
+      'gives the service data that are not an object as they are: %p',
+      async data => {
+        prom.stop()
+        prom = intents.create('EDIT', 'io.cozy.files', data).start(element)
+        await sleep(1)
+        iframe = element.querySelector('iframe')
+        jest.spyOn(iframe.contentWindow, 'postMessage')
+        window.dispatchEvent(mkMessage('ready', {}))
+        expect(iframe.contentWindow.postMessage).toHaveBeenCalledWith(
+          data,
+          serviceOrigin
+        )
+      }
+    )
 
     it('gives the service the data sent before it is ready', () => {
       jest.spyOn(iframe.contentWindow, 'postMessage')
@@ -401,6 +732,27 @@ describe('Interapp', () => {
         expect(element.style.transition).toBe('1s ease height')
       })
 
+      it('takes the sizes of a resize message only, as pixels', () => {
+        window.dispatchEvent(
+          mkMessage('resize', {
+            dimensions: {
+              height: '150px',
+              width: -1,
+              maxHeight: 20000,
+              position: 'fixed',
+              zIndex: 2147483647,
+              cssText: 'position: fixed'
+            }
+          })
+        )
+        expect(element.style.height).toBe('150px')
+        expect(element.style.width).toBe('')
+        expect(element.style.maxHeight).toBe('')
+        expect(element.style.position).toBe('')
+        expect(element.style.zIndex).toBe('')
+        expect(element.style.transition).toBe('')
+      })
+
       it('handles success message', async () => {
         window.dispatchEvent(
           mkMessage('done', {
@@ -427,6 +779,26 @@ describe('Interapp', () => {
         window.dispatchEvent(mkMessage('exposeFrameRemoval'))
         const res = await prom
         expect(res.removeIntentIframe).not.toBeUndefined()
+        expect(element.querySelector('iframe')).not.toBe(null)
+        res.removeIntentIframe()
+        expect(element.querySelector('iframe')).toBe(null)
+      })
+
+      it('stops listening to the service at exposeFrameRemoval, before the iframe goes', async () => {
+        const removeListener = jest.spyOn(window, 'removeEventListener')
+        window.dispatchEvent(
+          mkMessage('exposeFrameRemoval', { document: 'mine' })
+        )
+        const res = await prom
+        expect(res.document).toBe('mine')
+        expect(removeListener).toHaveBeenCalledWith(
+          'message',
+          expect.any(Function)
+        )
+        window.dispatchEvent(
+          mkMessage('resize', { dimensions: { height: 100 } })
+        )
+        expect(element.style.height).toBe('')
         expect(element.querySelector('iframe')).not.toBe(null)
         res.removeIntentIframe()
         expect(element.querySelector('iframe')).toBe(null)
@@ -568,6 +940,34 @@ describe('Interapp', () => {
             )
           })
         })
+      })
+
+      it('fails when the composed intent cannot start', async () => {
+        api.respond(
+          'POST',
+          '/intents',
+          {
+            data: {
+              id: 'composition-intent-id',
+              attributes: {
+                action: 'INSTALL',
+                type: 'io.cozy.apps',
+                services: [{ slug: 'store', href: 'javascript:alert(1)' }]
+              }
+            }
+          },
+          body => body.data.attributes.action === 'INSTALL'
+        )
+        window.dispatchEvent(
+          mkMessage('compose', {
+            action: 'INSTALL',
+            data: { slug: 'myapp' },
+            doctype: 'io.cozy.apps'
+          })
+        )
+
+        await expect(prom).rejects.toThrow('The service is not a web page')
+        expect(element.querySelector('iframe')).toBe(null)
       })
 
       it('handles composition', async () => {
@@ -720,6 +1120,73 @@ describe('Interapp', () => {
       await sleep(1)
 
       expect(postMessage.mock.calls).toEqual([[type('ready'), client]])
+    })
+  })
+
+  describe('service in its own window', () => {
+    const client = 'https://chat.example.com'
+    const intentId = 'window-intent-id'
+
+    const mockWindow = search => ({
+      document: window.document,
+      location: { search },
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      parent: { postMessage: jest.fn() }
+    })
+
+    const listenerOf = (serviceWindow, type) =>
+      serviceWindow.addEventListener.mock.calls.find(
+        ([eventType]) => eventType === type
+      )[1]
+
+    const startService = async search => {
+      api.respond('GET', `/intents/${intentId}`, {
+        data: { id: intentId, attributes: { client, services: [] } }
+      })
+      const serviceWindow = mockWindow(search)
+      const promise = intents.createService(
+        search ? null : intentId,
+        serviceWindow
+      )
+      promise.catch(() => {})
+      await sleep(1)
+      serviceWindow.parent.postMessage.mockClear()
+      return { serviceWindow, promise }
+    }
+
+    const hide = (serviceWindow, persisted) => {
+      listenerOf(serviceWindow, 'pagehide')({ persisted })
+      return serviceWindow.parent.postMessage.mock.calls
+    }
+
+    it('reads the id of the intent in the URL of its page', async () => {
+      await startService(`?session_code=abc&intent=${intentId}`)
+      expect(cozyClient.stackClient.fetchJSON).toHaveBeenCalledWith(
+        'GET',
+        `/intents/${intentId}`
+      )
+    })
+
+    it('cancels the intent when its page goes away', async () => {
+      const { serviceWindow } = await startService()
+      expect(hide(serviceWindow, false)).toEqual([
+        [{ type: `intent-${intentId}:cancel` }, client]
+      ])
+    })
+
+    it('keeps the intent when its page may come back from the cache', async () => {
+      const { serviceWindow } = await startService()
+      expect(hide(serviceWindow, true)).toEqual([])
+    })
+
+    it('does not cancel an intent already terminated', async () => {
+      const { serviceWindow, promise } = await startService()
+      listenerOf(serviceWindow, 'message')({ origin: client, data: {} })
+      const service = await promise
+      service.terminate({})
+      serviceWindow.parent.postMessage.mockClear()
+      expect(hide(serviceWindow, false)).toEqual([])
     })
   })
 })

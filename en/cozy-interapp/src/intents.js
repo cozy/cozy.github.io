@@ -26,26 +26,33 @@ class Intents {
       throw new Error(`Misformed intent, "type" property must be provided`)
 
     const createPromise = this.request.post(action, type, permissions)
+    // The filter picks the service of every start: it is not data to send
+    let serviceData = data || {}
+    const { filteredServices } = serviceData
+    if (filteredServices) {
+      serviceData = { ...serviceData }
+      delete serviceData.filteredServices
+    }
 
     createPromise.start = (element, options = {}) => {
       const opts = {
-        filterServices: data.filteredServices,
+        filterServices: filteredServices,
         onReady: options.onReady,
         onHideCross: options.onHideCross,
         onShowCross: options.onShowCross,
         onReadyToUse: options.onReadyToUse,
         onServiceReady: options.onServiceReady,
         title: options.title,
+        className: options.className,
         focus: options.focus,
+        readyTimeout: options.readyTimeout,
         onResize: options.onResize,
         onResult: options.onResult
       }
 
-      delete data.filteredServices
-
       let intentManager
       let stopped = false
-      let currentData = data
+      let currentData = serviceData
       const prom = createPromise.then(intent => {
         // Stopped while the intent was being created: no iframe, no result
         if (stopped) return new Promise(() => {})

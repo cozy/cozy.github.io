@@ -19,7 +19,7 @@ export const errorSerializer = (() => {
 /**
  *
  * Returns the first service from the services in the intent.
- * Throws if service not found.
+ * Throws if service not found, or if it is not a web page: the client frames it.
  *
  * If filterServices is passed, the first service matching filterServices
  * is returned.
@@ -33,7 +33,49 @@ export const pickService = (intent, filterServices) => {
   if (!service) {
     throw new Error('Unable to find a service')
   }
+  if (!isWebURL(service.href)) {
+    throw new Error('The service is not a web page')
+  }
   return service
+}
+
+const isWebURL = href => {
+  try {
+    const { protocol } = new URL(href)
+    return protocol === 'http:' || protocol === 'https:'
+  } catch {
+    return false
+  }
+}
+
+const sizeProperties = ['width', 'height', 'maxWidth', 'maxHeight']
+const maxSize = 10000
+
+const toPixels = value => {
+  const pixels =
+    typeof value === 'number'
+      ? value
+      : typeof value === 'string' && /^\d+(\.\d+)?(px)?$/.test(value.trim())
+        ? parseFloat(value)
+        : NaN
+  return Number.isFinite(pixels) && pixels >= 0 && pixels <= maxSize
+    ? pixels
+    : null
+}
+
+/**
+ * Keeps, of the dimensions a service sends to resize, the sizes of the
+ * element only: width, height, maxWidth and maxHeight, as pixels from 0 to
+ * 10000, given as numbers or as `px` strings. The rest is left out.
+ */
+export const pickSizes = dimensions => {
+  const sizes = {}
+  if (!dimensions || typeof dimensions !== 'object') return sizes
+  for (const property of sizeProperties) {
+    const pixels = toPixels(dimensions[property])
+    if (pixels !== null) sizes[property] = pixels
+  }
+  return sizes
 }
 
 export const buildRedirectionURL = (url, data) => {

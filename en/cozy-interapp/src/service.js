@@ -44,7 +44,9 @@ export const start = request => (intentIdArg, serviceWindowArg, options) => {
     ;[document.documentElement, document.body].forEach(maximize)
   })
 
-  const intentId = intentIdArg || serviceWindow.location.search.split('=')[1]
+  const intentId =
+    intentIdArg ||
+    new URLSearchParams(serviceWindow.location.search).get('intent')
   if (!intentId)
     return Promise.reject(new Error('Cannot retrieve intent from URL'))
 
@@ -117,10 +119,11 @@ export const start = request => (intentIdArg, serviceWindowArg, options) => {
       terminate({ type: `intent-${intent._id}:cancel` })
     }
 
-    // Prevent unfulfilled client promises when this window unloads for a
-    // reason or another.
-    serviceWindow.addEventListener('unload', () => {
-      if (!terminated) cancel()
+    // Prevent unfulfilled client promises when this window goes away for a
+    // reason or another. A page kept in the back/forward cache comes back
+    // with its intent.
+    serviceWindow.addEventListener('pagehide', event => {
+      if (!terminated && !event.persisted) cancel()
     })
 
     if (

@@ -9135,6 +9135,12 @@ the token can perform the requested verbs on each document (same check as
 normal file access), so an app restricted by a selector such as
 <code>referenced_by</code> can share files it can access. The same applies when adding
 rules with <code>PATCH /permissions/:id</code>.</p>
+<p>Doctypes reserved to the stack can&rsquo;t be shared, except <code>io.cozy.files</code> and
+a <code>GET</code> rule on <code>io.cozy.apps</code> that names the apps, by slug
+(<code>"selector": "slug", "values": ["notes"]</code>) or by id
+(<code>"values": ["io.cozy.apps/notes"]</code>). It lets the holder of a link know
+whether these apps are installed (<code>GET /apps/:slug</code> answers <code>200</code> or <code>404</code>),
+without listing the other apps.</p>
 <h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="nf">POST</span> <span class="nn">/permissions?codes=bob,jane&amp;ttl=1D</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.net</span>
@@ -9237,6 +9243,9 @@ a way to give another app the permission for some data. For example, the contact
 application can send a &ldquo;<em>pick a photo</em>&rdquo; intent to the photos application with
 its permission id, and the photos app can then let the user choose a photo and
 give the contacts application the permissions to use it.</p>
+<p>The rules of a share by link can only be changed by the app that created it,
+or by an app that has all its permissions. The rules of the preview and
+interact codes of a sharing can&rsquo;t be changed with this route.</p>
 <p>This route also accepts a <a href="https://github.com/cozy/cozy-doctypes/#document-metadata">document metadata</a> to update document informations.</p>
 <p>Giving an empty string for <code>password</code> or <code>expires_at</code> will remove it (while
 omitting the field will keep the old value).</p>

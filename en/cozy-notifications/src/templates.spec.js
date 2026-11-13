@@ -63,4 +63,23 @@ describe('template utils', () => {
     expect(compiled.full).toMatchSnapshot()
     expect(compiled.parts.emailSubtitle.trim()).toBe('Hello Homer !')
   })
+
+  it('should keep the whitespace of rendered content blocks in full', () => {
+    const { render } = renderer({
+      partials: { base: '[{{#block "appName"}}{{/block}}]' },
+      helpers
+    })
+    const data = { name: '\n  Homer  ' }
+    const renderFull = tpl => render({ template: tpl, data }).full
+    expect(
+      renderFull(
+        '{{#extend "base"}}{{#content "appName"~}}{{name}}{{~/content}}{{/extend}}'
+      )
+    ).toBe('[\n  Homer  ]')
+    expect(
+      renderFull(
+        '{{#extend "base"}}\n{{#content "appName"}}\n{{name}}\n{{/content}}\n{{/extend}}'
+      )
+    ).toBe('[\n  Homer  \n]')
+  })
 })

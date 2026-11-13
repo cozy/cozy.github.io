@@ -100,7 +100,8 @@ const createContentBlock = name => {
       }
     ],
     program: {
-      type: 'Program'
+      type: 'Program',
+      body: []
     }
   }
 }
@@ -138,28 +139,34 @@ export const injectContent = (ast, replacements) => {
 
   // Find the content blocks defined in the AST and index them by name
   const contentBlocksByName = fromPairs(
-    contentBlocks.map(node => [node.params[0].value, node.program])
+    contentBlocks.map(node => [node.params[0].value, node])
   )
 
   for (const [blockName, replacement] of Object.entries(replacements)) {
-    let blockProgram = contentBlocksByName[blockName]
+    let block = contentBlocksByName[blockName]
 
     // The block has not been found in the children template, let's create it.
     // It is for example the case when the content block is defined in
     // a parent template (hence it is not in the children template AST).
     // Since we have it already rendered, it is sufficient to inject directly
     // the content block inside the children template.
-    if (!blockProgram) {
+    if (!block) {
       const extendNode = ast.body.find(isExtendBlock)
-      const newBlock = createContentBlock(blockName)
-      extendNode.program.body.push(newBlock)
-      blockProgram = newBlock.program
+      block = createContentBlock(blockName)
+      extendNode.program.body.push(block)
     }
-    blockProgram.body = [
+    // Handlebars >= 4.7.9 runs its whitespace control again on the ASTs given
+    // to compile(). The replacement is already rendered, so it must not be
+    // trimmed by the `~` markers or the standalone rule of its block.
+    block.openStrip = { open: false, close: false }
+    block.closeStrip = { open: false, close: false }
+    block.program.body = [
       {
         type: 'ContentStatement',
         original: replacement,
-        value: replacement
+        value: replacement,
+        leftStripped: true,
+        rightStripped: true
       }
     ]
   }

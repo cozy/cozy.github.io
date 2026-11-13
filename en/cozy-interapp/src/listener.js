@@ -17,12 +17,7 @@ export default class IntentListener {
   }
 
   handleMessage(event) {
-    // Other frames of the page, of the same origin or not, are none of this
-    // intent's business: other intents, embedded apps
-    if (
-      event.origin !== this.options.origin ||
-      event.source !== this.options.getSource()
-    ) {
+    if (event.origin !== this.options.origin) {
       return
     }
     const { data } = event
@@ -40,6 +35,16 @@ export default class IntentListener {
     }
 
     const subtype = parts[2]
+    // Other frames of the page, of the same origin or not, are none of this
+    // intent's business: other intents, embedded apps. Except for the cancel
+    // of a service page that went away: the browser gives it no source any
+    // more, its origin and the handshake vouch for it.
+    if (
+      event.source !== this.options.getSource() &&
+      !(subtype === 'cancel' && event.source === null && this.state.handshaken)
+    ) {
+      return
+    }
     if (subtype !== 'ready') {
       assert(
         this.state.handshaken,
@@ -58,23 +63,30 @@ export default class IntentListener {
   }
 
   /**
-   * Primary handler for DOM messages. Passes any thrown error from
-   * the real message handler to the options.onError callback.
+   * Primary handler for DOM messages. Passes any error of the real message
+   * handler, thrown or rejected by an async one as compose, to the
+   * options.onError callback.
    */
   handleMessageWrapper(ev) {
     try {
-      this.handleMessage(ev)
+      const handled = this.handleMessage(ev)
+      if (handled && typeof handled.catch === 'function') {
+        handled.catch(this.options.onError)
+      }
     } catch (e) {
       this.options.onError(e)
     }
   }
 
   listen() {
-    window.addEventListener('message', this.handleMessageWrapper)
+    this.options.window.addEventListener('message', this.handleMessageWrapper)
   }
 
   stopListening() {
-    window.removeEventListener('message', this.handleMessageWrapper)
+    this.options.window.removeEventListener(
+      'message',
+      this.handleMessageWrapper
+    )
   }
 }
 

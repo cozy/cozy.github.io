@@ -8154,7 +8154,7 @@ stack: either a <code>cozy-client</code> instance or a <code>fetch</code> functi
 </code></pre></div>
 <h3 id="messages">Messages<a class="headerlink" href="#messages" title="Permanent link">&para;</a></h3>
 <p>All messages from service to client are objects with a <code>type</code> field of the form <code>intent-{intentId}:{subtype}</code>.</p>
-<p>The service sends all those messages via <code>serviceWindow.parent.postMessage(message, intent.attributes.client)</code>. The client listens via <code>window.addEventListener('message', ...)</code> and keeps only the messages of its intent from its iframe (<code>event.origin === serviceOrigin</code> and <code>event.source === iframe.contentWindow</code>). It ignores the others, so several intents can run side by side, even from the same origin.</p>
+<p>The service sends all those messages via <code>serviceWindow.parent.postMessage(message, intent.attributes.client)</code>. The client listens via <code>window.addEventListener('message', ...)</code> and keeps only the messages of its intent from its iframe (<code>event.origin === serviceOrigin</code> and <code>event.source === iframe.contentWindow</code>). It ignores the others, so several intents can run side by side, even from the same origin. One exception: after the handshake, a <code>cancel</code> without a source is taken, as the browser gives none to the message of a page that went away.</p>
 <p>Errors are serialized: the service sends a plain object with <code>message</code> and <code>name</code> and the client can reconstruct a <code>new Error(message)</code> with the original properties copied back onto it.</p>
 <h4 id="core-messages">Core messages<a class="headerlink" href="#core-messages" title="Permanent link">&para;</a></h4>
 <table>
@@ -8201,13 +8201,13 @@ stack: either a <code>cozy-client</code> instance or a <code>fetch</code> functi
 <td>Service → Client</td>
 <td><code>intent-{id}:exposeFrameRemoval</code></td>
 <td><code>document</code></td>
-<td>Like <code>done</code>, but the client keeps the iframe in the DOM and returns <code>{ document, removeIntentIframe }</code> so the caller can animate closing before removing the iframe. Only sent when the client passed <code>exposeIntentFrameRemoval: true</code> in the intent data.</td>
+<td>Like <code>done</code>, but the client keeps the iframe in the DOM and returns <code>{ document, removeIntentIframe }</code> so the caller can animate closing before removing the iframe. The client stops listening to the service at this message. Only sent when the client passed <code>exposeIntentFrameRemoval: true</code> in the intent data.</td>
 </tr>
 <tr>
 <td>Service → Client</td>
 <td><code>intent-{id}:cancel</code></td>
 <td>—</td>
-<td>The service cancels. Client resolves the intent promise with <code>null</code>, removes the iframe. Also sent automatically on the service&rsquo;s <code>unload</code> event if the service was never terminated.</td>
+<td>The service cancels. Client resolves the intent promise with <code>null</code>, removes the iframe. Also sent automatically on the service&rsquo;s <code>pagehide</code> event if the service was never terminated, unless the page goes to the back/forward cache: the client takes this one although the browser gives it no source.</td>
 </tr>
 <tr>
 <td>Service → Client</td>
@@ -8232,7 +8232,7 @@ stack: either a <code>cozy-client</code> instance or a <code>fetch</code> functi
 <td>Service → Client</td>
 <td><code>intent-{id}:resize</code></td>
 <td><code>dimensions: { width?, height?, maxWidth?, maxHeight?, element? }</code>, <code>transition?: string</code></td>
-<td>Resizes the element that holds the iframe. <code>element</code> is measured client-side by the service and converted to <code>maxWidth</code> / <code>maxHeight</code>. <code>transition</code> is applied as a CSS <code>transition</code> property.</td>
+<td>Resizes the element that holds the iframe. The client keeps <code>width</code>, <code>height</code>, <code>maxWidth</code> and <code>maxHeight</code> only, as pixels from 0 to 10000 (numbers or <code>px</code> strings), and ignores the other properties. <code>element</code> is measured client-side by the service and converted to <code>maxWidth</code> / <code>maxHeight</code>. <code>transition</code> is applied as a CSS <code>transition</code> property.</td>
 </tr>
 <tr>
 <td>Service → Client</td>
@@ -8262,21 +8262,23 @@ stack: either a <code>cozy-client</code> instance or a <code>fetch</code> functi
 <td>Service → Client</td>
 <td><code>intent-{id}:compose</code></td>
 <td><code>action</code>, <code>doctype</code>, <code>data</code></td>
-<td>Ask the client to start a nested intent. The client creates it, hides the current service iframe, runs the nested intent, then posts the resulting document back to the service via <code>postMessage(doc, origin)</code>.</td>
+<td>Ask the client to start a nested intent. The client creates it, hides the current service iframe, runs the nested intent with the <code>title</code>, <code>className</code>, <code>onResize</code> and <code>readyTimeout</code> options of its own <code>start()</code>, then posts the resulting document back to the service via <code>postMessage(doc, origin)</code>.</td>
 </tr>
 </tbody>
 </table>
 <h2 id="api-reference">API reference<a class="headerlink" href="#api-reference" title="Permanent link">&para;</a></h2>
 <h3 id="intentscreate"><code>intents.create()</code><a class="headerlink" href="#intentscreate" title="Permanent link">&para;</a></h3>
-<p><code>intents.create(action, doctype [, data, permissions])</code> create an intent. It returns a modified Promise for the intent document, having a custom <code>start(element)</code> method. This method interacts with the DOM to append an iframe to the given HTML element. This iframe will provide an access to an app, which will serve a service page able to manage the intent action for the intent doctype. The <code>start(element)</code> method returns a promise for the result document provided by intent service.</p>
+<p><code>intents.create(action, doctype [, data, permissions])</code> create an intent. It returns a modified Promise for the intent document, having a custom <code>start(element)</code> method. This method interacts with the DOM to append an iframe to the given HTML element, and listens to the service on the window of the document of that element: the element may live in another window of the app, as an overlay. This iframe will provide an access to an app, which will serve a service page able to manage the intent action for the intent doctype. The <code>start(element)</code> method returns a promise for the result document provided by intent service.</p>
 <blockquote>
 <p><strong><code>start</code> options:</strong> The <code>start</code> method takes an optional second argument, an options object: <code>start(element, options)</code>. Supported keys:</p>
 <ul>
 <li><code>onReady</code> — called when the intent iframe has finished loading (iframe <code>onload</code>). Useful for running client code once the iframe is ready.</li>
 <li><code>onServiceReady</code>: called when the service sends <code>ready</code> and gets its data, once. Unlike <code>onReadyToUse</code>, every service sends it.</li>
 <li><code>title</code>: the <code>title</code> of the iframe, for assistive technologies.</li>
+<li><code>className</code>: classes added to the iframe, next to <code>coz-intent</code>, to style it.</li>
+<li><code>readyTimeout</code>: milliseconds the service has to send <code>ready</code>. Past them, the intent fails and its iframe is removed. Once ready, the intent takes as long as it needs.</li>
 <li><code>focus</code>: <code>false</code> leaves the focus where it is when the iframe is inserted, for a client that moves it itself (on <code>onReadyToUse</code>, for example). Defaults to <code>true</code>.</li>
-<li><code>onResize</code>: called with <code>{ dimensions, transition }</code> when the service asks to resize, in place of the styles the client otherwise writes on the element.</li>
+<li><code>onResize</code>: called with <code>{ dimensions, transition }</code> when the service asks to resize, in place of the styles the client otherwise writes on the element. <code>dimensions</code> holds the sizes the client keeps (see the <code>resize</code> message).</li>
 <li><code>onHideCross</code> / <code>onShowCross</code> — called when the service asks the client to hide/show the close button.</li>
 <li><code>onReadyToUse</code> — called when the service signals it is <strong>truly ready</strong> (UI rendered and initial data loaded), via <code>service.notifyReadyToUse()</code>. Distinct from <code>onReady</code>, which only signals the iframe loaded. See <code>intents.createService()</code> below.</li>
 <li><code>onResult</code> — called with each result the service hands over with <code>service.sendResult(result)</code>, while the intent goes on. For a service that stays open and gives several results, where <code>terminate(doc)</code> gives one and ends the intent.</li>
@@ -8307,7 +8309,7 @@ stack: either a <code>cozy-client</code> instance or a <code>fetch</code> functi
 </code></pre></div>
 <h3 id="intentscreateservice"><code>intents.createService()</code><a class="headerlink" href="#intentscreateservice" title="Permanent link">&para;</a></h3>
 <p><code>intents.createService([intentId, window, options])</code> has to be used in the intent service page. It initializes communication with the parent window (remember: the service is supposed to be in an iframe).</p>
-<p>If <code>intentId</code> and <code>window</code> parameters are not provided the method will try to retrieve them automatically.</p>
+<p>If <code>intentId</code> and <code>window</code> parameters are not provided the method will try to retrieve them automatically: the <code>intent</code> parameter of the page URL and the global <code>window</code>.</p>
 <p><code>options</code>:</p>
 <ul>
 <li><code>requireFrameAncestors</code> (default <code>false</code>): cancels the intent, and rejects the returned promise, when <code>frameAncestors</code> of the intent is missing or not a list of origins, or when one of <code>location.ancestorOrigins</code> is not in it. Browsers without <code>location.ancestorOrigins</code> (Firefox before 148) only get the <code>frameAncestors</code> check.
@@ -8328,7 +8330,7 @@ stack: either a <code>cozy-client</code> instance or a <code>fetch</code> functi
 <ul>
 <li><code>getData()</code>: returns the data passed to the service by the client.</li>
 <li><code>getIntent()</code>: returns the intent</li>
-<li><code>resizeClient(doc, transitionProperty)</code>: forces the size of the intent modale to a given width, maxWidth, height, maxHeight, or dimensions of a given element. The second optional argument <code>transitionProperty</code> can be used to add a CSS transition property on the intent in order to &lsquo;animate&rsquo; the resizing.</li>
+<li><code>resizeClient(doc, transitionProperty)</code>: forces the size of the intent modale to a given width, maxWidth, height, maxHeight, or dimensions of a given element. The client keeps these four sizes only, as pixels from 0 to 10000, and ignores any other property. The second optional argument <code>transitionProperty</code> can be used to add a CSS transition property on the intent in order to &lsquo;animate&rsquo; the resizing.</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="c1">// resize the client ot 300 pixels max height</span>
 <span class="nx">service</span><span class="p">.</span><span class="nx">resizeClient</span><span class="p">({</span>

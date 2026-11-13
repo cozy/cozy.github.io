@@ -1,13 +1,6 @@
 import * as dom from './dom'
-import { errorSerializer, pickService } from './helpers'
+import { errorSerializer, pickService, pickSizes } from './helpers'
 import IntentListener from './listener'
-
-/**
- * Keeps only http://domain:port/
- */
-const extractOrigin = url => {
-  return url.split('/', 3).join('/')
-}
 
 /**
  * Creates the intent iframe and reacts to its messages.
@@ -19,15 +12,19 @@ const extractOrigin = url => {
  *    at the beginning and removed when the intent has completed.
  */
 export function start(createIntent, intent, element, data, options = {}) {
-  let receiver, iframe
+  let receiver, iframe, readyTimer
   // Set when the service sends `ready`: messages sent before would be lost
   let serviceWindow = null
   // The data to give the service at the handshake; sendData() replaces them until then
   let currentData = data
   const service = pickService(intent, options.filterServices)
-  const serviceOrigin = extractOrigin(service.href)
+  const serviceOrigin = new URL(service.href).origin
+  // The service posts to the window its frame is in: the one of the element,
+  // which may be an overlay of the app in another window
+  const view = element.ownerDocument.defaultView || window
 
   const destroy = () => {
+    clearTimeout(readyTimer)
     iframe && dom.remove(iframe)
     receiver && receiver.stopListening()
   }
@@ -37,24 +34,24 @@ export function start(createIntent, intent, element, data, options = {}) {
   }
 
   let prom = new Promise((resolve, reject) => {
-    iframe = dom.insertIntentIframe(
-      intent,
-      element,
-      service.href,
-      options.onReady,
-      options.title,
-      options.focus !== false
-    )
+    iframe = dom.insertIntentIframe(intent, element, service.href, {
+      onload: options.onReady,
+      title: options.title,
+      className: options.className,
+      focus: options.focus !== false
+    })
 
     receiver = new IntentListener({
       intentId: intent.id,
       origin: serviceOrigin,
       getSource: () => iframe.contentWindow,
+      window: view,
 
       onReady: event => {
         // A service frame that loads again does not get the data twice: an
         // upload would store its files twice
         if (serviceWindow) return
+        clearTimeout(readyTimer)
         serviceWindow = event.source
         event.source.postMessage(currentData, event.origin)
         if (options.onServiceReady) options.onServiceReady()
@@ -79,8 +76,9 @@ export function start(createIntent, intent, element, data, options = {}) {
       },
 
       onError: errorOrEvent => {
+        // The event is of the realm of the window listened to
         reject(
-          errorOrEvent instanceof Event
+          errorOrEvent instanceof view.Event
             ? errorSerializer.deserialize(errorOrEvent.data.error)
             : errorOrEvent
         )
@@ -89,17 +87,23 @@ export function start(createIntent, intent, element, data, options = {}) {
 
       onResize: event => {
         const { transition, dimensions } = event.data
+        const resize = { dimensions: pickSizes(dimensions) }
+        if (typeof transition === 'string') resize.transition = transition
         if (options.onResize) {
-          options.onResize({ dimensions, transition })
+          options.onResize(resize)
         } else {
-          dom.applyStyle(element, { transition, ...dimensions })
+          dom.applyStyle(element, {
+            transition: resize.transition,
+            ...resize.dimensions
+          })
         }
       },
 
       onExposeFrameRemoval: event => {
+        receiver.stopListening()
         resolve({
           document: event.data.document,
-          removeIntentIframe: () => dom.remove(iframe)
+          removeIntentIframe: destroy
         })
       },
 
@@ -110,10 +114,18 @@ export function start(createIntent, intent, element, data, options = {}) {
         const intent = await createIntent(action, doctype, data)
         dom.hide(iframe)
         try {
-          const doc = await start(createIntent, intent, element, {
-            ...data,
-            exposeIntentFrameRemoval: false
-          })
+          const doc = await start(
+            createIntent,
+            intent,
+            element,
+            { ...data, exposeIntentFrameRemoval: false },
+            {
+              title: options.title,
+              className: options.className,
+              onResize: options.onResize,
+              readyTimeout: options.readyTimeout
+            }
+          )
           source.postMessage(doc, origin)
         } finally {
           dom.show(iframe)
@@ -132,6 +144,14 @@ export function start(createIntent, intent, element, data, options = {}) {
     })
 
     receiver.listen()
+    // A service that never says ready (app missing, signed out, unreachable)
+    // would keep the intent pending forever
+    if (options.readyTimeout) {
+      readyTimer = setTimeout(() => {
+        reject(new Error('The intent service did not get ready in time'))
+        onComplete()
+      }, options.readyTimeout)
+    }
   })
 
   prom.destroy = destroy

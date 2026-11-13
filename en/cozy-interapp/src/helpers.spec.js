@@ -1,8 +1,44 @@
 import {
   buildRedirectionURL,
   isFramedByAllowedOrigins,
+  pickService,
+  pickSizes,
   removeQueryString
 } from './helpers'
+
+describe('pickSizes', () => {
+  it('keeps the sizes of the element, as pixels', () => {
+    expect(
+      pickSizes({
+        width: 300,
+        height: '200px',
+        maxWidth: '400',
+        maxHeight: 0.5
+      })
+    ).toEqual({ width: 300, height: 200, maxWidth: 400, maxHeight: 0.5 })
+  })
+
+  it('leaves out the other properties and the sizes out of range', () => {
+    expect(
+      pickSizes({
+        position: 'fixed',
+        zIndex: 2147483647,
+        cssText: 'position: fixed',
+        width: -1,
+        height: 10001,
+        maxWidth: '100%',
+        maxHeight: NaN
+      })
+    ).toEqual({})
+    expect(pickSizes({ width: Infinity, height: '' })).toEqual({})
+  })
+
+  it('takes what is not an object as no size', () => {
+    expect(pickSizes(undefined)).toEqual({})
+    expect(pickSizes(null)).toEqual({})
+    expect(pickSizes('300')).toEqual({})
+  })
+})
 
 describe('[Interapp] helpers', () => {
   it('should have a function to remove query string', () => {
@@ -55,5 +91,29 @@ describe('isFramedByAllowedOrigins', () => {
 
   it('leaves the handshake alone to guard when the browser does not tell the ancestors (Firefox before 148)', () => {
     expect(isFramedByAllowedOrigins([CHAT], null)).toBe(true)
+  })
+})
+
+describe('pickService', () => {
+  const intentWith = (...hrefs) => ({
+    attributes: { services: hrefs.map(href => ({ href })) }
+  })
+
+  it('picks the first service', () => {
+    expect(
+      pickService(intentWith('https://a.test/intent', 'https://b.test/intent'))
+    ).toEqual({ href: 'https://a.test/intent' })
+  })
+
+  it('refuses a service that is not a web page', () => {
+    for (const href of ['javascript:alert(1)', 'data:text/html,x', 'nope']) {
+      expect(() => pickService(intentWith(href))).toThrow(
+        'The service is not a web page'
+      )
+    }
+  })
+
+  it('throws without a service', () => {
+    expect(() => pickService(intentWith())).toThrow('Unable to find a service')
   })
 })
