@@ -8247,8 +8247,9 @@ Cozy instance belongs to one context.</p>
 <li><code>allow_app_token_exchange</code> can be set to true to enable user app exchanges
   on <code>POST /auth/token_exchange</code>. The request body must set
   <code>exchange_type</code> to <code>app</code> for this exchange.</li>
-<li><code>app_token_exchange</code> maps an OIDC token audience to a trusted Cozy linked
-  app. The <code>software_id</code> must use the <code>registry://&lt;slug&gt;</code> format. The stack
+<li><code>app_token_exchange</code> maps an OIDC client to a trusted Cozy linked app. The
+  client is the <code>azp</code> claim of the token, or its single audience when it has no
+  <code>azp</code>. The <code>software_id</code> must use the <code>registry://&lt;slug&gt;</code> format. The stack
   derives the Cozy OAuth scope from the linked app manifest, so the OIDC
   provider does not need to expose <code>registry://...</code> as an OIDC scope. When
   <code>instance_claim</code> is set, the claim must contain the target Cozy instance

@@ -8865,6 +8865,10 @@ indexation and is saved.</p>
 Note the JSON-API format is not used here as we follow the openRAG format.</p>
 <h3 id="post-aiv1chatcompletions">POST /ai/v1/chat/completions<a class="headerlink" href="#post-aiv1chatcompletions" title="Permanent link">&para;</a></h3>
 <p>This route directly follows the <a href="https://platform.openai.com/docs/api-reference/chat/create">openAI chat completion AI</a>.</p>
+<p>Omit <code>model</code> (or leave it empty) to use the LLM without retrieval. For retrieval,
+only <code>openrag-&lt;instance-domain&gt;</code> and <code>ragondin-&lt;instance-domain&gt;</code> are accepted,
+and the caller also needs <code>GET</code> permission on all <code>io.cozy.files</code>. Client-supplied
+<code>metadata</code> is not forwarded.</p>
 <h4 id="request_1">Request<a class="headerlink" href="#request_1" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="nf">POST</span> <span class="nn">/ai/v1/chat/completions</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>

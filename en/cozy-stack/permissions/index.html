@@ -6990,6 +6990,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#get-permissionsidstatistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /permissions/:id/statistics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#patch-permissionsid" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8655,6 +8666,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#get-permissionsidstatistics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GET /permissions/:id/statistics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#patch-permissionsid" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -9237,6 +9259,25 @@ without listing the other apps.</p>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+<h3 id="get-permissionsidstatistics">GET /permissions/:id/statistics<a class="headerlink" href="#get-permissionsidstatistics" title="Permanent link">&para;</a></h3>
+<p>Download the retained events for one public file link as CSV. The permission ID
+identifies the link, not its sharecode. The request must use a webapp or OAuth
+token on the link owner&rsquo;s instance whose permissions cover the link&rsquo;s file
+rules and grant <code>GET</code> on the whole <code>io.cozy.public_links.events</code> doctype.
+Public and shared-drive member tokens cannot access the statistics. This grant
+authorizes the export endpoint, not direct access to the private doctype.
+This also applies to public links created by a member on a shared-drive owner&rsquo;s
+instance. Only explicit file IDs are supported. Expired links can still be
+exported while their permission document exists.</p>
+<p>The CSV has columns <code>occurred_at</code>, <code>IP</code>, <code>identity</code>, <code>action</code>, ordered from
+oldest to newest. Dates are UTC RFC3339; unknown identities are empty. Cells that could
+be interpreted as spreadsheet formulas are prefixed with an apostrophe. The
+response is an attachment with <code>Cache-Control: no-store</code>. Events added during
+generation may be absent. The CSV is generated in a private temporary file
+that is unlinked before any data is written and closed after the response. This
+requires an operating system that supports unlinking an open file; temporary
+storage still needs adequate capacity and protection for personal data. This
+endpoint does not create or publish a report file and does not collect events.</p>
 <h3 id="patch-permissionsid">PATCH /permissions/:id<a class="headerlink" href="#patch-permissionsid" title="Permanent link">&para;</a></h3>
 <p>Add permissions in this permissions set. It can be used in inter-apps context as
 a way to give another app the permission for some data. For example, the contact

@@ -10610,6 +10610,9 @@ behavior.</p>
 <h3 id="post-filesdir-id">POST /files/:dir-id<a class="headerlink" href="#post-filesdir-id" title="Permanent link">&para;</a></h3>
 <p>Create a new directory. The <code>dir-id</code> parameter is optional. When it&rsquo;s not given,
 the directory is created at the root of the virtual file system.</p>
+<p>Alternatively, <code>Path</code> creates a directory by absolute path, with <code>Recursive=true</code>
+to create missing parents. This requires <code>POST</code> permission on all <code>io.cozy.files</code>.
+Shared-drive routes do not accept <code>Path</code>; use the parent directory ID and <code>Name</code>.</p>
 <h4 id="query-string">Query-String<a class="headerlink" href="#query-string" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
