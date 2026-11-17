@@ -9149,20 +9149,9 @@ import, when the instance can be accessed again.</p>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="permissions_4">Permissions<a class="headerlink" href="#permissions_4" title="Permanent link">&para;</a></h3>
-<p>To use this worker from a client-side application, you will need to ask the
-permission. It is done by adding this to the manifest:</p>
-<div class="highlight"><pre><span></span><code><span class="p">{</span>
-<span class="w">    </span><span class="nt">"permissions"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="nt">"mail-from-the-user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">            </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Required to create a export of the user's data"</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"io.cozy.jobs"</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">"verbs"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"POST"</span><span class="p">],</span>
-<span class="w">            </span><span class="nt">"selector"</span><span class="p">:</span><span class="w"> </span><span class="s2">"worker"</span><span class="p">,</span>
-<span class="w">            </span><span class="nt">"values"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"export"</span><span class="p">]</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
+<p>The <code>export</code> and <code>import</code> workers are used only by the stack: clients cannot
+push jobs or create triggers for them. A client starts an export or an import
+with the <a href="../move/">move routes</a>.</p>
 <h2 id="trash-files-worker">trash-files worker<a class="headerlink" href="#trash-files-worker" title="Permanent link">&para;</a></h2>
 <p>This worker is used only by the stack: when the user asks to clean the trash,
 the stack will delete the files from CouchDB and put a job for this worker. The

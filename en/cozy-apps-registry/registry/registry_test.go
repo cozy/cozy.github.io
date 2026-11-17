@@ -117,6 +117,7 @@ func TestDownloadVersionFromUpload(t *testing.T) {
 		Version:     "1.0.0",
 		RegistryURL: &url.URL{Scheme: "http", Host: "foobar.com", Path: "/registry/"},
 		SpacePrefix: base.Prefix(testSpaceName),
+		AppSlug:     manifest.Slug,
 	}
 
 	ver, _, err := DownloadVersion(opts)

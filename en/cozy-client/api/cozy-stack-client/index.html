@@ -4000,6 +4000,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#filerecentscollection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FileRecentsCollection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FileRecentsCollection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#new-filerecentscollectionstackclient-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        new FileRecentsCollection(stackClient, [options])
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filerecentscollectionalloptions-promisedata-arrayobject-included-arrayobject-meta-object-next-boolean-bookmark-stringnull" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        fileRecentsCollection.all([options]) ⇒ Promise.&lt;{data: Array.&lt;object&gt;, included: Array.&lt;object&gt;, meta: object, next: boolean, bookmark: (string|null)}&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#notescollection" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5004,6 +5043,17 @@
     <span class="md-ellipsis">
       
         isDirectory ⇒ boolean
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file_recents_doctype-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FILE_RECENTS_DOCTYPE : string
       
     </span>
   </a>
@@ -11929,6 +11979,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#filerecentscollection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FileRecentsCollection
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FileRecentsCollection">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#new-filerecentscollectionstackclient-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        new FileRecentsCollection(stackClient, [options])
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filerecentscollectionalloptions-promisedata-arrayobject-included-arrayobject-meta-object-next-boolean-bookmark-stringnull" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        fileRecentsCollection.all([options]) ⇒ Promise.&lt;{data: Array.&lt;object&gt;, included: Array.&lt;object&gt;, meta: object, next: boolean, bookmark: (string|null)}&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#notescollection" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -12933,6 +13022,17 @@
     <span class="md-ellipsis">
       
         isDirectory ⇒ boolean
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file_recents_doctype-string" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FILE_RECENTS_DOCTYPE : string
       
     </span>
   </a>
@@ -14267,6 +14367,11 @@ specific collections.</p>
 special routes are to be used, and there is a notion of referenced files, aka
 files associated to a specific document</p>
 </dd>
+<dt><a href="#FileRecentsCollection">FileRecentsCollection</a></dt>
+<dd><p>Lists the personal recents of the user through <code>GET /files/recents</code>.</p>
+<p>Each recent points to its <code>io.cozy.files</code> document through a <code>file</code>
+relationship, and the documents come in <code>included</code>.</p>
+</dd>
 <dt><a href="#NotesCollection">NotesCollection</a></dt>
 <dd><p>Implements <code>DocumentCollection</code> API to interact with the /notes endpoint of the stack</p>
 </dd>
@@ -14328,6 +14433,10 @@ See cozy-stack&#39;s timeout value for couchdb request: <a href="https://github.
 </dd>
 <dt><a href="#isDirectory">isDirectory</a> ⇒ <code>boolean</code></dt>
 <dd><p>Returns true when parameters has type directory</p>
+</dd>
+<dt><a href="#FILE_RECENTS_DOCTYPE">FILE_RECENTS_DOCTYPE</a> : <code>string</code></dt>
+<dd><p>Doctype of the personal recents of the user: the files and folders they
+edited or opened, sorted by their last activity.</p>
 </dd>
 <dt><a href="#getIllegalCharacters">getIllegalCharacters</a> ⇒ <code>string</code></dt>
 <dd><p>Get the list of illegal characters in the file name</p>
@@ -16577,6 +16686,79 @@ Manage 3 cases :
 </tr>
 </tbody>
 </table>
+<p><a name="FileRecentsCollection"></a></p>
+<h2 id="filerecentscollection">FileRecentsCollection<a class="headerlink" href="#filerecentscollection" title="Permanent link">&para;</a></h2>
+<p>Lists the personal recents of the user through <code>GET /files/recents</code>.</p>
+<p>Each recent points to its <code>io.cozy.files</code> document through a <code>file</code>
+relationship, and the documents come in <code>included</code>.</p>
+<p><strong>Kind</strong>: global class  </p>
+<ul>
+<li><a href="#FileRecentsCollection">FileRecentsCollection</a><ul>
+<li><a href="#new_FileRecentsCollection_new">new FileRecentsCollection(stackClient, [options])</a></li>
+<li><a href="#FileRecentsCollection+all">.all([options])</a> ⇒ <code>Promise.&lt;{data: Array.&lt;object&gt;, included: Array.&lt;object&gt;, meta: object, next: boolean, bookmark: (string|null)}&gt;</code></li>
+</ul>
+</li>
+</ul>
+<p><a name="new_FileRecentsCollection_new"></a></p>
+<h3 id="new-filerecentscollectionstackclient-options">new FileRecentsCollection(stackClient, [options])<a class="headerlink" href="#new-filerecentscollectionstackclient-options" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>stackClient</td>
+<td><code>object</code></td>
+<td>The client used to make requests to the server</td>
+</tr>
+<tr>
+<td>[options]</td>
+<td><code>object</code></td>
+<td>The collection options</td>
+</tr>
+</tbody>
+</table>
+<p><a name="FileRecentsCollection+all"></a></p>
+<h3 id="filerecentscollectionalloptions-promisedata-arrayobject-included-arrayobject-meta-object-next-boolean-bookmark-stringnull">fileRecentsCollection.all([options]) ⇒ <code>Promise.&lt;{data: Array.&lt;object&gt;, included: Array.&lt;object&gt;, meta: object, next: boolean, bookmark: (string|null)}&gt;</code><a class="headerlink" href="#filerecentscollectionalloptions-promisedata-arrayobject-included-arrayobject-meta-object-next-boolean-bookmark-stringnull" title="Permanent link">&para;</a></h3>
+<p>Fetch a page of recents, the most recent activity first.</p>
+<p>A page can hold fewer recents than the limit, or none, and still have a
+next page: only <code>next</code> tells whether there is one.</p>
+<p><strong>Kind</strong>: instance method of <a href="#FileRecentsCollection"><code>FileRecentsCollection</code></a><br />
+<strong>Returns</strong>: <code>Promise.&lt;{data: Array.&lt;object&gt;, included: Array.&lt;object&gt;, meta: object, next: boolean, bookmark: (string|null)}&gt;</code> - The page<br />
+<strong>Throws</strong>:</p>
+<ul>
+<li><code>Error</code> A 404 when the recents are disabled on the stack</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[options]</td>
+<td><code>object</code></td>
+<td>The options</td>
+</tr>
+<tr>
+<td>[options.limit]</td>
+<td><code>number</code></td>
+<td>Size of the page (50 by default on the stack, 100 at most)</td>
+</tr>
+<tr>
+<td>[options.bookmark]</td>
+<td><code>string</code></td>
+<td>Cursor of the page, returned by the previous one</td>
+</tr>
+</tbody>
+</table>
 <p><a name="NotesCollection"></a></p>
 <h2 id="notescollection">NotesCollection<a class="headerlink" href="#notescollection" title="Permanent link">&para;</a></h2>
 <p>Implements <code>DocumentCollection</code> API to interact with the /notes endpoint of the stack</p>
@@ -18586,7 +18768,12 @@ See cozy-stack&rsquo;s timeout value for couchdb request: https://github.com/coz
 </tr>
 </tbody>
 </table>
-<p><a name="getIllegalCharacters"></a></p>
+<p><a name="FILE_RECENTS_DOCTYPE"></a></p>
+<h2 id="file_recents_doctype-string">FILE_RECENTS_DOCTYPE : <code>string</code><a class="headerlink" href="#file_recents_doctype-string" title="Permanent link">&para;</a></h2>
+<p>Doctype of the personal recents of the user: the files and folders they
+edited or opened, sorted by their last activity.</p>
+<p><strong>Kind</strong>: global constant<br />
+<a name="getIllegalCharacters"></a></p>
 <h2 id="getillegalcharacters-string">getIllegalCharacters ⇒ <code>string</code><a class="headerlink" href="#getillegalcharacters-string" title="Permanent link">&para;</a></h2>
 <p>Get the list of illegal characters in the file name</p>
 <p><strong>Kind</strong>: global constant<br />
