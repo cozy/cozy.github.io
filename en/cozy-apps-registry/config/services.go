@@ -3,6 +3,7 @@ package config
 import (
 	"context"
 	"fmt"
+	"net/netip"
 	"net/url"
 	"strings"
 
@@ -193,6 +194,10 @@ func configureParameters() error {
 	if err != nil {
 		return err
 	}
+	trustedNetworks, err := getTrustedTarballNetworks()
+	if err != nil {
+		return err
+	}
 	base.Config = base.ConfigParameters{
 		CleanEnabled: viper.GetBool("conservation.enable_background_cleaning"),
 		CleanParameters: base.CleanParameters{
@@ -205,9 +210,23 @@ func configureParameters() error {
 		TrustedDomains:   viper.GetStringMapStringSlice("trusted_domains"),
 		TrustedProtocols: viper.GetStringMapStringSlice("trusted_protocols"),
 		TrustedUrls:      viper.GetStringMapStringSlice("trusted_urls"),
+
+		TrustedTarballNetworks: trustedNetworks,
 	}
 
 	return nil
+}
+
+func getTrustedTarballNetworks() ([]netip.Prefix, error) {
+	var networks []netip.Prefix
+	for _, cidr := range viper.GetStringSlice("trusted_tarball_networks") {
+		network, err := netip.ParsePrefix(cidr)
+		if err != nil {
+			return nil, fmt.Errorf("Invalid trusted_tarball_networks value in configuration: %w", err)
+		}
+		networks = append(networks, network)
+	}
+	return networks, nil
 }
 
 func initSwiftConnection() (*swift.Connection, error) {

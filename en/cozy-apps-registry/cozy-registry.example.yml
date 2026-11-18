@@ -120,6 +120,16 @@ trusted_urls:
   __default__:
     - https://play.google.com/store/apps/details?id=io.cozy.flagship.mobile
 
+# Trusted tarball networks are the networks, in CIDR notation, from which the
+# tarball of a version can be downloaded even though they are not on the public
+# internet: loopback, private, link-local, etc. These addresses are refused by
+# default, as any editor can make the registry send requests to them, and read
+# the outcome in the error message. Only list the networks that contain nothing
+# else than tarballs.
+#
+# trusted_tarball_networks:
+#   - 10.1.2.0/24
+
 # List of virtual spaces.
 #
 # A virtual space is a read-only view on another space with a filter to

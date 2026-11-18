@@ -2,6 +2,7 @@ package base
 
 import (
 	"context"
+	"net/netip"
 
 	"github.com/go-kivik/kivik/v3"
 )
@@ -40,6 +41,10 @@ type ConfigParameters struct {
 	// TrustedUrls is used by the universal link to allow redirections on
 	// exact URL matches.
 	TrustedUrls map[string][]string
+	// TrustedTarballNetworks are the networks from which the tarball of a
+	// version can be downloaded even though they are not on the public
+	// internet.
+	TrustedTarballNetworks []netip.Prefix
 }
 
 // CleanParameters regroups the parameters for cleaning the old versions.

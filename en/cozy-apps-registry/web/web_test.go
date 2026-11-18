@@ -158,6 +158,8 @@ func TestMain(m *testing.M) {
 	viper.Set("domain_space", map[string]string{
 		universalLinkHost: allAppsSpace,
 	})
+	// The tarballs of the tests are served by httptest, on the loopback.
+	viper.Set("trusted_tarball_networks", []string{"127.0.0.0/8"})
 	viper.Set("virtual_spaces", map[string]interface{}{
 		myAppsSpace: map[string]interface{}{
 			"source": allAppsSpace,

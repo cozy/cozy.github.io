@@ -68,10 +68,6 @@ var (
 	ErrChannelInvalid       = errshttp.NewError(http.StatusBadRequest, `Invalid version channel: should be "stable", "beta" or "dev"`)
 )
 
-var versionClient = http.Client{
-	Timeout: 30 * time.Second,
-}
-
 type AppOptions struct {
 	Slug   string `json:"slug"`
 	Editor string `json:"editor"`
@@ -540,8 +536,15 @@ func downloadRequest(opts *VersionOptions, rawURL string) (reader *bytes.Reader,
 
 		resp, err := versionClient.Do(req)
 		if err != nil {
+			// The reason stays on the server: it would tell the publisher which
+			// internal hosts exist, and which addresses are refused.
+			logrus.WithFields(logrus.Fields{
+				"nspace":    "download_version",
+				"url":       rawURL,
+				"error_msg": err,
+			}).Warn("Could not reach version")
 			err = errshttp.NewError(http.StatusUnprocessableEntity,
-				"Could not reach version on specified url %s: %s", rawURL, err)
+				"Could not reach version on specified url %s", rawURL)
 			return nil, "", err
 		}
 		defer resp.Body.Close()

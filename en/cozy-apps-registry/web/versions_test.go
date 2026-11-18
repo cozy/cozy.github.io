@@ -10,11 +10,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"net"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"path/filepath"
 	"strings"
+	"sync/atomic"
 	"testing"
 
 	"github.com/cozy/cozy-apps-registry/auth"
@@ -118,6 +120,58 @@ func TestCreateVersionRefusesLocalFile(t *testing.T) {
 		// The checksum error would give away the hash of the file
 		assert.NotContains(t, body, hex.EncodeToString(sum[:]), fileURL)
 	}
+}
+
+// A publisher must not learn anything about the services next to the registry:
+// neither whether they answer, nor their status codes, nor what they return.
+func TestCreateVersionRefusesInternalAddresses(t *testing.T) {
+	trusted := base.Config.TrustedTarballNetworks
+	base.Config.TrustedTarballNetworks = nil
+	t.Cleanup(func() { base.Config.TrustedTarballNetworks = trusted })
+
+	token := newPublisher(t, "ssrf-app")
+
+	secret := []byte("a response of an internal service")
+	var hits atomic.Int32
+	internal := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		hits.Add(1)
+		if r.URL.Path == "/teapot" {
+			w.WriteHeader(http.StatusTeapot)
+			return
+		}
+		_, _ = w.Write(secret)
+	}))
+	t.Cleanup(internal.Close)
+	sum := sha256.Sum256(secret)
+	secretSum := hex.EncodeToString(sum[:])
+
+	listener, err := net.Listen("tcp", "127.0.0.1:0")
+	require.NoError(t, err)
+	closedPort := listener.Addr().(*net.TCPAddr).Port
+	require.NoError(t, listener.Close())
+
+	_, port, err := net.SplitHostPort(internal.Listener.Addr().String())
+	require.NoError(t, err)
+
+	urls := []string{
+		internal.URL + "/secret",
+		internal.URL + "/teapot",
+		"http://localhost:" + port + "/secret",
+		fmt.Sprintf("http://127.0.0.1:%d/secret", closedPort),
+		"http://registry-test.invalid/secret",
+	}
+	reasons := map[string]string{}
+	for _, u := range urls {
+		status, body := postVersion(t, token, "ssrf-app", "1.0.0", u, strings.Repeat("0", 64))
+		assert.Equal(t, http.StatusUnprocessableEntity, status, u)
+		// The body echoes the URL, whose random port could contain 418
+		reason := strings.ReplaceAll(body, u, "")
+		assert.NotContains(t, reason, secretSum, u)
+		assert.NotContains(t, reason, "418", u)
+		reasons[reason] = u
+	}
+	assert.Len(t, reasons, 1, "the responses tell the addresses apart: %v", reasons)
+	assert.Zero(t, hits.Load(), "the internal service was reached")
 }
 
 func TestCreateVersionChecksTheManifestSlug(t *testing.T) {
