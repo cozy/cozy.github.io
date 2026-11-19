@@ -10606,6 +10606,9 @@ client and token pair on the target instance.</p>
 </ul>
 <p>For admin exchanges, the <code>id_token</code> must also:</p>
 <ul>
+<li>be issued to the <code>oidc.client_id</code> of the stack configuration, or to a client
+  present in <code>oidc.app_token_exchange</code>. That client is found the same way as
+  for user app exchanges below</li>
 <li>contain an <code>org_id</code> claim equal to the target instance organization id</li>
 <li>contain an <code>org_role</code> claim equal to <code>owner</code> or <code>admin</code></li>
 </ul>
