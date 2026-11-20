@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.2">
     
     
       
@@ -8332,6 +8332,17 @@ installed, with an account, and configuring the stack to use this account:</p>
 <div class="highlight"><pre><span></span><code>$ export COZY_COUCHDB_URL=http://admin:password@localhost:5984
 $ make unit-tests
 </code></pre></div>
+<p>To run all the tests like the CI, without <code>-short</code>, use Docker: <code>make
+docker-tests</code> starts CouchDB, Redis and a DNS server, then runs <code>go test</code> in a
+container (<code>make docker-tests-down</code> stops them). Running the full suite on the
+host fails on most desktops: mDNS takes over the <code>.local</code> names of the test
+instances and hangs, so the sharing tests time out. <code>TEST_ARGS</code> narrows the run:</p>
+<div class="highlight"><pre><span></span><code>$ make docker-tests TEST_ARGS='-run TestDriveAutoAcceptTrusted ./web/sharings/'
+</code></pre></div>
+<p>The full suite takes about 25 minutes. CouchDB sometimes stalls for a few
+seconds under the load of <code>web/sharings</code>, and a test then fails with
+<code>CouchDB(no_couch) ... context deadline exceeded</code> while creating its instance:
+run the package again.</p>
 <p>If you want to play with the modified cozy-stack (for example, testing it with a
 webapp), you can build it locally and start it with this command:</p>
 <div class="highlight"><pre><span></span><code>$ make run
