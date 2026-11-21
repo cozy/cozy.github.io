@@ -8388,6 +8388,9 @@ called inbox and outbox secrets in OnlyOffice configuration.</p>
 <span class="w">    </span><span class="nt">onlyoffice_inbox_secret</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">inbox_secret</span>
 <span class="w">    </span><span class="nt">onlyoffice_outbox_secret</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">outbox_secret</span>
 </code></pre></div>
+<p>The outbox secret is required: a context with an <code>onlyoffice_url</code> but no
+<code>onlyoffice_outbox_secret</code> has no document server (the editor cannot be opened
+and the callback is refused), and an error is logged at startup.</p>
 <p>Don&rsquo;t forget to restart all the services after having made the changes to the
 configuration files. And you should be able to edit office documents and PDFs
 in your browser via the Drive application.</p>

@@ -8264,8 +8264,9 @@ field in the UserInfo response, and checks that it matches the <code>oidc_id</co
 on this instance (and the <code>userinfo_instance_*</code> and <code>login_domain</code> fields are
 ignored). If <code>id_token_jwk_url</code> is set, the client can send the ID token from
 the provider instead of the access token. This token will be checked with the
-key fetched from this URL, and the <code>sub</code> field of it must match the <code>oidc_id</code>
-set in the instance.</p>
+key fetched from this URL, its <code>iss</code> must be the issuer of the provider (from
+<code>issuer</code> or the discovery of <code>token_url</code>), its <code>aud</code> must contain the
+<code>client_id</code>, and its <code>sub</code> must match the <code>oidc_id</code> set in the instance.</p>
 <h3 id="routes">Routes<a class="headerlink" href="#routes" title="Permanent link">&para;</a></h3>
 <p>Let&rsquo;s see the 3 routes used in this process</p>
 <h4 id="get-oidcstart">GET /oidc/start<a class="headerlink" href="#get-oidcstart" title="Permanent link">&para;</a></h4>

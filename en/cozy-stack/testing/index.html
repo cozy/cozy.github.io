@@ -7834,6 +7834,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#storage-migration-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Storage migration tests
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -8099,6 +8110,11 @@ pilot revision. The pilot does not wait for a broad rewrite.</p>
 <a href="https://github.com/linagora/cozy-stack/issues/4866">#4866</a>
 and <a href="https://github.com/linagora/cozy-stack/issues/4867">#4867</a>, within the
 <a href="https://github.com/linagora/cozy-stack/issues/4864">load-testing roadmap</a>.</p>
+<h2 id="storage-migration-tests">Storage migration tests<a class="headerlink" href="#storage-migration-tests" title="Permanent link">&para;</a></h2>
+<p>The MinIO migration cases share one server under <code>TestS3Migration</code>, with separate
+test data. Select an individual nested case using its full path:</p>
+<div class="highlight"><pre><span></span><code>go<span class="w"> </span><span class="nb">test</span><span class="w"> </span>./model/instance/storagemigration<span class="w"> </span>-count<span class="o">=</span><span class="m">1</span><span class="w"> </span>-run<span class="w"> </span><span class="s1">'^TestS3Migration$/^TestMigrateFlipsSchemeAfterVerify$'</span>
+</code></pre></div>
 
 
 

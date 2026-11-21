@@ -10770,20 +10770,66 @@ delete it.</p>
 <li><code>GET /files/:dir-id/relationships/contents</code></li>
 <li><code>GET /files/:dir-id/size</code></li>
 </ul>
-<p>The supported IDs are <code>io.cozy.apps/mail</code> and <code>io.cozy.apps/notes</code>.
-Encode the slash in application IDs, for example:</p>
+<p>The supported IDs are:</p>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Directory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>io.cozy.apps/notes</code></td>
+<td><code>/Notes</code></td>
+</tr>
+<tr>
+<td><code>io.cozy.apps/downloads</code></td>
+<td><code>/Downloads</code></td>
+</tr>
+<tr>
+<td><code>io.cozy.apps/calendar</code></td>
+<td><code>/Downloads/Calendar</code></td>
+</tr>
+<tr>
+<td><code>io.cozy.apps/chat</code></td>
+<td><code>/Downloads/Chat</code></td>
+</tr>
+<tr>
+<td><code>io.cozy.apps/mail</code></td>
+<td><code>/Downloads/Mail</code></td>
+</tr>
+<tr>
+<td><code>io.cozy.apps/meetings</code></td>
+<td><code>/Downloads/Meeting Recordings</code></td>
+</tr>
+</tbody>
+</table>
+<p>Encode the slash in application IDs, for example:</p>
 <div class="highlight"><pre><span></span><code><span class="nf">POST</span> <span class="nn">/files/io.cozy.apps%2Fmail?Type=file&amp;Name=attachment.txt</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 </code></pre></div>
-<p>The stack resolves application IDs through the matching <code>referenced_by</code>, even
-after a rename or move. It uses the first match. If none exists, or the directory
-is trashed, it creates a directory at the root with a translated name, or reuses
-an existing directory with that name. Trashed directories are left untouched.
-The legacy <code>io.cozy.files.shared-drives-dir</code> is an ordinary directory ID.
+<p>The stack resolves application IDs through the matching <code>referenced_by</code>. If no
+directory matches, or the directory is trashed, it creates a directory with a
+translated name, or reuses an existing directory with that name. Trashed
+directories are left untouched.</p>
+<p>The notes directory is found even after a rename or a move, and is created at
+the root.</p>
+<p>The downloads directory and the directories inside it are bound to their
+location: the downloads directory only counts at the root, and the others only
+directly inside it. Missing parents are created on the way. Renaming or moving
+one of them removes its reference: it becomes an ordinary directory and a new
+one is created on the next resolution.</p>
+<p>On the first Mail lookup after an upgrade, an old Mail folder outside Downloads
+loses its Mail reference. Its files and other references stay in place. A share
+selected by the Mail reference then matches the folder inside Downloads.</p>
+<p>The legacy <code>io.cozy.files.shared-drives-dir</code> is an ordinary directory ID.
 Reading it does not create a missing directory.</p>
 <p>Requests must be authenticated. Creating a missing magic folder does not
 require directory-creation permission; the requested operation still requires
 its usual permissions on the resolved directory. Response resource IDs and
-stored parent IDs use concrete directory IDs. Other IDs follow the usual lookup
+stored parent IDs use concrete directory IDs. The stack assigns the listed
+magic folder references. Both relationship APIs return HTTP 400 if a client
+tries to add one. Other IDs follow the usual lookup
 behavior.</p>
 <h3 id="post-filesdir-id">POST /files/:dir-id<a class="headerlink" href="#post-filesdir-id" title="Permanent link">&para;</a></h3>
 <p>Create a new directory. The <code>dir-id</code> parameter is optional. When it&rsquo;s not given,
