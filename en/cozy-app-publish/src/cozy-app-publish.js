@@ -6,8 +6,8 @@ const { ArgumentParser } = require('argparse')
 const capitalize = require('lodash/capitalize')
 const omitBy = require('lodash/omitBy')
 
-const scripts = require('./index')
 const pkg = require('../package.json')
+const scripts = require('./index')
 const colorize = require('./utils/colorize')
 const logger = require('./utils/logger')
 

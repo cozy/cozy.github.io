@@ -4,13 +4,13 @@ const path = require('path')
 
 const fs = require('fs-extra')
 
+const logger = require('../../utils/logger')
 const {
   getArchiveFileName,
   deleteArchive,
   createArchive,
   pushArchive
 } = require('./helpers')
-const logger = require('../../utils/logger')
 
 module.exports = async options => {
   if (!fs.existsSync(options.buildDir)) {

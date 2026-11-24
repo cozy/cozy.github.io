@@ -1,4 +1,4 @@
-/* eslint no-console: ["error", { allow: ["warn", "error"] }] */
+/* eslint-disable no-console -- the listener only warns */
 
 const intentTypeRx = /^intent-(.*):(.*)$/
 

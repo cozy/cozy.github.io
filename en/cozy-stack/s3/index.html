@@ -7792,6 +7792,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#instance-deletion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Instance deletion
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#local-development-with-minio" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -8106,7 +8117,35 @@ required when creation is disabled. Dynamic asset health checks also use
   the files destination; the other types follow the same pattern, such as
   <code>COZY_FS_S3_BUCKETS_APPS_WEB_NAME</code>.</li>
 <li><code>COZY_FS_S3_AUTO_CREATE_BUCKETS=false</code> disables creation; <code>true</code> enables it.</li>
+<li><code>COZY_FS_S3_DELETE_INSTANCES_BY_LISTING=false</code> deletes instances without
+  listing, see below.</li>
 </ul>
+<h3 id="instance-deletion">Instance deletion<a class="headerlink" href="#instance-deletion" title="Permanent link">&para;</a></h3>
+<p><code>delete_instances_by_listing</code> defaults to <code>true</code>: deleting an instance lists
+every object under <code>files/&lt;DBPrefix&gt;/</code> and deletes it. No orphan object is
+left behind.</p>
+<p>On a bucket with a large, sharded index (Ceph RGW for example), listing even
+a small prefix can query every shard of the index. With
+<code>delete_instances_by_listing: false</code>, the stack reads the keys from CouchDB
+and deletes them in batches, without any listing request:</p>
+<ul>
+<li>the content of each file, trashed files included, and the four thumbnail
+  formats of each file;</li>
+<li>the old versions (<code>io.cozy.files.versions</code>);</li>
+<li>the note images (<code>io.cozy.notes.images</code>);</li>
+<li>the avatar;</li>
+<li>the objects and thumbnails of the <code>trash-files</code> jobs that are not done yet.</li>
+</ul>
+<p>The same applies when an instance is reset before an import.</p>
+<p>Missing keys are ignored. The objects are deleted before the instance
+databases, so a failed deletion can be retried.</p>
+<p>Objects that CouchDB no longer references stay in the bucket, for example
+when the cleanup of a deleted file failed. <code>cozy-stack check fs &lt;domain&gt;</code>
+reports them, but only while the instance exists, since it compares the
+bucket with the instance databases. Run it before the deletion if you need
+to know. Afterwards, only a listing of <code>files/&lt;DBPrefix&gt;/</code> shows what is
+left. Incomplete multipart uploads are not objects and neither mode deletes
+them; a bucket lifecycle rule can abort them.</p>
 <h3 id="local-development-with-minio">Local development with MinIO<a class="headerlink" href="#local-development-with-minio" title="Permanent link">&para;</a></h3>
 <p>This tutorial explains how to set up a local S3 backend using MinIO for
 development and testing.</p>
@@ -8324,7 +8363,8 @@ subfolders to avoid flat hierarchies:</p>
 <h3 id="thumbnails">Thumbnails<a class="headerlink" href="#thumbnails" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>files/&lt;DBPrefix&gt;/thumbs/&lt;docID_split&gt;-&lt;format&gt;
 </code></pre></div>
-<p>Formats: <code>small</code>, <code>medium</code>, <code>large</code>.</p>
+<p>Formats: <code>tiny</code>, <code>small</code>, <code>medium</code>, <code>large</code>. Note images use the same path
+with the <code>original</code> and <code>thumb</code> formats.</p>
 <h3 id="avatar">Avatar<a class="headerlink" href="#avatar" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>files/&lt;DBPrefix&gt;/avatar
 </code></pre></div>
@@ -8381,7 +8421,7 @@ SSE-S3), the same approach used for the Swift backend.</p>
 <tr>
 <td>Delete instance</td>
 <td>Delete entire container</td>
-<td>Delete all objects with key prefix</td>
+<td>Delete all objects with key prefix, or the keys indexed in CouchDB</td>
 </tr>
 <tr>
 <td>File streaming</td>

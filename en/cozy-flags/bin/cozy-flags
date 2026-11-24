@@ -13,12 +13,7 @@ const sh = (command, args) => {
   attachIO(s)
 }
 
-const applyJscodeshiftOptions = [
-  '--parser',
-  'babel',
-  '--extensions',
-  'js,jsx',
-]
+const applyJscodeshiftOptions = ['--parser', 'babel', '--extensions', 'js,jsx']
 
 const applyFlag = (flag, ...args) => {
   sh('env', [
@@ -28,7 +23,7 @@ const applyFlag = (flag, ...args) => {
     codemod,
     ...applyJscodeshiftOptions,
     ...args
-  ]);
+  ])
 }
 
 const usage = () => {
@@ -52,4 +47,3 @@ const main = (mode, ...args) => {
 }
 
 main(...process.argv.slice(2))
-

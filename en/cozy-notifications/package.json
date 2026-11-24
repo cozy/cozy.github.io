@@ -1,6 +1,6 @@
 {
   "name": "cozy-notifications",
-  "version": "0.25.1",
+  "version": "0.25.2",
   "description": "Provides reusable email templates for use in Cozy applications and konnectors.",
   "main": "dist/index.js",
   "author": "Cozy",
@@ -17,7 +17,7 @@
     "build": "babel src -d dist --copy-files --verbose",
     "prepublishOnly": "yarn build",
     "test": "jest",
-    "lint": "yarn eslint --fix .",
+    "lint": "cd ../.. && yarn rs lint packages/cozy-notifications",
     "watch": "yarn build --watch"
   },
   "dependencies": {

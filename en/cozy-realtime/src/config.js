@@ -106,7 +106,7 @@ export const onDoubleSubscriptions = (
 }
 
 /**
- * @typedef {'CREATED'|UPDATED'|DELETED'|'NOTIFIED'|'error'} EventName
+ * @typedef {'CREATED'|'UPDATED'|'DELETED'|'NOTIFIED'|'error'} EventName
  */
 /**
  * Possible values for the `event` property in Realtime
