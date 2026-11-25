@@ -9821,7 +9821,7 @@ on Cozy:</p>
 <li>
 <p>TLS is very important to secure the communications. in OAuth 1, there was a
     mechanism to sign the requests. But it was very difficult to get it right
-    for the developers and was abandonned in OAuth2, in favor of using TLS. The
+    for the developers and was abandoned in OAuth2, in favor of using TLS. The
     Cozy instance are already accessible only in HTTPS, so there is nothing
     particular to do for that.</p>
 </li>
@@ -9847,17 +9847,17 @@ on Cozy:</p>
 <a href="https://www.manning.com/books/oauth-2-in-action">OAuth 2 in Action book</a>.</p>
 <h2 id="the-cozy-stack-as-an-authorization-server">The cozy stack as an authorization server<a class="headerlink" href="#the-cozy-stack-as-an-authorization-server" title="Permanent link">&para;</a></h2>
 <p>In general, the cozy stack manages the authentication itself. This is what is
-described below. In some special cases, an integration with other softwares can
+described below. In some special cases, an integration with other software can
 be mandatory: this is possible to configure via
 <a href="../delegated-auth/">delegated authentication</a>.</p>
 <h3 id="get-authlogin">GET /auth/login<a class="headerlink" href="#get-authlogin" title="Permanent link">&para;</a></h3>
 <p>Display a form with a password field to let the user authenticates herself to
 the cozy stack.</p>
 <p>This endpoint accepts a <code>redirect</code> parameter. If the user is already logged in,
-she will be redirected immediately. Else, the parameter will be transfered in
+she will be redirected immediately. Else, the parameter will be transferred in
 the POST. This parameter can only contain a link to an application installed on
 the cozy (thus to a subdomain of the cozy instance). To protect against stealing
-authorization code with redirection, the fragment is always overriden:</p>
+authorization code with redirection, the fragment is always overridden:</p>
 <div class="highlight"><pre><span></span><code><span class="nf">GET</span> <span class="nn">/auth/login?redirect=https://contacts.cozy.example.org/foo?bar#baz</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">cozy.example.org</span>
 <span class="na">Cookie</span><span class="o">:</span> <span class="l">...</span>
@@ -9988,7 +9988,7 @@ bigger attacks like session fixation).</p>
 </code></pre></div>
 <h3 id="delete-authloginothers">DELETE /auth/login/others<a class="headerlink" href="#delete-authloginothers" title="Permanent link">&para;</a></h3>
 <p>This can be used to log-out all active sessions except the one used by the
-request. This allow to disconnect any other users currenctly authenticated on
+request. This allow to disconnect any other users currently authenticated on
 the system. An app token must be passed in the <code>Authorization</code> header, to
 protect against CSRF attack on this (this can part of bigger attacks like
 session fixation).</p>
@@ -10253,7 +10253,7 @@ for the details.</p>
 <li><code>notification_device_token</code>, the token used to identify the mobile device
     for notifications.</li>
 </ul>
-<p>The server gives to the client the previous fields and these informations:</p>
+<p>The server gives to the client the previous fields and these information:</p>
 <ul>
 <li><code>client_id</code></li>
 <li><code>client_secret</code></li>
@@ -10329,7 +10329,7 @@ webapp. It means several things:</p>
   mobile/desktop app will be revoked.</li>
 </ul>
 <h3 id="get-authregisterclient-id">GET /auth/register/:client-id<a class="headerlink" href="#get-authregisterclient-id" title="Permanent link">&para;</a></h3>
-<p>This route is used by the clients to get informations about them-selves. The
+<p>This route is used by the clients to get information about them-selves. The
 client has to send its registration access token to be able to use this
 endpoint.</p>
 <p>See
@@ -10360,7 +10360,7 @@ for more details.</p>
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="put-authregisterclient-id">PUT /auth/register/:client-id<a class="headerlink" href="#put-authregisterclient-id" title="Permanent link">&para;</a></h3>
-<p>This route is used by the clients to update informations about them-selves. The
+<p>This route is used by the clients to update information about them-selves. The
 client has to send its registration access token to be able to use this
 endpoint.</p>
 <p><strong>Note:</strong> the client can ask to change its <code>client_secret</code>. To do that, it must
@@ -10893,7 +10893,7 @@ details.</p>
 <p>When a user access an application, she first loads the HTML page. Inside this
 page, a token specific to this app is injected (only for private routes), via a
 templating method.</p>
-<p>We have prefered our custom solution to the implicit grant type of OAuth2 for 2
+<p>We have preferred our custom solution to the implicit grant type of OAuth2 for 2
 reasons:</p>
 <ol>
 <li>

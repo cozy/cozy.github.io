@@ -8907,7 +8907,9 @@ import. The server will send an event when it is done (or errored):</p>
 <h3 id="get-moveauthorize">GET /move/authorize<a class="headerlink" href="#get-moveauthorize" title="Permanent link">&para;</a></h3>
 <p>This endpoint is used by cozy-move to select the cozy source. If the user is
 already logged in, we don&rsquo;t ask its password again, as the delivered token will
-still need a confirmation by mail to start moving the Cozy.</p>
+still need a confirmation by mail to start moving the Cozy. The <code>redirect_uri</code>
+must be on the move service of the instance (<code>move.url</code> in the config, or
+<code>move_url</code> in the context), and the code can be used only once.</p>
 <h4 id="request_4">Request<a class="headerlink" href="#request_4" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="nf">GET</span> <span class="nn">/move/authorize?state=8d560d60&amp;redirect_uri=https://move.cozycloud.cc/callback/source</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Server</span><span class="o">:</span> <span class="l">source.cozy.localhost</span>

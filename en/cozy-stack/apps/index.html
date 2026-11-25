@@ -6440,15 +6440,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#get-informations-about-an-application" class="md-nav__link">
+  <a href="#get-information-about-an-application" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Get informations about an application
+        Get information about an application
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Get informations about an application">
+    <nav class="md-nav" aria-label="Get information about an application">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -8890,15 +8890,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#get-informations-about-an-application" class="md-nav__link">
+  <a href="#get-information-about-an-application" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Get informations about an application
+        Get information about an application
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Get informations about an application">
+    <nav class="md-nav" aria-label="Get information about an application">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -9490,7 +9490,7 @@ data and emit some notification or warning even without the user being on the
 application. These part of the application are called services and can be
 declared as part of the application in its manifest.</p>
 <p>In contrast to <a href="../konnectors/">konnectors</a>, services have the same permissions
-as the web application and are not intended to collect outside informations but
+as the web application and are not intended to collect outside information but
 rather analyse the current set of collected information inside the cozy. However
 they share the same mechanisms as the konnectors to describe how and when they
 should be executed: via our trigger system.</p>
@@ -9542,7 +9542,7 @@ service.</p>
 <span class="w">  </span><span class="p">]</span>
 </code></pre></div>
 <h3 id="notifications">Notifications<a class="headerlink" href="#notifications" title="Permanent link">&para;</a></h3>
-<p>For more informations on how te declare notifications in the manifest, see the
+<p>For more information on how to declare notifications in the manifest, see the
 <a href="../notifications/">notifications documentation</a>.</p>
 <p>Here is an example:</p>
 <div class="highlight"><pre><span></span><code><span class="p">{</span>
@@ -9562,7 +9562,7 @@ service.</p>
 </code></pre></div>
 <h3 id="mobile">Mobile<a class="headerlink" href="#mobile" title="Permanent link">&para;</a></h3>
 <p>Application may exist on mobile platforms. When it is the case, manifest can
-contain informations about the mobile apps.</p>
+contain information about the mobile apps.</p>
 <p>On a mobile device and on a native context, this attribute can be used to open the
 native mobile app from any another Cozy app.</p>
 <p>Following attributes should be set:
@@ -9812,7 +9812,7 @@ another channel (when permissions are different):</p>
 <span class="p">}</span>
 </code></pre></div>
 <p>This endpoint is paginated, default limit is currently <code>100</code>.
-Two flags are available to retreieve the other apps if there are more than <code>100</code>
+Two flags are available to retrieve the other apps if there are more than <code>100</code>
 apps installed:
 - <code>limit</code>
 - <code>start_key</code>: The first following doc ID of the next apps</p>
@@ -9852,9 +9852,9 @@ apps installed:
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<h2 id="get-informations-about-an-application">Get informations about an application<a class="headerlink" href="#get-informations-about-an-application" title="Permanent link">&para;</a></h2>
+<h2 id="get-information-about-an-application">Get information about an application<a class="headerlink" href="#get-information-about-an-application" title="Permanent link">&para;</a></h2>
 <h3 id="get-appsslug">GET /apps/:slug<a class="headerlink" href="#get-appsslug" title="Permanent link">&para;</a></h3>
-<p>This route is used to retrieve informations about an application installed on the cozy. By calling this route, the application will be updated synchronously.</p>
+<p>This route is used to retrieve information about an application installed on the cozy. By calling this route, the application will be updated synchronously.</p>
 <h4 id="request_4">Request<a class="headerlink" href="#request_4" title="Permanent link">&para;</a></h4>
 <div class="highlight"><pre><span></span><code><span class="nf">GET</span> <span class="nn">/apps/calendar</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/vnd.api+json</span>
@@ -10011,7 +10011,7 @@ will be the registration process, the login form, and it will redirect to
 <h3 id="rationale">Rationale<a class="headerlink" href="#rationale" title="Permanent link">&para;</a></h3>
 <p>The applications have different roles and permissions. An application is
 identified when talking to the stack via a token. The token has to be injected
-in the application, one way or another, and it have to be unaccessible from
+in the application, one way or another, and it have to be inaccessible from
 other apps.</p>
 <p>If the applications run on the same domain (for example
 <code>https://cozy.example.org/apps/calendar</code>), it&rsquo;s nearly impossible to protect an
@@ -10050,7 +10050,7 @@ is an hell to debug when it breaks. Clearly, it&rsquo;s not an acceptable soluti
 <p>Thus, the only choice is to have several origins, and sub-domains is the best
 way for that. Of course, it has the downside to be more complicated to deploy
 (DNS and TLS certificates). But, in the tradeoff between security and ease of
-administration, we definetively take the security first.</p>
+administration, we definitively take the security first.</p>
 <h3 id="routes_1">Routes<a class="headerlink" href="#routes_1" title="Permanent link">&para;</a></h3>
 <blockquote>
 <p>Should we be concerned that all the routes are on the same sub-domain?</p>
