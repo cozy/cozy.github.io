@@ -301,8 +301,11 @@ func getVersionPartnershipIcon(c echo.Context) error {
 }
 
 func getVersionScreenshot(c echo.Context) error {
-	filename := path.Join("screenshots", c.Param("*"))
-	err := getVersionAttachment(c, filename)
+	filename, err := screenshotName(c)
+	if err != nil {
+		return err
+	}
+	err = getVersionAttachment(c, filename)
 	if err != nil {
 		if errh, ok := err.(*echo.HTTPError); ok && errh.Code == http.StatusNotFound {
 			err = getVersionAttachment(c, path.Join("screenshots", filename))

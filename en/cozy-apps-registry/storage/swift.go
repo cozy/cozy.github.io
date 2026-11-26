@@ -57,6 +57,9 @@ func (s swiftFS) EnsureDeleted(prefix base.Prefix) error {
 }
 
 func (s *swiftFS) Create(prefix base.Prefix, name, contentType string, content io.Reader) error {
+	if err := checkName(name); err != nil {
+		return err
+	}
 	f, err := s.conn.ObjectCreate(string(prefix), name, true, "", contentType, nil)
 	if err != nil {
 		return s.wrapError(err)
@@ -70,6 +73,9 @@ func (s *swiftFS) Create(prefix base.Prefix, name, contentType string, content i
 }
 
 func (s *swiftFS) Get(prefix base.Prefix, name string) (*bytes.Buffer, map[string]string, error) {
+	if err := checkName(name); err != nil {
+		return nil, nil, err
+	}
 	buf := new(bytes.Buffer)
 	headers, err := s.conn.ObjectGet(string(prefix), name, buf, false, nil)
 	if err != nil {
@@ -87,6 +93,9 @@ func (s *swiftFS) Get(prefix base.Prefix, name string) (*bytes.Buffer, map[strin
 }
 
 func (s *swiftFS) Remove(prefix base.Prefix, name string) error {
+	if err := checkName(name); err != nil {
+		return err
+	}
 	err := s.conn.ObjectDelete(string(prefix), name)
 	// If the object is not found, it's OK.
 	if err == swift.ObjectNotFound {

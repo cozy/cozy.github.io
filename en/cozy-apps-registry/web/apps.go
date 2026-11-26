@@ -105,9 +105,23 @@ func getAppPartnershipIcon(c echo.Context) error {
 	return getAppAttachment(c, "partnership_icon")
 }
 
+// screenshotName returns the name of the screenshot asked in the request path.
+// The dot segments are resolved before the join, so that the name cannot leave
+// the screenshots folder, to serve the tarball of the version for example.
+func screenshotName(c echo.Context) (string, error) {
+	name := path.Clean("/" + c.Param("*"))
+	if name == "/" {
+		return "", echo.NewHTTPError(http.StatusNotFound)
+	}
+	return path.Join("screenshots", name), nil
+}
+
 func getAppScreenshot(c echo.Context) error {
-	filename := path.Join("screenshots", c.Param("*"))
-	err := getAppAttachment(c, filename)
+	filename, err := screenshotName(c)
+	if err != nil {
+		return err
+	}
+	err = getAppAttachment(c, filename)
 	if err != nil {
 		if errh, ok := err.(*echo.HTTPError); ok && errh.Code == http.StatusNotFound {
 			err = getAppAttachment(c, path.Join("screenshots", filename))

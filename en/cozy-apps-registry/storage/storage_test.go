@@ -149,6 +149,28 @@ func testStorage(t *testing.T, storage base.VirtualStorage, opts storageOpts) {
 		}
 	})
 
+	t.Run("Names outside of the container", func(t *testing.T) {
+		for _, name := range []string{
+			"../bar-prefix/file-in-bar",
+			"file-one/../../bar-prefix/file-in-bar",
+			"/bar-prefix/file-in-bar",
+			"file-one/..",
+			".",
+			"",
+		} {
+			_, _, err := storage.Get(fooPrefix, name)
+			assert.ErrorIs(t, err, base.ErrFileNotFound, name)
+			err = storage.Create(fooPrefix, name, "text/plain", strings.NewReader("replaced"))
+			assert.ErrorIs(t, err, base.ErrFileNotFound, name)
+			err = storage.Remove(fooPrefix, name)
+			assert.ErrorIs(t, err, base.ErrFileNotFound, name)
+		}
+
+		buf, _, err := storage.Get(barPrefix, "file-in-bar")
+		assert.NoError(t, err)
+		assert.Equal(t, "a few bytes", buf.String())
+	})
+
 	t.Run("Remove", func(t *testing.T) {
 		assert.NoError(t, storage.Remove(fooPrefix, "file-two"))
 		_, _, err := storage.Get(fooPrefix, "file-two")

@@ -7764,6 +7764,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Publishing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#by-hand" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        By hand
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -7800,7 +7817,33 @@
   <h1>Dev</h1>
 
 <h2 id="publishing">Publishing<a class="headerlink" href="#publishing" title="Permanent link">&para;</a></h2>
-<p>We use lerna for publishing.</p>
+<p>We use lerna for publishing, from the CI: each push to master versions the
+packages from the commits (<code>lerna version</code>), then publishes them
+(<code>lerna publish from-package</code>) in the <code>Publish</code> job of <code>.github/workflows/ci-cd.yml</code>.</p>
+<p>The job authenticates to npm with
+<a href="https://docs.npmjs.com/trusted-publishers">trusted publishing</a> (OIDC): there is
+no npm token. It runs in the <code>npm</code> GitHub environment, on master only.</p>
+<p>lerna pushes the version commit and the tags before it publishes, and publishes
+the packages one by one: a failed release can leave only some of them published.
+Run the <code>CI/CD</code> workflow by hand on master (<code>Run workflow</code>) before anything else
+is merged: it publishes the versions missing from the registry. Otherwise the
+next release does it, and a package changed in between gets a new version while
+its failed one stays unpublished.</p>
+<p>The manual run only finishes the npm publish. If the job failed after pushing
+the tags and before creating the GitHub release, create that release by hand
+from the tag.</p>
+<p>A new package must exist on npm and have a trusted publisher before its first
+merge to master, or the publish fails at that package and leaves the release
+partly published. Do the two steps below, then finish the release with the
+manual run:</p>
+<ol>
+<li>Publish a <code>0.0.0</code> placeholder by hand: set the version to <code>0.0.0</code> locally (do
+   not commit it) and run <code>npm publish</code>.</li>
+<li>On npmjs.com, add a trusted publisher to the package: <code>linagora</code> /
+   <code>cozy-client</code> / <code>ci-cd.yml</code> / environment <code>npm</code>, with &ldquo;Allow npm publish&rdquo;
+   checked. The configuration expires unless the package is released within 2 days.</li>
+</ol>
+<h3 id="by-hand">By hand<a class="headerlink" href="#by-hand" title="Permanent link">&para;</a></h3>
 <div class="highlight"><pre><span></span><code>lerna publish
 </code></pre></div>
 <p>These options are useful</p>

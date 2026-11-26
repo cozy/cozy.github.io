@@ -7751,6 +7751,25 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#2026-11-24-tech-shared-roots-are-found-through-the-referenced-by-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-11-24, [Tech] Shared roots are found through the referenced-by view
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -7772,6 +7791,13 @@
 <h1 id="decisions">Decisions<a class="headerlink" href="#decisions" title="Permanent link">&para;</a></h1>
 <p>Decisions taken on cozy-stack, oldest first. Append only: a decision that changes gets a new entry that replaces the old one and cites it. Entry format: the <code>twake-decisions</code> skill of <a href="https://github.com/linagora/twake-guidelines/blob/main/skills/twake-decisions/SKILL.md">linagora/twake-guidelines</a>.</p>
 <p>Categories: UX, UI, Product, Architecture, Infra, Tech.</p>
+<h2 id="2026-11-24-tech-shared-roots-are-found-through-the-referenced-by-view">2026-11-24, [Tech] Shared roots are found through the referenced-by view<a class="headerlink" href="#2026-11-24-tech-shared-roots-are-found-through-the-referenced-by-view" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Decision: the access resolver finds the shared roots above a document by reading the <code>referenced-by</code> view for <code>io.cozy.sharings</code> and keeping the directories at the ancestor paths, not with a Mango <code>$in</code> on <code>dir-by-path</code>.</li>
+<li>Decided by: agent (<a href="https://github.com/linagora/cozy-stack/issues/5382">#5382</a>), to be confirmed by the cozy-stack maintainer who reviews the PR.</li>
+<li>Why: CouchDB cannot use <code>$in</code> as an index range, so the Mango query read every directory on each move and access check (<a href="https://github.com/linagora/cozy-stack/issues/5380">#5380</a>).</li>
+<li>Scope: <code>model/sharing</code> (<code>AccessResolver</code>), used by file moves, shared drives, opening files, drive activity and recents.</li>
+</ul>
 
 
 

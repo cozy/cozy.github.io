@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -117,6 +118,12 @@ func FindVersionAttachment(c *space.Space, version *Version, filename string) (*
 	var shasum, contentType string
 	var fileContent []byte
 
+	// The name of a screenshot comes from the request path, and it must lead to
+	// an object inside the folder of this version, not to the folder itself.
+	if !filepath.IsLocal(filename) || filepath.Clean(filename) == "." {
+		return nil, base.NewFileNotFoundError(fmt.Errorf("invalid attachment name %q", filename))
+	}
+
 	var contentBuffer *bytes.Buffer
 	slug := version.Slug
 	ver := version.Version
@@ -125,6 +132,7 @@ func FindVersionAttachment(c *space.Space, version *Version, filename string) (*
 	// Checks if the asset from the global database is referenced in the Version
 	// document
 	shasum, ok := version.AttachmentReferences[filename]
+	moved := false
 
 	var err error
 	if ok {
@@ -134,7 +142,21 @@ func FindVersionAttachment(c *space.Space, version *Version, filename string) (*
 	} else {
 		// If we cannot find it, we try from the app container as a fallback
 		prefix := c.GetPrefix()
-		if contentBuffer, headers, err = base.Storage.Get(prefix, fp); err != nil {
+		contentBuffer, headers, err = base.Storage.Get(prefix, fp)
+		if errors.Is(err, base.ErrFileNotFound) {
+			// The given version may be older than the move of the asset, as the
+			// latest versions cache is not updated by MoveAssetToGlobalDatabase
+			// and may be held by another instance of the registry.
+			movedShasum, found, findErr := findMovedAsset(c, version, filename)
+			if findErr != nil {
+				return nil, findErr
+			}
+			if found {
+				moved = true
+				contentBuffer, headers, err = base.GlobalAssetStore.Get(movedShasum)
+			}
+		}
+		if err != nil {
 			return nil, err
 		}
 	}
@@ -145,7 +167,7 @@ func FindVersionAttachment(c *space.Space, version *Version, filename string) (*
 	// If the asset was not found in the global database, move it for the next
 	// time (except when the ID is missing on the version, which is the case
 	// when the version was loaded via FindLatestVersion).
-	if !ok && version.ID != "" {
+	if !ok && !moved && version.ID != "" {
 		go func() {
 			err := MoveAssetToGlobalDatabase(c, version, fileContent, filename, contentType)
 			if err != nil {
@@ -173,6 +195,20 @@ func FindVersionAttachment(c *space.Space, version *Version, filename string) (*
 	return att, nil
 }
 
+// findMovedAsset returns the shasum of an asset in the global database, by
+// looking at the current document of the version instead of the given one.
+func findMovedAsset(c *space.Space, version *Version, filename string) (string, bool, error) {
+	current, err := FindVersion(c, version.Slug, version.Version)
+	if err == ErrVersionNotFound {
+		return "", false, nil
+	}
+	if err != nil {
+		return "", false, err
+	}
+	shasum, ok := current.AttachmentReferences[filename]
+	return shasum, ok, nil
+}
+
 // MoveAssetToGlobalDatabase moves an asset located in the "local" container in
 // the global database. This function is not intended to stay forever and will
 // be removed when no more assets will be remaining in the app containers.
@@ -180,7 +216,20 @@ func FindVersionAttachment(c *space.Space, version *Version, filename string) (*
 // 1. Creating the new asset object in the global database
 // 2. Adds a reference to the asset in the couch version document
 // 3. Removes the old asset location
+//
+// It does nothing for a version that is not published: a pending version must
+// stay out of the database of the published versions until its approval.
 func MoveAssetToGlobalDatabase(c *space.Space, ver *Version, content []byte, filename, contentType string) error {
+	// A version approved after it was read has another revision in the database
+	// of the published versions, so the Put below fails on a conflict and the
+	// old object is kept.
+	if _, err := FindPublishedVersion(c, ver.Slug, ver.Version); err != nil {
+		if err == ErrVersionNotFound {
+			return nil
+		}
+		return err
+	}
+
 	globalFilepath := filepath.Join(c.Name, ver.Slug, ver.Version)
 
 	a := &base.Asset{
@@ -192,6 +241,17 @@ func MoveAssetToGlobalDatabase(c *space.Space, ver *Version, content []byte, fil
 	err := base.GlobalAssetStore.Add(a, bytes.NewReader(content), globalFilepath)
 	if err != nil {
 		return err
+	}
+
+	// Add does not upload an asset whose document already exists, even when
+	// its object is missing from the storage. The version must only reference
+	// the moved asset, and the old object be removed, once it can be read back.
+	movedContent, _, err := base.GlobalAssetStore.Get(a.Shasum)
+	if err != nil {
+		return fmt.Errorf("cannot read the moved asset %s back: %w", a.Shasum, err)
+	}
+	if !bytes.Equal(movedContent.Bytes(), content) {
+		return fmt.Errorf("the moved asset %s differs from its content", a.Shasum)
 	}
 
 	// Updating the couch document
@@ -208,7 +268,7 @@ func MoveAssetToGlobalDatabase(c *space.Space, ver *Version, content []byte, fil
 
 	// Remove the old object
 	prefix := c.GetPrefix()
-	return base.Storage.Remove(prefix, filename)
+	return base.Storage.Remove(prefix, filepath.Join(ver.Slug, ver.Version, filename))
 }
 
 func findVersion(appSlug, version string, dbs ...*kivik.DB) (*Version, error) {

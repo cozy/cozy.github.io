@@ -4454,6 +4454,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#permissioncollectionfetchstatisticspermissionid-promiseresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        permissionCollection.fetchStatistics(permissionId) ⇒ Promise.&lt;Response&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#permissioncollectionfindlinksbyidsids-promise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -12433,6 +12444,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#permissioncollectionfetchstatisticspermissionid-promiseresponse" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        permissionCollection.fetchStatistics(permissionId) ⇒ Promise.&lt;Response&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#permissioncollectionfindlinksbyidsids-promise" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -17386,6 +17408,7 @@ If this is the case, call the onRevocationChange callback</p>
 <li><a href="#new_PermissionCollection_new">new PermissionCollection(doctype, stackClient, [options])</a></li>
 <li><a href="#PermissionCollection+create">.create(permission)</a></li>
 <li><a href="#PermissionCollection+add">.add(document, permission, options)</a> ⇒ <code>Promise</code></li>
+<li><a href="#PermissionCollection+fetchStatistics">.fetchStatistics(permissionId)</a> ⇒ <code>Promise.&lt;Response&gt;</code></li>
 <li><a href="#PermissionCollection+findLinksByIds">.findLinksByIds(ids)</a> ⇒ <code>Promise</code></li>
 <li>~~<a href="#PermissionCollection+findApps">.findApps()</a>~~</li>
 <li><a href="#PermissionCollection+createSharingLink">.createSharingLink(document, options)</a></li>
@@ -17519,7 +17542,30 @@ It can also associates one or more codes to it, via the codes parameter</p>
   { expiresAt: '2100-01-01T00:00:00Z', password: 'password' }
 )
 </code></pre></div>
-<a name="PermissionCollection+findLinksByIds"></a></p>
+<a name="PermissionCollection+fetchStatistics"></a></p>
+<h3 id="permissioncollectionfetchstatisticspermissionid-promiseresponse">permissionCollection.fetchStatistics(permissionId) ⇒ <code>Promise.&lt;Response&gt;</code><a class="headerlink" href="#permissioncollectionfetchstatisticspermissionid-promiseresponse" title="Permanent link">&para;</a></h3>
+<p>Fetches the retained events for a public file link as CSV.
+Requires an online connection to the link owner&rsquo;s instance. On a failed
+request or non-success HTTP status, the underlying client&rsquo;s error is propagated.</p>
+<p><strong>Kind</strong>: instance method of <a href="#PermissionCollection"><code>PermissionCollection</code></a><br />
+<strong>Returns</strong>: <code>Promise.&lt;Response&gt;</code> - The HTTP response with a CSV body.  </p>
+<table>
+<thead>
+<tr>
+<th>Param</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>permissionId</td>
+<td><code>string</code></td>
+<td>The public link&rsquo;s permission ID, not its sharecode.</td>
+</tr>
+</tbody>
+</table>
+<p><a name="PermissionCollection+findLinksByIds"></a></p>
 <h3 id="permissioncollectionfindlinksbyidsids-promise">permissionCollection.findLinksByIds(ids) ⇒ <code>Promise</code><a class="headerlink" href="#permissioncollectionfindlinksbyidsids-promise" title="Permanent link">&para;</a></h3>
 <p>Find sharing links by document ids</p>
 <p>This is the shared-drive equivalent of <code>findLinksByDoctype</code> when you

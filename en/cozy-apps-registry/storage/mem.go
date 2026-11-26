@@ -48,6 +48,9 @@ func (m *memFS) EnsureDeleted(prefix base.Prefix) error {
 }
 
 func (m *memFS) Create(prefix base.Prefix, name, contentType string, content io.Reader) error {
+	if err := checkName(name); err != nil {
+		return err
+	}
 	if _, ok := m.prefixes[prefix]; !ok {
 		return base.NewFileNotFoundError(fmt.Errorf("Prefix %s not found", prefix))
 	}
@@ -62,6 +65,9 @@ func (m *memFS) Create(prefix base.Prefix, name, contentType string, content io.
 }
 
 func (m *memFS) Get(prefix base.Prefix, name string) (*bytes.Buffer, map[string]string, error) {
+	if err := checkName(name); err != nil {
+		return nil, nil, err
+	}
 	p, ok := m.prefixes[prefix]
 	if !ok {
 		return nil, nil, base.NewFileNotFoundError(fmt.Errorf("Prefix %s not found", prefix))
@@ -79,6 +85,9 @@ func (m *memFS) Get(prefix base.Prefix, name string) (*bytes.Buffer, map[string]
 }
 
 func (m *memFS) Remove(prefix base.Prefix, name string) error {
+	if err := checkName(name); err != nil {
+		return err
+	}
 	if _, ok := m.prefixes[prefix]; !ok {
 		return base.NewFileNotFoundError(fmt.Errorf("Prefix %s not found", prefix))
 	}

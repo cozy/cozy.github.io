@@ -82,6 +82,9 @@ func (s *s3FS) EnsureDeleted(prefix base.Prefix) error {
 }
 
 func (s *s3FS) Create(prefix base.Prefix, name, contentType string, content io.Reader) error {
+	if err := checkName(name); err != nil {
+		return err
+	}
 	// A size of -1 makes minio-go stream the content and switch to a
 	// multipart upload when it grows past the threshold, so there is no
 	// maximum object size to work around here.
@@ -91,6 +94,9 @@ func (s *s3FS) Create(prefix base.Prefix, name, contentType string, content io.R
 }
 
 func (s *s3FS) Get(prefix base.Prefix, name string) (*bytes.Buffer, map[string]string, error) {
+	if err := checkName(name); err != nil {
+		return nil, nil, err
+	}
 	obj, err := s.client.GetObject(context.Background(), s.bucket, s.key(prefix, name),
 		minio.GetObjectOptions{})
 	if err != nil {
@@ -122,6 +128,9 @@ func (s *s3FS) Get(prefix base.Prefix, name string) (*bytes.Buffer, map[string]s
 }
 
 func (s *s3FS) Remove(prefix base.Prefix, name string) error {
+	if err := checkName(name); err != nil {
+		return err
+	}
 	err := s.client.RemoveObject(context.Background(), s.bucket, s.key(prefix, name),
 		minio.RemoveObjectOptions{})
 	// If the object is not found, it's OK.

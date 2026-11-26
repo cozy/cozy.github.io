@@ -52,9 +52,8 @@ func (m *localFS) EnsureDeleted(prefix base.Prefix) error {
 }
 
 func (m *localFS) getPath(prefix base.Prefix, original string) (string, error) {
-	name := filepath.Base(original)
-	if name == "." || name == ".." || name == "/" {
-		return "", base.NewInternalError(fmt.Errorf("%s is not a valid name", name))
+	if err := checkName(original); err != nil {
+		return "", err
 	}
 	path := filepath.Join(m.baseDir, string(prefix), original)
 	return path, nil
