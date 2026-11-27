@@ -8343,6 +8343,11 @@ instances and hangs, so the sharing tests time out. <code>TEST_ARGS</code> narro
 seconds under the load of <code>web/sharings</code>, and a test then fails with
 <code>CouchDB(no_couch) ... context deadline exceeded</code> while creating its instance:
 run the package again.</p>
+<p>The tests that need OpenSearch run in CI only, where <code>COZY_TEST_OPENSEARCH_URL</code>
+is set; elsewhere they skip. To run them, start an OpenSearch (see
+<code>.github/workflows/go-tests.yml</code>) and set the variable:</p>
+<div class="highlight"><pre><span></span><code>$ COZY_TEST_OPENSEARCH_URL=http://localhost:9200 go test ./model/search/...
+</code></pre></div>
 <p>If you want to play with the modified cozy-stack (for example, testing it with a
 webapp), you can build it locally and start it with this command:</p>
 <div class="highlight"><pre><span></span><code>$ make run

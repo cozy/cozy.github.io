@@ -7768,6 +7768,50 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#2026-11-25-tech-search-keys-join-the-domain-and-the-doc-id-with-a-colon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-11-25, [Tech] Search keys join the domain and the doc id with a colon
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-11-25-architecture-search-scopes-list-the-member-addresses-until-5395" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-11-25, [Architecture] Search scopes list the member addresses until #5395
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-11-25-product-search-leaves-out-the-trash" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-11-25, [Product] Search leaves out the trash
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2026-11-25-product-search-drops-the-hits-of-an-owner-missing-from-the-stack-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2026-11-25, [Product] Search drops the hits of an owner missing from the stack cluster
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -7797,6 +7841,34 @@
 <li>Decided by: agent (<a href="https://github.com/linagora/cozy-stack/issues/5382">#5382</a>), to be confirmed by the cozy-stack maintainer who reviews the PR.</li>
 <li>Why: CouchDB cannot use <code>$in</code> as an index range, so the Mango query read every directory on each move and access check (<a href="https://github.com/linagora/cozy-stack/issues/5380">#5380</a>).</li>
 <li>Scope: <code>model/sharing</code> (<code>AccessResolver</code>), used by file moves, shared drives, opening files, drive activity and recents.</li>
+</ul>
+<h2 id="2026-11-25-tech-search-keys-join-the-domain-and-the-doc-id-with-a-colon">2026-11-25, [Tech] Search keys join the domain and the doc id with a colon<a class="headerlink" href="#2026-11-25-tech-search-keys-join-the-domain-and-the-doc-id-with-a-colon" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Decision: <code>Key</code> is <code>&lt;domain&gt;:&lt;doc id&gt;</code>, as in ADR 008, although a domain with a port and a doc id with a colon could give the same key.</li>
+<li>Decided by: Anton Shepilov (author), <a href="https://github.com/linagora/cozy-stack/pull/5259#discussion_r4682719679">review comment</a></li>
+<li>Why: a domain only has a colon with a port, which happens in dev only; a collision needs two instances of one stack that differ only by a port, plus a doc id with a colon chosen by a sharing peer.</li>
+<li>Scope: <code>model/search</code>, the <code>files_v1</code> and <code>share_scopes_v1</code> indices.</li>
+</ul>
+<h2 id="2026-11-25-architecture-search-scopes-list-the-member-addresses-until-5395">2026-11-25, [Architecture] Search scopes list the member addresses until #5395<a class="headerlink" href="#2026-11-25-architecture-search-scopes-list-the-member-addresses-until-5395" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Decision: <code>active_member_principals</code> holds the lowercased hosts of the members who accepted a drive; the search uses them as is until it also checks that the caller holds the sharing (#5395).</li>
+<li>Decided by: Anton Shepilov (author), <a href="https://github.com/linagora/cozy-stack/pull/5260#discussion_r4681654061">review comment</a></li>
+<li>Why: the check reads the caller&rsquo;s sharings, so it belongs in the search query, which is a later change of the stack.</li>
+<li>Scope: <code>model/search</code>, the <code>share_scopes_v1</code> index.</li>
+</ul>
+<h2 id="2026-11-25-product-search-leaves-out-the-trash">2026-11-25, [Product] Search leaves out the trash<a class="headerlink" href="#2026-11-25-product-search-leaves-out-the-trash" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Decision: the search does not return trashed files and folders, as ADR 008 says.</li>
+<li>Decided by: Anton Shepilov (author), <a href="https://github.com/linagora/cozy-stack/pull/5261#discussion_r4695299650">review comment</a></li>
+<li>Why: Drive shows search results without a trashed state, and the trash has its own view; showing trashed hits needs that display first.</li>
+<li>Scope: <code>model/search</code>, <code>POST /files/search</code>.</li>
+</ul>
+<h2 id="2026-11-25-product-search-drops-the-hits-of-an-owner-missing-from-the-stack-cluster">2026-11-25, [Product] Search drops the hits of an owner missing from the stack cluster<a class="headerlink" href="#2026-11-25-product-search-drops-the-hits-of-an-owner-missing-from-the-stack-cluster" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Decision: <code>VisiblePaths</code> drops a drive hit whose owner is not in the global CouchDB, instead of returning it with an empty path as a drive owned outside of the stack cluster.</li>
+<li>Decided by: Anton Shepilov (author), <a href="https://github.com/linagora/cozy-stack/pull/5266#discussion_r4631076331">review comment</a></li>
+<li>Why: the indices only hold docs written by the instances of this stack cluster, so a missing owner is a deleted instance whose purge failed; its former members must not keep finding its file names.</li>
+<li>Scope: <code>model/search</code>, <code>POST /files/search</code>; drives of other stack clusters wait for the federated search.</li>
 </ul>
 
 
