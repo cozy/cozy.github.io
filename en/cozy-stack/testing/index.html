@@ -7769,6 +7769,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#go-test-shards" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Go test shards
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#drive-web-e2e-on-demand" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -7919,6 +7930,44 @@ for measurement definitions.</p>
 Keep Go tests near their packages and reuse <code>tests/testutils</code>. Keep useful Ruby
 coverage; replace brittle waits and shared state incrementally. Retire legacy
 scalability scripts only when their coverage has an identified replacement.</p>
+<h2 id="go-test-shards">Go test shards<a class="headerlink" href="#go-test-shards" title="Permanent link">&para;</a></h2>
+<p>The Go workflow runs four isolated jobs for each supported Go/CouchDB pair.
+Each job has its own CouchDB, Redis, and OpenSearch. Packages run serially
+with <code>-p 1</code> because some tests change global databases.</p>
+<table>
+<thead>
+<tr>
+<th>Shard</th>
+<th>Packages</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>web/sharings</code>, <code>worker</code>, <code>tests</code>, and their subpackages</td>
+</tr>
+<tr>
+<td>2</td>
+<td>All remaining packages, including the module root, <code>client</code>, <code>cmd</code> and <code>pkg</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>model/instance/storagemigration</code> and the remaining <code>web</code> packages</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Remaining <code>model</code> packages</td>
+</tr>
+</tbody>
+</table>
+<p>Run a shard from the repository root with the usual test dependencies available:</p>
+<div class="highlight"><pre><span></span><code>scripts/go-test-shard.sh<span class="w"> </span><span class="m">3</span><span class="w"> </span>-count<span class="o">=</span><span class="m">1</span>
+scripts/go-test-shard-test.sh
+</code></pre></div>
+<p>The selection comes from <code>go list ./...</code>; new packages enter the corresponding
+group automatically. CI uploads <code>go test -json</code> output for every shard, including
+failed runs, to retain per-test timings. <code>make unit-tests</code> remains the local
+short-test command.</p>
 <h2 id="drive-web-e2e-on-demand">Drive web E2E on demand<a class="headerlink" href="#drive-web-e2e-on-demand" title="Permanent link">&para;</a></h2>
 <p>Add <code>e2e:web</code> to a same-repository PR to build its merge commit and call Drive&rsquo;s
 existing four-shard web E2E workflow. Remove and re-add the label to test a newer

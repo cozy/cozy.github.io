@@ -9059,7 +9059,10 @@ are not related to OAuth. The document still need to be injected manually in
 <code>bi_webview+secret</code>, or <code>authorization_code+secret</code>), <code>slug</code> must be the slug
 of the konnector,  but <code>secret</code> can be a map instead of a simple string if
 several secrets are needed for this service.</p>
-<p>The secret is given to the konnector in the <code>COZY_PARAMETERS</code> env variable.</p>
+<p>The secret is given to the konnector in the <code>COZY_PARAMETERS</code> env variable,
+only if the konnector was installed from the registry under this slug
+(<code>registry://&lt;slug&gt;/...</code>): a konnector installed from git, http(s) or <code>file://</code>
+does not receive it.</p>
 <h3 id="overloading-an-account-type-for-a-given-context">Overloading an account type for a given context<a class="headerlink" href="#overloading-an-account-type-for-a-given-context" title="Permanent link">&para;</a></h3>
 <p>It is possible to use a different account type for a given context, by creating
 a new document with an id prefix by the context name and <code>/</code>. For example, a
